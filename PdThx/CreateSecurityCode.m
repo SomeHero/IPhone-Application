@@ -99,7 +99,19 @@
     
     NSLog(@"Your code is %@", code);
 
-    [self setSecurityPin:code forUser: userId];
+    if([code length] > 3 && [code length] < 6) {
+        [self setSecurityPin:code forUser: userId];
+    }
+    else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Invalid Pin"
+                                                                message: @"Select a pin between 4 and 6 dots"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+            
+        [alertView show];
+        [alertView release];
+    }
     
 }
 -(void) setSecurityPin:(NSString *) securityPin forUser:(NSString *) userId
