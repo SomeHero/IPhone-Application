@@ -13,19 +13,15 @@
     IBOutlet UITextField *txtUserName;
     IBOutlet UITextField *txtPassword;
     IBOutlet UITextField *txtConfirmPassword;
-    NSString *securityPin;
-    NSString *recipientMobileNumber;
-    NSString *amount;
-    NSString *comment;
+    IBOutlet UIButton *button;
+    IBOutlet UIScrollView *scrollView;
+    UITextField *currTextField;
 }
-@property(nonatomic, retain) UITextField *txtUserName;
-@property(nonatomic, retain) UITextField *txtPassword;
-@property(nonatomic, retain) UITextField *txtConfirmPassword;
-@property(nonatomic, retain) NSString *securityPin;
-@property(nonatomic, retain) NSString* recipientMobileNumber;
-@property(nonatomic, retain) NSString* amount;
-@property(nonatomic, retain) NSString* comment;
-@property(nonatomic, retain) UIButton* button;
+@property(nonatomic, retain) IBOutlet UITextField *txtUserName;
+@property(nonatomic, retain) IBOutlet UITextField *txtPassword;
+@property(nonatomic, retain) IBOutlet UITextField *txtConfirmPassword;
+@property(nonatomic, retain) IBOutlet UIButton* button;
+@property(nonatomic, retain) IBOutlet UIScrollView* scrollView;
 
 -(IBAction) bgTouched:(id) sender;
 -(void) setupPassword:(NSString*) password withUserName:(NSString *) userName forUser: (NSString *) userId;

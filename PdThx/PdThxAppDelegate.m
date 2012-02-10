@@ -29,11 +29,11 @@
     // Override point for customization after application launch.
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    [prefs removeObjectForKey:@"userId"];
-    [prefs removeObjectForKey:@"mobileNumber"];
-    [prefs removeObjectForKey:@"paymentAccountId"];      
-    [prefs removeObjectForKey:@"setupPassword"];
-    [prefs removeObjectForKey:@"setupSecurityPin"];
+    //[prefs removeObjectForKey:@"userId"];
+    //[prefs removeObjectForKey:@"mobileNumber"];
+    //[prefs removeObjectForKey:@"paymentAccountId"];      
+    //[prefs removeObjectForKey:@"setupPassword"];
+    //[prefs removeObjectForKey:@"setupSecurityPin"];
     
     NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];;
     NSString* userId = [prefs stringForKey:@"userId"];

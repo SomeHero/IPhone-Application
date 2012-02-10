@@ -50,7 +50,7 @@ CGSize scrollViewOriginalSize;
     
     aRect.size.height -= kbSize.height;
     if (!CGRectContainsPoint(aRect, currTextField.frame.origin) ) {
-        CGPoint scrollPoint = CGPointMake(0.0, (currTextField.frame.origin.y + currTextField.frame.size.height) - aRect.size.height + 50);
+        CGPoint scrollPoint = CGPointMake(0.0, (currTextField.frame.origin.y + currTextField.frame.size.height) - aRect.size.height);
         [scrollView setContentOffset:scrollPoint animated:YES];
     }
 }

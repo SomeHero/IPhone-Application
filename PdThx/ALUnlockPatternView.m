@@ -210,6 +210,7 @@
         _endPoint=last.point;
         if ([_delegate respondsToSelector:@selector(unlockPatternView:selectedCode:)])
             [_delegate unlockPatternView:self selectedCode:_code];
+        [self resetPoints];
         [self setNeedsDisplay];
     }
 }
@@ -290,6 +291,9 @@
     }
     UIButton *btn=(UIButton*)[_cells objectAtIndex:index-1];
     [btn setBackgroundImage:image forState:state];
+}
+-(void)resetPoints{
+    [_pointsList removeAllObjects];
 }
 @end
 

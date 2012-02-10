@@ -124,6 +124,7 @@
  *  @param[in]      value           The value to store in radiusPercentage.
  */
 -(void) setRadiusPercentage:(float) value;
+-(void)resetPoints;
 @end
 
 

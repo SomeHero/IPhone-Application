@@ -164,6 +164,16 @@
     
         [self.navigationController pushViewController:viewController animated:YES];
     }
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Unable to Setup Your Pin"
+                                                            message: @"Something happened.  We were unable to setup your pin.  Try again."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        
+        [alertView show];
+        [alertView release];
+    }
     
 }
 -(void) registerUserFailed:(ASIHTTPRequest *)request

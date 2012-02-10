@@ -12,8 +12,64 @@
 #import "PdThxAppDelegate.h"
 
 @implementation SetPasswordController
-@synthesize txtUserName, txtPassword, txtConfirmPassword, securityPin,
-recipientMobileNumber, amount, comment, button;
+@synthesize txtUserName, txtPassword, txtConfirmPassword, scrollView, button;
+
+//--size of application screen---
+CGRect applicationFrame;
+
+//--original size of ScrollView---
+CGSize scrollViewOriginalSize;
+
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    scrollView.contentInset = contentInsets;
+    scrollView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your application might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    
+    
+    if (!CGRectContainsPoint(aRect, CGPointMake(currTextField.frame.origin.x, currTextField.frame.origin.y + currTextField.frame.size.height))) {
+        CGPoint scrollPoint = CGPointMake(0.0, (currTextField.frame.origin.y+ currTextField.frame.size.height)-aRect.size.height);
+        [scrollView setContentOffset:scrollPoint animated:YES];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    scrollView.contentInset = contentInsets;
+    scrollView.scrollIndicatorInsets = contentInsets;
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    currTextField = textField;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    currTextField = nil;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,7 +98,8 @@ recipientMobileNumber, amount, comment, button;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    [self registerForKeyboardNotifications];
 }
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
