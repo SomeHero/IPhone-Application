@@ -28,8 +28,9 @@
 
 - (void)dealloc {
   [textField release];
-    [fieldLabel release];
-  [super dealloc];
+  [fieldLabel release];
+  
+    [super dealloc];
 }
 
 

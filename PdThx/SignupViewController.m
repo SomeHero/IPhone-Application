@@ -74,22 +74,24 @@ CGSize scrollViewOriginalSize;
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     if (textField.tag == 1)
     {
-        password = textField.text;
-        [self validateUserSignIn: [prefs objectForKey:@"mobileNumber"] password: password];
+        _password = textField.text;
+        [self validateUserSignIn: _userName password: _password];
     }
     
     currTextField = nil;
 }
 -(void)viewDidLoad
 {
-    self.title = @"PdThx";
+    self.title = @"PaiddThx";
     tableView.backgroundColor = [UIColor clearColor];
     
     scrollViewOriginalSize = scrollView.contentSize;
     applicationFrame = [[UIScreen mainScreen] applicationFrame];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    _userName = [prefs objectForKey:@"mobileNumber"];
     
     UIApplication *app = [UIApplication sharedApplication];
     if(!app.statusBarHidden) {
@@ -117,8 +119,11 @@ CGSize scrollViewOriginalSize;
 
 - (void)dealloc 
 {
-  [tableView release];
-  [super dealloc];
+    [tableView release];
+    [loadCell release];
+    [scrollView release];
+    
+    [super dealloc];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
@@ -256,11 +261,12 @@ CGSize scrollViewOriginalSize;
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
     BOOL isValid = [[jsonDictionary objectForKey:@"isValid"] boolValue];
     NSString* userId = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"userId"]];
     NSString* mobileNumber = [[NSString alloc] initWithString:[jsonDictionary objectForKey: @"mobileNumber"]];
-    NSString* paymentAccountId = [jsonDictionary objectForKey: @"paymentAccountId"];
+    NSString* paymentAccountId = [[NSString alloc] initWithString:[jsonDictionary objectForKey: @"paymentAccountId"]];
     
     if(isValid)
     {
@@ -278,16 +284,15 @@ CGSize scrollViewOriginalSize;
              
         [appDelegate switchToMainController];
         
+        
     }
     else {
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failure!"
-                                                          message: [NSString stringWithFormat: @"Unable to validate the User Name and Password.  Try again."]
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        
-        [message show]; 
+        [self showAlertView:@"Failed to sign in" withMessage: @"Unable to valide user name and password.  Try again."];          
     }
+    
+    [userId release];
+    [mobileNumber release];
+    [paymentAccountId release];
 }
 -(void) signInUserFailed:(ASIHTTPRequest *)request
 {
@@ -302,6 +307,7 @@ CGSize scrollViewOriginalSize;
                                               otherButtonTitles:nil];
     
     [alertView show];
+    [alertView release];
 }
 
 

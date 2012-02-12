@@ -15,20 +15,14 @@
     SNPopupView		*popup;
     UITableView *autoCompleteTableView;
     ALUnlockPatternView *_viewLock;
-    UIButton *btnSubmit;
     IBOutlet UIScrollView *scrollView;
     IBOutlet UITextField *txtRecipientUri;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextField *txtComments;
-    NSString* _recipientUri;
-    NSString* _amount;
-    NSString* _comments;
+    UIButton *button;
     BOOL _showConfirmation;
     int _amountCharCount;
-    UIButton *button;
     NSMutableArray *autoCompleteArray; 
-	NSMutableArray *elementArray, *lowerCaseElementArray;
-    NSMutableArray	*searchResults;
     NSMutableArray *allResults;
 }
 @property(nonatomic, retain) UIScrollView *scrollView;
@@ -39,9 +33,6 @@
 -(IBAction) bgTouched:(id) sender;
 -(BOOL) showConfirmation;
 -(void) setShowConfirmation:(BOOL)showConfirmation;
--(void) setRecipientUri:(NSString*) theRecipientUri;
--(void) setAmount:(NSString*) theAmount;
--(void) setComments:(NSString*) theComments;
 -(void) registerUser:(NSString*) userName withMobileNumber:(NSString *) mobileNumber withSecurityPin : (NSString *) securityPin;
 -(void) sendMoney:(NSString*) amount toRecipient:(NSString *) recipientUri fromMobileNumber:(NSString *) fromMobileNumber withComment:(NSString *) comments withSecurityPin:(NSString *) securityPin
        fromUserId: (NSString *) userId fromAccount:(NSString *) fromAccount;

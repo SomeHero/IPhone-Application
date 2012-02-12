@@ -28,6 +28,10 @@
 
 - (void)dealloc
 {
+    [recipientMobileNumber release];
+    [amount release];
+    [comment release];
+    
     [super dealloc];
 }
 
@@ -149,6 +153,7 @@
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
     bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
     NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
@@ -163,6 +168,7 @@
         viewController.title = @"Setup Your ACH Account";
     
         [self.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
     }
     else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Unable to Setup Your Pin"
@@ -174,6 +180,8 @@
         [alertView show];
         [alertView release];
     }
+    
+    [message release];
     
 }
 -(void) registerUserFailed:(ASIHTTPRequest *)request

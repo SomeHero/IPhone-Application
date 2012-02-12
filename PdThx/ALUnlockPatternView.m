@@ -211,6 +211,10 @@
         if ([_delegate respondsToSelector:@selector(unlockPatternView:selectedCode:)])
             [_delegate unlockPatternView:self selectedCode:_code];
         [self resetPoints];
+        for (UIButton *b in _cells) {
+            b.selected=NO;
+            b.highlighted=NO;
+        }
         [self setNeedsDisplay];
     }
 }

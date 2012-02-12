@@ -82,6 +82,13 @@ CGSize scrollViewOriginalSize;
 
 - (void)dealloc
 {
+    [scrollView release];
+    [txtVerificationCode1 release];
+    [txtVerificationCode2 release];
+    [recipientMobileNumber release];
+    [amount release];
+    [comment release];
+    
     [super dealloc];
 }
 
@@ -128,69 +135,44 @@ CGSize scrollViewOriginalSize;
 
 -(void) requestFinished: (ASIHTTPRequest *) request {
     
-    // [request responseString]; is how we capture textual output like HTML or JSON
-    // [request responseData]; is how we capture binary output like images
-    // Then to create an image from the response we might do something like
-    // UIImage *image = [[UIImage alloc] initWithData:[request responseData]];
     NSString *theJSON = [request responseString];
     
-    // Now we have successfully captured the JSON ouptut of our request
-    // Alloc and initialize our JSON parser
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
-    /* Since I'm parsing JSON from an API, after it's parsed it'll come out in the form
-     of an NSMutableDictionary with NSMutableArrays inside it.
-     Just a side note...if the resulting JSON looks like this {"one","two","three"}
-     then after the JSON has been parsed it will come out as an NSMutableArray.
-     If the JSON looks like this [{id:1,two:"three"},{id:2, two:"four"}] the after it has
-     been parsed it will be in the form of an NSMutableDictionary
-     (just like the JSON most APIs output) */
-    
-    // Actually parsing the JSON
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
     bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
     NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
     
-    /*
-     If you want to use this array to persist across methods you might want to
-     declare "colorTitles" as an NSMutableArray in the "JSONAppViewController.h"
-     file and you might even want to create a property in the .h file
-     and synthesize that property in the .m file
-     extract other information such as the color's id or the number of views it
-     has the same way, it will most likely be an NSMutableArray */
+    if(success)
+    {
     
-    //if(success)
-    //{
-    //put user id in UserPref
-    //NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    //[prefs setObject: userId forKey:@"UserId"];
-    //[prefs setObject: paymentAccountId forKey:@"PaymentAccountId"];
+        CreateSecurityCode* viewController = [[CreateSecurityCode alloc] initWithNibName:@"CreateSecurityCode" bundle:nil];
+        viewController.title = @"Select Your Pin";
     
-    //[prefs synchronize];
+        [self.navigationController pushViewController:viewController animated:YES];
     
-    CreateSecurityCode* viewController = [[CreateSecurityCode alloc] initWithNibName:@"CreateSecurityCode" bundle:nil];
-    viewController.title = @"Select Your Pin";
+        NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
     
-    [self.navigationController pushViewController:viewController animated:YES];
-    
-    NSMutableArray *allControllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
-    
-    [allControllers removeObjectAtIndex:[allControllers count] - 2];
-    [self.navigationController setViewControllers:allControllers animated:NO];
-    [allControllers retain];
+        [allControllers removeObjectAtIndex:[allControllers count] - 2];
+        [self.navigationController setViewControllers:allControllers animated:NO];
+        [allControllers retain];
     
     
-    //}
-    //else {
-    //    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Failure!"
-    //                                                      message: [NSString stringWithFormat: @"Unable to validate the User Name and Password.  Try again."]
-    //                                                    delegate:nil
-    //                                            cancelButtonTitle:@"OK"
-    //                                            otherButtonTitles:nil];
+    }
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Failure!"
+                                                      message: [NSString stringWithFormat: @"Unable to validate the User Name and Password.  Try again."]
+                                                   delegate:nil
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
     
-    //[message show]; 
-    //}
+        [alertView show]; 
+        [alertView release];
+    }
+    
+    [message release];
 }
 -(IBAction) btnReSendCodesClicked:(id) sender {
     

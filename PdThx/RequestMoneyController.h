@@ -11,23 +11,17 @@
 #import "SNPopupView.h"
 #import "ASIHTTPRequest.h"
 
-@interface RequestMoneyController : UIViewController<ALUnlockPatternViewDelegate, UIAlertViewDelegate, SNPopupViewModalDelegate, UITableViewDelegate, UITextFieldDelegate> {
+@interface RequestMoneyController : UIViewController<ALUnlockPatternViewDelegate, UIAlertViewDelegate, SNPopupViewModalDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     SNPopupView		*popup;
     UITableView *autoCompleteTableView;
     ALUnlockPatternView *_viewLock;
-    UIButton *btnSubmit;
     IBOutlet UIScrollView *scrollView;
     IBOutlet UITextField *txtRecipientUri;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextField *txtComments;
-    NSString* _recipientUri;
-    NSString* _amount;
-    NSString* _comments;
     BOOL _showConfirmation;
     UIButton *button;
     NSMutableArray *autoCompleteArray; 
-	NSMutableArray *elementArray, *lowerCaseElementArray;
-    NSMutableArray	*searchResults;
     NSMutableArray *allResults;
 }
 @property(nonatomic, retain) UIScrollView *scrollView;

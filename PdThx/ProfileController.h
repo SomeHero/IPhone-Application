@@ -17,5 +17,4 @@
 @property(nonatomic, retain) NSDictionary *profileOptions;
 @property(nonatomic, retain) NSArray *sections;
 
--(IBAction) btnMyTeamsClicked:(id) sender;
 @end

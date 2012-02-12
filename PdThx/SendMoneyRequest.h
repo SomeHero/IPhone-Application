@@ -23,5 +23,6 @@
 -(NSString *) amount;
 -(void) setComments: (NSString*) comments;
 -(NSString *) comments;
+-(void) reset;
 
 @end

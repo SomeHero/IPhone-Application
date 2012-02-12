@@ -32,18 +32,6 @@ float tableHeight = 30;
 {
     return _showConfirmation;
 }
--(void) setRecipientUri:(NSString*) theRecipientUri
-{
-    _recipientUri = theRecipientUri;
-}
--(void) setAmount:(NSString*) theAmount
-{
-    _amount = theAmount;
-}
--(void) setComments:(NSString*) theComments
-{
-    _comments = theComments;
-}
 -(void) setShowConfirmation:(BOOL)showConfirmationValue
 {
     _showConfirmation = showConfirmationValue;
@@ -59,6 +47,13 @@ float tableHeight = 30;
 
 - (void)dealloc
 {
+    [scrollView release];
+    [txtRecipientUri release];
+    [txtAmount release];
+    [txtComments release];
+    [autoCompleteArray release];
+    [allResults release];
+    
     [super dealloc];
 }
 
@@ -86,8 +81,6 @@ float tableHeight = 30;
         self.navigationItem.leftBarButtonItem= [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonSystemItemAction target:self action:@selector(signOutClicked)];
     }
     
-    NSString* userId = [prefs stringForKey:@"userId"];
-
     //Search Bar
 	txtRecipientUri.borderStyle = 3; // rounded, recessed rectangle
 	txtRecipientUri.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -97,7 +90,7 @@ float tableHeight = 30;
 	txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
 	txtRecipientUri.textColor = [UIColor blackColor];
 	[txtRecipientUri setDelegate:self];
-    txtRecipientUri.text= _recipientUri;
+    txtRecipientUri.text= [[SendMoneyRequest sendMoneyRequest] recipientUri];
     
 	//Autocomplete Table
 	autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight) style:UITableViewStylePlain];
@@ -110,12 +103,12 @@ float tableHeight = 30;
 	[autoCompleteTableView release];
     
     [txtAmount setDelegate:self];
-    if([_amount length] > 0)
-        txtAmount.text = _amount;
+    if([[[SendMoneyRequest sendMoneyRequest] amount] length] > 0)
+        txtAmount.text = [[SendMoneyRequest sendMoneyRequest] amount];
     else
         txtAmount.text = @"$0.00";
     
-    txtComments.text = _comments;
+    txtComments.text = [[SendMoneyRequest sendMoneyRequest] comments];
     
     if(setupSecurityPin) {
         _viewLock=[[[ALUnlockPatternView alloc] initWithFrame:CGRectMake(36, txtComments.frame.origin.y + txtComments.frame.size.height + 16, 200, 200)] autorelease];
@@ -277,6 +270,8 @@ float tableHeight = 30;
     
     [self.navigationController pushViewController:viewController animated:YES];
     
+    [viewController release];
+    
 }
 -(void) submitButtonClicked:(id)sender{
     [txtRecipientUri resignFirstResponder];
@@ -368,6 +363,8 @@ float tableHeight = 30;
             if([tempAmount length] < 5)
                 [tempAmount insertString:@"0" atIndex:1];
             [textField setText:tempAmount]; 
+            
+            [tempAmount release];
         }
         else if([string stringByTrimmingCharactersInSet:
                  [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
@@ -395,6 +392,7 @@ float tableHeight = 30;
                 [tempAmount insertString:@"0" atIndex:1];
             [textField setText:tempAmount];
             
+            [tempAmount release];
         }
         
         return NO;
@@ -460,24 +458,28 @@ float tableHeight = 30;
     contact.phoneNumber = @"804-387-9693";
     
     [allResults addObject:contact];
+    [contact release];
     
     contact = [[Contact alloc] init];
     contact.name = @"Rich Rhodes";
     contact.phoneNumber = @"804-316-9693";
     
     [allResults addObject:contact];
+    [contact release];
     
     contact = [[Contact alloc] init];
     contact.name = @"DeLacy LeBlanc";
     contact.phoneNumber = @"615-517-8859";
     
     [allResults addObject:contact];
+    [contact release];
     
     contact = [[Contact alloc] init];
     contact.name = @"Dad";
     contact.phoneNumber = @"703-474-9405";
     
     [allResults addObject:contact];
+    [contact release];
     
     // get the address book
     ABAddressBookRef addressBook = ABAddressBookCreate() ;
@@ -494,11 +496,7 @@ float tableHeight = 30;
         
         if([(NSString *)lastName length] == 0)
             contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
-        
-        NSLog(contactFirstLast);
-        //CFRelease(firstName);
-        //CFRelease(lastName);
-        //CFRelease(emailAddressRef);
+
         for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
             CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
             NSString *phoneNumber = (NSString *) phoneNumberRef;
@@ -507,13 +505,11 @@ float tableHeight = 30;
             contact.name = contactFirstLast;
             contact.phoneNumber = phoneNumber;
             
-            [allResults addObject:contact];      
+            [allResults addObject:contact];    
+            [contact release];
             
             index++;
         }
-        
-        
-        //[contactFirstLast release];
     }
 }
 -(void) registerUser:(NSString *) userName withMobileNumber:(NSString *) mobileNumber withSecurityPin : (NSString *) securityPin
@@ -552,6 +548,7 @@ float tableHeight = 30;
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
     bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
     NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
@@ -569,6 +566,12 @@ float tableHeight = 30;
         [appDelegate switchToRegisterController];
         
     }
+    else {
+        [self showAlertView: @"Sorry.  Try Again.!" withMessage:message];
+    }
+    
+    [message release];
+    [userId release];
 }
 -(void) registerUserFailed:(ASIHTTPRequest *)request
 {
@@ -615,6 +618,7 @@ float tableHeight = 30;
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
     bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
     NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
@@ -626,6 +630,8 @@ float tableHeight = 30;
         [txtRecipientUri setText: @""];
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
+        
+        [[SendMoneyRequest sendMoneyRequest] reset];
         
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
@@ -648,6 +654,7 @@ float tableHeight = 30;
                                               otherButtonTitles:nil];
     
     [alertView show];
+    [alertView release];
 }
 -(void) signOutClicked {
     PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];

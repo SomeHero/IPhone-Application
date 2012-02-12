@@ -14,8 +14,8 @@
     IBOutlet UIScrollView *scrollView;
     IBOutlet UITableView *tableView;
     IBOutlet TextEditCell *loadCell;
-    NSString* userName;
-    NSString* password;
+    NSString* _userName;
+    NSString* _password;
     IBOutlet UIButton *demoBtn;
     IBOutlet UIButton *createAccountBtn;
     UITextField *currTextField;
@@ -30,5 +30,5 @@
 -(IBAction) btnForgotPasswordClicked:(id) sender;
 
 -(void) signInUser:(NSString*) userName withPassword:(NSString *) password;
-- (void) showAlertView:(NSString *)title withMessage: (NSString *) message;
+-(void) showAlertView:(NSString *)title withMessage: (NSString *) message;
 @end

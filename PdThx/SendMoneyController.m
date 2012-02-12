@@ -31,22 +31,6 @@ float tableHeight2 = 30;
 {
     return _showConfirmation;
 }
--(void) setRecipientUri:(NSString*) theRecipientUri
-{
-    _recipientUri = theRecipientUri;
-}
--(void) setAmount:(NSString*) theAmount
-{
-    _amount = theAmount;
-}
--(void) setComments:(NSString*) theComments
-{
-    _comments = theComments;
-}
--(void) setShowConfirmation:(BOOL)showConfirmationValue
-{
-    _showConfirmation = showConfirmationValue;
-}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -57,6 +41,13 @@ float tableHeight2 = 30;
 }
 - (void)dealloc
 {
+    [scrollView release];
+    [txtRecipientUri release];
+    [txtAmount release];
+    [txtComments release];
+    [autoCompleteArray release];
+    [allResults release];
+    
     [super dealloc];
 }
 
@@ -93,7 +84,7 @@ float tableHeight2 = 30;
 	txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
 	txtRecipientUri.textColor = [UIColor blackColor];
 	[txtRecipientUri setDelegate:self];
-    txtRecipientUri.text= _recipientUri;
+    txtRecipientUri.text= [[SendMoneyRequest sendMoneyRequest] recipientUri];
     
 	//Autocomplete Table
 	autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2) style:UITableViewStylePlain];
@@ -102,16 +93,17 @@ float tableHeight2 = 30;
 	autoCompleteTableView.scrollEnabled = YES;
 	autoCompleteTableView.hidden = YES; 
 	autoCompleteTableView.rowHeight = tableHeight2;
+    
 	[self.scrollView addSubview:autoCompleteTableView];
 	[autoCompleteTableView release];
     
     [txtAmount setDelegate:self];
-    if([_amount length] > 0)
-        txtAmount.text = _amount;
+    if([[[SendMoneyRequest sendMoneyRequest] amount] length] > 0)
+        txtAmount.text = [[SendMoneyRequest sendMoneyRequest] amount];
     else
         txtAmount.text = @"$0.00";
     
-    txtComments.text = _comments;
+    txtComments.text = [[SendMoneyRequest sendMoneyRequest] comments];
     
     if(setupSecurityPin) {
         _viewLock=[[[ALUnlockPatternView alloc] initWithFrame:CGRectMake(36, txtComments.frame.origin.y + txtComments.frame.size.height + 16, 200, 200)] autorelease];
@@ -146,6 +138,8 @@ float tableHeight2 = 30;
         button.frame = CGRectMake(80.0, txtComments.frame.origin.y + txtComments.frame.size.height + 16, 160.0, 40.0);
         
         [self.scrollView addSubview:button];
+        [button release];
+        
         [_viewLock setHidden:YES];
     }
 
@@ -207,12 +201,9 @@ float tableHeight2 = 30;
     
     [scrollView setScrollEnabled:YES];
     
-    NSLog(@"Your code is %@", code);
-    //[_delegate insertedCode:code fromModalViewController:self];
-    
-    NSString* recipient = txtRecipientUri.text;
-    NSString* amount = txtAmount.text;
-    NSString* comments = txtComments.text;
+    NSString* recipient = [[NSString alloc] initWithString: txtRecipientUri.text];
+    NSString* amount = [[NSString alloc] initWithString: txtAmount.text];
+    NSString* comments = [[NSString alloc] initWithString: txtComments.text];
     
     BOOL isValid = YES;
     
@@ -246,13 +237,14 @@ float tableHeight2 = 30;
             PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
         
             [appDelegate switchToSetPasswordController];
+            
         }
         else 
         {
             NSLog(@"Your user Id is %@", userId);
         
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
+ 
             NSString* userId = [prefs stringForKey:@"userId"];
             NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
             NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
@@ -261,8 +253,10 @@ float tableHeight2 = 30;
         
             [self sendMoney:amount toRecipient:recipient
                 fromMobileNumber:mobileNumber withComment:comments withSecurityPin:code fromUserId:userId fromAccount:fromAccount];
+            
         }
     }
+    
 }
 -(void) actionButtonClicked:(id)sender{
     NSLog(@"Action Button Clicked");
@@ -270,6 +264,8 @@ float tableHeight2 = 30;
     ProfileController* viewController = [[ProfileController alloc] initWithNibName:@"ProfileController" bundle:nil];
     
     [self.navigationController pushViewController:viewController animated:YES];
+    
+    [viewController release];
     
 }
 -(void) submitButtonClicked:(id)sender{
@@ -313,6 +309,7 @@ float tableHeight2 = 30;
 	}
 	autoCompleteTableView.hidden = NO;
 	[autoCompleteTableView reloadData];
+    
 }
 - (void) finishedSearching {
 	[txtRecipientUri resignFirstResponder];
@@ -362,6 +359,7 @@ float tableHeight2 = 30;
             if([tempAmount length] < 5)
                 [tempAmount insertString:@"0" atIndex:1];
             [textField setText:tempAmount]; 
+            [tempAmount release];
         }
         else if([string stringByTrimmingCharactersInSet:
             [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
@@ -388,6 +386,8 @@ float tableHeight2 = 30;
             if([tempAmount length] < 5)
                 [tempAmount insertString:@"0" atIndex:1];
             [textField setText:tempAmount];
+            
+            [tempAmount release];
             
         }
             
@@ -489,10 +489,6 @@ float tableHeight2 = 30;
         if([(NSString *)lastName length] == 0)
             contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
         
-        NSLog(contactFirstLast);
-        //CFRelease(firstName);
-        //CFRelease(lastName);
-        //CFRelease(emailAddressRef);
         for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
             CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
             NSString *phoneNumber = (NSString *) phoneNumberRef;
@@ -505,9 +501,6 @@ float tableHeight2 = 30;
             
             index++;
         }
-        
-        
-        //[contactFirstLast release];
     }
 }
 -(void) registerUser:(NSString *) userName withMobileNumber:(NSString *) mobileNumber withSecurityPin : (NSString *) securityPin
@@ -562,11 +555,12 @@ float tableHeight2 = 30;
         
         [appDelegate switchToRegisterController];
         
+    } else {
+        
     }
 }
 -(void) registerUserFailed:(ASIHTTPRequest *)request
 {
-    // statsCommuniqueDoneProblem ... !
     NSLog(@"Register User Failed");
 }
 -(void) sendMoney:(NSString*) amount toRecipient:(NSString *) recipientUri fromMobileNumber:(NSString *) fromMobileNumber withComment:(NSString *) comments withSecurityPin:(NSString *) securityPin
@@ -587,7 +581,7 @@ float tableHeight2 = 30;
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation]; 
-    
+
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
@@ -621,6 +615,8 @@ float tableHeight2 = 30;
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
         
+        [[SendMoneyRequest sendMoneyRequest] reset];
+        
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Money Sent!" withMessage: message];
         
@@ -631,7 +627,6 @@ float tableHeight2 = 30;
 }
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
-    // statsCommuniqueDoneProblem ... !
     NSLog(@"Register User Failed");
 }
 - (void) showAlertView:(NSString *)title withMessage: (NSString *) message  {

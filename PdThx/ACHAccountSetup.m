@@ -81,6 +81,15 @@ CGSize scrollViewOriginalSize;
 
 - (void)dealloc
 {
+    [scrollView release];
+    [recipientMobileNumber release];
+    [amount release];
+    [comment release];
+    [txtNameOnAccount release];
+    [txtRoutingNumber release];
+    [txtAccountNumber release];
+    [txtAccountNumberConfirm release];
+
     [super dealloc];
 }
 
@@ -165,11 +174,11 @@ CGSize scrollViewOriginalSize;
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
     bool success = YES;
     NSString *paymentAccountId = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"paymentAccountId"]];
-    
-    
+
     if(success) {
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
@@ -180,6 +189,11 @@ CGSize scrollViewOriginalSize;
         
         [appDelegate switchToConfirmation];
     }
+    else {
+        
+    }
+    
+    [paymentAccountId release];
     
 }
 -(void) setupACHAccountFailed:(ASIHTTPRequest *)request

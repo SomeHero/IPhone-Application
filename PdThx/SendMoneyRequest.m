@@ -44,8 +44,30 @@
 {
     _comments = comments;
 }
+-(void) reset {
+    _recipientUri = @"";
+    _amount = @"";
+    _comments = @"";
+}
 -(NSString *) comments
 {
     return _comments;
+}
+- (id)retain
+{
+    return self;
+}
+- (void)release
+{
+    // do nothing
+}
+
+- (id)autorelease
+{
+    return self;
+}
+- (NSUInteger)retainCount
+{
+    return NSUIntegerMax; // This is sooo not zero
 }
 @end

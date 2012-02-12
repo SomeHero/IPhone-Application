@@ -82,6 +82,12 @@ CGSize scrollViewOriginalSize;
 
 - (void)dealloc
 {
+    [txtUserName release];
+    [txtPassword release];
+    [txtConfirmPassword release];
+    [scrollView release];
+    [button release];
+
     [super dealloc];
 }
 
@@ -142,8 +148,8 @@ CGSize scrollViewOriginalSize;
 }
 -(void) setupPassword:(NSString*) password withUserName:(NSString *) userName forUser: (NSString *) userId {
     
-    NSString *rootUrl = [NSString stringWithString: @"pdthx.me"];
-    NSString *apiKey = [NSString stringWithString: @"bda11d91-7ade-4da1-855d-24adfe39d174"];
+    NSString *rootUrl = [[NSString alloc] initWithString: @"pdthx.me"];
+    NSString *apiKey = [[NSString alloc] initWithString: @"bda11d91-7ade-4da1-855d-24adfe39d174"];
     
     NSString *deviceId = [[UIDevice currentDevice] uniqueIdentifier];
     
@@ -168,6 +174,11 @@ CGSize scrollViewOriginalSize;
     [request setDidFailSelector:@selector(setupPasswordFailed:)];
     
     [request startAsynchronous]; 
+    
+    [paymentData release];
+    [rootUrl release];
+    [apiKey release];
+    [newJSON release];
 }
 -(void) setupPasswordComplete:(ASIHTTPRequest *)request
 {
@@ -175,6 +186,7 @@ CGSize scrollViewOriginalSize;
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
     bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
     NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
@@ -191,6 +203,11 @@ CGSize scrollViewOriginalSize;
         [appDelegate switchToConfirmation];
         
     }
+    else {
+        
+    }
+    
+    [message release];
 }
 -(void) setupPasswordFailed:(ASIHTTPRequest *)request
 {
@@ -205,5 +222,6 @@ CGSize scrollViewOriginalSize;
                                               otherButtonTitles:nil];
     
     [alertView show];
+    [alertView release];
 }
 @end

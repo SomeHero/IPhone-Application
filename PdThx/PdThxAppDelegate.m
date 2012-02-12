@@ -18,7 +18,6 @@
 
 @synthesize window=_window;
 @synthesize welcomeController = _welcomeController;
-@synthesize signInController = _signInController;
 @synthesize tabBarController=_tabBarController;
 @synthesize registerNavigationController = _registerNavigationController;
 @synthesize setupPasswordController = _setupPasswordController;
@@ -37,15 +36,11 @@
     
     NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];;
     NSString* userId = [prefs stringForKey:@"userId"];
-
-
-    _signInController = [[SignupViewController alloc] initWithNibName:@"SignupViewController" bundle:nil];
-    _signInController.title = @"Sign In";
     
     if([mobileNumber length] == 0) {
         [self.window addSubview:self.welcomeController.view];
     } else if([userId length] == 0) {
-        [self.window addSubview:self.signInController.view];
+        [self.window addSubview:self.signInViewController.view];
     } else {
         [self switchToMainController];
     }
@@ -66,12 +61,8 @@
     [self.window makeKeyAndVisible];
     UINavigationController   *navController = [self.tabBarController.viewControllers objectAtIndex:0];
     
-    SendMoneyController* controller =     [[navController viewControllers] objectAtIndex:0];
+    SendMoneyController* controller = [[navController viewControllers] objectAtIndex:0];
     
-    [controller setRecipientUri: [[SendMoneyRequest sendMoneyRequest] recipientUri]];
-    [controller setAmount: [[SendMoneyRequest sendMoneyRequest] amount]];
-    [controller setComments:[[SendMoneyRequest sendMoneyRequest] comments]];
-
     [UIView commitAnimations];
     
 }
@@ -208,7 +199,9 @@
     [prefs removeObjectForKey:@"setupSecurityPin"];
     
     [prefs synchronize];
-
+    
+    [[SendMoneyRequest sendMoneyRequest] reset];
+    
     [self.signInViewController viewDidAppear:YES];
     
     [self switchToSignInController];
@@ -225,12 +218,22 @@
     
     [prefs synchronize];
     
+    [[SendMoneyRequest sendMoneyRequest] reset];
+    
     [self switchToWelcomeController];
 }
 - (void)dealloc
 {
     [_window release];
+    [_welcomeController release];
+    [_signInViewController release];
     [_tabBarController release];
+    [_registerNavigationController release];
+    [_setupPasswordController release];
+    [_signInViewController release];
+    
+    [[SendMoneyRequest sendMoneyRequest] release];
+    
     [super dealloc];
 }
 @end

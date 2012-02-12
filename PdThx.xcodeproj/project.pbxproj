@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B692C3E14CFAF7400E6E663 /* ACHAccountSetupRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692C3D14CFAF7400E6E663 /* ACHAccountSetupRequest.m */; };
 		5B692C5314D4777D00E6E663 /* SendMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692C5114D4777D00E6E663 /* SendMoneyController.m */; };
 		5B692C5414D4777D00E6E663 /* SendMoneyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B692C5214D4777D00E6E663 /* SendMoneyController.xib */; };
 		5B692CBB14D5E9E100E6E663 /* RequestMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692CB914D5E9DE00E6E663 /* RequestMoneyController.m */; };
@@ -264,8 +263,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5B692C3C14CFAF7400E6E663 /* ACHAccountSetupRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACHAccountSetupRequest.h; sourceTree = "<group>"; };
-		5B692C3D14CFAF7400E6E663 /* ACHAccountSetupRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACHAccountSetupRequest.m; sourceTree = "<group>"; };
 		5B692C5014D4777C00E6E663 /* SendMoneyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyController.h; sourceTree = "<group>"; };
 		5B692C5114D4777D00E6E663 /* SendMoneyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyController.m; sourceTree = "<group>"; };
 		5B692C5214D4777D00E6E663 /* SendMoneyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendMoneyController.xib; sourceTree = "<group>"; };
@@ -581,15 +578,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5B692C3F14CFAFAD00E6E663 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				5B692C3C14CFAF7400E6E663 /* ACHAccountSetupRequest.h */,
-				5B692C3D14CFAF7400E6E663 /* ACHAccountSetupRequest.m */,
-			);
-			name = Requests;
-			sourceTree = "<group>";
-		};
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
@@ -635,7 +623,6 @@
 				5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */,
 				5B692CBD14D8CA5300E6E663 /* SNPopupView.h */,
 				5B692CBE14D8CA5E00E6E663 /* SNPopupView.m */,
-				5B692C3F14CFAFAD00E6E663 /* Requests */,
 				5BEBF01B14B2282A00379108 /* options.plist */,
 				5BEBF02B14B29C1C00379108 /* SignupViewController.h */,
 				5BEBF02C14B29C1D00379108 /* SignupViewController.m */,
@@ -676,8 +663,7 @@
 				5B692CB914D5E9DE00E6E663 /* RequestMoneyController.m */,
 				5B692CB814D5E9DB00E6E663 /* RequestMoneyController.h */,
 				5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */,
-				5BBE183114DECC91002A3618 /* SendMoneyRequest.h */,
-				5BBE183214DECC93002A3618 /* SendMoneyRequest.m */,
+				5BE6F79E14E75C5E00599EF2 /* DataObjects */,
 				5BBE183414DF2D13002A3618 /* Entitlements.plist */,
 				5BBE183914E347D6002A3618 /* MainTabController.h */,
 				5BBE183A14E347DB002A3618 /* MainTabController.m */,
@@ -948,6 +934,15 @@
 				5B69E19914B117EB003A0F66 /* SBJsonWriter.m */,
 			);
 			name = JSON;
+			sourceTree = "<group>";
+		};
+		5BE6F79E14E75C5E00599EF2 /* DataObjects */ = {
+			isa = PBXGroup;
+			children = (
+				5BBE183114DECC91002A3618 /* SendMoneyRequest.h */,
+				5BBE183214DECC93002A3618 /* SendMoneyRequest.m */,
+			);
+			name = DataObjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1272,7 +1267,6 @@
 				5BEBF02914B28D0800379108 /* SetPasswordController.m in Sources */,
 				5BEBF02E14B29C1E00379108 /* SignupViewController.m in Sources */,
 				5BEBF03314B29D4F00379108 /* TextEditCell.m in Sources */,
-				5B692C3E14CFAF7400E6E663 /* ACHAccountSetupRequest.m in Sources */,
 				5B692C5314D4777D00E6E663 /* SendMoneyController.m in Sources */,
 				5B692CBB14D5E9E100E6E663 /* RequestMoneyController.m in Sources */,
 				5B692CBF14D8CA6600E6E663 /* SNPopupView.m in Sources */,
