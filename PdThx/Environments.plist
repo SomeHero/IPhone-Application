@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Beta</key>
+	<dict>
+		<key>pdthxAPIKEY</key>
+		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
+		<key>pdthxWebServicesBaseUrl</key>
+		<string>http://beta.paidthx.me</string>
+	</dict>
+	<key>Dev</key>
+	<dict>
+		<key>pdthxAPIKEY</key>
+		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
+		<key>pdthxWebServicesBaseUrl</key>
+		<string>http://dev.paidthx.com</string>
+	</dict>
+	<key>Release</key>
+	<dict>
+		<key>pdthxAPIKey</key>
+		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
+		<key>pdthxWebServicesBaseUrl</key>
+		<string>http://api.paidthx.me</string>
+	</dict>
+	<key>Staging</key>
+	<dict>
+		<key>pdthxAPIKey</key>
+		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
+		<key>pdthxWebServicesBaseUrl</key>
+		<string>http://staging.paidthx.me</string>
+	</dict>
+</dict>
+</plist>

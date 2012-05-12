@@ -10,28 +10,15 @@
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate> {
-    NSString* _recipientUri;
-    NSString* _amount;
-    NSString* _comments;
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UIViewController *welcomeController;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-@property (nonatomic, retain) IBOutlet UINavigationController  *registerNavigationController;
-@property(nonatomic, retain) IBOutlet UINavigationController *setupPasswordController;
-@property(nonatomic, retain) IBOutlet UINavigationController *signInViewController;
--(void)switchToMainController;
--(void)switchToConfirmation;
--(void)switchToSetPasswordController;
--(void)switchToRegisterController;
--(void)switchToWelcomeController;
--(void)switchToSignInController;
--(void)setRecipientUri: (NSString*) recipientUri;
--(void)setAmount: (NSString*) amount;
--(void)setComments: (NSString*) comments;
+
 -(void)signOut;
 -(void)forgetMe;
+-(void)switchToSendMoneyController;
+-(void)switchToRequestMoneyController;
 
 @end

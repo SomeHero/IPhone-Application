@@ -10,34 +10,8 @@
 			<key>Label</key>
 			<string>Set Security Pin</string>
 		</dict>
-		<dict>
-			<key>Image</key>
-			<string>icon-phone1.png</string>
-			<key>Label</key>
-			<string>My Mobile Number</string>
-		</dict>
 	</array>
-	<key>Section 2</key>
-	<array>
-		<dict>
-			<key>Image</key>
-			<string>icon_right.png</string>
-			<key>Label</key>
-			<string>Pending Transactions</string>
-		</dict>
-		<dict>
-			<key>Image</key>
-			<string>icon_arrow_right.png</string>
-			<key>Label</key>
-			<string>Incoming Transactions</string>
-		</dict>
-		<dict>
-			<key>Image</key>
-			<string>icon_arrow_left.png</string>
-			<key>Label</key>
-			<string>Outgoing Transactions</string>
-		</dict>
-	</array>
+
 	<key>Section 3</key>
 	<array>
 		<dict>
@@ -57,15 +31,6 @@
 			<string>icon_left.png</string>
 			<key>Label</key>
 			<string>Terms and Conditions</string>
-		</dict>
-	</array>
-	<key>Section 4</key>
-	<array>
-		<dict>
-			<key>Image</key>
-			<string>icon_forget.png</string>
-			<key>Label</key>
-			<string>Forget Me</string>
 		</dict>
 	</array>
 </dict>

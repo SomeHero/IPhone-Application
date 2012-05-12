@@ -1,4 +1,4 @@
-/***************************************************************
+//***************************************************************
  //  ALUnlockPatternView.m
  //  ALUnlockPatternViewDemo
  //
@@ -15,7 +15,7 @@
  //  Get in touch at http://www.mobilebricks.com 
  //
  //  Copyright 2011 AnguriaLab LLC. All rights reserved.
- ****************************************************************/
+ //****************************************************************/
 
 #include <QuartzCore/QuartzCore.h>
 #import "ALUnlockPatternView.h"
@@ -77,11 +77,11 @@
     float width=frame.size.width;
     float height=frame.size.height;
     
-    if (width<kMinSideLength)
-        width=kMinSideLength;
+    //if (width>kMinSideLength)
+    //    width=kMinSideLength;
     
-    if (height<kMinSideLength)
-        height=kMinSideLength;
+    //if (height>kMinSideLength)
+    //    height=kMinSideLength;
     
     self = [super initWithFrame:CGRectMake(frame.origin.x,frame.origin.y,width,height)];
     if (self) {

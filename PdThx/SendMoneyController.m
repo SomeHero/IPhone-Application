@@ -7,30 +7,25 @@
 //
 #import "PdThxAppDelegate.h"
 #import "SendMoneyController.h"
-#import "ALUnlockPatternView.h"
-#import <AddressBook/AddressBook.h>
 #import <QuartzCore/QuartzCore.h>
+#import <Foundation/Foundation.h>
 #import "JSON.h"
 #import "ASIHTTPRequest.h"
-#import "SetPasswordController.h"
-#import "ProfileController.h"
-#import "CreateSecurityCode.h"
-#import "VerificationMobileDevice.h"
-#import "PdThxAppDelegate.h"
-#import "SNPopupView.h"
 #import "Contact.h"
-#import "SendMoneyRequest.h"
+#import "SignInViewController.h"
+#import "SetupSecurityPin.h"
+
+@interface SendMoneyController ()
+- (void)sendMoney;
+
+@end
 
 @implementation SendMoneyController
 
-@synthesize scrollView, txtRecipientUri, txtAmount, txtComments;
+@synthesize viewPanel, txtRecipientUri, txtAmount, txtComments, btnSendMoney;
 
 float tableHeight2 = 30;
 
--(BOOL)showConfirmation
-{
-    return _showConfirmation;
-}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,13 +36,16 @@ float tableHeight2 = 30;
 }
 - (void)dealloc
 {
-    [scrollView release];
+    [viewPanel release];
     [txtRecipientUri release];
     [txtAmount release];
     [txtComments release];
-    [autoCompleteArray release];
-    [allResults release];
-    
+    [btnSendMoney release];
+    [securityPinModalPanel release];
+    [recipientUri release];
+    [amount release];
+    [comments release];
+
     [super dealloc];
 }
 
@@ -58,33 +56,43 @@ float tableHeight2 = 30;
     
     // Release any cached data, images, etc that aren't in use.
 }
-
 #pragma mark - View lifecycle
 -(void) viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-settings3.png"] style: UIBarButtonItemStylePlain target: self action:@selector(actionButtonClicked:)];
+     autoCompleteArray = [[NSMutableArray alloc] init];
+    recipientUri = [[NSString alloc] initWithString: @""];
+    amount = [[NSString alloc] initWithString: @""];
+    comments = [[NSString alloc] initWithString: @""];
+
+    //---set the viewable frame of the scroll view---
+    scrollView.frame = CGRectMake(0, 0, 320, 460);
+
+    //---set the content size of the scroll view---
+    [scrollView setContentSize:CGSizeMake(320, 713)];  
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    self.navigationItem.title = @"Send $";
+    [self loadContacts];
     
-    bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
-    bool setupPassword = [prefs boolForKey:@"setupPassword"];
-    
-    if(setupPassword) {
-        self.navigationItem.leftBarButtonItem= [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonSystemItemAction target:self action:@selector(signOutClicked)];
-    }
+    //setup internal viewpanel
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setCornerRadius: 8.0];
     
     //Search Bar
-	txtRecipientUri.borderStyle = 3; // rounded, recessed rectangle
+	txtRecipientUri.borderStyle = UITextBorderStyleRoundedRect; // rounded, recessed rectangle
 	txtRecipientUri.autocorrectionType = UITextAutocorrectionTypeNo;
 	txtRecipientUri.textAlignment = UITextAlignmentLeft;
 	txtRecipientUri.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	txtRecipientUri.returnKeyType = UIReturnKeyDone;
+	//txtRecipientUri.returnKeyType = UIReturnKeyDone;
 	txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
 	txtRecipientUri.textColor = [UIColor blackColor];
 	[txtRecipientUri setDelegate:self];
-    txtRecipientUri.text= [[SendMoneyRequest sendMoneyRequest] recipientUri];
     
 	//Autocomplete Table
 	autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2) style:UITableViewStylePlain];
@@ -98,78 +106,7 @@ float tableHeight2 = 30;
 	[autoCompleteTableView release];
     
     [txtAmount setDelegate:self];
-    if([[[SendMoneyRequest sendMoneyRequest] amount] length] > 0)
-        txtAmount.text = [[SendMoneyRequest sendMoneyRequest] amount];
-    else
-        txtAmount.text = @"$0.00";
-    
-    txtComments.text = [[SendMoneyRequest sendMoneyRequest] comments];
-    
-    if(setupSecurityPin) {
-        _viewLock=[[[ALUnlockPatternView alloc] initWithFrame:CGRectMake(36, txtComments.frame.origin.y + txtComments.frame.size.height + 16, 200, 200)] autorelease];
-        _viewLock.delegate=self;
-        _viewLock.lineColor=[UIColor whiteColor];
-        _viewLock.lineWidth=12;
-        _viewLock.lineColor=[UIColor colorWithRed:0.576 green:0.816 blue:0.133 alpha:1.000];
-        [_viewLock setCellsBackgroundImage:[UIImage imageNamed:@"nSel.png"] forState:UIControlStateNormal];
-        [_viewLock setCellsBackgroundImage:[UIImage imageNamed:@"sel.png"] forState:UIControlStateSelected];
-        [_viewLock setCellsBackgroundImage:[UIImage imageNamed:@"hSel.png"] forState:UIControlStateHighlighted];
-        
-        CGPoint point = CGPointMake(_viewLock.frame.origin.x + _viewLock.frame.size.width/2, _viewLock.frame.origin.y);
-        
-        if(_showConfirmation) {
-            popup = [[SNPopupView alloc] initWithString:@"Enter Your Security Code"];
-        
-            [popup presentModalAtPoint:point inView:self.view];
-            [popup addTarget:self action:@selector(didTouchPopupView:)];
-            [popup release];
-            [popup setDelegate:self];
-        }
-        
-        [self.scrollView addSubview:_viewLock];
-        [button setHidden:YES];
-   
-    } else {
-        button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [button addTarget:self 
-                   action:@selector(submitButtonClicked:)
-         forControlEvents:UIControlEventTouchDown];
-        [button setTitle:@"Send Money" forState:UIControlStateNormal];
-        button.frame = CGRectMake(80.0, txtComments.frame.origin.y + txtComments.frame.size.height + 16, 160.0, 40.0);
-        
-        [self.scrollView addSubview:button];
-        [button release];
-        
-        [_viewLock setHidden:YES];
-    }
-
-    
-}
-- (void)didTouchPopupView:(SNPopupView*)sender {
-	//DNSLogMethod
-	//DNSLog(@"%@", sender);
-    NSLog(@"Popup View Touched");
-}
-
-- (void)didDismissModal:(SNPopupView*)popupview {
-	//DNSLogMethod
-	//if (popupview == popup) {
-	//	popup = nil;
-	//}
-}
-- (void)viewDidLoad
-{
-    autoCompleteArray = [[NSMutableArray alloc] init];
-
-    //---set the viewable frame of the scroll view---
-    scrollView.frame = CGRectMake(0, 0, 320, 460);
-    //---set the content size of the scroll view---
-    [scrollView setContentSize:CGSizeMake(320, 713)];  
-    
-    
-    [self LoadContacts];
-    
-    [super viewDidLoad];
+    txtAmount.text = @"$0.00";
     
 }
 
@@ -185,111 +122,101 @@ float tableHeight2 = 30;
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
--(void)unlockPatternView:(ALUnlockPatternView *)patternView didSelectCellAtIndex:(int)index andpartialCode:
-(NSString *)partialCode{
-    
-    [scrollView setScrollEnabled:NO];
-    
-    NSString *state=@"";
-    for (int i=1; i<=9; i++)
-        state=[state stringByAppendingFormat:@"%d",[_viewLock isCellSelected:i]];
-    NSLog(@"%@",state);
-    //NSLog(@"%d %@",index,partialCode);
-    //[_delegate insertedCode:partialCode];
+#pragma mark SignCompleteProtocol methods
+-(void)signInDidComplete {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self showModalPanel];
 }
--(void)unlockPatternView:(ALUnlockPatternView *)patternView selectedCode:(NSString *)code{
-    
-    [scrollView setScrollEnabled:YES];
-    
-    NSString* recipient = [[NSString alloc] initWithString: txtRecipientUri.text];
-    NSString* amount = [[NSString alloc] initWithString: txtAmount.text];
-    NSString* comments = [[NSString alloc] initWithString: txtComments.text];
-    
-    BOOL isValid = YES;
-    
-    if(isValid && ![self isValidRecipientUri: recipient])
-    {
-        [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
-        
-        isValid = NO;
-    }
-    if(isValid && ![self isValidAmount:amount])
-    {
-        [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
-        
-        isValid = NO;
-    }
-        
-    if(isValid) {
-        [[SendMoneyRequest sendMoneyRequest] setRecipientUri:recipient];
-        [[SendMoneyRequest sendMoneyRequest] setAmount:amount];
-        [[SendMoneyRequest sendMoneyRequest] setComments:comments];
-    
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-        NSString* userId = [prefs stringForKey:@"userId"];
-        bool setupSecurityPin = [prefs boolForKey: @"setupSecurityPin"];
-        bool hasPassword = [prefs boolForKey:@"setupPassword"];
-    
-        if(!_showConfirmation && !hasPassword)
-        {
-        
-            PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-            [appDelegate switchToSetPasswordController];
-            
-        }
-        else 
-        {
-            NSLog(@"Your user Id is %@", userId);
-        
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
- 
-            NSString* userId = [prefs stringForKey:@"userId"];
-            NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
-            NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
+#pragma mark ACHSetupCompleteProtocol methods
+-(void)achSetupDidComplete {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self showModalPanel];
+}
+-(void) signOutClicked {
+    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-            amount = [amount stringByReplacingOccurrencesOfString:@"$" withString:@""];
-        
-            [self sendMoney:amount toRecipient:recipient
-                fromMobileNumber:mobileNumber withComment:comments withSecurityPin:code fromUserId:userId fromAccount:fromAccount];
-            
-        }
-    }
-    
+    [appDelegate signOut];
+
+    UINavigationController *navController = self.navigationController;
+
+    SendMoneyController *sendMoneyController = [[[SendMoneyController alloc] initWithNibName:@"SendMoneyController" bundle:nil] autorelease];
+
+    [self removeCurrentViewFromNavigation:navController];
+    [navController pushViewController:sendMoneyController animated: YES];
+
 }
--(void) actionButtonClicked:(id)sender{
-    NSLog(@"Action Button Clicked");
-    
-    ProfileController* viewController = [[ProfileController alloc] initWithNibName:@"ProfileController" bundle:nil];
-    
-    [self.navigationController pushViewController:viewController animated:YES];
-    
-    [viewController release];
-    
-}
--(void) submitButtonClicked:(id)sender{
-    [txtRecipientUri resignFirstResponder];
-    [txtAmount resignFirstResponder];
-    [txtComments resignFirstResponder];
-    
-    NSString* recipient = txtRecipientUri.text;
-    NSString* amount = txtAmount.text;
-    NSString* comments = txtComments.text;
-    
-    [[SendMoneyRequest sendMoneyRequest] setRecipientUri:recipient];
-    [[SendMoneyRequest sendMoneyRequest] setAmount:amount];
-    [[SendMoneyRequest sendMoneyRequest] setComments:comments];
-    
+-(void) securityPinComplete:(ConfirmPaymentDialogController *) modalPanel
+               selectedCode:(NSString*) code {
+
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    NSString* userId = [prefs stringForKey:@"userId"];
+    NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
+    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
     
-    [self registerUser:[prefs valueForKey:@"mobileNumber"] withMobileNumber:[prefs valueForKey:@"mobileNumber"] withSecurityPin:@""];
-    
+
+    [self sendMoneyService:amount toRecipient:recipientUri
+   fromMobileNumber:mobileNumber withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtRecipientUri resignFirstResponder];
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
+}
+
+- (void)sendMoney {
+
+
+    if([txtRecipientUri.text length] > 0)
+        recipientUri = [txtRecipientUri.text copy];
+
+    if([txtAmount.text length] > 0) {
+        amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
+    }
+
+    if([txtComments.text length] > 0)
+        comments = [txtComments.text copy];
+
+    BOOL isValid = YES;
+
+    if(isValid && ![self isValidRecipientUri:recipientUri])
+    {
+        [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
+
+        isValid = NO;
+    }
+    if(isValid && ![self isValidAmount:amount])
+    {
+        [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
+
+        isValid = NO;
+    }
+
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+
+    if(isValid) {
+        NSString* userId = [prefs stringForKey:@"userId"];
+
+        if([userId length] > 0)
+            [self showModalPanel];
+        else
+        {
+            SignInViewController *signInViewController = [[[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil] autorelease];
+
+            [signInViewController setSignInCompleteDelegate:self];
+            [signInViewController setAchSetupCompleteDelegate:self];
+
+            [self.navigationController pushViewController:signInViewController animated:YES];
+        }
+    }
+}
+
+-(IBAction) btnSendMoneyClicked:(id)sender {
+
+    [self sendMoney];
+
+
 }
 // Take string from Search Textfield and compare it with autocomplete array
 - (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring {
@@ -316,17 +243,25 @@ float tableHeight2 = 30;
 	autoCompleteTableView.hidden = YES;
 }
 #pragma mark UITextFieldDelegate methods
-// Close keyboard when Enter or Done is pressed
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {    
-	BOOL isDone = YES;
-	
-	if (isDone) {
-		[self finishedSearching];
-		return YES;
-	} else {
-		return NO;
-	}	
-} 
+-(BOOL)textFieldShouldReturn:(UITextField*)textField;
+{
+    if (textField.tag == 0)
+        [self finishedSearching];
+
+  NSInteger nextTag = textField.tag + 1;
+  // Try to find next responder
+  UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+  if (nextResponder) {
+    // Found next responder, so set it.
+    [nextResponder becomeFirstResponder];
+  } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+      
+        [self sendMoney];
+  }
+  return NO; // We do not want UITextField to insert line-breaks.
+}
 
 // String in Search textfield
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -337,7 +272,7 @@ float tableHeight2 = 30;
 	
         return YES;
     } else if(textField.tag == 1) {
-        NSMutableString *tempAmount = [[NSMutableString alloc] initWithString:@""];
+        NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
         [tempAmount appendString: @"$"];
         
         if([string isEqualToString:@""]) {
@@ -345,8 +280,9 @@ float tableHeight2 = 30;
                 if([string length] == 0 && i == [textField.text length] - 1)
                     continue;
                 
-                char digit = [textField.text characterAtIndex: i];
-                
+                char digit;
+                digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
+
                 if(digit == '$')
                     continue;
                 if(digit == '.')
@@ -358,8 +294,7 @@ float tableHeight2 = 30;
             [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
             if([tempAmount length] < 5)
                 [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount]; 
-            [tempAmount release];
+            [textField setText:tempAmount];
         }
         else if([string stringByTrimmingCharactersInSet:
             [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
@@ -367,7 +302,7 @@ float tableHeight2 = 30;
             BOOL firstDigit = YES;
             for (int i = 0; i< [textField.text length]; i++) {
                 
-                char digit = [textField.text characterAtIndex: i];
+                char digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
                 
                 if(digit == '$')
                     continue;
@@ -387,12 +322,11 @@ float tableHeight2 = 30;
                 [tempAmount insertString:@"0" atIndex:1];
             [textField setText:tempAmount];
             
-            [tempAmount release];
-            
         }
             
         return NO;
     }
+    return YES;
 }
 
 #pragma mark UITableViewDelegate methods
@@ -405,27 +339,27 @@ float tableHeight2 = 30;
     
 	//Resize auto complete table based on how many elements will be displayed in the table
 	if (autoCompleteArray.count >=3) {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*3);
+		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*3);
 		return autoCompleteArray.count;
 	}
-	
+
 	else if (autoCompleteArray.count == 2) {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*2);
+		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*2);
 		return autoCompleteArray.count;
-	}	
-	else if (autoCompleteArray.count == 1) {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2);
+	}
+	else if (autoCompleteArray.count >= 1) {
+		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2);
 		return autoCompleteArray.count;
 	}
     else  {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, 0);
+		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, 0);
 		return autoCompleteArray.count;
 	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = nil;
-	static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
+	UITableViewCell *cell;
+    static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
 	cell = [tableView dequeueReusableCellWithIdentifier:AutoCompleteRowIdentifier];
 	if (cell == nil) {
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteRowIdentifier] autorelease];
@@ -438,149 +372,44 @@ float tableHeight2 = 30;
 
 	return cell;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-	txtRecipientUri.text = selectedCell.textLabel.text;
-	[self finishedSearching];
-}
--(void)LoadContacts {
-    allResults = [[NSMutableArray alloc] init];
-    
-    Contact *contact;
-    
-    contact = [[Contact alloc] init];
-    contact.name = @"James Rhodes";
-    contact.phoneNumber = @"804-387-9693";
-    
-    [allResults addObject:contact];
-    
-    contact = [[Contact alloc] init];
-    contact.name = @"Rich Rhodes";
-    contact.phoneNumber = @"804-316-9693";
-    
-    [allResults addObject:contact];
-    
-    contact = [[Contact alloc] init];
-    contact.name = @"DeLacy LeBlanc";
-    contact.phoneNumber = @"615-517-8859";
-    
-    [allResults addObject:contact];
-    
-    contact = [[Contact alloc] init];
-    contact.name = @"Dad";
-    contact.phoneNumber = @"703-474-9405";
-    
-    [allResults addObject:contact];
-    
-    // get the address book
-    ABAddressBookRef addressBook = ABAddressBookCreate() ;
-    
-    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    int index = 0;
-    for (int i = 0; i < nPeople; i++) {
-        ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
-        CFStringRef firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
-        CFStringRef lastName = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-        ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
-        NSString *contactFirstLast = [NSString stringWithFormat: @"%@, %@", (NSString *)lastName, (NSString *) firstName];
-        
-        if([(NSString *)lastName length] == 0)
-            contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
-        
-        for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
-            CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
-            NSString *phoneNumber = (NSString *) phoneNumberRef;
-            
-            contact = [[Contact alloc] init];
-            contact.name = contactFirstLast;
-            contact.phoneNumber = phoneNumber;
-            
-            [allResults addObject:contact];      
-            
-            index++;
-        }
-    }
-}
--(void) registerUser:(NSString *) userName withMobileNumber:(NSString *) mobileNumber withSecurityPin : (NSString *) securityPin
-{
+	txtRecipientUri.text = [[[NSString alloc] initWithString:[[selectedCell.textLabel.text copy] autorelease]] autorelease];
 
-    NSString *rootUrl = [NSString stringWithString: @"pdthx.me"];
-    NSString *apiKey = [NSString stringWithString: @"bda11d91-7ade-4da1-855d-24adfe39d174"];
-    NSString *deviceId = [[UIDevice currentDevice] uniqueIdentifier];
-    
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"http://%@/Services/UserService/Register?apiKey=%@", rootUrl, apiKey]] autorelease];  
-    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 apiKey, @"apiKey",
-                                 userName, @"userName",
-                                 mobileNumber, @"mobileNumber",
-                                 deviceId, @"deviceId",
-                                 securityPin, @"securityPin",
-                                 nil];
+    NSInteger nextTag = txtRecipientUri.tag + 1;
+      // Try to find next responder
+      UIResponder* nextResponder = [txtRecipientUri.superview viewWithTag:nextTag];
+      if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+      } else {
+            // Not found, so remove keyboard.
+            [txtRecipientUri resignFirstResponder];
 
-    NSString *newJSON = [paymentData JSONRepresentation]; 
-    
-    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
-    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
-    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
-    [request setRequestMethod: @"POST"];	
-    
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(registerUserComplete:)];
-    [request setDidFailSelector:@selector(registerUserFailed:)];
+            [self sendMoney];
+      }
 
-    [request startAsynchronous];
+    [self finishedSearching];
 }
--(void) registerUserComplete:(ASIHTTPRequest *)request
-{
-    NSString *theJSON = [request responseString];
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    
-    bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
-    NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
-    NSString* userId = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"userId"]];
-    
-    if(success) {
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setValue: userId forKey:@"userId"];
-        [prefs synchronize];
-        
-        PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        [appDelegate switchToRegisterController];
-        
-    } else {
-        
-    }
-}
--(void) registerUserFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"Register User Failed");
-}
--(void) sendMoney:(NSString*) amount toRecipient:(NSString *) recipientUri fromMobileNumber:(NSString *) fromMobileNumber withComment:(NSString *) comments withSecurityPin:(NSString *) securityPin
-       fromUserId: (NSString *) userId fromAccount:(NSString *) fromAccount {
+-(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
+       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
-    NSString *rootUrl = [NSString stringWithString: @"pdthx.me"];
-    NSString *apiKey = [NSString stringWithString: @"bda11d91-7ade-4da1-855d-24adfe39d174"];
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"http://%@/Services/PaymentService/Payments?apiKey=%@", rootUrl, apiKey]] autorelease];  
-    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/PaymentService/Payments?apiKey=%@", rootUrl, apiKey]] autorelease];  
+    NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  userId, @"userId",
                                  securityPin, @"securityPin",
                                  fromMobileNumber, @"fromMobileNumber",
-                                 recipientUri, @"toMobileNumber",
-                                 amount, @"amount",
-                                 comments, @"comment",
+                                 theRecipient, @"toMobileNumber",
+                                 theAmount, @"amount",
+                                 theComments, @"comment",
                                  fromAccount, @"fromAccount",
                                  nil];
     
-    NSString *newJSON = [paymentData JSONRepresentation]; 
+    NSString *newJSON = [paymentData JSONRepresentation];
 
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -592,7 +421,11 @@ float tableHeight2 = 30;
     [request setDidFinishSelector:@selector(sendMoneyComplete:)];
     [request setDidFailSelector:@selector(sendMoneyFailed:)];
     
-    [request startAsynchronous]; 
+    [request startAsynchronous];
+
+    [paymentData release];
+    [apiKey release];
+    [rootUrl release];
 }
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
@@ -600,22 +433,19 @@ float tableHeight2 = 30;
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    
+    [parser release];
+
     bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
-    NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
+    NSString *message = [jsonDictionary objectForKey:@"message"];
     
     if(success) {
         
         [self.scrollView scrollsToTop];
-        
-        
-        _showConfirmation = NO;
+        [securityPinModalPanel hide];
         
         [txtRecipientUri setText: @""];
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
-        
-        [[SendMoneyRequest sendMoneyRequest] reset];
         
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Money Sent!" withMessage: message];
@@ -624,27 +454,28 @@ float tableHeight2 = 30;
     else {
         [self showAlertView: @"Sorry.  Try Again.!" withMessage:message];
     }
+
 }
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Register User Failed");
+    NSLog(@"Send Money Failed");
 }
-- (void) showAlertView:(NSString *)title withMessage: (NSString *) message  {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: title
-                                                        message: message
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if(textField.tag == 1)
+    {
+        [textField setText: @"$0.00"];
+        
+        return NO;
+    } 
     
-    [alertView show];
-}
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate signOut];
+    return YES;
 }
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
-    NSCharacterSet *numSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789-"];
+    if([recipientUriToTest length]  == 0)
+        return false;
+    
+    if(isnumber([recipientUriToTest characterAtIndex:0])) {
+        NSCharacterSet *numSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789-"];
     
     @try {
         if(([[recipientUriToTest stringByTrimmingCharactersInSet:numSet] isEqualToString:@""]) && ([[recipientUriToTest stringByReplacingOccurrencesOfString:@"-" withString:@""] length] == 10))
@@ -654,6 +485,9 @@ float tableHeight2 = 30;
     }
     @catch (NSException *exception) {
         return false;
+        }   
+    } else {
+       return true;
     }
 }
 -(BOOL) isValidAmount:(NSString *) amountToTest {
@@ -669,4 +503,62 @@ float tableHeight2 = 30;
         return false;
     }
 }
+- (IBAction)showModalPanel {
+         
+    [txtAmount resignFirstResponder];
+    [txtRecipientUri resignFirstResponder];
+    [txtComments resignFirstResponder];
+    
+    securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
+    
+    securityPinModalPanel.dialogTitle.text = @"Confirm Your Payment";
+    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To confirm your payment of %@ to %@, swipe your pin below.", [[txtAmount.text copy] autorelease], [[txtRecipientUri.text copy] autorelease]];
+    [securityPinModalPanel.btnCancelPayment setTitle: @"Cancel Payment" forState: UIControlStateNormal];
+    securityPinModalPanel.delegate = self;
+    
+    ///////////////////////////////////
+    // Add the panel to our view
+    [self.view addSubview:securityPinModalPanel];
+         
+    ///////////////////////////////////
+    // Show the panel from the center of the button that was pressed
+    [securityPinModalPanel show];
+}
+     
+     
+#pragma mark - UAModalDisplayPanelViewDelegate 
+     
+     // Optional: This is called before the open animations.
+     //   Only used if delegate is set.
+     - (void)willShowModalPanel:(UAModalPanel *)modalPanel {
+         UADebugLog(@"willShowModalPanel called with modalPanel: %@", modalPanel);
+     }
+     
+     // Optional: This is called after the open animations.
+     //   Only used if delegate is set.
+     - (void)didShowModalPanel:(UAModalPanel *)modalPanel {
+         UADebugLog(@"didShowModalPanel called with modalPanel: %@", modalPanel);
+     }
+     
+     // Optional: This is called when the close button is pressed
+     //   You can use it to perform validations
+     //   Return YES to close the panel, otherwise NO
+     //   Only used if delegate is set.
+     - (BOOL)shouldCloseModalPanel:(UAModalPanel *)modalPanel {
+         UADebugLog(@"shouldCloseModalPanel called with modalPanel: %@", modalPanel);
+         return YES;
+     }
+     
+     // Optional: This is called before the close animations.
+     //   Only used if delegate is set.
+     - (void)willCloseModalPanel:(UAModalPanel *)modalPanel {
+         UADebugLog(@"willCloseModalPanel called with modalPanel: %@", modalPanel);
+     }
+     
+     // Optional: This is called after the close animations.
+     //   Only used if delegate is set.
+     - (void)didCloseModalPanel:(UAModalPanel *)modalPanel {
+         UADebugLog(@"didCloseModalPanel called with modalPanel: %@", modalPanel);
+     }
+    
 @end

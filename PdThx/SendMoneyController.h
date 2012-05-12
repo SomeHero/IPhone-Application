@@ -8,36 +8,38 @@
 
 #import <UIKit/UIKit.h>
 #import "ALUnlockPatternView.h"
-#import "SNPopupView.h"
 #import "ASIHTTPRequest.h"
+#import "ConfirmPaymentDialogController.h"
+#import "SignInCompleteProtocol.h"
+#import "ACHSetupCompleteProtocol.h"
+#import "UIBaseViewController.h"
+#import "Environment.h"
 
-@interface SendMoneyController : UIViewController<ALUnlockPatternViewDelegate, UIAlertViewDelegate, SNPopupViewModalDelegate, UITableViewDelegate, UITextFieldDelegate> {
-    SNPopupView		*popup;
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource> {
     UITableView *autoCompleteTableView;
-    ALUnlockPatternView *_viewLock;
-    IBOutlet UIScrollView *scrollView;
+    IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtRecipientUri;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextField *txtComments;
-    UIButton *button;
-    BOOL _showConfirmation;
-    int _amountCharCount;
-    NSMutableArray *autoCompleteArray; 
-    NSMutableArray *allResults;
+    IBOutlet UIButton *btnSendMoney;
+    ConfirmPaymentDialogController *securityPinModalPanel;
+    NSString* recipientUri;
+    NSString* amount;
+    NSString* comments;
 }
-@property(nonatomic, retain) UIScrollView *scrollView;
+@property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtRecipientUri;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextField *txtComments;
+@property(nonatomic, retain) UIButton *btnSendMoney;
+@property(nonatomic, retain) NSString* amount;
+
 
 -(IBAction) bgTouched:(id) sender;
--(BOOL) showConfirmation;
--(void) setShowConfirmation:(BOOL)showConfirmation;
--(void) registerUser:(NSString*) userName withMobileNumber:(NSString *) mobileNumber withSecurityPin : (NSString *) securityPin;
--(void) sendMoney:(NSString*) amount toRecipient:(NSString *) recipientUri fromMobileNumber:(NSString *) fromMobileNumber withComment:(NSString *) comments withSecurityPin:(NSString *) securityPin
-       fromUserId: (NSString *) userId fromAccount:(NSString *) fromAccount;
--(void) receiveUserRegisterRequest: (ASIHTTPRequest*) request;
-- (void) showAlertView:(NSString *)title withMessage: (NSString *) message;
+-(IBAction) btnSendMoneyClicked:(id) sender;
+-(void)showModalPanel;
+-(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
+       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount;
 -(void) signOutClicked;
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest;
 -(BOOL) isValidAmount:(NSString *) amountToTest;

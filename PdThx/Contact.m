@@ -12,4 +12,10 @@
 @implementation Contact
 @synthesize name, phoneNumber;
 
+- (void)dealloc {
+    [name release];
+    [phoneNumber release];
+
+    [super dealloc];
+}
 @end

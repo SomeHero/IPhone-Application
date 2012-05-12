@@ -20,8 +20,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define kMinSideLength              250
-#define kRadiusPercentage           30
+#define kMinSideLength              150
+#define kRadiusPercentage           22
 #define kLineColor                  [UIColor blueColor]
 #define kLineWidth                  5
 
