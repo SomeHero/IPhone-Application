@@ -268,25 +268,11 @@
 		5BD2790B154116C300CAFC12 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27909154116C200CAFC12 /* HomeViewController.xib */; };
 		5BD2790F154116EB00CAFC12 /* PayStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2790D154116E800CAFC12 /* PayStreamViewController.m */; };
 		5BD27910154116EB00CAFC12 /* PayStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */; };
-		5BD2791D154491A200CAFC12 /* button_quick_link_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD2791C154491A200CAFC12 /* button_quick_link_request.png */; };
-		5BD279221544950600CAFC12 /* person_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD279211544950600CAFC12 /* person_icon_small.png */; };
 		5BD2793B15464D6700CAFC12 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2793A15464D6700CAFC12 /* Transaction.m */; };
 		5BD2793F15465FFD00CAFC12 /* NumberFormatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2793E15465FFD00CAFC12 /* NumberFormatting.m */; };
 		5BD27BB31547939800CAFC12 /* UITransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BB21547939700CAFC12 /* UITransactionTableViewCell.m */; };
-		5BD27BB815479D7E00CAFC12 /* paystream_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BB415479D7E00CAFC12 /* paystream_received_icon.png */; };
-		5BD27BB915479D7E00CAFC12 /* paystream_request_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BB515479D7E00CAFC12 /* paystream_request_received_icon.png */; };
-		5BD27BBA15479D7E00CAFC12 /* paystream_request_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BB615479D7E00CAFC12 /* paystream_request_sent_icon.png */; };
-		5BD27BBB15479D7E00CAFC12 /* paystream_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BB715479D7E00CAFC12 /* paystream_sent_icon.png */; };
-		5BD27BC01547A0E900CAFC12 /* request_decide_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BBC1547A0E900CAFC12 /* request_decide_icon.png */; };
-		5BD27BC11547A0E900CAFC12 /* request_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BBD1547A0E900CAFC12 /* request_pending_icon.png */; };
-		5BD27BC21547A0E900CAFC12 /* transaction_complete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BBE1547A0E900CAFC12 /* transaction_complete_icon.png */; };
-		5BD27BC31547A0E900CAFC12 /* transaction_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BBF1547A0E900CAFC12 /* transaction_pending_icon.png */; };
-		5BD27BC51547A9C500CAFC12 /* transaction_row_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BC41547A9C500CAFC12 /* transaction_row_background.png */; };
-		5BD27BC71547AC8000CAFC12 /* transaction_rowalt_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BC61547AC8000CAFC12 /* transaction_rowalt_background.png */; };
-		5BD27BC91547B06F00CAFC12 /* button_quick_link_send.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BC81547B06F00CAFC12 /* button_quick_link_send.png */; };
 		5BD27BCD1547B46D00CAFC12 /* UIBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BCC1547B46500CAFC12 /* UIBaseViewController.m */; };
 		5BD27BD11547BDA000CAFC12 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BD01547BDA000CAFC12 /* Contact.m */; };
-		5BD27BD41547C2DF00CAFC12 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD27BD31547C2DF00CAFC12 /* Default.png */; };
 		5BD27BEA154B7E3E00CAFC12 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BE9154B7E3D00CAFC12 /* User.m */; };
 		5BD27BEE154B92FB00CAFC12 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BED154B92FB00CAFC12 /* UserService.m */; };
 		5BE6F77414E3859300599EF2 /* ALUnlockPatternView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */; };
@@ -628,30 +614,16 @@
 		5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayStreamViewController.xib; sourceTree = "<group>"; };
 		5BD279121544438700CAFC12 /* ACHSetupCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACHSetupCompleteProtocol.h; sourceTree = "<group>"; };
 		5BD27913154445E100CAFC12 /* SignInCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInCompleteProtocol.h; sourceTree = "<group>"; };
-		5BD2791C154491A200CAFC12 /* button_quick_link_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_quick_link_request.png; path = "../../../../../IPhone Icons/button_quick_link_request.png"; sourceTree = "<group>"; };
-		5BD279211544950600CAFC12 /* person_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = person_icon_small.png; path = "../../../../../IPhone Icons/person_icon_small.png"; sourceTree = "<group>"; };
 		5BD2793915464D6700CAFC12 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
 		5BD2793A15464D6700CAFC12 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 		5BD2793D15465FFD00CAFC12 /* NumberFormatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberFormatting.h; sourceTree = "<group>"; };
 		5BD2793E15465FFD00CAFC12 /* NumberFormatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberFormatting.m; sourceTree = "<group>"; };
 		5BD27BB11547939600CAFC12 /* UITransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UITransactionTableViewCell.h; path = ../UITransactionTableViewCell.h; sourceTree = "<group>"; };
 		5BD27BB21547939700CAFC12 /* UITransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UITransactionTableViewCell.m; path = ../UITransactionTableViewCell.m; sourceTree = "<group>"; };
-		5BD27BB415479D7E00CAFC12 /* paystream_received_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_received_icon.png; path = "../../../../../IPhone Icons/paystream_received_icon.png"; sourceTree = "<group>"; };
-		5BD27BB515479D7E00CAFC12 /* paystream_request_received_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_request_received_icon.png; path = "../../../../../IPhone Icons/paystream_request_received_icon.png"; sourceTree = "<group>"; };
-		5BD27BB615479D7E00CAFC12 /* paystream_request_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_request_sent_icon.png; path = "../../../../../IPhone Icons/paystream_request_sent_icon.png"; sourceTree = "<group>"; };
-		5BD27BB715479D7E00CAFC12 /* paystream_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_sent_icon.png; path = "../../../../../IPhone Icons/paystream_sent_icon.png"; sourceTree = "<group>"; };
-		5BD27BBC1547A0E900CAFC12 /* request_decide_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_decide_icon.png; path = "../../../../../IPhone Icons/request_decide_icon.png"; sourceTree = "<group>"; };
-		5BD27BBD1547A0E900CAFC12 /* request_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_pending_icon.png; path = "../../../../../IPhone Icons/request_pending_icon.png"; sourceTree = "<group>"; };
-		5BD27BBE1547A0E900CAFC12 /* transaction_complete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_complete_icon.png; path = "../../../../../IPhone Icons/transaction_complete_icon.png"; sourceTree = "<group>"; };
-		5BD27BBF1547A0E900CAFC12 /* transaction_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_pending_icon.png; path = "../../../../../IPhone Icons/transaction_pending_icon.png"; sourceTree = "<group>"; };
-		5BD27BC41547A9C500CAFC12 /* transaction_row_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_row_background.png; path = "../../../../../IPhone Icons/transaction_row_background.png"; sourceTree = "<group>"; };
-		5BD27BC61547AC8000CAFC12 /* transaction_rowalt_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_rowalt_background.png; path = "../../../../../IPhone Icons/transaction_rowalt_background.png"; sourceTree = "<group>"; };
-		5BD27BC81547B06F00CAFC12 /* button_quick_link_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_quick_link_send.png; path = "../../../../../IPhone Icons/button_quick_link_send.png"; sourceTree = "<group>"; };
 		5BD27BCB1547B46300CAFC12 /* UIBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBaseViewController.h; sourceTree = "<group>"; };
 		5BD27BCC1547B46500CAFC12 /* UIBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBaseViewController.m; sourceTree = "<group>"; };
 		5BD27BCF1547BD9F00CAFC12 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		5BD27BD01547BDA000CAFC12 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
-		5BD27BD31547C2DF00CAFC12 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = "../../../../../IPhone Icons/Default.png"; sourceTree = "<group>"; };
 		5BD27BD61548D95700CAFC12 /* SignOutCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignOutCompleteProtocol.h; sourceTree = "<group>"; };
 		5BD27BE8154B7E3B00CAFC12 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		5BD27BE9154B7E3D00CAFC12 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -796,20 +768,6 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				5BD27BD31547C2DF00CAFC12 /* Default.png */,
-				5BD27BC81547B06F00CAFC12 /* button_quick_link_send.png */,
-				5BD27BC61547AC8000CAFC12 /* transaction_rowalt_background.png */,
-				5BD27BC41547A9C500CAFC12 /* transaction_row_background.png */,
-				5BD27BBC1547A0E900CAFC12 /* request_decide_icon.png */,
-				5BD27BBD1547A0E900CAFC12 /* request_pending_icon.png */,
-				5BD27BBE1547A0E900CAFC12 /* transaction_complete_icon.png */,
-				5BD27BBF1547A0E900CAFC12 /* transaction_pending_icon.png */,
-				5BD27BB415479D7E00CAFC12 /* paystream_received_icon.png */,
-				5BD27BB515479D7E00CAFC12 /* paystream_request_received_icon.png */,
-				5BD27BB615479D7E00CAFC12 /* paystream_request_sent_icon.png */,
-				5BD27BB715479D7E00CAFC12 /* paystream_sent_icon.png */,
-				5BD279211544950600CAFC12 /* person_icon_small.png */,
-				5BD2791C154491A200CAFC12 /* button_quick_link_request.png */,
 				5BD278EE153BC5BA00CAFC12 /* button_create_an_account.png */,
 				5BD278EC153BC53A00CAFC12 /* button_sign_in.png */,
 				5B88686B15295A6600EA24A4 /* button_request_money.png */,
@@ -1520,20 +1478,6 @@
 				5BD27906153FABAB00CAFC12 /* ConfirmSecurityPinDialog.xib in Resources */,
 				5BD2790B154116C300CAFC12 /* HomeViewController.xib in Resources */,
 				5BD27910154116EB00CAFC12 /* PayStreamViewController.xib in Resources */,
-				5BD2791D154491A200CAFC12 /* button_quick_link_request.png in Resources */,
-				5BD279221544950600CAFC12 /* person_icon_small.png in Resources */,
-				5BD27BB815479D7E00CAFC12 /* paystream_received_icon.png in Resources */,
-				5BD27BB915479D7E00CAFC12 /* paystream_request_received_icon.png in Resources */,
-				5BD27BBA15479D7E00CAFC12 /* paystream_request_sent_icon.png in Resources */,
-				5BD27BBB15479D7E00CAFC12 /* paystream_sent_icon.png in Resources */,
-				5BD27BC01547A0E900CAFC12 /* request_decide_icon.png in Resources */,
-				5BD27BC11547A0E900CAFC12 /* request_pending_icon.png in Resources */,
-				5BD27BC21547A0E900CAFC12 /* transaction_complete_icon.png in Resources */,
-				5BD27BC31547A0E900CAFC12 /* transaction_pending_icon.png in Resources */,
-				5BD27BC51547A9C500CAFC12 /* transaction_row_background.png in Resources */,
-				5BD27BC71547AC8000CAFC12 /* transaction_rowalt_background.png in Resources */,
-				5BD27BC91547B06F00CAFC12 /* button_quick_link_send.png in Resources */,
-				5BD27BD41547C2DF00CAFC12 /* Default.png in Resources */,
 				5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
