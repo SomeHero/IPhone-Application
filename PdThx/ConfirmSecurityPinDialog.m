@@ -86,3 +86,5 @@
 	
 	[v setFrame:self.contentView.bounds];
 }
+
+@end

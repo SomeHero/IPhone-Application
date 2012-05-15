@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		543803A11562BE6B00BD6284 /* button_quick_link_send.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803941562BE6B00BD6284 /* button_quick_link_send.png */; };
+		543803A21562BE6B00BD6284 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803951562BE6B00BD6284 /* Default.png */; };
+		543803A31562BE6B00BD6284 /* paystream_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803961562BE6B00BD6284 /* paystream_received_icon.png */; };
+		543803A41562BE6B00BD6284 /* paystream_request_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803971562BE6B00BD6284 /* paystream_request_received_icon.png */; };
+		543803A51562BE6B00BD6284 /* paystream_request_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803981562BE6B00BD6284 /* paystream_request_sent_icon.png */; };
+		543803A61562BE6B00BD6284 /* paystream_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803991562BE6B00BD6284 /* paystream_sent_icon.png */; };
+		543803A71562BE6B00BD6284 /* person_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039A1562BE6B00BD6284 /* person_icon_small.png */; };
+		543803A81562BE6B00BD6284 /* request_decide_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039B1562BE6B00BD6284 /* request_decide_icon.png */; };
+		543803A91562BE6B00BD6284 /* request_money_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039C1562BE6B00BD6284 /* request_money_off.png */; };
+		543803AA1562BE6B00BD6284 /* request_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039D1562BE6B00BD6284 /* request_pending_icon.png */; };
+		543803AB1562BE6B00BD6284 /* transaction_complete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */; };
+		543803AC1562BE6B00BD6284 /* transaction_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */; };
+		543803AD1562BE6B00BD6284 /* transaction_rowalt_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */; };
 		5B3F4A9E155F41E300A67649 /* SendMoneyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4A9D155F41E300A67649 /* SendMoneyService.m */; };
 		5B3F4AA1155F4F1300A67649 /* RequestMoneyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */; };
 		5B3F4AA4155F571900A67649 /* GetPayStreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4AA3155F571900A67649 /* GetPayStreamService.m */; };
@@ -297,6 +310,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		543803941562BE6B00BD6284 /* button_quick_link_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_quick_link_send.png; path = images/button_quick_link_send.png; sourceTree = "<group>"; };
+		543803951562BE6B00BD6284 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = images/Default.png; sourceTree = "<group>"; };
+		543803961562BE6B00BD6284 /* paystream_received_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_received_icon.png; path = images/paystream_received_icon.png; sourceTree = "<group>"; };
+		543803971562BE6B00BD6284 /* paystream_request_received_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_request_received_icon.png; path = images/paystream_request_received_icon.png; sourceTree = "<group>"; };
+		543803981562BE6B00BD6284 /* paystream_request_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_request_sent_icon.png; path = images/paystream_request_sent_icon.png; sourceTree = "<group>"; };
+		543803991562BE6B00BD6284 /* paystream_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_sent_icon.png; path = images/paystream_sent_icon.png; sourceTree = "<group>"; };
+		5438039A1562BE6B00BD6284 /* person_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = person_icon_small.png; path = images/person_icon_small.png; sourceTree = "<group>"; };
+		5438039B1562BE6B00BD6284 /* request_decide_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_decide_icon.png; path = images/request_decide_icon.png; sourceTree = "<group>"; };
+		5438039C1562BE6B00BD6284 /* request_money_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_money_off.png; path = images/request_money_off.png; sourceTree = "<group>"; };
+		5438039D1562BE6B00BD6284 /* request_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_pending_icon.png; path = images/request_pending_icon.png; sourceTree = "<group>"; };
+		5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_complete_icon.png; path = images/transaction_complete_icon.png; sourceTree = "<group>"; };
+		5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_pending_icon.png; path = images/transaction_pending_icon.png; sourceTree = "<group>"; };
+		543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_rowalt_background.png; path = images/transaction_rowalt_background.png; sourceTree = "<group>"; };
 		5B3F4A9C155F41E200A67649 /* SendMoneyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyService.h; sourceTree = "<group>"; };
 		5B3F4A9D155F41E300A67649 /* SendMoneyService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyService.m; sourceTree = "<group>"; };
 		5B3F4A9F155F4F1300A67649 /* RequestMoneyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyService.h; sourceTree = "<group>"; };
@@ -768,6 +794,19 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				543803941562BE6B00BD6284 /* button_quick_link_send.png */,
+				543803951562BE6B00BD6284 /* Default.png */,
+				543803961562BE6B00BD6284 /* paystream_received_icon.png */,
+				543803971562BE6B00BD6284 /* paystream_request_received_icon.png */,
+				543803981562BE6B00BD6284 /* paystream_request_sent_icon.png */,
+				543803991562BE6B00BD6284 /* paystream_sent_icon.png */,
+				5438039A1562BE6B00BD6284 /* person_icon_small.png */,
+				5438039B1562BE6B00BD6284 /* request_decide_icon.png */,
+				5438039C1562BE6B00BD6284 /* request_money_off.png */,
+				5438039D1562BE6B00BD6284 /* request_pending_icon.png */,
+				5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */,
+				5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */,
+				543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */,
 				5BD278EE153BC5BA00CAFC12 /* button_create_an_account.png */,
 				5BD278EC153BC53A00CAFC12 /* button_sign_in.png */,
 				5B88686B15295A6600EA24A4 /* button_request_money.png */,
@@ -1479,6 +1518,19 @@
 				5BD2790B154116C300CAFC12 /* HomeViewController.xib in Resources */,
 				5BD27910154116EB00CAFC12 /* PayStreamViewController.xib in Resources */,
 				5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */,
+				543803A11562BE6B00BD6284 /* button_quick_link_send.png in Resources */,
+				543803A21562BE6B00BD6284 /* Default.png in Resources */,
+				543803A31562BE6B00BD6284 /* paystream_received_icon.png in Resources */,
+				543803A41562BE6B00BD6284 /* paystream_request_received_icon.png in Resources */,
+				543803A51562BE6B00BD6284 /* paystream_request_sent_icon.png in Resources */,
+				543803A61562BE6B00BD6284 /* paystream_sent_icon.png in Resources */,
+				543803A71562BE6B00BD6284 /* person_icon_small.png in Resources */,
+				543803A81562BE6B00BD6284 /* request_decide_icon.png in Resources */,
+				543803A91562BE6B00BD6284 /* request_money_off.png in Resources */,
+				543803AA1562BE6B00BD6284 /* request_pending_icon.png in Resources */,
+				543803AB1562BE6B00BD6284 /* transaction_complete_icon.png in Resources */,
+				543803AC1562BE6B00BD6284 /* transaction_pending_icon.png in Resources */,
+				543803AD1562BE6B00BD6284 /* transaction_rowalt_background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
