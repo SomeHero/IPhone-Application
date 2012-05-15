@@ -11,6 +11,7 @@
 #import "ConfirmSecurityPinDialog.h"
 #import "SetupACHAccountController.h"
 #import "ASIHTTPRequest.h"
+#import "RegisterUserService.h"
 
 
 @interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, SecurityPinCompleteDelegate, ConfirmSecurityPinCompleteDelegate,
@@ -30,6 +31,7 @@
     IBOutlet UIView *viewPanel;
     id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
     ASIHTTPRequest *requestObj;
+    RegisterUserService* registerUserService;
 }
 @property(nonatomic, retain) UIButton *btnCreateAccount;
 @property(nonatomic, retain) UITextField *txtEmailAddress;
@@ -47,6 +49,5 @@
 -(BOOL)isValidPassword:(NSString *) passwordToTest;
 -(BOOL)doesPasswordMatch:(NSString *) passwordToTest passwordToMatch: (NSString *) confirmPassword;
 -(void) showConfirmSecurityPin;
--(void) registerUser:(NSString *) userName withPassword:(NSString *) password withMobileNumber:(NSString *) mobileNumber withSecurityPin : (NSString *) securityPin;
 
 @end

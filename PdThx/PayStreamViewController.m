@@ -8,10 +8,11 @@
 
 #import "PayStreamViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "SBJsonParser.h"
 #import "SignInViewController.h"
 #import "PdThxAppDelegate.h"
-#import "Environment.h"
+#import "GetPayStreamService.h"
+#import "GetPayStreamCompleteProtocol.h"
+#import "PaystreamMessage.h"
 
 @implementation PayStreamViewController
 
@@ -39,6 +40,7 @@
     [responseData release];
     [transactionConnection release];
     [signInViewController release];
+    [getPayStreamService release];
     
     [super dealloc];
 }
@@ -78,6 +80,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    getPayStreamService = [[GetPayStreamService alloc] init];
+    [getPayStreamService setGetPayStreamCompleteDelegate:self];
+
     // Do any additional setup after loading the view from its nib.
     //setup internal viewpanel
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
@@ -105,80 +111,51 @@
         [self.navigationController pushViewController:signInViewController animated:NO];
 
     } else {
-        Environment *myEnvironment = [Environment sharedInstance];
-        NSString *rootUrl = myEnvironment.pdthxWebServicesBaseUrl;
-        NSString *apiKey = myEnvironment.pdthxAPIKey;
         
-        NSString *urlString = [NSString stringWithFormat: @"%@/services/TransactionService/Transactions/%@?apiKey=%@", rootUrl, userId, apiKey];    
-        responseData = [[NSMutableData data] retain];
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-        transactionConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        [getPayStreamService getPayStream:userId];
+
     }
 }
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	[responseData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	[responseData appendData:data];
+-(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
+{
+    NSLog(@"Got paystream messages");
     
-}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	//label.text = [NSString stringWithFormat:@"Connection failed: %@", [error description]];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [connection release];
-
-    NSString *teams = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    NSArray *tempArray = [[parser objectWithString:teams] copy];
-
-    NSMutableArray* tempTransactions = [[[NSMutableArray alloc] initWithArray:tempArray] copy];
-    
-    transactions = [[NSMutableArray alloc] init];
+    transactions = [payStreamMessages copy];
     sections = [[NSMutableArray alloc] init];
     
-    for(int i = 0; i <[tempTransactions count]; i++)
-    {
-        [transactions addObject:[[[Transaction alloc] initWithDictionary: [tempTransactions objectAtIndex:(NSUInteger) i]] autorelease]];
-    }
-
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyy"];
-
+    
     bool found;
     transactionsDict = [[NSMutableDictionary alloc] init];
-
+    
     for(Transaction* item in transactions)
     {
         NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
-
+        
         found = NO;
-
+        
         for(int i = 0; i <[sections count]; i++)
         {
             NSString * myDate = [sections objectAtIndex:(NSUInteger) i];
-
+            
             if ([myDate isEqualToString:transactionDate])
             {
                 found = YES;
             }
         }
-
+        
         if(!found) {
             [sections addObject: transactionDate];
             [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey: transactionDate];
         }
     }
-
+    
     for(Transaction* item in transactions)
     {
-
+        
         NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
-
+        
         [[transactionsDict objectForKey:transactionDate] addObject:item];
     }
     
@@ -205,7 +182,7 @@
         lblNoItems.baselineAdjustment = UIBaselineAdjustmentNone;
         [lblNoItems setFont:[UIFont fontWithName:@"Helvetica" size:15.0]];
         lblNoItems.numberOfLines = 0;
-   
+        
         UIView* viewNoItems = [[UIView alloc] initWithFrame:CGRectMake(8, transactionsTableView.frame.origin.y + 20, transactionsTableView.frame.size.width - 20, rect.size.height + 24)];
         
         [[viewNoItems layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
@@ -223,17 +200,12 @@
     else
     {
         [transactionsTableView setHidden:NO];
-    
+        
         [[self transactionsTableView] reloadData];
     }
-
-    [parser release];
+    
     [dateFormatter release];
-    [teams release];
-    [tempArray release];
-    [tempTransactions release];
 }
-
 
 - (void)viewDidUnload
 {
@@ -270,6 +242,11 @@
 {
     static NSString *CellIdentifier = @"TranasctionCell";
 
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString* userId = [prefs stringForKey:@"userId"];
+    NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
+    
     UITransactionTableViewCell *cell = (UITransactionTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITransactionTableViewCell alloc] initWithFrame: CGRectZero reuseIdentifier:CellIdentifier] autorelease];
@@ -278,14 +255,14 @@
     NSLog(@"%d", indexPath.section);
     NSLog(@"%d", indexPath.row);
 
-    Transaction* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
 
     // Configure the cell...
-    if([item.transactionType isEqualToString: @"Withdrawal"]) {
-        cell.lblRecipientUri.text = item.recipientUri;
+    if([item.senderUri isEqualToString: mobileNumber]) {
+        cell.lblRecipientUri.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.recipientUri];
     }
-    else if([item.transactionType isEqualToString: @"Deposit"]) {
-        cell.lblRecipientUri.text = item.senderUri;
+    else {
+        cell.lblRecipientUri.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.senderUri];
     }
     [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
@@ -300,11 +277,21 @@
     //cell.imageView.image = [UIImage  imageNamed:@"icon_checkmark.png"];
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-    if([item.transactionType isEqualToString: @"Withdrawal"]) {
+    if([item.senderUri isEqualToString: mobileNumber]) {
+        if([item.messageType isEqualToString: @"Payment"]) {
             [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
+        } else  {
+            [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_request_sent_icon.png"]];
+        } 
     }
-    else if([item.transactionType isEqualToString: @"Deposit"]) {
-        [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_received_icon.png"]];
+    else {
+        if([item.messageType isEqualToString: @"Payment"]) {
+            [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_received_icon.png"]];
+        }
+        else  {
+                [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_request_received_icon.png"]];
+            } 
+            
     }
     cell.imgTransactionStatus.image = [UIImage imageNamed: @"transaction_complete_icon.png"];
 

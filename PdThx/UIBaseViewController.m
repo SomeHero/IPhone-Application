@@ -89,6 +89,7 @@ CGSize scrollViewOriginalSize;
     [scrollView release];
     [autoCompleteArray release];
     [allResults release];
+    [phoneNumberFormatter release];
     
     [super dealloc];
 }
@@ -115,7 +116,8 @@ CGSize scrollViewOriginalSize;
 - (void)viewDidLoad
 {
     [self registerForKeyboardNotifications];
-
+    phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
+    
     [super viewDidLoad];
     
 }
@@ -152,7 +154,7 @@ CGSize scrollViewOriginalSize;
     
     contact = [[Contact alloc] init];
     contact.name = @"James Rhodes";
-    contact.phoneNumber = @"804-387-9693";
+    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"804-387-9693"];
 
     [allResults addObject:contact];
 
@@ -160,7 +162,7 @@ CGSize scrollViewOriginalSize;
 
     contact = [[Contact alloc] init];
     contact.name = @"Rich Rhodes";
-    contact.phoneNumber = @"804-316-9693";
+    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"804-316-9693" ];
 
     [allResults addObject:contact];
 
@@ -168,7 +170,7 @@ CGSize scrollViewOriginalSize;
 
     contact = [[Contact alloc] init];
     contact.name = @"DeLacy LeBlanc";
-    contact.phoneNumber = @"615-517-8859";
+    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"615-517-8859" ];
 
     [allResults addObject:contact];
     
@@ -176,7 +178,7 @@ CGSize scrollViewOriginalSize;
 
     contact = [[Contact alloc] init];
     contact.name = @"Dad";
-    contact.phoneNumber = @"703-474-9405";
+    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"703-474-9405" ];
 
     [allResults addObject:contact];
 
@@ -204,7 +206,7 @@ CGSize scrollViewOriginalSize;
             
             contact = [[Contact alloc] init];
             contact.name = contactFirstLast;
-            contact.phoneNumber = phoneNumber;
+            contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: phoneNumber];
             
             [allResults addObject:contact];      
             

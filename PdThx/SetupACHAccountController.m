@@ -10,6 +10,7 @@
 #import "JSON.h"
 #import "ASIHTTPRequest.h"
 #import "Environment.h"
+#import "SetupACHAccountController.h"
 
 @interface SetupACHAccountController ()
 - (void)createACHAccount;
@@ -40,6 +41,7 @@
     [txtAccountNumber release];
     [txtConfirmAccountNumber release];
     [btnSetupACHAccount release];
+    [userSetupACHAccountService release];
     //[achSetupCompleteDelegate release];
 
     [super dealloc];
@@ -60,6 +62,8 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
+    userSetupACHAccountService = [[UserSetupACHAccount alloc] init];
+    [userSetupACHAccountService setUserACHSetupCompleteDelegate: self];
 }
 
 - (void)viewDidUnload
@@ -140,11 +144,24 @@
     }
 
     if(isValid) {
-        [self setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType];
+        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType];
     }
 
 }
-
+-(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setObject:paymentAccountId forKey:@"paymentAccountId"];
+    [prefs synchronize];
+    
+    [achSetupCompleteDelegate achSetupDidComplete];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+-(void)userACHSetupDidFail:(NSString*) message {
+    [self showAlertView: @"Unable to Setup Account" withMessage:message];
+}
 -(IBAction) btnSetupACHAccountClicked:(id) sender {
     [self createACHAccount];
 

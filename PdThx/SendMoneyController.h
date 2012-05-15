@@ -14,8 +14,10 @@
 #import "ACHSetupCompleteProtocol.h"
 #import "UIBaseViewController.h"
 #import "Environment.h"
+#import "SendMoneyService.h"
+#import "SendMoneyCompleteProtocol.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource> {
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource> {
     UITableView *autoCompleteTableView;
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtRecipientUri;
@@ -26,6 +28,7 @@
     NSString* recipientUri;
     NSString* amount;
     NSString* comments;
+    SendMoneyService* sendMoneyService;
 }
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtRecipientUri;

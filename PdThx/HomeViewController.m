@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "PdThxAppDelegate.h"
+#import "PhoneNumberFormatting.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor \
@@ -109,11 +110,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
 
-    lblUserName.text = user.mobileNumber;
+    PhoneNumberFormatting *phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
+    lblUserName.text = [phoneNumberFormatter stringToFormattedPhoneNumber: user.mobileNumber];
     lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
     lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
 
     [numberFormatter release];
+    [phoneNumberFormatter release];
 }
 -(void)signInDidComplete {
     [self.navigationController popViewControllerAnimated:NO];

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ACHSetupCompleteProtocol.h"
 #import "UIBaseViewController.h"
+#import "UserSetupACHAccount.h"
 
 @interface SetupACHAccountController : UIBaseViewController<UITextFieldDelegate> {
     IBOutlet UITextField* txtNameOnAccount;
@@ -16,12 +17,12 @@
     IBOutlet UITextField* txtAccountNumber;
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UIButton* btnSetupACHAccount;
+    UserSetupACHAccount* userSetupACHAccountService;
 }
 @property(nonatomic, retain) UITextField* txtNameOnAccount;
 @property(nonatomic, retain) UITextField* txtRoutingNumber;
 @property(nonatomic, retain) UITextField* txtAccountNumber;
 @property(nonatomic, retain) UITextField* txtConfirmAccountNumber;
-
 @property (retain) id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
 
 -(IBAction) bgTouched:(id) sender;

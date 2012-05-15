@@ -14,6 +14,7 @@
 #import "Contact.h"
 #import "SignInViewController.h"
 #import "SetupSecurityPin.h"
+#import "SendMoneyService.h"
 
 @interface SendMoneyController ()
 - (void)sendMoney;
@@ -45,6 +46,7 @@ float tableHeight2 = 30;
     [recipientUri release];
     [amount release];
     [comments release];
+    [sendMoneyService release];
 
     [super dealloc];
 }
@@ -65,7 +67,10 @@ float tableHeight2 = 30;
 {
     [super viewDidLoad];
     
-     autoCompleteArray = [[NSMutableArray alloc] init];
+    sendMoneyService = [[SendMoneyService alloc] init];
+    [sendMoneyService setSendMoneyCompleteDelegate:self];
+    
+    autoCompleteArray = [[NSMutableArray alloc] init];
     recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
     comments = [[NSString alloc] initWithString: @""];
@@ -155,8 +160,23 @@ float tableHeight2 = 30;
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
     
 
-    [self sendMoneyService:amount toRecipient:recipientUri
-   fromMobileNumber:mobileNumber withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount];
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:mobileNumber withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount];
+}
+-(void)sendMoneyDidComplete {
+    [self.scrollView scrollsToTop];
+    [securityPinModalPanel hide];
+
+    [txtRecipientUri setText: @""];
+    [txtAmount setText: @"$0.00"];
+    [txtComments setText: @""];
+    
+    NSString* message = [NSString stringWithString:@"Your money was sent"];
+
+    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+    [self showAlertView:@"Money Sent!" withMessage: message];
+}
+-(void)sendMoneyDidFail:(NSString*) message {
+    [self showAlertView: @"Error Sending Money" withMessage: message];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtRecipientUri resignFirstResponder];
@@ -165,7 +185,6 @@ float tableHeight2 = 30;
 }
 
 - (void)sendMoney {
-
 
     if([txtRecipientUri.text length] > 0)
         recipientUri = [txtRecipientUri.text copy];

@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "UIBaseViewController.h"
+#import "UserSignInCompleteProtocol.h"
 #import "SignInCompleteProtocol.h"
 #import "ACHSetupCompleteProtocol.h"
+#import "SignInUserService.h"
 
-@interface SignInViewController : UIBaseViewController<ACHSetupCompleteProtocol, UITextFieldDelegate>{
+@interface SignInViewController : UIBaseViewController<UserSignInCompleteProtocol, ACHSetupCompleteProtocol, UITextFieldDelegate>{
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
     IBOutlet UIView *viewPanel;
     id<SignInCompleteProtocol> signInCompleteDelegate;
     id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
+    SignInUserService *signInUserService;
 }
 @property(nonatomic, retain) UITextField *txtEmailAddress;
 @property(nonatomic, retain) UITextField *txtPassword;
@@ -29,6 +32,5 @@
 -(IBAction) btnCreateAnAccountClicked:(id) sender;
 -(BOOL)isValidUserName:(NSString *) userNameToTest;
 -(BOOL)isValidPassword:(NSString *) passwordToTest;
--(void) signInUser:(NSString*) myUserName withPassword:(NSString *) myPassword;
 
 @end

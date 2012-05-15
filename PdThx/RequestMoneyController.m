@@ -15,6 +15,7 @@
 #import "Environment.h"
 #import "SignInViewController.h"
 #import "SetupSecurityPin.h"
+#import "RequestMoneyService.h"
 
 #define kOFFSET_FOR_KEYBOARD 80.0
 
@@ -23,11 +24,7 @@
 - (BOOL)isValidAmount:(NSString *)amountToTest;
 
 - (void)requestMoney;
-
 - (void)signOutClicked;
--(void) requestMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient withComment:(NSString *)theComments withSecurityPin:(NSString *)theSecurityPin
-       fromUserId: (NSString *)theUserId fromAccount:(NSString *)theFromAccount;
-
 - (void)showModalPanel;
 
 
@@ -60,6 +57,7 @@ float tableHeight = 30;
     [recipient release];
     [amount release];
     [comments release];
+    [requestMoneyService release];
 
     [super dealloc];
 }
@@ -85,6 +83,9 @@ float tableHeight = 30;
 
     [super viewDidLoad];
 
+    requestMoneyService = [[RequestMoneyService alloc] init];
+    [requestMoneyService setRequestMoneyCompleteDelegate: self];
+    
     autoCompleteArray = [[NSMutableArray alloc] init];
 
     //---set the viewable frame of the scroll view---
@@ -323,45 +324,7 @@ float tableHeight = 30;
           }
 	[self finishedSearching];
 }
--(void) requestMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient withComment:(NSString *)theComments withSecurityPin:(NSString *)theSecurityPin
-       fromUserId: (NSString *)theUserId fromAccount:(NSString *)theFromAccount {
 
-    Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
-    NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
-
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/PaymentRequestService/PaymentRequests?apiKey=%@", rootUrl, apiKey]] autorelease];
-
-    NSString *deviceId = [[UIDevice currentDevice] uniqueIdentifier];
-
-    NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 apiKey, @"apiKey",
-                                 theUserId, @"userId",
-                                 deviceId, @"deviceId",
-                                 theRecipient, @"recipientUri",
-                                 theAmount, @"amount",
-                                 theComments, @"comments",
-                                 theFromAccount, @"fromAccount",
-                                 theSecurityPin, @"securityPin",
-                                 nil];
-
-    NSString *newJSON = [paymentData JSONRepresentation];
-
-    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];
-    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
-    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
-    [request setRequestMethod: @"POST"];
-
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(sendMoneyComplete:)];
-    [request setDidFailSelector:@selector(sendMoneyFailed:)];
-
-    [request startAsynchronous];
-    [rootUrl release];
-    [paymentData release];
-    [apiKey release];
-}
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
     NSString *theJSON = [request responseString];
@@ -422,16 +385,23 @@ float tableHeight = 30;
 
 }
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
-    NSCharacterSet *numSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789-"];
-
-    @try {
-        if(([[recipientUriToTest stringByTrimmingCharactersInSet:numSet] isEqualToString:@""]) && ([[recipientUriToTest stringByReplacingOccurrencesOfString:@"-" withString:@""] length] == 10))
-            return true;
-        else
-            return false;
-    }
-    @catch (NSException *exception) {
+    if([recipientUriToTest length]  == 0)
         return false;
+    
+    if(isnumber([recipientUriToTest characterAtIndex:0])) {
+        NSCharacterSet *numSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789-"];
+        
+        @try {
+            if(([[recipientUriToTest stringByTrimmingCharactersInSet:numSet] isEqualToString:@""]) && ([[recipientUriToTest stringByReplacingOccurrencesOfString:@"-" withString:@""] length] == 10))
+                return true;
+            else
+                return false;
+        }
+        @catch (NSException *exception) {
+            return false;
+        }   
+    } else {
+        return true;
     }
 }
 -(BOOL) isValidAmount:(NSString *) amountToTest {
@@ -454,7 +424,7 @@ float tableHeight = 30;
     comments = [[NSString alloc] initWithString: @""];
 
     if([txtRecipientUri.text length] > 0)
-        recipient = txtRecipientUri.text;
+        recipient = [txtRecipientUri.text copy];
 
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
@@ -530,11 +500,27 @@ float tableHeight = 30;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
     NSString* userId = [prefs stringForKey:@"userId"];
+    NSString* senderUri = [prefs stringForKey:@"mobileNumber"];
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
 
-    [self requestMoneyService:amount toRecipient:recipient withComment:comments withSecurityPin:code fromUserId:userId fromAccount:fromAccount];
+    [requestMoneyService requestMoney:amount toRecipient:recipient fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount];
 }
-
+-(void)requestMoneyDidComplete {
+    [self.scrollView scrollsToTop];
+    [securityPinModalPanel hide];
+    
+    [txtRecipientUri setText: @""];
+    [txtAmount setText: @"$0.00"];
+    [txtComments setText: @""];
+    
+    NSString* message = [NSString stringWithString:@"Your request was sent"];
+    
+    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+    [self showAlertView:@"Request Sent!" withMessage: message];
+}
+-(void)requestMoneyDidFail: (NSString*) message {
+    [self showAlertView: @"Error Requesting Money" withMessage:message];
+}
 #pragma mark - UAModalDisplayPanelViewDelegate 
 
 // Optional: This is called before the open animations.

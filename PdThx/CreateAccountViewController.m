@@ -7,9 +7,6 @@
 //
 
 #import "CreateAccountViewController.h"
-#import "Environment.h"
-#import "ASIHTTPRequest.h"
-#import "JSON.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kScreenWidth  320
@@ -54,6 +51,8 @@
     [userName release];
     //[achSetupCompleteDelegate release];
     [requestObj release];
+    [registerUserService release]; 
+    
     [super dealloc];
 }
 
@@ -70,6 +69,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    registerUserService = [[RegisterUserService alloc] init];
+    [registerUserService setUserRegistrationCompleteDelegate: self];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"Register"];
     
@@ -203,9 +205,38 @@
         [modalPanel hide];
         [modalPanel removeFromSuperview];
         
-        [self registerUser:userName withPassword:password withMobileNumber:mobileNumber withSecurityPin:securityPin];
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [spinner setCenter:CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0)]; // I do this because I'm in landscape mode
+        [self.view addSubview:spinner]; // spinner is not visible until started
+        
+        [spinner startAnimating];
+        
+        [registerUserService registerUser:userName withPassword:password withMobileNumber:mobileNumber withSecurityPin:securityPin];
     }
     
+}
+-(void)userRegistrationDidComplete:(NSString*) userId withSenderUri:(NSString*) senderUri 
+{
+    [spinner stopAnimating];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setObject:userId forKey:@"userId"];
+    [prefs setObject:senderUri forKey: @"mobileNumber"];
+    [prefs synchronize];
+    
+    SetupACHAccountController *setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle: nil];
+    
+    [setupACHAccountController setAchSetupCompleteDelegate:self];
+    [self.navigationController pushViewController:setupACHAccountController animated:true];
+    
+    [setupACHAccountController release];
+}
+-(void)userRegistrationDidFail:(NSString*) response
+{
+    [spinner stopAnimating];
+    
+    [self showAlertView: @"User Registration Failed" withMessage: response];
 }
 -(void) showConfirmSecurityPin {
     confirmSecurityPinModal = [[ConfirmSecurityPinDialog alloc] initWithFrame:self.view.bounds];
@@ -264,87 +295,6 @@
         return false;
     
     return true;
-}
--(void) registerUser:(NSString *) newUserName withPassword:(NSString *) newPassword withMobileNumber:(NSString *) newMobileNumber withSecurityPin : (NSString *) newSecurityPin
-{
-    spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [spinner setCenter:CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0)]; // I do this because I'm in landscape mode
-    [self.view addSubview:spinner]; // spinner is not visible until started
-    
-    [spinner startAnimating];
-    
-    Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = myEnvironment.pdthxWebServicesBaseUrl;
-    NSString *apiKey = myEnvironment.pdthxAPIKey;
-    
-    NSString *deviceId = [[UIDevice currentDevice] uniqueIdentifier];
-    
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/UserService/Register?apiKey=%@", rootUrl, apiKey]] autorelease];
-    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 apiKey, @"apiKey",
-                                 newUserName, @"userName",
-                                 newPassword, @"password",
-                                 newMobileNumber, @"mobileNumber",
-                                 newUserName, @"emailAddress",
-                                 deviceId, @"deviceId",
-                                 newSecurityPin, @"securityPin",
-                               nil];
-    
-    NSString *newJSON = [userData JSONRepresentation]; 
-    
-    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
-    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
-    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
-    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
-    [requestObj setRequestMethod: @"POST"];
-    
-    [requestObj setDelegate:self];
-    [requestObj setDidFinishSelector:@selector(registerUserComplete:)];
-    [requestObj setDidFailSelector:@selector(registerUserFailed:)];
-    
-    [requestObj startAsynchronous];
-}
--(void) registerUserComplete:(ASIHTTPRequest *)request
-{
-    NSString *theJSON = [request responseString];
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    
-    bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
-    NSString *message = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"message"]];
-
-    [spinner stopAnimating];
-    
-    if(success) {
-        
-        NSString* userId = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"userId"]];
-        
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setValue: userId forKey:NSLocalizedString(@"userId", @"userId")];
-        [prefs setValue: mobileNumber forKey:NSLocalizedString(@"mobileNumber", @"mobileNumber")];
-        [prefs synchronize];
-        
-        SetupACHAccountController *setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle: nil];
-
-        [setupACHAccountController setAchSetupCompleteDelegate:self];
-        [self.navigationController pushViewController:setupACHAccountController animated:true];
-
-        [userId release];
-        [setupACHAccountController release];
-    } else {
-        [self showAlertView:@"Unable to register!" withMessage:message];
-    }
-    [parser release];
-    [message release];
-}
--(void) registerUserFailed:(ASIHTTPRequest *)request
-{
-    [spinner stopAnimating];
-    
-    NSLog(@"Register User Failed");
 }
 -(void)achSetupDidComplete {
     [achSetupCompleteDelegate achSetupDidComplete];

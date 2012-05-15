@@ -8,11 +8,8 @@
 
 #import "SignInViewController.h"
 #import "CreateAccountViewController.h"
-#import "JSON.h"
-#import "ASIHTTPRequest.h"
-#import "Environment.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "SignInUserService.h"
 
 @interface SignInViewController ()
 - (void)signInUser;
@@ -38,6 +35,7 @@
 {
     [txtEmailAddress release];
     [txtPassword release];
+    [signInUserService release];
     //[signInCompleteDelegate release];
     //[achSetupCompleteDelegate release];
 
@@ -59,6 +57,10 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    signInUserService = [[SignInUserService alloc] init];
+    [signInUserService setUserSignInCompleteDelegate:self];
+    
     [self setTitle:@"Sign In"];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
@@ -134,10 +136,24 @@
     }
 
     if(isValid) {
-        [self signInUser:username withPassword:password];
+        [signInUserService validateUser:username withPassword:password];
     }
 }
+-(void)userSignInDidComplete:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue: userId forKey:@"userId"];
+    [prefs setValue: mobileNumber forKey:@"mobileNumber"];
+    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
+    
+    [prefs synchronize];
 
+    [signInCompleteDelegate signInDidComplete];
+}
+-(void)userSignInDidFail:(NSString *) reason {
+    [self showAlertView:@"User Validation Failed!" withMessage: reason];
+}
 -(IBAction) btnSignInClicked:(id) sender {
     [self signInUser];
 
@@ -164,74 +180,6 @@
         return false;
     
     return true;
-}
--(void) signInUser:(NSString*) myUserName withPassword:(NSString *) myPassword {
-    
-    Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = myEnvironment.pdthxWebServicesBaseUrl;
-    NSString *apiKey = myEnvironment.pdthxAPIKey;
-    
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/UserService/SignIn?apiKey=%@", rootUrl, apiKey]] autorelease];  
-    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
-                              myUserName, @"userName",
-                              myPassword, @"password",
-                              nil];
-    
-    NSString *newJSON = [userData JSONRepresentation]; 
-    
-    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
-    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
-    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
-    [request setRequestMethod: @"POST"];	
-    
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(signInUserComplete:)];
-    [request setDidFailSelector:@selector(signInUserFailed:)];
-    
-    [request startAsynchronous]; 
-}
--(void) signInUserComplete:(ASIHTTPRequest *)request
-{
-    NSString *theJSON = [request responseString];
-    
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    [parser release];
-    
-    BOOL isValid = [[jsonDictionary objectForKey:@"isValid"] boolValue];
-    NSString* userId = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"userId"]];
-    NSString* mobileNumber = [[NSString alloc] initWithString:[jsonDictionary objectForKey: @"mobileNumber"]];
-    NSString* paymentAccountId = [[NSString alloc] initWithString:[jsonDictionary objectForKey: @"paymentAccountId"]];
-    
-    if(isValid)
-    {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setObject: userId forKey:@"userId"];
-        [prefs setObject: mobileNumber forKey:@"mobileNumber"];
-        [prefs setObject: paymentAccountId forKey:@"paymentAccountId"];
-        [prefs setBool:TRUE forKey:@"setupPassword"];
-        [prefs setBool:TRUE forKey:@"setupSecurityPin"];
-        
-        [prefs synchronize];
-
-        [signInCompleteDelegate signInDidComplete];
-        
-    }
-    else {
-        [self showAlertView:@"Failed to sign in" withMessage: @"Unable to valide user name and password.  Try again."];          
-    }
-    
-    [userId release];
-    [mobileNumber release];
-    [paymentAccountId release];
-}
--(void) signInUserFailed:(ASIHTTPRequest *)request
-{
-    // statsCommuniqueDoneProblem ... !
-    NSLog(@"Setup Password Failed");
 }
 -(void)achSetupDidComplete {
     [achSetupCompleteDelegate achSetupDidComplete];
