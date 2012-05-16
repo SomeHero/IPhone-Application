@@ -29,6 +29,12 @@
     [self.window addSubview:self.tabBarController.view];
     [self.tabBarController setSelectedIndex:1];
     
+    
+    // Make the device expect notifications
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert )];
+    
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -71,6 +77,7 @@
      See also applicationDidEnterBackground:.
      */
 }
+
 -(void)signOut {
     NSLog(@"You Logged Out");
     
@@ -101,6 +108,24 @@
 -(void)switchToRequestMoneyController {
     [self.tabBarController setSelectedIndex:2];
 }
+
+
+/*       Push Notification Handling         */
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSLog( @"My token is: %@" , deviceToken );
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog( @"Failed to get token, error %@" , error );
+}
+
+
+
+
+
 - (void)dealloc
 {
     [_window release];
