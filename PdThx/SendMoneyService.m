@@ -21,6 +21,7 @@
     
     return self;
 }
+
 -(void) sendMoney:(NSString *)theAmount toRecipient:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
               fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     

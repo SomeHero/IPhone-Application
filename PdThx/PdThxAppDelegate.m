@@ -14,6 +14,8 @@
 #import "SBJsonParser.h"
 #import "JSON.h"
 
+#define URLOFSERVER "dev.paidthx.com"
+
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
@@ -98,6 +100,7 @@
     [prefs removeObjectForKey:@"paymentAccountId"];      
     [prefs removeObjectForKey:@"setupPassword"];
     [prefs removeObjectForKey:@"setupSecurityPin"];
+    [prefs removeObjectForKey:@"deviceToken"];
     
     [prefs synchronize];
 
@@ -112,9 +115,25 @@
 
 /*       Push Notification Handling         */
 
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    NSLog( @"My token is: %@" , deviceToken );
+- (void)application:(UIApplication*)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
+    
+    NSString *tokenStr = [deviceToken description];
+    
+    NSString *pushToken = [[[[tokenStr 
+                              stringByReplacingOccurrencesOfString:@"<" withString:@""] 
+                             stringByReplacingOccurrencesOfString:@">" withString:@""] 
+                            stringByReplacingOccurrencesOfString:@" " withString:@""] retain];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue:pushToken forKey:@"deviceToken"];
+    
+    [prefs synchronize];
+    
+    NSLog(@"Prefs object for token: %@" , [prefs stringForKey:@"deviceToken"]);
+    
+    NSLog(@"Device token stored as: %@" , deviceToken );
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

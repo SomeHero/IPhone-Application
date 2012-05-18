@@ -30,5 +30,12 @@
 		<key>pdthxWebServicesBaseUrl</key>
 		<string>http://staging.paidthx.me</string>
 	</dict>
+	<key>Notifs</key>
+	<dict>
+		<key>pdthxAPIKey</key>
+		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
+		<key>pdthxWebServicesBaseUrl</key>
+		<string>http://dev.paidthx.com</string>
+	</dict>
 </dict>
 </plist>

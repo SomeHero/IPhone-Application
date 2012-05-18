@@ -211,7 +211,10 @@
         
         [spinner startAnimating];
         
-        [registerUserService registerUser:userName withPassword:password withMobileNumber:mobileNumber withSecurityPin:securityPin];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSLog(@"Prefs currenty stores: %@" , [prefs stringForKey:@"deviceToken"]);
+        
+        [registerUserService registerUser:userName withPassword:password withMobileNumber:mobileNumber withSecurityPin:securityPin withDeviceId:[prefs stringForKey:@"deviceToken"]];
     }
     
 }

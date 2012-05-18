@@ -16,14 +16,15 @@
 
 @synthesize userRegistrationCompleteDelegate;
 
--(void) registerUser:(NSString *) newUserName withPassword:(NSString *) newPassword withMobileNumber:(NSString *) newMobileNumber withSecurityPin : (NSString *) newSecurityPin
+-(void) registerUser:(NSString *) newUserName withPassword:(NSString *) newPassword withMobileNumber:(NSString *) newMobileNumber withSecurityPin : (NSString *) newSecurityPin withDeviceId:(NSString*) deviceId
 {
-    
+    NSLog(@"Passed deviceToken into registerUser of string: %@" , deviceId);
     Environment *myEnvironment = [Environment sharedInstance];
+    
     NSString *rootUrl = myEnvironment.pdthxWebServicesBaseUrl;
     NSString *apiKey = myEnvironment.pdthxAPIKey;
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"http://dev.paidthx.com/api/internal/api/Users/?apiKey=%@", apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"http://dev.paidthx.com/api/internal/api/Users", apiKey]] autorelease];
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey, @"apiKey",
                               newUserName, @"userName",
@@ -31,9 +32,10 @@
                               newMobileNumber, @"mobileNumber",
                               newUserName, @"emailAddress",
                               newSecurityPin, @"securityPin",
+                              deviceId, @"deviceToken",
                               nil];
     
-    NSString *newJSON = [userData JSONRepresentation]; 
+    NSString *newJSON = [userData JSONRepresentation];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
@@ -66,6 +68,8 @@
         
     } else
     {
+        NSLog(@"%@", [request responseStatusMessage]);
+        
         NSString *theJSON = [request responseString];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -77,7 +81,7 @@
         
         [userRegistrationCompleteDelegate userRegistrationDidFail: message];
         
-        NSLog(@"User Registration Failed");
+        NSLog(@"User Registration Failed, Error Code %d", [request responseStatusCode]);
     }
 
 }

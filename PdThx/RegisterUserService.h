@@ -18,6 +18,6 @@
 @property(retain) id userRegistrationCompleteDelegate;
 
 
--(void) registerUser:(NSString *) newUserName withPassword:(NSString *) newPassword withMobileNumber:(NSString *) newMobileNumber withSecurityPin : (NSString *) newSecurityPin;
+-(void) registerUser:(NSString *) newUserName withPassword:(NSString *) newPassword withMobileNumber:(NSString *) newMobileNumber withSecurityPin : (NSString *) newSecurityPin withDeviceId: (NSString*) deviceId;
 
 @end
