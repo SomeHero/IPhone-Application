@@ -18,12 +18,16 @@
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UIButton* btnSetupACHAccount;
     UserSetupACHAccount* userSetupACHAccountService;
+    UIAlertView * skipBankAlert;
 }
+
 @property(nonatomic, retain) UITextField* txtNameOnAccount;
 @property(nonatomic, retain) UITextField* txtRoutingNumber;
 @property(nonatomic, retain) UITextField* txtAccountNumber;
 @property(nonatomic, retain) UITextField* txtConfirmAccountNumber;
 @property (retain) id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
+
+@property(nonatomic,retain) UIAlertView* skipBankAlert;
 
 -(IBAction) bgTouched:(id) sender;
 

@@ -93,9 +93,10 @@
   NSInteger nextTag = textField.tag + 1;
   // Try to find next responder
   UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-  if (nextResponder) {
-    // Found next responder, so set it.
-    [nextResponder becomeFirstResponder];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [textField resignFirstResponder];
+        [nextResponder becomeFirstResponder];
   } else {
         // Not found, so remove keyboard.
         [textField resignFirstResponder];

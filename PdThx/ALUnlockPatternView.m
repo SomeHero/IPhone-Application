@@ -57,7 +57,7 @@
     _radius=minSide*_radiusPercentage/100;
     UIButton *btn=(UIButton *)[self viewWithTag:index];
     float distance=[self distanceBetweenTwoPoints:btn.center point2:point];
-    if (distance<=_radius)
+    if (distance<=_radius*2)
         return YES;
     else
         return NO;
@@ -156,8 +156,8 @@
         _endPoint.x > self.frame.size.width ||
         _endPoint.y < 0 ||
         _endPoint.y > self.frame.size.height) {        
-        [self touchesEnded:nil withEvent:nil];
-        _touchStopped=YES;
+        //[self touchesEnded:nil withEvent:nil]; ** Removed because we don't care if their finger leaves the window, just if they let go. **
+        //_touchStopped=YES;
         return;
     }
     

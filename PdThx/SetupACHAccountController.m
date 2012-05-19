@@ -74,19 +74,20 @@
 }
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
-  NSInteger nextTag = textField.tag + 1;
-  // Try to find next responder
-  UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-  if (nextResponder) {
-    // Found next responder, so set it.
-    [nextResponder becomeFirstResponder];
-  } else {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [textField resignFirstResponder];
+        [nextResponder becomeFirstResponder];
+    } else {
         // Not found, so remove keyboard and try to create ach account
         [textField resignFirstResponder];
 
         [self createACHAccount];
-  }
-  return NO; // We do not want UITextField to insert line-breaks.
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -164,8 +165,40 @@
 }
 -(IBAction) btnSetupACHAccountClicked:(id) sender {
     [self createACHAccount];
-
 }
+ 
+-(IBAction) btnRemindMeLaterClicked:(id)sender {
+    /*
+        User has selected to skip the ACH Bank Account Add Form
+            An alert view is shown with the following information:
+                "Without adding a bank account, you will not be able to send or receive money using PaidThx. Press "Go Back" to add a bank account now.
+                        Press "Ok" to skip adding a bank account. You are able to add a bank account later under the "Settings" tab"
+                    Possible UIAlertViewButton Clicks:
+                        [Go Back] [Ok]
+     */
+    
+    skipBankAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Without adding a bank account, you will not be able to send or receive money using PaidThx. Press \"Go Back\" to add a bank account now. Press \"Skip\" to skip adding a bank account. You are able to add a bank account later under the \"Settings\" tab" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Go Back", nil];
+    skipBankAlert.alertViewStyle = UIAlertViewStyleDefault;
+    [skipBankAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ( alertView == skipBankAlert ){
+        if (buttonIndex == 0) {
+            NSLog(@"User skipped adding bank account");
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else if ( buttonIndex == 1 ){
+            NSLog(@"User chose to add bank account.");
+            // Simply dismisses the alert view and allows the person to retry entering bank information
+        }
+        else {
+            // You should never get here.
+            NSLog(@"Error occurred, no valid button.");
+        }
+    }
+}
+
 -(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType
 {
     

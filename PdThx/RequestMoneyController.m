@@ -184,16 +184,17 @@ float tableHeight = 30;
   NSInteger nextTag = textField.tag + 1;
   // Try to find next responder
   UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-  if (nextResponder) {
-    // Found next responder, so set it.
-    [nextResponder becomeFirstResponder];
-  } else {
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [textField resignFirstResponder];
+        [nextResponder becomeFirstResponder];
+    } else {
         // Not found, so remove keyboard.
         [textField resignFirstResponder];
 
         [self requestMoney];
-  }
-  return NO; // We do not want UITextField to insert line-breaks.
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 // String in Search textfield
