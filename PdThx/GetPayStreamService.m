@@ -30,10 +30,10 @@
 -(void)getPayStream:(NSString*) userId {
     
     Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = [NSString stringWithFormat:@"http://dev.paidthx.com/api/internal/api/%@/PayStreamMessages", userId];
+    NSString *rootUrl = [NSString stringWithFormat:@"/%@/PayStreamMessages", userId];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@?apiKey=%@", rootUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, rootUrl, apiKey]] autorelease];  
 
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 

@@ -23,12 +23,12 @@
 		<key>pdthxWebServicesBaseUrl</key>
 		<string>http://api.paidthx.me</string>
 	</dict>
-	<key>Staging</key>
+	<key>Test</key>
 	<dict>
-		<key>pdthxAPIKey</key>
+		<key>pdthxAPIKEY</key>
 		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
 		<key>pdthxWebServicesBaseUrl</key>
-		<string>http://staging.paidthx.me</string>
+		<string>http://23.21.203.171/api/internal/api</string>
 	</dict>
 	<key>Notifs</key>
 	<dict>

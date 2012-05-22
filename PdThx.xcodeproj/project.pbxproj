@@ -1181,8 +1181,8 @@
 				5BD278FD153E8A1B00CAFC12 /* SetupACHAccountController.h */,
 				5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */,
 				5BD27902153FABA500CAFC12 /* ConfirmSecurityPinDialog.h */,
-				5BD27903153FABA600CAFC12 /* ConfirmSecurityPinDialog.m */,
 				5BD27907154116BB00CAFC12 /* HomeViewController.h */,
+				5BD27903153FABA600CAFC12 /* ConfirmSecurityPinDialog.m */,
 				5BD27908154116C000CAFC12 /* HomeViewController.m */,
 				5BD2790C154116E700CAFC12 /* PayStreamViewController.h */,
 				5BD2790D154116E800CAFC12 /* PayStreamViewController.m */,
@@ -1673,6 +1673,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5B33A335156A8FA100E6603B /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = PaidThx;
+				SDKROOT = iphoneos;
+			};
+			name = Test;
+		};
+		5B33A336156A8FA100E6603B /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
+				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = PaidThx;
+				VERSIONING_SYSTEM = "apple-generic";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Test;
+		};
+		5B33A337156A8FA100E6603B /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
+				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Test;
+		};
 		5B69DFAE14AE6068003A0F66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2073,6 +2129,7 @@
 				5B69DFAE14AE6068003A0F66 /* Debug */,
 				5BE6F7A414E9E0B600599EF2 /* Beta */,
 				5B886806151181A300EA24A4 /* Dev */,
+				5B33A335156A8FA100E6603B /* Test */,
 				5BE6F7A714E9E0C000599EF2 /* Staging */,
 				5B69DFAF14AE6068003A0F66 /* Release */,
 				5BBE183614DF2D60002A3618 /* Ad Hoc */,
@@ -2086,6 +2143,7 @@
 				5B69DFB114AE6068003A0F66 /* Debug */,
 				5BE6F7A514E9E0B600599EF2 /* Beta */,
 				5B886807151181A300EA24A4 /* Dev */,
+				5B33A336156A8FA100E6603B /* Test */,
 				5BE6F7A814E9E0C000599EF2 /* Staging */,
 				5B69DFB214AE6068003A0F66 /* Release */,
 				5BBE183714DF2D60002A3618 /* Ad Hoc */,
@@ -2099,6 +2157,7 @@
 				5B69DFB414AE6068003A0F66 /* Debug */,
 				5BE6F7A614E9E0B600599EF2 /* Beta */,
 				5B886808151181A300EA24A4 /* Dev */,
+				5B33A337156A8FA100E6603B /* Test */,
 				5BE6F7A914E9E0C000599EF2 /* Staging */,
 				5B69DFB514AE6068003A0F66 /* Release */,
 				5BBE183814DF2D60002A3618 /* Ad Hoc */,

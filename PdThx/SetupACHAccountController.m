@@ -178,7 +178,7 @@
      */
     
     skipBankAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Without adding a bank account, you will not be able to send or receive money using PaidThx. Press \"Go Back\" to add a bank account now. Press \"Skip\" to skip adding a bank account. You are able to add a bank account later under the \"Settings\" tab" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Go Back", nil];
-    skipBankAlert.alertViewStyle = UIAlertViewStyleDefault;
+    //skipBankAlert.alertViewStyle = UIAlertViewStyleDefault;
     [skipBankAlert show];
 }
 

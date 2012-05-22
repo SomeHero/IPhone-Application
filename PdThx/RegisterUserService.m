@@ -24,7 +24,8 @@
     NSString *rootUrl = myEnvironment.pdthxWebServicesBaseUrl;
     NSString *apiKey = myEnvironment.pdthxAPIKey;
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"http://dev.paidthx.com/api/internal/api/Users", apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey, @"apiKey",
                               newUserName, @"userName",

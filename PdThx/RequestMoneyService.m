@@ -24,10 +24,10 @@
        fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     
     Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = [NSString stringWithString:@"http://dev.paidthx.com/api/internal/api/PaystreamMessages"];
+    NSString *rootUrl = [NSString stringWithString:@"PaystreamMessages"];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@?apiKey=%@", rootUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  rootUrl, apiKey]] autorelease];  
     NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
                                  theSenderUri, @"senderUri",
