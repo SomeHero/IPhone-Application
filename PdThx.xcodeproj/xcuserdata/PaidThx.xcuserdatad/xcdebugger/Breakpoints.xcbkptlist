@@ -7,26 +7,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "PdThx/RegisterUserService.m"
-         timestampString = "358970315.480997"
+         filePath = "PdThx/PayStreamViewController.m"
+         timestampString = "360015073.164641"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "82"
-         endingLineNumber = "82"
-         landmarkName = "-registerUserComplete:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PdThx/RegisterUserService.m"
-         timestampString = "358983171.150116"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "54"
-         endingLineNumber = "54"
-         landmarkName = "-registerUserComplete:"
+         startingLineNumber = "169"
+         endingLineNumber = "169"
+         landmarkName = "-getPayStreamDidComplete:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
