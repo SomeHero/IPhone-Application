@@ -15,6 +15,7 @@
 #import "SignInCompleteProtocol.h"
 #import "ACHSetupCompleteProtocol.h"
 #import "UIBaseViewController.h"
+#import "RequestMoneyService.h"
 
 @interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource> {
     UITableView *autoCompleteTableView;
@@ -27,6 +28,7 @@
     NSString* recipient;
     NSString* amount;
     NSString* comments;
+    RequestMoneyService* requestMoneyService;
 }
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtRecipientUri;

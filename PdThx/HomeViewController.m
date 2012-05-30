@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "PdThxAppDelegate.h"
+#import "PhoneNumberFormatting.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor \
@@ -78,7 +79,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     //[self.parentViewController.navigationItem setHidesBackButton:YES animated:NO];
 
     userService = [[UserService alloc] init];
-
+    [userService setUserInformationCompleteDelegate: self];
+    
 }
 #pragma mark - View lifecycle
 -(void) viewDidAppear:(BOOL)animated{
@@ -86,6 +88,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString* userId = [prefs stringForKey:@"userId"];
+    NSLog ( @"UserID in HomeView: %@" , userId );
     
     if([userId length] == 0)
     {
@@ -97,24 +100,52 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [self.navigationController pushViewController:signInViewController animated:NO];
         
         [self.navigationItem setBackBarButtonItem:[[[UIBarButtonItem alloc] initWithCustomView:[[UIView new] autorelease]] autorelease]];
-                                       
     } else {
-        [userService setUserInformationCompleteDelegate: self];
-        
         [userService getUserInformation:userId];
     }
 }
+
 -(void)userInformationDidComplete:(User*) user {
 
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-
-    lblUserName.text = user.mobileNumber;
+    
+    PhoneNumberFormatting *formatter = [[PhoneNumberFormatting alloc] init];
+    NSLog(@"FirstName: %@ LastName: %@",user.firstName,user.lastName);
+    
+    if ( user.firstName.length > 0 && user.lastName.length > 0 ){
+            lblUserName.text = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
+    } else if ( user.mobileNumber != NULL ){
+        if ( user.mobileNumber.length > 0 )
+            lblUserName.text = [formatter stringToFormattedPhoneNumber: user.mobileNumber];
+    } else if ( user.emailAddress != NULL ){
+        if ( user.emailAddress.length > 0 )
+            lblUserName.text = user.emailAddress;
+    } else {
+        lblUserName.text = @"PaidThx User";
+    }
+    
+    /*if ( ( user.firstName != NULL && user.firstName.length > 0 ) && ( user.lastName != NULL && user.lastName.length > 0 ))
+        lblUserName.text = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
+    else if ( user.emailAddress != NULL && user.emailAddress.length != 0 )
+        lblUserName.text = user.emailAddress;
+    else if ( user.mobileNumber != NULL && user.mobileNumber.length != 0 )
+        lblUserName.text = [formatter stringToFormattedPhoneNumber: user.mobileNumber];
+    else
+        lblUserName.text = @"PaidThx User";
+     */
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setValue:user.userName forKey:@"userName"];
+    [prefs synchronize];
+    
     lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
     lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
 
     [numberFormatter release];
+    [formatter release];
 }
+
 -(void)signInDidComplete {
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];

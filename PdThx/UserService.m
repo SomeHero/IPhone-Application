@@ -23,12 +23,11 @@
 }
 
 -(void) getUserInformation:(NSString*) userId {
-    
     Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/UserService/Users/%@?apiKey=%@", rootUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -44,12 +43,15 @@
 {
     NSString *theJSON = [request responseString];
     
+    NSLog ( @"Got user information of %@" , theJSON );
+    
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
     [parser release];
     
     User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
+    
     
     [userInformationCompleteDelegate userInformationDidComplete:user];
 

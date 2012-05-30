@@ -7,17 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		54B4ACB0156199AE0033336B /* paystream_request_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACA4156199AE0033336B /* paystream_request_received_icon.png */; };
-		54B4ACB1156199AE0033336B /* paystream_request_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACA5156199AE0033336B /* paystream_request_sent_icon.png */; };
-		54B4ACB2156199AE0033336B /* paystream_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACA6156199AE0033336B /* paystream_sent_icon.png */; };
-		54B4ACB3156199AE0033336B /* person_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACA7156199AE0033336B /* person_icon_small.png */; };
-		54B4ACB4156199AE0033336B /* request_decide_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACA8156199AE0033336B /* request_decide_icon.png */; };
-		54B4ACB5156199AE0033336B /* request_money_off copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACA9156199AE0033336B /* request_money_off copy.png */; };
-		54B4ACB6156199AE0033336B /* request_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACAA156199AE0033336B /* request_pending_icon.png */; };
-		54B4ACB7156199AE0033336B /* transaction_complete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACAB156199AE0033336B /* transaction_complete_icon.png */; };
-		54B4ACB8156199AE0033336B /* transaction_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACAC156199AE0033336B /* transaction_pending_icon.png */; };
-		54B4ACB9156199AE0033336B /* transaction_row_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACAD156199AE0033336B /* transaction_row_background.png */; };
-		54B4ACBA156199AE0033336B /* transaction_rowalt_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B4ACAE156199AE0033336B /* transaction_rowalt_background.png */; };
+		54196D9B156695B9009F29C5 /* button_quick_link_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 54196D9A156695B9009F29C5 /* button_quick_link_request.png */; };
+		543803A11562BE6B00BD6284 /* button_quick_link_send.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803941562BE6B00BD6284 /* button_quick_link_send.png */; };
+		543803A21562BE6B00BD6284 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803951562BE6B00BD6284 /* Default.png */; };
+		543803A31562BE6B00BD6284 /* paystream_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803961562BE6B00BD6284 /* paystream_received_icon.png */; };
+		543803A41562BE6B00BD6284 /* paystream_request_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803971562BE6B00BD6284 /* paystream_request_received_icon.png */; };
+		543803A51562BE6B00BD6284 /* paystream_request_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803981562BE6B00BD6284 /* paystream_request_sent_icon.png */; };
+		543803A61562BE6B00BD6284 /* paystream_sent_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803991562BE6B00BD6284 /* paystream_sent_icon.png */; };
+		543803A71562BE6B00BD6284 /* person_icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039A1562BE6B00BD6284 /* person_icon_small.png */; };
+		543803A81562BE6B00BD6284 /* request_decide_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039B1562BE6B00BD6284 /* request_decide_icon.png */; };
+		543803A91562BE6B00BD6284 /* request_money_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039C1562BE6B00BD6284 /* request_money_off.png */; };
+		543803AA1562BE6B00BD6284 /* request_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039D1562BE6B00BD6284 /* request_pending_icon.png */; };
+		543803AB1562BE6B00BD6284 /* transaction_complete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */; };
+		543803AC1562BE6B00BD6284 /* transaction_pending_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */; };
+		543803AD1562BE6B00BD6284 /* transaction_rowalt_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */; };
+		54B5F248156C450300D970A3 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F23B156C450300D970A3 /* FBDialog.bundle */; };
+		54B5F249156C450300D970A3 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F23B156C450300D970A3 /* FBDialog.bundle */; };
+		54B5F24A156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B5F241156C450300D970A3 /* libfacebook_ios_sdk.a */; };
+		54B5F24B156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B5F241156C450300D970A3 /* libfacebook_ios_sdk.a */; };
+		54B5F252156D4E2C00D970A3 /* facebook-connect.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F251156D4E2C00D970A3 /* facebook-connect.png */; };
+		54B5F253156D4E2C00D970A3 /* facebook-connect.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F251156D4E2C00D970A3 /* facebook-connect.png */; };
+		54B5F256156D6A5100D970A3 /* SignInWithFBService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5F255156D6A5100D970A3 /* SignInWithFBService.m */; };
+		54B5F257156D6A5100D970A3 /* SignInWithFBService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5F255156D6A5100D970A3 /* SignInWithFBService.m */; };
+		54B5F25A156DEEBA00D970A3 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F259156DEEBA00D970A3 /* TableViewCell.xib */; };
+		54B5F25B156DEEBA00D970A3 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F259156DEEBA00D970A3 /* TableViewCell.xib */; };
+		54B5F26D156E921F00D970A3 /* UIPaystreamTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5F26C156E921F00D970A3 /* UIPaystreamTableViewCell.m */; };
+		54B5F26F156EADEC00D970A3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B5F26E156EADEB00D970A3 /* MessageUI.framework */; };
+		54B5F272156ED87F00D970A3 /* avatar_unknown.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F271156ED87F00D970A3 /* avatar_unknown.jpg */; };
+		54B5F274156EDAD800D970A3 /* PaystreamDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F273156EDAD800D970A3 /* PaystreamDetailViewController.xib */; };
+		54B5F286156FCA5A00D970A3 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5F285156FCA5700D970A3 /* ContactTableViewCell.m */; };
+		54B5F28A156FCECB00D970A3 /* ContactSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5F288156FCEC700D970A3 /* ContactSelectViewController.m */; };
+		54B5F28B156FCECB00D970A3 /* ContactSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */; };
+		54B9B40A156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
+		54B9B40B156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
+		54E3DDDA15707B1600F63820 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E3DDD915707B1600F63820 /* ContactTableViewCell.xib */; };
+		54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
+		54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
+		5B3F4A9E155F41E300A67649 /* SendMoneyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4A9D155F41E300A67649 /* SendMoneyService.m */; };
+		5B3F4AA1155F4F1300A67649 /* RequestMoneyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */; };
+		5B3F4AA4155F571900A67649 /* GetPayStreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4AA3155F571900A67649 /* GetPayStreamService.m */; };
+		5B3F4CEF155F6FB600A67649 /* PaystreamMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4CEE155F6FB600A67649 /* PaystreamMessage.m */; };
+		5B3F4CF3155F7BB000A67649 /* RegisterUserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4CF2155F7BB000A67649 /* RegisterUserService.m */; };
+		5B3F4CF6155FD99D00A67649 /* SignInUserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4CF5155FD99C00A67649 /* SignInUserService.m */; };
+		5B3F4CFA155FF3C600A67649 /* UserSetupACHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */; };
+		5B3F4D3A1561EB3300A67649 /* PhoneNumberFormatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4D391561EB3300A67649 /* PhoneNumberFormatting.m */; };
 		5B692C5314D4777D00E6E663 /* SendMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692C5114D4777D00E6E663 /* SendMoneyController.m */; };
 		5B692C5414D4777D00E6E663 /* SendMoneyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B692C5214D4777D00E6E663 /* SendMoneyController.xib */; };
 		5B692CBB14D5E9E100E6E663 /* RequestMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692CB914D5E9DE00E6E663 /* RequestMoneyController.m */; };
@@ -300,17 +333,71 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		54B4ACA4156199AE0033336B /* paystream_request_received_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paystream_request_received_icon.png; sourceTree = "<group>"; };
-		54B4ACA5156199AE0033336B /* paystream_request_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paystream_request_sent_icon.png; sourceTree = "<group>"; };
-		54B4ACA6156199AE0033336B /* paystream_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paystream_sent_icon.png; sourceTree = "<group>"; };
-		54B4ACA7156199AE0033336B /* person_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person_icon_small.png; sourceTree = "<group>"; };
-		54B4ACA8156199AE0033336B /* request_decide_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = request_decide_icon.png; sourceTree = "<group>"; };
-		54B4ACA9156199AE0033336B /* request_money_off copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "request_money_off copy.png"; sourceTree = "<group>"; };
-		54B4ACAA156199AE0033336B /* request_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = request_pending_icon.png; sourceTree = "<group>"; };
-		54B4ACAB156199AE0033336B /* transaction_complete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transaction_complete_icon.png; sourceTree = "<group>"; };
-		54B4ACAC156199AE0033336B /* transaction_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transaction_pending_icon.png; sourceTree = "<group>"; };
-		54B4ACAD156199AE0033336B /* transaction_row_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transaction_row_background.png; sourceTree = "<group>"; };
-		54B4ACAE156199AE0033336B /* transaction_rowalt_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transaction_rowalt_background.png; sourceTree = "<group>"; };
+		54196D9A156695B9009F29C5 /* button_quick_link_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_quick_link_request.png; sourceTree = "<group>"; };
+		543803941562BE6B00BD6284 /* button_quick_link_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_quick_link_send.png; path = images/button_quick_link_send.png; sourceTree = "<group>"; };
+		543803951562BE6B00BD6284 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = images/Default.png; sourceTree = "<group>"; };
+		543803961562BE6B00BD6284 /* paystream_received_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_received_icon.png; path = images/paystream_received_icon.png; sourceTree = "<group>"; };
+		543803971562BE6B00BD6284 /* paystream_request_received_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_request_received_icon.png; path = images/paystream_request_received_icon.png; sourceTree = "<group>"; };
+		543803981562BE6B00BD6284 /* paystream_request_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_request_sent_icon.png; path = images/paystream_request_sent_icon.png; sourceTree = "<group>"; };
+		543803991562BE6B00BD6284 /* paystream_sent_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paystream_sent_icon.png; path = images/paystream_sent_icon.png; sourceTree = "<group>"; };
+		5438039A1562BE6B00BD6284 /* person_icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = person_icon_small.png; path = images/person_icon_small.png; sourceTree = "<group>"; };
+		5438039B1562BE6B00BD6284 /* request_decide_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_decide_icon.png; path = images/request_decide_icon.png; sourceTree = "<group>"; };
+		5438039C1562BE6B00BD6284 /* request_money_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_money_off.png; path = images/request_money_off.png; sourceTree = "<group>"; };
+		5438039D1562BE6B00BD6284 /* request_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = request_pending_icon.png; path = images/request_pending_icon.png; sourceTree = "<group>"; };
+		5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_complete_icon.png; path = images/transaction_complete_icon.png; sourceTree = "<group>"; };
+		5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_pending_icon.png; path = images/transaction_pending_icon.png; sourceTree = "<group>"; };
+		543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_rowalt_background.png; path = images/transaction_rowalt_background.png; sourceTree = "<group>"; };
+		54B5F239156C450300D970A3 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
+		54B5F23A156C450300D970A3 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
+		54B5F23B156C450300D970A3 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
+		54B5F23C156C450300D970A3 /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
+		54B5F23D156C450300D970A3 /* FBFrictionlessRequestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFrictionlessRequestSettings.h; sourceTree = "<group>"; };
+		54B5F23E156C450300D970A3 /* FBLoginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginDialog.h; sourceTree = "<group>"; };
+		54B5F23F156C450300D970A3 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
+		54B5F241156C450300D970A3 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfacebook_ios_sdk.a; sourceTree = "<group>"; };
+		54B5F251156D4E2C00D970A3 /* facebook-connect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-connect.png"; sourceTree = "<group>"; };
+		54B5F254156D6A5100D970A3 /* SignInWithFBService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInWithFBService.h; sourceTree = "<group>"; };
+		54B5F255156D6A5100D970A3 /* SignInWithFBService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInWithFBService.m; sourceTree = "<group>"; };
+		54B5F258156D6B4000D970A3 /* FBSignInCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSignInCompleteProtocol.h; sourceTree = "<group>"; };
+		54B5F259156DEEBA00D970A3 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		54B5F26B156E921F00D970A3 /* UIPaystreamTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPaystreamTableViewCell.h; sourceTree = "<group>"; };
+		54B5F26C156E921F00D970A3 /* UIPaystreamTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPaystreamTableViewCell.m; sourceTree = "<group>"; };
+		54B5F26E156EADEB00D970A3 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		54B5F270156EB62700D970A3 /* UserSetupACHAccountComplete.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSetupACHAccountComplete.h; sourceTree = "<group>"; };
+		54B5F271156ED87F00D970A3 /* avatar_unknown.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar_unknown.jpg; sourceTree = "<group>"; };
+		54B5F273156EDAD800D970A3 /* PaystreamDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamDetailViewController.xib; sourceTree = "<group>"; };
+		54B5F284156FCA5500D970A3 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
+		54B5F285156FCA5700D970A3 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
+		54B5F287156FCEC400D970A3 /* ContactSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSelectViewController.h; sourceTree = "<group>"; };
+		54B5F288156FCEC700D970A3 /* ContactSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSelectViewController.m; sourceTree = "<group>"; };
+		54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactSelectViewController.xib; sourceTree = "<group>"; };
+		54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp_remind_later_button.png; sourceTree = "<group>"; };
+		54E3DDD915707B1600F63820 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
+		54E3DDE915713E6700F63820 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
+		54E3DDEA15713E6700F63820 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
+		54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactSelectChosenProtocol.h; sourceTree = "<group>"; };
+		5B3F4A9C155F41E200A67649 /* SendMoneyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyService.h; sourceTree = "<group>"; };
+		5B3F4A9D155F41E300A67649 /* SendMoneyService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyService.m; sourceTree = "<group>"; };
+		5B3F4A9F155F4F1300A67649 /* RequestMoneyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyService.h; sourceTree = "<group>"; };
+		5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestMoneyService.m; sourceTree = "<group>"; };
+		5B3F4AA2155F571900A67649 /* GetPayStreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPayStreamService.h; sourceTree = "<group>"; };
+		5B3F4AA3155F571900A67649 /* GetPayStreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPayStreamService.m; sourceTree = "<group>"; };
+		5B3F4CED155F6FB600A67649 /* PaystreamMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamMessage.h; sourceTree = "<group>"; };
+		5B3F4CEE155F6FB600A67649 /* PaystreamMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamMessage.m; sourceTree = "<group>"; };
+		5B3F4CF0155F74C700A67649 /* GetPayStreamCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPayStreamCompleteProtocol.h; sourceTree = "<group>"; };
+		5B3F4CF1155F7BAF00A67649 /* RegisterUserService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterUserService.h; sourceTree = "<group>"; };
+		5B3F4CF2155F7BB000A67649 /* RegisterUserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterUserService.m; sourceTree = "<group>"; };
+		5B3F4CF4155FD99B00A67649 /* SignInUserService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInUserService.h; sourceTree = "<group>"; };
+		5B3F4CF5155FD99C00A67649 /* SignInUserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInUserService.m; sourceTree = "<group>"; };
+		5B3F4CF7155FEBF200A67649 /* UserSignInCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSignInCompleteProtocol.h; sourceTree = "<group>"; };
+		5B3F4CF8155FF3C400A67649 /* UserSetupACHAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSetupACHAccount.h; sourceTree = "<group>"; };
+		5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSetupACHAccount.m; sourceTree = "<group>"; };
+		5B3F4CFB1560185500A67649 /* UserRegistrationCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegistrationCompleteProtocol.h; sourceTree = "<group>"; };
+		5B3F4CFC156018EB00A67649 /* UserACHSetupCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserACHSetupCompleteProtocol.h; sourceTree = "<group>"; };
+		5B3F4CFD1560AFA700A67649 /* SendMoneyCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyCompleteProtocol.h; sourceTree = "<group>"; };
+		5B3F4CFE1560B7DF00A67649 /* RequestMoneyCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyCompleteProtocol.h; sourceTree = "<group>"; };
+		5B3F4D381561EB3300A67649 /* PhoneNumberFormatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumberFormatting.h; sourceTree = "<group>"; };
+		5B3F4D391561EB3300A67649 /* PhoneNumberFormatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberFormatting.m; sourceTree = "<group>"; };
 		5B692C5014D4777C00E6E663 /* SendMoneyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyController.h; sourceTree = "<group>"; };
 		5B692C5114D4777D00E6E663 /* SendMoneyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyController.m; sourceTree = "<group>"; };
 		5B692C5214D4777D00E6E663 /* SendMoneyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendMoneyController.xib; sourceTree = "<group>"; };
@@ -641,6 +728,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54B5F26F156EADEC00D970A3 /* MessageUI.framework in Frameworks */,
 				5B69E17914B0BCC5003A0F66 /* MobileCoreServices.framework in Frameworks */,
 				5B69E17714B0BCB4003A0F66 /* SystemConfiguration.framework in Frameworks */,
 				5B69E17514B0BCA8003A0F66 /* CFNetwork.framework in Frameworks */,
@@ -652,6 +740,7 @@
 				5B69DF7E14AE6067003A0F66 /* UIKit.framework in Frameworks */,
 				5B69DF8014AE6067003A0F66 /* Foundation.framework in Frameworks */,
 				5B69DF8214AE6067003A0F66 /* CoreGraphics.framework in Frameworks */,
+				54B5F24A156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,15 +751,32 @@
 				5B69DF9E14AE6068003A0F66 /* UIKit.framework in Frameworks */,
 				5B69DF9F14AE6068003A0F66 /* Foundation.framework in Frameworks */,
 				5B69DFA014AE6068003A0F66 /* CoreGraphics.framework in Frameworks */,
+				54B5F24B156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54B5F238156C450300D970A3 /* facebook-ios-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				54B5F239156C450300D970A3 /* Facebook.h */,
+				54B5F23A156C450300D970A3 /* FBConnect.h */,
+				54B5F23B156C450300D970A3 /* FBDialog.bundle */,
+				54B5F23C156C450300D970A3 /* FBDialog.h */,
+				54B5F23D156C450300D970A3 /* FBFrictionlessRequestSettings.h */,
+				54B5F23E156C450300D970A3 /* FBLoginDialog.h */,
+				54B5F23F156C450300D970A3 /* FBRequest.h */,
+				54B5F241156C450300D970A3 /* libfacebook_ios_sdk.a */,
+			);
+			path = "facebook-ios-sdk";
+			sourceTree = "<group>";
+		};
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
+				54B5F26E156EADEB00D970A3 /* MessageUI.framework */,
 				5B69E17814B0BCC5003A0F66 /* MobileCoreServices.framework */,
 				5B69E17614B0BCB4003A0F66 /* SystemConfiguration.framework */,
 				5B69E17414B0BCA8003A0F66 /* CFNetwork.framework */,
@@ -726,6 +832,7 @@
 		5B69DF8414AE6067003A0F66 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				54B5F238156C450300D970A3 /* facebook-ios-sdk */,
 				5BEBF01B14B2282A00379108 /* options.plist */,
 				5B69DF8514AE6067003A0F66 /* PdThx-Info.plist */,
 				5B69DF8614AE6067003A0F66 /* InfoPlist.strings */,
@@ -760,17 +867,23 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				54B4ACA4156199AE0033336B /* paystream_request_received_icon.png */,
-				54B4ACA5156199AE0033336B /* paystream_request_sent_icon.png */,
-				54B4ACA6156199AE0033336B /* paystream_sent_icon.png */,
-				54B4ACA7156199AE0033336B /* person_icon_small.png */,
-				54B4ACA8156199AE0033336B /* request_decide_icon.png */,
-				54B4ACA9156199AE0033336B /* request_money_off copy.png */,
-				54B4ACAA156199AE0033336B /* request_pending_icon.png */,
-				54B4ACAB156199AE0033336B /* transaction_complete_icon.png */,
-				54B4ACAC156199AE0033336B /* transaction_pending_icon.png */,
-				54B4ACAD156199AE0033336B /* transaction_row_background.png */,
-				54B4ACAE156199AE0033336B /* transaction_rowalt_background.png */,
+				54B5F271156ED87F00D970A3 /* avatar_unknown.jpg */,
+				54B5F251156D4E2C00D970A3 /* facebook-connect.png */,
+				54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */,
+				54196D9A156695B9009F29C5 /* button_quick_link_request.png */,
+				543803941562BE6B00BD6284 /* button_quick_link_send.png */,
+				543803951562BE6B00BD6284 /* Default.png */,
+				543803961562BE6B00BD6284 /* paystream_received_icon.png */,
+				543803971562BE6B00BD6284 /* paystream_request_received_icon.png */,
+				543803981562BE6B00BD6284 /* paystream_request_sent_icon.png */,
+				543803991562BE6B00BD6284 /* paystream_sent_icon.png */,
+				5438039A1562BE6B00BD6284 /* person_icon_small.png */,
+				5438039B1562BE6B00BD6284 /* request_decide_icon.png */,
+				5438039C1562BE6B00BD6284 /* request_money_off.png */,
+				5438039D1562BE6B00BD6284 /* request_pending_icon.png */,
+				5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */,
+				5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */,
+				543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */,
 				5BD278EE153BC5BA00CAFC12 /* button_create_an_account.png */,
 				5BD278EC153BC53A00CAFC12 /* button_sign_in.png */,
 				5B88686B15295A6600EA24A4 /* button_request_money.png */,
@@ -1081,19 +1194,30 @@
 				5BD27913154445E100CAFC12 /* SignInCompleteProtocol.h */,
 				5BD27BD61548D95700CAFC12 /* SignOutCompleteProtocol.h */,
 				5BD27BEF154B978000CAFC12 /* UserInformationCompleteProtocol.h */,
+				5B3F4CF7155FEBF200A67649 /* UserSignInCompleteProtocol.h */,
+				54B5F258156D6B4000D970A3 /* FBSignInCompleteProtocol.h */,
+				5B3F4CFB1560185500A67649 /* UserRegistrationCompleteProtocol.h */,
+				5B3F4CFC156018EB00A67649 /* UserACHSetupCompleteProtocol.h */,
+				5B3F4CF0155F74C700A67649 /* GetPayStreamCompleteProtocol.h */,
+				5B3F4CFD1560AFA700A67649 /* SendMoneyCompleteProtocol.h */,
+				5B3F4CFE1560B7DF00A67649 /* RequestMoneyCompleteProtocol.h */,
+				54B5F270156EB62700D970A3 /* UserSetupACHAccountComplete.h */,
+				54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
 		};
-		5BD2793815464D4C00CAFC12 /* Repositories */ = {
+		5BD2793815464D4C00CAFC12 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				5BD2793915464D6700CAFC12 /* Transaction.h */,
 				5BD2793A15464D6700CAFC12 /* Transaction.m */,
 				5BD27BE8154B7E3B00CAFC12 /* User.h */,
 				5BD27BE9154B7E3D00CAFC12 /* User.m */,
+				5B3F4CED155F6FB600A67649 /* PaystreamMessage.h */,
+				5B3F4CEE155F6FB600A67649 /* PaystreamMessage.m */,
 			);
-			name = Repositories;
+			name = Models;
 			sourceTree = "<group>";
 		};
 		5BD2793C15465FE600CAFC12 /* Helpers */ = {
@@ -1101,6 +1225,10 @@
 			children = (
 				5BD2793D15465FFD00CAFC12 /* NumberFormatting.h */,
 				5BD2793E15465FFD00CAFC12 /* NumberFormatting.m */,
+				5B3F4D381561EB3300A67649 /* PhoneNumberFormatting.h */,
+				5B3F4D391561EB3300A67649 /* PhoneNumberFormatting.m */,
+				54E3DDE915713E6700F63820 /* IconDownloader.h */,
+				54E3DDEA15713E6700F63820 /* IconDownloader.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1111,22 +1239,28 @@
 				5BD27BEB154B926300CAFC12 /* Services */,
 				5BD2793C15465FE600CAFC12 /* Helpers */,
 				5BD279111544431C00CAFC12 /* Protocols */,
-				5BD2793815464D4C00CAFC12 /* Repositories */,
+				5BD2793815464D4C00CAFC12 /* Models */,
 				5BE6F79E14E75C5E00599EF2 /* DataObjects */,
 				5BEBF01614B2281800379108 /* ProfileController.h */,
-				5BEBF01714B2281900379108 /* ProfileController.m */,
 				5BE6F77214E3859300599EF2 /* ALUnlockPatternView.h */,
+				5BEBF01714B2281900379108 /* ProfileController.m */,
 				5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */,
 				5B88685B1529260200EA24A4 /* ConfirmPaymentDialogController.h */,
 				5B88685C1529260200EA24A4 /* ConfirmPaymentDialogController.m */,
-				5BD27BB11547939600CAFC12 /* UITransactionTableViewCell.h */,
-				5BD27BB21547939700CAFC12 /* UITransactionTableViewCell.m */,
 				5B692C5014D4777C00E6E663 /* SendMoneyController.h */,
 				5B692C5114D4777D00E6E663 /* SendMoneyController.m */,
 				5B692CB814D5E9DB00E6E663 /* RequestMoneyController.h */,
 				5B692CB914D5E9DE00E6E663 /* RequestMoneyController.m */,
 				5BD278DD153BBF8000CAFC12 /* SignInViewController.h */,
 				5BD278DE153BBF8000CAFC12 /* SignInViewController.m */,
+				54B5F287156FCEC400D970A3 /* ContactSelectViewController.h */,
+				54B5F288156FCEC700D970A3 /* ContactSelectViewController.m */,
+				54B5F284156FCA5500D970A3 /* ContactTableViewCell.h */,
+				54B5F285156FCA5700D970A3 /* ContactTableViewCell.m */,
+				5BD27BB11547939600CAFC12 /* UITransactionTableViewCell.h */,
+				5BD27BB21547939700CAFC12 /* UITransactionTableViewCell.m */,
+				54B5F26B156E921F00D970A3 /* UIPaystreamTableViewCell.h */,
+				54B5F26C156E921F00D970A3 /* UIPaystreamTableViewCell.m */,
 				5BD278F0153BC81200CAFC12 /* CreateAccountViewController.h */,
 				5BD278F1153BC81200CAFC12 /* CreateAccountViewController.m */,
 				5BD278FD153E8A1B00CAFC12 /* SetupACHAccountController.h */,
@@ -1162,6 +1296,10 @@
 				5BD278FF153E8A1D00CAFC12 /* SetupACHAccountController.xib */,
 				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
+				54B5F273156EDAD800D970A3 /* PaystreamDetailViewController.xib */,
+				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
+				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
+				54E3DDD915707B1600F63820 /* ContactTableViewCell.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1171,6 +1309,20 @@
 			children = (
 				5BD27BEC154B92FB00CAFC12 /* UserService.h */,
 				5BD27BED154B92FB00CAFC12 /* UserService.m */,
+				5B3F4A9C155F41E200A67649 /* SendMoneyService.h */,
+				5B3F4A9D155F41E300A67649 /* SendMoneyService.m */,
+				5B3F4A9F155F4F1300A67649 /* RequestMoneyService.h */,
+				5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */,
+				5B3F4AA2155F571900A67649 /* GetPayStreamService.h */,
+				5B3F4AA3155F571900A67649 /* GetPayStreamService.m */,
+				5B3F4CF1155F7BAF00A67649 /* RegisterUserService.h */,
+				5B3F4CF2155F7BB000A67649 /* RegisterUserService.m */,
+				5B3F4CF4155FD99B00A67649 /* SignInUserService.h */,
+				5B3F4CF5155FD99C00A67649 /* SignInUserService.m */,
+				54B5F254156D6A5100D970A3 /* SignInWithFBService.h */,
+				54B5F255156D6A5100D970A3 /* SignInWithFBService.m */,
+				5B3F4CF8155FF3C400A67649 /* UserSetupACHAccount.h */,
+				5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1463,17 +1615,28 @@
 				5BD2790B154116C300CAFC12 /* HomeViewController.xib in Resources */,
 				5BD27910154116EB00CAFC12 /* PayStreamViewController.xib in Resources */,
 				5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */,
-				54B4ACB0156199AE0033336B /* paystream_request_received_icon.png in Resources */,
-				54B4ACB1156199AE0033336B /* paystream_request_sent_icon.png in Resources */,
-				54B4ACB2156199AE0033336B /* paystream_sent_icon.png in Resources */,
-				54B4ACB3156199AE0033336B /* person_icon_small.png in Resources */,
-				54B4ACB4156199AE0033336B /* request_decide_icon.png in Resources */,
-				54B4ACB5156199AE0033336B /* request_money_off copy.png in Resources */,
-				54B4ACB6156199AE0033336B /* request_pending_icon.png in Resources */,
-				54B4ACB7156199AE0033336B /* transaction_complete_icon.png in Resources */,
-				54B4ACB8156199AE0033336B /* transaction_pending_icon.png in Resources */,
-				54B4ACB9156199AE0033336B /* transaction_row_background.png in Resources */,
-				54B4ACBA156199AE0033336B /* transaction_rowalt_background.png in Resources */,
+				543803A11562BE6B00BD6284 /* button_quick_link_send.png in Resources */,
+				543803A21562BE6B00BD6284 /* Default.png in Resources */,
+				543803A31562BE6B00BD6284 /* paystream_received_icon.png in Resources */,
+				543803A41562BE6B00BD6284 /* paystream_request_received_icon.png in Resources */,
+				543803A51562BE6B00BD6284 /* paystream_request_sent_icon.png in Resources */,
+				543803A61562BE6B00BD6284 /* paystream_sent_icon.png in Resources */,
+				543803A71562BE6B00BD6284 /* person_icon_small.png in Resources */,
+				543803A81562BE6B00BD6284 /* request_decide_icon.png in Resources */,
+				543803A91562BE6B00BD6284 /* request_money_off.png in Resources */,
+				543803AA1562BE6B00BD6284 /* request_pending_icon.png in Resources */,
+				543803AB1562BE6B00BD6284 /* transaction_complete_icon.png in Resources */,
+				543803AC1562BE6B00BD6284 /* transaction_pending_icon.png in Resources */,
+				543803AD1562BE6B00BD6284 /* transaction_rowalt_background.png in Resources */,
+				54196D9B156695B9009F29C5 /* button_quick_link_request.png in Resources */,
+				54B9B40A156BE00B00DEA724 /* temp_remind_later_button.png in Resources */,
+				54B5F248156C450300D970A3 /* FBDialog.bundle in Resources */,
+				54B5F252156D4E2C00D970A3 /* facebook-connect.png in Resources */,
+				54B5F25A156DEEBA00D970A3 /* TableViewCell.xib in Resources */,
+				54B5F272156ED87F00D970A3 /* avatar_unknown.jpg in Resources */,
+				54B5F274156EDAD800D970A3 /* PaystreamDetailViewController.xib in Resources */,
+				54B5F28B156FCECB00D970A3 /* ContactSelectViewController.xib in Resources */,
+				54E3DDDA15707B1600F63820 /* ContactTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,6 +1646,10 @@
 			files = (
 				5B69DFA814AE6068003A0F66 /* InfoPlist.strings in Resources */,
 				5B69DFAB14AE6068003A0F66 /* PdThxTests.h in Resources */,
+				54B9B40B156BE00B00DEA724 /* temp_remind_later_button.png in Resources */,
+				54B5F249156C450300D970A3 /* FBDialog.bundle in Resources */,
+				54B5F253156D4E2C00D970A3 /* facebook-connect.png in Resources */,
+				54B5F25B156DEEBA00D970A3 /* TableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1552,6 +1719,19 @@
 				5BD27BD11547BDA000CAFC12 /* Contact.m in Sources */,
 				5BD27BEA154B7E3E00CAFC12 /* User.m in Sources */,
 				5BD27BEE154B92FB00CAFC12 /* UserService.m in Sources */,
+				5B3F4A9E155F41E300A67649 /* SendMoneyService.m in Sources */,
+				5B3F4AA1155F4F1300A67649 /* RequestMoneyService.m in Sources */,
+				5B3F4AA4155F571900A67649 /* GetPayStreamService.m in Sources */,
+				5B3F4CEF155F6FB600A67649 /* PaystreamMessage.m in Sources */,
+				5B3F4CF3155F7BB000A67649 /* RegisterUserService.m in Sources */,
+				5B3F4CF6155FD99D00A67649 /* SignInUserService.m in Sources */,
+				5B3F4CFA155FF3C600A67649 /* UserSetupACHAccount.m in Sources */,
+				5B3F4D3A1561EB3300A67649 /* PhoneNumberFormatting.m in Sources */,
+				54B5F256156D6A5100D970A3 /* SignInWithFBService.m in Sources */,
+				54B5F26D156E921F00D970A3 /* UIPaystreamTableViewCell.m in Sources */,
+				54B5F286156FCA5A00D970A3 /* ContactTableViewCell.m in Sources */,
+				54B5F28A156FCECB00D970A3 /* ContactSelectViewController.m in Sources */,
+				54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1560,6 +1740,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B69DFAD14AE6068003A0F66 /* PdThxTests.m in Sources */,
+				54B5F257156D6A5100D970A3 /* SignInWithFBService.m in Sources */,
+				54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1601,10 +1783,76 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5B33A335156A8FA100E6603B /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = PaidThx;
+				SDKROOT = iphoneos;
+			};
+			name = Test;
+		};
+		5B33A336156A8FA100E6603B /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
+				PRODUCT_NAME = PaidThx;
+				VERSIONING_SYSTEM = "apple-generic";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Test;
+		};
+		5B33A337156A8FA100E6603B /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
+				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Test;
+		};
 		5B69DFAE14AE6068003A0F66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1623,6 +1871,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -1638,7 +1887,11 @@
 		5B69DFB114AE6068003A0F66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1646,7 +1899,13 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1655,14 +1914,23 @@
 		5B69DFB214AE6068003A0F66 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1682,6 +1950,10 @@
 				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -1697,6 +1969,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -1705,6 +1978,10 @@
 				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -1719,6 +1996,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1736,7 +2014,12 @@
 		5B886807151181A300EA24A4 /* Dev */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1744,7 +2027,13 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1755,6 +2044,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -1763,6 +2053,10 @@
 				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -1777,6 +2071,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -1792,16 +2087,25 @@
 		5BBE183714DF2D60002A3618 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1821,6 +2125,10 @@
 				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -1835,6 +2143,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1852,7 +2161,10 @@
 		5BE6F7A514E9E0B600599EF2 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1860,7 +2172,13 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1879,6 +2197,10 @@
 				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -1893,7 +2215,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -1903,6 +2226,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
 			name = Staging;
@@ -1910,7 +2234,10 @@
 		5BE6F7A814E9E0C000599EF2 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1918,7 +2245,13 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1929,6 +2262,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -1937,11 +2272,16 @@
 				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1956,6 +2296,7 @@
 				5B69DFAE14AE6068003A0F66 /* Debug */,
 				5BE6F7A414E9E0B600599EF2 /* Beta */,
 				5B886806151181A300EA24A4 /* Dev */,
+				5B33A335156A8FA100E6603B /* Test */,
 				5BE6F7A714E9E0C000599EF2 /* Staging */,
 				5B69DFAF14AE6068003A0F66 /* Release */,
 				5BBE183614DF2D60002A3618 /* Ad Hoc */,
@@ -1969,6 +2310,7 @@
 				5B69DFB114AE6068003A0F66 /* Debug */,
 				5BE6F7A514E9E0B600599EF2 /* Beta */,
 				5B886807151181A300EA24A4 /* Dev */,
+				5B33A336156A8FA100E6603B /* Test */,
 				5BE6F7A814E9E0C000599EF2 /* Staging */,
 				5B69DFB214AE6068003A0F66 /* Release */,
 				5BBE183714DF2D60002A3618 /* Ad Hoc */,
@@ -1982,6 +2324,7 @@
 				5B69DFB414AE6068003A0F66 /* Debug */,
 				5BE6F7A614E9E0B600599EF2 /* Beta */,
 				5B886808151181A300EA24A4 /* Dev */,
+				5B33A337156A8FA100E6603B /* Test */,
 				5BE6F7A914E9E0C000599EF2 /* Staging */,
 				5B69DFB514AE6068003A0F66 /* Release */,
 				5BBE183814DF2D60002A3618 /* Ad Hoc */,

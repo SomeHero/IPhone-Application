@@ -8,10 +8,13 @@
 
 #import "SignInViewController.h"
 #import "CreateAccountViewController.h"
-#import "JSON.h"
-#import "ASIHTTPRequest.h"
-#import "Environment.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SignInUserService.h"
+#import "SetupACHAccountController.h"
+#import "SignInWithFBService.h"
+#import "Environment.h"
+#import "PdThxAppDelegate.h"
+#import "Facebook.h"
 
 
 @interface SignInViewController ()
@@ -23,7 +26,7 @@
 
 @synthesize txtEmailAddress, txtPassword;
 @synthesize signInCompleteDelegate, achSetupCompleteDelegate;
-@synthesize viewPanel;
+@synthesize viewPanel, fBook, service, bankAlert;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,9 +41,16 @@
 {
     [txtEmailAddress release];
     [txtPassword release];
-    //[signInCompleteDelegate release];
-    //[achSetupCompleteDelegate release];
+    [signInUserService release];
+    [fBook release];
+    [signInCompleteDelegate release];
+    [achSetupCompleteDelegate release];
+    [signInUserService release];
+    [SignInWithFBService release];
+    
 
+    [loginFBButton release];
+    [loginFBButton release];
     [super dealloc];
 }
 
@@ -59,12 +69,24 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    signInUserService = [[SignInUserService alloc] init];
+    [signInUserService setUserSignInCompleteDelegate:self];
+    service = [[SignInWithFBService alloc] init];
+    service.fbSignInCompleteDelegate = self;
+    
     [self setTitle:@"Sign In"];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
     
+    
+    fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    /*
+    FBLoginImage.hidden = TRUE;
+    FBLoginSpinner.hidden = TRUE;
+     */
 }
 -(void)viewDidAppear:(BOOL)animated {
     [self setTitle:@"Sign In"];
@@ -77,23 +99,26 @@
         UINavigationController* navController = self.navigationController;
         [self removeCurrentViewFromNavigation:navController];
     }
-    
 }
 
 - (void)viewDidUnload
 {
+    [loginFBButton release];
+    loginFBButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
   NSInteger nextTag = textField.tag + 1;
   // Try to find next responder
   UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-  if (nextResponder) {
-    // Found next responder, so set it.
-    [nextResponder becomeFirstResponder];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [textField resignFirstResponder];
+        [nextResponder becomeFirstResponder];
   } else {
         // Not found, so remove keyboard.
         [textField resignFirstResponder];
@@ -109,7 +134,7 @@
 }
 
 - (void)signInUser {
-    NSString* username = [NSString stringWithString: @""];
+    NSString* username = [NSString stringWithString:@""];
     NSString* password = [NSString stringWithString: @""];
 
     if([txtEmailAddress.text length] > 0)
@@ -134,9 +159,88 @@
     }
 
     if(isValid) {
-        [self signInUser:username withPassword:password];
+        [signInUserService validateUser:username withPassword:password];
     }
 }
+
+/*          NORMAL ACCOUNT SIGN IN HANDLING     */
+-(void)userSignInDidComplete:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue:userId forKey:@"userId"];
+    [prefs setValue:mobileNumber forKey:@"mobileNumber"];
+    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
+    
+    [prefs synchronize];
+
+    [signInCompleteDelegate signInDidComplete];
+}
+-(void)userSignInDidFail:(NSString *) reason {
+    [self showAlertView:@"User Validation Failed!" withMessage: reason];
+}
+
+/*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
+-(void)fbSignInDidComplete:(BOOL)hasBankAccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
+    [prefs setValue:userID forKey:@"userId"];
+    [prefs synchronize];
+    
+    /*          
+        TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
+            ASK THEM TO ADD IT NOW
+     */
+    if ( !hasBankAccount ){
+        // No bank account, prompt user to add one now.
+        bankAlert = [[UIAlertView alloc] initWithTitle:@"Add a Bank Account" message:@"You have not yet added a bank account. You will not be able to send or receive money without adding a bank account" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Add now", nil];
+        [bankAlert show];
+        return;
+    } else if ( !hasSecurityPin ){
+        // User HAS a bank account, but no security pin for whatever reason.
+        // TODO: Add Security Pin Input (if above method of adding a bank account does not require one)
+    }
+}
+
+-(void)fbSignInDidFail:(NSString *) reason {
+    [self showAlertView:@"Facebook SignIn Error" withMessage: reason];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ( alertView == bankAlert ){
+        if (buttonIndex == 0) {
+            NSLog(@"User skipped adding bank account again");
+            [signInCompleteDelegate signInDidComplete];
+        } else if ( buttonIndex == 1 ) {
+            NSLog(@"User chose to add bank account.");
+            // Simply dismisses the alert view and allows the person to retry entering bank information
+            setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle: nil];
+            
+            [setupACHAccountController setUserSetupACHAccountComplete:self];
+            [setupACHAccountController setAchSetupCompleteDelegate:self];
+            [self.navigationController presentModalViewController:setupACHAccountController animated:NO];
+            [setupACHAccountController release];
+        }
+        else {
+            // You should never get here.
+            NSLog(@"Error occurred, no valid button selected.");
+        }
+    }
+}
+-(void)achAccountSetupDidComplete
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
+    [signInCompleteDelegate signInDidComplete];
+}
+-(void)achACcountSetupDidSkip
+{
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [signInCompleteDelegate signInDidComplete];
+}
+
 
 -(IBAction) btnSignInClicked:(id) sender {
     [self signInUser];
@@ -147,12 +251,12 @@
     
     [createAccountViewController setAchSetupCompleteDelegate: self];
     [self.navigationController pushViewController:createAccountViewController animated:YES];
-    
 }
 -(IBAction) bgTouched:(id) sender {
     [txtEmailAddress resignFirstResponder];
     [txtPassword resignFirstResponder];
 }
+
 -(BOOL)isValidUserName:(NSString *) userNameToTest {
     if([userNameToTest length] == 0)
         return false;
@@ -165,74 +269,45 @@
     
     return true;
 }
--(void) signInUser:(NSString*) myUserName withPassword:(NSString *) myPassword {
-    
-    Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = myEnvironment.pdthxWebServicesBaseUrl;
-    NSString *apiKey = myEnvironment.pdthxAPIKey;
-    
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/UserService/SignIn?apiKey=%@", rootUrl, apiKey]] autorelease];  
-    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
-                              myUserName, @"userName",
-                              myPassword, @"password",
-                              nil];
-    
-    NSString *newJSON = [userData JSONRepresentation]; 
-    
-    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
-    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
-    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
-    [request setRequestMethod: @"POST"];	
-    
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(signInUserComplete:)];
-    [request setDidFailSelector:@selector(signInUserFailed:)];
-    
-    [request startAsynchronous]; 
-}
--(void) signInUserComplete:(ASIHTTPRequest *)request
-{
-    NSString *theJSON = [request responseString];
-    
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    [parser release];
-    
-    BOOL isValid = [[jsonDictionary objectForKey:@"isValid"] boolValue];
-    NSString* userId = [[NSString alloc] initWithString:[jsonDictionary objectForKey:@"userId"]];
-    NSString* mobileNumber = [[NSString alloc] initWithString:[jsonDictionary objectForKey: @"mobileNumber"]];
-    NSString* paymentAccountId = [[NSString alloc] initWithString:[jsonDictionary objectForKey: @"paymentAccountId"]];
-    
-    if(isValid)
-    {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setObject: userId forKey:@"userId"];
-        [prefs setObject: mobileNumber forKey:@"mobileNumber"];
-        [prefs setObject: paymentAccountId forKey:@"paymentAccountId"];
-        [prefs setBool:TRUE forKey:@"setupPassword"];
-        [prefs setBool:TRUE forKey:@"setupSecurityPin"];
-        
-        [prefs synchronize];
 
-        [signInCompleteDelegate signInDidComplete];
-        
-    }
-    else {
-        [self showAlertView:@"Failed to sign in" withMessage: @"Unable to valide user name and password.  Try again."];          
+- (IBAction)doFBLogin:(id)sender {
+    NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
+    
+    
+    NSLog( @"Is FB Session Valid? %@" , [fBook isSessionValid] ? @"YES" : @"NO");
+    
+    if ( ![fBook isSessionValid] ){
+        NSLog( @"Should be authorizing..." );
+        [fBook authorize:permissions];
     }
     
-    [userId release];
-    [mobileNumber release];
-    [paymentAccountId release];
+    // Paste This To Be Able to Do Graph Calls
+    fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"FBAccessTokenKey"] 
+        && [defaults objectForKey:@"FBExpirationDateKey"]) {
+        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+    }
+    
+    // Graph Command is Used to Graph User Information.
+    // This requests only basic, and Email Address Information.
+    // This does not require the user accepts the Email Address Permission
+    [fBook requestWithGraphPath:@"me" andDelegate:self];
+    
+    [permissions release];
 }
--(void) signInUserFailed:(ASIHTTPRequest *)request
+
+-(void) request:(FBRequest *)request didLoad:(id)result
 {
-    // statsCommuniqueDoneProblem ... !
-    NSLog(@"Setup Password Failed");
+    [service validateUser:result];
 }
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog ( @"Error occurred -> %@" , [error description] );
+}
+
 -(void)achSetupDidComplete {
     [achSetupCompleteDelegate achSetupDidComplete];
 }

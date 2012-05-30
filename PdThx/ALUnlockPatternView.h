@@ -152,7 +152,7 @@
  *
  *  This is a simple wrapper of CGPoint. This wrapper permits to store a collection of CGPoint into a NSArray,
  */
-@interface PointObject : NSObject { 
+@interface PointObject : NSObject {
     CGPoint point;
 }
 /**

@@ -11,29 +11,31 @@
 #import "ConfirmSecurityPinDialog.h"
 #import "SetupACHAccountController.h"
 #import "ASIHTTPRequest.h"
-
+#import "RegisterUserService.h"
+#import "UserService.h"
+#import <MessageUI/MessageUI.h>
 
 @interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, SecurityPinCompleteDelegate, ConfirmSecurityPinCompleteDelegate,
-        ACHSetupCompleteProtocol, UITextFieldDelegate> {
+ACHSetupCompleteProtocol, UITextFieldDelegate, MFMessageComposeViewControllerDelegate> {
     IBOutlet UIButton *btnCreateAccount;
     IBOutlet UITextField *txtEmailAddress;
-    IBOutlet UITextField *txtMobileNumber;
     IBOutlet UITextField *txtPassword;
     IBOutlet UITextField *txtConfirmPassword;
     SetupSecurityPin *securityPinModal;
     ConfirmSecurityPinDialog *confirmSecurityPinModal;
     UIActivityIndicatorView* spinner;
     NSString* userName;
-    NSString* mobileNumber;
     NSString* password;
     NSString* securityPin;
     IBOutlet UIView *viewPanel;
     id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
     ASIHTTPRequest *requestObj;
+    RegisterUserService* registerUserService;
+    UserService* userService;
+    NSString* registrationKey;
 }
 @property(nonatomic, retain) UIButton *btnCreateAccount;
 @property(nonatomic, retain) UITextField *txtEmailAddress;
-@property(nonatomic, retain) UITextField *txtMobileNumber;
 @property(nonatomic, retain) UITextField *txtPassword;
 @property(nonatomic, retain) UITextField *txtConfirmPassword;
 @property(nonatomic, assign) UIView* viewPanel;
@@ -43,10 +45,9 @@
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnCreateAccountClicked:(id) sender;
 -(BOOL) isValidEmailAddress:(NSString*) emailAddressToTest;
--(BOOL)isValidMobileNumber:(NSString *) mobileNumberToTest;
 -(BOOL)isValidPassword:(NSString *) passwordToTest;
 -(BOOL)doesPasswordMatch:(NSString *) passwordToTest passwordToMatch: (NSString *) confirmPassword;
 -(void) showConfirmSecurityPin;
--(void) registerUser:(NSString *) userName withPassword:(NSString *) password withMobileNumber:(NSString *) mobileNumber withSecurityPin : (NSString *) securityPin;
+-(void)getUserInformation: (NSString*) userId;
 
 @end

@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PhoneNumberFormatting.h"
 
 @interface UIBaseViewController : UIViewController {
     IBOutlet UIScrollView *scrollView;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
     UITextField *currTextField;
+    PhoneNumberFormatting* phoneNumberFormatter;
 }
+
 @property(nonatomic, retain) UIScrollView *scrollView;
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
@@ -22,4 +24,5 @@
 -(void) signOutClicked;
 -(void) actionButtonClicked:(id)sender;
 -(void)loadContacts;
+
 @end

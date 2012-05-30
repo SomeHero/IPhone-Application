@@ -44,7 +44,7 @@
 /**
  *  Passing a point of this view, returns in which of the 9 cells is this point
  */
--(int) getCellFromPoint:(CGPoint) point{
+-(int) getCellFromPoint:(CGPoint) point {
     int row=point.y/(self.frame.size.height/3);
     int col=point.x/(self.frame.size.width/3);
     return (col+1)+(row*3);
@@ -57,7 +57,7 @@
     _radius=minSide*_radiusPercentage/100;
     UIButton *btn=(UIButton *)[self viewWithTag:index];
     float distance=[self distanceBetweenTwoPoints:btn.center point2:point];
-    if (distance<=_radius)
+    if (distance<=_radius*2)
         return YES;
     else
         return NO;
@@ -151,15 +151,6 @@
     UITouch *touch = [touches anyObject];
     _endPoint = [touch locationInView:self];
     
-    //check if current touch is out of the view border limits
-    if (_endPoint.x < 0 ||
-        _endPoint.x > self.frame.size.width ||
-        _endPoint.y < 0 ||
-        _endPoint.y > self.frame.size.height) {        
-        [self touchesEnded:nil withEvent:nil];
-        _touchStopped=YES;
-        return;
-    }
     
     int i=[self getCellFromPoint:_endPoint];
     if (i!=_lastCellSelected) {

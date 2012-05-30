@@ -13,26 +13,57 @@
 #import "Environment.h"
 #import "SBJsonParser.h"
 #import "JSON.h"
+#import "Facebook.h"
+#import "Contact.h"
+#import <AddressBook/AddressBook.h>
+#import "PhoneNumberFormatting.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
 @synthesize tabBarController=_tabBarController;
+@synthesize fBook, deviceToken, phoneNumberFormatter, permissions, tempArray, contactsArray;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-
+    permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
     [self.tabBarController setDelegate:self];
 
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
     [self.window addSubview:self.tabBarController.view];
     [self.tabBarController setSelectedIndex:1];
     
+    
+    // Make the device expect notifications
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert )];
+    
+    fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"FBAccessTokenKey"] 
+        && [defaults objectForKey:@"FBExpirationDateKey"]) {
+        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+    }
+    
+    // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
+    contactsArray = [[NSMutableArray alloc] init];
+    for ( int i = 0 ; i < 27 ; i++ )
+        [contactsArray addObject:[[NSMutableArray alloc]init]];
+    
+    phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
+    tempArray = [[NSMutableArray alloc] init];
+    
+    [self loadAllContacts];
+    
     [self.window makeKeyAndVisible];
     
     return YES;
 }
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -59,7 +90,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface
      */
 }
 
@@ -71,6 +102,7 @@
      See also applicationDidEnterBackground:.
      */
 }
+
 -(void)signOut {
     NSLog(@"You Logged Out");
     
@@ -78,10 +110,17 @@
     
     [prefs removeObjectForKey:@"userId"];
     [prefs removeObjectForKey:@"paymentAccountId"];
+    
+    // Implement Removal of Facebook Contacts from contactArray when they log out of their FACEBOOK-lined account.
+    if ( [fBook isSessionValid] )
+        [fBook logout];
+    
+    // Reload all Contacts (without Facebook permissions)
+    [self loadAllContacts];
 
     [prefs synchronize];
-    
 }
+
 -(void)forgetMe
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -91,6 +130,7 @@
     [prefs removeObjectForKey:@"paymentAccountId"];      
     [prefs removeObjectForKey:@"setupPassword"];
     [prefs removeObjectForKey:@"setupSecurityPin"];
+    [prefs removeObjectForKey:@"deviceToken"];
     
     [prefs synchronize];
 
@@ -101,11 +141,192 @@
 -(void)switchToRequestMoneyController {
     [self.tabBarController setSelectedIndex:2];
 }
+
+
+/*       Push Notification Handling         */
+
+- (void)application:(UIApplication*)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
+    
+    NSString *tokenStr = [devicesToken description];
+    
+    NSString *pushToken = [[[[tokenStr 
+                              stringByReplacingOccurrencesOfString:@"<" withString:@""] 
+                             stringByReplacingOccurrencesOfString:@">" withString:@""] 
+                            stringByReplacingOccurrencesOfString:@" " withString:@""] retain];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue:pushToken forKey:@"deviceToken"];
+    
+    [prefs synchronize];
+    
+    NSLog(@"Prefs object for token: %@" , [prefs stringForKey:@"deviceToken"]);
+    
+    NSLog(@"Device token stored as: %@" , devicesToken );
+    
+    Environment * theEnvironment = [[Environment alloc] init];
+    theEnvironment.deviceToken = tokenStr;
+    [theEnvironment release];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog( @"Failed to get token, error %@" , error );
+}
+
+-(void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    if ( application.applicationState == UIApplicationStateActive ){
+        // Application was Open when the Notification Arrived. Simply Notify 
+        // the user with a AlertView and take them to the payment/details screen
+        // based on the notification
+        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+        NSString * jsonString = [writer stringWithObject:userInfo];
+        [writer release];
+        NSLog ( @"%@" , jsonString );
+        
+        UIAlertView * notifAlert;
+        
+        if ( [userInfo objectForKey:@"nType"] == @"recPCNF" ) { // Payment Received
+            notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Received" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+            notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+            [notifAlert show];
+        } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
+            notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+        } // Other Cases Not Handled.. May be something wrong..
+    } else {
+        // Application Just Resumed from Background, so load the notification
+        // details pane or the payment processing screen (based on notification)
+        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+        NSString * jsonString = [writer stringWithObject:userInfo];
+        [writer release];
+        NSLog ( @"%@" , jsonString );
+        
+        // Load Paystream Detail View
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:([UIApplication sharedApplication].applicationIconBadgeNumber+1)];
+        
+    }
+}
+
+-(void)loadAllContacts
+{
+    if ( tempArray != NULL )
+        [tempArray removeAllObjects];
+    
+
+    Contact * contact;
+    
+    if ( [fBook isSessionValid] ){
+        [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
+    }
+    
+    // get the address book
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+    
+    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    int index = 0;
+    for (int i = 1; i < nPeople; i++) {
+        ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
+        CFStringRef firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+        CFStringRef lastName = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
+        NSString *contactFirstLast = [NSString stringWithFormat: @"%@ %@", (NSString *)firstName, (NSString *)lastName];
+        
+        if([(NSString *)lastName length] == 0)
+            contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
+        
+        // Handles Multiple Phone Numbers for One Contact...
+        for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
+            CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
+            NSString *phoneNumber = (NSString *) phoneNumberRef;
+            
+            contact = [[Contact alloc] init];
+            contact.name = contactFirstLast;
+            contact.firstName = (NSString*)firstName;
+            contact.lastName = (NSString*)lastName;
+            NSLog(@"Phone Number: %@", phoneNumber);
+            contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
+            NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
+            [tempArray addObject:contact];
+            
+            index++;
+            
+            [contact release];
+        }
+    }
+}
+
+-(void) request:(FBRequest *)request didLoad:(id)result
+{
+    NSArray *friendArray = [result objectForKey:@"data"];
+    NSArray *splitName;
+    Contact *friend;
+    for ( NSDictionary *dict in friendArray ){
+        friend = [[Contact alloc] init];
+        friend.facebookID = [dict objectForKey:@"id"];
+        friend.name = [dict objectForKey:@"name"];
+        splitName = [friend.name componentsSeparatedByString:@" "];
+        
+        friend.firstName = [splitName objectAtIndex:0];
+        friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
+        
+        friend.imgData = NULL;
+        [tempArray addObject:friend];
+        [friend release];
+    }
+    [self sortContacts];
+}
+
+-(void)sortContacts
+{
+    tempArray = [[NSMutableArray arrayWithArray:[tempArray sortedArrayUsingSelector:@selector(compare:)]] copy];
+    NSString * comparedString;
+    
+    /*
+     *      Now we need to take the sorted array and split it into sub
+     *      arrays for each letter of the alphabet. This is done by:
+     *      
+     *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
+     */
+    for (Contact*person in tempArray) {
+        comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
+        
+        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-65] addObject:person];
+    }
+    NSLog(@"Contacts Ready.");
+}
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog ( @"Facebook Error occurred -> %@" , [error description] );
+}
+
+// Pre iOS 4.2 support
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [fBook handleOpenURL:url];
+}
+
+// For iOS 4.2+ support
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [fBook handleOpenURL:url];
+}
+
+- (void)fbDidLogin {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
+    [defaults setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
+    [defaults synchronize];
+    
+    [fBook requestWithGraphPath:@"me" andDelegate:self];
+}
+
 - (void)dealloc
 {
     [_window release];
     [_tabBarController release];
-    
+    [fBook release];
     [super dealloc];
 }
 @end
