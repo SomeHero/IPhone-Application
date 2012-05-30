@@ -416,7 +416,7 @@ float tableHeight2 = 30;
         
     }
     else {
-        [self showAlertView: @"Sorry. Try Again.!" withMessage:message];
+        [self showAlertView: @"Sorry. Try Again!" withMessage:message];
     }
 
 }
