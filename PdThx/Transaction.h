@@ -27,6 +27,7 @@
     NSDate* transactionSentDate;
     NSDate* createDate;
     NSDate* lastUpdatedDate;
+    NSString* direction;
 }
 @property(nonatomic, retain) NSString* transactionId;
 @property(nonatomic, retain) NSString* paymentId;
@@ -43,6 +44,7 @@
 @property(nonatomic, retain) NSDate* transactionSentDate;
 @property(nonatomic, retain) NSDate* createDate;
 @property(nonatomic, retain) NSDate* lastUpdatedDate;
+@property(nonatomic, retain) NSString* direction;
 
 -(Transaction *) initWithDictionary : (NSDictionary *) dictionary;
 
