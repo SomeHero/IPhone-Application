@@ -10,14 +10,23 @@
 
 
 @interface Contact : NSObject {	
-    NSString *name;	
+    NSString *name;
+    NSString *firstName;
+    NSString *lastName;
     NSString *phoneNumber;
-    //NSString *twitterName;
-    //NSString *emailAddress;
-    //NSString *googlePlusName;
+    NSString *emailAddress;
+    NSString *facebookID;
+    UIImage *imgData;
 }
 
 @property(nonatomic, retain) NSString* name;
 @property(nonatomic, retain) NSString* phoneNumber;
+@property(nonatomic, retain) NSString *emailAddress;
+@property(nonatomic, retain) NSString *facebookID;
+@property(nonatomic, retain) UIImage *imgData;
+@property(nonatomic, retain) NSString *firstName;
+@property(nonatomic, retain) NSString *lastName;
+
+-(NSComparisonResult)compare:(Contact*)otherContact;
 
 @end

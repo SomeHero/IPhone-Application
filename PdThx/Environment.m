@@ -7,6 +7,7 @@
 //
 
 #import "Environment.h"
+#import "FBConnect.h"
 
 @implementation Environment
 
@@ -14,6 +15,7 @@ static Environment *sharedInstance = nil;
 
 @synthesize pdthxAPIKey;
 @synthesize pdthxWebServicesBaseUrl;
+@synthesize deviceToken;
 
 - (id)init
 {
@@ -38,6 +40,7 @@ static Environment *sharedInstance = nil;
     self.pdthxWebServicesBaseUrl = [[[NSString alloc] initWithString:[environment valueForKey:@"pdthxWebServicesBaseUrl"]] autorelease];
     self.pdthxAPIKey = [[[NSString alloc] initWithString:[environment valueForKey:@"pdthxAPIKEY"]] autorelease];
     
+    
     [environments release];
 }
 
@@ -59,7 +62,7 @@ static Environment *sharedInstance = nil;
     return NSUIntegerMax;
 }
 
-- (void) release
+- (oneway void) release
 {
     // Do Nada
 }
@@ -73,6 +76,7 @@ static Environment *sharedInstance = nil;
 {
     return self;
 }
+
 
 - (void) dealloc
 {

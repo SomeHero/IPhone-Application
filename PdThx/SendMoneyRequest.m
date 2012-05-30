@@ -57,7 +57,7 @@
 {
     return self;
 }
-- (void)release
+- (oneway void)release
 {
     // do nothing
 }

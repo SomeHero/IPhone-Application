@@ -30,9 +30,7 @@
                               apiKey, @"apiKey",
                               newUserName, @"userName",
                               newPassword, @"password",
-                              newMobileNumber, @"mobileNumber",
                               newUserName, @"emailAddress",
-                              newSecurityPin, @"securityPin",
                               deviceId, @"deviceToken",
                               nil];
     

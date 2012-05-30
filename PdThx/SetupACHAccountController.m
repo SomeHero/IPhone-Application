@@ -1,4 +1,4 @@
-//
+ //
 //  SetupACHAccountController.m
 //  PdThx
 //
@@ -11,6 +11,8 @@
 #import "ASIHTTPRequest.h"
 #import "Environment.h"
 #import "SetupACHAccountController.h"
+#import "HomeViewController.h"
+#import "PdThxAppDelegate.h"
 
 @interface SetupACHAccountController ()
 - (void)createACHAccount;
@@ -24,6 +26,8 @@
 @synthesize txtAccountNumber;
 @synthesize txtRoutingNumber;
 @synthesize achSetupCompleteDelegate;
+@synthesize userSetupACHAccountComplete;
+@synthesize skipBankAlert;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,6 +48,7 @@
     [userSetupACHAccountService release];
     //[achSetupCompleteDelegate release];
 
+    [skipButton release];
     [super dealloc];
 }
 
@@ -68,6 +73,8 @@
 
 - (void)viewDidUnload
 {
+    [skipButton release];
+    skipButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -147,8 +154,8 @@
     if(isValid) {
         [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType];
     }
-
 }
+
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -158,7 +165,8 @@
     
     [achSetupCompleteDelegate achSetupDidComplete];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    // Move to Home View Controller inside NavigationController again
+    //[self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void)userACHSetupDidFail:(NSString*) message {
     [self showAlertView: @"Unable to Setup Account" withMessage:message];
@@ -178,7 +186,7 @@
      */
     
     skipBankAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Without adding a bank account, you will not be able to send or receive money using PaidThx. Press \"Go Back\" to add a bank account now. Press \"Skip\" to skip adding a bank account. You are able to add a bank account later under the \"Settings\" tab" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Go Back", nil];
-    //skipBankAlert.alertViewStyle = UIAlertViewStyleDefault;
+    
     [skipBankAlert show];
 }
 
@@ -186,7 +194,9 @@
     if ( alertView == skipBankAlert ){
         if (buttonIndex == 0) {
             NSLog(@"User skipped adding bank account");
-            [self.navigationController popToRootViewControllerAnimated:YES];
+
+            [userSetupACHAccountComplete achACcountSetupDidSkip];
+            // TODO: Load Tabbed View Controller with Home View
         }
         else if ( buttonIndex == 1 ){
             NSLog(@"User chose to add bank account.");
@@ -198,7 +208,6 @@
         }
     }
 }
-
 -(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType
 {
     
@@ -226,7 +235,7 @@
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
     [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
-    [request setRequestMethod: @"POST"];	
+    [request setRequestMethod: @"POST"];
     
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(setupACHAccountComplete:)];
@@ -234,6 +243,8 @@
     
     [request startAsynchronous];
 }
+
+
 -(void) setupACHAccountComplete: (ASIHTTPRequest *) request {
     
     NSString *theJSON = [request responseString];
@@ -254,7 +265,8 @@
         
         [achSetupCompleteDelegate achSetupDidComplete];
         
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        // Go to main Controller Again
+        //[self.navigationController popToRootViewControllerAnimated:YES];
         
     }
     else {
@@ -264,34 +276,41 @@
     [paymentAccountId release];
     
 }
+
 -(void) setupACHAccountFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Setup ACH Account Failed");
 }
+
 -(BOOL)isValidNameOnAccount:(NSString *) nameToTest {
     if([nameToTest length] == 0)
         return false;
     
     return true;
 }
+
 -(BOOL)isValidRoutingNumber:(NSString *) routingNumberToTest {
     if([routingNumberToTest length] == 0)
         return false;
     
     return true;
 }
+
 -(BOOL)isValidAccountNumber:(NSString *) accountNumberToTest {
     if([accountNumberToTest length] == 0)
         return false;
     
     return true;
 }
+
+
 -(BOOL)doesAccountNumberMatch:(NSString *) accountNumberToTest doesMatch:(NSString *) confirmationNumber {
     if(![accountNumberToTest isEqualToString:confirmationNumber])
         return false;
     
     return true;
 }
+
 -(IBAction) bgTouched:(id) sender {
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];

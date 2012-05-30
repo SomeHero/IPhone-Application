@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UITransactionTableViewCell.h"
 #import "UIBaseViewController.h"
 #import "Transaction.h"
 #import "SignInViewController.h"
@@ -17,7 +16,7 @@
 
 @class UITransactionTableViewCell;
 
-@interface PayStreamViewController : UIBaseViewController<GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITableView *transactionsTableView;
     NSMutableData *responseData;
@@ -28,6 +27,7 @@
     SignInViewController* signInViewController;
     GetPayStreamService* getPayStreamService;
 }
+
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITableView *transactionsTableView;
 

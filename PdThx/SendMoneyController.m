@@ -15,6 +15,7 @@
 #import "SignInViewController.h"
 #import "SetupSecurityPin.h"
 #import "SendMoneyService.h"
+#import "ContactSelectViewController.h"
 
 @interface SendMoneyController ()
 - (void)sendMoney;
@@ -23,7 +24,8 @@
 
 @implementation SendMoneyController
 
-@synthesize viewPanel, txtRecipientUri, txtAmount, txtComments, btnSendMoney;
+@synthesize viewPanel, txtRecipientUri, txtAmount, txtComments, btnSendMoney, amount;
+@synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton;
 
 float tableHeight2 = 30;
 
@@ -48,6 +50,10 @@ float tableHeight2 = 30;
     [comments release];
     [sendMoneyService release];
 
+    [recipientImageButton release];
+    [chooseRecipientButton release];
+    [contactHead release];
+    [contactDetail release];
     [super dealloc];
 }
 
@@ -67,6 +73,9 @@ float tableHeight2 = 30;
 {
     [super viewDidLoad];
     
+    [recipientImageButton.layer setCornerRadius:12.0];
+    [recipientImageButton.layer setMasksToBounds:YES];
+    
     sendMoneyService = [[SendMoneyService alloc] init];
     [sendMoneyService setSendMoneyCompleteDelegate:self];
     
@@ -82,7 +91,6 @@ float tableHeight2 = 30;
     [scrollView setContentSize:CGSizeMake(320, 713)];  
     
     self.navigationItem.title = @"Send $";
-    [self loadContacts];
     
     //setup internal viewpanel
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
@@ -99,17 +107,6 @@ float tableHeight2 = 30;
 	txtRecipientUri.textColor = [UIColor blackColor];
 	[txtRecipientUri setDelegate:self];
     
-	//Autocomplete Table
-	autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2) style:UITableViewStylePlain];
-	autoCompleteTableView.delegate = self;
-	autoCompleteTableView.dataSource = self;
-	autoCompleteTableView.scrollEnabled = YES;
-	autoCompleteTableView.hidden = YES; 
-	autoCompleteTableView.rowHeight = tableHeight2;
-    
-	[self.scrollView addSubview:autoCompleteTableView];
-	[autoCompleteTableView release];
-    
     [txtAmount setDelegate:self];
     txtAmount.text = @"$0.00";
     
@@ -117,6 +114,14 @@ float tableHeight2 = 30;
 
 - (void)viewDidUnload
 {
+    [recipientImageButton release];
+    recipientImageButton = nil;
+    [chooseRecipientButton release];
+    chooseRecipientButton = nil;
+    [contactHead release];
+    contactHead = nil;
+    [contactDetail release];
+    contactDetail = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -156,11 +161,17 @@ float tableHeight2 = 30;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
     NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
-    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
+    NSString* senderUri;
+    NSString* username = [prefs stringForKey:@"userName"];
     
+    if ( [[username substringToIndex:3] isEqual:@"fb_"] )
+        senderUri = username;
+    else
+        senderUri = [prefs stringForKey:@"mobileNumber"];
+    
+    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
 
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:mobileNumber withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount];
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount];
 }
 -(void)sendMoneyDidComplete {
     [self.scrollView scrollsToTop];
@@ -178,6 +189,15 @@ float tableHeight2 = 30;
 -(void)sendMoneyDidFail:(NSString*) message {
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
+
+- (IBAction)pressedChooseRecipientButton:(id)sender 
+{
+    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.contactSelectChosenDelegate = self;
+}
+
 -(IBAction) bgTouched:(id) sender {
     [txtRecipientUri resignFirstResponder];
     [txtAmount resignFirstResponder];
@@ -231,42 +251,49 @@ float tableHeight2 = 30;
     }
 }
 
+-(void)didChooseContact:(Contact *)contact
+{
+    recipient = contact;
+    if ( contact.imgData )
+        [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+    else if ( contact.facebookID.length > 0 )
+        [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
+    else
+        [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    
+    
+    recipientImageButton.imageView.image = nil;
+    // Image Formatting
+    [recipientImageButton.layer setCornerRadius:12.0];
+    [recipientImageButton.layer setMasksToBounds:YES];
+    
+    contactHead.text = contact.name;
+
+    if ( contact.facebookID.length > 0 ){
+        contactDetail.text = @"Facebook Friend";
+    } else if ( contact.phoneNumber ){
+        contactDetail.text = contact.phoneNumber;
+    } else if ( contact.emailAddress.length > 0 ){
+        contactDetail.text = contact.emailAddress;
+    }else {
+        contactDetail.text = @"No Info to Display";
+    }
+    
+    if ( contact.facebookID.length > 0 )
+        recipientUri = [NSString stringWithFormat:@"fb_%@", contact.facebookID];
+    else if ( contact.phoneNumber.length > 0 )
+        recipientUri = contact.phoneNumber;
+    else if ( contact.emailAddress.length > 0 )
+        recipientUri = contact.emailAddress;
+}
+
 -(IBAction) btnSendMoneyClicked:(id)sender {
-
     [self sendMoney];
+}
 
-
-}
-// Take string from Search Textfield and compare it with autocomplete array
-- (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring {
-	
-	// Put anything that starts with this substring into the autoCompleteArray
-	// The items in this array is what will show up in the table view
-	
-	[autoCompleteArray removeAllObjects];
-    
-	for(Contact *contact in allResults) {
-        NSRange substringRangeLowerCase = [contact.phoneNumber rangeOfString:[substring lowercaseString]];
-		NSRange substringRangeUpperCase = [contact.phoneNumber rangeOfString:[substring uppercaseString]];
-        
-		if (substringRangeLowerCase.length != 0 || substringRangeUpperCase.length != 0) {
-			[autoCompleteArray addObject: contact];
-		}
-	}
-	autoCompleteTableView.hidden = NO;
-	[autoCompleteTableView reloadData];
-    
-}
-- (void) finishedSearching {
-	[txtRecipientUri resignFirstResponder];
-	autoCompleteTableView.hidden = YES;
-}
 #pragma mark UITextFieldDelegate methods
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
-    if (textField.tag == 0)
-        [self finishedSearching];
-
   NSInteger nextTag = textField.tag + 1;
   // Try to find next responder
   UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
@@ -282,6 +309,8 @@ float tableHeight2 = 30;
   return NO; // We do not want UITextField to insert line-breaks.
 }
 
+
+/*
 // String in Search textfield
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if(textField.tag == 0) {
@@ -410,6 +439,9 @@ float tableHeight2 = 30;
 
     [self finishedSearching];
 }
+*/
+
+
 -(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
        fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 

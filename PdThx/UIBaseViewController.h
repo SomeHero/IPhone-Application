@@ -16,6 +16,7 @@
     UITextField *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
 }
+
 @property(nonatomic, retain) UIScrollView *scrollView;
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
@@ -23,4 +24,5 @@
 -(void) signOutClicked;
 -(void) actionButtonClicked:(id)sender;
 -(void)loadContacts;
+
 @end

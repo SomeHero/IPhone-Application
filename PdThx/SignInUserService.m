@@ -29,7 +29,7 @@
                               password, @"password",
                               nil];
     
-    NSString *newJSON = [userData JSONRepresentation]; 
+    NSString *newJSON = [userData JSONRepresentation];
     
     requestObj= [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 

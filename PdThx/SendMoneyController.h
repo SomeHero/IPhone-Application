@@ -16,11 +16,10 @@
 #import "Environment.h"
 #import "SendMoneyService.h"
 #import "SendMoneyCompleteProtocol.h"
+#import "ContactSelectViewController.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource> {
-    UITableView *autoCompleteTableView;
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, ContactSelectChosenProtocol> {
     IBOutlet UIView *viewPanel;
-    IBOutlet UITextField *txtRecipientUri;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextField *txtComments;
     IBOutlet UIButton *btnSendMoney;
@@ -29,13 +28,26 @@
     NSString* amount;
     NSString* comments;
     SendMoneyService* sendMoneyService;
+    IBOutlet UIButton *chooseRecipientButton;
+    IBOutlet UILabel *contactHead;
+    IBOutlet UILabel *contactDetail;
+    IBOutlet UIButton *recipientImageButton;
+    Contact *recipient;
 }
+
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtRecipientUri;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextField *txtComments;
 @property(nonatomic, retain) UIButton *btnSendMoney;
 @property(nonatomic, retain) NSString* amount;
+@property(nonatomic, retain) UIButton *chooseRecipientButton;
+@property(nonatomic, retain) UILabel *contactHead;
+@property(nonatomic, retain) UILabel *contactDetail;
+@property(nonatomic, retain) UIButton *recipientImageButton;
+
+
+- (IBAction)pressedChooseRecipientButton:(id)sender;
 
 
 -(IBAction) bgTouched:(id) sender;

@@ -7,15 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "FBConnect.h"
 
 @interface Environment : NSObject {
     NSString* pdthxWebServicesBaseUrl;
     NSString *pdthxAPIKey;
+    NSString *deviceToken;
 }
 
 @property(nonatomic, retain) NSString* pdthxWebServicesBaseUrl;
 @property(nonatomic, retain) NSString* pdthxAPIKey;
+@property(nonatomic, retain) NSString* deviceToken;
 
 + (Environment *)sharedInstance;
 

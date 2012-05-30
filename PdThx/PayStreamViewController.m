@@ -13,6 +13,7 @@
 #import "GetPayStreamService.h"
 #import "GetPayStreamCompleteProtocol.h"
 #import "PaystreamMessage.h"
+#import "UIPaystreamTableViewCell.h"
 
 @implementation PayStreamViewController
 
@@ -29,6 +30,11 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+}
+
 - (void)dealloc
 {
     [viewPanel release];
@@ -41,7 +47,6 @@
     [transactionConnection release];
     [signInViewController release];
     [getPayStreamService release];
-    
     [super dealloc];
 }
 
@@ -91,6 +96,7 @@
     [[viewPanel layer] setCornerRadius: 8.0];
     
     [transactionsTableView setRowHeight:60];
+    [transactionsTableView setEditing:NO];
    
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -119,6 +125,7 @@
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
     NSLog(@"Got paystream messages");
+    NSLog(@"Cleared Application Badge");
     
     transactions = [payStreamMessages copy];
     sections = [[NSMutableArray alloc] init];
@@ -240,16 +247,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TranasctionCell";
-
+    static NSString *CellIdentifier = @"transactionCell";
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
     
-    UITransactionTableViewCell *cell = (UITransactionTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITransactionTableViewCell alloc] initWithFrame: CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+    UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                                     
+    if (cell == nil){
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
 
     NSLog(@"%d", indexPath.section);
@@ -259,42 +268,45 @@
 
     // Configure the cell...
     if([item.senderUri isEqualToString: mobileNumber]) {
-        cell.lblRecipientUri.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.recipientUri];
+        cell.transactionRecipient.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.recipientUri];
+    } else {
+        cell.transactionRecipient.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.senderUri];
     }
-    else {
-        cell.lblRecipientUri.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.senderUri];
-    }
-    [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
+    [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
+    
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
     [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a"];
     [dateFormatter setTimeZone: [NSTimeZone defaultTimeZone]];
 
-    cell.lblAmount.text = [currencyFormatter stringFromNumber: item.amount];
-    cell.lblTransactionDate.text = [dateFormatter stringFromDate: item.createDate];
+    cell.transactionAmount.text = [currencyFormatter stringFromNumber: item.amount];
+    cell.transactionDate.text = [dateFormatter stringFromDate: item.createDate];
     //cell.imageView.image = [UIImage  imageNamed:@"icon_checkmark.png"];
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-    if([item.senderUri isEqualToString: mobileNumber]) {
-        if([item.messageType isEqualToString: @"Payment"]) {
-            [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
+    if([item.senderUri isEqualToString: mobileNumber])
+        if([item.messageType isEqualToString: @"Payment"])
+            cell.transactionType.text = @"Payment";
+        else
+            cell.transactionType.text = @"Payment Request";
+            
+            /*[cell.transactionImage setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
         } else  {
-            [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_request_sent_icon.png"]];
+            [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_request_sent_icon.png"]];
         } 
-    }
-    else {
+    } else {
         if([item.messageType isEqualToString: @"Payment"]) {
-            [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_received_icon.png"]];
+            [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_received_icon.png"]];
         }
         else  {
-                [cell.imgTransactionType setImage: [UIImage imageNamed: @"paystream_request_received_icon.png"]];
-            } 
-            
-    }
-    cell.imgTransactionStatus.image = [UIImage imageNamed: @"transaction_complete_icon.png"];
-
+                [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_request_received_icon.png"]];
+            }*/            
+    
+    NSLog ( @"Message Status: %@" , item.messageStatus );
+    cell.transactionStatus.text = @"Complete"; // ? This might be wrong
+        
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [imageView setContentMode:UIViewContentModeScaleToFill];

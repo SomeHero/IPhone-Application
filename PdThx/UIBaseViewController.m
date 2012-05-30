@@ -19,6 +19,7 @@
 int kTabBarSize = 20;
 int lastCharCount = 0;
 
+//Fake Update
 //--size of application screen---
 CGRect applicationFrame;
 
@@ -147,75 +148,7 @@ CGSize scrollViewOriginalSize;
     }
     
 }
--(void)loadContacts {
-    allResults = [[NSMutableArray alloc] init];
-    
-    Contact *contact;
-    
-    contact = [[Contact alloc] init];
-    contact.name = @"James Rhodes";
-    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"804-387-9693"];
 
-    [allResults addObject:contact];
-
-    [contact release];
-
-    contact = [[Contact alloc] init];
-    contact.name = @"Rich Rhodes";
-    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"804-316-9693" ];
-
-    [allResults addObject:contact];
-
-    [contact release];
-
-    contact = [[Contact alloc] init];
-    contact.name = @"DeLacy LeBlanc";
-    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"615-517-8859" ];
-
-    [allResults addObject:contact];
-    
-    [contact release];
-
-    contact = [[Contact alloc] init];
-    contact.name = @"Dad";
-    contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: @"703-474-9405" ];
-
-    [allResults addObject:contact];
-
-    [contact release];
-
-    // get the address book
-    ABAddressBookRef addressBook = ABAddressBookCreate() ;
-    
-    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    int index = 0;
-    for (int i = 0; i < nPeople; i++) {
-        ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
-        CFStringRef firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
-        CFStringRef lastName = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-        ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
-        NSString *contactFirstLast = [NSString stringWithFormat: @"%@, %@", (NSString *)lastName, (NSString *) firstName];
-        
-        if([(NSString *)lastName length] == 0)
-            contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
-        
-        for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
-            CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
-            NSString *phoneNumber = (NSString *) phoneNumberRef;
-            
-            contact = [[Contact alloc] init];
-            contact.name = contactFirstLast;
-            contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber: phoneNumber];
-            
-            [allResults addObject:contact];      
-            
-            index++;
-            
-            [contact release];
-        }
-    }
-}
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navController {
 

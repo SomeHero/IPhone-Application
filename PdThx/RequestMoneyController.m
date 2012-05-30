@@ -94,7 +94,7 @@ float tableHeight = 30;
     [scrollView setContentSize:CGSizeMake(320, 713)];
 
 
-    [self loadContacts];
+    //[self loadContacts];
 
     self.navigationItem.title = @"Request $";
 
