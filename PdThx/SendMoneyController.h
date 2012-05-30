@@ -24,9 +24,9 @@
     IBOutlet UITextField *txtComments;
     IBOutlet UIButton *btnSendMoney;
     ConfirmPaymentDialogController *securityPinModalPanel;
-    NSString* recipientUri;
     NSString* amount;
     NSString* comments;
+    NSString* recipientUri;
     SendMoneyService* sendMoneyService;
     IBOutlet UIButton *chooseRecipientButton;
     IBOutlet UILabel *contactHead;
@@ -36,7 +36,6 @@
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
-@property(nonatomic, retain) UITextField *txtRecipientUri;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextField *txtComments;
 @property(nonatomic, retain) UIButton *btnSendMoney;
@@ -45,6 +44,7 @@
 @property(nonatomic, retain) UILabel *contactHead;
 @property(nonatomic, retain) UILabel *contactDetail;
 @property(nonatomic, retain) UIButton *recipientImageButton;
+@property(nonatomic, retain) NSString* recipientUri;
 
 
 - (IBAction)pressedChooseRecipientButton:(id)sender;

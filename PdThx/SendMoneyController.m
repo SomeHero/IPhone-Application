@@ -24,8 +24,8 @@
 
 @implementation SendMoneyController
 
-@synthesize viewPanel, txtRecipientUri, txtAmount, txtComments, btnSendMoney, amount;
-@synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton;
+@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount;
+@synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri;
 
 float tableHeight2 = 30;
 
@@ -40,12 +40,10 @@ float tableHeight2 = 30;
 - (void)dealloc
 {
     [viewPanel release];
-    [txtRecipientUri release];
     [txtAmount release];
     [txtComments release];
     [btnSendMoney release];
     [securityPinModalPanel release];
-    [recipientUri release];
     [amount release];
     [comments release];
     [sendMoneyService release];
@@ -96,16 +94,6 @@ float tableHeight2 = 30;
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
-    
-    //Search Bar
-	txtRecipientUri.borderStyle = UITextBorderStyleRoundedRect; // rounded, recessed rectangle
-	txtRecipientUri.autocorrectionType = UITextAutocorrectionTypeNo;
-	txtRecipientUri.textAlignment = UITextAlignmentLeft;
-	txtRecipientUri.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	//txtRecipientUri.returnKeyType = UIReturnKeyDone;
-	txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
-	txtRecipientUri.textColor = [UIColor blackColor];
-	[txtRecipientUri setDelegate:self];
     
     [txtAmount setDelegate:self];
     txtAmount.text = @"$0.00";
@@ -177,7 +165,7 @@ float tableHeight2 = 30;
     [self.scrollView scrollsToTop];
     [securityPinModalPanel hide];
 
-    [txtRecipientUri setText: @""];
+    recipientUri = @"";
     [txtAmount setText: @"$0.00"];
     [txtComments setText: @""];
     
@@ -199,15 +187,11 @@ float tableHeight2 = 30;
 }
 
 -(IBAction) bgTouched:(id) sender {
-    [txtRecipientUri resignFirstResponder];
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
 }
 
 - (void)sendMoney {
-
-    if([txtRecipientUri.text length] > 0)
-        recipientUri = [txtRecipientUri.text copy];
 
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
@@ -245,7 +229,7 @@ float tableHeight2 = 30;
 
             [signInViewController setSignInCompleteDelegate:self];
             [signInViewController setAchSetupCompleteDelegate:self];
-
+            
             [self.navigationController pushViewController:signInViewController animated:YES];
         }
     }
@@ -310,16 +294,10 @@ float tableHeight2 = 30;
 }
 
 
-/*
+
 // String in Search textfield
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(textField.tag == 0) {
-        NSString *substring = [NSString stringWithString:textField.text];
-        substring = [substring stringByReplacingCharactersInRange:range withString:string];
-        [self searchAutocompleteEntriesWithSubstring:substring];
-	
-        return YES;
-    } else if(textField.tag == 1) {
+    if(textField.tag == 1) {
         NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
         [tempAmount appendString: @"$"];
         
@@ -377,71 +355,6 @@ float tableHeight2 = 30;
     return YES;
 }
 
-#pragma mark UITableViewDelegate methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
-    
-	//Resize auto complete table based on how many elements will be displayed in the table
-	if (autoCompleteArray.count >=3) {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*3);
-		return autoCompleteArray.count;
-	}
-
-	else if (autoCompleteArray.count == 2) {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*2);
-		return autoCompleteArray.count;
-	}
-	else if (autoCompleteArray.count >= 1) {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2);
-		return autoCompleteArray.count;
-	}
-    else  {
-		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, 0);
-		return autoCompleteArray.count;
-	}
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell;
-    static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
-	cell = [tableView dequeueReusableCellWithIdentifier:AutoCompleteRowIdentifier];
-	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteRowIdentifier] autorelease];
-	}
-    Contact *contact = [autoCompleteArray objectAtIndex:indexPath.row];
-
-    cell.textLabel.text = contact.phoneNumber;
-    cell.detailTextLabel.text = contact.name;
-    cell.isAccessibilityElement = YES;
-
-	return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-	txtRecipientUri.text = [[[NSString alloc] initWithString:[[selectedCell.textLabel.text copy] autorelease]] autorelease];
-
-    NSInteger nextTag = txtRecipientUri.tag + 1;
-      // Try to find next responder
-      UIResponder* nextResponder = [txtRecipientUri.superview viewWithTag:nextTag];
-      if (nextResponder) {
-        // Found next responder, so set it.
-        [nextResponder becomeFirstResponder];
-      } else {
-            // Not found, so remove keyboard.
-            [txtRecipientUri resignFirstResponder];
-
-            [self sendMoney];
-      }
-
-    [self finishedSearching];
-}
-*/
-
-
 -(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
        fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
@@ -494,7 +407,7 @@ float tableHeight2 = 30;
         [self.scrollView scrollsToTop];
         [securityPinModalPanel hide];
         
-        [txtRecipientUri setText: @""];
+        recipientUri = @"";
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
         
@@ -503,7 +416,7 @@ float tableHeight2 = 30;
         
     }
     else {
-        [self showAlertView: @"Sorry.  Try Again.!" withMessage:message];
+        [self showAlertView: @"Sorry. Try Again.!" withMessage:message];
     }
 
 }
@@ -557,13 +470,12 @@ float tableHeight2 = 30;
 - (IBAction)showModalPanel {
          
     [txtAmount resignFirstResponder];
-    [txtRecipientUri resignFirstResponder];
     [txtComments resignFirstResponder];
     
     securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
     
     securityPinModalPanel.dialogTitle.text = @"Confirm Your Payment";
-    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To confirm your payment of %@ to %@, swipe your pin below.", [[txtAmount.text copy] autorelease], [[txtRecipientUri.text copy] autorelease]];
+    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To confirm your payment of %@ to %@, swipe your pin below.", [[txtAmount.text copy] autorelease], recipientUri];
     [securityPinModalPanel.btnCancelPayment setTitle: @"Cancel Payment" forState: UIControlStateNormal];
     securityPinModalPanel.delegate = self;
     
@@ -613,3 +525,70 @@ float tableHeight2 = 30;
      }
     
 @end
+
+
+/*
+ #pragma mark UITableViewDelegate methods
+ 
+ - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+ return 1;
+ }
+ 
+ - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
+ 
+ //Resize auto complete table based on how many elements will be displayed in the table
+ if (autoCompleteArray.count >=3) {
+ autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*3);
+ return autoCompleteArray.count;
+ }
+ 
+ else if (autoCompleteArray.count == 2) {
+ autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*2);
+ return autoCompleteArray.count;
+ }
+ else if (autoCompleteArray.count >= 1) {
+ autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2);
+ return autoCompleteArray.count;
+ }
+ else  {
+ autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, 0);
+ return autoCompleteArray.count;
+ }
+ }
+ 
+ - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+ UITableViewCell *cell;
+ static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
+ cell = [tableView dequeueReusableCellWithIdentifier:AutoCompleteRowIdentifier];
+ if (cell == nil) {
+ cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteRowIdentifier] autorelease];
+ }
+ Contact *contact = [autoCompleteArray objectAtIndex:indexPath.row];
+ 
+ cell.textLabel.text = contact.phoneNumber;
+ cell.detailTextLabel.text = contact.name;
+ cell.isAccessibilityElement = YES;
+ 
+ return cell;
+ }
+ - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+ txtRecipientUri.text = [[[NSString alloc] initWithString:[[selectedCell.textLabel.text copy] autorelease]] autorelease];
+ 
+ NSInteger nextTag = txtRecipientUri.tag + 1;
+ // Try to find next responder
+ UIResponder* nextResponder = [txtRecipientUri.superview viewWithTag:nextTag];
+ if (nextResponder) {
+ // Found next responder, so set it.
+ [nextResponder becomeFirstResponder];
+ } else {
+ // Not found, so remove keyboard.
+ [txtRecipientUri resignFirstResponder];
+ 
+ [self sendMoney];
+ }
+ 
+ [self finishedSearching];
+ }
+ */
+
