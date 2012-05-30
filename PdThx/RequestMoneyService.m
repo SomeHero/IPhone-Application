@@ -35,6 +35,7 @@
                                  theRecipientUri, @"recipientUri",
                                  theAmount, @"amount",
                                  theComments, @"comments",
+                                 securityPin, @"securityPin",
                                  @"PaymentRequest", @"messageType",
                                  nil];
     
