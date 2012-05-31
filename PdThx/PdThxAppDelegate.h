@@ -19,6 +19,7 @@
     PhoneNumberFormatting *phoneNumberFormatter;
     NSMutableArray *tempArray;
     NSArray * permissions;
+    UIAlertView * notifAlert;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -29,6 +30,7 @@
 @property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, retain) NSMutableArray *tempArray;
 @property (nonatomic, retain) NSArray * permissions;
+@property (nonatomic, retain) UIAlertView * notifAlert;
 
 -(void)signOut;
 -(void)forgetMe;
