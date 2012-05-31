@@ -164,7 +164,7 @@
 }
 
 /*          NORMAL ACCOUNT SIGN IN HANDLING     */
--(void)userSignInDidComplete:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+-(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
