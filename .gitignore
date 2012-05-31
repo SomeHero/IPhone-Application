@@ -15,5 +15,8 @@ profile
 *.moved-aside
 DerivedData
 PdThx.xcodeproj/xcuserdata/PaidThx.xcuserdatad/xcschemes/xcschememanagement.plist
-
 PdThx.xcodeproj/project.xcworkspace/xcuserdata/PaidThx.xcuserdatad/WorkspaceSettings.xcsettings
+.DS_Store
+
+PdThx.xcodeproj/project.pbxproj
+PdThx.xcodeproj/xcuserdata/PaidThx.xcuserdatad/xcschemes/PdThx.xcscheme
