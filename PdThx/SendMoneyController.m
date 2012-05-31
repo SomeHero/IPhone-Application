@@ -98,6 +98,8 @@ float tableHeight2 = 30;
     [txtAmount setDelegate:self];
     txtAmount.text = @"$0.00";
     
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click here";
 }
 
 - (void)viewDidUnload
@@ -183,6 +185,9 @@ float tableHeight2 = 30;
     recipientUri = @"";
     [txtAmount setText: @"$0.00"];
     [txtComments setText: @""];
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"";
+    [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
     
     NSString* message = [NSString stringWithString:@"Your money was sent"];
 

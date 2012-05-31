@@ -165,8 +165,13 @@
 }
 
 /*          NORMAL ACCOUNT SIGN IN HANDLING     */
+<<<<<<< HEAD
+-(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+    
+=======
 -(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber
 {
+>>>>>>> upstream/web-api-chris
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];

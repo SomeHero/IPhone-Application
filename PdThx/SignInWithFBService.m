@@ -19,6 +19,7 @@
 -(void) validateUser:(NSDictionary*)response
 {
     Environment *myEnvironment = [Environment sharedInstance];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/signin_withfacebook?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
@@ -29,7 +30,7 @@
                               [response objectForKey:@"first_name"], @"firstName",
                               [response objectForKey:@"last_name"], @"lastName",
                               [response objectForKey:@"email"], @"emailAddress",
-                              myEnvironment.deviceToken, @"deviceToken",
+                              [prefs stringForKey:@"deviceToken"], @"deviceToken",
                               nil];
     
     NSString * newJSON = [userData JSONRepresentation]; 

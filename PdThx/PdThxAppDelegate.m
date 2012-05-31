@@ -53,6 +53,9 @@
     
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
+    contactsArray = [[NSMutableArray alloc] init];
+    tempArray = [[NSMutableArray alloc] init];
+    
     [self loadAllContacts];
     
     [self.window makeKeyAndVisible];
@@ -183,18 +186,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [writer release];
         NSLog ( @"%@" , jsonString );
         
-        UIAlertView * notifAlert;
-        
         if ( [userInfo objectForKey:@"nType"] == @"recPCNF" ) { // Payment Received
             notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Received" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
             //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
             [notifAlert show];
         } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
             notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+            //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+            [notifAlert show];
         } // Other Cases Not Handled.. May be something wrong..
     } else {
         // Application Just Resumed from Background, so load the notification
         // details pane or the payment processing screen (based on notification)
+        notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+        //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+        [notifAlert show];
+        
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
         NSString * jsonString = [writer stringWithObject:userInfo];
         [writer release];
@@ -208,15 +215,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)loadAllContacts
 {
-    [tempArray release];
-    tempArray = [[NSMutableArray alloc]init];
-    
-    [contactsArray release];
-    contactsArray = [[NSMutableArray alloc] init];
-    for ( int i = 0 ; i < 27 ; i++ ){
-        [contactsArray addObject:[[NSMutableArray alloc] init]];
-        NSLog(@"Number of Sub Arrays: %d" , [contactsArray count] );
-    }
+    [tempArray removeAllObjects];
     
     Contact * contact;
     
@@ -286,9 +285,15 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)sortContacts
 {
+    if ( contactsArray == NULL ){
+        contactsArray = [[NSMutableArray alloc] init];
+    } else {
+        [contactsArray removeAllObjects];
+    }
+    for ( int i = 0 ; i < 27 ; i ++ )
+        [contactsArray addObject:[[NSMutableArray alloc] init]];
+    
     tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
-    for (NSMutableArray*arr in contactsArray) 
-        [arr removeAllObjects];
     
     NSString * comparedString;
     
@@ -301,7 +306,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for (Contact*person in tempArray) {
         comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
         
-        NSLog(@"Contact %@ insert into subarray index: %d" , person.firstName, ((int)toupper([comparedString characterAtIndex:0]))-65 );
         [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-65] addObject:person];
     }
     NSLog(@"Contacts Ready.");

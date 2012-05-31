@@ -40,6 +40,7 @@
 		54B5F28B156FCECB00D970A3 /* ContactSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */; };
 		54B9B40A156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
 		54B9B40B156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
+		54DE15A81577FB0F005709BC /* btn-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DE15A71577FB0F005709BC /* btn-facebook.png */; };
 		54E3DDDA15707B1600F63820 /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E3DDD915707B1600F63820 /* ContactTableViewCell.xib */; };
 		54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
@@ -372,6 +373,7 @@
 		54B5F288156FCEC700D970A3 /* ContactSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSelectViewController.m; sourceTree = "<group>"; };
 		54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactSelectViewController.xib; sourceTree = "<group>"; };
 		54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp_remind_later_button.png; sourceTree = "<group>"; };
+		54DE15A71577FB0F005709BC /* btn-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-facebook.png"; sourceTree = "<group>"; };
 		54E3DDD915707B1600F63820 /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		54E3DDE915713E6700F63820 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
 		54E3DDEA15713E6700F63820 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
@@ -867,6 +869,7 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				54DE15A71577FB0F005709BC /* btn-facebook.png */,
 				54B5F271156ED87F00D970A3 /* avatar_unknown.jpg */,
 				54B5F251156D4E2C00D970A3 /* facebook-connect.png */,
 				54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */,
@@ -1637,6 +1640,7 @@
 				54B5F274156EDAD800D970A3 /* PaystreamDetailViewController.xib in Resources */,
 				54B5F28B156FCECB00D970A3 /* ContactSelectViewController.xib in Resources */,
 				54E3DDDA15707B1600F63820 /* ContactTableViewCell.xib in Resources */,
+				54DE15A81577FB0F005709BC /* btn-facebook.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
