@@ -188,18 +188,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         if ( [userInfo objectForKey:@"nType"] == @"recPCNF" ) { // Payment Received
             notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Received" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
-            notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+            //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
             [notifAlert show];
         } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
             notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
-            notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+            //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
             [notifAlert show];
         } // Other Cases Not Handled.. May be something wrong..
     } else {
         // Application Just Resumed from Background, so load the notification
         // details pane or the payment processing screen (based on notification)
         notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
-        notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+        //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
         [notifAlert show];
         
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
