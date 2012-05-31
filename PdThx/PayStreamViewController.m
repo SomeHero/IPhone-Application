@@ -272,12 +272,22 @@
     } else {
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
-    if (!(item.recipientImageUri == (id)[NSNull null] || item.recipientImageUri.length == 0 )) {
-        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.recipientImageUri]];
-        [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
-        [imageData release];
+    if([item.direction isEqualToString:@"Out"]) {
+        if (!(item.recipientImageUri == (id)[NSNull null] || item.recipientImageUri.length == 0 )) {
+            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.recipientImageUri]];
+            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
+            [imageData release];
+        } else {
+            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+        }
     } else {
-        [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+        if (!(item.senderImageUri == (id)[NSNull null] || item.senderImageUri.length == 0 )) {
+            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.senderImageUri]];
+            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
+            [imageData release];
+        } else {
+            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+        }
     }
     
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
