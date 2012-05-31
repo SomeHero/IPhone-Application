@@ -181,20 +181,23 @@
 }
 
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
--(void)fbSignInDidComplete:(BOOL)hasBankAccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID {
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
-    [prefs setValue:userID forKey:@"userId"];
+    
+    [prefs setValue:userId forKey:@"userId"];
+    [prefs setValue:mobileNumber forKey:@"mobileNumber"];
+    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
+    
     [prefs synchronize];
-    
-    
+
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     
     /*          
         TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
             ASK THEM TO ADD IT NOW
      */
-    if ( !hasBankAccount ){
+    if ( !hasACHaccount ){
         // No bank account, prompt user to add one now.
         bankAlert = [[UIAlertView alloc] initWithTitle:@"Add a Bank Account" message:@"You have not yet added a bank account. You will not be able to send or receive money without adding a bank account" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Add now", nil];
         [bankAlert show];

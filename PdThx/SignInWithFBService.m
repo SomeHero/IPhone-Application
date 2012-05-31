@@ -60,7 +60,9 @@
         
         BOOL hasBankAccount = [[jsonDictionary objectForKey:@"hasACHAccount"] boolValue];
         BOOL hasSecurityPin = [[jsonDictionary objectForKey:@"hasSecurityPin"] boolValue];
-        NSString* userID = [jsonDictionary valueForKey: @"userId"];
+        NSString* userId = [jsonDictionary valueForKey:@"userId"];
+        NSString* mobileNumber = [jsonDictionary valueForKey: @"mobileNumber"];
+        NSString* paymentAccountId = [jsonDictionary valueForKey: @"paymentAccountId"];
         
         /*      For Reference
          -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID;
@@ -68,7 +70,7 @@
          -(void)fbSignInDidFail:(NSString *)reason;
          */
         
-        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserID:userID];
+        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber];
         
     } else
     {
