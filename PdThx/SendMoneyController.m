@@ -151,11 +151,10 @@ float tableHeight2 = 30;
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
-    recipientUri = @"8043879693";
     
-    //if ( [[username substringToIndex:3] isEqual:@"fb_"] )
-    //    senderUri = username;
-    //else
+    if ( [[username substringToIndex:3] isEqual:@"fb_"] )
+        senderUri = username;
+    else
         senderUri = [prefs stringForKey:@"mobileNumber"];
     
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
