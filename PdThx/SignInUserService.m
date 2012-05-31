@@ -55,11 +55,13 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
     
+        BOOL hasBankAccount = [[jsonDictionary objectForKey:@"hasACHAccount"] boolValue];
+        BOOL hasSecurityPin = [[jsonDictionary objectForKey:@"hasSecurityPin"] boolValue];
         NSString* userId = [jsonDictionary valueForKey:@"userId"];
         NSString* mobileNumber = [jsonDictionary valueForKey: @"mobileNumber"];
         NSString* paymentAccountId = [jsonDictionary valueForKey: @"paymentAccountId"];
         
-        [userSignInCompleteDelegate userSignInDidComplete:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber];
+        [userSignInCompleteDelegate userSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber];
         
     } else
     {

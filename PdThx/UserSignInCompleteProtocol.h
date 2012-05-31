@@ -12,7 +12,7 @@
 
 @protocol UserSignInCompleteProtocol <NSObject>
 
--(void)userSignInDidComplete:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber;
+-(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber;
 
 -(void)userSignInDidFail:(NSString *) reason;
 

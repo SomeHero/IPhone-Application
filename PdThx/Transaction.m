@@ -22,7 +22,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
 -(id)init {
     self = [super init];
     
-
+    
     if(self) {
         transactionId = [[NSString alloc] init];
         paymentId = [[NSString alloc] init];
@@ -53,7 +53,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
-
+    
     if(self) { 
         transactionId = [[dictionary valueForKey:@"transactionId"] copy];
         paymentId = [[dictionary valueForKey:@"paymentId"] copy];
@@ -68,7 +68,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         paymentChannel = [[dictionary valueForKey:@"paymentChannel"] copy];
         transactionBatchId = [[dictionary valueForKey:@"transactionBatchId"] copy];
         transactionSentDate = [[dictionary valueForKey:@"transctionSentDate"] copy];
-
+        
         NSString* rawData = [[dictionary valueForKey:@"createDate"] autorelease];
         NSRange timezone = NSMakeRange([rawData length] - 10, 3);
         NSString *cleanData = [rawData stringByReplacingOccurrencesOfString:@":" withString:@"" options:NSCaseInsensitiveSearch range:timezone ];
