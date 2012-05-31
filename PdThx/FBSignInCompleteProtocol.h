@@ -12,7 +12,7 @@
 
 @protocol FBSignInCompleteProtocol <NSObject>
 
--(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID;
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber;
 
 -(void)fbSignInDidFail:(NSString *)reason;
 
