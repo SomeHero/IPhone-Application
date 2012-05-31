@@ -15,6 +15,7 @@
 #import "Environment.h"
 #import "PdThxAppDelegate.h"
 #import "Facebook.h"
+#import "HomeViewController.h"
 
 
 @interface SignInViewController ()
@@ -164,8 +165,8 @@
 }
 
 /*          NORMAL ACCOUNT SIGN IN HANDLING     */
--(void)userSignInDidComplete:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
-    
+-(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber
+{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
@@ -176,6 +177,7 @@
 
     [signInCompleteDelegate signInDidComplete];
 }
+
 -(void)userSignInDidFail:(NSString *) reason {
     [self showAlertView:@"User Validation Failed!" withMessage: reason];
 }
@@ -183,14 +185,13 @@
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     
     [prefs setValue:userId forKey:@"userId"];
     [prefs setValue:mobileNumber forKey:@"mobileNumber"];
     [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
     
     [prefs synchronize];
-
+    
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     
     /*          
@@ -205,6 +206,8 @@
     } else if ( !hasSecurityPin ){
         // User HAS a bank account, but no security pin for whatever reason.
         // TODO: Add Security Pin Input (if above method of adding a bank account does not require one)
+    } else {
+        [signInCompleteDelegate signInDidComplete];
     }
 }
 

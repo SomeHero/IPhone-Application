@@ -53,6 +53,9 @@
     
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
+    contactsArray = [[NSMutableArray alloc] init];
+    tempArray = [[NSMutableArray alloc] init];
+    
     [self loadAllContacts];
     
     [self.window makeKeyAndVisible];
@@ -208,11 +211,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)loadAllContacts
 {
-    [tempArray release];
-    tempArray = [[NSMutableArray alloc]init];
+    [tempArray removeAllObjects];
     
-    [contactsArray release];
-    contactsArray = [[NSMutableArray alloc] init];
+    [contactsArray removeAllObjects];
     for ( int i = 0 ; i < 27 ; i++ ){
         [contactsArray addObject:[[NSMutableArray alloc] init]];
         NSLog(@"Number of Sub Arrays: %d" , [contactsArray count] );
@@ -287,7 +288,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 -(void)sortContacts
 {
     tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
-    for (NSMutableArray*arr in contactsArray) 
+    for (NSMutableArray*arr in contactsArray)
         [arr removeAllObjects];
     
     NSString * comparedString;
