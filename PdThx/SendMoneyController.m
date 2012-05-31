@@ -152,15 +152,30 @@ float tableHeight2 = 30;
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
     
-    if ( [[username substringToIndex:3] isEqual:@"fb_"] )
+    double latitude = 0.0;
+    double longitude = 0.0;
+    
+    NSString* recipientImageUri = [NSString stringWithString: @""];
+    NSString* recipientFirstName = [NSString stringWithString: @""];
+    NSString* recipientLastName =[NSString stringWithString: @""];
+    
+    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
         senderUri = username;
+    }
     else
         senderUri = [prefs stringForKey:@"mobileNumber"];
     
+    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+        recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
+        recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
+        recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
+    }
+    
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
 
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount];
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
+
 -(void)sendMoneyDidComplete {
     [self.scrollView scrollsToTop];
     [securityPinModalPanel hide];
@@ -264,7 +279,7 @@ float tableHeight2 = 30;
     }
     
     if ( contact.facebookID.length > 0 )
-        recipientUri = [NSString stringWithFormat:@"fb_%@", contact.facebookID];
+        recipientUri = [[NSString stringWithFormat:@"fb_%@", contact.facebookID] copy];
     else if ( contact.phoneNumber.length > 0 )
         recipientUri = contact.phoneNumber;
     else if ( contact.emailAddress.length > 0 )
@@ -371,6 +386,7 @@ float tableHeight2 = 30;
                                  theAmount, @"amount",
                                  theComments, @"comment",
                                  fromAccount, @"fromAccount",
+                                 
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation];

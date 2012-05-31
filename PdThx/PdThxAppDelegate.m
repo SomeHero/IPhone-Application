@@ -210,8 +210,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)loadAllContacts
 {
-    if ( tempArray != NULL )
-        [tempArray removeAllObjects];
+    //if ( tempArray != NULL )
+        //[tempArray removeAllObjects];
     
 
     Contact * contact;
@@ -262,7 +262,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     NSArray *friendArray = [result objectForKey:@"data"];
     NSArray *splitName;
     Contact *friend;
-    for ( NSDictionary *dict in friendArray ){
+    for ( NSDictionary *dict in friendArray ){   
         friend = [[Contact alloc] init];
         friend.facebookID = [dict objectForKey:@"id"];
         friend.name = [dict objectForKey:@"name"];
@@ -280,7 +280,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)sortContacts
 {
-    tempArray = [[NSMutableArray arrayWithArray:[tempArray sortedArrayUsingSelector:@selector(compare:)]] copy];
+    tempArray = [NSMutableArray arrayWithArray:[tempArray sortedArrayUsingSelector:@selector(compare:)]];
     NSString * comparedString;
     
     /*

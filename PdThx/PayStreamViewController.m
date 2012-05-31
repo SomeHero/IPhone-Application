@@ -267,12 +267,18 @@
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
 
     // Configure the cell...
-    if([item.senderUri isEqualToString: mobileNumber]) {
-        cell.transactionRecipient.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.recipientUri];
+    if([item.direction isEqualToString:@"Out"]) {
+        cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
-        cell.transactionRecipient.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.senderUri];
+        cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
-    [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
+    if (!(item.recipientImageUri == (id)[NSNull null] || item.recipientImageUri.length == 0 )) {
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.recipientImageUri]];
+        [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
+        [imageData release];
+    } else {
+        [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+    }
     
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
     [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -305,7 +311,7 @@
             }*/            
     
     NSLog ( @"Message Status: %@" , item.messageStatus );
-    cell.transactionStatus.text = @"Complete"; // ? This might be wrong
+    cell.transactionStatus.text = item.messageStatus;
         
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];

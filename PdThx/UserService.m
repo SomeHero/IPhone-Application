@@ -37,23 +37,32 @@
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(getUserInformationComplete:)];
     [requestObj setDidFailSelector:@selector(getUserInformationFailed:)];
+    
     [requestObj startAsynchronous];
 }
 -(void) getUserInformationComplete:(ASIHTTPRequest *)request
 {
-    NSString *theJSON = [request responseString];
+    if([request responseStatusCode] == 200 ) {
+        NSString *theJSON = [request responseString];
     
-    NSLog ( @"Got user information of %@" , theJSON );
+        NSLog ( @"Got user information of %@" , theJSON );
     
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
     
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    [parser release];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
     
-    User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
+        User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
     
-    
-    [userInformationCompleteDelegate userInformationDidComplete:user];
+        [userInformationCompleteDelegate userInformationDidComplete:user];
+        
+    } else {
+        NSString* message = [NSString stringWithString: [request responseStatusMessage] ];
+        
+        //[sendMoneyCompleteDelegate sendMoneyDidFail: message];
+        
+        [userInformationCompleteDelegate userInformationDidFail:message];
+    }
 
 }
 -(void) getUserInformationFailed:(ASIHTTPRequest *)request

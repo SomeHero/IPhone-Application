@@ -19,6 +19,11 @@
 @synthesize recipientUri;
 @synthesize senderUri;
 @synthesize createDate;
+@synthesize direction;
+@synthesize recipientName;
+@synthesize recipientImageUri;
+@synthesize senderName;
+@synthesize senderImageUri;
 
 -(id)init {
     self = [super init];
@@ -33,6 +38,11 @@
         senderUri = [[NSString alloc] init];
         recipientUri = [[NSString alloc] init];
         createDate = [[NSDate alloc] init];
+        direction = [[NSString alloc] init];
+        recipientName = [[NSString alloc] init];
+        recipientImageUri = [[NSString alloc] init];
+        senderName = [[NSString alloc] init];
+        senderImageUri = [[NSString alloc] init];
      }
     
     return self;
@@ -56,6 +66,11 @@
         NSRange timezone = NSMakeRange([rawData length] - 10, 3);
         NSString *cleanData = [rawData stringByReplacingOccurrencesOfString:@":" withString:@"" options:NSCaseInsensitiveSearch range:timezone ];
         createDate = [[format dateFromString: cleanData] copy];
+        direction = [[dictionary valueForKey:@"direction"] copy];
+        recipientName = [[dictionary valueForKey:@"recipientName"] copy];
+        recipientImageUri = [[dictionary valueForKey:@"recipientImageUri"] copy];
+        senderName = [[dictionary valueForKey:@"senderName"] copy];
+        senderImageUri = [[dictionary valueForKey:@"senderImageUri"] copy];
     }
     
     [format release];

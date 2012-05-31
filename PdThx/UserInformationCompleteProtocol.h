@@ -14,6 +14,7 @@
 @protocol UserInformationCompleteProtocol <NSObject>
 
 -(void)userInformationDidComplete:(User*)user;
+-(void)userInformationDidFail:(NSString*) message;
 
 @end
 
