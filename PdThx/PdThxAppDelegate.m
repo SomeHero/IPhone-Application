@@ -50,12 +50,8 @@
     }
     
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
-    contactsArray = [[NSMutableArray alloc] init];
-    for ( int i = 0 ; i < 27 ; i++ )
-        [contactsArray addObject:[[NSMutableArray alloc]init]];
     
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
-    tempArray = [[NSMutableArray alloc] init];
     
     [self loadAllContacts];
     
@@ -114,6 +110,8 @@
     // Implement Removal of Facebook Contacts from contactArray when they log out of their FACEBOOK-lined account.
     if ( [fBook isSessionValid] )
         [fBook logout];
+    
+    NSLog (@"Session should be invalid.. Worked? %@", [fBook isSessionValid] ? @"YES" : @"NO");
     
     // Reload all Contacts (without Facebook permissions)
     [self loadAllContacts];
@@ -204,16 +202,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         // Load Paystream Detail View
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:([UIApplication sharedApplication].applicationIconBadgeNumber+1)];
-        
     }
 }
 
+
 -(void)loadAllContacts
 {
-    //if ( tempArray != NULL )
-        //[tempArray removeAllObjects];
+    [tempArray release];
+    tempArray = [[NSMutableArray alloc]init];
     
-
+    [contactsArray release];
+    contactsArray = [[NSMutableArray alloc] init];
+    for ( int i = 0 ; i < 27 ; i++ ){
+        [contactsArray addObject:[[NSMutableArray alloc] init]];
+        NSLog(@"Number of Sub Arrays: %d" , [contactsArray count] );
+    }
+    
     Contact * contact;
     
     if ( [fBook isSessionValid] ){
@@ -255,6 +259,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             [contact release];
         }
     }
+    
+    [self sortContacts];
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result
@@ -262,7 +268,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     NSArray *friendArray = [result objectForKey:@"data"];
     NSArray *splitName;
     Contact *friend;
-    for ( NSDictionary *dict in friendArray ){   
+    for ( NSDictionary *dict in friendArray ){
         friend = [[Contact alloc] init];
         friend.facebookID = [dict objectForKey:@"id"];
         friend.name = [dict objectForKey:@"name"];
@@ -280,7 +286,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)sortContacts
 {
-    tempArray = [NSMutableArray arrayWithArray:[tempArray sortedArrayUsingSelector:@selector(compare:)]];
+    tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    for (NSMutableArray*arr in contactsArray) 
+        [arr removeAllObjects];
+    
     NSString * comparedString;
     
     /*
@@ -292,6 +301,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for (Contact*person in tempArray) {
         comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
         
+        NSLog(@"Contact %@ insert into subarray index: %d" , person.firstName, ((int)toupper([comparedString characterAtIndex:0]))-65 );
         [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-65] addObject:person];
     }
     NSLog(@"Contacts Ready.");

@@ -279,7 +279,7 @@ float tableHeight2 = 30;
     }
     
     if ( contact.facebookID.length > 0 )
-        recipientUri = [[NSString stringWithFormat:@"fb_%@", contact.facebookID] copy];
+        self.recipientUri = [NSString stringWithFormat:@"fb_%@", contact.facebookID];
     else if ( contact.phoneNumber.length > 0 )
         recipientUri = contact.phoneNumber;
     else if ( contact.emailAddress.length > 0 )
@@ -386,7 +386,6 @@ float tableHeight2 = 30;
                                  theAmount, @"amount",
                                  theComments, @"comment",
                                  fromAccount, @"fromAccount",
-                                 
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation];
@@ -432,7 +431,7 @@ float tableHeight2 = 30;
         
     }
     else {
-        [self showAlertView: @"Sorry. Try Again.!" withMessage:message];
+        [self showAlertView: @"Sorry. Try Again!" withMessage:message];
     }
 
 }

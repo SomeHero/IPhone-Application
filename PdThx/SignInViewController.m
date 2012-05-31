@@ -25,7 +25,7 @@
 @implementation SignInViewController
 
 @synthesize txtEmailAddress, txtPassword;
-@synthesize signInCompleteDelegate, achSetupCompleteDelegate;
+@synthesize signInCompleteDelegate, achSetupCompleteDelegate, setupACHAccountController;
 @synthesize viewPanel, fBook, service, bankAlert;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -186,6 +186,9 @@
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     [prefs setValue:userID forKey:@"userId"];
     [prefs synchronize];
+    
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     
     /*          
         TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT

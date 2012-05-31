@@ -41,11 +41,6 @@ withFromLongitude: (double) longitude withRecipientFirstName: (NSString*) recipi
                                  theComments, @"comments",
                                  securityPin, @"securityPin",
                                  @"Payment", @"messageType",
-                                 @"0.0", @"latitude",
-                                 @"0.0", @"longitude",
-                                 recipientFirstName, @"recipientFirstName",
-                                 recipientLastName, @"recipientLastName",
-                                 recipientImageUri, @"recipientImageUri",
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation];
