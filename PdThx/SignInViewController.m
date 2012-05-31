@@ -176,7 +176,6 @@
 
     [signInCompleteDelegate signInDidComplete];
 }
-
 -(void)userSignInDidFail:(NSString *) reason {
     [self showAlertView:@"User Validation Failed!" withMessage: reason];
 }
@@ -184,10 +183,8 @@
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasBankAccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSLog(@"Setting userID to: %@" , userID );
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     [prefs setValue:userID forKey:@"userId"];
-    [prefs setValue:@"5555555555" forKey:@"mobileNumber"];
-    [prefs setValue:@"0760ACB0-297B-45A7-93D8-D5387E4AEC15" forKey:@"paymentAccountId"];
     [prefs synchronize];
     
     
