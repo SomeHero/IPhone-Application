@@ -34,6 +34,7 @@ float tableHeight2 = 30;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        recipientUri = [[NSString alloc] init];
     }
     return self;
 }
@@ -78,7 +79,6 @@ float tableHeight2 = 30;
     [sendMoneyService setSendMoneyCompleteDelegate:self];
     
     autoCompleteArray = [[NSMutableArray alloc] init];
-    recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
     comments = [[NSString alloc] initWithString: @""];
 
@@ -151,10 +151,11 @@ float tableHeight2 = 30;
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
+    recipientUri = @"8043879693";
     
-    if ( [[username substringToIndex:3] isEqual:@"fb_"] )
-        senderUri = username;
-    else
+    //if ( [[username substringToIndex:3] isEqual:@"fb_"] )
+    //    senderUri = username;
+    //else
         senderUri = [prefs stringForKey:@"mobileNumber"];
     
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
@@ -264,11 +265,11 @@ float tableHeight2 = 30;
     }
     
     if ( contact.facebookID.length > 0 )
-        recipientUri = [NSString stringWithFormat:@"fb_%@", contact.facebookID];
+        self.recipientUri = [NSString stringWithFormat:@"fb_%@", contact.facebookID];
     else if ( contact.phoneNumber.length > 0 )
-        recipientUri = contact.phoneNumber;
+        self.recipientUri = contact.phoneNumber;
     else if ( contact.emailAddress.length > 0 )
-        recipientUri = contact.emailAddress;
+        self.recipientUri = contact.emailAddress;
 }
 
 -(IBAction) btnSendMoneyClicked:(id)sender {

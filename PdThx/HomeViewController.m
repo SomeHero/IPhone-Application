@@ -149,6 +149,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void)signInDidComplete {
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
 }
 -(void)achSetupDidComplete {
     [self.navigationController popToRootViewControllerAnimated:YES];

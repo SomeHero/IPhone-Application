@@ -25,7 +25,7 @@
 @implementation SignInViewController
 
 @synthesize txtEmailAddress, txtPassword;
-@synthesize signInCompleteDelegate, achSetupCompleteDelegate;
+@synthesize signInCompleteDelegate, achSetupCompleteDelegate, setupACHAccountController;
 @synthesize viewPanel, fBook, service, bankAlert;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -176,6 +176,7 @@
 
     [signInCompleteDelegate signInDidComplete];
 }
+
 -(void)userSignInDidFail:(NSString *) reason {
     [self showAlertView:@"User Validation Failed!" withMessage: reason];
 }
@@ -183,9 +184,14 @@
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasBankAccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
+    NSLog(@"Setting userID to: %@" , userID );
     [prefs setValue:userID forKey:@"userId"];
+    [prefs setValue:@"5555555555" forKey:@"mobileNumber"];
+    [prefs setValue:@"0760ACB0-297B-45A7-93D8-D5387E4AEC15" forKey:@"paymentAccountId"];
     [prefs synchronize];
+    
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     
     /*          
         TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
