@@ -143,7 +143,7 @@
 										<string key="NSFrameSize">{300, 300}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="929332894"/>
+										<reference key="NSNextKeyView" ref="428285539"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
@@ -160,7 +160,7 @@
 									<object class="IBUILabel" id="929332894">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{9, 3}, {261, 37}}</string>
+										<string key="NSFrame">{{10, 56}, {240, 37}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="743857628"/>
@@ -169,7 +169,7 @@
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">Sign In or Create an Account</string>
+										<string key="IBUIText">Log In or Create an Account</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -192,7 +192,7 @@
 									<object class="IBUITextField" id="743857628">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 43}, {280, 31}}</string>
+										<string key="NSFrame">{{10, 97}, {280, 31}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="365562443"/>
@@ -233,7 +233,7 @@
 									<object class="IBUITextField" id="365562443">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 86}, {280, 31}}</string>
+										<string key="NSFrame">{{10, 140}, {280, 31}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="688192017"/>
@@ -264,10 +264,10 @@
 									<object class="IBUIButton" id="401105212">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 188}, {280, 50}}</string>
+										<string key="NSFrame">{{10, 242}, {280, 50}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="428285539"/>
+										<reference key="NSNextKeyView"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
@@ -289,7 +289,7 @@
 									<object class="IBUIButton" id="688192017">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 128}, {280, 50}}</string>
+										<string key="NSFrame">{{10, 182}, {280, 50}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="401105212"/>
@@ -314,22 +314,26 @@
 									<object class="IBUIButton" id="428285539">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 252}, {280, 37}}</string>
+										<string key="NSFrame">{{10, 11.5}, {280, 44}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="929332894"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
 										<int key="IBUIButtonType">1</int>
-										<string key="IBUINormalTitle">Connect with Facebook</string>
 										<reference key="IBUIHighlightedTitleColor" ref="846848465"/>
 										<object class="NSColor" key="IBUINormalTitleColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 										</object>
 										<reference key="IBUINormalTitleShadowColor" ref="168266438"/>
+										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">btn-facebook.png</string>
+										</object>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">2</int>
 											<double key="pointSize">15</double>
@@ -352,6 +356,7 @@
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="76083025"/>
 						<reference key="IBUIBackgroundColor" ref="993929206"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -548,13 +553,13 @@
 						<reference key="object" ref="565697300"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="929332894"/>
 							<reference ref="800196937"/>
 							<reference ref="688192017"/>
 							<reference ref="365562443"/>
 							<reference ref="743857628"/>
 							<reference ref="401105212"/>
 							<reference ref="428285539"/>
+							<reference ref="929332894"/>
 						</object>
 						<reference key="parent" ref="866572976"/>
 						<string key="objectName">View</string>
@@ -795,12 +800,14 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>btn-facebook.png</string>
 				<string>button_create_an_account.png</string>
 				<string>button_sign_in.png</string>
 				<string>icon_paidthx_logo_header.png</string>
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{596, 108}</string>
 				<string>{289, 51}</string>
 				<string>{278, 51}</string>
 				<string>{131, 25}</string>

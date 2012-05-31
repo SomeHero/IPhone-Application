@@ -192,8 +192,6 @@
     
     [prefs synchronize];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
-    
     /*          
         TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
             ASK THEM TO ADD IT NOW
@@ -239,7 +237,6 @@
 -(void)achAccountSetupDidComplete
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     [signInCompleteDelegate signInDidComplete];
 }
 -(void)achACcountSetupDidSkip
