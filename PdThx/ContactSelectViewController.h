@@ -21,6 +21,10 @@
     PhoneNumberFormatting *phoneNumberFormatter;
     NSMutableDictionary *fbIconsDownloading;
     id<ContactSelectChosenProtocol> contactSelectChosenDelegate;
+<<<<<<< HEAD
+=======
+    IBOutlet UITextField *txtSearchBox;
+>>>>>>> origin/web-api-chris
 }
 
 @property (nonatomic, retain) UISearchBar *searchBar;
@@ -30,5 +34,11 @@
 @property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, retain) NSMutableDictionary *fbIconsDownloading;
 @property (assign) id contactSelectChosenDelegate;
+<<<<<<< HEAD
 
 @end
+=======
+@property (nonatomic, retain) UITextField *txtSearchBox;
+
+@end
+>>>>>>> origin/web-api-chris

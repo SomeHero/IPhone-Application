@@ -19,6 +19,10 @@
 -(void) validateUser:(NSDictionary*)response
 {
     Environment *myEnvironment = [Environment sharedInstance];
+<<<<<<< HEAD
+=======
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+>>>>>>> origin/web-api-chris
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/signin_withfacebook?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
@@ -29,7 +33,11 @@
                               [response objectForKey:@"first_name"], @"firstName",
                               [response objectForKey:@"last_name"], @"lastName",
                               [response objectForKey:@"email"], @"emailAddress",
+<<<<<<< HEAD
                               myEnvironment.deviceToken, @"deviceToken",
+=======
+                              [prefs stringForKey:@"deviceToken"], @"deviceToken",
+>>>>>>> origin/web-api-chris
                               nil];
     
     NSString * newJSON = [userData JSONRepresentation]; 
@@ -60,7 +68,13 @@
         
         BOOL hasBankAccount = [[jsonDictionary objectForKey:@"hasACHAccount"] boolValue];
         BOOL hasSecurityPin = [[jsonDictionary objectForKey:@"hasSecurityPin"] boolValue];
+<<<<<<< HEAD
         NSString* userID = [jsonDictionary valueForKey: @"userId"];
+=======
+        NSString* userId = [jsonDictionary valueForKey:@"userId"];
+        NSString* mobileNumber = [jsonDictionary valueForKey: @"mobileNumber"];
+        NSString* paymentAccountId = [jsonDictionary valueForKey: @"paymentAccountId"];
+>>>>>>> origin/web-api-chris
         
         /*      For Reference
          -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID;
@@ -68,7 +82,11 @@
          -(void)fbSignInDidFail:(NSString *)reason;
          */
         
+<<<<<<< HEAD
         [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserID:userID];
+=======
+        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber];
+>>>>>>> origin/web-api-chris
         
     } else
     {

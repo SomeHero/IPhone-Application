@@ -23,7 +23,13 @@
 }
 
 -(void) sendMoney:(NSString *)theAmount toRecipient:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
+<<<<<<< HEAD
               fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
+=======
+       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount withFromLatitude:(double) latitude
+withFromLongitude: (double) longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri
+{
+>>>>>>> origin/web-api-chris
     
     Environment *myEnvironment = [Environment sharedInstance];
     NSString *rootUrl = [NSString stringWithFormat:@"PaystreamMessages"];
@@ -37,7 +43,17 @@
                                  theRecipientUri, @"recipientUri",
                                  theAmount, @"amount",
                                  theComments, @"comments",
+<<<<<<< HEAD
                                  @"Payment", @"messageType",
+=======
+                                 securityPin, @"securityPin",
+                                 @"Payment", @"messageType",
+                                 @"0.0", @"latitude",
+                                 @"0.0", @"longitude",
+                                 recipientFirstName, @"recipientFirstName",
+                                 recipientLastName, @"recipientLastName",
+                                 recipientImageUri, @"recipientImageUri",
+>>>>>>> origin/web-api-chris
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation];
@@ -91,4 +107,8 @@
     [super dealloc];
 }
 
+<<<<<<< HEAD
 @end
+=======
+@end
+>>>>>>> origin/web-api-chris

@@ -2,6 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
+<<<<<<< HEAD
 		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.47</string>
@@ -9,6 +10,15 @@
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1181</string>
+=======
+		<string key="IBDocument.SystemVersion">10K549</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+			<string key="NS.object.0">301</string>
+>>>>>>> origin/web-api-chris
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBUITableViewCell</string>
@@ -43,16 +53,31 @@
 							<object class="IBUIButton" id="640487490">
 								<reference key="NSNextResponder" ref="827793947"/>
 								<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 								<string key="NSFrame">{{-1, 0}, {56, 56}}</string>
 								<reference key="NSSuperview" ref="827793947"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1005832025"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+=======
+								<string key="NSFrame">{{5, 5}, {50, 50}}</string>
+								<reference key="NSSuperview" ref="827793947"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="1005832025"/>
+>>>>>>> origin/web-api-chris
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
+<<<<<<< HEAD
+=======
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">15</double>
+									<int key="NSfFlags">16</int>
+								</object>
+>>>>>>> origin/web-api-chris
 								<int key="IBUIButtonType">1</int>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">3</int>
@@ -70,6 +95,7 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">avatar_unknown.jpg</string>
 								</object>
+<<<<<<< HEAD
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">2</int>
 									<double key="pointSize">15</double>
@@ -88,12 +114,30 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="901546505"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+=======
+							</object>
+							<object class="IBUILabel" id="1005832025">
+								<reference key="NSNextResponder" ref="827793947"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{60, 1}, {194, 30}}</string>
+								<reference key="NSSuperview" ref="827793947"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="901546505"/>
+>>>>>>> origin/web-api-chris
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Contact Information</string>
+<<<<<<< HEAD
+=======
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">19</double>
+									<int key="NSfFlags">16</int>
+								</object>
+>>>>>>> origin/web-api-chris
 								<object class="NSColor" key="IBUITextColor" id="1070464370">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -101,6 +145,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
+<<<<<<< HEAD
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<string key="name">Helvetica-Bold</string>
 									<string key="family">Helvetica</string>
@@ -112,21 +157,31 @@
 									<double key="NSSize">19</double>
 									<int key="NSfFlags">16</int>
 								</object>
+=======
+>>>>>>> origin/web-api-chris
 							</object>
 							<object class="IBUILabel" id="901546505">
 								<reference key="NSNextResponder" ref="827793947"/>
 								<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 								<string key="NSFrame">{{64, 25}, {193, 21}}</string>
 								<reference key="NSSuperview" ref="827793947"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+=======
+								<string key="NSFrame">{{60, 25}, {193, 21}}</string>
+								<reference key="NSSuperview" ref="827793947"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
+>>>>>>> origin/web-api-chris
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Detailed Contact Information</string>
+<<<<<<< HEAD
 								<reference key="IBUITextColor" ref="1070464370"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
@@ -135,11 +190,14 @@
 									<int key="type">1</int>
 									<double key="pointSize">14</double>
 								</object>
+=======
+>>>>>>> origin/web-api-chris
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
+<<<<<<< HEAD
 							</object>
 						</array>
 						<string key="NSFrameSize">{320, 55}</string>
@@ -147,6 +205,18 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="640487490"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
+=======
+								<reference key="IBUITextColor" ref="1070464370"/>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">0</int>
+								<float key="IBUIMinimumFontSize">10</float>
+							</object>
+						</array>
+						<string key="NSFrameSize">{320, 60}</string>
+						<reference key="NSSuperview" ref="998990116"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="640487490"/>
+>>>>>>> origin/web-api-chris
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -158,6 +228,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
+<<<<<<< HEAD
 				<string key="NSFrameSize">{320, 56}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
@@ -167,6 +238,15 @@
 				<reference key="IBUIContentView" ref="827793947"/>
 				<string key="IBUIReuseIdentifier">myCell</string>
 				<real value="56" key="IBUIRowHeight"/>
+=======
+				<string key="NSFrameSize">{320, 60}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="827793947"/>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+				<reference key="IBUIContentView" ref="827793947"/>
+				<string key="IBUIReuseIdentifier">myCell</string>
+>>>>>>> origin/web-api-chris
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -220,8 +300,13 @@
 						<reference key="object" ref="998990116"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="640487490"/>
+<<<<<<< HEAD
 							<reference ref="901546505"/>
 							<reference ref="1005832025"/>
+=======
+							<reference ref="1005832025"/>
+							<reference ref="901546505"/>
+>>>>>>> origin/web-api-chris
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -301,6 +386,10 @@
 			<string key="NS.key.0">avatar_unknown.jpg</string>
 			<string key="NS.object.0">{150, 150}</string>
 		</object>
+<<<<<<< HEAD
 		<string key="IBCocoaTouchPluginVersion">1181</string>
+=======
+		<string key="IBCocoaTouchPluginVersion">301</string>
+>>>>>>> origin/web-api-chris
 	</data>
 </archive>

@@ -16,6 +16,10 @@
 #import "SignInViewController.h"
 #import "SetupSecurityPin.h"
 #import "RequestMoneyService.h"
+<<<<<<< HEAD
+=======
+#import "ContactSelectViewController.h"
+>>>>>>> origin/web-api-chris
 
 #define kOFFSET_FOR_KEYBOARD 80.0
 
@@ -32,8 +36,14 @@
 
 @implementation RequestMoneyController
 
-@synthesize txtRecipientUri, txtAmount, txtComments, btnSendRequest;
+@synthesize recipientUri;
+@synthesize txtAmount, txtComments, btnSendRequest;
 @synthesize viewPanel;
+@synthesize recipientImageButton;
+@synthesize chooseRecipientButton;
+@synthesize contactHead;
+@synthesize contactDetail;
+
 
 float tableHeight = 30;
 
@@ -49,12 +59,10 @@ float tableHeight = 30;
 - (void)dealloc
 {
     [viewPanel release];
-    [txtRecipientUri release];
     [txtAmount release];
     [txtComments release];
     [btnSendRequest release];
     [securityPinModalPanel release];
-    [recipient release];
     [amount release];
     [comments release];
     [requestMoneyService release];
@@ -83,6 +91,12 @@ float tableHeight = 30;
 
     [super viewDidLoad];
 
+<<<<<<< HEAD
+=======
+    [recipientImageButton.layer setCornerRadius:12.0];
+    [recipientImageButton.layer setMasksToBounds:YES];
+    
+>>>>>>> origin/web-api-chris
     requestMoneyService = [[RequestMoneyService alloc] init];
     [requestMoneyService setRequestMoneyCompleteDelegate: self];
     
@@ -104,17 +118,17 @@ float tableHeight = 30;
     [[viewPanel layer] setCornerRadius: 8.0];
 
     //Search Bar
-	txtRecipientUri.borderStyle = UITextBorderStyleRoundedRect; // rounded, recessed rectangle
-	txtRecipientUri.autocorrectionType = UITextAutocorrectionTypeNo;
-	txtRecipientUri.textAlignment = UITextAlignmentLeft;
-	txtRecipientUri.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	//txtRecipientUri.borderStyle = UITextBorderStyleRoundedRect; // rounded, recessed rectangle
+	//txtRecipientUri.autocorrectionType = UITextAutocorrectionTypeNo;
+	//txtRecipientUri.textAlignment = UITextAlignmentLeft;
+	//txtRecipientUri.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	//txtRecipientUri.returnKeyType = UIReturnKeyDone;
-	txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
-	txtRecipientUri.textColor = [UIColor blackColor];
-	[txtRecipientUri setDelegate:self];
+	//txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
+	//txtRecipientUri.textColor = [UIColor blackColor];
+	//[txtRecipientUri setDelegate:self];
 
 	//Autocomplete Table
-	autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight) style:UITableViewStylePlain];
+	//autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight) style:UITableViewStylePlain];
 	autoCompleteTableView.delegate = self;
 	autoCompleteTableView.dataSource = self;
 	autoCompleteTableView.scrollEnabled = YES;
@@ -131,6 +145,9 @@ float tableHeight = 30;
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
+    
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
 
 }
 
@@ -147,7 +164,6 @@ float tableHeight = 30;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 -(IBAction) bgTouched:(id) sender {
-    [txtRecipientUri resignFirstResponder];
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
 }
@@ -171,7 +187,6 @@ float tableHeight = 30;
 	[autoCompleteTableView reloadData];
 }
 - (void) finishedSearching {
-	[txtRecipientUri resignFirstResponder];
 	autoCompleteTableView.hidden = YES;
 }
 #pragma mark UITextFieldDelegate methods
@@ -271,24 +286,7 @@ float tableHeight = 30;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
 
-	//Resize auto complete table based on how many elements will be displayed in the table
-    if (autoCompleteArray.count >=3) {
-   		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight*3);
-   		return autoCompleteArray.count;
-   	}
-
-   	else if (autoCompleteArray.count == 2) {
-   		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight*2);
-   		return autoCompleteArray.count;
-   	}
-   	else if (autoCompleteArray.count >= 1) {
-   		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight);
-   		return autoCompleteArray.count;
-   	}
-       else  {
-   		autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, 0);
-   		return autoCompleteArray.count;
-   	}
+	
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -307,6 +305,7 @@ float tableHeight = 30;
 	return cell;
 }
 
+<<<<<<< HEAD
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
 	txtRecipientUri.text = selectedCell.textLabel.text;
@@ -325,6 +324,8 @@ float tableHeight = 30;
           }
 	[self finishedSearching];
 }
+=======
+>>>>>>> origin/web-api-chris
 
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
@@ -342,7 +343,7 @@ float tableHeight = 30;
         [self.scrollView scrollsToTop];
         [securityPinModalPanel hide];
 
-        [txtRecipientUri setText: @""];
+        //[txtRecipientUri setText: @""];
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
 
@@ -389,6 +390,7 @@ float tableHeight = 30;
     if([recipientUriToTest length]  == 0)
         return false;
     
+<<<<<<< HEAD
     if(isnumber([recipientUriToTest characterAtIndex:0])) {
         NSCharacterSet *numSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789-"];
         
@@ -403,8 +405,10 @@ float tableHeight = 30;
         }   
     } else {
         return true;
+=======
+    return true;
+>>>>>>> origin/web-api-chris
     }
-}
 -(BOOL) isValidAmount:(NSString *) amountToTest {
     amountToTest = [amountToTest stringByReplacingOccurrencesOfString:@"$" withString:@""];
 
@@ -420,13 +424,16 @@ float tableHeight = 30;
 }
 
 - (void)requestMoney {
-    recipient = [[NSString alloc] initWithString: @""];
+     
     amount = [[NSString alloc] initWithString: @""];
     comments = [[NSString alloc] initWithString: @""];
 
+<<<<<<< HEAD
     if([txtRecipientUri.text length] > 0)
         recipient = [txtRecipientUri.text copy];
 
+=======
+>>>>>>> origin/web-api-chris
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
     }
@@ -436,7 +443,7 @@ float tableHeight = 30;
 
     BOOL isValid = YES;
 
-    if(isValid && ![self isValidRecipientUri: recipient])
+    if(isValid && ![self isValidRecipientUri: recipientUri])
     {
         [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
 
@@ -476,13 +483,12 @@ float tableHeight = 30;
 - (IBAction)showModalPanel {
 
     [txtAmount resignFirstResponder];
-    [txtRecipientUri resignFirstResponder];
     [txtComments resignFirstResponder];
 
 	securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
 
     securityPinModalPanel.dialogTitle.text = @"Swipe Your Pin";
-    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To send your request for %@ to %@, swipe your security pin below.", txtAmount.text, txtRecipientUri.text];
+    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To send your request for %@ to %@, swipe your security pin below.", txtAmount.text, @"Recipient"];
     [securityPinModalPanel.btnCancelPayment setTitle:@"Cancel Request" forState:UIControlStateNormal];
     securityPinModalPanel.delegate = self;
 
@@ -499,8 +505,9 @@ float tableHeight = 30;
                selectedCode:(NSString*) code {
 
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
+    
     NSString* userId = [prefs stringForKey:@"userId"];
+<<<<<<< HEAD
     NSString* senderUri = [prefs stringForKey:@"mobileNumber"];
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
 
@@ -522,6 +529,93 @@ float tableHeight = 30;
 -(void)requestMoneyDidFail: (NSString*) message {
     [self showAlertView: @"Error Requesting Money" withMessage:message];
 }
+=======
+    NSString* senderUri;
+    NSString* username = [prefs stringForKey:@"userName"];
+    
+    double latitude = 0.0;
+    double longitude = 0.0;
+    
+    NSString* recipientImageUri = [NSString stringWithString: @""];
+    NSString* recipientFirstName = [NSString stringWithString: @""];
+    NSString* recipientLastName =[NSString stringWithString: @""];
+    
+    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
+        senderUri = username;
+    }
+    else
+        senderUri = [prefs stringForKey:@"mobileNumber"];
+    
+    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+        recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
+        recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
+        recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
+    }
+
+    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
+
+    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount  withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+}
+-(void)requestMoneyDidComplete {
+
+    [self.scrollView scrollsToTop];
+    [securityPinModalPanel hide];
+    
+    recipientUri = @"";
+    [txtAmount setText: @"$0.00"];
+    [txtComments setText: @""];
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    
+    NSString* message = [NSString stringWithString:@"Your request was sent"];
+    
+    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+    [self showAlertView:@"Request Sent!" withMessage: message];
+}
+-(void)requestMoneyDidFail: (NSString*) message {
+    [self showAlertView: @"Error Requesting Money" withMessage:message];
+}
+- (IBAction)pressedChooseRecipientButton:(id)sender 
+{
+    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.contactSelectChosenDelegate = self;
+}
+
+-(void)didChooseContact:(Contact *)contact
+{
+    recipient = contact;
+    if ( contact.imgData )
+        [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+    else if ( contact.facebookID.length > 0 )
+        [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
+    else
+        [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    
+    
+    recipientImageButton.imageView.image = nil;
+    // Image Formatting
+    [recipientImageButton.layer setCornerRadius:12.0];
+    [recipientImageButton.layer setMasksToBounds:YES];
+    
+    contactHead.text = contact.name;
+    
+    if ( contact.facebookID.length > 0 ){
+        contactDetail.text = @"Facebook Friend";
+    } else if ( contact.phoneNumber ){
+        contactDetail.text = contact.phoneNumber;
+    } else if ( contact.emailAddress.length > 0 ){
+        contactDetail.text = contact.emailAddress;
+    }else {
+        contactDetail.text = @"No Info to Display";
+    }
+    
+    self.recipientUri = contact.recipientUri;
+
+}
+>>>>>>> origin/web-api-chris
 #pragma mark - UAModalDisplayPanelViewDelegate 
 
 // Optional: This is called before the open animations.

@@ -15,6 +15,10 @@
 #import "Environment.h"
 #import "PdThxAppDelegate.h"
 #import "Facebook.h"
+<<<<<<< HEAD
+=======
+#import "HomeViewController.h"
+>>>>>>> origin/web-api-chris
 
 
 @interface SignInViewController ()
@@ -25,7 +29,11 @@
 @implementation SignInViewController
 
 @synthesize txtEmailAddress, txtPassword;
+<<<<<<< HEAD
 @synthesize signInCompleteDelegate, achSetupCompleteDelegate;
+=======
+@synthesize signInCompleteDelegate, achSetupCompleteDelegate, setupACHAccountController;
+>>>>>>> origin/web-api-chris
 @synthesize viewPanel, fBook, service, bankAlert;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -164,8 +172,13 @@
 }
 
 /*          NORMAL ACCOUNT SIGN IN HANDLING     */
+<<<<<<< HEAD
 -(void)userSignInDidComplete:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
     
+=======
+-(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber
+{
+>>>>>>> origin/web-api-chris
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
@@ -176,22 +189,40 @@
 
     [signInCompleteDelegate signInDidComplete];
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/web-api-chris
 -(void)userSignInDidFail:(NSString *) reason {
     [self showAlertView:@"User Validation Failed!" withMessage: reason];
 }
 
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
+<<<<<<< HEAD
 -(void)fbSignInDidComplete:(BOOL)hasBankAccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
     [prefs setValue:userID forKey:@"userId"];
+=======
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue:userId forKey:@"userId"];
+    [prefs setValue:mobileNumber forKey:@"mobileNumber"];
+    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
+    
+>>>>>>> origin/web-api-chris
     [prefs synchronize];
     
     /*          
         TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
             ASK THEM TO ADD IT NOW
      */
+<<<<<<< HEAD
     if ( !hasBankAccount ){
+=======
+    if ( !hasACHaccount ){
+>>>>>>> origin/web-api-chris
         // No bank account, prompt user to add one now.
         bankAlert = [[UIAlertView alloc] initWithTitle:@"Add a Bank Account" message:@"You have not yet added a bank account. You will not be able to send or receive money without adding a bank account" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Add now", nil];
         [bankAlert show];
@@ -199,6 +230,11 @@
     } else if ( !hasSecurityPin ){
         // User HAS a bank account, but no security pin for whatever reason.
         // TODO: Add Security Pin Input (if above method of adding a bank account does not require one)
+<<<<<<< HEAD
+=======
+    } else {
+        [signInCompleteDelegate signInDidComplete];
+>>>>>>> origin/web-api-chris
     }
 }
 
@@ -230,7 +266,10 @@
 -(void)achAccountSetupDidComplete
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
+<<<<<<< HEAD
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
+=======
+>>>>>>> origin/web-api-chris
     [signInCompleteDelegate signInDidComplete];
 }
 -(void)achACcountSetupDidSkip

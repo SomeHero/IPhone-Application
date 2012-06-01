@@ -19,6 +19,10 @@
     PhoneNumberFormatting *phoneNumberFormatter;
     NSMutableArray *tempArray;
     NSArray * permissions;
+<<<<<<< HEAD
+=======
+    UIAlertView * notifAlert;
+>>>>>>> origin/web-api-chris
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -29,6 +33,10 @@
 @property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, retain) NSMutableArray *tempArray;
 @property (nonatomic, retain) NSArray * permissions;
+<<<<<<< HEAD
+=======
+@property (nonatomic, retain) UIAlertView * notifAlert;
+>>>>>>> origin/web-api-chris
 
 -(void)signOut;
 -(void)forgetMe;

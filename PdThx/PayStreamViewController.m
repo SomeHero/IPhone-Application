@@ -267,12 +267,37 @@
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
 
     // Configure the cell...
+<<<<<<< HEAD
     if([item.senderUri isEqualToString: mobileNumber]) {
         cell.transactionRecipient.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.recipientUri];
     } else {
         cell.transactionRecipient.text = [phoneNumberFormatter stringToFormattedPhoneNumber: item.senderUri];
     }
     [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
+=======
+    if([item.direction isEqualToString:@"Out"]) {
+        cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
+    } else {
+        cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
+    }
+    if([item.direction isEqualToString:@"Out"]) {
+        if (!(item.recipientImageUri == (id)[NSNull null] || item.recipientImageUri.length == 0 )) {
+            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.recipientImageUri]];
+            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
+            [imageData release];
+        } else {
+            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+        }
+    } else {
+        if (!(item.senderImageUri == (id)[NSNull null] || item.senderImageUri.length == 0 )) {
+            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.senderImageUri]];
+            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
+            [imageData release];
+        } else {
+            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+        }
+    }
+>>>>>>> origin/web-api-chris
     
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
     [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -305,7 +330,11 @@
             }*/            
     
     NSLog ( @"Message Status: %@" , item.messageStatus );
+<<<<<<< HEAD
     cell.transactionStatus.text = @"Complete"; // ? This might be wrong
+=======
+    cell.transactionStatus.text = item.messageStatus;
+>>>>>>> origin/web-api-chris
         
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];

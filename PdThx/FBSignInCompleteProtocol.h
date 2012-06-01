@@ -12,7 +12,11 @@
 
 @protocol FBSignInCompleteProtocol <NSObject>
 
+<<<<<<< HEAD
 -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID;
+=======
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber;
+>>>>>>> origin/web-api-chris
 
 -(void)fbSignInDidFail:(NSString *)reason;
 

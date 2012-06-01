@@ -95,11 +95,20 @@
 		case MessageComposeResultSent:
             NSLog(@"Complete");
             
+<<<<<<< HEAD
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             NSString* userId = [prefs stringForKey:@"userId"];
             
             [self getUserInformation: userId];
+=======
+            SetupACHAccountController* setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle:nil];
+            
+            [setupACHAccountController setAchSetupCompleteDelegate:self];
+            [self.navigationController pushViewController:setupACHAccountController animated:true];
+            
+            [setupACHAccountController release];
+>>>>>>> origin/web-api-chris
             
 			break;
             

@@ -113,12 +113,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     PhoneNumberFormatting *formatter = [[PhoneNumberFormatting alloc] init];
     NSLog(@"FirstName: %@ LastName: %@",user.firstName,user.lastName);
     
+<<<<<<< HEAD
     if ( user.firstName.length > 0 && user.lastName.length > 0 ){
             lblUserName.text = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
     } else if ( user.mobileNumber != NULL ){
         if ( user.mobileNumber.length > 0 )
             lblUserName.text = [formatter stringToFormattedPhoneNumber: user.mobileNumber];
     } else if ( user.emailAddress != NULL ){
+=======
+    if((!(user.firstName == (id)[NSNull null] || user.firstName.length == 0 )) && (!(user.lastName == (id)[NSNull null] || user.lastName.length == 0 ))) {
+            lblUserName.text = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
+    } else if (!(user.mobileNumber == (id)[NSNull null] || user.mobileNumber.length == 0 ) ){
+        if ( user.mobileNumber.length > 0 )
+            lblUserName.text = [formatter stringToFormattedPhoneNumber: user.mobileNumber];
+    } else if ( !(user.emailAddress == (id)[NSNull null] || user.emailAddress.length == 0 ) ){
+>>>>>>> origin/web-api-chris
         if ( user.emailAddress.length > 0 )
             lblUserName.text = user.emailAddress;
     } else {
@@ -144,11 +153,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
     [numberFormatter release];
     [formatter release];
+<<<<<<< HEAD
+=======
+}
+-(void)userInformationDidFail:(NSString*) message {
+    [self showAlertView: @"Error Sending Money" withMessage: message];
+>>>>>>> origin/web-api-chris
 }
 
 -(void)signInDidComplete {
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
 }
 -(void)achSetupDidComplete {
     [self.navigationController popToRootViewControllerAnimated:YES];

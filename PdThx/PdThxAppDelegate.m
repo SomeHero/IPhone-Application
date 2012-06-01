@@ -50,11 +50,18 @@
     }
     
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
+<<<<<<< HEAD
     contactsArray = [[NSMutableArray alloc] init];
     for ( int i = 0 ; i < 27 ; i++ )
         [contactsArray addObject:[[NSMutableArray alloc]init]];
     
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
+=======
+    
+    phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
+    
+    contactsArray = [[NSMutableArray alloc] init];
+>>>>>>> origin/web-api-chris
     tempArray = [[NSMutableArray alloc] init];
     
     [self loadAllContacts];
@@ -115,6 +122,11 @@
     if ( [fBook isSessionValid] )
         [fBook logout];
     
+<<<<<<< HEAD
+=======
+    NSLog (@"Session should be invalid.. Worked? %@", [fBook isSessionValid] ? @"YES" : @"NO");
+    
+>>>>>>> origin/web-api-chris
     // Reload all Contacts (without Facebook permissions)
     [self loadAllContacts];
 
@@ -185,6 +197,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [writer release];
         NSLog ( @"%@" , jsonString );
         
+<<<<<<< HEAD
         UIAlertView * notifAlert;
         
         if ( [userInfo objectForKey:@"nType"] == @"recPCNF" ) { // Payment Received
@@ -193,10 +206,27 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             [notifAlert show];
         } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
             notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+=======
+        if ( [userInfo objectForKey:@"nType"] == @"recPCNF" ) { // Payment Received
+            notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Received" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+            //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+            [notifAlert show];
+        } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
+            notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+            //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+            [notifAlert show];
+>>>>>>> origin/web-api-chris
         } // Other Cases Not Handled.. May be something wrong..
     } else {
         // Application Just Resumed from Background, so load the notification
         // details pane or the payment processing screen (based on notification)
+<<<<<<< HEAD
+=======
+        notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
+        //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
+        [notifAlert show];
+        
+>>>>>>> origin/web-api-chris
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
         NSString * jsonString = [writer stringWithObject:userInfo];
         [writer release];
@@ -204,6 +234,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         // Load Paystream Detail View
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:([UIApplication sharedApplication].applicationIconBadgeNumber+1)];
+<<<<<<< HEAD
         
     }
 }
@@ -214,6 +245,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [tempArray removeAllObjects];
     
 
+=======
+    }
+}
+
+
+-(void)loadAllContacts
+{
+    [tempArray removeAllObjects];
+    
+>>>>>>> origin/web-api-chris
     Contact * contact;
     
     if ( [fBook isSessionValid] ){
@@ -247,6 +288,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             contact.lastName = (NSString*)lastName;
             NSLog(@"Phone Number: %@", phoneNumber);
             contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
+<<<<<<< HEAD
+=======
+            contact.recipientUri = [contact.phoneNumber copy];
+>>>>>>> origin/web-api-chris
             NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
             [tempArray addObject:contact];
             
@@ -255,6 +300,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             [contact release];
         }
     }
+<<<<<<< HEAD
+=======
+    
+    [self sortContacts];
+>>>>>>> origin/web-api-chris
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result
@@ -272,6 +322,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
         
         friend.imgData = NULL;
+<<<<<<< HEAD
+=======
+        friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
+>>>>>>> origin/web-api-chris
         [tempArray addObject:friend];
         [friend release];
     }
@@ -280,7 +334,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)sortContacts
 {
+<<<<<<< HEAD
     tempArray = [[NSMutableArray arrayWithArray:[tempArray sortedArrayUsingSelector:@selector(compare:)]] copy];
+=======
+    if ( contactsArray == NULL ){
+        contactsArray = [[NSMutableArray alloc] init];
+    } else {
+        [contactsArray removeAllObjects];
+    }
+    for ( int i = 0 ; i < 27 ; i ++ )
+        [contactsArray addObject:[[NSMutableArray alloc] init]];
+    
+    tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    
+>>>>>>> origin/web-api-chris
     NSString * comparedString;
     
     /*

@@ -12,7 +12,11 @@
 
 @protocol UserSignInCompleteProtocol <NSObject>
 
+<<<<<<< HEAD
 -(void)userSignInDidComplete:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber;
+=======
+-(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber;
+>>>>>>> origin/web-api-chris
 
 -(void)userSignInDidFail:(NSString *) reason;
 

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
+<<<<<<< HEAD
 		<int key="IBDocument.SystemTarget">1280</int>
+=======
+		<int key="IBDocument.SystemTarget">1296</int>
+>>>>>>> origin/web-api-chris
 		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.47</string>
@@ -143,7 +147,11 @@
 										<string key="NSFrameSize">{300, 300}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
+<<<<<<< HEAD
 										<reference key="NSNextKeyView" ref="929332894"/>
+=======
+										<reference key="NSNextKeyView" ref="428285539"/>
+>>>>>>> origin/web-api-chris
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
@@ -160,7 +168,11 @@
 									<object class="IBUILabel" id="929332894">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 										<string key="NSFrame">{{9, 3}, {261, 37}}</string>
+=======
+										<string key="NSFrame">{{10, 56}, {240, 37}}</string>
+>>>>>>> origin/web-api-chris
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="743857628"/>
@@ -169,7 +181,11 @@
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+<<<<<<< HEAD
 										<string key="IBUIText">Sign In or Create an Account</string>
+=======
+										<string key="IBUIText">Log In or Create an Account</string>
+>>>>>>> origin/web-api-chris
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -192,7 +208,11 @@
 									<object class="IBUITextField" id="743857628">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 										<string key="NSFrame">{{10, 43}, {280, 31}}</string>
+=======
+										<string key="NSFrame">{{10, 97}, {280, 31}}</string>
+>>>>>>> origin/web-api-chris
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="365562443"/>
@@ -233,7 +253,11 @@
 									<object class="IBUITextField" id="365562443">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 										<string key="NSFrame">{{10, 86}, {280, 31}}</string>
+=======
+										<string key="NSFrame">{{10, 140}, {280, 31}}</string>
+>>>>>>> origin/web-api-chris
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="688192017"/>
@@ -264,10 +288,17 @@
 									<object class="IBUIButton" id="401105212">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 										<string key="NSFrame">{{10, 188}, {280, 50}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="428285539"/>
+=======
+										<string key="NSFrame">{{10, 242}, {280, 50}}</string>
+										<reference key="NSSuperview" ref="565697300"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
+>>>>>>> origin/web-api-chris
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
@@ -289,7 +320,11 @@
 									<object class="IBUIButton" id="688192017">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 										<string key="NSFrame">{{10, 128}, {280, 50}}</string>
+=======
+										<string key="NSFrame">{{10, 182}, {280, 50}}</string>
+>>>>>>> origin/web-api-chris
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="401105212"/>
@@ -314,23 +349,40 @@
 									<object class="IBUIButton" id="428285539">
 										<reference key="NSNextResponder" ref="565697300"/>
 										<int key="NSvFlags">292</int>
+<<<<<<< HEAD
 										<string key="NSFrame">{{10, 252}, {280, 37}}</string>
 										<reference key="NSSuperview" ref="565697300"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView"/>
+=======
+										<string key="NSFrame">{{10, 11.5}, {280, 44}}</string>
+										<reference key="NSSuperview" ref="565697300"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="929332894"/>
+>>>>>>> origin/web-api-chris
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
 										<int key="IBUIButtonType">1</int>
+<<<<<<< HEAD
 										<string key="IBUINormalTitle">Connect with Facebook</string>
+=======
+>>>>>>> origin/web-api-chris
 										<reference key="IBUIHighlightedTitleColor" ref="846848465"/>
 										<object class="NSColor" key="IBUINormalTitleColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 										</object>
 										<reference key="IBUINormalTitleShadowColor" ref="168266438"/>
+<<<<<<< HEAD
+=======
+										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">btn-facebook.png</string>
+										</object>
+>>>>>>> origin/web-api-chris
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">2</int>
 											<double key="pointSize">15</double>
@@ -353,7 +405,11 @@
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+<<<<<<< HEAD
 						<reference key="NSNextKeyView"/>
+=======
+						<reference key="NSNextKeyView" ref="76083025"/>
+>>>>>>> origin/web-api-chris
 						<reference key="IBUIBackgroundColor" ref="993929206"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -389,6 +445,7 @@
 						<string key="label">scrollView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="866572976"/>
+<<<<<<< HEAD
 					</object>
 					<int key="connectionID">27</int>
 				</object>
@@ -398,6 +455,17 @@
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="428285539"/>
 					</object>
+=======
+					</object>
+					<int key="connectionID">27</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">loginFBButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="428285539"/>
+					</object>
+>>>>>>> origin/web-api-chris
 					<int key="connectionID">37</int>
 				</object>
 				<object class="IBConnectionRecord">
@@ -550,13 +618,20 @@
 						<reference key="object" ref="565697300"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+<<<<<<< HEAD
 							<reference ref="929332894"/>
+=======
+>>>>>>> origin/web-api-chris
 							<reference ref="800196937"/>
 							<reference ref="688192017"/>
 							<reference ref="365562443"/>
 							<reference ref="743857628"/>
 							<reference ref="401105212"/>
 							<reference ref="428285539"/>
+<<<<<<< HEAD
+=======
+							<reference ref="929332894"/>
+>>>>>>> origin/web-api-chris
 						</object>
 						<reference key="parent" ref="866572976"/>
 						<string key="objectName">View</string>
@@ -655,7 +730,11 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
+<<<<<<< HEAD
 			<int key="maxID">44</int>
+=======
+			<int key="maxID">45</int>
+>>>>>>> origin/web-api-chris
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -713,8 +792,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+<<<<<<< HEAD
 							<string>FBLoginImage</string>
 							<string>FBLoginSpinner</string>
+=======
+>>>>>>> origin/web-api-chris
 							<string>loginFBButton</string>
 							<string>txtEmailAddress</string>
 							<string>txtPassword</string>
@@ -722,8 +804,11 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+<<<<<<< HEAD
 							<string>UIImageView</string>
 							<string>UIActivityIndicatorView</string>
+=======
+>>>>>>> origin/web-api-chris
 							<string>UIButton</string>
 							<string>UITextField</string>
 							<string>UITextField</string>
@@ -734,8 +819,11 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+<<<<<<< HEAD
 							<string>FBLoginImage</string>
 							<string>FBLoginSpinner</string>
+=======
+>>>>>>> origin/web-api-chris
 							<string>loginFBButton</string>
 							<string>txtEmailAddress</string>
 							<string>txtPassword</string>
@@ -744,6 +832,7 @@
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
+<<<<<<< HEAD
 								<string key="name">FBLoginImage</string>
 								<string key="candidateClassName">UIImageView</string>
 							</object>
@@ -752,6 +841,8 @@
 								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+=======
+>>>>>>> origin/web-api-chris
 								<string key="name">loginFBButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
@@ -797,6 +888,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>
 			<integer value="3000" key="NS.object.0"/>
@@ -807,12 +902,14 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>btn-facebook.png</string>
 				<string>button_create_an_account.png</string>
 				<string>button_sign_in.png</string>
 				<string>icon_paidthx_logo_header.png</string>
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{596, 108}</string>
 				<string>{289, 51}</string>
 				<string>{278, 51}</string>
 				<string>{131, 25}</string>

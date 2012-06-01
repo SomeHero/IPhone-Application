@@ -13,12 +13,16 @@
 @implementation Transaction
 
 @synthesize transactionId, paymentId, senderUri, recipientUri, amount, achTransactionId, transactionStatus, transactionCategory, transactionType,
-standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  createDate, lastUpdatedDate;
+standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  createDate, lastUpdatedDate, direction;
+@synthesize recipientName;
+@synthesize recipientImageUri;
+@synthesize senderName;
+@synthesize senderImageUri;
 
 -(id)init {
     self = [super init];
     
-
+    
     if(self) {
         transactionId = [[NSString alloc] init];
         paymentId = [[NSString alloc] init];
@@ -35,6 +39,11 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         transactionSentDate = [[NSDate alloc] init];
         createDate = [[NSDate alloc] init];
         lastUpdatedDate = [[NSDate alloc] init];
+        direction = [[NSString alloc] init];
+        recipientName = [[NSString alloc] init];
+        recipientImageUri = [[NSString alloc] init];
+        senderName = [[NSString alloc] init];
+        senderImageUri = [[NSString alloc] init];
     }
     
     return self;
@@ -44,7 +53,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
-
+    
     if(self) { 
         transactionId = [[dictionary valueForKey:@"transactionId"] copy];
         paymentId = [[dictionary valueForKey:@"paymentId"] copy];
@@ -59,12 +68,17 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         paymentChannel = [[dictionary valueForKey:@"paymentChannel"] copy];
         transactionBatchId = [[dictionary valueForKey:@"transactionBatchId"] copy];
         transactionSentDate = [[dictionary valueForKey:@"transctionSentDate"] copy];
-
+        
         NSString* rawData = [[dictionary valueForKey:@"createDate"] autorelease];
         NSRange timezone = NSMakeRange([rawData length] - 10, 3);
         NSString *cleanData = [rawData stringByReplacingOccurrencesOfString:@":" withString:@"" options:NSCaseInsensitiveSearch range:timezone ];
         createDate = [[format dateFromString: cleanData] copy];
         lastUpdatedDate = [[dictionary valueForKey:@"lastUpdatedDate"] copy];
+        direction = [[dictionary valueForKey:@"direction"] copy];
+        senderName = [[dictionary valueForKey:@"senderName"] copy];
+        senderImageUri = [[dictionary valueForKey:@"senderImageUri"] copy];
+        recipientName = [[dictionary valueForKey:@"recipientName"] copy];
+        recipientImageUri = [[dictionary valueForKey:@"recipientImageUri"] copy];
     }
     
     [format release];
@@ -88,6 +102,11 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
     [transactionSentDate release];
     [createDate release];
     [lastUpdatedDate release];
+    [direction release];
+    [senderName release];
+    [senderImageUri release];
+    [recipientName release];
+    [recipientImageUri release];
     
     [super dealloc];
 }
