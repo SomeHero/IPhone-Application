@@ -498,7 +498,7 @@ float tableHeight = 30;
     NSString* message = [NSString stringWithString:@"Your request was sent"];
     
     [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
-    [self showAlertView:@"Reqjest Sent!" withMessage: message];
+    [self showAlertView:@"Request Sent!" withMessage: message];
 }
 -(void)requestMoneyDidFail: (NSString*) message {
     [self showAlertView: @"Error Requesting Money" withMessage:message];
