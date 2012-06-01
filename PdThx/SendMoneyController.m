@@ -99,7 +99,7 @@ float tableHeight2 = 30;
     txtAmount.text = @"$0.00";
     
     contactHead.text = @"Select a Recipient";
-    contactDetail.text = @"Click here";
+    contactDetail.text = @"Click Here";
 }
 
 - (void)viewDidUnload
@@ -186,7 +186,7 @@ float tableHeight2 = 30;
     [txtAmount setText: @"$0.00"];
     [txtComments setText: @""];
     contactHead.text = @"Select a Recipient";
-    contactDetail.text = @"";
+    contactDetail.text = @"Click Here";
     [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
     
     NSString* message = [NSString stringWithString:@"Your money was sent"];
@@ -283,12 +283,8 @@ float tableHeight2 = 30;
         contactDetail.text = @"No Info to Display";
     }
     
-    if ( contact.facebookID.length > 0 )
-        self.recipientUri = [NSString stringWithFormat:@"fb_%@", contact.facebookID];
-    else if ( contact.phoneNumber.length > 0 )
-        recipientUri = contact.phoneNumber;
-    else if ( contact.emailAddress.length > 0 )
-        recipientUri = contact.emailAddress;
+    self.recipientUri = contact.recipientUri;
+
 }
 
 -(IBAction) btnSendMoneyClicked:(id)sender {
