@@ -95,11 +95,12 @@
 		case MessageComposeResultSent:
             NSLog(@"Complete");
             
+            SetupACHAccountController* setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle:nil];
             
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            NSString* userId = [prefs stringForKey:@"userId"];
+            [setupACHAccountController setAchSetupCompleteDelegate:self];
+            [self.navigationController pushViewController:setupACHAccountController animated:true];
             
-            [self getUserInformation: userId];
+            [setupACHAccountController release];
             
 			break;
             

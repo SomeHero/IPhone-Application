@@ -16,27 +16,38 @@
 #import "ACHSetupCompleteProtocol.h"
 #import "UIBaseViewController.h"
 #import "RequestMoneyService.h"
+#import "Contact.h"
+#import "ContactSelectChosenProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource> {
+@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource, ContactSelectChosenProtocol> {
     UITableView *autoCompleteTableView;
     IBOutlet UIView *viewPanel;
-    IBOutlet UITextField *txtRecipientUri;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextField *txtComments;
     IBOutlet UIButton *btnSendRequest;
     ConfirmPaymentDialogController *securityPinModalPanel;
-    NSString* recipient;
+    NSString* recipientUri;
     NSString* amount;
     NSString* comments;
     RequestMoneyService* requestMoneyService;
+    IBOutlet UIButton *chooseRecipientButton;
+    IBOutlet UILabel *contactHead;
+    IBOutlet UILabel *contactDetail;
+    IBOutlet UIButton *recipientImageButton;
+    Contact *recipient;
 }
 @property(nonatomic, retain) UIView *viewPanel;
-@property(nonatomic, retain) UITextField *txtRecipientUri;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextField *txtComments;
 @property(nonatomic, retain) UIButton *btnSendRequest;
+@property(nonatomic, retain) UIButton *chooseRecipientButton;
+@property(nonatomic, retain) UILabel *contactHead;
+@property(nonatomic, retain) UILabel *contactDetail;
+@property(nonatomic, retain) UIButton *recipientImageButton;
+@property(nonatomic, retain) NSString* recipientUri;
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendRequestClicked:(id) sender;
+- (IBAction)pressedChooseRecipientButton:(id)sender;
 
 @end

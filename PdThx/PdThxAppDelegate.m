@@ -250,6 +250,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             contact.lastName = (NSString*)lastName;
             NSLog(@"Phone Number: %@", phoneNumber);
             contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
+            contact.recipientUri = [contact.phoneNumber copy];
             NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
             [tempArray addObject:contact];
             
@@ -277,6 +278,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
         
         friend.imgData = NULL;
+        friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
         [tempArray addObject:friend];
         [friend release];
     }

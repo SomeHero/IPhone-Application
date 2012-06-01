@@ -11,6 +11,7 @@
 @implementation Contact
 
 @synthesize name, phoneNumber, emailAddress, facebookID, imgData, firstName, lastName;
+@synthesize recipientUri;
 
 -(NSComparisonResult)compare:(Contact*)otherContact {
     NSString * comparedProperty1 = ( self.lastName.length == 0 ? self.firstName : self.lastName );
@@ -27,6 +28,7 @@
     [imgData release];
     [firstName release];
     [lastName release];
+    [recipientUri release];
     
     [super dealloc];
 }

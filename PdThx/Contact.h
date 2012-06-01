@@ -17,6 +17,7 @@
     NSString *emailAddress;
     NSString *facebookID;
     UIImage *imgData;
+    NSString *recipientUri;
 }
 
 @property(nonatomic, retain) NSString* name;
@@ -26,6 +27,7 @@
 @property(nonatomic, retain) UIImage *imgData;
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *lastName;
+@property(nonatomic, retain) NSString *recipientUri;
 
 -(NSComparisonResult)compare:(Contact*)otherContact;
 
