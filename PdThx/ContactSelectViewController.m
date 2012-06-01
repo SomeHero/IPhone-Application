@@ -26,6 +26,7 @@
 
 @synthesize searchBar, tvSubview, fBook, allResults;
 @synthesize phoneNumberFormatter, fbIconsDownloading,contactSelectChosenDelegate;
+@synthesize txtSearchBox;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,7 +44,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+    txtSearchBox.frame =  CGRectMake(txtSearchBox.frame.origin.x, txtSearchBox.frame.origin.y, txtSearchBox.frame.size.width, 40);
+    
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
 }
 
@@ -78,7 +82,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 56;
+    return 60;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -153,7 +157,15 @@
     [contactSelectChosenDelegate didChooseContact:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
+-(IBAction) btnGoClicked:(id)sender {
+    Contact* contact = [[[Contact alloc] init] autorelease];
+    contact.name = [[txtSearchBox text] copy];
+    contact.recipientUri = [[txtSearchBox text] copy];
+    
+    [contactSelectChosenDelegate didChooseContact: contact];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if ( section != 26 )
