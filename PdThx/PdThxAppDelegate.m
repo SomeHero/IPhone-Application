@@ -22,7 +22,8 @@
 
 @synthesize window=_window;
 @synthesize tabBarController=_tabBarController;
-@synthesize fBook, deviceToken, phoneNumberFormatter, permissions, tempArray, contactsArray;
+@synthesize fBook, deviceToken, phoneNumberFormatter, 
+        permissions, tempArray, contactsArray, notifAlert;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -143,6 +144,15 @@
     [self.tabBarController setSelectedIndex:2];
 }
 
+/*
+-(UIImage*)findImageForContact:(Contact*)contact;
+{
+    if ( [contactsArray indexOfObject:contact] )
+        return ((Contact*)[contactsArray objectAtIndex:[contactsArray indexOfObject:contact]]).imgData;
+    else
+        return [UIImage imageWithContentsOfFile:@"avatar_unknown.jpg"];
+}
+ */
 
 /*       Push Notification Handling         */
 

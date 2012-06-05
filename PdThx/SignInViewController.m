@@ -201,10 +201,8 @@
         bankAlert = [[UIAlertView alloc] initWithTitle:@"Add a Bank Account" message:@"You have not yet added a bank account. You will not be able to send or receive money without adding a bank account" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Add now", nil];
         [bankAlert show];
         return;
-    } else if ( !hasSecurityPin ){
-        // User HAS a bank account, but no security pin for whatever reason.
-        // TODO: Add Security Pin Input (if above method of adding a bank account does not require one)
     } else {
+        // User HAS a bank account, but no security pin for whatever reason.
         [signInCompleteDelegate signInDidComplete];
     }
 }
@@ -239,11 +237,9 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
     [signInCompleteDelegate signInDidComplete];
 }
--(void)achACcountSetupDidSkip
+-(void)achAccountSetupDidSkip
 {
-    
     [self.navigationController dismissModalViewControllerAnimated:YES];
-    
     [signInCompleteDelegate signInDidComplete];
 }
 
@@ -315,6 +311,8 @@
 }
 
 -(void)achSetupDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
     [achSetupCompleteDelegate achSetupDidComplete];
 }
 

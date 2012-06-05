@@ -45,11 +45,12 @@
  AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE), 
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE. 
-  
+ 
  Copyright (C) 2010 Apple Inc. All Rights Reserved. 
   
  */
 #import "Contact.h"
+#import "PaystreamMessage.h"
 
 @class RootViewController;
 
@@ -58,6 +59,7 @@
 @interface IconDownloader : NSObject
 {
     Contact *contact;
+    PaystreamMessage *message;
     NSIndexPath *indexPathInTableView;
     id <IconDownloaderDelegate> delegate;
     
@@ -71,6 +73,7 @@
 
 @property (nonatomic, retain) NSMutableData *activeDownload;
 @property (nonatomic, retain) NSURLConnection *imageConnection;
+@property (nonatomic, retain) PaystreamMessage *message;
 
 - (void)startDownload;
 - (void)cancelDownload;

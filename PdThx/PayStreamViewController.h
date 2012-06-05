@@ -13,10 +13,11 @@
 #import "GetPayStreamService.h"
 #import "GetPayStreamCompleteProtocol.h"
 #import "PhoneNumberFormatting.h"
+#import "IconDownloader.h"
 
 @class UITransactionTableViewCell;
 
-@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITableView *transactionsTableView;
     NSMutableData *responseData;
@@ -24,12 +25,13 @@
     NSMutableArray *sections;
     NSMutableDictionary* transactionsDict;
     NSURLConnection *transactionConnection;
+    NSMutableDictionary * psImagesDownloading;
     SignInViewController* signInViewController;
-    GetPayStreamService* getPayStreamService;
-}
+    GetPayStreamService* getPayStreamService;}
 
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITableView *transactionsTableView;
+@property (nonatomic, retain) NSMutableDictionary * psImagesDownloading;
 
 
 @end

@@ -65,7 +65,7 @@
 /**
  *  Return the distance between two points
  */
--(float) distanceBetweenTwoPoints:(CGPoint) point1 point2:(CGPoint) point2{
+-(float) distanceBetweenTwoPoints:(CGPoint) point1 point2:(CGPoint) point2 {
     float dx = point2.x - point1.x;
     float dy = point2.y - point1.y;
     return sqrt(dx*dx + dy*dy );

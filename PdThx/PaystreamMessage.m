@@ -21,9 +21,9 @@
 @synthesize createDate;
 @synthesize direction;
 @synthesize recipientName;
-@synthesize recipientImageUri;
 @synthesize senderName;
-@synthesize senderImageUri;
+@synthesize imgData;
+@synthesize transactionImageUri;
 
 -(id)init {
     self = [super init];
@@ -40,9 +40,8 @@
         createDate = [[NSDate alloc] init];
         direction = [[NSString alloc] init];
         recipientName = [[NSString alloc] init];
-        recipientImageUri = [[NSString alloc] init];
         senderName = [[NSString alloc] init];
-        senderImageUri = [[NSString alloc] init];
+        transactionImageUri = [[NSString alloc] init];
      }
     
     return self;
@@ -68,9 +67,8 @@
         createDate = [[format dateFromString: cleanData] copy];
         direction = [[dictionary valueForKey:@"direction"] copy];
         recipientName = [[dictionary valueForKey:@"recipientName"] copy];
-        recipientImageUri = [[dictionary valueForKey:@"recipientImageUri"] copy];
         senderName = [[dictionary valueForKey:@"senderName"] copy];
-        senderImageUri = [[dictionary valueForKey:@"senderImageUri"] copy];
+        transactionImageUri = [[dictionary valueForKey:@"transactionImageUri"] copy];
     }
     
     [format release];
@@ -88,6 +86,8 @@
     [messageType release];
     [senderUri release];
     [recipientUri release];
+    [imgData release];
+    [transactionImageUri release];
     
     [super dealloc];
 }
