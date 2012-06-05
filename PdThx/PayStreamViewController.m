@@ -34,6 +34,20 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    getPayStreamService = [[GetPayStreamService alloc] init];
+    [getPayStreamService setGetPayStreamCompleteDelegate:self];
+    
+    // Do any additional setup after loading the view from its nib.
+    //setup internal viewpanel
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setCornerRadius: 8.0];
+    
+    [transactionsTableView setRowHeight:60];
+    [transactionsTableView setEditing:NO];
+    
+    self.psImagesDownloading = [NSMutableDictionary dictionary];
 }
 
 - (void)dealloc
@@ -45,7 +59,6 @@
     [sections release];
     [transactionsDict release];
     [responseData release];
-    [transactionConnection release];
     [signInViewController release];
     [getPayStreamService release];
     [super dealloc];
@@ -90,19 +103,6 @@
 {
     [super viewDidLoad];
     
-    getPayStreamService = [[GetPayStreamService alloc] init];
-    [getPayStreamService setGetPayStreamCompleteDelegate:self];
-
-    // Do any additional setup after loading the view from its nib.
-    //setup internal viewpanel
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
-    
-    [transactionsTableView setRowHeight:60];
-    [transactionsTableView setEditing:NO];
-    
-    self.psImagesDownloading = [NSMutableDictionary dictionary];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -395,6 +395,7 @@
         // Display the newly loaded image
         [cell.transactionImageButton setBackgroundImage:iconDownloader.message.imgData forState:UIControlStateNormal];
     }
+    
     [iconDownloader release];
 }
 

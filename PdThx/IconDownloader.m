@@ -86,15 +86,21 @@
         conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
                               [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]] delegate:self];
+        
+        self.imageConnection = conn;
+        [conn release];
+        
     } else if ( message != (id)[NSNull null]) {
         if ( message.transactionImageUri != (id)[NSNull null] ){
             conn = [[NSURLConnection alloc] initWithRequest:
                     [NSURLRequest requestWithURL:
                      [NSURL URLWithString:message.transactionImageUri]] delegate:self];
+            
+            self.imageConnection = conn;
+            [conn release];
         }
     }
-    self.imageConnection = conn;
-    [conn release];
+
 }
 
 - (void)cancelDownload
