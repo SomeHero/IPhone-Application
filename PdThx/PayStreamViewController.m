@@ -58,14 +58,17 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+
 -(void)signInDidComplete {
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
+
 -(void)achSetupDidComplete {
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
+
 -(void) signOutClicked {
     PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -236,8 +239,8 @@
     // Return the number of sections.
     return [[transactionsDict allKeys] count];
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
+{
     return [sections objectAtIndex:(NSUInteger) section];
 }
 
