@@ -243,6 +243,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         CFStringRef lastName = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
         NSString *contactFirstLast = [NSString stringWithFormat: @"%@ %@", (NSString *)firstName, (NSString *)lastName];
         
@@ -250,23 +251,25 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
         
         // Handles Multiple Phone Numbers for One Contact...
-        for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
-            CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
-            NSString *phoneNumber = (NSString *) phoneNumberRef;
-            
-            contact = [[Contact alloc] init];
-            contact.name = contactFirstLast;
-            contact.firstName = (NSString*)firstName;
-            contact.lastName = (NSString*)lastName;
-            NSLog(@"Phone Number: %@", phoneNumber);
-            contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
-            contact.recipientUri = [contact.phoneNumber copy];
-            NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
-            [tempArray addObject:contact];
-            
-            index++;
-            
-            [contact release];
+        if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){
+            for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
+                CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
+                NSString *phoneNumber = (NSString *) phoneNumberRef;
+                
+                contact = [[Contact alloc] init];
+                contact.name = contactFirstLast;
+                contact.firstName = (NSString*)firstName;
+                contact.lastName = (NSString*)lastName;
+                NSLog(@"Phone Number: %@", phoneNumber);
+                contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
+                contact.recipientUri = [contact.phoneNumber copy];
+                //NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
+                [tempArray addObject:contact];
+                
+                index++;
+                
+                [contact release];
+            }
         }
     }
     

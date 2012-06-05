@@ -26,7 +26,7 @@
 
 @synthesize searchBar, tvSubview, fBook, allResults;
 @synthesize phoneNumberFormatter, fbIconsDownloading,contactSelectChosenDelegate;
-@synthesize txtSearchBox;
+@synthesize txtSearchBox, filteredResults, isFiltered;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +36,10 @@
         fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
         
         allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+        
+        filteredResults = [[NSMutableArray alloc] init];
+        for ( int i = 0 ; i < 27 ; i ++ )
+            [filteredResults addObject:[[NSMutableArray alloc] init]];
     }
     return self;
 }
@@ -87,20 +91,31 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ( [[allResults objectAtIndex:section] count] == 0 )
-        return 0.0;
-    else 
-        return 22.0;
+    if ( isFiltered == YES )
+    {
+        if ( [[filteredResults objectAtIndex:section] count] == 0 )
+            return 0.0;
+        else
+            return 22.0;
+    }
+    else
+    {
+        if ( [[allResults objectAtIndex:section] count] == 0 )
+            return 0.0;
+        else 
+            return 22.0;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     //return allResults.count;
-    NSLog(@"Contents of Section[%d]:",section);
-    for (Contact*person in [allResults objectAtIndex:section])
-        NSLog(@"-> %@" , person.name);
-    return [[allResults objectAtIndex:section] count];
+    if ( isFiltered == YES ){
+        return [[filteredResults objectAtIndex:section] count];
+    } else {
+        return [[allResults objectAtIndex:section] count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,40 +129,68 @@
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
     
-    NSLog(@"Looking for object at: contactsArray[%d][%d]",indexPath.section, indexPath.row);
-    NSLog(@"Contact Selected: %@" , [[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] name] );
-                                     
-    Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
-    NSLog(@"Contact Address: %@" , contact);
-    
-                                                 
-    if ( contact.facebookID.length > 0 ){
-        myCell.contactName.text = contact.name;
-        [myCell.contactImage.layer setCornerRadius:12.0];
-        [myCell.contactImage.layer setMasksToBounds:YES];
+    if ( isFiltered == YES ) {
+        Contact *contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         
-        myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
-        
-        // Only load cached images; defer new downloads until scrolling ends
-        if (!contact.imgData)
-        {
-            if (tvSubview.dragging == NO && tvSubview.decelerating == NO)
+        if ( contact.facebookID.length > 0 ){
+            myCell.contactName.text = contact.name;
+            [myCell.contactImage.layer setCornerRadius:12.0];
+            [myCell.contactImage.layer setMasksToBounds:YES];
+            
+            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
+            
+            // Only load cached images; defer new downloads until scrolling ends
+            if (!contact.imgData)
             {
-                [self startIconDownload:contact forIndexPath:indexPath];
+                if (tvSubview.dragging == NO && tvSubview.decelerating == NO)
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
+                
+                // if a download is deferred or in progress, return a placeholder image
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                return myCell;
             }
-            // if a download is deferred or in progress, return a placeholder image
+            else
+            {
+                [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+            }
+        } else {
+            myCell.contactName.text = contact.name;
+            myCell.contactDetail.text = contact.phoneNumber;
             [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
-            return myCell;
-        }
-        else
-        {
-            [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
         }
     } else {
-        myCell.contactName.text = contact.name;
-        myCell.contactDetail.text = contact.phoneNumber;
-        [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                                                 
+        if ( contact.facebookID.length > 0 ){
+            myCell.contactName.text = contact.name;
+            [myCell.contactImage.layer setCornerRadius:12.0];
+            [myCell.contactImage.layer setMasksToBounds:YES];
+        
+            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
+        
+            // Only load cached images; defer new downloads until scrolling ends
+            if (!contact.imgData)
+            {
+                if (tvSubview.dragging == NO && tvSubview.decelerating == NO)
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
+                
+                // if a download is deferred or in progress, return a placeholder image
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                return myCell;
+            }
+            else
+            {
+                [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+            }
+        } else {
+            myCell.contactName.text = contact.name;
+            myCell.contactDetail.text = contact.phoneNumber;
+            [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        }
     }
     
     return myCell;
@@ -155,18 +198,26 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [contactSelectChosenDelegate didChooseContact:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ( isFiltered == YES ) {
+        [contactSelectChosenDelegate didChooseContact:[[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        [contactSelectChosenDelegate didChooseContact:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
+
 -(IBAction) btnGoClicked:(id)sender {
     Contact* contact = [[[Contact alloc] init] autorelease];
+    
     contact.name = [[txtSearchBox text] copy];
     contact.recipientUri = [[txtSearchBox text] copy];
     
     [contactSelectChosenDelegate didChooseContact: contact];
     [self.navigationController popToRootViewControllerAnimated:YES];
-    
 }
+
+
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if ( section != 26 )
@@ -276,5 +327,38 @@
     [phoneNumberFormatter release];
     [fbIconsDownloading release];
     [super dealloc];
+}
+
+- (IBAction)textBoxChanged:(id)sender {
+    // Search text bar changed, handle the change...
+    // If the string is empty (deleted input or just hovered over), reset to full contacts
+    if ( [txtSearchBox.text isEqualToString:@""] || [[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] isEqualToString:@""]){
+        isFiltered = NO;
+        [tvSubview reloadData];
+    } else {
+        isFiltered = YES;
+        for ( NSMutableArray*arr in filteredResults ) // Empty out array
+            [arr removeAllObjects];
+        
+        NSRange hasSimilarity;
+        for ( NSMutableArray*arr3 in allResults ){
+            for ( Contact*contact in arr3 ){
+                // Check first case normally
+                hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                if ( hasSimilarity.location == NSNotFound && contact.phoneNumber != NULL ){
+                    hasSimilarity = [[[contact.phoneNumber componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
+                }
+                if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
+                    hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                }
+                // Add $me code implementation ** TODO: **
+            
+                if ( hasSimilarity.location != NSNotFound )
+                    [[filteredResults objectAtIndex:(((int)toupper([[contact.name substringToIndex:1] characterAtIndex:0]))-65)] addObject:contact];
+            }
+        }
+        
+        [tvSubview reloadData];
+    }
 }
 @end
