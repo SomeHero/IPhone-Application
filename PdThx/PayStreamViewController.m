@@ -396,6 +396,7 @@
         [cell.transactionImageButton setBackgroundImage:iconDownloader.message.imgData forState:UIControlStateNormal];
     }
     
+    iconDownloader = nil;
     [iconDownloader release];
 }
 
