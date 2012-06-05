@@ -24,7 +24,6 @@
     NSMutableArray *transactions;
     NSMutableArray *sections;
     NSMutableDictionary* transactionsDict;
-    NSURLConnection *transactionConnection;
     NSMutableDictionary * psImagesDownloading;
     SignInViewController* signInViewController;
     GetPayStreamService* getPayStreamService;}
