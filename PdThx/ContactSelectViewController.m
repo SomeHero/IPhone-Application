@@ -118,6 +118,7 @@
     NSLog(@"Contact Selected: %@" , [[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] name] );
                                      
     Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
     NSLog(@"Contact Address: %@" , contact);
     
                                                  
