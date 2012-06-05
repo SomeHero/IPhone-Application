@@ -14,10 +14,11 @@
 #import "GetPayStreamCompleteProtocol.h"
 #import "PaystreamMessage.h"
 #import "UIPaystreamTableViewCell.h"
+#import "IconDownloader.h"
 
 @implementation PayStreamViewController
 
-@synthesize viewPanel;
+@synthesize viewPanel, psImagesDownloading;
 @synthesize transactionsTableView;
 
 
@@ -97,7 +98,8 @@
     
     [transactionsTableView setRowHeight:60];
     [transactionsTableView setEditing:NO];
-   
+    
+    self.psImagesDownloading = [NSMutableDictionary dictionary];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -125,7 +127,6 @@
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
     NSLog(@"Got paystream messages");
-    NSLog(@"Cleared Application Badge");
     
     transactions = [payStreamMessages copy];
     sections = [[NSMutableArray alloc] init];
@@ -166,7 +167,8 @@
         [[transactionsDict objectForKey:transactionDate] addObject:item];
     }
     
-    if([transactions count] == 0) {
+    if([transactions count] == 0) 
+    {
         [transactionsTableView setHidden:YES];
         
         NSString* noItems = [NSString stringWithString:  @"You have no items in your paystream.  Start sending or requesting some money!"];
@@ -260,34 +262,31 @@
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-
-    NSLog(@"%d", indexPath.section);
-    NSLog(@"%d", indexPath.row);
+    
+    [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
 
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-
+    
     // Configure the cell...
     if([item.direction isEqualToString:@"Out"]) {
+        //cell.transactionRecipient.text = [NSString stringWithFormat:@"row:%d sec%d",indexPath.row,indexPath.section];
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
+        //cell.transactionRecipient.text = [NSString stringWithFormat:@"row:%d sec%d",indexPath.row,indexPath.section];
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
-    if([item.direction isEqualToString:@"Out"]) {
-        if (!(item.recipientImageUri == (id)[NSNull null] || item.recipientImageUri.length == 0 )) {
-            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.recipientImageUri]];
-            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
-            [imageData release];
-        } else {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+    
+    NSLog(@"Image stored for amount %@ : %@", item.amount,item.transactionImageUri);
+    if ( !item.imgData && item.transactionImageUri != (id)[NSNull null] )
+    {
+        if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO)
+        {
+            [self startIconDownload:item forIndexPath:indexPath];
         }
-    } else {
-        if (!(item.senderImageUri == (id)[NSNull null] || item.senderImageUri.length == 0 )) {
-            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.senderImageUri]];
-            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
-            [imageData release];
-        } else {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
-        }
+        // if a download is deferred or in progress, return a placeholder image
+        [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    } else if ( item.imgData ) {
+        [cell.transactionImageButton setBackgroundImage:item.imgData forState:UIControlStateNormal];
     }
     
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
@@ -307,20 +306,8 @@
             cell.transactionType.text = @"Payment";
         else
             cell.transactionType.text = @"Payment Request";
-            
-            /*[cell.transactionImage setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
-        } else  {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_request_sent_icon.png"]];
-        } 
-    } else {
-        if([item.messageType isEqualToString: @"Payment"]) {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_received_icon.png"]];
-        }
-        else  {
-                [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_request_received_icon.png"]];
-            }*/            
+                      
     
-    NSLog ( @"Message Status: %@" , item.messageStatus );
     cell.transactionStatus.text = item.messageStatus;
         
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
@@ -330,13 +317,16 @@
     UIImage *altBackgroundImage = [UIImage imageNamed: @"transaction_rowalt_background"];
     UIImageView *altImageView = [[UIImageView alloc] initWithImage:altBackgroundImage];
     [altImageView setContentMode:UIViewContentModeScaleToFill];
-
+    
     if (indexPath.row%2 == 0)  {
         cell.backgroundView = imageView;
     } else {
         cell.backgroundView = altImageView;
     }
-
+    
+    [cell.transactionImageButton.layer setCornerRadius:12.0];
+    [cell.transactionImageButton.layer setMasksToBounds:YES];
+    
     [currencyFormatter release];
     [dateFormatter release];
 
@@ -346,11 +336,82 @@
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+
+#pragma mark -
+#pragma mark Table cell image support
+
+- (void)startIconDownload:(PaystreamMessage *)message forIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
+    
+    if ( iconDownloader == nil )
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.message = message;
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [psImagesDownloading setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload];
+        [iconDownloader release];
+    }
 }
 
+
+// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+- (void)loadImagesForOnscreenRows
+{
+    if ([transactionsDict count] > 0)
+    {
+        NSArray *visiblePaths = [transactionsTableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            PaystreamMessage *message = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+            
+            if ( !message.imgData ) // avoid the app icon download if the app already has an icon
+            {
+                if ( [[message direction] isEqualToString:@"Out"] )
+                    [self startIconDownload:message forIndexPath:indexPath];
+                else
+                    [self startIconDownload:message forIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)appImageDidLoad:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
+    
+    if (iconDownloader != nil)
+    {
+        UIPaystreamTableViewCell *cell = (UIPaystreamTableViewCell*)[transactionsTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        
+        // Display the newly loaded image
+        [cell.transactionImageButton setBackgroundImage:iconDownloader.message.imgData forState:UIControlStateNormal];
+    }
+    [iconDownloader release];
+}
+
+
+#pragma mark -
+#pragma mark Deferred image loading (UIScrollViewDelegate)
+
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+	{
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
 
 /*
  // Override to support editing the table view.

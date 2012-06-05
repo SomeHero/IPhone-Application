@@ -194,8 +194,8 @@
     if ( alertView == skipBankAlert ){
         if (buttonIndex == 0) {
             NSLog(@"User skipped adding bank account");
-
-            [userSetupACHAccountComplete achACcountSetupDidSkip];
+            
+            [userSetupACHAccountComplete achAccountSetupDidSkip];
             // TODO: Load Tabbed View Controller with Home View
         }
         else if ( buttonIndex == 1 ){
@@ -264,10 +264,6 @@
         [prefs synchronize];
         
         [achSetupCompleteDelegate achSetupDidComplete];
-        
-        // Go to main Controller Again
-        //[self.navigationController popToRootViewControllerAnimated:YES];
-        
     }
     else {
         [self showAlertView:@"Unable to setup ACH Acccount!" withMessage:@"Exception setting up your bank account information"];

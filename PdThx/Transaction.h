@@ -29,9 +29,8 @@
     NSDate* lastUpdatedDate;
     NSString* direction;
     NSString* senderName;
-    NSString* senderImageUri;
+    NSString* transactionImageUri;
     NSString* recipientName;
-    NSString* recipientImageUri;
 }
 @property(nonatomic, retain) NSString* transactionId;
 @property(nonatomic, retain) NSString* paymentId;
@@ -50,9 +49,8 @@
 @property(nonatomic, retain) NSDate* lastUpdatedDate;
 @property(nonatomic, retain) NSString* direction;
 @property(nonatomic, retain) NSString* senderName;
-@property(nonatomic, retain) NSString* senderImageUri;
 @property(nonatomic, retain) NSString* recipientName;
-@property(nonatomic, retain) NSString* recipientImageUri;
+@property(nonatomic, retain) NSString* transactionImageUri;
 
 -(Transaction *) initWithDictionary : (NSDictionary *) dictionary;
 

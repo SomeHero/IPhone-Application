@@ -349,6 +349,7 @@
 		5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_complete_icon.png; path = images/transaction_complete_icon.png; sourceTree = "<group>"; };
 		5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_pending_icon.png; path = images/transaction_pending_icon.png; sourceTree = "<group>"; };
 		543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transaction_rowalt_background.png; path = images/transaction_rowalt_background.png; sourceTree = "<group>"; };
+		549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACHAccountReminderProtocol.h; sourceTree = "<group>"; };
 		54B5F239156C450300D970A3 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		54B5F23A156C450300D970A3 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
 		54B5F23B156C450300D970A3 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
@@ -1209,6 +1210,7 @@
 				5B3F4CFE1560B7DF00A67649 /* RequestMoneyCompleteProtocol.h */,
 				54B5F270156EB62700D970A3 /* UserSetupACHAccountComplete.h */,
 				54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */,
+				549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";

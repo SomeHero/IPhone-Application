@@ -10,7 +10,7 @@
 
 @interface UIPaystreamTableViewCell : UITableViewCell
 {
-    IBOutlet UIImageView *transactionImage;
+    IBOutlet UIButton *transactionImageButton;
     IBOutlet UILabel *transactionStatus;
     IBOutlet UILabel *transactionRecipient;
     IBOutlet UILabel *transactionAmount;
@@ -18,7 +18,7 @@
     IBOutlet UIImageView *transactionStatusImage;
 }
 
-@property (nonatomic, retain) UIImageView *transactionImage;
+@property (nonatomic, retain) UIButton *transactionImageButton;
 @property (nonatomic, retain) UILabel *transactionStatus;
 @property (nonatomic, retain) UILabel *transactionType;
 @property (nonatomic, retain) UILabel *transactionRecipient;
