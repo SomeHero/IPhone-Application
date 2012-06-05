@@ -1797,7 +1797,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -1807,6 +1808,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
 			name = Test;
@@ -1829,8 +1832,8 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "2257D020-D6D7-47B0-A3AD-9EE3C1EE451D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2257D020-D6D7-47B0-A3AD-9EE3C1EE451D";
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1866,8 +1869,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -1877,6 +1880,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1885,8 +1890,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1894,6 +1899,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -2010,8 +2017,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -2021,6 +2028,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
 			name = Dev;
@@ -2085,8 +2094,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2094,6 +2103,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
 			name = "Ad Hoc";
@@ -2157,8 +2168,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -2168,6 +2179,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4658C758-1893-47A1-AE5C-EB656C448EBD";
 				SDKROOT = iphoneos;
 			};
 			name = Beta;
@@ -2229,7 +2242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2240,6 +2253,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
