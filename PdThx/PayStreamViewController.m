@@ -18,8 +18,14 @@
 
 @implementation PayStreamViewController
 
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @synthesize viewPanel, psImagesDownloading;
 @synthesize transactionsTableView;
+@synthesize ctrlPaystreamTypes;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -38,13 +44,15 @@
     getPayStreamService = [[GetPayStreamService alloc] init];
     [getPayStreamService setGetPayStreamCompleteDelegate:self];
     
+    filteredTransactions = [[NSMutableArray alloc] init];
+    
     // Do any additional setup after loading the view from its nib.
     //setup internal viewpanel
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
     
-    [transactionsTableView setRowHeight:60];
+    [transactionsTableView setRowHeight:90];
     [transactionsTableView setEditing:NO];
     
     self.psImagesDownloading = [NSMutableDictionary dictionary];
@@ -56,11 +64,14 @@
     [transactionsTableView release];
 
     [transactions release];
+    [filteredTransactions release];
     [sections release];
     [transactionsDict release];
     [responseData release];
     [signInViewController release];
     [getPayStreamService release];
+    [ctrlPaystreamTypes release];
+    
     [super dealloc];
 }
 
@@ -111,6 +122,8 @@
     
     NSString* userId = [prefs stringForKey:@"userId"];
     
+    ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
+    
     if([userId length] == 0)
     {
        signInViewController = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
@@ -132,43 +145,8 @@
     NSLog(@"Got paystream messages");
     
     transactions = [payStreamMessages copy];
-    sections = [[NSMutableArray alloc] init];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyy"];
-    
-    bool found;
-    transactionsDict = [[NSMutableDictionary alloc] init];
-    
-    for(Transaction* item in transactions)
-    {
-        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
-        
-        found = NO;
-        
-        for(int i = 0; i <[sections count]; i++)
-        {
-            NSString * myDate = [sections objectAtIndex:(NSUInteger) i];
-            
-            if ([myDate isEqualToString:transactionDate])
-            {
-                found = YES;
-            }
-        }
-        
-        if(!found) {
-            [sections addObject: transactionDate];
-            [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey: transactionDate];
-        }
-    }
-    
-    for(Transaction* item in transactions)
-    {
-        
-        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
-        
-        [[transactionsDict objectForKey:transactionDate] addObject:item];
-    }
+    [self buildTransactionDictionary: transactions];
     
     if([transactions count] == 0) 
     {
@@ -215,8 +193,6 @@
         
         [[self transactionsTableView] reloadData];
     }
-    
-    [dateFormatter release];
 }
 
 - (void)viewDidUnload
@@ -230,6 +206,47 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+-(void)buildTransactionDictionary:(NSMutableArray*) array
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyy"];
+    
+    bool found;
+    transactionsDict = [[NSMutableDictionary alloc] init];
+    sections = [[NSMutableArray alloc] init];
+    
+    for(Transaction* item in array)
+    {
+        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
+        
+        found = NO;
+        
+        for(int i = 0; i <[sections count]; i++)
+        {
+            NSString * myDate = [sections objectAtIndex:(NSUInteger) i];
+            
+            if ([myDate isEqualToString:transactionDate])
+            {
+                found = YES;
+            }
+        }
+        
+        if(!found) {
+            [sections addObject: transactionDate];
+            [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey: transactionDate];
+        }
+    }
+    
+    for(Transaction* item in array)
+    {
+        
+        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
+        
+        [[transactionsDict objectForKey:transactionDate] addObject:item];
+    }
+    
+    [dateFormatter release];
 }
 
 #pragma mark - Table view data source
@@ -299,19 +316,40 @@
     [dateFormatter setDateFormat:@"hh:mm a"];
     [dateFormatter setTimeZone: [NSTimeZone defaultTimeZone]];
 
-    cell.transactionAmount.text = [currencyFormatter stringFromNumber: item.amount];
+    NSString* amount = [NSString stringWithString:[currencyFormatter stringFromNumber: item.amount]];
+    
+    //248b3f
+    if([item.direction isEqualToString: @"In"])
+    {
+        cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+        cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+    }
+    else
+    {
+        cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+        cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+    }
+    
     cell.transactionDate.text = [dateFormatter stringFromDate: item.createDate];
     //cell.imageView.image = [UIImage  imageNamed:@"icon_checkmark.png"];
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-    if([item.senderUri isEqualToString: mobileNumber])
-        if([item.messageType isEqualToString: @"Payment"])
-            cell.transactionType.text = @"Payment";
+    if([item.messageType isEqualToString: @"Payment"])
+    {
+        if([item.direction isEqualToString: @"In"])
+            cell.lblTransactionDirection.text = @"Sent money to you";
         else
-            cell.transactionType.text = @"Payment Request";
-                      
-    
+            cell.lblTransactionDirection.text = @"You sent money to them";
+    }
+    else {
+        if([item.direction isEqualToString: @"In"])
+            cell.lblTransactionDirection.text = @"Request money from you";
+        else
+            cell.lblTransactionDirection.text = @"You request money from them";
+    }
+
     cell.transactionStatus.text = item.messageStatus;
+    cell.lblComments.text = item.comments;
         
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
@@ -459,6 +497,41 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+}
+
+-(IBAction)segmentedControlChanged {
+    // then use a switch statement or series of if statements to determine which selectedSegmentIndex was touched to control the views
+    
+    filteredTransactions = [[NSMutableArray alloc] init];
+    
+    if ([ctrlPaystreamTypes selectedSegmentIndex] == 0) {
+        for (PaystreamMessage* transaction in transactions ){
+            [filteredTransactions addObject: transaction];
+        }
+    }
+    if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
+        for (PaystreamMessage* transaction in transactions ){
+            if(([transaction.direction isEqualToString: @"Out"])  && ([transaction.messageType isEqualToString: @"Payment"]))
+                [filteredTransactions addObject: transaction];
+        }
+    }
+    if([ctrlPaystreamTypes selectedSegmentIndex] == 2) {
+        for (PaystreamMessage* transaction in transactions ){
+            if(([transaction.direction isEqualToString: @"In"])  && ([transaction.messageType isEqualToString: @"Payment"]))
+                [filteredTransactions addObject: transaction];
+        }
+    }
+    if([ctrlPaystreamTypes selectedSegmentIndex] == 3) {
+        for (PaystreamMessage* transaction in transactions ){
+            if(([transaction.messageType isEqualToString: @"PaymentRequest"]))
+                [filteredTransactions addObject: transaction];
+        }
+    }
+    [self buildTransactionDictionary: filteredTransactions];
+    
+    [transactionsTableView reloadData];
+    
+    [filteredTransactions release];
 }
 
 

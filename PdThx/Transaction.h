@@ -31,6 +31,7 @@
     NSString* senderName;
     NSString* transactionImageUri;
     NSString* recipientName;
+    NSString* comments;
 }
 @property(nonatomic, retain) NSString* transactionId;
 @property(nonatomic, retain) NSString* paymentId;
@@ -51,6 +52,7 @@
 @property(nonatomic, retain) NSString* senderName;
 @property(nonatomic, retain) NSString* recipientName;
 @property(nonatomic, retain) NSString* transactionImageUri;
+@property(nonatomic, retain) NSString* comments;
 
 -(Transaction *) initWithDictionary : (NSDictionary *) dictionary;
 

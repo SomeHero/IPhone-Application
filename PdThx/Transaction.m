@@ -17,6 +17,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
 @synthesize recipientName;
 @synthesize transactionImageUri;
 @synthesize senderName;
+@synthesize comments;
 
 -(id)init {
     self = [super init];
@@ -42,6 +43,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         recipientName = [[NSString alloc] init];
         transactionImageUri = [[NSString alloc] init];
         senderName = [[NSString alloc] init];
+        comments = [[NSString alloc] init];
     }
     
     return self;
@@ -76,6 +78,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         senderName = [[dictionary valueForKey:@"senderName"] copy];
         recipientName = [[dictionary valueForKey:@"recipientName"] copy];
         transactionImageUri = [[dictionary valueForKey:@"transactionImageUri"] copy];
+        comments = [[dictionary valueForKey: @"comments"] copy];
     }
     
     [format release];
@@ -103,6 +106,7 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
     [senderName release];
     [recipientName release];
     [transactionImageUri release];
+    [comments release];
     
     [super dealloc];
 }
