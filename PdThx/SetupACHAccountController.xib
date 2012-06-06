@@ -196,6 +196,7 @@
 										<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 										<float key="IBUIMinimumFontSize">17</float>
 										<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+											<int key="IBUIAutocapitalizationType">3</int>
 											<int key="IBUIReturnKeyType">4</int>
 											<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										</object>
@@ -336,7 +337,6 @@
 										<string key="NSFrame">{{10, 288}, {280, 50}}</string>
 										<reference key="NSSuperview" ref="223869718"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
@@ -692,12 +692,12 @@
 							<reference ref="262951374"/>
 							<reference ref="291949381"/>
 							<reference ref="106146103"/>
-							<reference ref="979783457"/>
 							<reference ref="367030830"/>
 							<reference ref="56002722"/>
 							<reference ref="773760598"/>
 							<reference ref="73719562"/>
 							<reference ref="317143935"/>
+							<reference ref="979783457"/>
 						</object>
 						<reference key="parent" ref="273653828"/>
 						<string key="objectName">View</string>
