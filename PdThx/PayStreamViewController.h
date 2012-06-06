@@ -22,15 +22,22 @@
     IBOutlet UITableView *transactionsTableView;
     NSMutableData *responseData;
     NSMutableArray *transactions;
+    NSMutableArray *filteredTransactions;
     NSMutableArray *sections;
     NSMutableDictionary* transactionsDict;
     NSMutableDictionary * psImagesDownloading;
     SignInViewController* signInViewController;
-    GetPayStreamService* getPayStreamService;}
+    GetPayStreamService* getPayStreamService;
+    IBOutlet UISegmentedControl* ctrlPaystreamTypes;
+
+}
 
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITableView *transactionsTableView;
 @property (nonatomic, retain) NSMutableDictionary * psImagesDownloading;
+@property (nonatomic, retain) UISegmentedControl* ctrlPaystreamTypes;
 
+-(IBAction)segmentedControlChanged;
+-(void)buildTransactionDictionary:(NSMutableArray*) array;
 
 @end
