@@ -16,6 +16,8 @@
     IBOutlet UILabel *transactionAmount;
     IBOutlet UILabel *transactionDate;
     IBOutlet UIImageView *transactionStatusImage;
+    IBOutlet UILabel *lblComments;
+    IBOutlet UILabel *lblTransactionDirection;
 }
 
 @property (nonatomic, retain) UIButton *transactionImageButton;
@@ -24,5 +26,7 @@
 @property (nonatomic, retain) UILabel *transactionRecipient;
 @property (nonatomic, retain) UILabel *transactionAmount;
 @property (nonatomic, retain) UILabel *transactionDate;
+@property (nonatomic, retain) UILabel *lblComments;
+@property (nonatomic, retain) UILabel *lblTransactionDirection;
 
 @end
