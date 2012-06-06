@@ -434,6 +434,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [cell.transactionImageButton setBackgroundImage:iconDownloader.message.imgData forState:UIControlStateNormal];
     }
     
+    iconDownloader = nil;
     [iconDownloader release];
 }
 
