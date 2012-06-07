@@ -42,6 +42,7 @@
 @synthesize contactDetail;
 
 
+
 float tableHeight = 30;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
