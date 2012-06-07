@@ -15,6 +15,8 @@
 #import "PaystreamMessage.h"
 #import "UIPaystreamTableViewCell.h"
 #import "IconDownloader.h"
+#import "CQMFloatingController.h"
+#import "HomeViewController.h"
 #import "PaystreamDetailViewController.h"
 
 @implementation PayStreamViewController
@@ -34,6 +36,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -491,6 +494,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    /*
+    CQMFloatingController *floatingController = [CQMFloatingController sharedFloatingController];
+    HomeViewController * homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    
+    [floatingController showInView:[super view] withContentViewController:homeVC animated:YES];
+    */
+    
     PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
     
     if([item.messageType isEqualToString: @"Payment"])
@@ -506,6 +517,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         else
             ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamOutgoingRequestViewController alloc] init];
     }
+    
     // Navigation logic may go here. Create and push another view controller.
 
     // ...

@@ -8,6 +8,7 @@
 
 #import "ProfileController.h"
 #import "PdThxAppDelegate.h"
+#import "MECodeSetupViewController.h"
 
 @implementation ProfileController
 @synthesize profileOptions, sections;
@@ -121,6 +122,7 @@
     NSArray *profileSection = [profileOptions objectForKey:optionSection];
     
     // Configure the cell...
+    NSLog(@"Section:%d Label:%@", indexPath.section, [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"] );
     cell.textLabel.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"];
     cell.imageView.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -174,9 +176,17 @@
 {
     PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    
     switch(indexPath.section) {
         case 0:
             switch (indexPath.row) {
+                case 0: {
+                    MECodeSetupViewController * vC = [[MECodeSetupViewController alloc] initWithNibName:@"MECodeSetupViewController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:vC animated:YES];
+                    break;
+                }
+                    
                 default:
                     break;
             } 
