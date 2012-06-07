@@ -37,10 +37,12 @@
     IBOutlet UILabel *contactDetail;
     IBOutlet UIButton *recipientImageButton;
     Contact *recipient;
-    CLLocationManager *lm;
+    CLLocationManager* lm;
     double latitude;
     double longitude;
+        
 }
+
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextField *txtComments;
@@ -50,7 +52,8 @@
 @property(nonatomic, retain) UILabel *contactDetail;
 @property(nonatomic, retain) UIButton *recipientImageButton;
 @property(nonatomic, retain) NSString* recipientUri;
-@property(nonatomic, retain) CLLocationManager* lm;
+@property(nonatomic, retain) CLLocationManager *lm;
+
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendRequestClicked:(id) sender;

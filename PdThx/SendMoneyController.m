@@ -23,6 +23,7 @@
 @end
 
 @implementation SendMoneyController
+@synthesize whiteBoxView;
 
 @synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri;
@@ -53,6 +54,7 @@ float tableHeight2 = 30;
     [chooseRecipientButton release];
     [contactHead release];
     [contactDetail release];
+    [whiteBoxView release];
     [super dealloc];
 }
 
@@ -71,6 +73,8 @@ float tableHeight2 = 30;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [whiteBoxView.layer  setCornerRadius:12.0];
     
     [recipientImageButton.layer setCornerRadius:12.0];
     [recipientImageButton.layer setMasksToBounds:YES];
@@ -122,9 +126,15 @@ float tableHeight2 = 30;
     contactHead = nil;
     [contactDetail release];
     contactDetail = nil;
+    [whiteBoxView release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"%@", error.description);
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
@@ -189,7 +199,7 @@ float tableHeight2 = 30;
     
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
 
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
 
 -(void)sendMoneyDidComplete {
@@ -497,6 +507,7 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
         return false;
     }
 }
+
 - (IBAction)showModalPanel {
          
     [txtAmount resignFirstResponder];

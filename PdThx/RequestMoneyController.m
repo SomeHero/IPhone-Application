@@ -33,14 +33,13 @@
 
 @implementation RequestMoneyController
 
-@synthesize recipientUri, lm;
+@synthesize recipientUri;
 @synthesize txtAmount, txtComments, btnSendRequest;
 @synthesize viewPanel;
 @synthesize recipientImageButton;
 @synthesize chooseRecipientButton;
 @synthesize contactHead;
-@synthesize contactDetail;
-
+@synthesize contactDetail, lm;
 
 
 float tableHeight = 30;
@@ -155,19 +154,25 @@ float tableHeight = 30;
 
 }
 
-- (void)viewDidUnload
-{
-    [lm stopUpdatingLocation];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     if (newLocation != nil) {
         latitude = newLocation.coordinate.latitude;
         longitude = newLocation.coordinate.longitude;
     }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"%@", error.description);
+}
+
+
+- (void)viewDidUnload
+{
+    [lm stopUpdatingLocation];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

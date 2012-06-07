@@ -40,6 +40,7 @@
     double longitude;
 }
 
+@property (retain, nonatomic) IBOutlet UIButton *whiteBoxView;
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextField *txtComments;

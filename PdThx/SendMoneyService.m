@@ -23,8 +23,8 @@
 }
 
 -(void) sendMoney:(NSString *)theAmount toRecipient:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
-       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount withFromLatitude:(double) latitude
-withFromLongitude: (double) longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri
+       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount withFromLatitude:(double)latitude
+withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri
 {
     
     Environment *myEnvironment = [Environment sharedInstance];
@@ -32,6 +32,7 @@ withFromLongitude: (double) longitude withRecipientFirstName: (NSString*) recipi
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl, apiKey]] autorelease];  
+    
     NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
                                  theSenderUri, @"senderUri",
@@ -39,14 +40,15 @@ withFromLongitude: (double) longitude withRecipientFirstName: (NSString*) recipi
                                  theRecipientUri, @"recipientUri",
                                  theAmount, @"amount",
                                  theComments, @"comments",
+                                 [NSString stringWithFormat:@"%f",latitude], @"latitude",
+                                 [NSString stringWithFormat:@"%f",longitude], @"longitude",
                                  securityPin, @"securityPin",
                                  @"Payment", @"messageType",
-                                 @"0.0", @"latitude",
-                                 @"0.0", @"longitude",
                                  recipientFirstName, @"recipientFirstName",
                                  recipientLastName, @"recipientLastName",
                                  recipientImageUri, @"recipientImageUri",
                                  nil];
+    
     
     NSString *newJSON = [paymentData JSONRepresentation];
     
