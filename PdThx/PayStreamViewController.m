@@ -16,7 +16,7 @@
 #import "UIPaystreamTableViewCell.h"
 #import "IconDownloader.h"
 #import "CQMFloatingController.h"
-#import "HomeViewController.h"
+#import "CreateAccountViewController.h"
 #import "PaystreamDetailViewController.h"
 
 @implementation PayStreamViewController
@@ -495,11 +495,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    /*
+    /*          Implement later for floating detail view controllers        
     CQMFloatingController *floatingController = [CQMFloatingController sharedFloatingController];
-    HomeViewController * homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    CreateAccountViewController * homeVC = [[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle:nil];
     
-    [floatingController showInView:[super view] withContentViewController:homeVC animated:YES];
+    [floatingController showInView:[self view] withContentViewController:homeVC animated:YES];
     */
     
     PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
@@ -524,8 +524,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:ctrlDetailView animated:YES];
     ctrlDetailView.messageDetail = item;
-
-
 }
 
 -(IBAction)segmentedControlChanged {

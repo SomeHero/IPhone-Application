@@ -23,8 +23,9 @@
 @end
 
 @implementation SendMoneyController
+@synthesize whiteBoxView;
 
-@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount;
+@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount, lm, location;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri;
 
 float tableHeight2 = 30;
@@ -47,11 +48,14 @@ float tableHeight2 = 30;
     [amount release];
     [comments release];
     [sendMoneyService release];
+    [lm release];
+    [location release];
 
     [recipientImageButton release];
     [chooseRecipientButton release];
     [contactHead release];
     [contactDetail release];
+    [whiteBoxView release];
     [super dealloc];
 }
 
@@ -70,6 +74,8 @@ float tableHeight2 = 30;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [whiteBoxView.layer  setCornerRadius:12.0];
     
     [recipientImageButton.layer setCornerRadius:12.0];
     [recipientImageButton.layer setMasksToBounds:YES];
@@ -100,10 +106,21 @@ float tableHeight2 = 30;
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
+    
+    lm = [[CLLocationManager alloc] init];
+    if ([lm locationServicesEnabled]) {
+        lm.delegate = self;
+        lm.desiredAccuracy = kCLLocationAccuracyBest;
+        lm.distanceFilter = 1000.0f;
+        [lm startUpdatingLocation];
+        // Configure the new event with information from the location
+        location = [lm location];
+    }
 }
 
 - (void)viewDidUnload
 {
+    [lm stopUpdatingLocation];
     [recipientImageButton release];
     recipientImageButton = nil;
     [chooseRecipientButton release];
@@ -112,9 +129,23 @@ float tableHeight2 = 30;
     contactHead = nil;
     [contactDetail release];
     contactDetail = nil;
+    [whiteBoxView release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    //e.g. self.myOutlet = nil;
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(error.description);
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    NSLog(@"%f", newLocation.coordinate.latitude);
+    NSLog(@"%f", oldLocation.coordinate.latitude);
+    location = newLocation;
+    NSLog(@"%f", location.coordinate.latitude);
+    NSLog(@"%f", location.coordinate.longitude);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -154,8 +185,9 @@ float tableHeight2 = 30;
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
     
-    double latitude = 0.0;
-    double longitude = 0.0;
+    
+    float latitude = 0.0;
+    float longitude = 0.0; //location.coordinate.longitude;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
@@ -175,7 +207,7 @@ float tableHeight2 = 30;
     
     NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
 
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
 
 -(void)sendMoneyDidComplete {
@@ -353,6 +385,7 @@ float tableHeight2 = 30;
                 if(digit == '0' && firstDigit) {
                     firstDigit = NO;
                     continue;
+                        
                 }
                 firstDigit = NO;
                 [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
@@ -371,7 +404,7 @@ float tableHeight2 = 30;
 }
 
 -(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
-       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
+fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
     Environment *myEnvironment = [Environment sharedInstance];
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
@@ -461,7 +494,8 @@ float tableHeight2 = 30;
             return true;
         else
             return false;
-    } @catch (NSException *exception) {
+    }
+    @catch (NSException *exception) {
         return false;
         }   
     } else {
@@ -481,6 +515,7 @@ float tableHeight2 = 30;
         return false;
     }
 }
+
 - (IBAction)showModalPanel {
          
     [txtAmount resignFirstResponder];

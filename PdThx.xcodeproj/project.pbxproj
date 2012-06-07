@@ -36,6 +36,7 @@
 		546364A01580E504008E419D /* CQMFloatingMaskControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 546364981580E504008E419D /* CQMFloatingMaskControl.m */; };
 		546364A11580E504008E419D /* CQMFloatingNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463649A1580E504008E419D /* CQMFloatingNavigationBar.m */; };
 		546364A21580E504008E419D /* CQMPathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463649C1580E504008E419D /* CQMPathUtilities.m */; };
+		54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54764F5615810DFC008187B6 /* CoreLocation.framework */; };
 		54B5F248156C450300D970A3 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F23B156C450300D970A3 /* FBDialog.bundle */; };
 		54B5F249156C450300D970A3 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F23B156C450300D970A3 /* FBDialog.bundle */; };
 		54B5F24A156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B5F241156C450300D970A3 /* libfacebook_ios_sdk.a */; };
@@ -348,6 +349,9 @@
 		5BEBF01A14B2281900379108 /* ProfileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01814B2281900379108 /* ProfileController.xib */; };
 		5BEBF01C14B2282A00379108 /* options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01B14B2282A00379108 /* options.plist */; };
 		5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01C14B2282A00379109 /* Localizable.strings */; };
+		D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDE5157FB72800ABE854 /* MeCodeViewController.m */; };
+		D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */; };
+		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -397,6 +401,7 @@
 		5463649A1580E504008E419D /* CQMFloatingNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMFloatingNavigationBar.m; sourceTree = "<group>"; };
 		5463649B1580E504008E419D /* CQMPathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMPathUtilities.h; sourceTree = "<group>"; };
 		5463649C1580E504008E419D /* CQMPathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMPathUtilities.m; sourceTree = "<group>"; };
+		54764F5615810DFC008187B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACHAccountReminderProtocol.h; sourceTree = "<group>"; };
 		54B5F239156C450300D970A3 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		54B5F23A156C450300D970A3 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
@@ -792,6 +797,12 @@
 		5BEBF01814B2281900379108 /* ProfileController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileController.xib; sourceTree = "<group>"; };
 		5BEBF01B14B2282A00379108 /* options.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = options.plist; sourceTree = "<group>"; };
 		5BEBF01C14B2282A00379109 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D587EDE4157FB72800ABE854 /* MeCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeViewController.h; sourceTree = "<group>"; };
+		D587EDE5157FB72800ABE854 /* MeCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeViewController.m; sourceTree = "<group>"; };
+		D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeViewController.xib; sourceTree = "<group>"; };
+		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
+		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
+		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -799,6 +810,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */,
 				54B5F26F156EADEC00D970A3 /* MessageUI.framework in Frameworks */,
 				5B69E17914B0BCC5003A0F66 /* MobileCoreServices.framework in Frameworks */,
 				5B69E17714B0BCB4003A0F66 /* SystemConfiguration.framework in Frameworks */,
@@ -880,6 +892,7 @@
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
+				54764F5615810DFC008187B6 /* CoreLocation.framework */,
 				54B5F26E156EADEB00D970A3 /* MessageUI.framework */,
 				5B69E17814B0BCC5003A0F66 /* MobileCoreServices.framework */,
 				5B69E17614B0BCB4003A0F66 /* SystemConfiguration.framework */,
@@ -1314,6 +1327,7 @@
 		5BD279111544431C00CAFC12 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */,
 				5BD279121544438700CAFC12 /* ACHSetupCompleteProtocol.h */,
 				5BD27913154445E100CAFC12 /* SignInCompleteProtocol.h */,
 				5BD27BD61548D95700CAFC12 /* SignOutCompleteProtocol.h */,
@@ -1375,6 +1389,8 @@
 				5BEBF01614B2281800379108 /* ProfileController.h */,
 				5BE6F77214E3859300599EF2 /* ALUnlockPatternView.h */,
 				5BEBF01714B2281900379108 /* ProfileController.m */,
+				D587EDE4157FB72800ABE854 /* MeCodeViewController.h */,
+				D587EDE5157FB72800ABE854 /* MeCodeViewController.m */,
 				5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */,
 				54276628157F9D1700D33AC1 /* MECodeSetupViewController.h */,
 				54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */,
@@ -1433,8 +1449,9 @@
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
 				54B5F273156EDAD800D970A3 /* PaystreamDetailViewController.xib */,
 				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
-				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
 				54E3DDD915707B1600F63820 /* ContactTableViewCell.xib */,
+				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
+				D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */,
 				5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */,
 			);
 			name = Resources;
@@ -1459,6 +1476,8 @@
 				54B5F255156D6A5100D970A3 /* SignInWithFBService.m */,
 				5B3F4CF8155FF3C400A67649 /* UserSetupACHAccount.h */,
 				5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */,
+				D587EDEA157FC60500ABE854 /* MeCodeService.h */,
+				D587EDEB157FC60500ABE854 /* MeCodeService.m */,
 				5B905802157FCB9D00D0373B /* PaystreamService.h */,
 				5B905803157FCB9D00D0373B /* PaystreamService.m */,
 			);
@@ -1777,6 +1796,7 @@
 				54E3DDDA15707B1600F63820 /* ContactTableViewCell.xib in Resources */,
 				54DE15A81577FB0F005709BC /* btn-facebook.png in Resources */,
 				5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */,
+				D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */,
 				5427662C157F9D1700D33AC1 /* MECodeSetupViewController.xib in Resources */,
 				54276635157FEE3700D33AC1 /* BTN-SendMoney-A.png in Resources */,
 				54276636157FEE3700D33AC1 /* BTN-SendMoney-NA.png in Resources */,
@@ -1884,6 +1904,8 @@
 				54B5F286156FCA5A00D970A3 /* ContactTableViewCell.m in Sources */,
 				54B5F28A156FCECB00D970A3 /* ContactSelectViewController.m in Sources */,
 				54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */,
+				D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */,
+				D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */,
 				5427662B157F9D1700D33AC1 /* MECodeSetupViewController.m in Sources */,
 				5463649D1580E504008E419D /* CQMFloatingContentOverlayView.m in Sources */,
 				5463649E1580E504008E419D /* CQMFloatingController.m in Sources */,

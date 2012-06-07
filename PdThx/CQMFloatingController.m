@@ -34,15 +34,15 @@
 
 #define kDefaultMaskColor  [UIColor colorWithWhite:0 alpha:0.5]
 #define kDefaultFrameColor [UIColor colorWithRed:0.10f green:0.12f blue:0.16f alpha:1.00f]
-#define kDefaultPortraitFrameSize  CGSizeMake(320 - 66, 460 - 66)
-#define kDefaultLandscapeFrameSize CGSizeMake(480 - 66, 300 - 66)
+#define kDefaultPortraitFrameSize  CGSizeMake(320 - 26, 460 - 96)
+#define kDefaultLandscapeFrameSize CGSizeMake(480 - 26, 300 - 66)
 #define kFramePadding      5.0f
 #define kRootKey           @"root"
 #define kShadowColor       [UIColor blackColor]
 #define kShadowOffset      CGSizeMake(0, 2.0f)
 #define kShadowOpacity     0.70f
 #define kShadowRadius      10.0f
-#define kAnimationDuration 0.3f
+#define kAnimationDuration 3.0f
 
 
 @interface CQMFloatingController()

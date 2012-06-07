@@ -18,8 +18,10 @@
 #import "RequestMoneyService.h"
 #import "Contact.h"
 #import "ContactSelectChosenProtocol.h"
+#import "CoreLocation/CoreLocation.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource, ContactSelectChosenProtocol> {
+@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource, ContactSelectChosenProtocol, 
+    CLLocationManagerDelegate> {
     UITableView *autoCompleteTableView;
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
@@ -35,7 +37,10 @@
     IBOutlet UILabel *contactDetail;
     IBOutlet UIButton *recipientImageButton;
     Contact *recipient;
+    CLLocationManager *lm;
+    CLLocation *location;
 }
+
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextField *txtComments;
@@ -45,6 +50,9 @@
 @property(nonatomic, retain) UILabel *contactDetail;
 @property(nonatomic, retain) UIButton *recipientImageButton;
 @property(nonatomic, retain) NSString* recipientUri;
+@property(nonatomic, retain) CLLocation *location;
+@property(nonatomic, retain) CLLocationManager *lm;
+
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendRequestClicked:(id) sender;

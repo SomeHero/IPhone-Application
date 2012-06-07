@@ -1,3 +1,4 @@
+
 //
 //  ContactSelectViewController.m
 //  PdThx
@@ -162,7 +163,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Trying to load cell for section: %c and row: %d",(char)(indexPath.section+65),indexPath.row);
     ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     
     if ( myCell == nil ){
@@ -375,7 +375,6 @@
         NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            NSLog(@"Loading contact inside OnScreen for: %c-%d", (char)(indexPath.section+65), indexPath.row );
             Contact *contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             
             if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
@@ -389,7 +388,6 @@
         NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            NSLog(@"Loading contact inside OnScreen for: %c-%d", (char)(indexPath.section+65), indexPath.row );
             Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             
             if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
