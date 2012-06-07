@@ -24,7 +24,7 @@
 
 @implementation SendMoneyController
 
-@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount;
+@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri;
 
 float tableHeight2 = 30;
@@ -48,7 +48,6 @@ float tableHeight2 = 30;
     [comments release];
     [sendMoneyService release];
     [lm release];
-    [location release];
 
     [recipientImageButton release];
     [chooseRecipientButton release];
@@ -129,7 +128,10 @@ float tableHeight2 = 30;
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    location = newLocation;
+    if (newLocation != nil) {
+        latitude = newLocation.coordinate.latitude;
+        longitude = newLocation.coordinate.longitude;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -168,9 +170,6 @@ float tableHeight2 = 30;
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
-    
-    double latitude = location.coordinate.latitude;
-    double longitude = location.coordinate.longitude;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
