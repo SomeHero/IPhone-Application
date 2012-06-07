@@ -14,6 +14,11 @@
 #import "GetPayStreamCompleteProtocol.h"
 #import "PhoneNumberFormatting.h"
 #import "IconDownloader.h"
+#import "PaystreamBaseViewController.h"
+#import "PaystreamIncomingPaymentViewController.h"
+#import "PaystreamIncomingRequestViewController.h"
+#import "PaystreamOutgoingPaymentViewController.h"
+#import "PaystreamOutgoingRequestViewController.h"
 
 @class UITransactionTableViewCell;
 
@@ -29,7 +34,7 @@
     SignInViewController* signInViewController;
     GetPayStreamService* getPayStreamService;
     IBOutlet UISegmentedControl* ctrlPaystreamTypes;
-
+    PaystreamBaseViewController* ctrlDetailView;
 }
 
 @property(nonatomic, retain) UIView *viewPanel;

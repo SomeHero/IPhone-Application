@@ -287,6 +287,17 @@
 		5B886867152955DA00EA24A4 /* icon_paystream_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B886866152955DA00EA24A4 /* icon_paystream_off.png */; };
 		5B88686A152959A100EA24A4 /* button_send_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B886869152959A100EA24A4 /* button_send_money.png */; };
 		5B88686C15295A6600EA24A4 /* button_request_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88686B15295A6600EA24A4 /* button_request_money.png */; };
+		5B9057E9157F79D900D0373B /* PaystreamDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057E8157F79D900D0373B /* PaystreamDetailViewController.m */; };
+		5B9057ED157F8B7700D0373B /* PaystreamIncomingPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057EB157F8B7600D0373B /* PaystreamIncomingPaymentViewController.m */; };
+		5B9057EE157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */; };
+		5B9057F3157FA04C00D0373B /* PaystreamIncomingRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057F1157FA04C00D0373B /* PaystreamIncomingRequestViewController.m */; };
+		5B9057F4157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */; };
+		5B9057F7157FA0BA00D0373B /* PaystreamBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057F6157FA0BA00D0373B /* PaystreamBaseViewController.m */; };
+		5B9057FB157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057F9157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.m */; };
+		5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */; };
+		5B905800157FC41B00D0373B /* PaystreamOutgoingRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057FE157FC41A00D0373B /* PaystreamOutgoingRequestViewController.m */; };
+		5B905801157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */; };
+		5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B905803157FCB9D00D0373B /* PaystreamService.m */; };
 		5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE183214DECC93002A3618 /* SendMoneyRequest.m */; };
 		5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BBE183414DF2D13002A3618 /* Entitlements.plist */; };
 		5BD278E0153BBF8000CAFC12 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278DE153BBF8000CAFC12 /* SignInViewController.m */; };
@@ -669,6 +680,24 @@
 		5B886866152955DA00EA24A4 /* icon_paystream_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_paystream_off.png; sourceTree = "<group>"; };
 		5B886869152959A100EA24A4 /* button_send_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_send_money.png; sourceTree = "<group>"; };
 		5B88686B15295A6600EA24A4 /* button_request_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_request_money.png; sourceTree = "<group>"; };
+		5B9057E7157F79D900D0373B /* PaystreamDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamDetailViewController.h; sourceTree = "<group>"; };
+		5B9057E8157F79D900D0373B /* PaystreamDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamDetailViewController.m; sourceTree = "<group>"; };
+		5B9057EA157F8B7600D0373B /* PaystreamIncomingPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaystreamIncomingPaymentViewController.h; path = "Paystream Detail/PaystreamIncomingPaymentViewController.h"; sourceTree = "<group>"; };
+		5B9057EB157F8B7600D0373B /* PaystreamIncomingPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaystreamIncomingPaymentViewController.m; path = "Paystream Detail/PaystreamIncomingPaymentViewController.m"; sourceTree = "<group>"; };
+		5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PaystreamIncomingPaymentViewController.xib; path = "Paystream Detail/PaystreamIncomingPaymentViewController.xib"; sourceTree = "<group>"; };
+		5B9057F0157FA04C00D0373B /* PaystreamIncomingRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamIncomingRequestViewController.h; sourceTree = "<group>"; };
+		5B9057F1157FA04C00D0373B /* PaystreamIncomingRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamIncomingRequestViewController.m; sourceTree = "<group>"; };
+		5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamIncomingRequestViewController.xib; sourceTree = "<group>"; };
+		5B9057F5157FA0BA00D0373B /* PaystreamBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamBaseViewController.h; sourceTree = "<group>"; };
+		5B9057F6157FA0BA00D0373B /* PaystreamBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamBaseViewController.m; sourceTree = "<group>"; };
+		5B9057F8157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamOutgoingPaymentViewController.h; sourceTree = "<group>"; };
+		5B9057F9157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamOutgoingPaymentViewController.m; sourceTree = "<group>"; };
+		5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamOutgoingPaymentViewController.xib; sourceTree = "<group>"; };
+		5B9057FD157FC41A00D0373B /* PaystreamOutgoingRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamOutgoingRequestViewController.h; sourceTree = "<group>"; };
+		5B9057FE157FC41A00D0373B /* PaystreamOutgoingRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamOutgoingRequestViewController.m; sourceTree = "<group>"; };
+		5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamOutgoingRequestViewController.xib; sourceTree = "<group>"; };
+		5B905802157FCB9D00D0373B /* PaystreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamService.h; sourceTree = "<group>"; };
+		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
 		5BBE183114DECC91002A3618 /* SendMoneyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyRequest.h; sourceTree = "<group>"; };
 		5BBE183214DECC93002A3618 /* SendMoneyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyRequest.m; sourceTree = "<group>"; };
 		5BBE183414DF2D13002A3618 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -1184,6 +1213,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		5B9057EF157F8B8D00D0373B /* Paystream Detail */ = {
+			isa = PBXGroup;
+			children = (
+				5B9057EA157F8B7600D0373B /* PaystreamIncomingPaymentViewController.h */,
+				5B9057EB157F8B7600D0373B /* PaystreamIncomingPaymentViewController.m */,
+				5B9057F0157FA04C00D0373B /* PaystreamIncomingRequestViewController.h */,
+				5B9057F1157FA04C00D0373B /* PaystreamIncomingRequestViewController.m */,
+				5B9057F5157FA0BA00D0373B /* PaystreamBaseViewController.h */,
+				5B9057F6157FA0BA00D0373B /* PaystreamBaseViewController.m */,
+				5B9057F8157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.h */,
+				5B9057F9157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.m */,
+				5B9057FD157FC41A00D0373B /* PaystreamOutgoingRequestViewController.h */,
+				5B9057FE157FC41A00D0373B /* PaystreamOutgoingRequestViewController.m */,
+			);
+			name = "Paystream Detail";
+			sourceTree = "<group>";
+		};
 		5BD278FA153E7F0300CAFC12 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1244,6 +1290,11 @@
 		5BD27BCE1547B96200CAFC12 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5B9057EF157F8B8D00D0373B /* Paystream Detail */,
+				5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */,
+				5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */,
+				5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */,
+				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 				5BD27BEB154B926300CAFC12 /* Services */,
 				5BD2793C15465FE600CAFC12 /* Helpers */,
 				5BD279111544431C00CAFC12 /* Protocols */,
@@ -1287,6 +1338,8 @@
 				5BD27BD01547BDA000CAFC12 /* Contact.m */,
 				5BE6F7AA14E9E0EE00599EF2 /* Environment.h */,
 				5BE6F7AB14E9E0F000599EF2 /* Environment.m */,
+				5B9057E7157F79D900D0373B /* PaystreamDetailViewController.h */,
+				5B9057E8157F79D900D0373B /* PaystreamDetailViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1331,6 +1384,8 @@
 				54B5F255156D6A5100D970A3 /* SignInWithFBService.m */,
 				5B3F4CF8155FF3C400A67649 /* UserSetupACHAccount.h */,
 				5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */,
+				5B905802157FCB9D00D0373B /* PaystreamService.h */,
+				5B905803157FCB9D00D0373B /* PaystreamService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1647,6 +1702,10 @@
 				54E3DDDA15707B1600F63820 /* ContactTableViewCell.xib in Resources */,
 				54DE15A81577FB0F005709BC /* btn-facebook.png in Resources */,
 				5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */,
+				5B9057EE157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib in Resources */,
+				5B9057F4157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib in Resources */,
+				5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */,
+				5B905801157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1742,6 +1801,13 @@
 				54B5F286156FCA5A00D970A3 /* ContactTableViewCell.m in Sources */,
 				54B5F28A156FCECB00D970A3 /* ContactSelectViewController.m in Sources */,
 				54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */,
+				5B9057E9157F79D900D0373B /* PaystreamDetailViewController.m in Sources */,
+				5B9057ED157F8B7700D0373B /* PaystreamIncomingPaymentViewController.m in Sources */,
+				5B9057F3157FA04C00D0373B /* PaystreamIncomingRequestViewController.m in Sources */,
+				5B9057F7157FA0BA00D0373B /* PaystreamBaseViewController.m in Sources */,
+				5B9057FB157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.m in Sources */,
+				5B905800157FC41B00D0373B /* PaystreamOutgoingRequestViewController.m in Sources */,
+				5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
