@@ -33,13 +33,14 @@
 
 @implementation RequestMoneyController
 
-@synthesize recipientUri;
+@synthesize recipientUri, lm;
 @synthesize txtAmount, txtComments, btnSendRequest;
 @synthesize viewPanel;
 @synthesize recipientImageButton;
 @synthesize chooseRecipientButton;
 @synthesize contactHead;
 @synthesize contactDetail;
+
 
 
 float tableHeight = 30;
@@ -56,7 +57,6 @@ float tableHeight = 30;
 - (void)dealloc
 {
     [lm release];
-    [location release];
     [viewPanel release];
     [txtAmount release];
     [txtComments release];
@@ -161,6 +161,13 @@ float tableHeight = 30;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    if (newLocation != nil) {
+        latitude = newLocation.coordinate.latitude;
+        longitude = newLocation.coordinate.longitude;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -470,9 +477,6 @@ float tableHeight = 30;
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
-    
-    double latitude = location.coordinate.latitude;
-    double longitude = location.coordinate.longitude;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
