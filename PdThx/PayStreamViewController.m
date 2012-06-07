@@ -15,6 +15,9 @@
 #import "PaystreamMessage.h"
 #import "UIPaystreamTableViewCell.h"
 #import "IconDownloader.h"
+#import "CQMFloatingController.h"
+#import "HomeViewController.h"
+#import "PaystreamDetailViewController.h"
 
 @implementation PayStreamViewController
 
@@ -33,6 +36,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -63,8 +67,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [viewPanel release];
     [transactionsTableView release];
 
-    [transactions release];
-    [filteredTransactions release];
+    //[transactions release];
+    //[filteredTransactions release];
     [sections release];
     [transactionsDict release];
     [responseData release];
@@ -490,14 +494,38 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
+    
     /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
+    CQMFloatingController *floatingController = [CQMFloatingController sharedFloatingController];
+    HomeViewController * homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    
+    [floatingController showInView:[super view] withContentViewController:homeVC animated:YES];
+    */
+    
+    PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
+    
+    if([item.messageType isEqualToString: @"Payment"])
+    {
+        if([item.direction isEqualToString: @"In"])
+            ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamIncomingPaymentViewController alloc] init];
+        else
+           ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamOutgoingPaymentViewController alloc] init];
+    }
+    else {
+        if([item.direction isEqualToString: @"In"])
+                ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamIncomingRequestViewController alloc] init];
+        else
+            ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamOutgoingRequestViewController alloc] init];
+    }
+    
+    // Navigation logic may go here. Create and push another view controller.
+
+    // ...
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+     [self.navigationController pushViewController:ctrlDetailView animated:YES];
+    ctrlDetailView.messageDetail = item;
+
+
 }
 
 -(IBAction)segmentedControlChanged {
@@ -512,13 +540,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
         for (PaystreamMessage* transaction in transactions ){
-            if(([transaction.direction isEqualToString: @"Out"])  && ([transaction.messageType isEqualToString: @"Payment"]))
+            if(([transaction.direction isEqualToString: @"Out"]))
                 [filteredTransactions addObject: transaction];
         }
     }
     if([ctrlPaystreamTypes selectedSegmentIndex] == 2) {
         for (PaystreamMessage* transaction in transactions ){
-            if(([transaction.direction isEqualToString: @"In"])  && ([transaction.messageType isEqualToString: @"Payment"]))
+            if(([transaction.direction isEqualToString: @"In"]))
                 [filteredTransactions addObject: transaction];
         }
     }

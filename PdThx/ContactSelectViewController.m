@@ -26,7 +26,7 @@
 
 @synthesize searchBar, tvSubview, fBook, allResults;
 @synthesize phoneNumberFormatter, fbIconsDownloading,contactSelectChosenDelegate;
-@synthesize txtSearchBox, filteredResults, isFiltered;
+@synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -81,7 +81,10 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 27;
+    if ( isFiltered && !foundFiltered )
+        return 1;
+    else
+        return 27;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,10 +96,11 @@
 {
     if ( isFiltered == YES )
     {
-        if ( [[filteredResults objectAtIndex:section] count] == 0 )
+        if ( foundFiltered == NO ){
             return 0.0;
-        else
+        } else if ( [[filteredResults objectAtIndex:section] count] > 0 ){
             return 22.0;
+        }
     }
     else
     {
@@ -105,17 +109,55 @@
         else 
             return 22.0;
     }
+    
+    return 0.0;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [txtSearchBox resignFirstResponder];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    //return allResults.count;
     if ( isFiltered == YES ){
-        return [[filteredResults objectAtIndex:section] count];
+        if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
+            return 1;
+        else
+            return [[filteredResults objectAtIndex:section] count];
     } else {
         return [[allResults objectAtIndex:section] count];
     }
+}
+
+-(int)isValidFormattedPayPoint {
+    // Do handling for entry of text field where entry does not match
+    // any contacts in the user's contact list.
+    
+    // The only cases we need to handle are: Phone Number and Email
+    NSString * numOnly = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    NSRange numOnly2 = [[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]  options:NSCaseInsensitiveSearch];
+    
+    if ( [txtSearchBox.text isEqualToString:numOnly] || numOnly2.location == NSNotFound ) {
+        // Is only Numbers, I think?
+        if ( [numOnly characterAtIndex:0] == '1' || [numOnly characterAtIndex:0] == '0' )
+            numOnly = [numOnly substringFromIndex:1]; // Do not include country codes
+        if ( [numOnly length] == 10 )
+            return 1;
+    } else {
+        if ( [txtSearchBox.text rangeOfString:@"@"].location != NSNotFound && [txtSearchBox.text rangeOfString:@"."].location != NSNotFound ){
+            // Contains both @ and a period. Now check if there's atleast:
+            // SOMETHING before the @
+            // SOMETHING after the @ before the .
+            // SOMETHING after the .
+            if ( [txtSearchBox.text rangeOfString:@"@"].location != 0 
+                && [txtSearchBox.text rangeOfString:@"."].location != ([txtSearchBox.text rangeOfString:@"@"].location + 1) && [txtSearchBox.text length] != [txtSearchBox.text rangeOfString:@"."].location+1 )
+                return 2;
+        }
+    }
+                            
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -126,16 +168,47 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
         myCell = [nib objectAtIndex:0];
     }
+    
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
+    [myCell.contactImage.layer setCornerRadius:12.0];
+    [myCell.contactImage.layer setMasksToBounds:YES];
+    myCell.userInteractionEnabled = YES;
     
+    Contact *contact;
     if ( isFiltered == YES ) {
-        Contact *contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        if ( foundFiltered == NO ){ // Only Show it once (section0)
+            int entryType = [self isValidFormattedPayPoint];
+            [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+            if ( entryType == 0 ) {
+                // Could not find contact by that name, so put the
+                // "keep typing" screen
+                myCell.contactName.text = [NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
+                myCell.contactDetail.text = @"Continue typing or check entry";
+                myCell.userInteractionEnabled = NO;
+                return myCell;
+            } else if ( entryType == 1 ) {
+                // Valid phone number entered... show a new contact with that information
+                // entered in the search box.
+                myCell.contactName.text = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                myCell.contactDetail.text = @"New Phone# Recipient";
+                return myCell;
+            } else if ( entryType == 2 ) {
+                // Valid email address entered, show a new contact box with that information
+                // entered as the contaction information
+                myCell.contactName.text = txtSearchBox.text;
+                myCell.contactDetail.text = @"New Email Recipient";
+                return myCell;
+            } else if ( entryType == 3 ) {
+                // Valid me code entered.. show new contact with that information
+                // but $ME codes aren't done yet
+            }
+        } else {
+            contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        }
         
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
-            [myCell.contactImage.layer setCornerRadius:12.0];
-            [myCell.contactImage.layer setMasksToBounds:YES];
             
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
             
@@ -199,8 +272,30 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ( isFiltered == YES ) {
-        [contactSelectChosenDelegate didChooseContact:[[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        Contact* contact = [[Contact alloc] init];
+        if ( foundFiltered == NO )
+        {
+            // Use Custom Contact Created Below ...
+            int retVal = [self isValidFormattedPayPoint];
+            if ( retVal > 0 ){ // Always > 0 (handled by enabled/disabled)
+                if ( retVal == 1 ){
+                    // Phone Number
+                    contact.name = @"New Phone Number";
+                    contact.phoneNumber = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    contact.recipientUri = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                } else if ( retVal == 2 ){
+                    // Email
+                    contact.name = @"New Email Address";
+                    contact.emailAddress = txtSearchBox.text;
+                    contact.recipientUri = txtSearchBox.text;
+                }
+            }
+            [contactSelectChosenDelegate didChooseContact:contact];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } else {
+            [contactSelectChosenDelegate didChooseContact:[[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
     } else {
         [contactSelectChosenDelegate didChooseContact:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -330,6 +425,7 @@
 }
 
 - (IBAction)textBoxChanged:(id)sender {
+    foundFiltered = NO;
     // Search text bar changed, handle the change...
     // If the string is empty (deleted input or just hovered over), reset to full contacts
     if ( [txtSearchBox.text isEqualToString:@""] || [[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] isEqualToString:@""]){
@@ -353,8 +449,10 @@
                 }
                 // Add $me code implementation ** TODO: **
             
-                if ( hasSimilarity.location != NSNotFound )
-                    [[filteredResults objectAtIndex:(((int)toupper([[contact.name substringToIndex:1] characterAtIndex:0]))-65)] addObject:contact];
+                if ( hasSimilarity.location != NSNotFound ){
+                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-65] addObject:contact];
+                    foundFiltered = YES;
+                }
             }
         }
         
