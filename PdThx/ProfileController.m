@@ -8,6 +8,8 @@
 
 #import "ProfileController.h"
 #import "PdThxAppDelegate.h"
+#import "MeCodeViewController.h"
+
 #import "MECodeSetupViewController.h"
 
 @implementation ProfileController
@@ -180,13 +182,13 @@
     switch(indexPath.section) {
         case 0:
             switch (indexPath.row) {
-                case 0: {
-                    MECodeSetupViewController * vC = [[MECodeSetupViewController alloc] initWithNibName:@"MECodeSetupViewController" bundle:nil];
-                    
-                    [self.navigationController pushViewController:vC animated:YES];
+                case 0:
                     break;
+                case 1:
+                {
+                    MeCodeViewController *VC = [[MeCodeViewController alloc] initWithNibName:@"MeCodeViewController" bundle:nil];
+                    [self.navigationController pushViewController:VC animated:YES];                  break; 
                 }
-                    
                 default:
                     break;
             } 
