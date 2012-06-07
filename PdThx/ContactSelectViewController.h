@@ -24,6 +24,7 @@
     id<ContactSelectChosenProtocol> contactSelectChosenDelegate;
     IBOutlet UITextField *txtSearchBox;
     bool isFiltered;
+    bool foundFiltered;
 }
 
 @property (nonatomic, retain) UISearchBar *searchBar;
@@ -36,6 +37,7 @@
 @property (assign) id contactSelectChosenDelegate;
 @property (nonatomic, retain) UITextField *txtSearchBox;
 @property (nonatomic, assign) bool isFiltered;
+@property (nonatomic, assign) bool foundFiltered;
 
 - (IBAction)textBoxChanged:(id)sender;
 

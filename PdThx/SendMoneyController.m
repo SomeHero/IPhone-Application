@@ -353,7 +353,6 @@ float tableHeight2 = 30;
                 if(digit == '0' && firstDigit) {
                     firstDigit = NO;
                     continue;
-                        
                 }
                 firstDigit = NO;
                 [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
@@ -462,8 +461,7 @@ float tableHeight2 = 30;
             return true;
         else
             return false;
-    }
-    @catch (NSException *exception) {
+    } @catch (NSException *exception) {
         return false;
         }   
     } else {
