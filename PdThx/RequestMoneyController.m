@@ -55,6 +55,8 @@ float tableHeight = 30;
 
 - (void)dealloc
 {
+    [lm release];
+    [location release];
     [viewPanel release];
     [txtAmount release];
     [txtComments release];
@@ -142,11 +144,20 @@ float tableHeight = 30;
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
+    
+    lm = [[CLLocationManager alloc]init];
+    if ([lm locationServicesEnabled]) {
+        lm.delegate = self;
+        lm.desiredAccuracy = kCLLocationAccuracyBest;
+        lm.distanceFilter = 1000.0f;
+        [lm startUpdatingLocation];
+    }
 
 }
 
 - (void)viewDidUnload
 {
+    [lm stopUpdatingLocation];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -460,8 +471,8 @@ float tableHeight = 30;
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
     
-    double latitude = 0.0;
-    double longitude = 0.0;
+    double latitude = location.coordinate.latitude;
+    double longitude = location.coordinate.longitude;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
