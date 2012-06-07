@@ -25,7 +25,7 @@
 @implementation SendMoneyController
 @synthesize whiteBoxView;
 
-@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount, lm, location;
+@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri;
 
 float tableHeight2 = 30;
@@ -49,7 +49,6 @@ float tableHeight2 = 30;
     [comments release];
     [sendMoneyService release];
     [lm release];
-    [location release];
 
     [recipientImageButton release];
     [chooseRecipientButton release];
@@ -113,8 +112,6 @@ float tableHeight2 = 30;
         lm.desiredAccuracy = kCLLocationAccuracyBest;
         lm.distanceFilter = 1000.0f;
         [lm startUpdatingLocation];
-        // Configure the new event with information from the location
-        location = [lm location];
     }
 }
 
@@ -137,15 +134,14 @@ float tableHeight2 = 30;
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(error.description);
+    NSLog(@"%@", error.description);
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    NSLog(@"%f", newLocation.coordinate.latitude);
-    NSLog(@"%f", oldLocation.coordinate.latitude);
-    location = newLocation;
-    NSLog(@"%f", location.coordinate.latitude);
-    NSLog(@"%f", location.coordinate.longitude);
+    if (newLocation != nil) {
+        latitude = newLocation.coordinate.latitude;
+        longitude = newLocation.coordinate.longitude;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -184,10 +180,6 @@ float tableHeight2 = 30;
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
-    
-    
-    float latitude = 0.0;
-    float longitude = 0.0; //location.coordinate.longitude;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];

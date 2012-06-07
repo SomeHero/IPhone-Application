@@ -39,7 +39,7 @@
 @synthesize recipientImageButton;
 @synthesize chooseRecipientButton;
 @synthesize contactHead;
-@synthesize contactDetail, location, lm;
+@synthesize contactDetail, lm;
 
 
 float tableHeight = 30;
@@ -56,7 +56,6 @@ float tableHeight = 30;
 - (void)dealloc
 {
     [lm release];
-    [location release];
     [viewPanel release];
     [txtAmount release];
     [txtComments release];
@@ -157,7 +156,14 @@ float tableHeight = 30;
 
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    location = newLocation;
+    if (newLocation != nil) {
+        latitude = newLocation.coordinate.latitude;
+        longitude = newLocation.coordinate.longitude;
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"%@", error.description);
 }
 
 
@@ -476,9 +482,6 @@ float tableHeight = 30;
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
-    
-    double latitude = location.coordinate.latitude;
-    double longitude = location.coordinate.longitude;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];

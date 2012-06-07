@@ -36,7 +36,8 @@
     IBOutlet UIButton *recipientImageButton;
     Contact *recipient;
     CLLocationManager *lm;
-    CLLocation* location;
+    double latitude;
+    double longitude;
 }
 
 @property (retain, nonatomic) IBOutlet UIButton *whiteBoxView;
@@ -50,7 +51,6 @@
 @property(nonatomic, retain) UILabel *contactDetail;
 @property(nonatomic, retain) UIButton *recipientImageButton;
 @property(nonatomic, retain) NSString* recipientUri;
-@property(nonatomic, retain) CLLocation* location;
 @property(nonatomic, retain) CLLocationManager *lm;
 
 
