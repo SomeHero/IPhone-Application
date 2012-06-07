@@ -47,6 +47,8 @@ float tableHeight2 = 30;
     [amount release];
     [comments release];
     [sendMoneyService release];
+    [lm release];
+    [location release];
 
     [recipientImageButton release];
     [chooseRecipientButton release];
@@ -100,10 +102,19 @@ float tableHeight2 = 30;
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
+    
+    lm = [[CLLocationManager alloc] init];
+    if ([lm locationServicesEnabled]) {
+        lm.delegate = self;
+        lm.desiredAccuracy = kCLLocationAccuracyBest;
+        lm.distanceFilter = 1000.0f;
+        [lm startUpdatingLocation];
+    }
 }
 
 - (void)viewDidUnload
 {
+    [lm stopUpdatingLocation];
     [recipientImageButton release];
     recipientImageButton = nil;
     [chooseRecipientButton release];
@@ -114,7 +125,11 @@ float tableHeight2 = 30;
     contactDetail = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    //e.g. self.myOutlet = nil;
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    location = newLocation;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -154,8 +169,8 @@ float tableHeight2 = 30;
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
     
-    double latitude = 0.0;
-    double longitude = 0.0;
+    double latitude = location.coordinate.latitude;
+    double longitude = location.coordinate.longitude;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
@@ -353,6 +368,7 @@ float tableHeight2 = 30;
                 if(digit == '0' && firstDigit) {
                     firstDigit = NO;
                     continue;
+                        
                 }
                 firstDigit = NO;
                 [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
@@ -371,7 +387,7 @@ float tableHeight2 = 30;
 }
 
 -(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
-       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
+fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
     Environment *myEnvironment = [Environment sharedInstance];
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
@@ -461,7 +477,8 @@ float tableHeight2 = 30;
             return true;
         else
             return false;
-    } @catch (NSException *exception) {
+    }
+    @catch (NSException *exception) {
         return false;
         }   
     } else {
