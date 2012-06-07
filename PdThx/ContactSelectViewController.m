@@ -113,6 +113,11 @@
     return 0.0;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [txtSearchBox resignFirstResponder];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
