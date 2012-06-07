@@ -53,9 +53,9 @@
     [format setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
     
     if(self) { 
+        messageId = [[dictionary objectForKey:@"Id"] copy];
         amount = [[dictionary objectForKey:@"amount"] copy];
         comments =[[dictionary valueForKey:@"comments"] copy];
-        messageId = [[dictionary valueForKey:@"messageId"] copy];
         messageStatus = [[dictionary valueForKey:@"messageStatus"] copy];
         messageType = [[dictionary valueForKey:@"messageType"] copy];
         senderUri = [[dictionary valueForKey:@"senderUri"] copy];
