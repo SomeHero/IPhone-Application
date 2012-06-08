@@ -17,13 +17,14 @@
 #import "Contact.h"
 #import <AddressBook/AddressBook.h>
 #import "PhoneNumberFormatting.h"
+#import "ContactSelectViewController.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
 @synthesize tabBarController=_tabBarController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, 
-        permissions, tempArray, contactsArray, notifAlert;
+    permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -56,6 +57,8 @@
     
     contactsArray = [[NSMutableArray alloc] init];
     tempArray = [[NSMutableArray alloc] init];
+    
+    areFacebookContactsLoaded = NO;
     
     [self loadAllContacts];
     
@@ -115,7 +118,7 @@
     if ( [fBook isSessionValid] )
         [fBook logout];
     
-    NSLog (@"Session should be invalid.. Worked? %@", [fBook isSessionValid] ? @"YES" : @"NO");
+    areFacebookContactsLoaded = NO;
     
     // Reload all Contacts (without Facebook permissions)
     [self loadAllContacts];
@@ -295,6 +298,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [tempArray addObject:friend];
         [friend release];
     }
+    
+    areFacebookContactsLoaded = YES;
+    
     [self sortContacts];
 }
 
@@ -305,7 +311,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     } else {
         [contactsArray removeAllObjects];
     }
-    for ( int i = 0 ; i < 27 ; i ++ )
+    for ( int i = 0 ; i < 28 ; i ++ )
         [contactsArray addObject:[[NSMutableArray alloc] init]];
     
     tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
@@ -321,8 +327,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for (Contact*person in tempArray) {
         comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
         
-        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-65] addObject:person];
+        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
+    
     NSLog(@"Contacts Ready.");
 }
 
