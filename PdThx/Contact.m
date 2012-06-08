@@ -17,9 +17,28 @@
     NSString * comparedProperty1 = ( self.lastName.length == 0 ? self.firstName : self.lastName );
     NSString * comparedProperty2 = ( otherContact.lastName.length == 0 ? otherContact.firstName : otherContact.lastName );
     
-    return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
+    if ( [comparedProperty1 caseInsensitiveCompare:comparedProperty2] == NSOrderedSame )
+        return [self compareMore:otherContact];
+    else {
+        return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
+    }
 }
 
+
+-(NSComparisonResult)compareMore:(Contact*)otherContact {
+    NSString *comparedProperty1 = self.firstName;
+    NSString *comparedProperty2 = otherContact.firstName;
+    
+    if ( [comparedProperty1 caseInsensitiveCompare:comparedProperty2] == NSOrderedSame ){
+        if ( self.facebookID != (id)[NSNull null] && ![self.facebookID isEqualToString:@""] )
+            return NSOrderedAscending;
+    } else {
+        return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
+    }
+    
+    return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
+}
+                
 - (void)dealloc {
     [name release];
     [phoneNumber release];
@@ -32,4 +51,4 @@
     
     [super dealloc];
 }
-@end
+@end    

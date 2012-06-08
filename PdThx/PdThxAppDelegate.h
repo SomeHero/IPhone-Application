@@ -31,6 +31,8 @@
 @property (nonatomic, retain) NSMutableArray *tempArray;
 @property (nonatomic, retain) NSArray * permissions;
 @property (nonatomic, retain) UIAlertView * notifAlert;
+@property (nonatomic, assign) bool areFacebookContactsLoaded;
+
 
 -(void)signOut;
 -(void)forgetMe;

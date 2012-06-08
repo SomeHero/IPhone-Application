@@ -1,3 +1,4 @@
+
 //
 //  ContactSelectViewController.m
 //  PdThx
@@ -38,12 +39,16 @@
         allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
         
         filteredResults = [[NSMutableArray alloc] init];
-        for ( int i = 0 ; i < 27 ; i ++ )
+        for ( int i = 0 ; i < 28 ; i ++ )
             [filteredResults addObject:[[NSMutableArray alloc] init]];
     }
     return self;
 }
 
+-(void)refreshContactList:(NSNotification*)notification
+{
+    [tvSubview reloadData];
+}
 
 - (void)viewDidLoad
 {
@@ -51,6 +56,8 @@
     
     // Do any additional setup after loading the view from its nib.
     txtSearchBox.frame =  CGRectMake(txtSearchBox.frame.origin.x, txtSearchBox.frame.origin.y, txtSearchBox.frame.size.width, 40);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
 }
@@ -84,12 +91,15 @@
     if ( isFiltered && !foundFiltered )
         return 1;
     else
-        return 27;
+        return 28;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    if ( indexPath.section > 0 )
+        return 60;
+    else 
+        return 44;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -120,9 +130,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     // Return the number of rows in the section.
     if ( isFiltered == YES ){
-        if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
+        if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 1 && !foundFiltered)
             return 1;
         else
             return [[filteredResults objectAtIndex:section] count];
@@ -168,6 +179,7 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
         myCell = [nib objectAtIndex:0];
     }
+        
     
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
@@ -242,7 +254,7 @@
             [myCell.contactImage.layer setMasksToBounds:YES];
         
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
-        
+            
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
             {
@@ -315,8 +327,8 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if ( section != 26 )
-        return [NSString stringWithFormat:@"%c",section+65];
+    if ( section != 27 )
+        return [NSString stringWithFormat:@"%c",section+64];
     else {
         return [NSString stringWithString:@"#"];
     }
@@ -369,16 +381,34 @@
 // this method is used in case the user scrolled into a set of cells that don't have their app icons yet
 - (void)loadImagesForOnscreenRows
 {
-    if ([allResults count] > 0)
+    if ( isFiltered && [filteredResults count] > 0 )
     {
         NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-            
-            if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
+            if ( indexPath.section > 0 )
             {
-                [self startIconDownload:contact forIndexPath:indexPath];
+                Contact *contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                
+                if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
+            }
+        }
+    }
+    else if ([allResults count] > 0)
+    {
+        NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            if ( indexPath.section > 0 ){
+                Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                
+                if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
             }
         }
     }
@@ -450,7 +480,7 @@
                 // Add $me code implementation ** TODO: **
             
                 if ( hasSimilarity.location != NSNotFound ){
-                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-65] addObject:contact];
+                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
                     foundFiltered = YES;
                 }
             }

@@ -100,7 +100,7 @@ float tableHeight = 30;
     //---set the viewable frame of the scroll view---
     scrollView.frame = CGRectMake(0, 0, 320, 460);
     //---set the content size of the scroll view---
-    [scrollView setContentSize:CGSizeMake(320, 713)];
+    [scrollView setContentSize:CGSizeMake(320, 460)];
 
 
     //[self loadContacts];
@@ -216,6 +216,7 @@ float tableHeight = 30;
   NSInteger nextTag = textField.tag + 1;
   // Try to find next responder
   UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+
     if (nextResponder) {
         // Found next responder, so set it.
         [textField resignFirstResponder];
@@ -226,6 +227,7 @@ float tableHeight = 30;
 
         [self requestMoney];
     }
+    
     return NO; // We do not want UITextField to insert line-breaks.
 }
 
@@ -302,7 +304,6 @@ float tableHeight = 30;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
-
 	
 }
 
@@ -342,7 +343,7 @@ float tableHeight = 30;
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
-
+        
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
 

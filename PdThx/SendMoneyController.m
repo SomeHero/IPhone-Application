@@ -91,7 +91,7 @@ float tableHeight2 = 30;
     scrollView.frame = CGRectMake(0, 0, 320, 460);
 
     //---set the content size of the scroll view---
-    [scrollView setContentSize:CGSizeMake(320, 713)];  
+    [scrollView setContentSize:CGSizeMake(320, 460)];  
     
     self.navigationItem.title = @"Send $";
     

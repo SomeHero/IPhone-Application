@@ -36,6 +36,8 @@
 		546364A01580E504008E419D /* CQMFloatingMaskControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 546364981580E504008E419D /* CQMFloatingMaskControl.m */; };
 		546364A11580E504008E419D /* CQMFloatingNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463649A1580E504008E419D /* CQMFloatingNavigationBar.m */; };
 		546364A21580E504008E419D /* CQMPathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5463649C1580E504008E419D /* CQMPathUtilities.m */; };
+		54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54764F5615810DFC008187B6 /* CoreLocation.framework */; };
+		54A1396E158133BE00668984 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A1396D158133BE00668984 /* MBProgressHUD.m */; };
 		54B5F248156C450300D970A3 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F23B156C450300D970A3 /* FBDialog.bundle */; };
 		54B5F249156C450300D970A3 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F23B156C450300D970A3 /* FBDialog.bundle */; };
 		54B5F24A156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B5F241156C450300D970A3 /* libfacebook_ios_sdk.a */; };
@@ -348,7 +350,6 @@
 		5BEBF01A14B2281900379108 /* ProfileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01814B2281900379108 /* ProfileController.xib */; };
 		5BEBF01C14B2282A00379108 /* options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01B14B2282A00379108 /* options.plist */; };
 		5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01C14B2282A00379109 /* Localizable.strings */; };
-		C381ABD615810B5700E7482B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C381ABD515810B5700E7482B /* CoreLocation.framework */; };
 		D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDE5157FB72800ABE854 /* MeCodeViewController.m */; };
 		D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
@@ -401,7 +402,10 @@
 		5463649A1580E504008E419D /* CQMFloatingNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMFloatingNavigationBar.m; sourceTree = "<group>"; };
 		5463649B1580E504008E419D /* CQMPathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMPathUtilities.h; sourceTree = "<group>"; };
 		5463649C1580E504008E419D /* CQMPathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQMPathUtilities.m; sourceTree = "<group>"; };
+		54764F5615810DFC008187B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACHAccountReminderProtocol.h; sourceTree = "<group>"; };
+		54A1396C158133BE00668984 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		54A1396D158133BE00668984 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		54B5F239156C450300D970A3 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		54B5F23A156C450300D970A3 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
 		54B5F23B156C450300D970A3 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
@@ -796,7 +800,6 @@
 		5BEBF01814B2281900379108 /* ProfileController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileController.xib; sourceTree = "<group>"; };
 		5BEBF01B14B2282A00379108 /* options.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = options.plist; sourceTree = "<group>"; };
 		5BEBF01C14B2282A00379109 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		C381ABD515810B5700E7482B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D587EDE4157FB72800ABE854 /* MeCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeViewController.h; sourceTree = "<group>"; };
 		D587EDE5157FB72800ABE854 /* MeCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeViewController.m; sourceTree = "<group>"; };
 		D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeViewController.xib; sourceTree = "<group>"; };
@@ -810,7 +813,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C381ABD615810B5700E7482B /* CoreLocation.framework in Frameworks */,
+				54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */,
 				54B5F26F156EADEC00D970A3 /* MessageUI.framework in Frameworks */,
 				5B69E17914B0BCC5003A0F66 /* MobileCoreServices.framework in Frameworks */,
 				5B69E17714B0BCB4003A0F66 /* SystemConfiguration.framework in Frameworks */,
@@ -874,6 +877,15 @@
 			name = "Floating Paystream Detail";
 			sourceTree = "<group>";
 		};
+		54A1396A1581339E00668984 /* Custom Activity Hud */ = {
+			isa = PBXGroup;
+			children = (
+				54A1396C158133BE00668984 /* MBProgressHUD.h */,
+				54A1396D158133BE00668984 /* MBProgressHUD.m */,
+			);
+			name = "Custom Activity Hud";
+			sourceTree = "<group>";
+		};
 		54B5F238156C450300D970A3 /* facebook-ios-sdk */ = {
 			isa = PBXGroup;
 			children = (
@@ -892,7 +904,7 @@
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
-				C381ABD515810B5700E7482B /* CoreLocation.framework */,
+				54764F5615810DFC008187B6 /* CoreLocation.framework */,
 				54B5F26E156EADEB00D970A3 /* MessageUI.framework */,
 				5B69E17814B0BCC5003A0F66 /* MobileCoreServices.framework */,
 				5B69E17614B0BCB4003A0F66 /* SystemConfiguration.framework */,
@@ -1375,12 +1387,9 @@
 		5BD27BCE1547B96200CAFC12 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				54A1396A1581339E00668984 /* Custom Activity Hud */,
 				5463648F1580E4DC008E419D /* Floating Paystream Detail */,
 				5B9057EF157F8B8D00D0373B /* Paystream Detail */,
-				5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */,
-				5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */,
-				5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */,
-				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 				5BD27BEB154B926300CAFC12 /* Services */,
 				5BD2793C15465FE600CAFC12 /* Helpers */,
 				5BD279111544431C00CAFC12 /* Protocols */,
@@ -1453,6 +1462,10 @@
 				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
 				D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */,
 				5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */,
+				5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */,
+				5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */,
+				5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */,
+				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1920,6 +1933,7 @@
 				5B9057FB157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.m in Sources */,
 				5B905800157FC41B00D0373B /* PaystreamOutgoingRequestViewController.m in Sources */,
 				5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */,
+				54A1396E158133BE00668984 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
