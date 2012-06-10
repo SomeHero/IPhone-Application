@@ -18,6 +18,8 @@
 #import <AddressBook/AddressBook.h>
 #import "PhoneNumberFormatting.h"
 #import "ContactSelectViewController.h"
+#import "UINavigationBar+CustomImage.h"
+
 
 @implementation PdThxAppDelegate
 
@@ -51,8 +53,13 @@
         fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
     }
     
-    // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
     
+    /*          Custom Navigation Bar Background        */
+    /*  ----------------------------------------------  */
+    
+                                                
+                                        
+    // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
     contactsArray = [[NSMutableArray alloc] init];
@@ -368,3 +375,4 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [super dealloc];
 }
 @end
+

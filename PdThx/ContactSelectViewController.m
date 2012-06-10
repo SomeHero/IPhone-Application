@@ -173,6 +173,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
+    [imageView setContentMode:UIViewContentModeScaleToFill];
+    
+    UIImage *altBackgroundImage = [UIImage imageNamed: @"transaction_rowalt_background"];
+    UIImageView *altImageView = [[UIImageView alloc] initWithImage:altBackgroundImage];
+    [altImageView setContentMode:UIViewContentModeScaleToFill];
+    
     ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     
     if ( myCell == nil ){
@@ -183,7 +191,7 @@
     
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
-    [myCell.contactImage.layer setCornerRadius:12.0];
+    [myCell.contactImage.layer setCornerRadius:4.0];
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
     
@@ -198,6 +206,13 @@
                 myCell.contactName.text = [NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
                 myCell.contactDetail.text = @"Continue typing or check entry";
                 myCell.userInteractionEnabled = NO;
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             } else if ( entryType == 1 ) {
                 // Valid phone number entered... show a new contact with that information
@@ -210,6 +225,13 @@
                 // entered as the contaction information
                 myCell.contactName.text = txtSearchBox.text;
                 myCell.contactDetail.text = @"New Email Recipient";
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             } else if ( entryType == 3 ) {
                 // Valid me code entered.. show new contact with that information
@@ -234,6 +256,13 @@
                 
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             }
             else
@@ -250,8 +279,6 @@
                                                  
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
-            [myCell.contactImage.layer setCornerRadius:12.0];
-            [myCell.contactImage.layer setMasksToBounds:YES];
         
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
             
@@ -265,6 +292,13 @@
                 
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             }
             else
@@ -276,6 +310,12 @@
             myCell.contactDetail.text = contact.phoneNumber;
             [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
         }
+    }
+    
+    if (indexPath.row%2 == 0)  {
+        myCell.backgroundView = imageView;
+    } else {
+        myCell.backgroundView = altImageView;
     }
     
     return myCell;

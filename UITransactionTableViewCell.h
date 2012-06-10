@@ -16,6 +16,7 @@
     UILabel *lblAmount;
     UIImageView *imgTransactionStatus;
 }
+
 @property(nonatomic,retain)UILabel *lblRecipientUri;
 @property(nonatomic,retain)UILabel *lblTransactionDate;
 @property(nonatomic,retain)UIImageView *imgTransactionType;

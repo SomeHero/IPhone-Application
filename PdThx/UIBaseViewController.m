@@ -67,6 +67,7 @@ CGSize scrollViewOriginalSize;
     scrollView.contentInset = contentInsets;
     scrollView.scrollIndicatorInsets = contentInsets;
 }
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     currTextField = textField;
@@ -131,6 +132,10 @@ CGSize scrollViewOriginalSize;
     bool setupPassword = [prefs boolForKey:@"setupPassword"];
     NSString* userId = [prefs stringForKey: @"userId"];
     
+    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"temp_navigation_bar.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    
     if([userId length] > 0) {
         UIBarButtonItem *signOutButton =  [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonSystemItemAction target:self action:@selector(signOutClicked)];
         
@@ -157,6 +162,7 @@ CGSize scrollViewOriginalSize;
     
     navController.viewControllers = controllers;
 }
+
 -(void) signOutClicked {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
