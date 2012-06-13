@@ -11,6 +11,7 @@
 @implementation ContactTableViewCell
 
 @synthesize contactName, contactDetail, contactImage;
+@synthesize imgData;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

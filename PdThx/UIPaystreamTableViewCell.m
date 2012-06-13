@@ -18,6 +18,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize transactionAmount, transactionDate,transactionRecipient, transactionStatus,transactionType, transactionImageButton;
 @synthesize lblComments;
 @synthesize lblTransactionDirection;
+@synthesize overlayView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -46,6 +47,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [transactionStatusImage release];
     [lblComments release];
     [lblTransactionDirection release];
+    [overlayView release];
     
     [super dealloc];
 }

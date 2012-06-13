@@ -88,6 +88,7 @@
         [userACHSetupCompleteDelegate userACHSetupDidFail: message];
         
         NSLog(@"ACH Account Setup Failed");
+    
     }
     
 }
