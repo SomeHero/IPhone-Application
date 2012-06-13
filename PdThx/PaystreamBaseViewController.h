@@ -10,10 +10,15 @@
 #import "PaystreamMessage.h"
 #import "PaystreamService.h"
 
-@interface PaystreamBaseViewController : UIViewController {
+
+
+@interface PaystreamBaseViewController : UIViewController 
+{
     PaystreamMessage* messageDetail;
     PaystreamService* paystreamServices;
 }
+
 @property(nonatomic, retain) PaystreamMessage* messageDetail;
+
 
 @end

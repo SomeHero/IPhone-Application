@@ -1,3 +1,4 @@
+
 //
 //  ContactSelectViewController.m
 //  PdThx
@@ -38,12 +39,21 @@
         allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
         
         filteredResults = [[NSMutableArray alloc] init];
-        for ( int i = 0 ; i < 27 ; i ++ )
+        for ( int i = 0 ; i < 28 ; i ++ )
             [filteredResults addObject:[[NSMutableArray alloc] init]];
     }
     return self;
 }
 
+-(void)refreshContactList:(NSNotification*)notification
+{
+    [tvSubview reloadData];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [txtSearchBox becomeFirstResponder];
+}
 
 - (void)viewDidLoad
 {
@@ -52,7 +62,31 @@
     // Do any additional setup after loading the view from its nib.
     txtSearchBox.frame =  CGRectMake(txtSearchBox.frame.origin.x, txtSearchBox.frame.origin.y, txtSearchBox.frame.size.width, 40);
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
+    
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
+}
+
+/*
+-(void)viewDidAppear:(BOOL)animated
+{
+    if ( self.navigationController.navigationItem.backBarButtonItem != nil ) {
+        UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
+        UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+        settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+        [settingsBtn addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+        
+        self.navigationItem.backBarButtonItem = settingsButtons;
+        [settingsButtons release];
+    }
+}
+*/
+
+-(void) backButtonClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidUnload
@@ -84,12 +118,15 @@
     if ( isFiltered && !foundFiltered )
         return 1;
     else
-        return 27;
+        return 28;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    if ( indexPath.section > 0 )
+        return 60;
+    else 
+        return 44;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -120,6 +157,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     // Return the number of rows in the section.
     if ( isFiltered == YES ){
         if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
@@ -162,19 +200,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
+    [imageView setContentMode:UIViewContentModeScaleToFill];
+    
+    UIImage *altBackgroundImage = [UIImage imageNamed: @"transaction_rowalt_background"];
+    UIImageView *altImageView = [[UIImageView alloc] initWithImage:altBackgroundImage];
+    [altImageView setContentMode:UIViewContentModeScaleToFill];
+    
     ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     
     if ( myCell == nil ){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
         myCell = [nib objectAtIndex:0];
     }
+        
     
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
-    [myCell.contactImage.layer setCornerRadius:12.0];
+    [myCell.contactImage.layer setCornerRadius:4.0];
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
     
+    NSLog(@"Reloading TableView, Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
     Contact *contact;
     if ( isFiltered == YES ) {
         if ( foundFiltered == NO ){ // Only Show it once (section0)
@@ -186,6 +234,13 @@
                 myCell.contactName.text = [NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
                 myCell.contactDetail.text = @"Continue typing or check entry";
                 myCell.userInteractionEnabled = NO;
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             } else if ( entryType == 1 ) {
                 // Valid phone number entered... show a new contact with that information
@@ -198,6 +253,13 @@
                 // entered as the contaction information
                 myCell.contactName.text = txtSearchBox.text;
                 myCell.contactDetail.text = @"New Email Recipient";
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             } else if ( entryType == 3 ) {
                 // Valid me code entered.. show new contact with that information
@@ -222,6 +284,13 @@
                 
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             }
             else
@@ -238,11 +307,9 @@
                                                  
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
-            [myCell.contactImage.layer setCornerRadius:12.0];
-            [myCell.contactImage.layer setMasksToBounds:YES];
         
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
-        
+            
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
             {
@@ -253,6 +320,13 @@
                 
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             }
             else
@@ -264,6 +338,12 @@
             myCell.contactDetail.text = contact.phoneNumber;
             [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
         }
+    }
+    
+    if (indexPath.row%2 == 0)  {
+        myCell.backgroundView = imageView;
+    } else {
+        myCell.backgroundView = altImageView;
     }
     
     return myCell;
@@ -315,8 +395,8 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if ( section != 26 )
-        return [NSString stringWithFormat:@"%c",section+65];
+    if ( section != 27 )
+        return [NSString stringWithFormat:@"%c",section+64];
     else {
         return [NSString stringWithString:@"#"];
     }
@@ -369,16 +449,34 @@
 // this method is used in case the user scrolled into a set of cells that don't have their app icons yet
 - (void)loadImagesForOnscreenRows
 {
-    if ([allResults count] > 0)
+    if ( isFiltered && [filteredResults count] > 0 )
     {
         NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-            
-            if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
+            if ( indexPath.section > 0 )
             {
-                [self startIconDownload:contact forIndexPath:indexPath];
+                Contact *contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                
+                if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
+            }
+        }
+    }
+    else if ([allResults count] > 0)
+    {
+        NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            if ( indexPath.section > 0 ){
+                Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+                
+                if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
             }
         }
     }
@@ -450,13 +548,13 @@
                 // Add $me code implementation ** TODO: **
             
                 if ( hasSimilarity.location != NSNotFound ){
-                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-65] addObject:contact];
+                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
                     foundFiltered = YES;
                 }
             }
         }
-        
-        [tvSubview reloadData];
     }
+    NSLog(@"Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
+    [tvSubview reloadData];
 }
 @end

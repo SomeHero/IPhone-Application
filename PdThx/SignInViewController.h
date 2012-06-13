@@ -17,35 +17,35 @@
 #import "SetupACHAccountController.h"
 #import "UserSetupACHAccountComplete.h"
 
-@interface SignInViewController : UIBaseViewController<UserSignInCompleteProtocol, ACHSetupCompleteProtocol, UITextFieldDelegate, FBRequestDelegate, UserSetupACHAccountComplete>{
+@interface SignInViewController : UIBaseViewController<UserSignInCompleteProtocol, ACHSetupCompleteProtocol, UITextFieldDelegate, FBRequestDelegate, UserSetupACHAccountComplete, UINavigationBarDelegate>
+{
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *loginFBButton;
     id<SignInCompleteProtocol> signInCompleteDelegate;
-    id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
+    //id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
     SignInUserService *signInUserService;
     SignInWithFBService *service;
     Facebook *fBook;
     UIAlertView * bankAlert;
-    SetupACHAccountController * setupACHAccountController;
+    //SetupACHAccountController * setupACHAccountController;
 }
 
 @property(nonatomic, retain) UITextField *txtEmailAddress;
 @property(nonatomic, retain) UITextField *txtPassword;
 @property(retain) id signInCompleteDelegate;
-@property(retain) id achSetupCompleteDelegate;
+//@property(retain) id achSetupCompleteDelegate;
 @property(nonatomic, assign) UIView* viewPanel;
 @property(nonatomic, retain) Facebook * fBook;
 @property(nonatomic, retain) SignInWithFBService* service;
 @property(nonatomic, retain) UIAlertView * bankAlert;
-@property(nonatomic, retain) SetupACHAccountController * setupACHAccountController;
+//@property(nonatomic, retain) SetupACHAccountController * setupACHAccountController;
 
--(IBAction) bgTouched:(id) sender;
--(IBAction) btnSignInClicked:(id) sender;
--(IBAction) btnCreateAnAccountClicked:(id) sender;
--(BOOL)isValidUserName:(NSString *) userNameToTest;
--(BOOL)isValidPassword:(NSString *) passwordToTest;
+-(IBAction) bgTouched:(id)sender;
+-(IBAction) btnSignInClicked:(id)sender;
+-(BOOL)isValidUserName:(NSString *)userNameToTest;
+-(BOOL)isValidPassword:(NSString *)passwordToTest;
 - (IBAction)doFBLogin:(id)sender;
 
 @end
