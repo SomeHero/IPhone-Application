@@ -107,7 +107,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         xOffset = 224;
     }
     
-    detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[[UIApplication sharedApplication] delegate] window].frame.size.height-20)];
+    detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[UIScreen mainScreen] bounds].size.height-20)];
     detailView.backgroundColor = [UIColor redColor]; // Transparent view with subviews
     detailView.animate = YES;
     detailView.delegate = self;
@@ -115,10 +115,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     detailView.handleView.backgroundColor = [UIColor darkGrayColor];
     detailView.handleView.frame = CGRectMake(0, 0, 40, 40);
     
-    detailView.closedCenter = CGPointMake([[[UIApplication sharedApplication] delegate] window].frame.size.width + (detailView.frame.size.width/2), [[[UIApplication sharedApplication] delegate] window].frame.size.height*0.5+10);
-    detailView.openedCenter = CGPointMake([[[UIApplication sharedApplication] delegate] window].frame.size.width - (detailView.frame.size.width/2)+20, [[[UIApplication sharedApplication] delegate] window].frame.size.height*0.5+10);
+    detailView.closedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width + (detailView.frame.size.width/2), [[UIScreen mainScreen] bounds].size.height*0.5+10);
+    detailView.openedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width - (detailView.frame.size.width/2)+20, [[UIScreen mainScreen] bounds].size.height*0.5+10);
     detailView.center = detailView.closedCenter;
-    
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:detailView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerBottomLeft) cornerRadii:CGSizeMake(8.0, 8.0)];
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
@@ -127,7 +126,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     detailView.layer.mask = maskLayer;
     
     // Darkened Layer
-    shadedLayer = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[[UIApplication sharedApplication] delegate] window].frame.size.width, [[[UIApplication sharedApplication] delegate] window].frame.size.height)];
+    shadedLayer = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     shadedLayer.backgroundColor = [UIColor blackColor];
     shadedLayer.layer.opacity = 0.0;
     shadedLayer.userInteractionEnabled = NO;
@@ -327,15 +326,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
-    
     UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                                     
+     
     if (cell == nil){
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
+
     
     [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
 
@@ -373,15 +370,31 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* amount = [NSString stringWithString:[currencyFormatter stringFromNumber: item.amount]];
     
     //248b3f
-    if([item.direction isEqualToString: @"In"])
+    if([item.messageType isEqualToString: @"Payment"])
     {
-        cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
-        cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        }
+        else
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        }
     }
     else
     {
-        cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
-        cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        }
+        else
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        }
     }
     
     cell.transactionDate.text = [dateFormatter stringFromDate: item.createDate];
@@ -401,7 +414,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         else
             cell.lblTransactionDirection.text = @"You request money from them";
     }
-
+    
+    cell.overlayView.layer.opacity = 0.0;   
+   
+    if([item.messageStatus isEqualToString: @"Accepted"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+    if([item.messageStatus isEqualToString: @"Rejected"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+    
+    if([item.messageStatus isEqualToString: @"Cancelled"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+        
     cell.transactionStatus.text = item.messageStatus;
     cell.lblComments.text = item.comments;
         
@@ -546,26 +575,27 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     
     PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
-    /*
     
+    PaystreamBaseViewController* outgoingView;
+     
     if([item.messageType isEqualToString: @"Payment"])
     {
         if([item.direction isEqualToString: @"In"])
-            detailView = [[PaystreamIncomingPaymentViewController alloc] init];
+            outgoingView = [[PaystreamIncomingPaymentViewController alloc] init];
         else
-           detailView = [[PaystreamOutgoingPaymentViewController alloc] init];
+           outgoingView = [[PaystreamOutgoingPaymentViewController alloc] init];
     }
     else {
         if([item.direction isEqualToString: @"In"])
-                detailView = [[PaystreamIncomingRequestViewController alloc] init];
+            outgoingView = [[PaystreamIncomingRequestViewController alloc] init];
         else
-            detailView = [[PaystreamOutgoingRequestViewController alloc] init];
+            outgoingView = [[PaystreamOutgoingRequestViewController alloc] init];
     }
-    */
-    
     
     [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
     [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
+     
+    [detailView addSubview: outgoingView.view];
     [detailView setOpened:YES animated:YES];
     
     /*
@@ -590,13 +620,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
         for (PaystreamMessage* transaction in transactions ){
-            if(([transaction.direction isEqualToString: @"Out"]))
+            if(([transaction.direction isEqualToString: @"Out"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
                 [filteredTransactions addObject: transaction];
         }
     }
     if([ctrlPaystreamTypes selectedSegmentIndex] == 2) {
         for (PaystreamMessage* transaction in transactions ){
-            if(([transaction.direction isEqualToString: @"In"]))
+            if(([transaction.direction isEqualToString: @"In"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
                 [filteredTransactions addObject: transaction];
         }
     }

@@ -35,12 +35,19 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(IBAction) btnCancelClicked:(id) sender
+{
+    [paystreamServices cancelPayment: messageDetail.messageId];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [paystreamServices setCancelPaymentProtocol: self];
 }
 
 - (void)viewDidUnload
@@ -49,7 +56,12 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-
+-(void)cancelPaymentDidComplete {
+    [self.navigationController popToRootViewControllerAnimated: YES];
+}
+-(void)cancelPaymentDidFail {
+    
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
