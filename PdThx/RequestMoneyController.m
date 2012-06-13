@@ -25,7 +25,6 @@
 - (BOOL)isValidAmount:(NSString *)amountToTest;
 
 - (void)requestMoney;
-- (void)signOutClicked;
 - (void)showModalPanel;
 
 
@@ -104,8 +103,7 @@ float tableHeight = 30;
 
 
     //[self loadContacts];
-
-    self.navigationItem.title = @"Request $";
+    [self setTitle:@"Request $"];
 
     //setup internal viewpanel
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
@@ -367,28 +365,15 @@ float tableHeight = 30;
     
     return YES;
 }
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    [appDelegate signOut];
 
-    UINavigationController *navController = self.navigationController;
-
-    RequestMoneyController *requestMoneyController = [[[RequestMoneyController alloc] initWithNibName:@"RequestMoneyController" bundle:nil] autorelease];
-
-    //[requestMoneyController setSignInCompleteDelegate: self];
-    //[requestMoneyController setAchSetupCompleteDelegate:self];
-
-    [self removeCurrentViewFromNavigation: navController];
-    [navController pushViewController:requestMoneyController animated: YES];
-
-}
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
     if([recipientUriToTest length]  == 0)
         return false;
     
     return true;
-    }
+}
+
 -(BOOL) isValidAmount:(NSString *) amountToTest {
     amountToTest = [amountToTest stringByReplacingOccurrencesOfString:@"$" withString:@""];
 
@@ -607,4 +592,7 @@ float tableHeight = 30;
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self showModalPanel];
 }
+
+
+
 @end

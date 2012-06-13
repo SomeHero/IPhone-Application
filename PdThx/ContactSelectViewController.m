@@ -50,6 +50,11 @@
     [tvSubview reloadData];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [txtSearchBox becomeFirstResponder];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -60,6 +65,28 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
+}
+
+/*
+-(void)viewDidAppear:(BOOL)animated
+{
+    if ( self.navigationController.navigationItem.backBarButtonItem != nil ) {
+        UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
+        UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+        settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+        [settingsBtn addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+        
+        self.navigationItem.backBarButtonItem = settingsButtons;
+        [settingsButtons release];
+    }
+}
+*/
+
+-(void) backButtonClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidUnload
@@ -133,7 +160,7 @@
     
     // Return the number of rows in the section.
     if ( isFiltered == YES ){
-        if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 1 && !foundFiltered)
+        if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
             return 1;
         else
             return [[filteredResults objectAtIndex:section] count];
@@ -173,6 +200,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
+    [imageView setContentMode:UIViewContentModeScaleToFill];
+    
+    UIImage *altBackgroundImage = [UIImage imageNamed: @"transaction_rowalt_background"];
+    UIImageView *altImageView = [[UIImageView alloc] initWithImage:altBackgroundImage];
+    [altImageView setContentMode:UIViewContentModeScaleToFill];
+    
     ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     
     if ( myCell == nil ){
@@ -183,10 +218,11 @@
     
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
-    [myCell.contactImage.layer setCornerRadius:12.0];
+    [myCell.contactImage.layer setCornerRadius:4.0];
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
     
+    NSLog(@"Reloading TableView, Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
     Contact *contact;
     if ( isFiltered == YES ) {
         if ( foundFiltered == NO ){ // Only Show it once (section0)
@@ -198,6 +234,13 @@
                 myCell.contactName.text = [NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
                 myCell.contactDetail.text = @"Continue typing or check entry";
                 myCell.userInteractionEnabled = NO;
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             } else if ( entryType == 1 ) {
                 // Valid phone number entered... show a new contact with that information
@@ -210,6 +253,13 @@
                 // entered as the contaction information
                 myCell.contactName.text = txtSearchBox.text;
                 myCell.contactDetail.text = @"New Email Recipient";
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             } else if ( entryType == 3 ) {
                 // Valid me code entered.. show new contact with that information
@@ -234,6 +284,13 @@
                 
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             }
             else
@@ -250,8 +307,6 @@
                                                  
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
-            [myCell.contactImage.layer setCornerRadius:12.0];
-            [myCell.contactImage.layer setMasksToBounds:YES];
         
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
             
@@ -265,6 +320,13 @@
                 
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
                 return myCell;
             }
             else
@@ -276,6 +338,12 @@
             myCell.contactDetail.text = contact.phoneNumber;
             [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
         }
+    }
+    
+    if (indexPath.row%2 == 0)  {
+        myCell.backgroundView = imageView;
+    } else {
+        myCell.backgroundView = altImageView;
     }
     
     return myCell;
@@ -485,8 +553,8 @@
                 }
             }
         }
-        
-        [tvSubview reloadData];
     }
+    NSLog(@"Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
+    [tvSubview reloadData];
 }
 @end

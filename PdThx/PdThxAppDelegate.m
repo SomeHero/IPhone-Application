@@ -18,14 +18,33 @@
 #import <AddressBook/AddressBook.h>
 #import "PhoneNumberFormatting.h"
 #import "ContactSelectViewController.h"
+#import "UINavigationBar+CustomImage.h"
+
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize tabBarController=_tabBarController;
+@synthesize tabBarController=_tabBarController, welcomeTabBarController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, 
     permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 
+-(void)switchToMainAreaTabbedView
+{
+    [self.welcomeTabBarController.view removeFromSuperview];
+    
+    [self.window addSubview:self.tabBarController.view];
+    [self.tabBarController setSelectedIndex:0];
+    [self.window bringSubviewToFront:self.tabBarController.view];
+}
+
+-(void)backToWelcomeTabbedArea
+{
+    [self.tabBarController.view removeFromSuperview];
+    
+    [self.window addSubview:self.welcomeTabBarController.view];
+    [self.welcomeTabBarController setSelectedIndex:1];
+    [self.window bringSubviewToFront:self.welcomeTabBarController.view];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -34,8 +53,11 @@
     [self.tabBarController setDelegate:self];
 
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
-    [self.window addSubview:self.tabBarController.view];
-    [self.tabBarController setSelectedIndex:1];
+    
+    [self.welcomeTabBarController setDelegate:self];
+    [self.window addSubview:self.welcomeTabBarController.view];
+    [self.welcomeTabBarController setSelectedIndex:0];
+    [self.window bringSubviewToFront:welcomeTabBarController.view];
     
     
     // Make the device expect notifications
@@ -52,7 +74,6 @@
     }
     
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
-    
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
     contactsArray = [[NSMutableArray alloc] init];
@@ -364,7 +385,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 {
     [_window release];
     [_tabBarController release];
+    [welcomeTabBarController release];
     [fBook release];
     [super dealloc];
 }
+
+
+
 @end

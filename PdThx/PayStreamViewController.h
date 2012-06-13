@@ -19,10 +19,11 @@
 #import "PaystreamIncomingRequestViewController.h"
 #import "PaystreamOutgoingPaymentViewController.h"
 #import "PaystreamOutgoingRequestViewController.h"
+#import "StyledPullableView.h"
 
 @class UITransactionTableViewCell;
 
-@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate> {
+@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate, PullableViewDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITableView *transactionsTableView;
     NSMutableData *responseData;
@@ -35,12 +36,17 @@
     GetPayStreamService* getPayStreamService;
     IBOutlet UISegmentedControl* ctrlPaystreamTypes;
     PaystreamBaseViewController* ctrlDetailView;
+    PullableView *detailView;
+    UIView *shadedLayer;
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITableView *transactionsTableView;
 @property (nonatomic, retain) NSMutableDictionary * psImagesDownloading;
 @property (nonatomic, retain) UISegmentedControl* ctrlPaystreamTypes;
+
+@property (nonatomic, retain) PullableView *detailView;
+@property (nonatomic, retain) UIView *shadedLayer;
 
 -(IBAction)segmentedControlChanged;
 -(void)buildTransactionDictionary:(NSMutableArray*) array;

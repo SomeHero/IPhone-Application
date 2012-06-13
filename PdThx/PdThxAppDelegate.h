@@ -20,6 +20,7 @@
     NSMutableArray *tempArray;
     NSArray * permissions;
     UIAlertView * notifAlert;
+    IBOutlet UITabBarController *welcomeTabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -32,6 +33,7 @@
 @property (nonatomic, retain) NSArray * permissions;
 @property (nonatomic, retain) UIAlertView * notifAlert;
 @property (nonatomic, assign) bool areFacebookContactsLoaded;
+@property (nonatomic, retain) UITabBarController *welcomeTabBarController;
 
 
 -(void)signOut;
@@ -40,5 +42,8 @@
 -(void)switchToRequestMoneyController;
 -(void)backToHomeView;
 -(void)loadAllContacts;
+
+-(void)switchToMainAreaTabbedView;
+-(void)backToWelcomeTabbedArea;
 
 @end

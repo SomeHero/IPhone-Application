@@ -23,10 +23,9 @@
 @end
 
 @implementation SendMoneyController
-@synthesize whiteBoxView;
 
-@synthesize viewPanel, txtAmount, txtComments, btnSendMoney, amount, lm;
-@synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri;
+@synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
+@synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
 
 float tableHeight2 = 30;
 
@@ -40,21 +39,30 @@ float tableHeight2 = 30;
 }
 - (void)dealloc
 {
+    
+    /*  ------------------------------------------------------ */
+    /*                View/Services Releases                   */
+    /*  ------------------------------------------------------ */
     [viewPanel release];
+    [whiteBoxView release];
+    [sendMoneyService release];
+    [lm release];
+    
+    /*  ------------------------------------------------------ */
+    /*                Image/TextField Releases                 */
+    /*  ------------------------------------------------------ */
     [txtAmount release];
     [txtComments release];
-    [btnSendMoney release];
     [securityPinModalPanel release];
     [amount release];
     [comments release];
-    [sendMoneyService release];
-    [lm release];
-
     [recipientImageButton release];
     [chooseRecipientButton release];
     [contactHead release];
     [contactDetail release];
-    [whiteBoxView release];
+    [chooseAmountButton release];
+    
+    [btnSendMoney release];
     [super dealloc];
 }
 
@@ -65,47 +73,37 @@ float tableHeight2 = 30;
     
     // Release any cached data, images, etc that aren't in use.
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
 #pragma mark - View lifecycle
 -(void) viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [whiteBoxView.layer  setCornerRadius:12.0];
-    
-    [recipientImageButton.layer setCornerRadius:12.0];
-    [recipientImageButton.layer setMasksToBounds:YES];
-    
-    sendMoneyService = [[SendMoneyService alloc] init];
-    [sendMoneyService setSendMoneyCompleteDelegate:self];
-    
-    autoCompleteArray = [[NSMutableArray alloc] init];
-    recipientUri = [[NSString alloc] initWithString: @""];
-    amount = [[NSString alloc] initWithString: @""];
-    comments = [[NSString alloc] initWithString: @""];
 
-    //---set the viewable frame of the scroll view---
-    scrollView.frame = CGRectMake(0, 0, 320, 460);
-
-    //---set the content size of the scroll view---
-    [scrollView setContentSize:CGSizeMake(320, 460)];  
+    /*                  View Setup              */
+    /*  --------------------------------------- */
+    scrollView.frame = CGRectMake(0, 0, 320, 420);
+    [scrollView setContentSize:CGSizeMake(320, 420)];
+    [whiteBoxView.layer  setCornerRadius:7.0];
     
-    self.navigationItem.title = @"Send $";
     
-    //setup internal viewpanel
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
     
-    [txtAmount setDelegate:self];
-    txtAmount.text = @"$0.00";
     
-    contactHead.text = @"Select a Recipient";
-    contactDetail.text = @"Click Here";
-    
+    /*          Location Services Setup         */
+    /*  --------------------------------------- */
     lm = [[CLLocationManager alloc] init];
     if ([lm locationServicesEnabled]) {
         lm.delegate = self;
@@ -113,6 +111,44 @@ float tableHeight2 = 30;
         lm.distanceFilter = 1000.0f;
         [lm startUpdatingLocation];
     }
+    
+    
+    /*         Button Visiblity Handling        */
+    /*  --------------------------------------- */
+    chooseRecipientButton.backgroundColor = [UIColor clearColor];
+    chooseAmountButton.backgroundColor = [UIColor clearColor];
+    [recipientImageButton.layer setCornerRadius:5.0];
+    [recipientImageButton.layer setMasksToBounds:YES];
+    [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
+    
+    
+    
+    /*          Services/ViewController Initialization         */
+    /*  ------------------------------------------------------ */
+    sendMoneyService = [[SendMoneyService alloc] init];
+    [sendMoneyService setSendMoneyCompleteDelegate:self];
+    
+    
+    
+    
+    
+    /*                TextField Initialization                 */
+    /*  ------------------------------------------------------ */
+    autoCompleteArray = [[NSMutableArray alloc] init];
+    recipientUri = [[NSString alloc] initWithString: @""];
+    amount = [[NSString alloc] initWithString: @""];
+    
+    
+    comments = [[NSString alloc] initWithString: @""];
+    
+    [self setTitle:@"Send $"];
+    
+    [txtAmount setDelegate:self];
+    txtAmount.text = @"$0.00";
+    
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
 }
 
 - (void)viewDidUnload
@@ -127,10 +163,23 @@ float tableHeight2 = 30;
     [contactDetail release];
     contactDetail = nil;
     [whiteBoxView release];
+    [chooseAmountButton release];
+    chooseAmountButton = nil;
+    // [self setPressedAmountButton:nil];
+    [txtComments release];
+    txtComments = nil;
+    [btnSendMoney release];
+    btnSendMoney = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;
 }
+
+
+
+/*  ------------------------------------------------------ */
+/*                Location Services                        */
+/*  ------------------------------------------------------ */
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
@@ -144,83 +193,11 @@ float tableHeight2 = 30;
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-#pragma mark SignCompleteProtocol methods
--(void)signInDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
-#pragma mark ACHSetupCompleteProtocol methods
--(void)achSetupDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    [appDelegate signOut];
 
-    UINavigationController *navController = self.navigationController;
-
-    SendMoneyController *sendMoneyController = [[[SendMoneyController alloc] initWithNibName:@"SendMoneyController" bundle:nil] autorelease];
-
-    [self removeCurrentViewFromNavigation:navController];
-    [navController pushViewController:sendMoneyController animated: YES];
-
-}
--(void) securityPinComplete:(ConfirmPaymentDialogController *) modalPanel
-               selectedCode:(NSString*) code {
-
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* senderUri;
-    NSString* username = [prefs stringForKey:@"userName"];
-    
-    NSString* recipientImageUri = [NSString stringWithString: @""];
-    NSString* recipientFirstName = [NSString stringWithString: @""];
-    NSString* recipientLastName =[NSString stringWithString: @""];
-    
-    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
-        senderUri = username;
-    }
-    else
-        senderUri = [prefs stringForKey:@"mobileNumber"];
-    
-    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
-        recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
-        recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
-        recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
-    }
-    
-    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
-
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
-}
-
--(void)sendMoneyDidComplete {
-    [self.scrollView scrollsToTop];
-    [securityPinModalPanel hide];
-
-    recipientUri = @"";
-    [txtAmount setText: @"$0.00"];
-    [txtComments setText: @""];
-    contactHead.text = @"Select a Recipient";
-    contactDetail.text = @"Click Here";
-    [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
-    
-    NSString* message = [NSString stringWithString:@"Your money was sent"];
-
-    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
-    [self showAlertView:@"Money Sent!" withMessage: message];
-}
--(void)sendMoneyDidFail:(NSString*) message {
-    [self showAlertView: @"Error Sending Money" withMessage: message];
-}
+/*  ------------------------------------------------------ */
+/*                Button Action Handling                   */
+/*  ------------------------------------------------------ */
 
 - (IBAction)pressedChooseRecipientButton:(id)sender 
 {
@@ -230,47 +207,56 @@ float tableHeight2 = 30;
     newView.contactSelectChosenDelegate = self;
 }
 
+- (IBAction)pressedAmountButton:(id)sender {
+}
+
+
+-(IBAction) btnSendMoneyClicked:(id)sender {
+    [self sendMoney];
+}
+
 -(IBAction) bgTouched:(id) sender {
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
 }
 
-- (void)sendMoney {
 
+- (void)sendMoney {
+    
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
     }
-
+    
     if([txtComments.text length] > 0)
         comments = [txtComments.text copy];
-
+    
     BOOL isValid = YES;
-
+    
     if(isValid && ![self isValidRecipientUri:recipientUri])
     {
         [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
-
+        
         isValid = NO;
     }
     if(isValid && ![self isValidAmount:amount])
     {
         [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
-
+        
         isValid = NO;
     }
-
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
-
+    
+    
     if(isValid) {
         NSString* userId = [prefs stringForKey:@"userId"];
-
+        
         if([userId length] > 0)
             [self showModalPanel];
         else
         {
             SignInViewController *signInViewController = [[[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil] autorelease];
-
+            
             [signInViewController setSignInCompleteDelegate:self];
             [signInViewController setAchSetupCompleteDelegate:self];
             
@@ -279,121 +265,11 @@ float tableHeight2 = 30;
     }
 }
 
--(void)didChooseContact:(Contact *)contact
-{
-    recipient = contact;
-    if ( contact.imgData )
-        [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
-    else if ( contact.facebookID.length > 0 )
-        [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
-    else
-        [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
-    
-    
-    recipientImageButton.imageView.image = nil;
-    // Image Formatting
-    [recipientImageButton.layer setCornerRadius:12.0];
-    [recipientImageButton.layer setMasksToBounds:YES];
-    
-    contactHead.text = contact.name;
-
-    if ( contact.facebookID.length > 0 ){
-        contactDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        contactDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        contactDetail.text = contact.emailAddress;
-    }else {
-        contactDetail.text = @"No Info to Display";
-    }
-    
-    self.recipientUri = contact.recipientUri;
-
-}
-
--(IBAction) btnSendMoneyClicked:(id)sender {
-    [self sendMoney];
-}
-
-#pragma mark UITextFieldDelegate methods
--(BOOL)textFieldShouldReturn:(UITextField*)textField;
-{
-  NSInteger nextTag = textField.tag + 1;
-  // Try to find next responder
-  UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-  if (nextResponder) {
-    // Found next responder, so set it.
-    [nextResponder becomeFirstResponder];
-  } else {
-        // Not found, so remove keyboard.
-        [textField resignFirstResponder];
-      
-        [self sendMoney];
-  }
-  return NO; // We do not want UITextField to insert line-breaks.
-}
 
 
-
-// String in Search textfield
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(textField.tag == 1) {
-        NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
-        [tempAmount appendString: @"$"];
-        
-        if([string isEqualToString:@""]) {
-            for (int i = 0; i< [textField.text length] - 1; i++) {
-                if([string length] == 0 && i == [textField.text length] - 1)
-                    continue;
-                
-                char digit;
-                digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
-
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-        }
-        else if([string stringByTrimmingCharactersInSet:
-            [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
-           
-            BOOL firstDigit = YES;
-            for (int i = 0; i< [textField.text length]; i++) {
-                
-                char digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
-                
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-                if(digit == '0' && firstDigit) {
-                    firstDigit = NO;
-                    continue;
-                        
-                }
-                firstDigit = NO;
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-            
-        }
-            
-        return NO;
-    }
-    return YES;
-}
+/*  --------------------------------------------------------- */
+/*                Services                                    */
+/*  --------------------------------------------------------- */
 
 -(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
 fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
@@ -431,49 +307,13 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     [apiKey release];
     [rootUrl release];
 }
--(void) sendMoneyComplete:(ASIHTTPRequest *)request
-{
-    NSString *theJSON = [request responseString];
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    [parser release];
 
-    bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
-    NSString *message = [jsonDictionary objectForKey:@"message"];
-    
-    if(success) {
-        
-        [self.scrollView scrollsToTop];
-        [securityPinModalPanel hide];
-        
-        recipientUri = @"";
-        [txtAmount setText: @"$0.00"];
-        [txtComments setText: @""];
-        
-        [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
-        [self showAlertView:@"Money Sent!" withMessage: message];
-        
-    }
-    else {
-        [self showAlertView: @"Sorry. Try Again!" withMessage:message];
-    }
 
-}
--(void) sendMoneyFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"Send Money Failed");
-}
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if(textField.tag == 1)
-    {
-        [textField setText: @"$0.00"];
-        
-        return NO;
-    } 
-    
-    return YES;
-}
+
+/*  --------------------------------------------------------- */
+/*               Local Class Methods                          */
+/*  --------------------------------------------------------- */
+
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
     if([recipientUriToTest length]  == 0)
         return false;
@@ -494,6 +334,7 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
        return true;
     }
 }
+
 -(BOOL) isValidAmount:(NSString *) amountToTest {
     amountToTest = [amountToTest stringByReplacingOccurrencesOfString:@"$" withString:@""];
     
@@ -506,6 +347,234 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     @catch(NSException *ex) {
         return false;
     }
+}
+
+
+/*  --------------------------------------------------------- */
+/*                Protocol Delegate Methods                   */
+/*  --------------------------------------------------------- */
+
+
+#pragma mark SignCompleteProtocol methods
+-(void)signInDidComplete {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self showModalPanel];
+}
+
+#pragma mark ACHSetupCompleteProtocol methods
+-(void)achSetupDidComplete {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self showModalPanel];
+}
+
+
+-(void) securityPinComplete:(ConfirmPaymentDialogController *) modalPanel
+               selectedCode:(NSString*) code {
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString* userId = [prefs stringForKey:@"userId"];
+    NSString* senderUri;
+    NSString* username = [prefs stringForKey:@"userName"];
+    
+    NSString* recipientImageUri = [NSString stringWithString: @""];
+    NSString* recipientFirstName = [NSString stringWithString: @""];
+    NSString* recipientLastName =[NSString stringWithString: @""];
+    
+    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
+        senderUri = username;
+    }
+    else
+        senderUri = [prefs stringForKey:@"mobileNumber"];
+    
+    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+        recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
+        recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
+        recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
+    }
+    
+    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
+    
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+}
+
+-(void)sendMoneyDidComplete {
+    [self.scrollView scrollsToTop];
+    [securityPinModalPanel hide];
+    
+    recipientUri = @"";
+    [txtAmount setText: @"$0.00"];
+    [txtComments setText: @""];
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
+    
+    NSString* message = [NSString stringWithString:@"Your money was sent"];
+    
+    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+    [self showAlertView:@"Money Sent!" withMessage: message];
+}
+
+-(void)sendMoneyDidFail:(NSString*) message {
+    [self showAlertView: @"Error Sending Money" withMessage: message];
+}
+
+-(void)didChooseContact:(Contact *)contact
+{
+    recipient = contact;
+    if ( contact.imgData )
+        [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+    else if ( contact.facebookID.length > 0 )
+        [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
+    else
+        [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
+    
+    
+    recipientImageButton.imageView.image = nil;
+    
+    contactHead.text = contact.name;
+    
+    if ( contact.facebookID.length > 0 ){
+        contactDetail.text = @"Facebook Friend";
+    } else if ( contact.phoneNumber ){
+        contactDetail.text = contact.phoneNumber;
+    } else if ( contact.emailAddress.length > 0 ){
+        contactDetail.text = contact.emailAddress;
+    }else {
+        contactDetail.text = @"No Info to Display";
+    }
+    
+    self.recipientUri = contact.recipientUri;
+    
+}
+
+
+#pragma mark UITextFieldDelegate methods
+-(BOOL)textFieldShouldReturn:(UITextField*)textField;
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        
+        [self sendMoney];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+}
+
+
+
+// String in Search textfield
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if(textField.tag == 1) {
+        NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
+        [tempAmount appendString: @"$"];
+        
+        if([string isEqualToString:@""]) {
+            for (int i = 0; i< [textField.text length] - 1; i++) {
+                if([string length] == 0 && i == [textField.text length] - 1)
+                    continue;
+                
+                char digit;
+                digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
+                
+                if(digit == '$')
+                    continue;
+                if(digit == '.')
+                    continue;
+                
+                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
+            }
+            [tempAmount appendString: string];
+            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
+            if([tempAmount length] < 5)
+                [tempAmount insertString:@"0" atIndex:1];
+            [textField setText:tempAmount];
+        }
+        else if([string stringByTrimmingCharactersInSet:
+                 [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
+            
+            BOOL firstDigit = YES;
+            for (int i = 0; i< [textField.text length]; i++) {
+                
+                char digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
+                
+                if(digit == '$')
+                    continue;
+                if(digit == '.')
+                    continue;
+                if(digit == '0' && firstDigit) {
+                    firstDigit = NO;
+                    continue;
+                    
+                }
+                firstDigit = NO;
+                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
+            }
+            [tempAmount appendString: string];
+            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
+            if([tempAmount length] < 5)
+                [tempAmount insertString:@"0" atIndex:1];
+            [textField setText:tempAmount];
+            
+        }
+        
+        return NO;
+    }
+    return YES;
+}
+
+
+-(void) sendMoneyComplete:(ASIHTTPRequest *)request
+{
+    NSString *theJSON = [request responseString];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
+    NSString *message = [jsonDictionary objectForKey:@"message"];
+    
+    if(success) {
+        
+        [self.scrollView scrollsToTop];
+        [securityPinModalPanel hide];
+        
+        recipientUri = @"";
+        [txtAmount setText: @"$0.00"];
+        [txtComments setText: @""];
+        
+        [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+        [self showAlertView:@"Money Sent!" withMessage: message];
+        
+    }
+    else {
+        [self showAlertView: @"Sorry. Try Again!" withMessage:message];
+    }
+    
+}
+
+-(void) sendMoneyFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"Send Money Failed");
+}
+
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if(textField.tag == 1)
+    {
+        [textField setText: @"$0.00"];
+        
+        return NO;
+    } 
+    
+    return YES;
 }
 
 - (IBAction)showModalPanel {
@@ -563,7 +632,10 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
      //   Only used if delegate is set.
      - (void)didCloseModalPanel:(UAModalPanel *)modalPanel {
          UADebugLog(@"didCloseModalPanel called with modalPanel: %@", modalPanel);
-     }
+    }
+
+
+
     
 @end
 
@@ -632,4 +704,6 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
  [self finishedSearching];
  }
  */
+
+
 

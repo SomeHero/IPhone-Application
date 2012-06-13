@@ -4,7 +4,7 @@
 //
 //  Created by James Rhodes on 4/15/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
-//
+
 
 #import "SignInViewController.h"
 #import "CreateAccountViewController.h"
@@ -19,6 +19,7 @@
 
 
 @interface SignInViewController ()
+
 - (void)signInUser;
 
 @end
@@ -26,16 +27,22 @@
 @implementation SignInViewController
 
 @synthesize txtEmailAddress, txtPassword;
-@synthesize signInCompleteDelegate, achSetupCompleteDelegate, setupACHAccountController;
-@synthesize viewPanel, fBook, service, bankAlert;
+@synthesize signInCompleteDelegate; // setupACHAccountController
+@synthesize viewPanel, fBook, service, bankAlert; // achSetupCompleteDelegate
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self) 
+    {
         // Custom initialization
     }
     return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self setTitle:@"Sign In"];
 }
 
 - (void)dealloc
@@ -45,7 +52,6 @@
     [signInUserService release];
     [fBook release];
     [signInCompleteDelegate release];
-    [achSetupCompleteDelegate release];
     [signInUserService release];
     [SignInWithFBService release];
     
@@ -65,6 +71,8 @@
 
 #pragma mark - View lifecycle
 
+
+
 - (void)viewDidLoad
 {
     
@@ -75,31 +83,19 @@
     [signInUserService setUserSignInCompleteDelegate:self];
     service = [[SignInWithFBService alloc] init];
     service.fbSignInCompleteDelegate = self;
-    
-    [self setTitle:@"Sign In"];
-    
+        
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
     
     
     fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
-    /*
-    FBLoginImage.hidden = TRUE;
-    FBLoginSpinner.hidden = TRUE;
-     */
 }
--(void)viewDidAppear:(BOOL)animated {
+
+-(void)viewDidAppear:(BOOL)animated 
+{
     [self setTitle:@"Sign In"];
-    [self.navigationItem setHidesBackButton:YES];    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString* userId = [prefs stringForKey:@"userId"];
-    
-    if([userId length] > 0)
-    {
-        UINavigationController* navController = self.navigationController;
-        [self removeCurrentViewFromNavigation:navController];
-    }
+    [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)viewDidUnload
@@ -128,6 +124,7 @@
   }
   return NO; // We do not want UITextField to insert line-breaks.
 }
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -164,23 +161,6 @@
     }
 }
 
-/*          NORMAL ACCOUNT SIGN IN HANDLING     */
--(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber
-{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    [prefs setValue:userId forKey:@"userId"];
-    [prefs setValue:mobileNumber forKey:@"mobileNumber"];
-    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
-    
-    [prefs synchronize];
-
-    [signInCompleteDelegate signInDidComplete];
-}
-
--(void)userSignInDidFail:(NSString *) reason {
-    [self showAlertView:@"User Validation Failed!" withMessage: reason];
-}
 
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
@@ -193,24 +173,45 @@
     [prefs synchronize];
     
     /*          
-        TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
-            ASK THEM TO ADD IT NOW
+     TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
+     ASK THEM TO ADD IT NOW
      */
     if ( !hasACHaccount ){
         // No bank account, prompt user to add one now.
-        bankAlert = [[UIAlertView alloc] initWithTitle:@"Add a Bank Account" message:@"You have not yet added a bank account. You will not be able to send or receive money without adding a bank account" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Add now", nil];
+        bankAlert = [[UIAlertView alloc] initWithTitle:@"Hi there." message:@"This should be displaying your ACH Account Setup Screen because you don't have one setup yet, but we don't have one finished yet. So i'll do that later." delegate:self cancelButtonTitle:@"Okie Dokie!" otherButtonTitles: nil];
         [bankAlert show];
         return;
     } else {
-        // User HAS a bank account, but no security pin for whatever reason.
-        [signInCompleteDelegate signInDidComplete];
+        // Sign in Completed, Switch to normal tab set
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
     }
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {
-    [self showAlertView:@"Facebook SignIn Error" withMessage: reason];
+    [self showAlertView:@"Facebook Sign In Failed" withMessage:[NSString stringWithFormat:@"%@. Check your username, password, and data connection.",reason]];
 }
 
+
+/*          NORMAL ACCOUNT SIGN IN HANDLING     */
+-(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue:userId forKey:@"userId"];
+    [prefs setValue:mobileNumber forKey:@"mobileNumber"];
+    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
+    
+    [prefs synchronize];
+
+    // Sign in Completed, Switch to normal tab set
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
+}
+
+-(void)userSignInDidFail:(NSString *) reason {
+    [self showAlertView:@"User Validation Failed!" withMessage: reason];
+}
+
+/*
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ( alertView == bankAlert ){
         if (buttonIndex == 0) {
@@ -232,11 +233,14 @@
         }
     }
 }
+*/
+
 -(void)achAccountSetupDidComplete
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
     [signInCompleteDelegate signInDidComplete];
 }
+
 -(void)achAccountSetupDidSkip
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
@@ -248,12 +252,15 @@
     [self signInUser];
 
 }
+/*
 -(IBAction) btnCreateAnAccountClicked:(id) sender {
     CreateAccountViewController *createAccountViewController = [[[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle: nil] autorelease];
     
     [createAccountViewController setAchSetupCompleteDelegate: self];
     [self.navigationController pushViewController:createAccountViewController animated:YES];
 }
+ */
+
 -(IBAction) bgTouched:(id) sender {
     [txtEmailAddress resignFirstResponder];
     [txtPassword resignFirstResponder];
@@ -265,6 +272,7 @@
     
     return true;
 }
+
 -(BOOL)isValidPassword:(NSString *) passwordToTest {
     if([passwordToTest length] == 0)
         return false;
@@ -275,13 +283,8 @@
 - (IBAction)doFBLogin:(id)sender {
     NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
     
-    
-    NSLog( @"Is FB Session Valid? %@" , [fBook isSessionValid] ? @"YES" : @"NO");
-    
-    if ( ![fBook isSessionValid] ){
-        NSLog( @"Should be authorizing..." );
+    if ( ![fBook isSessionValid] )
         [fBook authorize:permissions];
-    }
     
     // Paste This To Be Able to Do Graph Calls
     fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
@@ -310,10 +313,13 @@
     NSLog ( @"Error occurred -> %@" , [error description] );
 }
 
+/*
 -(void)achSetupDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [achSetupCompleteDelegate achSetupDidComplete];
 }
+*/
+
 
 @end
