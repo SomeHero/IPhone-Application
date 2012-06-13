@@ -34,18 +34,31 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-
+-(IBAction) btnCancelClicked:(id) sender
+{
+    [paystreamServices cancelRequest: messageDetail.messageId];
+}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [paystreamServices setCancePaymentRequestProtocol: self];
 }
 
+-(void)cancelPaymentRequestDidComplete {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+-(void)cancelPaymentRequestDidFail {
+    
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

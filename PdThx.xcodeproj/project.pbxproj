@@ -696,6 +696,10 @@
 		5B69E19714B117EB003A0F66 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		5B69E19814B117EB003A0F66 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		5B69E19914B117EB003A0F66 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		5B8147C11587B54000CE10AA /* AcceptPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptPaymentRequestProtocol.h; sourceTree = "<group>"; };
+		5B8147C21587BAFF00CE10AA /* RejectPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectPaymentRequestProtocol.h; sourceTree = "<group>"; };
+		5B8147C31587BC2100CE10AA /* CancelPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelPaymentRequestProtocol.h; sourceTree = "<group>"; };
+		5B8147C41587BC4C00CE10AA /* CancelPaymentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelPaymentProtocol.h; sourceTree = "<group>"; };
 		5B88680B1527F43D00EA24A4 /* home_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_off.png; sourceTree = "<group>"; };
 		5B88680D1527F4EB00EA24A4 /* send_money_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_money_off.png; sourceTree = "<group>"; };
 		5B88681715287E9700EA24A4 /* icon_request_money_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_request_money_off.png; sourceTree = "<group>"; };
@@ -1342,6 +1346,10 @@
 				54B5F270156EB62700D970A3 /* UserSetupACHAccountComplete.h */,
 				54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */,
 				549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */,
+				5B8147C11587B54000CE10AA /* AcceptPaymentRequestProtocol.h */,
+				5B8147C21587BAFF00CE10AA /* RejectPaymentRequestProtocol.h */,
+				5B8147C31587BC2100CE10AA /* CancelPaymentRequestProtocol.h */,
+				5B8147C41587BC4C00CE10AA /* CancelPaymentProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2191,6 +2199,83 @@
 			};
 			name = Release;
 		};
+		5B8147BD1582738B00CE10AA /* James */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				SDKROOT = iphoneos;
+			};
+			name = James;
+		};
+		5B8147BE1582738B00CE10AA /* James */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALTERNATE_MODE = "";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
+				PRODUCT_NAME = PaidThx;
+				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D9E51710-0C9D-4BDA-B16A-4B0D11AB6483";
+				VERSIONING_SYSTEM = "apple-generic";
+				WRAPPER_EXTENSION = app;
+			};
+			name = James;
+		};
+		5B8147BF1582738B00CE10AA /* James */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PdThxTests/PdThxTests-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "PdThxTests/PdThxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = James;
+		};
 		5B886806151181A300EA24A4 /* Dev */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2502,6 +2587,7 @@
 				5B69DFAE14AE6068003A0F66 /* Debug */,
 				5BE6F7A414E9E0B600599EF2 /* Beta */,
 				5B886806151181A300EA24A4 /* Dev */,
+				5B8147BD1582738B00CE10AA /* James */,
 				5B33A335156A8FA100E6603B /* Test */,
 				5BE6F7A714E9E0C000599EF2 /* Staging */,
 				5B69DFAF14AE6068003A0F66 /* Release */,
@@ -2516,6 +2602,7 @@
 				5B69DFB114AE6068003A0F66 /* Debug */,
 				5BE6F7A514E9E0B600599EF2 /* Beta */,
 				5B886807151181A300EA24A4 /* Dev */,
+				5B8147BE1582738B00CE10AA /* James */,
 				5B33A336156A8FA100E6603B /* Test */,
 				5BE6F7A814E9E0C000599EF2 /* Staging */,
 				5B69DFB214AE6068003A0F66 /* Release */,
@@ -2530,6 +2617,7 @@
 				5B69DFB414AE6068003A0F66 /* Debug */,
 				5BE6F7A614E9E0B600599EF2 /* Beta */,
 				5B886808151181A300EA24A4 /* Dev */,
+				5B8147BF1582738B00CE10AA /* James */,
 				5B33A337156A8FA100E6603B /* Test */,
 				5BE6F7A914E9E0C000599EF2 /* Staging */,
 				5B69DFB514AE6068003A0F66 /* Release */,

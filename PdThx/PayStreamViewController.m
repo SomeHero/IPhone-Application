@@ -277,15 +277,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
-    
     UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                                     
+     
     if (cell == nil){
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
+
     
     [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
 
@@ -323,15 +321,31 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* amount = [NSString stringWithString:[currencyFormatter stringFromNumber: item.amount]];
     
     //248b3f
-    if([item.direction isEqualToString: @"In"])
+    if([item.messageType isEqualToString: @"Payment"])
     {
-        cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
-        cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        }
+        else
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        }
     }
     else
     {
-        cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
-        cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        }
+        else
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        }
     }
     
     cell.transactionDate.text = [dateFormatter stringFromDate: item.createDate];
@@ -351,7 +365,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         else
             cell.lblTransactionDirection.text = @"You request money from them";
     }
-
+    
+    cell.overlayView.layer.opacity = 0.0;   
+   
+    if([item.messageStatus isEqualToString: @"Accepted"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+    if([item.messageStatus isEqualToString: @"Rejected"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+    
+    if([item.messageStatus isEqualToString: @"Cancelled"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+        
     cell.transactionStatus.text = item.messageStatus;
     cell.lblComments.text = item.comments;
         
@@ -540,13 +570,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
         for (PaystreamMessage* transaction in transactions ){
-            if(([transaction.direction isEqualToString: @"Out"]))
+            if(([transaction.direction isEqualToString: @"Out"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
                 [filteredTransactions addObject: transaction];
         }
     }
     if([ctrlPaystreamTypes selectedSegmentIndex] == 2) {
         for (PaystreamMessage* transaction in transactions ){
-            if(([transaction.direction isEqualToString: @"In"]))
+            if(([transaction.direction isEqualToString: @"In"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
                 [filteredTransactions addObject: transaction];
         }
     }
