@@ -15,7 +15,6 @@
 #import "PaystreamMessage.h"
 #import "UIPaystreamTableViewCell.h"
 #import "IconDownloader.h"
-#import "CQMFloatingController.h"
 #import "CreateAccountViewController.h"
 #import "PaystreamDetailViewController.h"
 
@@ -26,9 +25,10 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+
 @synthesize viewPanel, psImagesDownloading;
-@synthesize transactionsTableView;
-@synthesize ctrlPaystreamTypes;
+@synthesize transactionsTableView, shadedLayer;
+@synthesize ctrlPaystreamTypes, detailView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,7 +36,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-
     }
     return self;
 }
@@ -97,27 +96,78 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
 
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate signOut];
-    
-    UINavigationController *navController = self.navigationController;
-    
-    signInViewController = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-    [signInViewController setSignInCompleteDelegate: self];
-    [signInViewController setAchSetupCompleteDelegate:self];
-    
-    [navController pushViewController:signInViewController animated: YES];
-    
-    
-}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CGFloat xOffset = 0;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        xOffset = 224;
+    }
     
+    detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[[UIApplication sharedApplication] delegate] window].frame.size.height-20)];
+    detailView.backgroundColor = [UIColor redColor]; // Transparent view with subviews
+    detailView.animate = YES;
+    detailView.delegate = self;
+    
+    detailView.handleView.backgroundColor = [UIColor darkGrayColor];
+    detailView.handleView.frame = CGRectMake(0, 0, 40, 40);
+    
+    detailView.closedCenter = CGPointMake([[[UIApplication sharedApplication] delegate] window].frame.size.width + (detailView.frame.size.width/2), [[[UIApplication sharedApplication] delegate] window].frame.size.height*0.5+10);
+    detailView.openedCenter = CGPointMake([[[UIApplication sharedApplication] delegate] window].frame.size.width - (detailView.frame.size.width/2)+20, [[[UIApplication sharedApplication] delegate] window].frame.size.height*0.5+10);
+    detailView.center = detailView.closedCenter;
+    
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:detailView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerBottomLeft) cornerRadii:CGSizeMake(8.0, 8.0)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.frame = detailView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    detailView.layer.mask = maskLayer;
+    
+    // Darkened Layer
+    shadedLayer = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[[UIApplication sharedApplication] delegate] window].frame.size.width, [[[UIApplication sharedApplication] delegate] window].frame.size.height)];
+    shadedLayer.backgroundColor = [UIColor blackColor];
+    shadedLayer.layer.opacity = 0.0;
+    shadedLayer.userInteractionEnabled = NO;
+    
+    /*
+    // Create Shadow Layer
+    CAShapeLayer *shadowLayer = [CAShapeLayer layer];
+    [shadowLayer setFrame:detailView.bounds];
+    [shadowLayer setMasksToBounds:NO];
+    [shadowLayer setShadowRadius:5.0];
+    [shadowLayer setShouldRasterize:YES];
+    [shadowLayer setShadowPath:maskedPath.CGPath];
+    [shadowLayer setShadowColor:[UIColor blackColor].CGColor];
+    [shadowLayer setShadowOpacity:1.0];
+    [shadowLayer setShadowOffset:CGSizeMake(-4.0,5.0)];
+    
+    CALayer * roundedLayer = [CALayer layer];
+    [roundedLayer setFrame:detailView.bounds];
+    [roundedLayer setContents:(id)detailView.layer];
+    
+
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    [maskLayer setFrame:detailView.bounds];
+    [maskLayer setPath:maskedPath.CGPath];
+    
+    roundedLayer.mask = maskLayer;
+    detailView.layer.mask = maskLayer;
+    
+    [detailView.layer addSublayer:shadowLayer];
+    [detailView.layer addSublayer:roundedLayer];
+     */
+    
+    [self setTitle:@"Paystream"];
+    
+    // Show View
+    [detailView.handleView.layer setCornerRadius:8.0];
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:detailView];
+    [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
+    
+    [detailView release];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -495,35 +545,37 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    /*          Implement later for floating detail view controllers        
-    CQMFloatingController *floatingController = [CQMFloatingController sharedFloatingController];
-    CreateAccountViewController * homeVC = [[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle:nil];
-    
-    [floatingController showInView:[self view] withContentViewController:homeVC animated:YES];
-    */
-    
     PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
+    /*
     
     if([item.messageType isEqualToString: @"Payment"])
     {
         if([item.direction isEqualToString: @"In"])
-            ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamIncomingPaymentViewController alloc] init];
+            detailView = [[PaystreamIncomingPaymentViewController alloc] init];
         else
-           ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamOutgoingPaymentViewController alloc] init];
+           detailView = [[PaystreamOutgoingPaymentViewController alloc] init];
     }
     else {
         if([item.direction isEqualToString: @"In"])
-                ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamIncomingRequestViewController alloc] init];
+                detailView = [[PaystreamIncomingRequestViewController alloc] init];
         else
-            ctrlDetailView = (PaystreamBaseViewController*)[[PaystreamOutgoingRequestViewController alloc] init];
+            detailView = [[PaystreamOutgoingRequestViewController alloc] init];
     }
+    */
     
+    
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
+    [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
+    [detailView setOpened:YES animated:YES];
+    
+    /*
     // Navigation logic may go here. Create and push another view controller.
-
+    
     // ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:ctrlDetailView animated:YES];
     ctrlDetailView.messageDetail = item;
+    */
 }
 
 -(IBAction)segmentedControlChanged {
@@ -559,6 +611,43 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [transactionsTableView reloadData];
     
     [filteredTransactions release];
+}
+
+
+- (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened
+{
+    if ( ! opened ) { // View totally closed
+        [shadedLayer removeFromSuperview];
+    }
+}
+
+- (void)pullableView:(PullableView *)pView didMoveLocation:(float)relativePosition
+{
+    shadedLayer.layer.opacity = ( 0.7 - (0.7 * relativePosition));
+    NSLog(@"Setting Opacity to %f , position %f", shadedLayer.layer.opacity , relativePosition );
+}
+
+
+- (void)pullableView:(PullableView *)pView startedAnimation:(float)animationDuration withDirection:(BOOL)directionBoolean;
+{
+    NSLog(@"Starting Animation with direction: %@" , directionBoolean ? @"OPENING" : @"CLOSING");
+    
+    if ( directionBoolean ){
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
+        [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
+    
+        if ( detailView.layer.position.x != detailView.openedCenter.x ){
+            [UIView beginAnimations:@"Darken" context:NULL];
+            [UIView setAnimationDuration:animationDuration];
+            shadedLayer.layer.opacity = 0.7;
+            [UIView commitAnimations];
+        }
+    } else {
+        [UIView beginAnimations:@"Lighten" context:NULL];
+        [UIView setAnimationDuration:animationDuration];
+        shadedLayer.layer.opacity = 0.0;
+        [UIView commitAnimations];
+    }
 }
 
 

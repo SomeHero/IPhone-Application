@@ -96,10 +96,10 @@
 									<object class="IBUIButton" id="269461001">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrameSize">{300, 347}</string>
+										<string key="NSFrameSize">{308, 347}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="553159145"/>
+										<reference key="NSNextKeyView" ref="233120752"/>
 										<object class="NSColor" key="IBUIBackgroundColor" id="57948443">
 											<int key="NSColorSpace">3</int>
 											<bytes key="NSWhite">MCAwAA</bytes>
@@ -117,31 +117,10 @@
 										<reference key="IBUIFontDescription" ref="215009902"/>
 										<reference key="IBUIFont" ref="356481936"/>
 									</object>
-									<object class="IBUIButton" id="1019267387">
-										<reference key="NSNextResponder" ref="22969862"/>
-										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 278}, {280, 50}}</string>
-										<reference key="NSSuperview" ref="22969862"/>
-										<reference key="NSWindow"/>
-										<bool key="IBUIOpaque">NO</bool>
-										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<int key="IBUIContentHorizontalAlignment">0</int>
-										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUINormalTitle">Send Money Now</string>
-										<reference key="IBUIHighlightedTitleColor" ref="256472544"/>
-										<reference key="IBUINormalTitleColor" ref="256472544"/>
-										<reference key="IBUINormalTitleShadowColor" ref="1045078193"/>
-										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">BTN-SendMoney-NA.png</string>
-										</object>
-										<reference key="IBUIFontDescription" ref="215009902"/>
-										<reference key="IBUIFont" ref="356481936"/>
-									</object>
 									<object class="IBUIImageView" id="986696312">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{13, 86}, {275, 52}}</string>
+										<string key="NSFrame">{{5, 88}, {298, 58}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="433797034"/>
@@ -150,13 +129,17 @@
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<object class="NSCustomResource" key="IBUIImage">
 											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">sendmoneyAmount@2x.png</string>
+											<string key="NSResourceName">BTN-howmuch-596x116@2x.png</string>
+										</object>
+										<object class="NSCustomResource" key="IBUIHighlightedImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">BTN-howmuch-596x116-active@2x.png</string>
 										</object>
 									</object>
 									<object class="IBUIImageView" id="233120752">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{13, 22}, {275, 52}}</string>
+										<string key="NSFrame">{{5, 16}, {298, 58}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="773238810"/>
@@ -165,16 +148,21 @@
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<object class="NSCustomResource" key="IBUIImage">
 											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">sendmoneyprofile@2x.png</string>
+											<string key="NSResourceName">BTN-towhom-596x116@2x.png</string>
+										</object>
+										<object class="NSCustomResource" key="IBUIHighlightedImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">BTN-towhom-596x116-active@2x.png</string>
 										</object>
 									</object>
 									<object class="IBUIButton" id="773238810">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{14, 23}, {55, 49}}</string>
+										<string key="NSFrame">{{5, 16}, {57, 57}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="124299997"/>
+										<reference key="NSNextKeyView" ref="553159145"/>
+										<reference key="IBUIBackgroundColor" ref="57948443"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -192,7 +180,7 @@
 									<object class="IBUITextField" id="877052792">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{77, 97}, {100, 31}}</string>
+										<string key="NSFrame">{{77, 101}, {100, 31}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="374660195"/>
@@ -233,7 +221,7 @@
 									<object class="IBUILabel" id="124299997">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{76, 28}, {181, 30}}</string>
+										<string key="NSFrame">{{75, 21}, {181, 30}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="535879992"/>
@@ -265,7 +253,7 @@
 									<object class="IBUILabel" id="535879992">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{77, 48}, {193, 21}}</string>
+										<string key="NSFrame">{{77, 43}, {193, 21}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="986696312"/>
@@ -294,7 +282,7 @@
 									<object class="IBUIButton" id="433797034">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{13, 86}, {275, 52}}</string>
+										<string key="NSFrame">{{5, 88}, {298, 58}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="877052792"/>
@@ -324,7 +312,7 @@
 									<object class="IBUIImageView" id="374660195">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{13, 151}, {275, 114}}</string>
+										<string key="NSFrame">{{5, 157}, {298, 97}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="213582693"/>
@@ -335,23 +323,19 @@
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">sendmoneyComment@2x.png</string>
 										</object>
-										<object class="NSCustomResource" key="IBUIHighlightedImage">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">sendmoneyCommentActive@2x.png</string>
-										</object>
 									</object>
 									<object class="IBUITextView" id="213582693">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{13, 151}, {274, 103}}</string>
+										<string key="NSFrame">{{5, 159}, {298, 84}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
+										<reference key="NSNextKeyView" ref="1019719200"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">Yeah... so i'm paying you money to make an app within the app. Appception! Oh, and 38 114 61 is the RGB color of the bg</string>
+										<string key="IBUIText">Yeah... so i'm paying you money to make an app within the app. Appception! Oh, and 38 114 61 is the RGB color of the bg and there was a boy</string>
 										<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 											<int key="IBUIAutocapitalizationType">2</int>
 											<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -371,10 +355,10 @@
 									<object class="IBUIButton" id="553159145">
 										<reference key="NSNextResponder" ref="22969862"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{13, 21}, {275, 52}}</string>
+										<string key="NSFrame">{{5, 16}, {298, 58}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="233120752"/>
+										<reference key="NSNextKeyView" ref="124299997"/>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
@@ -391,8 +375,45 @@
 										<reference key="IBUIFontDescription" ref="554947802"/>
 										<reference key="IBUIFont" ref="620259600"/>
 									</object>
+									<object class="IBUIButton" id="1019719200">
+										<reference key="NSNextResponder" ref="22969862"/>
+										<int key="NSvFlags">292</int>
+										<string key="NSFrame">{{5, 282}, {298, 50}}</string>
+										<reference key="NSSuperview" ref="22969862"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
+										<string key="NSReuseIdentifierKey">_NS:9</string>
+										<reference key="IBUIBackgroundColor" ref="57948443"/>
+										<bool key="IBUIOpaque">NO</bool>
+										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<int key="IBUIContentHorizontalAlignment">0</int>
+										<int key="IBUIContentVerticalAlignment">0</int>
+										<double key="IBUITitleEdgeInsets.top">-2</double>
+										<double key="IBUITitleEdgeInsets.bottom">0.0</double>
+										<double key="IBUITitleEdgeInsets.left">0.0</double>
+										<double key="IBUITitleEdgeInsets.right">0.0</double>
+										<string key="IBUINormalTitle">Send Money</string>
+										<reference key="IBUIHighlightedTitleColor" ref="256472544"/>
+										<reference key="IBUINormalTitleColor" ref="256472544"/>
+										<reference key="IBUINormalTitleShadowColor" ref="1045078193"/>
+										<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">BTN-biggreen@2x.png</string>
+										</object>
+										<object class="IBUIFontDescription" key="IBUIFontDescription">
+											<string key="name">Helvetica-Bold</string>
+											<string key="family">Helvetica</string>
+											<int key="traits">2</int>
+											<double key="pointSize">16</double>
+										</object>
+										<object class="NSFont" key="IBUIFont">
+											<string key="NSName">Helvetica-Bold</string>
+											<double key="NSSize">16</double>
+											<int key="NSfFlags">16</int>
+										</object>
+									</object>
 								</object>
-								<string key="NSFrame">{{10, 11}, {300, 347}}</string>
+								<string key="NSFrame">{{6, 11}, {308, 347}}</string>
 								<reference key="NSSuperview" ref="344606816"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="269461001"/>
@@ -450,14 +471,6 @@
 						<reference key="destination" ref="344606816"/>
 					</object>
 					<int key="connectionID">39</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">chooseRecipientButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="553159145"/>
-					</object>
-					<int key="connectionID">65</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -527,9 +540,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">btnSendMoney</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1019267387"/>
+						<reference key="destination" ref="1019719200"/>
 					</object>
-					<int key="connectionID">84</int>
+					<int key="connectionID">86</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">chooseRecipientButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="553159145"/>
+					</object>
+					<int key="connectionID">65</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -547,15 +568,6 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">32</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">btnSendMoneyClicked:</string>
-						<reference key="source" ref="1019267387"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">47</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -640,15 +652,15 @@
 							<reference ref="124299997"/>
 							<reference ref="535879992"/>
 							<reference ref="877052792"/>
-							<reference ref="986696312"/>
-							<reference ref="233120752"/>
-							<reference ref="773238810"/>
-							<reference ref="269461001"/>
-							<reference ref="213582693"/>
-							<reference ref="433797034"/>
-							<reference ref="553159145"/>
-							<reference ref="1019267387"/>
 							<reference ref="374660195"/>
+							<reference ref="269461001"/>
+							<reference ref="986696312"/>
+							<reference ref="213582693"/>
+							<reference ref="233120752"/>
+							<reference ref="1019719200"/>
+							<reference ref="433797034"/>
+							<reference ref="773238810"/>
+							<reference ref="553159145"/>
 						</object>
 						<reference key="parent" ref="344606816"/>
 						<string key="objectName">View</string>
@@ -661,11 +673,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">79</int>
 						<reference key="object" ref="374660195"/>
-						<reference key="parent" ref="22969862"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">60</int>
-						<reference key="object" ref="553159145"/>
 						<reference key="parent" ref="22969862"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -710,8 +717,13 @@
 						<reference key="parent" ref="22969862"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">45</int>
-						<reference key="object" ref="1019267387"/>
+						<int key="objectID">85</int>
+						<reference key="object" ref="1019719200"/>
+						<reference key="parent" ref="22969862"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">60</int>
+						<reference key="object" ref="553159145"/>
 						<reference key="parent" ref="22969862"/>
 					</object>
 				</object>
@@ -728,7 +740,6 @@
 					<string>23.IBPluginDependency</string>
 					<string>31.IBPluginDependency</string>
 					<string>36.IBPluginDependency</string>
-					<string>45.IBPluginDependency</string>
 					<string>48.IBPluginDependency</string>
 					<string>53.IBPluginDependency</string>
 					<string>60.IBPluginDependency</string>
@@ -742,6 +753,8 @@
 					<string>73.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>79.IBPluginDependency</string>
 					<string>80.IBPluginDependency</string>
+					<string>85.IBPluginDependency</string>
+					<string>85.IBUIButtonInspectorSelectedEdgeInsetMetadataKey</string>
 				</object>
 				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -756,7 +769,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -767,6 +779,8 @@
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="1"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -781,7 +795,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">84</int>
+			<int key="maxID">86</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -965,19 +979,21 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>BTN-SendMoney-NA.png</string>
-				<string>sendmoneyAmount@2x.png</string>
+				<string>BTN-biggreen@2x.png</string>
+				<string>BTN-howmuch-596x116-active@2x.png</string>
+				<string>BTN-howmuch-596x116@2x.png</string>
+				<string>BTN-towhom-596x116-active@2x.png</string>
+				<string>BTN-towhom-596x116@2x.png</string>
 				<string>sendmoneyComment@2x.png</string>
-				<string>sendmoneyCommentActive@2x.png</string>
-				<string>sendmoneyprofile@2x.png</string>
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{597, 93}</string>
-				<string>{581, 116}</string>
+				<string>{596, 123}</string>
+				<string>{596, 116}</string>
+				<string>{596, 116}</string>
+				<string>{596, 116}</string>
+				<string>{596, 116}</string>
 				<string>{581, 252}</string>
-				<string>{581, 252}</string>
-				<string>{581, 116}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1181</string>

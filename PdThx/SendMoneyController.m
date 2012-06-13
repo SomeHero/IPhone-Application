@@ -16,7 +16,6 @@
 #import "SetupSecurityPin.h"
 #import "SendMoneyService.h"
 #import "ContactSelectViewController.h"
-#import "KeyboardAccessoryViewController.h"
 
 @interface SendMoneyController ()
 - (void)sendMoney;
@@ -24,8 +23,9 @@
 @end
 
 @implementation SendMoneyController
-@synthesize whiteBoxView, viewPanel, txtAmount, txtComments, btnSendMoney, amount, lm;
-@synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton;
+
+@synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
+@synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
 
 float tableHeight2 = 30;
 
@@ -40,6 +40,7 @@ float tableHeight2 = 30;
 - (void)dealloc
 {
     
+    /*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
     [viewPanel release];
@@ -47,6 +48,7 @@ float tableHeight2 = 30;
     [sendMoneyService release];
     [lm release];
     
+    /*  ------------------------------------------------------ */
     /*                Image/TextField Releases                 */
     /*  ------------------------------------------------------ */
     [txtAmount release];
@@ -115,8 +117,10 @@ float tableHeight2 = 30;
     /*  --------------------------------------- */
     chooseRecipientButton.backgroundColor = [UIColor clearColor];
     chooseAmountButton.backgroundColor = [UIColor clearColor];
-    [recipientImageButton.layer setCornerRadius:4.0];
+    [recipientImageButton.layer setCornerRadius:5.0];
     [recipientImageButton.layer setMasksToBounds:YES];
+    [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
     
     
     
@@ -138,7 +142,7 @@ float tableHeight2 = 30;
     
     comments = [[NSString alloc] initWithString: @""];
     
-    self.navigationItem.title = @"Send $";
+    [self setTitle:@"Send $"];
     
     [txtAmount setDelegate:self];
     txtAmount.text = @"$0.00";
@@ -194,22 +198,6 @@ float tableHeight2 = 30;
 /*  ------------------------------------------------------ */
 /*                Button Action Handling                   */
 /*  ------------------------------------------------------ */
-
-
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate signOut];
-    
-    UINavigationController *navController = self.navigationController;
-    
-    SendMoneyController *sendMoneyController = [[[SendMoneyController alloc] initWithNibName:@"SendMoneyController" bundle:nil] autorelease];
-    
-    [self removeCurrentViewFromNavigation:navController];
-    [navController pushViewController:sendMoneyController animated: YES];
-    
-}
-
 
 - (IBAction)pressedChooseRecipientButton:(id)sender 
 {
@@ -644,7 +632,10 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
      //   Only used if delegate is set.
      - (void)didCloseModalPanel:(UAModalPanel *)modalPanel {
          UADebugLog(@"didCloseModalPanel called with modalPanel: %@", modalPanel);
-     }
+    }
+
+
+
     
 @end
 
@@ -713,4 +704,6 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
  [self finishedSearching];
  }
  */
+
+
 

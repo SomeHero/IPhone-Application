@@ -50,6 +50,11 @@
     [tvSubview reloadData];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [txtSearchBox becomeFirstResponder];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -60,6 +65,28 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
+}
+
+/*
+-(void)viewDidAppear:(BOOL)animated
+{
+    if ( self.navigationController.navigationItem.backBarButtonItem != nil ) {
+        UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
+        UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+        settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+        [settingsBtn addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+        
+        self.navigationItem.backBarButtonItem = settingsButtons;
+        [settingsButtons release];
+    }
+}
+*/
+
+-(void) backButtonClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidUnload
@@ -133,7 +160,7 @@
     
     // Return the number of rows in the section.
     if ( isFiltered == YES ){
-        if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 1 && !foundFiltered)
+        if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
             return 1;
         else
             return [[filteredResults objectAtIndex:section] count];
@@ -195,6 +222,7 @@
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
     
+    NSLog(@"Reloading TableView, Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
     Contact *contact;
     if ( isFiltered == YES ) {
         if ( foundFiltered == NO ){ // Only Show it once (section0)
@@ -525,8 +553,8 @@
                 }
             }
         }
-        
-        [tvSubview reloadData];
     }
+    NSLog(@"Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
+    [tvSubview reloadData];
 }
 @end

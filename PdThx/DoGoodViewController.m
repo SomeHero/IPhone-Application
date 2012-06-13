@@ -20,6 +20,7 @@
     if (self) {
         // Custom initialization
         self.view = viewPanel;
+        
     }
     return self;
 }
@@ -28,6 +29,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setTitle:@"Do Good"];
 }
 
 - (void)viewDidUnload
@@ -48,4 +50,5 @@
     [viewPanel release];
     [super dealloc];
 }
+
 @end
