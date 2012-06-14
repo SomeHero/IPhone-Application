@@ -1,0 +1,104 @@
+//
+//  SignInWithFBService.m
+//  PdThx
+//
+//  Created by James Rhodes on 5/23/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "SignInWithFBService.h"
+#import "Environment.h"
+#import "ASIHTTPRequest.h"
+#import "SBJsonParser.h"
+#import "PdThxAppDelegate.h"
+#import "JSON.h"
+
+@implementation SignInWithFBService
+
+@synthesize  fbSignInCompleteDelegate;
+-(void) validateUser:(NSDictionary*)response
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/signin_withfacebook?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+    
+    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              apiKey , @"apiKey",
+                              [response objectForKey:@"id"], @"accountId",
+                              [response objectForKey:@"first_name"], @"firstName",
+                              [response objectForKey:@"last_name"], @"lastName",
+                              [response objectForKey:@"email"], @"emailAddress",
+                              [prefs stringForKey:@"deviceToken"], @"deviceToken",
+                              nil];
+    
+    NSString * newJSON = [userData JSONRepresentation]; 
+    
+    requestObj= [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
+    [requestObj setRequestMethod: @"POST"];
+    
+    [requestObj setDelegate:self];
+    [requestObj setDidFinishSelector:@selector(validateUserComplete:)];
+    [requestObj setDidFailSelector:@selector(validateUserFailed:)];
+    
+    [requestObj startAsynchronous];
+}
+-(void) validateUserComplete:(ASIHTTPRequest *)request
+{
+    if([request responseStatusCode] == 200 ) {
+        NSLog(@"User Validation Success");
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        BOOL hasBankAccount = [[jsonDictionary objectForKey:@"hasACHAccount"] boolValue];
+        BOOL hasSecurityPin = [[jsonDictionary objectForKey:@"hasSecurityPin"] boolValue];
+        NSString* userId = [jsonDictionary valueForKey:@"userId"];
+        NSString* mobileNumber = [jsonDictionary valueForKey: @"mobileNumber"];
+        NSString* paymentAccountId = [jsonDictionary valueForKey: @"paymentAccountId"];
+        
+        /*      For Reference
+         -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID;
+         
+         -(void)fbSignInDidFail:(NSString *)reason;
+         */
+        
+        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber];
+        
+    } else
+    {
+        NSLog(@"User Validation Failed");
+        
+        NSString* response = [NSString stringWithString: @"Unable to validate user.  Try again."];
+        
+        [fbSignInCompleteDelegate fbSignInDidFail:response];
+    }
+    
+}
+-(void) validateUserFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"User Validation Failed with Exception");
+    
+    NSString* response = [NSString stringWithString: @"Unable to validate user.  Try again."];
+    
+    [fbSignInCompleteDelegate fbSignInDidFail:response];    
+    
+}
+- (void)dealloc
+{
+    //[userInformationCompleteDelegate release];
+    [requestObj release];
+    
+    [super dealloc];
+}
+
+
+@end

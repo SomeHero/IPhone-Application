@@ -1,0 +1,22 @@
+//
+//  PaystreamOutgoingRequestViewController.h
+//  PdThx
+//
+//  Created by James Rhodes on 6/6/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "PaystreamBaseViewController.h"
+#import "CancelPaymentRequestProtocol.h"
+#import "CancelPaymentProtocol.h"
+
+@interface PaystreamOutgoingRequestViewController : PaystreamBaseViewController<CancelPaymentRequestProtocol> {
+    IBOutlet UIButton* btnCancel;
+}
+
+@property(nonatomic, retain) UIButton* btnCancel;
+
+-(IBAction) btnCancelClicked:(id) sender;
+
+@end

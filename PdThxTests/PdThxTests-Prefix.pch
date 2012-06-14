@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'PdThxTests' target in the 'PdThxTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif
