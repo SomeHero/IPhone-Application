@@ -584,74 +584,11 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
 
 
-    
+-(void)didSelectAmount:(double)amountSent
+{
+    txtAmount.text = [NSString stringWithFormat:@"%f",amountSent];
+}
 @end
-
-
-/*
- #pragma mark UITableViewDelegate methods
- 
- - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
- return 1;
- }
- 
- - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
- 
- //Resize auto complete table based on how many elements will be displayed in the table
- if (autoCompleteArray.count >=3) {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*3);
- return autoCompleteArray.count;
- }
- 
- else if (autoCompleteArray.count == 2) {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*2);
- return autoCompleteArray.count;
- }
- else if (autoCompleteArray.count >= 1) {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2);
- return autoCompleteArray.count;
- }
- else  {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, 0);
- return autoCompleteArray.count;
- }
- }
- 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell;
- static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
- cell = [tableView dequeueReusableCellWithIdentifier:AutoCompleteRowIdentifier];
- if (cell == nil) {
- cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteRowIdentifier] autorelease];
- }
- Contact *contact = [autoCompleteArray objectAtIndex:indexPath.row];
- 
- cell.textLabel.text = contact.phoneNumber;
- cell.detailTextLabel.text = contact.name;
- cell.isAccessibilityElement = YES;
- 
- return cell;
- }
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
- txtRecipientUri.text = [[[NSString alloc] initWithString:[[selectedCell.textLabel.text copy] autorelease]] autorelease];
- 
- NSInteger nextTag = txtRecipientUri.tag + 1;
- // Try to find next responder
- UIResponder* nextResponder = [txtRecipientUri.superview viewWithTag:nextTag];
- if (nextResponder) {
- // Found next responder, so set it.
- [nextResponder becomeFirstResponder];
- } else {
- // Not found, so remove keyboard.
- [txtRecipientUri resignFirstResponder];
- 
- [self sendMoney];
- }
- 
- [self finishedSearching];
- }
- */
 
 
 

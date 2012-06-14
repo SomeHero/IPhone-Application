@@ -14,10 +14,12 @@
     id<AmountSelectChosenProtocol> amountChosenDelegate;
     IBOutlet UITextField *amountDisplayLabel;
     IBOutlet UIButton *goButton;
+    IBOutlet UIButton *quickAmount0;
 }
 
 - (IBAction)amountChanged:(id)sender;
 - (IBAction)pressedGoButton:(id)sender;
+- (IBAction)pressedQuickAmount0:(id)sender;
 
 @property (assign) id amountChosenDelegate;
 

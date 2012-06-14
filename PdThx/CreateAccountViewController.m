@@ -13,6 +13,11 @@
 #define kScreenWidth  320
 #define kScreenHeight  400
 
+#define KEYBOARD_ANIMATION_DURATION 0.3
+#define MINIMUM_SCROLL_FRACTION 0.0
+#define MAXIMUM_SCROLL_FRACTION 0.8
+#define KEYBOARD_HEIGHT 162
+
 @interface CreateAccountViewController ()
 - (void)createAccount;
 
@@ -301,6 +306,11 @@
     [prefs setObject:userId forKey:@"userId"];
     [prefs synchronize];
     
+    
+    txtEmailAddress.text = @"";
+    txtPassword.text = @"";
+    txtConfirmPassword.text = @"";
+    
     [self sendInAppSMS: self];
     
 }
@@ -349,6 +359,56 @@
 }
 -(void)achSetupDidComplete {
     [achSetupCompleteDelegate achSetupDidComplete];
+}
+
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    CGRect textFieldRect =
+    [self.view.window convertRect:textField.bounds fromView:textField];
+    CGRect viewRect =
+    [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+    CGFloat numerator = midline - viewRect.origin.y - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+    CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * viewRect.size.height;
+    CGFloat heightFraction = numerator / denominator;
+    
+    if (heightFraction < 0.0)
+        heightFraction = 0.0;
+    else if (heightFraction > 1.0)
+        heightFraction = 1.0;
+    
+    UIInterfaceOrientation orientation =
+    [[UIApplication sharedApplication] statusBarOrientation];
+    if (orientation == UIInterfaceOrientationPortrait ||
+        orientation == UIInterfaceOrientationPortraitUpsideDown)
+        animatedDistance = floor(KEYBOARD_HEIGHT * heightFraction);
+    
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y -= animatedDistance;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += animatedDistance;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
 }
 
 @end

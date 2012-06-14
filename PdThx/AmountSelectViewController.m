@@ -47,6 +47,8 @@
     amountDisplayLabel = nil;
     [goButton release];
     goButton = nil;
+    [quickAmount0 release];
+    quickAmount0 = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -81,6 +83,7 @@
 - (void)dealloc {
     [amountDisplayLabel release];
     [goButton release];
+    [quickAmount0 release];
     [super dealloc];
 }
 
@@ -89,9 +92,16 @@
     
 }
 
+
 - (IBAction)pressedGoButton:(id)sender
 {
     
+}
+
+- (IBAction)pressedQuickAmount0:(id)sender {
+    [amountChosenDelegate didSelectAmount:1.0];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

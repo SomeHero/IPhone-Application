@@ -281,7 +281,6 @@
 						<string key="NSFrame">{{144, 161}, {174, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -424,6 +423,14 @@
 					<int key="connectionID">21</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">quickAmount0</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="884316196"/>
+					</object>
+					<int key="connectionID">26</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">pressedGoButton:</string>
 						<reference key="source" ref="4299652"/>
@@ -431,6 +438,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">pressedQuickAmount0:</string>
+						<reference key="source" ref="884316196"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">27</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -471,9 +487,9 @@
 							<reference ref="324446337"/>
 							<reference ref="772698825"/>
 							<reference ref="364659305"/>
-							<reference ref="884316196"/>
 							<reference ref="405135446"/>
 							<reference ref="706962782"/>
+							<reference ref="884316196"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -573,7 +589,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -583,6 +599,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="amountChanged:">id</string>
 						<string key="pressedGoButton:">id</string>
+						<string key="pressedQuickAmount0:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="amountChanged:">
@@ -593,10 +610,15 @@
 							<string key="name">pressedGoButton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="pressedQuickAmount0:">
+							<string key="name">pressedQuickAmount0:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="amountDisplayLabel">UITextField</string>
 						<string key="goButton">UIButton</string>
+						<string key="quickAmount0">UIButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="amountDisplayLabel">
@@ -605,6 +627,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="goButton">
 							<string key="name">goButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="quickAmount0">
+							<string key="name">quickAmount0</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 					</dictionary>
