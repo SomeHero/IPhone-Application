@@ -16,6 +16,7 @@
 #import "SetupSecurityPin.h"
 #import "SendMoneyService.h"
 #import "ContactSelectViewController.h"
+#import "AmountSelectViewController.h"
 
 @interface SendMoneyController ()
 - (void)sendMoney;
@@ -207,7 +208,13 @@ float tableHeight2 = 30;
     newView.contactSelectChosenDelegate = self;
 }
 
-- (IBAction)pressedAmountButton:(id)sender {
+- (IBAction)pressedAmountButton:(id)sender 
+{
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+    
 }
 
 
@@ -469,65 +476,6 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
 
 
-// String in Search textfield
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(textField.tag == 1) {
-        NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
-        [tempAmount appendString: @"$"];
-        
-        if([string isEqualToString:@""]) {
-            for (int i = 0; i< [textField.text length] - 1; i++) {
-                if([string length] == 0 && i == [textField.text length] - 1)
-                    continue;
-                
-                char digit;
-                digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
-                
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-                
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-        }
-        else if([string stringByTrimmingCharactersInSet:
-                 [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
-            
-            BOOL firstDigit = YES;
-            for (int i = 0; i< [textField.text length]; i++) {
-                
-                char digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
-                
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-                if(digit == '0' && firstDigit) {
-                    firstDigit = NO;
-                    continue;
-                    
-                }
-                firstDigit = NO;
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-            
-        }
-        
-        return NO;
-    }
-    return YES;
-}
 
 
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
@@ -636,74 +584,11 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
 
 
-    
+-(void)didSelectAmount:(double)amountSent
+{
+    txtAmount.text = [NSString stringWithFormat:@"%f",amountSent];
+}
 @end
-
-
-/*
- #pragma mark UITableViewDelegate methods
- 
- - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
- return 1;
- }
- 
- - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
- 
- //Resize auto complete table based on how many elements will be displayed in the table
- if (autoCompleteArray.count >=3) {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*3);
- return autoCompleteArray.count;
- }
- 
- else if (autoCompleteArray.count == 2) {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2*2);
- return autoCompleteArray.count;
- }
- else if (autoCompleteArray.count >= 1) {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y + txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight2);
- return autoCompleteArray.count;
- }
- else  {
- autoCompleteTableView.frame = CGRectMake(txtRecipientUri.frame.origin.x+2, viewPanel.frame.origin.y +  txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, 0);
- return autoCompleteArray.count;
- }
- }
- 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell;
- static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
- cell = [tableView dequeueReusableCellWithIdentifier:AutoCompleteRowIdentifier];
- if (cell == nil) {
- cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteRowIdentifier] autorelease];
- }
- Contact *contact = [autoCompleteArray objectAtIndex:indexPath.row];
- 
- cell.textLabel.text = contact.phoneNumber;
- cell.detailTextLabel.text = contact.name;
- cell.isAccessibilityElement = YES;
- 
- return cell;
- }
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
- txtRecipientUri.text = [[[NSString alloc] initWithString:[[selectedCell.textLabel.text copy] autorelease]] autorelease];
- 
- NSInteger nextTag = txtRecipientUri.tag + 1;
- // Try to find next responder
- UIResponder* nextResponder = [txtRecipientUri.superview viewWithTag:nextTag];
- if (nextResponder) {
- // Found next responder, so set it.
- [nextResponder becomeFirstResponder];
- } else {
- // Not found, so remove keyboard.
- [txtRecipientUri resignFirstResponder];
- 
- [self sendMoney];
- }
- 
- [self finishedSearching];
- }
- */
 
 
 

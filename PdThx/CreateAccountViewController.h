@@ -33,6 +33,7 @@ ACHSetupCompleteProtocol, UITextFieldDelegate, MFMessageComposeViewControllerDel
     RegisterUserService* registerUserService;
     UserService* userService;
     NSString* registrationKey;
+    float animatedDistance;
 }
 @property(nonatomic, retain) UIButton *btnCreateAccount;
 @property(nonatomic, retain) UITextField *txtEmailAddress;
@@ -40,6 +41,7 @@ ACHSetupCompleteProtocol, UITextFieldDelegate, MFMessageComposeViewControllerDel
 @property(nonatomic, retain) UITextField *txtConfirmPassword;
 @property(nonatomic, assign) UIView* viewPanel;
 @property(retain) id achSetupCompleteDelegate;
+@property(nonatomic, assign) float animatedDistance;
 
 
 -(IBAction) bgTouched:(id) sender;

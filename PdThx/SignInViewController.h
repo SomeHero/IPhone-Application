@@ -30,6 +30,7 @@
     Facebook *fBook;
     UIAlertView * bankAlert;
     //SetupACHAccountController * setupACHAccountController;
+    float animatedDistance;
 }
 
 @property(nonatomic, retain) UITextField *txtEmailAddress;
@@ -41,6 +42,7 @@
 @property(nonatomic, retain) SignInWithFBService* service;
 @property(nonatomic, retain) UIAlertView * bankAlert;
 //@property(nonatomic, retain) SetupACHAccountController * setupACHAccountController;
+@property(nonatomic, assign) float animatedDistance;
 
 -(IBAction) bgTouched:(id)sender;
 -(IBAction) btnSignInClicked:(id)sender;
