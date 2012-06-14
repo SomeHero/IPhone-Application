@@ -28,7 +28,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-
+        [self setTitle:@"Home"];
     }
     return self;
 }
@@ -157,19 +157,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate signOut];
-   
-    UINavigationController *navController = self.navigationController;
 
-    signInViewController = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-    [signInViewController setSignInCompleteDelegate: self];
-    [signInViewController setAchSetupCompleteDelegate:self];
-    
-    [navController pushViewController:signInViewController animated: YES];
-}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -193,5 +182,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [appDelegate switchToSendMoneyController];
 }
+
+
 
 @end

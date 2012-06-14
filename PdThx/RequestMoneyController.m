@@ -25,7 +25,6 @@
 - (BOOL)isValidAmount:(NSString *)amountToTest;
 
 - (void)requestMoney;
-- (void)signOutClicked;
 - (void)showModalPanel;
 
 
@@ -39,7 +38,7 @@
 @synthesize recipientImageButton;
 @synthesize chooseRecipientButton;
 @synthesize contactHead;
-@synthesize contactDetail;
+@synthesize contactDetail, lm;
 
 
 float tableHeight = 30;
@@ -55,6 +54,7 @@ float tableHeight = 30;
 
 - (void)dealloc
 {
+    [lm release];
     [viewPanel release];
     [txtAmount release];
     [txtComments release];
@@ -99,12 +99,11 @@ float tableHeight = 30;
     //---set the viewable frame of the scroll view---
     scrollView.frame = CGRectMake(0, 0, 320, 460);
     //---set the content size of the scroll view---
-    [scrollView setContentSize:CGSizeMake(320, 713)];
+    [scrollView setContentSize:CGSizeMake(320, 460)];
 
 
     //[self loadContacts];
-
-    self.navigationItem.title = @"Request $";
+    [self setTitle:@"Request $"];
 
     //setup internal viewpanel
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
@@ -142,11 +141,33 @@ float tableHeight = 30;
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
+    
+    lm = [[CLLocationManager alloc]init];
+    if ([lm locationServicesEnabled]) {
+        lm.delegate = self;
+        lm.desiredAccuracy = kCLLocationAccuracyBest;
+        lm.distanceFilter = 1000.0f;
+        [lm startUpdatingLocation];
+    }
 
 }
 
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    if (newLocation != nil) {
+        latitude = newLocation.coordinate.latitude;
+        longitude = newLocation.coordinate.longitude;
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"%@", error.description);
+}
+
+
 - (void)viewDidUnload
 {
+    [lm stopUpdatingLocation];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -193,6 +214,7 @@ float tableHeight = 30;
   NSInteger nextTag = textField.tag + 1;
   // Try to find next responder
   UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+
     if (nextResponder) {
         // Found next responder, so set it.
         [textField resignFirstResponder];
@@ -203,6 +225,7 @@ float tableHeight = 30;
 
         [self requestMoney];
     }
+    
     return NO; // We do not want UITextField to insert line-breaks.
 }
 
@@ -279,7 +302,6 @@ float tableHeight = 30;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
-
 	
 }
 
@@ -319,7 +341,7 @@ float tableHeight = 30;
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
-
+        
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
 
@@ -343,28 +365,15 @@ float tableHeight = 30;
     
     return YES;
 }
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    [appDelegate signOut];
 
-    UINavigationController *navController = self.navigationController;
-
-    RequestMoneyController *requestMoneyController = [[[RequestMoneyController alloc] initWithNibName:@"RequestMoneyController" bundle:nil] autorelease];
-
-    //[requestMoneyController setSignInCompleteDelegate: self];
-    //[requestMoneyController setAchSetupCompleteDelegate:self];
-
-    [self removeCurrentViewFromNavigation: navController];
-    [navController pushViewController:requestMoneyController animated: YES];
-
-}
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
     if([recipientUriToTest length]  == 0)
         return false;
     
     return true;
-    }
+}
+
 -(BOOL) isValidAmount:(NSString *) amountToTest {
     amountToTest = [amountToTest stringByReplacingOccurrencesOfString:@"$" withString:@""];
 
@@ -459,9 +468,6 @@ float tableHeight = 30;
     NSString* userId = [prefs stringForKey:@"userId"];
     NSString* senderUri;
     NSString* username = [prefs stringForKey:@"userName"];
-    
-    double latitude = 0.0;
-    double longitude = 0.0;
     
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
@@ -586,4 +592,7 @@ float tableHeight = 30;
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self showModalPanel];
 }
+
+
+
 @end

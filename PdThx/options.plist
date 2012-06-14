@@ -5,13 +5,18 @@
 	<key>Section 1</key>
 	<array>
 		<dict>
-			<key>Image</key>
-			<string>icon-key.png</string>
 			<key>Label</key>
-			<string>Set Security Pin</string>
+			<string>Security Pin</string>
+			<key>Image</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Label</key>
+			<string>MeCode SetUp</string>
+			<key>Image</key>
+			<string></string>
 		</dict>
 	</array>
-
 	<key>Section 3</key>
 	<array>
 		<dict>

@@ -11,6 +11,7 @@
 #import "UIBaseViewController.h"
 #import "UserSetupACHAccount.h"
 #import "UserSetupACHAccountComplete.h"
+#import "ACHAccountReminderProtocol.h"
 
 @interface SetupACHAccountController : UIBaseViewController<UITextFieldDelegate> {
     IBOutlet UITextField* txtNameOnAccount;

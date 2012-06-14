@@ -17,13 +17,34 @@
 #import "Contact.h"
 #import <AddressBook/AddressBook.h>
 #import "PhoneNumberFormatting.h"
+#import "ContactSelectViewController.h"
+#import "UINavigationBar+CustomImage.h"
+
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize tabBarController=_tabBarController;
-@synthesize fBook, deviceToken, phoneNumberFormatter, permissions, tempArray, contactsArray;
+@synthesize tabBarController=_tabBarController, welcomeTabBarController;
+@synthesize fBook, deviceToken, phoneNumberFormatter, 
+    permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 
+-(void)switchToMainAreaTabbedView
+{
+    [self.welcomeTabBarController.view removeFromSuperview];
+    
+    [self.window addSubview:self.tabBarController.view];
+    [self.tabBarController setSelectedIndex:0];
+    [self.window bringSubviewToFront:self.tabBarController.view];
+}
+
+-(void)backToWelcomeTabbedArea
+{
+    [self.tabBarController.view removeFromSuperview];
+    
+    [self.window addSubview:self.welcomeTabBarController.view];
+    [self.welcomeTabBarController setSelectedIndex:1];
+    [self.window bringSubviewToFront:self.welcomeTabBarController.view];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,8 +53,11 @@
     [self.tabBarController setDelegate:self];
 
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
-    [self.window addSubview:self.tabBarController.view];
-    [self.tabBarController setSelectedIndex:1];
+    
+    [self.welcomeTabBarController setDelegate:self];
+    [self.window addSubview:self.welcomeTabBarController.view];
+    [self.welcomeTabBarController setSelectedIndex:0];
+    [self.window bringSubviewToFront:welcomeTabBarController.view];
     
     
     // Make the device expect notifications
@@ -50,11 +74,12 @@
     }
     
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
-    
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
     contactsArray = [[NSMutableArray alloc] init];
     tempArray = [[NSMutableArray alloc] init];
+    
+    areFacebookContactsLoaded = NO;
     
     [self loadAllContacts];
     
@@ -114,7 +139,7 @@
     if ( [fBook isSessionValid] )
         [fBook logout];
     
-    NSLog (@"Session should be invalid.. Worked? %@", [fBook isSessionValid] ? @"YES" : @"NO");
+    areFacebookContactsLoaded = NO;
     
     // Reload all Contacts (without Facebook permissions)
     [self loadAllContacts];
@@ -143,6 +168,15 @@
     [self.tabBarController setSelectedIndex:2];
 }
 
+/*
+-(UIImage*)findImageForContact:(Contact*)contact;
+{
+    if ( [contactsArray indexOfObject:contact] )
+        return ((Contact*)[contactsArray objectAtIndex:[contactsArray indexOfObject:contact]]).imgData;
+    else
+        return [UIImage imageWithContentsOfFile:@"avatar_unknown.jpg"];
+}
+ */
 
 /*       Push Notification Handling         */
 
@@ -233,6 +267,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         CFStringRef lastName = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
         NSString *contactFirstLast = [NSString stringWithFormat: @"%@ %@", (NSString *)firstName, (NSString *)lastName];
         
@@ -240,23 +275,25 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
         
         // Handles Multiple Phone Numbers for One Contact...
-        for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
-            CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
-            NSString *phoneNumber = (NSString *) phoneNumberRef;
-            
-            contact = [[Contact alloc] init];
-            contact.name = contactFirstLast;
-            contact.firstName = (NSString*)firstName;
-            contact.lastName = (NSString*)lastName;
-            NSLog(@"Phone Number: %@", phoneNumber);
-            contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
-            contact.recipientUri = [contact.phoneNumber copy];
-            NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
-            [tempArray addObject:contact];
-            
-            index++;
-            
-            [contact release];
+        if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){
+            for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
+                CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
+                NSString *phoneNumber = (NSString *) phoneNumberRef;
+                
+                contact = [[Contact alloc] init];
+                contact.name = contactFirstLast;
+                contact.firstName = (NSString*)firstName;
+                contact.lastName = (NSString*)lastName;
+                NSLog(@"Phone Number: %@", phoneNumber);
+                contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
+                contact.recipientUri = [contact.phoneNumber copy];
+                //NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
+                [tempArray addObject:contact];
+                
+                index++;
+                
+                [contact release];
+            }
         }
     }
     
@@ -282,6 +319,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [tempArray addObject:friend];
         [friend release];
     }
+    
+    areFacebookContactsLoaded = YES;
+    
     [self sortContacts];
 }
 
@@ -292,7 +332,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     } else {
         [contactsArray removeAllObjects];
     }
-    for ( int i = 0 ; i < 27 ; i ++ )
+    for ( int i = 0 ; i < 28 ; i ++ )
         [contactsArray addObject:[[NSMutableArray alloc] init]];
     
     tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
@@ -308,8 +348,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for (Contact*person in tempArray) {
         comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
         
-        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-65] addObject:person];
+        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
+    
     NSLog(@"Contacts Ready.");
 }
 
@@ -342,7 +385,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 {
     [_window release];
     [_tabBarController release];
+    [welcomeTabBarController release];
     [fBook release];
     [super dealloc];
 }
+
+
+
 @end

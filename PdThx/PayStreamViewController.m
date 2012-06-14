@@ -14,11 +14,21 @@
 #import "GetPayStreamCompleteProtocol.h"
 #import "PaystreamMessage.h"
 #import "UIPaystreamTableViewCell.h"
+#import "IconDownloader.h"
+#import "CreateAccountViewController.h"
+#import "PaystreamDetailViewController.h"
 
 @implementation PayStreamViewController
 
-@synthesize viewPanel;
-@synthesize transactionsTableView;
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
+@synthesize viewPanel, psImagesDownloading;
+@synthesize transactionsTableView, shadedLayer;
+@synthesize ctrlPaystreamTypes, detailView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,6 +43,22 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    getPayStreamService = [[GetPayStreamService alloc] init];
+    [getPayStreamService setGetPayStreamCompleteDelegate:self];
+    
+    filteredTransactions = [[NSMutableArray alloc] init];
+    
+    // Do any additional setup after loading the view from its nib.
+    //setup internal viewpanel
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setCornerRadius: 8.0];
+    
+    [transactionsTableView setRowHeight:90];
+    [transactionsTableView setEditing:NO];
+    
+    self.psImagesDownloading = [NSMutableDictionary dictionary];
 }
 
 - (void)dealloc
@@ -40,13 +66,15 @@
     [viewPanel release];
     [transactionsTableView release];
 
-    [transactions release];
+    //[transactions release];
+    //[filteredTransactions release];
     [sections release];
     [transactionsDict release];
     [responseData release];
-    [transactionConnection release];
     [signInViewController release];
     [getPayStreamService release];
+    [ctrlPaystreamTypes release];
+    
     [super dealloc];
 }
 
@@ -57,47 +85,88 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+
 -(void)signInDidComplete {
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
+
 -(void)achSetupDidComplete {
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate signOut];
-    
-    UINavigationController *navController = self.navigationController;
-    
-    signInViewController = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-    [signInViewController setSignInCompleteDelegate: self];
-    [signInViewController setAchSetupCompleteDelegate:self];
-    
-    [navController pushViewController:signInViewController animated: YES];
-    
-    
-}
+
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CGFloat xOffset = 0;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        xOffset = 224;
+    }
     
-    getPayStreamService = [[GetPayStreamService alloc] init];
-    [getPayStreamService setGetPayStreamCompleteDelegate:self];
+    detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[UIScreen mainScreen] bounds].size.height-20)];
+    detailView.backgroundColor = [UIColor redColor]; // Transparent view with subviews
+    detailView.animate = YES;
+    detailView.delegate = self;
+    
+    detailView.handleView.backgroundColor = [UIColor darkGrayColor];
+    detailView.handleView.frame = CGRectMake(0, 0, 40, 40);
+    
+    detailView.closedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width + (detailView.frame.size.width/2), [[UIScreen mainScreen] bounds].size.height*0.5+10);
+    detailView.openedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width - (detailView.frame.size.width/2)+20, [[UIScreen mainScreen] bounds].size.height*0.5+10);
+    detailView.center = detailView.closedCenter;
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:detailView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerBottomLeft) cornerRadii:CGSizeMake(8.0, 8.0)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.frame = detailView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    detailView.layer.mask = maskLayer;
+    
+    // Darkened Layer
+    shadedLayer = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    shadedLayer.backgroundColor = [UIColor blackColor];
+    shadedLayer.layer.opacity = 0.0;
+    shadedLayer.userInteractionEnabled = NO;
+    
+    /*
+    // Create Shadow Layer
+    CAShapeLayer *shadowLayer = [CAShapeLayer layer];
+    [shadowLayer setFrame:detailView.bounds];
+    [shadowLayer setMasksToBounds:NO];
+    [shadowLayer setShadowRadius:5.0];
+    [shadowLayer setShouldRasterize:YES];
+    [shadowLayer setShadowPath:maskedPath.CGPath];
+    [shadowLayer setShadowColor:[UIColor blackColor].CGColor];
+    [shadowLayer setShadowOpacity:1.0];
+    [shadowLayer setShadowOffset:CGSizeMake(-4.0,5.0)];
+    
+    CALayer * roundedLayer = [CALayer layer];
+    [roundedLayer setFrame:detailView.bounds];
+    [roundedLayer setContents:(id)detailView.layer];
+    
 
-    // Do any additional setup after loading the view from its nib.
-    //setup internal viewpanel
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    [maskLayer setFrame:detailView.bounds];
+    [maskLayer setPath:maskedPath.CGPath];
     
-    [transactionsTableView setRowHeight:60];
-    [transactionsTableView setEditing:NO];
-   
+    roundedLayer.mask = maskLayer;
+    detailView.layer.mask = maskLayer;
+    
+    [detailView.layer addSublayer:shadowLayer];
+    [detailView.layer addSublayer:roundedLayer];
+     */
+    
+    [self setTitle:@"Paystream"];
+    
+    // Show View
+    [detailView.handleView.layer setCornerRadius:8.0];
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:detailView];
+    [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
+    
+    [detailView release];
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -105,6 +174,8 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSString* userId = [prefs stringForKey:@"userId"];
+    
+    ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
     
     if([userId length] == 0)
     {
@@ -125,48 +196,13 @@
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
     NSLog(@"Got paystream messages");
-    NSLog(@"Cleared Application Badge");
     
     transactions = [payStreamMessages copy];
-    sections = [[NSMutableArray alloc] init];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyy"];
+    [self buildTransactionDictionary: transactions];
     
-    bool found;
-    transactionsDict = [[NSMutableDictionary alloc] init];
-    
-    for(Transaction* item in transactions)
+    if([transactions count] == 0) 
     {
-        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
-        
-        found = NO;
-        
-        for(int i = 0; i <[sections count]; i++)
-        {
-            NSString * myDate = [sections objectAtIndex:(NSUInteger) i];
-            
-            if ([myDate isEqualToString:transactionDate])
-            {
-                found = YES;
-            }
-        }
-        
-        if(!found) {
-            [sections addObject: transactionDate];
-            [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey: transactionDate];
-        }
-    }
-    
-    for(Transaction* item in transactions)
-    {
-        
-        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
-        
-        [[transactionsDict objectForKey:transactionDate] addObject:item];
-    }
-    
-    if([transactions count] == 0) {
         [transactionsTableView setHidden:YES];
         
         NSString* noItems = [NSString stringWithString:  @"You have no items in your paystream.  Start sending or requesting some money!"];
@@ -210,8 +246,6 @@
         
         [[self transactionsTableView] reloadData];
     }
-    
-    [dateFormatter release];
 }
 
 - (void)viewDidUnload
@@ -226,6 +260,47 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+-(void)buildTransactionDictionary:(NSMutableArray*) array
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyy"];
+    
+    bool found;
+    transactionsDict = [[NSMutableDictionary alloc] init];
+    sections = [[NSMutableArray alloc] init];
+    
+    for(Transaction* item in array)
+    {
+        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
+        
+        found = NO;
+        
+        for(int i = 0; i <[sections count]; i++)
+        {
+            NSString * myDate = [sections objectAtIndex:(NSUInteger) i];
+            
+            if ([myDate isEqualToString:transactionDate])
+            {
+                found = YES;
+            }
+        }
+        
+        if(!found) {
+            [sections addObject: transactionDate];
+            [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey: transactionDate];
+        }
+    }
+    
+    for(Transaction* item in array)
+    {
+        
+        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
+        
+        [[transactionsDict objectForKey:transactionDate] addObject:item];
+    }
+    
+    [dateFormatter release];
+}
 
 #pragma mark - Table view data source
 
@@ -234,8 +309,8 @@
     // Return the number of sections.
     return [[transactionsDict allKeys] count];
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
+{
     return [sections objectAtIndex:(NSUInteger) section];
 }
 
@@ -251,43 +326,38 @@
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* mobileNumber = [prefs stringForKey:@"mobileNumber"];
-    
     UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                                     
+     
     if (cell == nil){
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
 
-    NSLog(@"%d", indexPath.section);
-    NSLog(@"%d", indexPath.row);
+     
+    [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
 
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-
+    
     // Configure the cell...
     if([item.direction isEqualToString:@"Out"]) {
+        //cell.transactionRecipient.text = [NSString stringWithFormat:@"row:%d sec%d",indexPath.row,indexPath.section];
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
+        //cell.transactionRecipient.text = [NSString stringWithFormat:@"row:%d sec%d",indexPath.row,indexPath.section];
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
-    if([item.direction isEqualToString:@"Out"]) {
-        if (!(item.recipientImageUri == (id)[NSNull null] || item.recipientImageUri.length == 0 )) {
-            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.recipientImageUri]];
-            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
-            [imageData release];
-        } else {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
+    
+    NSLog(@"Image stored for amount %@ : %@", item.amount,item.transactionImageUri);
+    if ( !item.imgData && item.transactionImageUri != (id)[NSNull null] )
+    {
+        if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO)
+        {
+            [self startIconDownload:item forIndexPath:indexPath];
         }
-    } else {
-        if (!(item.senderImageUri == (id)[NSNull null] || item.senderImageUri.length == 0 )) {
-            NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: item.senderImageUri]];
-            [cell.transactionImage setImage: [UIImage imageWithData: imageData]];
-            [imageData release];
-        } else {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"avatar_unknown.jpg"]];
-        }
+        // if a download is deferred or in progress, return a placeholder image
+        [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    } else if ( item.imgData ) {
+        [cell.transactionImageButton setBackgroundImage:item.imgData forState:UIControlStateNormal];
     }
     
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
@@ -297,31 +367,72 @@
     [dateFormatter setDateFormat:@"hh:mm a"];
     [dateFormatter setTimeZone: [NSTimeZone defaultTimeZone]];
 
-    cell.transactionAmount.text = [currencyFormatter stringFromNumber: item.amount];
+    NSString* amount = [NSString stringWithString:[currencyFormatter stringFromNumber: item.amount]];
+    
+    //248b3f
+    if([item.messageType isEqualToString: @"Payment"])
+    {
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        }
+        else
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        }
+    }
+    else
+    {
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
+        }
+        else
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+            cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        }
+    }
+    
     cell.transactionDate.text = [dateFormatter stringFromDate: item.createDate];
     //cell.imageView.image = [UIImage  imageNamed:@"icon_checkmark.png"];
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-    if([item.senderUri isEqualToString: mobileNumber])
-        if([item.messageType isEqualToString: @"Payment"])
-            cell.transactionType.text = @"Payment";
+    if([item.messageType isEqualToString: @"Payment"])
+    {
+        if([item.direction isEqualToString: @"In"])
+            cell.lblTransactionDirection.text = @"Sent money to you";
         else
-            cell.transactionType.text = @"Payment Request";
-            
-            /*[cell.transactionImage setImage: [UIImage imageNamed: @"paystream_sent_icon.png"]];
-        } else  {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_request_sent_icon.png"]];
-        } 
-    } else {
-        if([item.messageType isEqualToString: @"Payment"]) {
-            [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_received_icon.png"]];
-        }
-        else  {
-                [cell.transactionImage setImage: [UIImage imageNamed: @"paystream_request_received_icon.png"]];
-            }*/            
+            cell.lblTransactionDirection.text = @"You sent money to them";
+    }
+    else {
+        if([item.direction isEqualToString: @"In"])
+            cell.lblTransactionDirection.text = @"Request money from you";
+        else
+            cell.lblTransactionDirection.text = @"You request money from them";
+    }
     
-    NSLog ( @"Message Status: %@" , item.messageStatus );
+    cell.overlayView.layer.opacity = 0.0;   
+   
+    if([item.messageStatus isEqualToString: @"Accepted"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+    if([item.messageStatus isEqualToString: @"Rejected"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+    
+    if([item.messageStatus isEqualToString: @"Cancelled"])
+    {
+        cell.overlayView.layer.opacity = 0.6;   
+    }
+        
     cell.transactionStatus.text = item.messageStatus;
+    cell.lblComments.text = item.comments;
         
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
@@ -330,13 +441,16 @@
     UIImage *altBackgroundImage = [UIImage imageNamed: @"transaction_rowalt_background"];
     UIImageView *altImageView = [[UIImageView alloc] initWithImage:altBackgroundImage];
     [altImageView setContentMode:UIViewContentModeScaleToFill];
-
+    
     if (indexPath.row%2 == 0)  {
         cell.backgroundView = imageView;
     } else {
         cell.backgroundView = altImageView;
     }
-
+    
+    [cell.transactionImageButton.layer setCornerRadius:12.0];
+    [cell.transactionImageButton.layer setMasksToBounds:YES];
+    
     [currencyFormatter release];
     [dateFormatter release];
 
@@ -346,11 +460,84 @@
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+
+#pragma mark -
+#pragma mark Table cell image support
+
+- (void)startIconDownload:(PaystreamMessage *)message forIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
+    
+    if ( iconDownloader == nil )
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.message = message;
+        iconDownloader.indexPathInTableView = indexPath;
+        iconDownloader.delegate = self;
+        [psImagesDownloading setObject:iconDownloader forKey:indexPath];
+        [iconDownloader startDownload];
+        [iconDownloader release];
+    }
 }
 
+
+// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+- (void)loadImagesForOnscreenRows
+{
+    if ([transactionsDict count] > 0)
+    {
+        NSArray *visiblePaths = [transactionsTableView indexPathsForVisibleRows];
+        for (NSIndexPath *indexPath in visiblePaths)
+        {
+            PaystreamMessage *message = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+            
+            if ( !message.imgData ) // avoid the app icon download if the app already has an icon
+            {
+                if ( [[message direction] isEqualToString:@"Out"] )
+                    [self startIconDownload:message forIndexPath:indexPath];
+                else
+                    [self startIconDownload:message forIndexPath:indexPath];
+            }
+        }
+    }
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)appImageDidLoad:(NSIndexPath *)indexPath
+{
+    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
+    
+    if (iconDownloader != nil)
+    {
+        UIPaystreamTableViewCell *cell = (UIPaystreamTableViewCell*)[transactionsTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
+        
+        // Display the newly loaded image
+        [cell.transactionImageButton setBackgroundImage:iconDownloader.message.imgData forState:UIControlStateNormal];
+    }
+    
+    iconDownloader = nil;
+    [iconDownloader release];
+}
+
+
+#pragma mark -
+#pragma mark Deferred image loading (UIScrollViewDelegate)
+
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+	{
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
 
 /*
  // Override to support editing the table view.
@@ -386,14 +573,115 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
+    
+    PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
     /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
+    
+    if([item.messageType isEqualToString: @"Payment"])
+    {
+        if([item.direction isEqualToString: @"In"])
+            detailView = [[PaystreamIncomingPaymentViewController alloc] init];
+        else
+           detailView = [[PaystreamOutgoingPaymentViewController alloc] init];
+    }
+    else {
+        if([item.direction isEqualToString: @"In"])
+                detailView = [[PaystreamIncomingRequestViewController alloc] init];
+        else
+            detailView = [[PaystreamOutgoingRequestViewController alloc] init];
+    }
+    */
+    
+    PaystreamDetailBaseViewController* outgoingView =  [[PaystreamOutgoingPaymentViewController alloc] init];
+    
+    outgoingView.messageDetail = item;
+    [outgoingView setPullableView: detailView];
+    [detailView addSubview: outgoingView.view];
+    
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
+    [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
+    [detailView setOpened:YES animated:YES];
+
+    /*
+    // Navigation logic may go here. Create and push another view controller.
+    
+    // ...
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+     [self.navigationController pushViewController:ctrlDetailView animated:YES];
+    ctrlDetailView.messageDetail = item;
+    */
+}
+
+-(IBAction)segmentedControlChanged {
+    // then use a switch statement or series of if statements to determine which selectedSegmentIndex was touched to control the views
+    
+    filteredTransactions = [[NSMutableArray alloc] init];
+    
+    if ([ctrlPaystreamTypes selectedSegmentIndex] == 0) {
+        for (PaystreamMessage* transaction in transactions ){
+            [filteredTransactions addObject: transaction];
+        }
+    }
+    if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
+        for (PaystreamMessage* transaction in transactions ){
+            if(([transaction.direction isEqualToString: @"Out"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
+                [filteredTransactions addObject: transaction];
+        }
+    }
+    if([ctrlPaystreamTypes selectedSegmentIndex] == 2) {
+        for (PaystreamMessage* transaction in transactions ){
+            if(([transaction.direction isEqualToString: @"In"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
+                [filteredTransactions addObject: transaction];
+        }
+    }
+    if([ctrlPaystreamTypes selectedSegmentIndex] == 3) {
+        for (PaystreamMessage* transaction in transactions ){
+            if(([transaction.messageType isEqualToString: @"PaymentRequest"]))
+                [filteredTransactions addObject: transaction];
+        }
+    }
+    [self buildTransactionDictionary: filteredTransactions];
+    
+    [transactionsTableView reloadData];
+    
+    [filteredTransactions release];
+}
+
+
+- (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened
+{
+    if ( ! opened ) { // View totally closed
+        [shadedLayer removeFromSuperview];
+    }
+}
+
+- (void)pullableView:(PullableView *)pView didMoveLocation:(float)relativePosition
+{
+    shadedLayer.layer.opacity = ( 0.7 - (0.7 * relativePosition));
+    NSLog(@"Setting Opacity to %f , position %f", shadedLayer.layer.opacity , relativePosition );
+}
+
+
+- (void)pullableView:(PullableView *)pView startedAnimation:(float)animationDuration withDirection:(BOOL)directionBoolean;
+{
+    NSLog(@"Starting Animation with direction: %@" , directionBoolean ? @"OPENING" : @"CLOSING");
+    
+    if ( directionBoolean ){
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
+        [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
+    
+        if ( detailView.layer.position.x != detailView.openedCenter.x ){
+            [UIView beginAnimations:@"Darken" context:NULL];
+            [UIView setAnimationDuration:animationDuration];
+            shadedLayer.layer.opacity = 0.7;
+            [UIView commitAnimations];
+        }
+    } else {
+        [UIView beginAnimations:@"Lighten" context:NULL];
+        [UIView setAnimationDuration:animationDuration];
+        shadedLayer.layer.opacity = 0.0;
+        [UIView commitAnimations];
+    }
 }
 
 
