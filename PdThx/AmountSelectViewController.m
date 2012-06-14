@@ -8,11 +8,20 @@
 
 #import "AmountSelectViewController.h"
 
+#define GO_DISABLED_TXTCOLOR_RED 142
+#define GO_DISABLED_TXTCOLOR_GREEN 144
+#define GO_DISABLED_TXTCOLOR_BLUE 151
+
+#define GO_INACTIVE_TXTCOLOR [UIColor whiteColor]
+
+
 @interface AmountSelectViewController ()
 
 @end
 
 @implementation AmountSelectViewController
+
+@synthesize amountChosenDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,10 +36,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [amountDisplayLabel becomeFirstResponder];
+    
 }
 
 - (void)viewDidUnload
 {
+    [amountDisplayLabel release];
+    amountDisplayLabel = nil;
+    [goButton release];
+    goButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -61,5 +77,28 @@
     titleView.text = title;
     [titleView sizeToFit];
 }
+
+- (void)dealloc {
+    [amountDisplayLabel release];
+    [goButton release];
+    [super dealloc];
+}
+
+- (IBAction)amountChanged:(id)sender 
+{
+    if ( [amountDisplayLabel.text length] < 3 )
+    {
+        amountDisplayLabel.text = [NSString stringWithFormat:@"0.%@", amountDisplayLabel.text];
+    } else {
+        int numType = [amountDisplayLabel.text 
+    }
+}
+
+- (IBAction)pressedGoButton:(id)sender
+{
+    
+}
+
+
 
 @end

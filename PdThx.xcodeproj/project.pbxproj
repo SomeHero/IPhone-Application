@@ -15,6 +15,16 @@
 		541EE58C1589092200131B0E /* TAB-PRFL.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5861589092200131B0E /* TAB-PRFL.png */; };
 		541EE58D1589092200131B0E /* TAB-SGNIN.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5871589092200131B0E /* TAB-SGNIN.png */; };
 		541EE58F15890A6800131B0E /* options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 541EE58E15890A6800131B0E /* options.plist */; };
+		541EE5A1158A1EB500131B0E /* btn-go-50x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE597158A1EB500131B0E /* btn-go-50x48.png */; };
+		541EE5A2158A1EB500131B0E /* btn-go-50x48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE598158A1EB500131B0E /* btn-go-50x48@2x.png */; };
+		541EE5A3158A1EB500131B0E /* btn-go-active-50x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE599158A1EB500131B0E /* btn-go-active-50x48.png */; };
+		541EE5A4158A1EB500131B0E /* btn-go-active-50x48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE59A158A1EB500131B0E /* btn-go-active-50x48@2x.png */; };
+		541EE5A5158A1EB500131B0E /* btn-go-disabled-50x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE59B158A1EB500131B0E /* btn-go-disabled-50x48.png */; };
+		541EE5A6158A1EB500131B0E /* btn-go-disabled-50x48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE59C158A1EB500131B0E /* btn-go-disabled-50x48@2x.png */; };
+		541EE5B0158A2FEA00131B0E /* field-howmuch-255x48-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5AC158A2FEA00131B0E /* field-howmuch-255x48-active.png */; };
+		541EE5B1158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5AD158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png */; };
+		541EE5B2158A2FEA00131B0E /* field-howmuch-255x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5AE158A2FEA00131B0E /* field-howmuch-255x48.png */; };
+		541EE5B3158A2FEA00131B0E /* field-howmuch-255x48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5AF158A2FEA00131B0E /* field-howmuch-255x48@2x.png */; };
 		5427662B157F9D1700D33AC1 /* MECodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */; };
 		5427662C157F9D1700D33AC1 /* MECodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */; };
 		54276637157FEE3700D33AC1 /* messageBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 54276630157FEE3700D33AC1 /* messageBox.png */; };
@@ -436,6 +446,17 @@
 		541EE5871589092200131B0E /* TAB-SGNIN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-SGNIN.png"; sourceTree = "<group>"; };
 		541EE58E15890A6800131B0E /* options.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = options.plist; sourceTree = "<group>"; };
 		541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSecurityPinCompleteProtocol.h; sourceTree = "<group>"; };
+		541EE597158A1EB500131B0E /* btn-go-50x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-go-50x48.png"; sourceTree = "<group>"; };
+		541EE598158A1EB500131B0E /* btn-go-50x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-go-50x48@2x.png"; sourceTree = "<group>"; };
+		541EE599158A1EB500131B0E /* btn-go-active-50x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-go-active-50x48.png"; sourceTree = "<group>"; };
+		541EE59A158A1EB500131B0E /* btn-go-active-50x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-go-active-50x48@2x.png"; sourceTree = "<group>"; };
+		541EE59B158A1EB500131B0E /* btn-go-disabled-50x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-go-disabled-50x48.png"; sourceTree = "<group>"; };
+		541EE59C158A1EB500131B0E /* btn-go-disabled-50x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-go-disabled-50x48@2x.png"; sourceTree = "<group>"; };
+		541EE5AB158A24CA00131B0E /* AmountSelectChosenProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AmountSelectChosenProtocol.h; sourceTree = "<group>"; };
+		541EE5AC158A2FEA00131B0E /* field-howmuch-255x48-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48-active.png"; sourceTree = "<group>"; };
+		541EE5AD158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48-active@2x.png"; sourceTree = "<group>"; };
+		541EE5AE158A2FEA00131B0E /* field-howmuch-255x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48.png"; sourceTree = "<group>"; };
+		541EE5AF158A2FEA00131B0E /* field-howmuch-255x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48@2x.png"; sourceTree = "<group>"; };
 		54276628157F9D1700D33AC1 /* MECodeSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MECodeSetupViewController.h; path = ../MECodeSetupViewController.h; sourceTree = "<group>"; };
 		54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MECodeSetupViewController.m; path = ../MECodeSetupViewController.m; sourceTree = "<group>"; };
 		5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MECodeSetupViewController.xib; path = ../MECodeSetupViewController.xib; sourceTree = "<group>"; };
@@ -993,9 +1014,27 @@
 			name = "Tab Icons";
 			sourceTree = "<group>";
 		};
+		541EE595158A1E9C00131B0E /* Amount Select */ = {
+			isa = PBXGroup;
+			children = (
+				541EE597158A1EB500131B0E /* btn-go-50x48.png */,
+				541EE598158A1EB500131B0E /* btn-go-50x48@2x.png */,
+				541EE599158A1EB500131B0E /* btn-go-active-50x48.png */,
+				541EE59A158A1EB500131B0E /* btn-go-active-50x48@2x.png */,
+				541EE59B158A1EB500131B0E /* btn-go-disabled-50x48.png */,
+				541EE59C158A1EB500131B0E /* btn-go-disabled-50x48@2x.png */,
+				541EE5AC158A2FEA00131B0E /* field-howmuch-255x48-active.png */,
+				541EE5AD158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png */,
+				541EE5AE158A2FEA00131B0E /* field-howmuch-255x48.png */,
+				541EE5AF158A2FEA00131B0E /* field-howmuch-255x48@2x.png */,
+			);
+			name = "Amount Select";
+			sourceTree = "<group>";
+		};
 		5427662D157FEE0D00D33AC1 /* Send Money Images */ = {
 			isa = PBXGroup;
 			children = (
+				541EE595158A1E9C00131B0E /* Amount Select */,
 				5BDF440815794A8700FEDFBD /* recipient_search_go.png */,
 				54A13A58158576AF00668984 /* Final Images */,
 				54A13A5415856EBD00668984 /* BTN-biggreen-active@2x.png */,
@@ -1824,6 +1863,7 @@
 				5B3F4CFE1560B7DF00A67649 /* RequestMoneyCompleteProtocol.h */,
 				54B5F270156EB62700D970A3 /* UserSetupACHAccountComplete.h */,
 				54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */,
+				541EE5AB158A24CA00131B0E /* AmountSelectChosenProtocol.h */,
 				549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */,
 				5B8147C11587B54000CE10AA /* AcceptPaymentRequestProtocol.h */,
 				5B8147C21587BAFF00CE10AA /* RejectPaymentRequestProtocol.h */,
@@ -1866,9 +1906,9 @@
 		5BD27BCE1547B96200CAFC12 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				54A139AF1582702700668984 /* Custom UI Features */,
 				549FD4461588F90C00809EAA /* Settings View */,
 				54CACC561587984000631B84 /* Welcome Tabbed Views */,
-				54A139AF1582702700668984 /* Custom UI Features */,
 				54A139AB15826EAF00668984 /* Main Area Tabbed Views */,
 				5BD27BEB154B926300CAFC12 /* Services */,
 				5BD2793C15465FE600CAFC12 /* Helpers */,
@@ -2324,6 +2364,16 @@
 				541EE58C1589092200131B0E /* TAB-PRFL.png in Resources */,
 				541EE58D1589092200131B0E /* TAB-SGNIN.png in Resources */,
 				541EE58F15890A6800131B0E /* options.plist in Resources */,
+				541EE5A1158A1EB500131B0E /* btn-go-50x48.png in Resources */,
+				541EE5A2158A1EB500131B0E /* btn-go-50x48@2x.png in Resources */,
+				541EE5A3158A1EB500131B0E /* btn-go-active-50x48.png in Resources */,
+				541EE5A4158A1EB500131B0E /* btn-go-active-50x48@2x.png in Resources */,
+				541EE5A5158A1EB500131B0E /* btn-go-disabled-50x48.png in Resources */,
+				541EE5A6158A1EB500131B0E /* btn-go-disabled-50x48@2x.png in Resources */,
+				541EE5B0158A2FEA00131B0E /* field-howmuch-255x48-active.png in Resources */,
+				541EE5B1158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png in Resources */,
+				541EE5B2158A2FEA00131B0E /* field-howmuch-255x48.png in Resources */,
+				541EE5B3158A2FEA00131B0E /* field-howmuch-255x48@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,6 +16,7 @@
 #import "SetupSecurityPin.h"
 #import "SendMoneyService.h"
 #import "ContactSelectViewController.h"
+#import "AmountSelectViewController.h"
 
 @interface SendMoneyController ()
 - (void)sendMoney;
@@ -207,7 +208,13 @@ float tableHeight2 = 30;
     newView.contactSelectChosenDelegate = self;
 }
 
-- (IBAction)pressedAmountButton:(id)sender {
+- (IBAction)pressedAmountButton:(id)sender 
+{
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+    
 }
 
 
@@ -469,65 +476,6 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
 
 
-// String in Search textfield
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(textField.tag == 1) {
-        NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
-        [tempAmount appendString: @"$"];
-        
-        if([string isEqualToString:@""]) {
-            for (int i = 0; i< [textField.text length] - 1; i++) {
-                if([string length] == 0 && i == [textField.text length] - 1)
-                    continue;
-                
-                char digit;
-                digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
-                
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-                
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-        }
-        else if([string stringByTrimmingCharactersInSet:
-                 [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
-            
-            BOOL firstDigit = YES;
-            for (int i = 0; i< [textField.text length]; i++) {
-                
-                char digit = (char) [textField.text characterAtIndex:(NSUInteger) i];
-                
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-                if(digit == '0' && firstDigit) {
-                    firstDigit = NO;
-                    continue;
-                    
-                }
-                firstDigit = NO;
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-            
-        }
-        
-        return NO;
-    }
-    return YES;
-}
 
 
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
