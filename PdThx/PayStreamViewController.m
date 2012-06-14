@@ -16,7 +16,6 @@
 #import "UIPaystreamTableViewCell.h"
 #import "IconDownloader.h"
 #import "CreateAccountViewController.h"
-#import "PaystreamDetailViewController.h"
 
 @implementation PayStreamViewController
 

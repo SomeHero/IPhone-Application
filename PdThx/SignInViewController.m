@@ -206,7 +206,21 @@
     [prefs synchronize];
 
     // Sign in Completed, Switch to normal tab set
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate])switchToMainAreaTabbedView];
+    
+    /*       
+     TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
+     ASK THEM TO ADD IT NOW
+     */
+    if ( !hasACHaccount ){
+        // No bank account, prompt user to add one now.
+        bankAlert = [[UIAlertView alloc] initWithTitle:@"Hi there." message:@"This should be displaying your ACH Account Setup Screen because you don't have one setup yet, but we don't have one finished yet. So i'll do that later." delegate:self cancelButtonTitle:@"Okie Dokie-o!" otherButtonTitles: nil];
+        [bankAlert show];
+        return;
+    } else {
+        // Sign in Completed, Switch to normal tab set
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
+    }
 }
 
 -(void)userSignInDidFail:(NSString *) reason {
