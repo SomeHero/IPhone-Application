@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PaystreamBaseViewController.h"
+#import "PaystreamDetailBaseViewController.h"
 #import "CancelPaymentRequestProtocol.h"
 #import "CancelPaymentProtocol.h"
+#import "PullableView.h"
 
-@interface PaystreamOutgoingPaymentViewController : PaystreamBaseViewController< CancelPaymentProtocol> {
+@interface PaystreamOutgoingPaymentViewController : PaystreamDetailBaseViewController <PullableViewDelegate, CancelPaymentProtocol> {
     IBOutlet UIButton* btnCancel;
 }
 
 @property(nonatomic, retain) UIButton* btnCancel;
 
 -(IBAction) btnCancelClicked:(id) sender;
+-(IBAction) btnSenderReminder:(id) sender;
 
 @end

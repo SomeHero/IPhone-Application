@@ -14,7 +14,7 @@
 #import "GetPayStreamCompleteProtocol.h"
 #import "PhoneNumberFormatting.h"
 #import "IconDownloader.h"
-#import "PaystreamBaseViewController.h"
+#import "PaystreamDetailBaseViewController.h"
 #import "PaystreamIncomingPaymentViewController.h"
 #import "PaystreamIncomingRequestViewController.h"
 #import "PaystreamOutgoingPaymentViewController.h"
@@ -35,7 +35,7 @@
     SignInViewController* signInViewController;
     GetPayStreamService* getPayStreamService;
     IBOutlet UISegmentedControl* ctrlPaystreamTypes;
-    PaystreamBaseViewController* ctrlDetailView;
+    PaystreamDetailBaseViewController* ctrlDetailView;
     PullableView *detailView;
     UIView *shadedLayer;
 }

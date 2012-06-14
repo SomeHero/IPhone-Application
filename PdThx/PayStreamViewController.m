@@ -333,7 +333,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         cell = [nib objectAtIndex:0];
     }
 
-    
+     
     [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
 
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
@@ -575,29 +575,33 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     
     PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
+    /*
     
-    PaystreamBaseViewController* outgoingView;
-     
     if([item.messageType isEqualToString: @"Payment"])
     {
         if([item.direction isEqualToString: @"In"])
-            outgoingView = [[PaystreamIncomingPaymentViewController alloc] init];
+            detailView = [[PaystreamIncomingPaymentViewController alloc] init];
         else
-           outgoingView = [[PaystreamOutgoingPaymentViewController alloc] init];
+           detailView = [[PaystreamOutgoingPaymentViewController alloc] init];
     }
     else {
         if([item.direction isEqualToString: @"In"])
-            outgoingView = [[PaystreamIncomingRequestViewController alloc] init];
+                detailView = [[PaystreamIncomingRequestViewController alloc] init];
         else
-            outgoingView = [[PaystreamOutgoingRequestViewController alloc] init];
+            detailView = [[PaystreamOutgoingRequestViewController alloc] init];
     }
+    */
+    
+    PaystreamDetailBaseViewController* outgoingView =  [[PaystreamOutgoingPaymentViewController alloc] init];
+    
+    outgoingView.messageDetail = item;
+    [outgoingView setPullableView: detailView];
+    [detailView addSubview: outgoingView.view];
     
     [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
     [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
-     
-    [detailView addSubview: outgoingView.view];
     [detailView setOpened:YES animated:YES];
-    
+
     /*
     // Navigation logic may go here. Create and push another view controller.
     
