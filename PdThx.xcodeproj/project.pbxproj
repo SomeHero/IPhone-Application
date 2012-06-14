@@ -9,11 +9,8 @@
 /* Begin PBXBuildFile section */
 		54196D9B156695B9009F29C5 /* button_quick_link_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 54196D9A156695B9009F29C5 /* button_quick_link_request.png */; };
 		541EE5881589092200131B0E /* TAB-DG.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5821589092200131B0E /* TAB-DG.png */; };
-		541EE5891589092200131B0E /* TAB-HLP.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5831589092200131B0E /* TAB-HLP.png */; };
 		541EE58A1589092200131B0E /* TAB-HM.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5841589092200131B0E /* TAB-HM.png */; };
 		541EE58B1589092200131B0E /* TAB-PREF.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5851589092200131B0E /* TAB-PREF.png */; };
-		541EE58C1589092200131B0E /* TAB-PRFL.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5861589092200131B0E /* TAB-PRFL.png */; };
-		541EE58D1589092200131B0E /* TAB-SGNIN.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5871589092200131B0E /* TAB-SGNIN.png */; };
 		541EE58F15890A6800131B0E /* options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 541EE58E15890A6800131B0E /* options.plist */; };
 		541EE5A1158A1EB500131B0E /* btn-go-50x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE597158A1EB500131B0E /* btn-go-50x48.png */; };
 		541EE5A2158A1EB500131B0E /* btn-go-50x48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE598158A1EB500131B0E /* btn-go-50x48@2x.png */; };
@@ -25,6 +22,15 @@
 		541EE5B1158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5AD158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png */; };
 		541EE5B2158A2FEA00131B0E /* field-howmuch-255x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5AE158A2FEA00131B0E /* field-howmuch-255x48.png */; };
 		541EE5B3158A2FEA00131B0E /* field-howmuch-255x48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5AF158A2FEA00131B0E /* field-howmuch-255x48@2x.png */; };
+		541EE5C7158A435C00131B0E /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5C6158A435C00131B0E /* SignInViewController.xib */; };
+		541EE5C9158A440B00131B0E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5C8158A440B00131B0E /* MainWindow.xib */; };
+		541EE5D0158A44A400131B0E /* helpIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5CA158A44A400131B0E /* helpIcon.png */; };
+		541EE5D1158A44A400131B0E /* helpIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5CB158A44A400131B0E /* helpIcon@2x.png */; };
+		541EE5D2158A44A400131B0E /* profileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5CC158A44A400131B0E /* profileIcon.png */; };
+		541EE5D3158A44A400131B0E /* profileIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5CD158A44A400131B0E /* profileIcon@2x.png */; };
+		541EE5D4158A44A400131B0E /* signinIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5CE158A44A400131B0E /* signinIcon.png */; };
+		541EE5D5158A44A400131B0E /* signinIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5CF158A44A400131B0E /* signinIcon@2x.png */; };
+		541EE5DB158A461500131B0E /* PaystreamDetailBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 541EE5DA158A461500131B0E /* PaystreamDetailBaseViewController.m */; };
 		5427662B157F9D1700D33AC1 /* MECodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */; };
 		5427662C157F9D1700D33AC1 /* MECodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */; };
 		54276637157FEE3700D33AC1 /* messageBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 54276630157FEE3700D33AC1 /* messageBox.png */; };
@@ -152,7 +158,6 @@
 		5B69DF8814AE6067003A0F66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B69DF8614AE6067003A0F66 /* InfoPlist.strings */; };
 		5B69DF8B14AE6067003A0F66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF8A14AE6067003A0F66 /* main.m */; };
 		5B69DF8E14AE6067003A0F66 /* PdThxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF8D14AE6067003A0F66 /* PdThxAppDelegate.m */; };
-		5B69DF9114AE6067003A0F66 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B69DF8F14AE6067003A0F66 /* MainWindow.xib */; };
 		5B69DF9E14AE6068003A0F66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69DF7D14AE6067003A0F66 /* UIKit.framework */; };
 		5B69DF9F14AE6068003A0F66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69DF7F14AE6067003A0F66 /* Foundation.framework */; };
 		5B69DFA014AE6068003A0F66 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69DF8114AE6067003A0F66 /* CoreGraphics.framework */; };
@@ -377,21 +382,15 @@
 		5B886867152955DA00EA24A4 /* icon_paystream_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B886866152955DA00EA24A4 /* icon_paystream_off.png */; };
 		5B88686A152959A100EA24A4 /* button_send_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B886869152959A100EA24A4 /* button_send_money.png */; };
 		5B88686C15295A6600EA24A4 /* button_request_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88686B15295A6600EA24A4 /* button_request_money.png */; };
-		5B9057E9157F79D900D0373B /* PaystreamDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057E8157F79D900D0373B /* PaystreamDetailViewController.m */; };
 		5B9057ED157F8B7700D0373B /* PaystreamIncomingPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057EB157F8B7600D0373B /* PaystreamIncomingPaymentViewController.m */; };
-		5B9057EE157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */; };
 		5B9057F3157FA04C00D0373B /* PaystreamIncomingRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057F1157FA04C00D0373B /* PaystreamIncomingRequestViewController.m */; };
-		5B9057F4157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */; };
-		5B9057F7157FA0BA00D0373B /* PaystreamBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057F6157FA0BA00D0373B /* PaystreamBaseViewController.m */; };
 		5B9057FB157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057F9157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.m */; };
 		5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */; };
 		5B905800157FC41B00D0373B /* PaystreamOutgoingRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057FE157FC41A00D0373B /* PaystreamOutgoingRequestViewController.m */; };
-		5B905801157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */; };
 		5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B905803157FCB9D00D0373B /* PaystreamService.m */; };
 		5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE183214DECC93002A3618 /* SendMoneyRequest.m */; };
 		5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BBE183414DF2D13002A3618 /* Entitlements.plist */; };
 		5BD278E0153BBF8000CAFC12 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278DE153BBF8000CAFC12 /* SignInViewController.m */; };
-		5BD278E1153BBF8000CAFC12 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD278DF153BBF8000CAFC12 /* SignInViewController.xib */; };
 		5BD278ED153BC53A00CAFC12 /* button_sign_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD278EC153BC53A00CAFC12 /* button_sign_in.png */; };
 		5BD278EF153BC5BA00CAFC12 /* button_create_an_account.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD278EE153BC5BA00CAFC12 /* button_create_an_account.png */; };
 		5BD278F3153BC81300CAFC12 /* CreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278F1153BC81200CAFC12 /* CreateAccountViewController.m */; };
@@ -439,11 +438,8 @@
 /* Begin PBXFileReference section */
 		54196D9A156695B9009F29C5 /* button_quick_link_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_quick_link_request.png; sourceTree = "<group>"; };
 		541EE5821589092200131B0E /* TAB-DG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-DG.png"; sourceTree = "<group>"; };
-		541EE5831589092200131B0E /* TAB-HLP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-HLP.png"; sourceTree = "<group>"; };
 		541EE5841589092200131B0E /* TAB-HM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-HM.png"; sourceTree = "<group>"; };
 		541EE5851589092200131B0E /* TAB-PREF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-PREF.png"; sourceTree = "<group>"; };
-		541EE5861589092200131B0E /* TAB-PRFL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-PRFL.png"; sourceTree = "<group>"; };
-		541EE5871589092200131B0E /* TAB-SGNIN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-SGNIN.png"; sourceTree = "<group>"; };
 		541EE58E15890A6800131B0E /* options.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = options.plist; sourceTree = "<group>"; };
 		541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSecurityPinCompleteProtocol.h; sourceTree = "<group>"; };
 		541EE597158A1EB500131B0E /* btn-go-50x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-go-50x48.png"; sourceTree = "<group>"; };
@@ -457,6 +453,16 @@
 		541EE5AD158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48-active@2x.png"; sourceTree = "<group>"; };
 		541EE5AE158A2FEA00131B0E /* field-howmuch-255x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48.png"; sourceTree = "<group>"; };
 		541EE5AF158A2FEA00131B0E /* field-howmuch-255x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48@2x.png"; sourceTree = "<group>"; };
+		541EE5C6158A435C00131B0E /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		541EE5C8158A440B00131B0E /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		541EE5CA158A44A400131B0E /* helpIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpIcon.png; sourceTree = "<group>"; };
+		541EE5CB158A44A400131B0E /* helpIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "helpIcon@2x.png"; sourceTree = "<group>"; };
+		541EE5CC158A44A400131B0E /* profileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileIcon.png; sourceTree = "<group>"; };
+		541EE5CD158A44A400131B0E /* profileIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileIcon@2x.png"; sourceTree = "<group>"; };
+		541EE5CE158A44A400131B0E /* signinIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signinIcon.png; sourceTree = "<group>"; };
+		541EE5CF158A44A400131B0E /* signinIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "signinIcon@2x.png"; sourceTree = "<group>"; };
+		541EE5D9158A461500131B0E /* PaystreamDetailBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamDetailBaseViewController.h; sourceTree = "<group>"; };
+		541EE5DA158A461500131B0E /* PaystreamDetailBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamDetailBaseViewController.m; sourceTree = "<group>"; };
 		54276628157F9D1700D33AC1 /* MECodeSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MECodeSetupViewController.h; path = ../MECodeSetupViewController.h; sourceTree = "<group>"; };
 		54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MECodeSetupViewController.m; path = ../MECodeSetupViewController.m; sourceTree = "<group>"; };
 		5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MECodeSetupViewController.xib; path = ../MECodeSetupViewController.xib; sourceTree = "<group>"; };
@@ -621,7 +627,6 @@
 		5B69DF8A14AE6067003A0F66 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5B69DF8C14AE6067003A0F66 /* PdThxAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PdThxAppDelegate.h; sourceTree = "<group>"; };
 		5B69DF8D14AE6067003A0F66 /* PdThxAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PdThxAppDelegate.m; sourceTree = "<group>"; };
-		5B69DF9014AE6067003A0F66 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		5B69DF9D14AE6068003A0F66 /* PdThxTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PdThxTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B69DFA514AE6068003A0F66 /* PdThxTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PdThxTests-Info.plist"; sourceTree = "<group>"; };
 		5B69DFA714AE6068003A0F66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -876,22 +881,15 @@
 		5B886866152955DA00EA24A4 /* icon_paystream_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_paystream_off.png; sourceTree = "<group>"; };
 		5B886869152959A100EA24A4 /* button_send_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_send_money.png; sourceTree = "<group>"; };
 		5B88686B15295A6600EA24A4 /* button_request_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_request_money.png; sourceTree = "<group>"; };
-		5B9057E7157F79D900D0373B /* PaystreamDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamDetailViewController.h; sourceTree = "<group>"; };
-		5B9057E8157F79D900D0373B /* PaystreamDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamDetailViewController.m; sourceTree = "<group>"; };
 		5B9057EA157F8B7600D0373B /* PaystreamIncomingPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaystreamIncomingPaymentViewController.h; path = "Paystream Detail/PaystreamIncomingPaymentViewController.h"; sourceTree = "<group>"; };
 		5B9057EB157F8B7600D0373B /* PaystreamIncomingPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaystreamIncomingPaymentViewController.m; path = "Paystream Detail/PaystreamIncomingPaymentViewController.m"; sourceTree = "<group>"; };
-		5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PaystreamIncomingPaymentViewController.xib; path = "Paystream Detail/PaystreamIncomingPaymentViewController.xib"; sourceTree = "<group>"; };
 		5B9057F0157FA04C00D0373B /* PaystreamIncomingRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamIncomingRequestViewController.h; sourceTree = "<group>"; };
 		5B9057F1157FA04C00D0373B /* PaystreamIncomingRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamIncomingRequestViewController.m; sourceTree = "<group>"; };
-		5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamIncomingRequestViewController.xib; sourceTree = "<group>"; };
-		5B9057F5157FA0BA00D0373B /* PaystreamBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamBaseViewController.h; sourceTree = "<group>"; };
-		5B9057F6157FA0BA00D0373B /* PaystreamBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamBaseViewController.m; sourceTree = "<group>"; };
 		5B9057F8157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamOutgoingPaymentViewController.h; sourceTree = "<group>"; };
 		5B9057F9157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamOutgoingPaymentViewController.m; sourceTree = "<group>"; };
 		5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamOutgoingPaymentViewController.xib; sourceTree = "<group>"; };
 		5B9057FD157FC41A00D0373B /* PaystreamOutgoingRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamOutgoingRequestViewController.h; sourceTree = "<group>"; };
 		5B9057FE157FC41A00D0373B /* PaystreamOutgoingRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamOutgoingRequestViewController.m; sourceTree = "<group>"; };
-		5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamOutgoingRequestViewController.xib; sourceTree = "<group>"; };
 		5B905802157FCB9D00D0373B /* PaystreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamService.h; sourceTree = "<group>"; };
 		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
 		5BBE183114DECC91002A3618 /* SendMoneyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyRequest.h; sourceTree = "<group>"; };
@@ -899,7 +897,6 @@
 		5BBE183414DF2D13002A3618 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		5BD278DD153BBF8000CAFC12 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		5BD278DE153BBF8000CAFC12 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		5BD278DF153BBF8000CAFC12 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		5BD278EC153BC53A00CAFC12 /* button_sign_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_sign_in.png; sourceTree = "<group>"; };
 		5BD278EE153BC5BA00CAFC12 /* button_create_an_account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_create_an_account.png; sourceTree = "<group>"; };
 		5BD278F0153BC81200CAFC12 /* CreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccountViewController.h; sourceTree = "<group>"; };
@@ -1005,11 +1002,14 @@
 			isa = PBXGroup;
 			children = (
 				541EE5821589092200131B0E /* TAB-DG.png */,
-				541EE5831589092200131B0E /* TAB-HLP.png */,
 				541EE5841589092200131B0E /* TAB-HM.png */,
 				541EE5851589092200131B0E /* TAB-PREF.png */,
-				541EE5861589092200131B0E /* TAB-PRFL.png */,
-				541EE5871589092200131B0E /* TAB-SGNIN.png */,
+				541EE5CA158A44A400131B0E /* helpIcon.png */,
+				541EE5CB158A44A400131B0E /* helpIcon@2x.png */,
+				541EE5CC158A44A400131B0E /* profileIcon.png */,
+				541EE5CD158A44A400131B0E /* profileIcon@2x.png */,
+				541EE5CE158A44A400131B0E /* signinIcon.png */,
+				541EE5CF158A44A400131B0E /* signinIcon@2x.png */,
 			);
 			name = "Tab Icons";
 			sourceTree = "<group>";
@@ -1648,7 +1648,7 @@
 				5B69DFE714AFAE8D003A0F66 /* Images */,
 				5B69DF8C14AE6067003A0F66 /* PdThxAppDelegate.h */,
 				5B69DF8D14AE6067003A0F66 /* PdThxAppDelegate.m */,
-				5B69DF8F14AE6067003A0F66 /* MainWindow.xib */,
+				541EE5C8158A440B00131B0E /* MainWindow.xib */,
 			);
 			path = PdThx;
 			sourceTree = "<group>";
@@ -1819,14 +1819,12 @@
 			children = (
 				5B88685B1529260200EA24A4 /* ConfirmPaymentDialogController.h */,
 				5B88685C1529260200EA24A4 /* ConfirmPaymentDialogController.m */,
-				5B9057E7157F79D900D0373B /* PaystreamDetailViewController.h */,
-				5B9057E8157F79D900D0373B /* PaystreamDetailViewController.m */,
+				541EE5D9158A461500131B0E /* PaystreamDetailBaseViewController.h */,
+				541EE5DA158A461500131B0E /* PaystreamDetailBaseViewController.m */,
 				5B9057EA157F8B7600D0373B /* PaystreamIncomingPaymentViewController.h */,
 				5B9057EB157F8B7600D0373B /* PaystreamIncomingPaymentViewController.m */,
 				5B9057F0157FA04C00D0373B /* PaystreamIncomingRequestViewController.h */,
 				5B9057F1157FA04C00D0373B /* PaystreamIncomingRequestViewController.m */,
-				5B9057F5157FA0BA00D0373B /* PaystreamBaseViewController.h */,
-				5B9057F6157FA0BA00D0373B /* PaystreamBaseViewController.m */,
 				5B9057F8157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.h */,
 				5B9057F9157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.m */,
 				5B9057FD157FC41A00D0373B /* PaystreamOutgoingRequestViewController.h */,
@@ -1927,9 +1925,9 @@
 				5BD278FA153E7F0300CAFC12 /* Dialogs */,
 				5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */,
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
+				541EE5C6158A435C00131B0E /* SignInViewController.xib */,
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
 				5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */,
-				5BD278DF153BBF8000CAFC12 /* SignInViewController.xib */,
 				5BD278F2153BC81300CAFC12 /* CreateAccountViewController.xib */,
 				5BD278FF153E8A1D00CAFC12 /* SetupACHAccountController.xib */,
 				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
@@ -1940,9 +1938,6 @@
 				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
 				D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */,
 				5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */,
-				5B9057EC157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib */,
-				5B9057FF157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib */,
-				5B9057F2157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib */,
 				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 				54A139A415826B0A00668984 /* AmountSelectViewController.xib */,
 				54A139DF158430FA00668984 /* DoGoodViewController.xib */,
@@ -2059,7 +2054,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B69DF8814AE6067003A0F66 /* InfoPlist.strings in Resources */,
-				5B69DF9114AE6067003A0F66 /* MainWindow.xib in Resources */,
 				5B69E08F14AFAEB5003A0F66 /* icon_add.png in Resources */,
 				5B69E09014AFAEB5003A0F66 /* icon_arrow_down.png in Resources */,
 				5B69E09114AFAEB5003A0F66 /* icon_arrow_left.png in Resources */,
@@ -2256,7 +2250,6 @@
 				5B886867152955DA00EA24A4 /* icon_paystream_off.png in Resources */,
 				5B88686A152959A100EA24A4 /* button_send_money.png in Resources */,
 				5B88686C15295A6600EA24A4 /* button_request_money.png in Resources */,
-				5BD278E1153BBF8000CAFC12 /* SignInViewController.xib in Resources */,
 				5BD278ED153BC53A00CAFC12 /* button_sign_in.png in Resources */,
 				5BD278EF153BC5BA00CAFC12 /* button_create_an_account.png in Resources */,
 				5BD278F4153BC81300CAFC12 /* CreateAccountViewController.xib in Resources */,
@@ -2293,10 +2286,7 @@
 				D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */,
 				5427662C157F9D1700D33AC1 /* MECodeSetupViewController.xib in Resources */,
 				54276637157FEE3700D33AC1 /* messageBox.png in Resources */,
-				5B9057EE157F8B7700D0373B /* PaystreamIncomingPaymentViewController.xib in Resources */,
-				5B9057F4157FA04C00D0373B /* PaystreamIncomingRequestViewController.xib in Resources */,
 				5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */,
-				5B905801157FC41B00D0373B /* PaystreamOutgoingRequestViewController.xib in Resources */,
 				54A139A615826B0A00668984 /* AmountSelectViewController.xib in Resources */,
 				54A139E1158430FA00668984 /* DoGoodViewController.xib in Resources */,
 				54A13A0615843D3900668984 /* amt-icon@2x.png in Resources */,
@@ -2358,11 +2348,8 @@
 				549FD44E1589039E00809EAA /* formBox.png in Resources */,
 				549FD44F1589039E00809EAA /* formBoxActive.png in Resources */,
 				541EE5881589092200131B0E /* TAB-DG.png in Resources */,
-				541EE5891589092200131B0E /* TAB-HLP.png in Resources */,
 				541EE58A1589092200131B0E /* TAB-HM.png in Resources */,
 				541EE58B1589092200131B0E /* TAB-PREF.png in Resources */,
-				541EE58C1589092200131B0E /* TAB-PRFL.png in Resources */,
-				541EE58D1589092200131B0E /* TAB-SGNIN.png in Resources */,
 				541EE58F15890A6800131B0E /* options.plist in Resources */,
 				541EE5A1158A1EB500131B0E /* btn-go-50x48.png in Resources */,
 				541EE5A2158A1EB500131B0E /* btn-go-50x48@2x.png in Resources */,
@@ -2374,6 +2361,14 @@
 				541EE5B1158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png in Resources */,
 				541EE5B2158A2FEA00131B0E /* field-howmuch-255x48.png in Resources */,
 				541EE5B3158A2FEA00131B0E /* field-howmuch-255x48@2x.png in Resources */,
+				541EE5C7158A435C00131B0E /* SignInViewController.xib in Resources */,
+				541EE5C9158A440B00131B0E /* MainWindow.xib in Resources */,
+				541EE5D0158A44A400131B0E /* helpIcon.png in Resources */,
+				541EE5D1158A44A400131B0E /* helpIcon@2x.png in Resources */,
+				541EE5D2158A44A400131B0E /* profileIcon.png in Resources */,
+				541EE5D3158A44A400131B0E /* profileIcon@2x.png in Resources */,
+				541EE5D4158A44A400131B0E /* signinIcon.png in Resources */,
+				541EE5D5158A44A400131B0E /* signinIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2471,10 +2466,8 @@
 				D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */,
 				D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */,
 				5427662B157F9D1700D33AC1 /* MECodeSetupViewController.m in Sources */,
-				5B9057E9157F79D900D0373B /* PaystreamDetailViewController.m in Sources */,
 				5B9057ED157F8B7700D0373B /* PaystreamIncomingPaymentViewController.m in Sources */,
 				5B9057F3157FA04C00D0373B /* PaystreamIncomingRequestViewController.m in Sources */,
-				5B9057F7157FA0BA00D0373B /* PaystreamBaseViewController.m in Sources */,
 				5B9057FB157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.m in Sources */,
 				5B905800157FC41B00D0373B /* PaystreamOutgoingRequestViewController.m in Sources */,
 				5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */,
@@ -2484,6 +2477,7 @@
 				54A13A5115847CB800668984 /* PullableView.m in Sources */,
 				54CACC6915879A3000631B84 /* WelcomeScreenViewController.m in Sources */,
 				54CACC6E15879A5B00631B84 /* AboutPageViewController.m in Sources */,
+				541EE5DB158A461500131B0E /* PaystreamDetailBaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2516,14 +2510,6 @@
 				5B69DF8714AE6067003A0F66 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		5B69DF8F14AE6067003A0F66 /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5B69DF9014AE6067003A0F66 /* en */,
-			);
-			name = MainWindow.xib;
 			sourceTree = "<group>";
 		};
 		5B69DFA614AE6068003A0F66 /* InfoPlist.strings */ = {

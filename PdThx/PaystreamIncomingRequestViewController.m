@@ -63,6 +63,8 @@
     // Do any additional setup after loading the view from its nib.
     [paystreamServices setAcceptPaymentRequestProtocol: self];
     [paystreamServices setRejectPaymentRequestProtocol: self];
+
+
 }
 
 - (void)viewDidUnload

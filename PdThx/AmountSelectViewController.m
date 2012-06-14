@@ -86,12 +86,7 @@
 
 - (IBAction)amountChanged:(id)sender 
 {
-    if ( [amountDisplayLabel.text length] < 3 )
-    {
-        amountDisplayLabel.text = [NSString stringWithFormat:@"0.%@", amountDisplayLabel.text];
-    } else {
-        int numType = [amountDisplayLabel.text 
-    }
+    
 }
 
 - (IBAction)pressedGoButton:(id)sender

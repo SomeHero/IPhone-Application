@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PaystreamBaseViewController.h"
+#import "PaystreamDetailBaseViewController.h"
 #import "ConfirmPaymentDialogController.h"
 #import "AcceptPaymentRequestProtocol.h"
 #import "RejectPaymentRequestProtocol.h"
 #import "CancelPaymentRequestProtocol.h"
 #import "CancelPaymentProtocol.h"
 
-@interface PaystreamIncomingRequestViewController : PaystreamBaseViewController<SecurityPinCompleteDelegate, AcceptPaymentRequestProtocol, RejectPaymentRequestProtocol> {
+@interface PaystreamIncomingRequestViewController : PaystreamDetailBaseViewController<SecurityPinCompleteDelegate, AcceptPaymentRequestProtocol, RejectPaymentRequestProtocol> {
     IBOutlet UIButton* btnAccept;
     IBOutlet UIButton* btnCancel;
     ConfirmPaymentDialogController *securityPinModalPanel;

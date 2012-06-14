@@ -48,8 +48,28 @@
     // Do any additional setup after loading the view from its nib.
     
     [paystreamServices setCancelPaymentProtocol: self];
+    
+    
+    /* ---------------------------------------------------- */
+    /*      Custom Settings Button Implementation           */
+    /* ---------------------------------------------------- */
+    
+    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+    [settingsBtn addTarget:self action:@selector(actionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+    
+    self.navigationItem.rightBarButtonItem = settingsButtons;
+    [settingsButtons release];
 }
-
+-(void)viewWillAppear:(BOOL)animated {
+    if(!([messageDetail.messageStatus isEqualToString: @"Processing"]))
+    {
+        //[btnCancel setHidden: YES];
+    }
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -57,11 +77,13 @@
     // e.g. self.myOutlet = nil;
 }
 -(void)cancelPaymentDidComplete {
-    [self.navigationController popToRootViewControllerAnimated: YES];
+    //[self.navigationController popToRootViewControllerAnimated: YES];
+    [pullableView setOpened:NO animated:YES];
 }
 -(void)cancelPaymentDidFail {
     
 }
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
