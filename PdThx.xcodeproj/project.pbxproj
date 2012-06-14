@@ -411,6 +411,7 @@
 		5BEBF01914B2281900379108 /* ProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEBF01714B2281900379108 /* ProfileController.m */; };
 		5BEBF01A14B2281900379108 /* ProfileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01814B2281900379108 /* ProfileController.xib */; };
 		5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01C14B2282A00379109 /* Localizable.strings */; };
+		C3DA6A7B15893DC60051ECE4 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DA6A7A15893DC60051ECE4 /* arrow.png */; };
 		D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDE5157FB72800ABE854 /* MeCodeViewController.m */; };
 		D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
@@ -927,6 +928,7 @@
 		5BEBF01714B2281900379108 /* ProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileController.m; sourceTree = "<group>"; };
 		5BEBF01814B2281900379108 /* ProfileController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileController.xib; sourceTree = "<group>"; };
 		5BEBF01C14B2282A00379109 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		C3DA6A7A15893DC60051ECE4 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		D587EDE4157FB72800ABE854 /* MeCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeViewController.h; sourceTree = "<group>"; };
 		D587EDE5157FB72800ABE854 /* MeCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeViewController.m; sourceTree = "<group>"; };
 		D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeViewController.xib; sourceTree = "<group>"; };
@@ -1485,6 +1487,7 @@
 		54CACB351586758400631B84 /* Paystream Images */ = {
 			isa = PBXGroup;
 			children = (
+				C3DA6A7A15893DC60051ECE4 /* arrow.png */,
 				54B5F271156ED87F00D970A3 /* avatar_unknown.jpg */,
 				543803961562BE6B00BD6284 /* paystream_received_icon.png */,
 				543803971562BE6B00BD6284 /* paystream_request_received_icon.png */,
@@ -2324,6 +2327,7 @@
 				541EE58C1589092200131B0E /* TAB-PRFL.png in Resources */,
 				541EE58D1589092200131B0E /* TAB-SGNIN.png in Resources */,
 				541EE58F15890A6800131B0E /* options.plist in Resources */,
+				C3DA6A7B15893DC60051ECE4 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2526,8 +2530,8 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2619,7 +2623,7 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -2644,7 +2648,7 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2749,7 +2753,7 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D9E51710-0C9D-4BDA-B16A-4B0D11AB6483";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -2826,7 +2830,7 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D9E51710-0C9D-4BDA-B16A-4B0D11AB6483";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -2900,7 +2904,7 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2975,7 +2979,7 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -3049,7 +3053,7 @@
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;

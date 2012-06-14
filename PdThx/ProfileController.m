@@ -10,7 +10,7 @@
 #import "PdThxAppDelegate.h"
 #import "MeCodeViewController.h"
 
-#import "MECodeSetupViewController.h"
+#import "MECodeViewController.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400

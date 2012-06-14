@@ -38,7 +38,27 @@
     PaystreamBaseViewController* ctrlDetailView;
     PullableView *detailView;
     UIView *shadedLayer;
+    
+    //Pull to refresh variables.
+    UIView *refreshHeaderView;
+    UILabel *refreshLabel;
+    UIImageView *refreshArrow;
+    UIActivityIndicatorView *refreshSpinner;
+    BOOL isDragging;
+    BOOL isLoading;
+    NSString *textPull;
+    NSString *textRelease;
+    NSString *textLoading;
 }
+
+//Pull to refresh properties
+@property (nonatomic, retain) UIView *refreshHeaderView;
+@property (nonatomic, retain) UILabel *refreshLabel;
+@property (nonatomic, retain) UIImageView *refreshArrow;
+@property (nonatomic, retain) UIActivityIndicatorView *refreshSpinner;
+@property (nonatomic, copy) NSString *textPull;
+@property (nonatomic, copy) NSString *textRelease;
+@property (nonatomic, copy) NSString *textLoading;
 
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITableView *transactionsTableView;
@@ -52,3 +72,5 @@
 -(void)buildTransactionDictionary:(NSMutableArray*) array;
 
 @end
+
+
