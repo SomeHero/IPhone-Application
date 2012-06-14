@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Contact.h"
-#import "PaystreamBaseViewController.h"
+#import "PaystreamDetailBaseViewController.h"
 
-@interface PaystreamIncomingPaymentViewController : PaystreamBaseViewController {
+@interface PaystreamIncomingPaymentViewController : PaystreamDetailBaseViewController {
     
 }
 
