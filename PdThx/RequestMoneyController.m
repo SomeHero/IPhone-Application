@@ -18,7 +18,7 @@
 #import "RequestMoneyService.h"
 #import "ContactSelectViewController.h"
 
-#define kOFFSET_FOR_KEYBOARD 80.0
+#define kOFFSET_FOR_KEYBOARD 100.0
 
 @interface RequestMoneyController ()
 - (BOOL)isValidRecipientUri:(NSString *)recipientUriToTest;
