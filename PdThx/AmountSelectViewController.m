@@ -49,6 +49,13 @@
     goButton = nil;
     [quickAmount0 release];
     quickAmount0 = nil;
+    [quickAmount0 release];
+    quickAmount1 = nil;
+    [quickAmount1 release];
+    quickAmount2 = nil;
+    [quickAmount3 release];
+    quickAmount3 = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -84,6 +91,10 @@
     [amountDisplayLabel release];
     [goButton release];
     [quickAmount0 release];
+    [quickAmount1 release];
+    [quickAmount2 release];
+    [quickAmount3 release];
+    
     [super dealloc];
 }
 
@@ -100,6 +111,21 @@
 
 - (IBAction)pressedQuickAmount0:(id)sender {
     [amountChosenDelegate didSelectAmount:1.0];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (IBAction)pressedQuickAmount1:(id)sender {
+    [amountChosenDelegate didSelectAmount:5.0];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (IBAction)pressedQuickAmount2:(id)sender {
+    [amountChosenDelegate didSelectAmount:10.0];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (IBAction)pressedQuickAmount3:(id)sender {
+    [amountChosenDelegate didSelectAmount:20.0];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
