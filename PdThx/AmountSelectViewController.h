@@ -15,11 +15,17 @@
     IBOutlet UITextField *amountDisplayLabel;
     IBOutlet UIButton *goButton;
     IBOutlet UIButton *quickAmount0;
+    IBOutlet UIButton *quickAmount1;
+    IBOutlet UIButton *quickAmount2;
+    IBOutlet UIButton *quickAmount3;
 }
 
 - (IBAction)amountChanged:(id)sender;
 - (IBAction)pressedGoButton:(id)sender;
 - (IBAction)pressedQuickAmount0:(id)sender;
+- (IBAction)pressedQuickAmount1:(id)sender;
+- (IBAction)pressedQuickAmount2:(id)sender;
+- (IBAction)pressedQuickAmount3:(id)sender;
 
 @property (assign) id amountChosenDelegate;
 

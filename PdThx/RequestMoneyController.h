@@ -19,23 +19,31 @@
 #import "Contact.h"
 #import "ContactSelectChosenProtocol.h"
 #import "CoreLocation/CoreLocation.h"
+#import "AmountSelectChosenProtocol.h"
 
 @interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource, ContactSelectChosenProtocol, 
-    CLLocationManagerDelegate> {
-    UITableView *autoCompleteTableView;
+    CLLocationManagerDelegate, AmountSelectChosenProtocol> {
+
     IBOutlet UIView *viewPanel;
-    IBOutlet UITextField *txtAmount;
-    IBOutlet UITextField *txtComments;
+        IBOutlet UITextField *txtAmount;
+        IBOutlet UITextView *txtComments;
+        
     IBOutlet UIButton *btnSendRequest;
     ConfirmPaymentDialogController *securityPinModalPanel;
+        
     NSString* recipientUri;
     NSString* amount;
     NSString* comments;
+        
     RequestMoneyService* requestMoneyService;
+        
     IBOutlet UIButton *chooseRecipientButton;
+    IBOutlet UIButton *chooseAmountButton;
+        
     IBOutlet UILabel *contactHead;
     IBOutlet UILabel *contactDetail;
     IBOutlet UIButton *recipientImageButton;
+        
     Contact *recipient;
     CLLocationManager* lm;
     double latitude;
@@ -45,18 +53,30 @@
 
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtAmount;
-@property(nonatomic, retain) UITextField *txtComments;
+@property(nonatomic, retain) UITextView *txtComments;
 @property(nonatomic, retain) UIButton *btnSendRequest;
 @property(nonatomic, retain) UIButton *chooseRecipientButton;
+@property(nonatomic, retain) UIButton *chooseAmountButton;
+@property(nonatomic, retain) NSString* amount;
 @property(nonatomic, retain) UILabel *contactHead;
 @property(nonatomic, retain) UILabel *contactDetail;
 @property(nonatomic, retain) UIButton *recipientImageButton;
 @property(nonatomic, retain) NSString* recipientUri;
 @property(nonatomic, retain) CLLocationManager *lm;
 
+/*              Button Actions              */
+/*  --------------------------------------- */
+- (IBAction)pressedChooseRecipientButton:(id)sender;
+- (IBAction)pressedAmountButton:(id)sender;
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendRequestClicked:(id) sender;
-- (IBAction)pressedChooseRecipientButton:(id)sender;
+
+-(void)showModalPanel;
+-(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
+              fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount;
+
+-(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest;
+-(BOOL) isValidAmount:(NSString *) amountToTest;
 
 @end

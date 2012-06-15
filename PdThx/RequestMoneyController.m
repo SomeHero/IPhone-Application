@@ -17,6 +17,7 @@
 #import "SetupSecurityPin.h"
 #import "RequestMoneyService.h"
 #import "ContactSelectViewController.h"
+#import "AmountSelectViewController.h"
 
 #define kOFFSET_FOR_KEYBOARD 100.0
 
@@ -39,6 +40,7 @@
 @synthesize chooseRecipientButton;
 @synthesize contactHead;
 @synthesize contactDetail, lm;
+@synthesize amount, chooseAmountButton;
 
 
 float tableHeight = 30;
@@ -54,15 +56,28 @@ float tableHeight = 30;
 
 - (void)dealloc
 {
-    [lm release];
+    /*  ------------------------------------------------------ */
+    /*                View/Services Releases                   */
+    /*  ------------------------------------------------------ */
     [viewPanel release];
+    [requestMoneyService release];
+    [lm release];
+    
+    /*  ------------------------------------------------------ */
+    /*                Image/TextField Releases                 */
+    /*  ------------------------------------------------------ */
     [txtAmount release];
     [txtComments release];
-    [btnSendRequest release];
     [securityPinModalPanel release];
     [amount release];
     [comments release];
-    [requestMoneyService release];
+    [recipientImageButton release];
+    [chooseRecipientButton release];
+    [contactHead release];
+    [contactDetail release];
+    [chooseAmountButton release];
+    
+    [btnSendRequest release];
 
     [super dealloc];
 }
@@ -87,68 +102,63 @@ float tableHeight = 30;
 {
 
     [super viewDidLoad];
-
-    [recipientImageButton.layer setCornerRadius:12.0];
-    [recipientImageButton.layer setMasksToBounds:YES];
     
-    requestMoneyService = [[RequestMoneyService alloc] init];
-    [requestMoneyService setRequestMoneyCompleteDelegate: self];
+    /*                  View Setup              */
+    /*  --------------------------------------- */
+    scrollView.frame = CGRectMake(0, 0, 320, 420);
+    [scrollView setContentSize:CGSizeMake(320, 420)];
+    //[whiteBoxView.layer  setCornerRadius:7.0];
     
-    autoCompleteArray = [[NSMutableArray alloc] init];
-
-    //---set the viewable frame of the scroll view---
-    scrollView.frame = CGRectMake(0, 0, 320, 460);
-    //---set the content size of the scroll view---
-    [scrollView setContentSize:CGSizeMake(320, 460)];
-
-
-    //[self loadContacts];
-    [self setTitle:@"Request $"];
-
-    //setup internal viewpanel
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
-
-    //Search Bar
-	//txtRecipientUri.borderStyle = UITextBorderStyleRoundedRect; // rounded, recessed rectangle
-	//txtRecipientUri.autocorrectionType = UITextAutocorrectionTypeNo;
-	//txtRecipientUri.textAlignment = UITextAlignmentLeft;
-	//txtRecipientUri.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	//txtRecipientUri.returnKeyType = UIReturnKeyDone;
-	//txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
-	//txtRecipientUri.textColor = [UIColor blackColor];
-	//[txtRecipientUri setDelegate:self];
-
-	//Autocomplete Table
-	//autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight) style:UITableViewStylePlain];
-	autoCompleteTableView.delegate = self;
-	autoCompleteTableView.dataSource = self;
-	autoCompleteTableView.scrollEnabled = YES;
-	autoCompleteTableView.hidden = YES;
-	autoCompleteTableView.rowHeight = tableHeight;
-	[self.scrollView addSubview:autoCompleteTableView];
-	[autoCompleteTableView release];
-
-    [txtAmount setDelegate:self];
-
-    txtAmount.text = @"$0.00";
-
-    //setup internal viewpanel
+    
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
     
-    contactHead.text = @"Select a Recipient";
-    contactDetail.text = @"Click Here";
     
-    lm = [[CLLocationManager alloc]init];
+    /*          Location Services Setup         */
+    /*  --------------------------------------- */
+    lm = [[CLLocationManager alloc] init];
     if ([lm locationServicesEnabled]) {
         lm.delegate = self;
         lm.desiredAccuracy = kCLLocationAccuracyBest;
         lm.distanceFilter = 1000.0f;
         [lm startUpdatingLocation];
     }
+    
+    
+    /*         Button Visiblity Handling        */
+    /*  --------------------------------------- */
+    chooseRecipientButton.backgroundColor = [UIColor clearColor];
+    chooseAmountButton.backgroundColor = [UIColor clearColor];
+    [recipientImageButton.layer setCornerRadius:5.0];
+    [recipientImageButton.layer setMasksToBounds:YES];
+    [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
+    
+    
+    
+    /*          Services/ViewController Initialization         */
+    /*  ------------------------------------------------------ */
+    requestMoneyService = [[RequestMoneyService alloc] init];
+    [requestMoneyService setRequestMoneyCompleteDelegate: self];
+     
+
+    /*                TextField Initialization                 */
+    /*  ------------------------------------------------------ */
+    autoCompleteArray = [[NSMutableArray alloc] init];
+    recipientUri = [[NSString alloc] initWithString: @""];
+    amount = [[NSString alloc] initWithString: @""];
+    
+    
+    comments = [[NSString alloc] initWithString: @""];
+    
+    [self setTitle:@"Request $"];
+    
+    [txtAmount setDelegate:self];
+    txtAmount.text = @"$0.00";
+    
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
 
 }
 
@@ -178,147 +188,30 @@ float tableHeight = 30;
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+/*  ------------------------------------------------------ */
+/*                Button Action Handling                   */
+/*  ------------------------------------------------------ */
+
+- (IBAction)pressedChooseRecipientButton:(id)sender 
+{
+    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.contactSelectChosenDelegate = self;
+}
+
+- (IBAction)pressedAmountButton:(id)sender 
+{
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+    
+}
+
 -(IBAction) bgTouched:(id) sender {
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
-}
-// Take string from Search Textfield and compare it with autocomplete array
-- (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring {
-
-	// Put anything that starts with this substring into the autoCompleteArray
-	// The items in this array is what will show up in the table view
-
-	[autoCompleteArray removeAllObjects];
-
-	for(Contact *contact in allResults) {
-        NSRange substringRangeLowerCase = [contact.phoneNumber rangeOfString:[substring lowercaseString]];
-		NSRange substringRangeUpperCase = [contact.phoneNumber rangeOfString:[substring uppercaseString]];
-
-		if (substringRangeLowerCase.length != 0 || substringRangeUpperCase.length != 0) {
-			[autoCompleteArray addObject: contact];
-		}
-	}
-	autoCompleteTableView.hidden = NO;
-	[autoCompleteTableView reloadData];
-}
-- (void) finishedSearching {
-	autoCompleteTableView.hidden = YES;
-}
-#pragma mark UITextFieldDelegate methods
-// Close keyboard when Enter or Done is pressed
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if (textField.tag == 0)
-        [self finishedSearching];
-
-  NSInteger nextTag = textField.tag + 1;
-  // Try to find next responder
-  UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-
-    if (nextResponder) {
-        // Found next responder, so set it.
-        [textField resignFirstResponder];
-        [nextResponder becomeFirstResponder];
-    } else {
-        // Not found, so remove keyboard.
-        [textField resignFirstResponder];
-
-        [self requestMoney];
-    }
-    
-    return NO; // We do not want UITextField to insert line-breaks.
-}
-
-// String in Search textfield
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(textField.tag == 0) {
-        NSString *substring = [NSString stringWithString:textField.text];
-        substring = [substring stringByReplacingCharactersInRange:range withString:string];
-        [self searchAutocompleteEntriesWithSubstring:substring];
-
-        return YES;
-    } else if(textField.tag == 1) {
-        NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
-        [tempAmount appendString: @"$"];
-
-        if([string isEqualToString:@""]) {
-            for (int i = 0; i< [textField.text length] - 1; i++) {
-                if([string length] == 0 && i == [textField.text length] - 1)
-                    continue;
-
-                char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
-
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-
-        }
-        else if([string stringByTrimmingCharactersInSet:
-                 [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
-
-            BOOL firstDigit = YES;
-            for (int i = 0; i< [textField.text length]; i++) {
-
-                char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
-
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-                if(digit == '0' && firstDigit) {
-                    firstDigit = NO;
-                    continue;
-
-                }
-                firstDigit = NO;
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-
-        }
-
-        return NO;
-    }
-    return YES;
-}
-
-#pragma mark UITableViewDelegate methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
-	
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell;
-    static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
-	cell = [tableView dequeueReusableCellWithIdentifier:AutoCompleteRowIdentifier];
-	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteRowIdentifier] autorelease];
-	}
-    Contact *contact = [autoCompleteArray objectAtIndex:indexPath.row];
-
-    cell.textLabel.text = contact.phoneNumber;
-    cell.detailTextLabel.text = contact.name;
-    cell.isAccessibilityElement = YES;
-
-	return cell;
 }
 
 
@@ -355,16 +248,6 @@ float tableHeight = 30;
     // statsCommuniqueDoneProblem ... !
     NSLog(@"Request Money Failed");
 }
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if(textField.tag == 1)
-    {
-        [textField setText: @"$0.00"];
-        
-        return NO;
-    } 
-    
-    return YES;
-}
 
 
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
@@ -398,7 +281,7 @@ float tableHeight = 30;
     }
 
     if([txtComments.text length] > 0)
-        comments = txtComments.text;
+        comments = [txtComments.text copy];
 
     BOOL isValid = YES;
 
@@ -509,13 +392,6 @@ float tableHeight = 30;
 -(void)requestMoneyDidFail: (NSString*) message {
     [self showAlertView: @"Error Requesting Money" withMessage:message];
 }
-- (IBAction)pressedChooseRecipientButton:(id)sender 
-{
-    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
-    
-    [self.navigationController pushViewController:newView animated:YES];
-    newView.contactSelectChosenDelegate = self;
-}
 
 -(void)didChooseContact:(Contact *)contact
 {
@@ -593,6 +469,11 @@ float tableHeight = 30;
     [self showModalPanel];
 }
 
+
+-(void)didSelectAmount:(double)amountSent
+{
+    txtAmount.text = [[NSString stringWithFormat:@"%f",amountSent] copy];
+}
 
 
 @end
