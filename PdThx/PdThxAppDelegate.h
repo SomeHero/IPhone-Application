@@ -21,6 +21,9 @@
     NSArray * permissions;
     UIAlertView * notifAlert;
     IBOutlet UITabBarController *welcomeTabBarController;
+    IBOutlet UITabBarController *newUserFlowTabController;
+    FBRequest *friendRequest;
+    FBRequest *infoRequest;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -34,6 +37,9 @@
 @property (nonatomic, retain) UIAlertView * notifAlert;
 @property (nonatomic, assign) bool areFacebookContactsLoaded;
 @property (nonatomic, retain) UITabBarController *welcomeTabBarController;
+@property (nonatomic, retain) UITabBarController *newUserFlowTabController;
+@property (nonatomic, retain) FBRequest *friendRequest;
+@property (nonatomic, retain) FBRequest *infoRequest;
 
 
 -(void)signOut;
@@ -45,5 +51,6 @@
 
 -(void)switchToMainAreaTabbedView;
 -(void)backToWelcomeTabbedArea;
+-(void)showNewUserFlow:(int)tabToDisplay;
 
 @end

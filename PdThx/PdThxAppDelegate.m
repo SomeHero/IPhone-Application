@@ -24,17 +24,28 @@
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize tabBarController=_tabBarController, welcomeTabBarController;
-@synthesize fBook, deviceToken, phoneNumberFormatter, 
+@synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
+@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,
     permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 
 -(void)switchToMainAreaTabbedView
 {
     [self.welcomeTabBarController.view removeFromSuperview];
+    [self.newUserFlowTabController.view removeFromSuperview];
     
     [self.window addSubview:self.tabBarController.view];
     [self.tabBarController setSelectedIndex:0];
     [self.window bringSubviewToFront:self.tabBarController.view];
+}
+
+-(void)showNewUserFlow:(int)tabToDisplay
+{
+    [self.welcomeTabBarController.view removeFromSuperview];
+    [self.tabBarController.view removeFromSuperview];
+    
+    [self.window addSubview:self.newUserFlowTabController.view];
+    [self.newUserFlowTabController setSelectedIndex:tabToDisplay];
+    [self.window bringSubviewToFront:self.newUserFlowTabController.view];
 }
 
 -(void)backToWelcomeTabbedArea
@@ -254,7 +265,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     Contact * contact;
     
     if ( [fBook isSessionValid] ){
-        [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
+        friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
     }
     
     // get the address book
@@ -302,22 +313,25 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
-    NSArray *friendArray = [result objectForKey:@"data"];
-    NSArray *splitName;
-    Contact *friend;
-    for ( NSDictionary *dict in friendArray ){
-        friend = [[Contact alloc] init];
-        friend.facebookID = [dict objectForKey:@"id"];
-        friend.name = [dict objectForKey:@"name"];
-        splitName = [friend.name componentsSeparatedByString:@" "];
-        
-        friend.firstName = [splitName objectAtIndex:0];
-        friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
-        
-        friend.imgData = NULL;
-        friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
-        [tempArray addObject:friend];
-        [friend release];
+    if ( request == friendRequest )
+    {
+        NSArray *friendArray = [result objectForKey:@"data"];
+        NSArray *splitName;
+        Contact *friend;
+        for ( NSDictionary *dict in friendArray ){
+            friend = [[Contact alloc] init];
+            friend.facebookID = [dict objectForKey:@"id"];
+            friend.name = [dict objectForKey:@"name"];
+            splitName = [friend.name componentsSeparatedByString:@" "];
+            
+            friend.firstName = [splitName objectAtIndex:0];
+            friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
+            
+            friend.imgData = NULL;
+            friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
+            [tempArray addObject:friend];
+            [friend release];
+        }
     }
     
     areFacebookContactsLoaded = YES;
@@ -378,7 +392,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [defaults setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
     [defaults synchronize];
     
-    [fBook requestWithGraphPath:@"me" andDelegate:self];
+    infoRequest = [fBook requestWithGraphPath:@"me" andDelegate:self];
 }
 
 - (void)dealloc
@@ -387,6 +401,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [_tabBarController release];
     [welcomeTabBarController release];
     [fBook release];
+    [newUserFlowTabController release];
     [super dealloc];
 }
 

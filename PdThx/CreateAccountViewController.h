@@ -35,6 +35,7 @@ ACHSetupCompleteProtocol, UITextFieldDelegate, MFMessageComposeViewControllerDel
     NSString* registrationKey;
     float animatedDistance;
 }
+
 @property(nonatomic, retain) UIButton *btnCreateAccount;
 @property(nonatomic, retain) UITextField *txtEmailAddress;
 @property(nonatomic, retain) UITextField *txtPassword;
