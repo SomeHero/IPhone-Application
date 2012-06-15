@@ -19,6 +19,7 @@
     IBOutlet UILabel *lblComments;
     IBOutlet UILabel *lblTransactionDirection;
     IBOutlet UIView *overlayView;
+    IBOutlet UIImageView *stampView;
 }
 
 @property (nonatomic, retain) UIButton *transactionImageButton;
@@ -30,5 +31,6 @@
 @property (nonatomic, retain) UILabel *lblComments;
 @property (nonatomic, retain) UILabel *lblTransactionDirection;
 @property(nonatomic, retain) UIView *overlayView;
+@property(nonatomic, retain) UIImageView* stampView;
 
 @end

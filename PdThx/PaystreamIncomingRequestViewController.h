@@ -17,7 +17,6 @@
 @interface PaystreamIncomingRequestViewController : PaystreamDetailBaseViewController<SecurityPinCompleteDelegate, AcceptPaymentRequestProtocol, RejectPaymentRequestProtocol> {
     IBOutlet UIButton* btnAccept;
     IBOutlet UIButton* btnCancel;
-    ConfirmPaymentDialogController *securityPinModalPanel;
 }
 
 @property(nonatomic, retain) UIButton* btnAccept;

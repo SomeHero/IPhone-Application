@@ -19,6 +19,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize lblComments;
 @synthesize lblTransactionDirection;
 @synthesize overlayView;
+@synthesize stampView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -48,6 +49,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [lblComments release];
     [lblTransactionDirection release];
     [overlayView release];
+    [stampView release];
     
     [super dealloc];
 }

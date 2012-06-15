@@ -399,6 +399,20 @@
 		5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */; };
 		5B905800157FC41B00D0373B /* PaystreamOutgoingRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9057FE157FC41A00D0373B /* PaystreamOutgoingRequestViewController.m */; };
 		5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B905803157FCB9D00D0373B /* PaystreamService.m */; };
+		5BB1452A158ADC5000EA652A /* stampCancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14529158ADC5000EA652A /* stampCancelled.png */; };
+		5BB1452C158ADCE200EA652A /* stampPaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452B158ADCE200EA652A /* stampPaid.png */; };
+		5BB14530158ADD0700EA652A /* stampRefunded.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452D158ADD0700EA652A /* stampRefunded.png */; };
+		5BB14531158ADD0700EA652A /* stampRejected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452E158ADD0700EA652A /* stampRejected.png */; };
+		5BB14532158ADD0700EA652A /* stampReturned.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452F158ADD0700EA652A /* stampReturned.png */; };
+		5BB14534158ADD3100EA652A /* stampPaid2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14533158ADD3100EA652A /* stampPaid2x.png */; };
+		5BB14536158ADD3B00EA652A /* stampCancelled2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14535158ADD3B00EA652A /* stampCancelled2x.png */; };
+		5BB14538158ADD4500EA652A /* stampRefunded2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14537158ADD4500EA652A /* stampRefunded2x.png */; };
+		5BB1453A158ADD4D00EA652A /* stampRejected2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14539158ADD4D00EA652A /* stampRejected2x.png */; };
+		5BB1453C158ADD5A00EA652A /* stampReturned2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1453B158ADD5A00EA652A /* stampReturned2x.png */; };
+		5BB14540158AE57A00EA652A /* SecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB1453E158AE57A00EA652A /* SecurityPinSwipeController.m */; };
+		5BB14541158AE57A00EA652A /* SecurityPinSwipeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1453F158AE57A00EA652A /* SecurityPinSwipeController.xib */; };
+		5BB14545158AEF6A00EA652A /* TestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB14543158AEF6700EA652A /* TestController.m */; };
+		5BB14546158AEF6A00EA652A /* TestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14544158AEF6900EA652A /* TestController.xib */; };
 		5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE183214DECC93002A3618 /* SendMoneyRequest.m */; };
 		5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BBE183414DF2D13002A3618 /* Entitlements.plist */; };
 		5BD278E0153BBF8000CAFC12 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278DE153BBF8000CAFC12 /* SignInViewController.m */; };
@@ -914,6 +928,22 @@
 		5B9057FE157FC41A00D0373B /* PaystreamOutgoingRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamOutgoingRequestViewController.m; sourceTree = "<group>"; };
 		5B905802157FCB9D00D0373B /* PaystreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamService.h; sourceTree = "<group>"; };
 		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
+		5BB14529158ADC5000EA652A /* stampCancelled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled.png; sourceTree = "<group>"; };
+		5BB1452B158ADCE200EA652A /* stampPaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampPaid.png; sourceTree = "<group>"; };
+		5BB1452D158ADD0700EA652A /* stampRefunded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRefunded.png; sourceTree = "<group>"; };
+		5BB1452E158ADD0700EA652A /* stampRejected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRejected.png; sourceTree = "<group>"; };
+		5BB1452F158ADD0700EA652A /* stampReturned.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampReturned.png; sourceTree = "<group>"; };
+		5BB14533158ADD3100EA652A /* stampPaid2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampPaid2x.png; sourceTree = "<group>"; };
+		5BB14535158ADD3B00EA652A /* stampCancelled2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled2x.png; sourceTree = "<group>"; };
+		5BB14537158ADD4500EA652A /* stampRefunded2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRefunded2x.png; sourceTree = "<group>"; };
+		5BB14539158ADD4D00EA652A /* stampRejected2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRejected2x.png; sourceTree = "<group>"; };
+		5BB1453B158ADD5A00EA652A /* stampReturned2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampReturned2x.png; sourceTree = "<group>"; };
+		5BB1453D158AE57A00EA652A /* SecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityPinSwipeController.h; sourceTree = "<group>"; };
+		5BB1453E158AE57A00EA652A /* SecurityPinSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityPinSwipeController.m; sourceTree = "<group>"; };
+		5BB1453F158AE57A00EA652A /* SecurityPinSwipeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecurityPinSwipeController.xib; sourceTree = "<group>"; };
+		5BB14542158AEF6600EA652A /* TestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestController.h; sourceTree = "<group>"; };
+		5BB14543158AEF6700EA652A /* TestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestController.m; sourceTree = "<group>"; };
+		5BB14544158AEF6900EA652A /* TestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestController.xib; sourceTree = "<group>"; };
 		5BBE183114DECC91002A3618 /* SendMoneyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyRequest.h; sourceTree = "<group>"; };
 		5BBE183214DECC93002A3618 /* SendMoneyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyRequest.m; sourceTree = "<group>"; };
 		5BBE183414DF2D13002A3618 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -1170,8 +1200,8 @@
 		54A139AB15826EAF00668984 /* Main Area Tabbed Views */ = {
 			isa = PBXGroup;
 			children = (
-				54A139DC158430E900668984 /* Do Good View */,
 				54A139AC15826F3900668984 /* Home View */,
+				54A139DC158430E900668984 /* Do Good View */,
 				54A139A915826E0600668984 /* Paystream Views */,
 				54A139A815826C2200668984 /* Send/Request Money */,
 			);
@@ -1196,6 +1226,12 @@
 				5BD278F5153BD2D100CAFC12 /* SetupSecurityPin.h */,
 				5BE6F77214E3859300599EF2 /* ALUnlockPatternView.h */,
 				5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */,
+				5BB1453D158AE57A00EA652A /* SecurityPinSwipeController.h */,
+				5BB1453E158AE57A00EA652A /* SecurityPinSwipeController.m */,
+				5BB1453F158AE57A00EA652A /* SecurityPinSwipeController.xib */,
+				5BB14542158AEF6600EA652A /* TestController.h */,
+				5BB14543158AEF6700EA652A /* TestController.m */,
+				5BB14544158AEF6900EA652A /* TestController.xib */,
 			);
 			name = "Pin Swipe View";
 			sourceTree = "<group>";
@@ -1540,6 +1576,16 @@
 		54CACB351586758400631B84 /* Paystream Images */ = {
 			isa = PBXGroup;
 			children = (
+				5BB1453B158ADD5A00EA652A /* stampReturned2x.png */,
+				5BB14539158ADD4D00EA652A /* stampRejected2x.png */,
+				5BB14537158ADD4500EA652A /* stampRefunded2x.png */,
+				5BB14535158ADD3B00EA652A /* stampCancelled2x.png */,
+				5BB14533158ADD3100EA652A /* stampPaid2x.png */,
+				5BB1452D158ADD0700EA652A /* stampRefunded.png */,
+				5BB1452E158ADD0700EA652A /* stampRejected.png */,
+				5BB1452F158ADD0700EA652A /* stampReturned.png */,
+				5BB1452B158ADCE200EA652A /* stampPaid.png */,
+				5BB14529158ADC5000EA652A /* stampCancelled.png */,
 				541EE5F7158A649700131B0E /* img-pulltorefresh.png */,
 				541EE5F8158A649700131B0E /* img-pulltorefresh@2x.png */,
 				541EE5E4158A5DC200131B0E /* btn-psdetail-green-267x40-active.png */,
@@ -2405,6 +2451,18 @@
 				541EE5F6158A5F6A00131B0E /* ContactTableViewCell.xib in Resources */,
 				541EE5F9158A649700131B0E /* img-pulltorefresh.png in Resources */,
 				541EE5FA158A649700131B0E /* img-pulltorefresh@2x.png in Resources */,
+				5BB1452A158ADC5000EA652A /* stampCancelled.png in Resources */,
+				5BB1452C158ADCE200EA652A /* stampPaid.png in Resources */,
+				5BB14530158ADD0700EA652A /* stampRefunded.png in Resources */,
+				5BB14531158ADD0700EA652A /* stampRejected.png in Resources */,
+				5BB14532158ADD0700EA652A /* stampReturned.png in Resources */,
+				5BB14534158ADD3100EA652A /* stampPaid2x.png in Resources */,
+				5BB14536158ADD3B00EA652A /* stampCancelled2x.png in Resources */,
+				5BB14538158ADD4500EA652A /* stampRefunded2x.png in Resources */,
+				5BB1453A158ADD4D00EA652A /* stampRejected2x.png in Resources */,
+				5BB1453C158ADD5A00EA652A /* stampReturned2x.png in Resources */,
+				5BB14541158AE57A00EA652A /* SecurityPinSwipeController.xib in Resources */,
+				5BB14546158AEF6A00EA652A /* TestController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2514,6 +2572,8 @@
 				54CACC6915879A3000631B84 /* WelcomeScreenViewController.m in Sources */,
 				54CACC6E15879A5B00631B84 /* AboutPageViewController.m in Sources */,
 				541EE5DB158A461500131B0E /* PaystreamDetailBaseViewController.m in Sources */,
+				5BB14540158AE57A00EA652A /* SecurityPinSwipeController.m in Sources */,
+				5BB14545158AEF6A00EA652A /* TestController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
