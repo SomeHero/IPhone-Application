@@ -42,6 +42,17 @@
 		541EE5F6158A5F6A00131B0E /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */; };
 		541EE5F9158A649700131B0E /* img-pulltorefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5F7158A649700131B0E /* img-pulltorefresh.png */; };
 		541EE5FA158A649700131B0E /* img-pulltorefresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5F8158A649700131B0E /* img-pulltorefresh@2x.png */; };
+		541EE605158A70EC00131B0E /* ActivatePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 541EE603158A70EC00131B0E /* ActivatePhoneViewController.m */; };
+		541EE606158A70EC00131B0E /* ActivatePhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541EE604158A70EC00131B0E /* ActivatePhoneViewController.xib */; };
+		541EE60A158A70FA00131B0E /* PersonalizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 541EE608158A70FA00131B0E /* PersonalizeViewController.m */; };
+		541EE60B158A70FA00131B0E /* PersonalizeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541EE609158A70FA00131B0E /* PersonalizeViewController.xib */; };
+		541EE615158A737300131B0E /* setupIllustration.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE612158A737300131B0E /* setupIllustration.png */; };
+		541EE616158A737300131B0E /* setupIllustration@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE613158A737300131B0E /* setupIllustration@2x.png */; };
+		541EE617158A737300131B0E /* setupScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE614158A737300131B0E /* setupScreenshot.png */; };
+		541EE61A158A7C1000131B0E /* icon-setup-checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE618158A7C0F00131B0E /* icon-setup-checkbox-checked@2x.png */; };
+		541EE61B158A7C1000131B0E /* icon-setup-checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE619158A7C1000131B0E /* icon-setup-checkbox@2x.png */; };
+		541EE61E158A7C1E00131B0E /* icon-setup-checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE61C158A7C1E00131B0E /* icon-setup-checkbox-checked.png */; };
+		541EE61F158A7C1E00131B0E /* icon-setup-checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE61D158A7C1E00131B0E /* icon-setup-checkbox.png */; };
 		5427662B157F9D1700D33AC1 /* MECodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */; };
 		5427662C157F9D1700D33AC1 /* MECodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */; };
 		54276637157FEE3700D33AC1 /* messageBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 54276630157FEE3700D33AC1 /* messageBox.png */; };
@@ -485,6 +496,19 @@
 		541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		541EE5F7158A649700131B0E /* img-pulltorefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-pulltorefresh.png"; sourceTree = "<group>"; };
 		541EE5F8158A649700131B0E /* img-pulltorefresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-pulltorefresh@2x.png"; sourceTree = "<group>"; };
+		541EE602158A70EC00131B0E /* ActivatePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivatePhoneViewController.h; sourceTree = "<group>"; };
+		541EE603158A70EC00131B0E /* ActivatePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivatePhoneViewController.m; sourceTree = "<group>"; };
+		541EE604158A70EC00131B0E /* ActivatePhoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivatePhoneViewController.xib; sourceTree = "<group>"; };
+		541EE607158A70FA00131B0E /* PersonalizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalizeViewController.h; sourceTree = "<group>"; };
+		541EE608158A70FA00131B0E /* PersonalizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalizeViewController.m; sourceTree = "<group>"; };
+		541EE609158A70FA00131B0E /* PersonalizeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalizeViewController.xib; sourceTree = "<group>"; };
+		541EE612158A737300131B0E /* setupIllustration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setupIllustration.png; sourceTree = "<group>"; };
+		541EE613158A737300131B0E /* setupIllustration@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setupIllustration@2x.png"; sourceTree = "<group>"; };
+		541EE614158A737300131B0E /* setupScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setupScreenshot.png; sourceTree = "<group>"; };
+		541EE618158A7C0F00131B0E /* icon-setup-checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-setup-checkbox-checked@2x.png"; sourceTree = "<group>"; };
+		541EE619158A7C1000131B0E /* icon-setup-checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-setup-checkbox@2x.png"; sourceTree = "<group>"; };
+		541EE61C158A7C1E00131B0E /* icon-setup-checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-setup-checkbox-checked.png"; sourceTree = "<group>"; };
+		541EE61D158A7C1E00131B0E /* icon-setup-checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-setup-checkbox.png"; sourceTree = "<group>"; };
 		54276628157F9D1700D33AC1 /* MECodeSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MECodeSetupViewController.h; path = ../MECodeSetupViewController.h; sourceTree = "<group>"; };
 		54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MECodeSetupViewController.m; path = ../MECodeSetupViewController.m; sourceTree = "<group>"; };
 		5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MECodeSetupViewController.xib; path = ../MECodeSetupViewController.xib; sourceTree = "<group>"; };
@@ -1051,6 +1075,88 @@
 				541EE5AF158A2FEA00131B0E /* field-howmuch-255x48@2x.png */,
 			);
 			name = "Amount Select";
+			sourceTree = "<group>";
+		};
+		541EE5FF158A6AC900131B0E /* New User Creation Flow */ = {
+			isa = PBXGroup;
+			children = (
+				541EE604158A70EC00131B0E /* ActivatePhoneViewController.xib */,
+				541EE609158A70FA00131B0E /* PersonalizeViewController.xib */,
+			);
+			name = "New User Creation Flow";
+			sourceTree = "<group>";
+		};
+		541EE601158A70C400131B0E /* New User Creation */ = {
+			isa = PBXGroup;
+			children = (
+				541EE602158A70EC00131B0E /* ActivatePhoneViewController.h */,
+				541EE603158A70EC00131B0E /* ActivatePhoneViewController.m */,
+				541EE607158A70FA00131B0E /* PersonalizeViewController.h */,
+				541EE608158A70FA00131B0E /* PersonalizeViewController.m */,
+			);
+			name = "New User Creation";
+			sourceTree = "<group>";
+		};
+		541EE60C158A710B00131B0E /* Welcome Signed Out Flow */ = {
+			isa = PBXGroup;
+			children = (
+				5BD278F2153BC81300CAFC12 /* CreateAccountViewController.xib */,
+				541EE5C6158A435C00131B0E /* SignInViewController.xib */,
+				54CACC6815879A3000631B84 /* WelcomeScreenViewController.xib */,
+				54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */,
+			);
+			name = "Welcome Signed Out Flow";
+			sourceTree = "<group>";
+		};
+		541EE60D158A712100131B0E /* Send/Request Money */ = {
+			isa = PBXGroup;
+			children = (
+				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
+				5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */,
+			);
+			name = "Send/Request Money";
+			sourceTree = "<group>";
+		};
+		541EE60E158A712C00131B0E /* Contact Select */ = {
+			isa = PBXGroup;
+			children = (
+				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
+				541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */,
+			);
+			name = "Contact Select";
+			sourceTree = "<group>";
+		};
+		541EE60F158A718100131B0E /* Paystream */ = {
+			isa = PBXGroup;
+			children = (
+				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
+				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
+			);
+			name = Paystream;
+			sourceTree = "<group>";
+		};
+		541EE610158A719900131B0E /* Settings and Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5BEBF01814B2281900379108 /* ProfileController.xib */,
+				D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */,
+				5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */,
+			);
+			name = "Settings and Profile";
+			sourceTree = "<group>";
+		};
+		541EE611158A736200131B0E /* New User Creation */ = {
+			isa = PBXGroup;
+			children = (
+				541EE618158A7C0F00131B0E /* icon-setup-checkbox-checked@2x.png */,
+				541EE619158A7C1000131B0E /* icon-setup-checkbox@2x.png */,
+				541EE61C158A7C1E00131B0E /* icon-setup-checkbox-checked.png */,
+				541EE61D158A7C1E00131B0E /* icon-setup-checkbox.png */,
+				541EE612158A737300131B0E /* setupIllustration.png */,
+				541EE613158A737300131B0E /* setupIllustration@2x.png */,
+				541EE614158A737300131B0E /* setupScreenshot.png */,
+			);
+			name = "New User Creation";
 			sourceTree = "<group>";
 		};
 		5427662D157FEE0D00D33AC1 /* Send Money Images */ = {
@@ -1717,6 +1823,7 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				541EE611158A736200131B0E /* New User Creation */,
 				54CACB3B1586789D00631B84 /* Pin Swipe Images */,
 				54CACB3A1586788E00631B84 /* Old Images */,
 				54CACB351586758400631B84 /* Paystream Images */,
@@ -1930,6 +2037,7 @@
 		5BD27BCE1547B96200CAFC12 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				541EE601158A70C400131B0E /* New User Creation */,
 				54A139AF1582702700668984 /* Custom UI Features */,
 				549FD4461588F90C00809EAA /* Settings View */,
 				54CACC561587984000631B84 /* Welcome Tabbed Views */,
@@ -1948,26 +2056,19 @@
 		5BD27BD21547BF4700CAFC12 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				541EE5FF158A6AC900131B0E /* New User Creation Flow */,
+				541EE610158A719900131B0E /* Settings and Profile */,
+				541EE60F158A718100131B0E /* Paystream */,
+				541EE60E158A712C00131B0E /* Contact Select */,
+				541EE60D158A712100131B0E /* Send/Request Money */,
+				541EE60C158A710B00131B0E /* Welcome Signed Out Flow */,
 				5BD278FA153E7F0300CAFC12 /* Dialogs */,
 				5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */,
-				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
-				541EE5C6158A435C00131B0E /* SignInViewController.xib */,
-				5BEBF01814B2281900379108 /* ProfileController.xib */,
-				5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */,
-				5BD278F2153BC81300CAFC12 /* CreateAccountViewController.xib */,
 				5BD278FF153E8A1D00CAFC12 /* SetupACHAccountController.xib */,
 				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
-				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
 				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
-				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
-				D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */,
-				5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */,
-				541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */,
-				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 				54A139A415826B0A00668984 /* AmountSelectViewController.xib */,
 				54A139DF158430FA00668984 /* DoGoodViewController.xib */,
-				54CACC6815879A3000631B84 /* WelcomeScreenViewController.xib */,
-				54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2405,6 +2506,15 @@
 				541EE5F6158A5F6A00131B0E /* ContactTableViewCell.xib in Resources */,
 				541EE5F9158A649700131B0E /* img-pulltorefresh.png in Resources */,
 				541EE5FA158A649700131B0E /* img-pulltorefresh@2x.png in Resources */,
+				541EE606158A70EC00131B0E /* ActivatePhoneViewController.xib in Resources */,
+				541EE60B158A70FA00131B0E /* PersonalizeViewController.xib in Resources */,
+				541EE615158A737300131B0E /* setupIllustration.png in Resources */,
+				541EE616158A737300131B0E /* setupIllustration@2x.png in Resources */,
+				541EE617158A737300131B0E /* setupScreenshot.png in Resources */,
+				541EE61A158A7C1000131B0E /* icon-setup-checkbox-checked@2x.png in Resources */,
+				541EE61B158A7C1000131B0E /* icon-setup-checkbox@2x.png in Resources */,
+				541EE61E158A7C1E00131B0E /* icon-setup-checkbox-checked.png in Resources */,
+				541EE61F158A7C1E00131B0E /* icon-setup-checkbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2514,6 +2624,8 @@
 				54CACC6915879A3000631B84 /* WelcomeScreenViewController.m in Sources */,
 				54CACC6E15879A5B00631B84 /* AboutPageViewController.m in Sources */,
 				541EE5DB158A461500131B0E /* PaystreamDetailBaseViewController.m in Sources */,
+				541EE605158A70EC00131B0E /* ActivatePhoneViewController.m in Sources */,
+				541EE60A158A70FA00131B0E /* PersonalizeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

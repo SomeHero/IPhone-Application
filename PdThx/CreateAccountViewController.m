@@ -9,6 +9,7 @@
 #import "CreateAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SetupACHAccountController.h"
+#import "PdThxAppDelegate.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400
@@ -247,10 +248,9 @@
 }
 
 -(IBAction) btnCreateAccountClicked:(id) sender {
-    
-    [self createAccount];
-    
+    [self createAccount];    
 }
+
 -(void) securityPinComplete:(SetupSecurityPin*) modalPanel 
                selectedCode:(NSString*) code {
     
@@ -311,8 +311,7 @@
     txtPassword.text = @"";
     txtConfirmPassword.text = @"";
     
-    [self sendInAppSMS: self];
-    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showNewUserFlow:1];
 }
 -(void)userRegistrationDidFail:(NSString*) response
 {
