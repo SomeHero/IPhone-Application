@@ -33,7 +33,14 @@
                               [prefs stringForKey:@"deviceToken"], @"deviceToken",
                               nil];
     
-    NSString * newJSON = [userData JSONRepresentation]; 
+    [prefs setValue:[response valueForKey:@"first_name"] forKey:@"firstName"];
+    [prefs setValue:[response valueForKey:@"last_name"] forKey:@"lastName"];
+    [prefs setValue:[response valueForKey:@"id"] forKey:@"facebook_id"];
+    
+    [prefs synchronize];
+    
+    
+    NSString * newJSON = [userData JSONRepresentation];
     
     requestObj= [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 

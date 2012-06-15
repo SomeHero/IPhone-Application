@@ -306,6 +306,15 @@
     [prefs setObject:userId forKey:@"userId"];
     [prefs synchronize];
     
+<<<<<<< HEAD
+    
+    txtEmailAddress.text = @"";
+    txtPassword.text = @"";
+    txtConfirmPassword.text = @"";
+    
+    [self sendInAppSMS: self];
+=======
+>>>>>>> 03b52382a2b9670b9ebd055efca055915639e077
     
     txtEmailAddress.text = @"";
     txtPassword.text = @"";

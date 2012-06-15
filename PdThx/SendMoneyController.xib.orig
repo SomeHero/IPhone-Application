@@ -302,6 +302,19 @@
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<string key="IBUIText">Yeah... so i'm paying you money to make an app within the app. Appception!</string>
+<<<<<<< HEAD
+=======
+										<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+											<int key="IBUIAutocapitalizationType">2</int>
+											<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										</object>
+										<object class="IBUIFontDescription" key="IBUIFontDescription">
+											<string key="name">Helvetica</string>
+											<string key="family">Helvetica</string>
+											<int key="traits">0</int>
+											<double key="pointSize">14</double>
+										</object>
+>>>>>>> 03b52382a2b9670b9ebd055efca055915639e077
 										<object class="NSFont" key="IBUIFont">
 											<string key="NSName">Helvetica</string>
 											<double key="NSSize">14</double>
@@ -340,6 +353,10 @@
 										<string key="NSFrame">{{5, 282}, {298, 50}}</string>
 										<reference key="NSSuperview" ref="22969862"/>
 										<reference key="NSWindow"/>
+<<<<<<< HEAD
+=======
+										<string key="NSReuseIdentifierKey">_NS:9</string>
+>>>>>>> 03b52382a2b9670b9ebd055efca055915639e077
 										<reference key="IBUIBackgroundColor" ref="57948443"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -546,6 +563,15 @@
 						<reference key="destination" ref="1019719200"/>
 					</object>
 					<int key="connectionID">86</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">btnSendMoneyClicked:</string>
+						<reference key="source" ref="1019719200"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">87</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
