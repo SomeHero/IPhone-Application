@@ -438,7 +438,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         if([item.direction isEqualToString: @"In"])
             cell.lblTransactionDirection.text = @"Request money from you";
         else
-            cell.lblTransactionDirection.text = @"You request money from them";
+            cell.lblTransactionDirection.text = @"You requested money from them";
     }
     
     cell.overlayView.layer.opacity = 0.0;   
