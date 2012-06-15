@@ -8,6 +8,8 @@
 
 #import "PaystreamDetailBaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TestController.h"
+#import "SetupSecurityPin.h"
 
 @implementation PaystreamDetailBaseViewController
 
@@ -25,6 +27,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize quoteView;
 @synthesize actionView;
 @synthesize pullableView;
+@synthesize parent;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -163,7 +166,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     txtRecipient.text = messageDetail.recipientName;
     txtSender.text = messageDetail.senderName;
+    [btnCurrentStatus setTitle: messageDetail.messageStatus forState:UIControlStateNormal];
     
+    //btnSender setImage: [UIImage imageWithContentsOfFile: messageDetail.senderUri];
+    //btnRecipient setImage: [UIImage imageWithContentsOfFile:<#(NSString *)#> forState:<#(UIControlState)#>
     // Settings
 	NSString*	s;
 	NSString*	art		= @"bg-message-stretch.png";
@@ -261,7 +267,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [paystreamServices cancelPayment: messageDetail.messageId];
 }
 -(void)btnAcceptRequestClicked {
-    //[paystreamServices acceptRequest:messageDetail.messageId withUserId:userId fromPaymentAccount:paymentAccountId withSecurityPin: code];
+    securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
+    
+    securityPinModalPanel.dialogTitle.text = @"Confirm Your Payment";
+    //securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To confirm your payment of %@ to %@, swipe your pin below.", [[txtAmount.text copy] autorelease], recipientUri];
+    [securityPinModalPanel.btnCancelPayment setTitle: @"Cancel Payment" forState: UIControlStateNormal];
+    securityPinModalPanel.delegate = self;
+    
+    ///////////////////////////////////
+    // Add the panel to our view
+    //[self.view addSubview:securityPinModalPanel];
+    [pullableView setOpened:NO animated:YES];
+    //[parent.navigationController pushViewController: securityPinModalPanel animated:YES];
 }
 -(void)btnRejectRequestClicked {
     [paystreamServices rejectRequest: messageDetail.messageId];
@@ -312,5 +329,35 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	[label release];
 	[background release];
 	return [finalView autorelease];
+}
+
+//Security Pin Stuff
+- (IBAction)showModalPanel {
+    
+    securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
+    
+    securityPinModalPanel.dialogTitle.text = @"Confirm Your Payment";
+    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To confirm your payment of %@ to %@, swipe your pin below.", messageDetail.amount, messageDetail.senderUri];
+    [securityPinModalPanel.btnCancelPayment setTitle: @"Accept Payment" forState: UIControlStateNormal];
+    securityPinModalPanel.delegate = self;
+    
+    ///////////////////////////////////
+    // Add the panel to our view
+    [self.view addSubview:securityPinModalPanel];
+    
+    ///////////////////////////////////
+    // Show the panel from the center of the button that was pressed
+    [securityPinModalPanel show];
+}
+-(void) securityPinComplete:(ConfirmPaymentDialogController *) modalPanel
+               selectedCode:(NSString*) code {
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString* userId = [prefs stringForKey:@"userId"];
+    NSString* paymentAccountId = [prefs stringForKey: @"paymentAccountId"];
+    
+    [paystreamServices acceptRequest:messageDetail.messageId withUserId:userId fromPaymentAccount:paymentAccountId withSecurityPin:code];
+    
 }
 @end

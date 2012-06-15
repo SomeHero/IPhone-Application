@@ -443,17 +443,32 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     cell.overlayView.layer.opacity = 0.0;   
    
+    UIImage *imgAcceptedImageView = [UIImage imageNamed: @"stampPaid"];
+    
+    UIImage *imgRejectedImageView = [UIImage imageNamed: @"stampRejected"];
+    
+    UIImage *imgCancelledImageView = [UIImage imageNamed: @"stampCancelled"];
+    
+    UIImage *imgReturnedImageView = [UIImage imageNamed: @"stampReturned"];
+    
+    [cell.stampView setHidden:YES];
     if([item.messageStatus isEqualToString: @"Accepted"])
     {
+        [cell.stampView setHidden:NO];
+        [cell.stampView setImage: imgAcceptedImageView];
         cell.overlayView.layer.opacity = 0.6;   
     }
     if([item.messageStatus isEqualToString: @"Rejected"])
     {
+        [cell.stampView setHidden:NO];
+        [cell.stampView setImage:imgRejectedImageView];
         cell.overlayView.layer.opacity = 0.6;   
     }
     
     if([item.messageStatus isEqualToString: @"Cancelled"])
     {
+        [cell.stampView setHidden:NO];
+        [cell.stampView setImage: imgCancelledImageView];
         cell.overlayView.layer.opacity = 0.6;   
     }
         
@@ -623,6 +638,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     outgoingView.messageDetail = item;
     [outgoingView setPullableView: detailView];
+    [outgoingView setParent: self];
     [detailView addSubview: outgoingView.view];
     
     [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];

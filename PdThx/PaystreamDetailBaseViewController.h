@@ -14,8 +14,10 @@
 #import "CancelPaymentRequestProtocol.h"
 #import "AcceptPaymentRequestProtocol.h"
 #import "RejectPaymentRequestProtocol.h"
+#import "ConfirmPaymentDialogController.h"
+#import "SecurityPinSwipeController.h"
 
-@interface PaystreamDetailBaseViewController : UIViewController<CancelPaymentProtocol> {
+@interface PaystreamDetailBaseViewController : UIViewController<SecurityPinCompleteDelegate, AcceptPaymentRequestProtocol, CancelPaymentProtocol> {
     IBOutlet UIView *detailSubView;
     PaystreamMessage* messageDetail;
     PaystreamService* paystreamServices;
@@ -37,6 +39,8 @@
     UIButton* btnAcceptRequest;
     UIButton* btnRejectRequest;
     PullableView* pullableView;
+    UIViewController* parent;
+    ConfirmPaymentDialogController *securityPinModalPanel;
 }
 
 @property (nonatomic, retain) UIView *detailSubview;
@@ -55,7 +59,8 @@
 @property(nonatomic, retain) UIView* quoteView;
 @property(nonatomic, retain) UIView* actionView;
 @property(nonatomic, retain) PullableView* pullableView;
+@property(nonatomic, retain) UIViewController* parent;
 
 - (UIView*)makeBubbleWithWidth:(CGFloat)w font:(UIFont*)f text:(NSString*)s background:(NSString*)fn caps:(CGSize)caps padding:(CGFloat*)padTRBL;
-
+- (IBAction)showModalPanel;
 @end
