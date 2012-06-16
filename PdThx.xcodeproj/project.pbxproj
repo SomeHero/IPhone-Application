@@ -422,9 +422,7 @@
 		5BB14545158AEF6A00EA652A /* TestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB14543158AEF6700EA652A /* TestController.m */; };
 		5BB14546158AEF6A00EA652A /* TestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14544158AEF6900EA652A /* TestController.xib */; };
 		5BB14561158B948C00EA652A /* AmountSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14560158B948C00EA652A /* AmountSelectViewController.xib */; };
-		5BB14574158B95D300EA652A /* CreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14573158B95D300EA652A /* CreateAccountViewController.xib */; };
 		5BB14576158B961A00EA652A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14575158B961A00EA652A /* MainWindow.xib */; };
-		5BB14578158B967900EA652A /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14577158B967900EA652A /* SignInViewController.xib */; };
 		5BB145B8158B989600EA652A /* stampCancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145AE158B989600EA652A /* stampCancelled.png */; };
 		5BB145B9158B989600EA652A /* stampCancelled2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145AF158B989600EA652A /* stampCancelled2x.png */; };
 		5BB145BA158B989600EA652A /* stampPaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B0158B989600EA652A /* stampPaid.png */; };
@@ -435,12 +433,14 @@
 		5BB145BF158B989600EA652A /* stampRejected2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B5158B989600EA652A /* stampRejected2x.png */; };
 		5BB145C0158B989600EA652A /* stampReturned.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B6158B989600EA652A /* stampReturned.png */; };
 		5BB145C1158B989600EA652A /* stampReturned2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B7158B989600EA652A /* stampReturned2x.png */; };
+		5BB145E5158C284500EA652A /* FacebookSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB145E4158C284500EA652A /* FacebookSignIn.m */; };
 		5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE183214DECC93002A3618 /* SendMoneyRequest.m */; };
 		5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BBE183414DF2D13002A3618 /* Entitlements.plist */; };
-		5BD278E0153BBF8000CAFC12 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278DE153BBF8000CAFC12 /* SignInViewController.m */; };
+		5BC9C3B6158C41D800E20D9D /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9C3B4158C41D800E20D9D /* SignInViewController.m */; };
+		5BC9C3BC158C459400E20D9D /* CreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9C3BA158C459400E20D9D /* CreateAccountViewController.m */; };
+		5BC9C3BD158C459400E20D9D /* CreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BC9C3BB158C459400E20D9D /* CreateAccountViewController.xib */; };
 		5BD278ED153BC53A00CAFC12 /* button_sign_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD278EC153BC53A00CAFC12 /* button_sign_in.png */; };
 		5BD278EF153BC5BA00CAFC12 /* button_create_an_account.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BD278EE153BC5BA00CAFC12 /* button_create_an_account.png */; };
-		5BD278F3153BC81300CAFC12 /* CreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278F1153BC81200CAFC12 /* CreateAccountViewController.m */; };
 		5BD278F8153BD2D100CAFC12 /* SetupSecurityPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278F6153BD2D100CAFC12 /* SetupSecurityPin.m */; };
 		5BD278FC153E7F4200CAFC12 /* SetupSecurityPinDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD278FB153E7F4200CAFC12 /* SetupSecurityPinDialog.xib */; };
 		5BD27900153E8A1E00CAFC12 /* SetupACHAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */; };
@@ -466,6 +466,7 @@
 		5BEBF01914B2281900379108 /* ProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEBF01714B2281900379108 /* ProfileController.m */; };
 		5BEBF01A14B2281900379108 /* ProfileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01814B2281900379108 /* ProfileController.xib */; };
 		5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01C14B2282A00379109 /* Localizable.strings */; };
+		5BF1F1F0158CCCD700CFBF77 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */; };
 		D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDE5157FB72800ABE854 /* MeCodeViewController.m */; };
 		D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
@@ -499,7 +500,6 @@
 		541EE5AD158A2FEA00131B0E /* field-howmuch-255x48-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48-active@2x.png"; sourceTree = "<group>"; };
 		541EE5AE158A2FEA00131B0E /* field-howmuch-255x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48.png"; sourceTree = "<group>"; };
 		541EE5AF158A2FEA00131B0E /* field-howmuch-255x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-howmuch-255x48@2x.png"; sourceTree = "<group>"; };
-		541EE5C6158A435C00131B0E /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SignInViewController.xib; path = "/Users/jrhodes2705/Desktop/Projects/Remote/IPhone-Application/PdThx/SignInViewController.xib"; sourceTree = "<absolute>"; };
 		541EE5CA158A44A400131B0E /* helpIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpIcon.png; sourceTree = "<group>"; };
 		541EE5CB158A44A400131B0E /* helpIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "helpIcon@2x.png"; sourceTree = "<group>"; };
 		541EE5CC158A44A400131B0E /* profileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileIcon.png; sourceTree = "<group>"; };
@@ -977,9 +977,7 @@
 		5BB14543158AEF6700EA652A /* TestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestController.m; sourceTree = "<group>"; };
 		5BB14544158AEF6900EA652A /* TestController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestController.xib; sourceTree = "<group>"; };
 		5BB14560158B948C00EA652A /* AmountSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmountSelectViewController.xib; sourceTree = "<group>"; };
-		5BB14573158B95D300EA652A /* CreateAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccountViewController.xib; sourceTree = "<group>"; };
 		5BB14575158B961A00EA652A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		5BB14577158B967900EA652A /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		5BB145AE158B989600EA652A /* stampCancelled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled.png; sourceTree = "<group>"; };
 		5BB145AF158B989600EA652A /* stampCancelled2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled2x.png; sourceTree = "<group>"; };
 		5BB145B0158B989600EA652A /* stampPaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampPaid.png; sourceTree = "<group>"; };
@@ -990,16 +988,18 @@
 		5BB145B5158B989600EA652A /* stampRejected2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRejected2x.png; sourceTree = "<group>"; };
 		5BB145B6158B989600EA652A /* stampReturned.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampReturned.png; sourceTree = "<group>"; };
 		5BB145B7158B989600EA652A /* stampReturned2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampReturned2x.png; sourceTree = "<group>"; };
+		5BB145E3158C284500EA652A /* FacebookSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookSignIn.h; sourceTree = "<group>"; };
+		5BB145E4158C284500EA652A /* FacebookSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookSignIn.m; sourceTree = "<group>"; };
 		5BBE183114DECC91002A3618 /* SendMoneyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyRequest.h; sourceTree = "<group>"; };
 		5BBE183214DECC93002A3618 /* SendMoneyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyRequest.m; sourceTree = "<group>"; };
 		5BBE183414DF2D13002A3618 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
-		5BD278DD153BBF8000CAFC12 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
-		5BD278DE153BBF8000CAFC12 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		5BC9C3B3158C41D800E20D9D /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		5BC9C3B4158C41D800E20D9D /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		5BC9C3B9158C459400E20D9D /* CreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccountViewController.h; sourceTree = "<group>"; };
+		5BC9C3BA158C459400E20D9D /* CreateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccountViewController.m; sourceTree = "<group>"; };
+		5BC9C3BB158C459400E20D9D /* CreateAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccountViewController.xib; sourceTree = "<group>"; };
 		5BD278EC153BC53A00CAFC12 /* button_sign_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_sign_in.png; sourceTree = "<group>"; };
 		5BD278EE153BC5BA00CAFC12 /* button_create_an_account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_create_an_account.png; sourceTree = "<group>"; };
-		5BD278F0153BC81200CAFC12 /* CreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccountViewController.h; sourceTree = "<group>"; };
-		5BD278F1153BC81200CAFC12 /* CreateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAccountViewController.m; sourceTree = "<group>"; };
-		5BD278F2153BC81300CAFC12 /* CreateAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreateAccountViewController.xib; path = "/Users/jrhodes2705/Desktop/Projects/Remote/IPhone-Application/PdThx/CreateAccountViewController.xib"; sourceTree = "<absolute>"; };
 		5BD278F5153BD2D100CAFC12 /* SetupSecurityPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupSecurityPin.h; sourceTree = "<group>"; };
 		5BD278F6153BD2D100CAFC12 /* SetupSecurityPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupSecurityPin.m; sourceTree = "<group>"; };
 		5BD278FB153E7F4200CAFC12 /* SetupSecurityPinDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupSecurityPinDialog.xib; sourceTree = "<group>"; };
@@ -1043,6 +1043,7 @@
 		5BEBF01714B2281900379108 /* ProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileController.m; sourceTree = "<group>"; };
 		5BEBF01814B2281900379108 /* ProfileController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileController.xib; sourceTree = "<group>"; };
 		5BEBF01C14B2282A00379109 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		D587EDE4157FB72800ABE854 /* MeCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeViewController.h; sourceTree = "<group>"; };
 		D587EDE5157FB72800ABE854 /* MeCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeViewController.m; sourceTree = "<group>"; };
 		D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeViewController.xib; sourceTree = "<group>"; };
@@ -1152,10 +1153,10 @@
 		541EE60C158A710B00131B0E /* Welcome Signed Out Flow */ = {
 			isa = PBXGroup;
 			children = (
-				5BD278F2153BC81300CAFC12 /* CreateAccountViewController.xib */,
-				541EE5C6158A435C00131B0E /* SignInViewController.xib */,
 				54CACC6815879A3000631B84 /* WelcomeScreenViewController.xib */,
 				54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */,
+				5BC9C3BB158C459400E20D9D /* CreateAccountViewController.xib */,
+				5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */,
 			);
 			name = "Welcome Signed Out Flow";
 			sourceTree = "<group>";
@@ -1281,10 +1282,10 @@
 			children = (
 				5BD278FD153E8A1B00CAFC12 /* SetupACHAccountController.h */,
 				5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */,
-				5BD278F0153BC81200CAFC12 /* CreateAccountViewController.h */,
-				5BD278F1153BC81200CAFC12 /* CreateAccountViewController.m */,
-				5BD278DD153BBF8000CAFC12 /* SignInViewController.h */,
-				5BD278DE153BBF8000CAFC12 /* SignInViewController.m */,
+				5BC9C3B3158C41D800E20D9D /* SignInViewController.h */,
+				5BC9C3B4158C41D800E20D9D /* SignInViewController.m */,
+				5BC9C3B9158C459400E20D9D /* CreateAccountViewController.h */,
+				5BC9C3BA158C459400E20D9D /* CreateAccountViewController.m */,
 			);
 			name = "Sign In View";
 			sourceTree = "<group>";
@@ -2099,6 +2100,8 @@
 				5B3F4D391561EB3300A67649 /* PhoneNumberFormatting.m */,
 				54E3DDE915713E6700F63820 /* IconDownloader.h */,
 				54E3DDEA15713E6700F63820 /* IconDownloader.m */,
+				5BB145E3158C284500EA652A /* FacebookSignIn.h */,
+				5BB145E4158C284500EA652A /* FacebookSignIn.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2126,7 +2129,6 @@
 			isa = PBXGroup;
 			children = (
 				5BB14560158B948C00EA652A /* AmountSelectViewController.xib */,
-				5BB14573158B95D300EA652A /* CreateAccountViewController.xib */,
 				541EE5FF158A6AC900131B0E /* New User Creation Flow */,
 				541EE610158A719900131B0E /* Settings and Profile */,
 				541EE60F158A718100131B0E /* Paystream */,
@@ -2138,7 +2140,6 @@
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
 				5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */,
-				5BB14577158B967900EA652A /* SignInViewController.xib */,
 				5BD278FF153E8A1D00CAFC12 /* SetupACHAccountController.xib */,
 				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
@@ -2606,9 +2607,7 @@
 				5BB14541158AE57A00EA652A /* SecurityPinSwipeController.xib in Resources */,
 				5BB14546158AEF6A00EA652A /* TestController.xib in Resources */,
 				5BB14561158B948C00EA652A /* AmountSelectViewController.xib in Resources */,
-				5BB14574158B95D300EA652A /* CreateAccountViewController.xib in Resources */,
 				5BB14576158B961A00EA652A /* MainWindow.xib in Resources */,
-				5BB14578158B967900EA652A /* SignInViewController.xib in Resources */,
 				5BB145B8158B989600EA652A /* stampCancelled.png in Resources */,
 				5BB145B9158B989600EA652A /* stampCancelled2x.png in Resources */,
 				5BB145BA158B989600EA652A /* stampPaid.png in Resources */,
@@ -2619,6 +2618,8 @@
 				5BB145BF158B989600EA652A /* stampRejected2x.png in Resources */,
 				5BB145C0158B989600EA652A /* stampReturned.png in Resources */,
 				5BB145C1158B989600EA652A /* stampReturned2x.png in Resources */,
+				5BC9C3BD158C459400E20D9D /* CreateAccountViewController.xib in Resources */,
+				5BF1F1F0158CCCD700CFBF77 /* SignInViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2674,7 +2675,6 @@
 				5B69E19C14B117EB003A0F66 /* SBJsonBase.m in Sources */,
 				5B69E19D14B117EB003A0F66 /* SBJsonParser.m in Sources */,
 				5B69E19E14B117EB003A0F66 /* SBJsonWriter.m in Sources */,
-				5BEBF01914B2281900379108 /* ProfileController.m in Sources */,
 				5B692C5314D4777D00E6E663 /* SendMoneyController.m in Sources */,
 				5B692CBB14D5E9E100E6E663 /* RequestMoneyController.m in Sources */,
 				5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */,
@@ -2683,12 +2683,11 @@
 				5B88684B1529142C00EA24A4 /* UIView+JMNoise.m in Sources */,
 				5B88684E1529142C00EA24A4 /* UAModalPanel.m in Sources */,
 				5B88684F1529142C00EA24A4 /* UATitledModalPanel.m in Sources */,
+				5BEBF01914B2281900379108 /* ProfileController.m in Sources */,
 				5B8868501529142C00EA24A4 /* UAGradientBackground.m in Sources */,
 				5B8868511529142C00EA24A4 /* UANoisyGradientBackground.m in Sources */,
 				5B8868521529142C00EA24A4 /* UARoundedRectView.m in Sources */,
 				5B88685D1529260200EA24A4 /* ConfirmPaymentDialogController.m in Sources */,
-				5BD278E0153BBF8000CAFC12 /* SignInViewController.m in Sources */,
-				5BD278F3153BC81300CAFC12 /* CreateAccountViewController.m in Sources */,
 				5BD278F8153BD2D100CAFC12 /* SetupSecurityPin.m in Sources */,
 				5BD27900153E8A1E00CAFC12 /* SetupACHAccountController.m in Sources */,
 				5BD27905153FABAB00CAFC12 /* ConfirmSecurityPinDialog.m in Sources */,
@@ -2732,6 +2731,9 @@
 				541EE60A158A70FA00131B0E /* PersonalizeViewController.m in Sources */,
 				5BB14540158AE57A00EA652A /* SecurityPinSwipeController.m in Sources */,
 				5BB14545158AEF6A00EA652A /* TestController.m in Sources */,
+				5BB145E5158C284500EA652A /* FacebookSignIn.m in Sources */,
+				5BC9C3B6158C41D800E20D9D /* SignInViewController.m in Sources */,
+				5BC9C3BC158C459400E20D9D /* CreateAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

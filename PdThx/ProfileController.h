@@ -13,7 +13,7 @@
 #import "UserService.h"
 
 
-@interface ProfileController : UIBaseViewController
+@interface ProfileController : UIViewController
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, SecurityPinCompleteDelegate, ConfirmSecurityPinCompleteDelegate> {
     NSDictionary *profileOptions;
     NSArray *sections;

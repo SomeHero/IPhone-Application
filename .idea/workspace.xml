@@ -2,132 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="984964ef-3efa-4321-b460-bd37de0828c6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/IPhone-Application.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Images/close.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Images/close@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/background_v1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/button_create_an_account.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/button_enable_payments.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/button_quick_link_request.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/button_quick_link_send.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/button_request_money.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/button_send_money.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/button_sign_in.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/home_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/icon_paidthx_logo_header.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/icon_paystream_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/icon_request_money_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/paidthx-icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/paystream_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/request_money_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/send_money_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/xcode.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/ACHSetupCompleteProtocol.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/ConfirmPaymentDialog.xib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/ConfirmPaymentDialogController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/ConfirmPaymentDialogController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/ConfirmSecurityPinDialog.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/ConfirmSecurityPinDialog.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/ConfirmSecurityPinDialog.xib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/CreateAccountViewController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/CreateAccountViewController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/CreateAccountViewController.xib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Environment.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Environment.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Environments.plist" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/HomeViewController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/HomeViewController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/HomeViewController.xib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Localizable.strings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/NumberFormatting.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/NumberFormatting.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Categories/UIView+JMNoise.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Categories/UIView+JMNoise.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Panels/UAModalPanel.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Panels/UAModalPanel.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Panels/UATitledModalPanel.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Panels/UATitledModalPanel.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Views/UAGradientBackground.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Views/UAGradientBackground.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Views/UANoisyGradientBackground.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Views/UANoisyGradientBackground.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Views/UARoundedRectView.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Panel/Views/UARoundedRectView.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/PayStreamViewController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/PayStreamViewController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/PayStreamViewController.xib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SetupACHAccountController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SetupACHAccountController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SetupACHAccountController.xib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SetupSecurityPin.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SetupSecurityPinDialog.xib" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SignInCompleteProtocol.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SignInViewController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SignInViewController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/SignOutCompleteProtocol.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Transaction.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/Transaction.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/UIBaseViewController.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/UIBaseViewController.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/User.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/User.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/UserInformationCompleteProtocol.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/UserService.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/UserService.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UITransactionTableViewCell.h" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/ACHAccountSetup.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/ACHAccountSetup.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/ACHAccountSetup.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/CreateSecurityCode.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/CreateSecurityCode.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/MainTabController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SNPopupView.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SNPopupView.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SetPasswordController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SetPasswordController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SetPasswordController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SignupViewController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SignupViewController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SignupViewController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/TextEditCell.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/TextEditCell.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/TextEditCell.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/VerificationMobileDevice.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/VerificationMobileDevice.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/VerificationMobileDevice.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/WelcomeController.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/WelcomeController.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/WelcomeController.xib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/background.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/PdThx/CreateSecurityCode.xib" afterPath="$PROJECT_DIR$/PdThx/SignInViewController.xib" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/PdThx/MainTabController.h" afterPath="$PROJECT_DIR$/PdThx/SetupSecurityPin.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/PdThx/MainTabController.m" afterPath="$PROJECT_DIR$/UITransactionTableViewCell.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx.xcodeproj/project.xcworkspace/xcuserdata/jrhodes2705.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/PdThx.xcodeproj/project.xcworkspace/xcuserdata/jrhodes2705.xcuserdatad/UserInterfaceState.xcuserstate" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx.xcodeproj/project.xcworkspace/xcuserdata/jrhodes2705.xcuserdatad/WorkspaceSettings.xcsettings" afterPath="$PROJECT_DIR$/PdThx.xcodeproj/project.xcworkspace/xcuserdata/jrhodes2705.xcuserdatad/WorkspaceSettings.xcsettings" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx.xcodeproj/xcuserdata/jrhodes2705.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist" afterPath="$PROJECT_DIR$/PdThx.xcodeproj/xcuserdata/jrhodes2705.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/FacebookSignIn.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PdThx/FacebookSignIn.m" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/CreateAccountViewController.xib" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SignInViewController.m.orig" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SignInViewController.xib" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PdThx/SignInViewController.xib.orig" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/PdThx.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx.xcodeproj/xcuserdata/jrhodes2705.xcuserdatad/xcschemes/Ad Hoc.xcscheme" afterPath="$PROJECT_DIR$/PdThx.xcodeproj/xcuserdata/jrhodes2705.xcuserdatad/xcschemes/Ad Hoc.xcscheme" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx.xcodeproj/xcuserdata/jrhodes2705.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="$PROJECT_DIR$/PdThx.xcodeproj/xcuserdata/jrhodes2705.xcuserdatad/xcschemes/xcschememanagement.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/ALUnlockPatternView.h" afterPath="$PROJECT_DIR$/PdThx/ALUnlockPatternView.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/ALUnlockPatternView.m" afterPath="$PROJECT_DIR$/PdThx/ALUnlockPatternView.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/Contact.h" afterPath="$PROJECT_DIR$/PdThx/Contact.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/Contact.m" afterPath="$PROJECT_DIR$/PdThx/Contact.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/PdThx-Info.plist" afterPath="$PROJECT_DIR$/PdThx/PdThx-Info.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/AboutPageViewController.xib" afterPath="$PROJECT_DIR$/PdThx/AboutPageViewController.xib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/ActivatePhoneViewController.h" afterPath="$PROJECT_DIR$/PdThx/ActivatePhoneViewController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/ActivatePhoneViewController.m" afterPath="$PROJECT_DIR$/PdThx/ActivatePhoneViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/ActivatePhoneViewController.xib" afterPath="$PROJECT_DIR$/PdThx/ActivatePhoneViewController.xib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/CreateAccountViewController.h" afterPath="$PROJECT_DIR$/PdThx/CreateAccountViewController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/CreateAccountViewController.m" afterPath="$PROJECT_DIR$/PdThx/CreateAccountViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/MainWindow.xib" afterPath="$PROJECT_DIR$/PdThx/MainWindow.xib" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/PdThxAppDelegate.h" afterPath="$PROJECT_DIR$/PdThx/PdThxAppDelegate.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/PdThxAppDelegate.m" afterPath="$PROJECT_DIR$/PdThx/PdThxAppDelegate.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/RequestMoneyController.h" afterPath="$PROJECT_DIR$/PdThx/RequestMoneyController.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/RequestMoneyController.m" afterPath="$PROJECT_DIR$/PdThx/RequestMoneyController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/ProfileController.h" afterPath="$PROJECT_DIR$/PdThx/ProfileController.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/RequestMoneyController.xib" afterPath="$PROJECT_DIR$/PdThx/RequestMoneyController.xib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SendMoneyController.h" afterPath="$PROJECT_DIR$/PdThx/SendMoneyController.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SendMoneyController.m" afterPath="$PROJECT_DIR$/PdThx/SendMoneyController.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SendMoneyController.xib" afterPath="$PROJECT_DIR$/PdThx/SendMoneyController.xib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/en.lproj/MainWindow.xib" afterPath="$PROJECT_DIR$/PdThx/en.lproj/MainWindow.xib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/options.plist" afterPath="$PROJECT_DIR$/PdThx/options.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SetupACHAccountController.h" afterPath="$PROJECT_DIR$/PdThx/SetupACHAccountController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SetupACHAccountController.m" afterPath="$PROJECT_DIR$/PdThx/SetupACHAccountController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SetupACHAccountController.xib" afterPath="$PROJECT_DIR$/PdThx/SetupACHAccountController.xib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SignInViewController.h" afterPath="$PROJECT_DIR$/PdThx/SignInViewController.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/SignInViewController.m" afterPath="$PROJECT_DIR$/PdThx/SignInViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/User.h" afterPath="$PROJECT_DIR$/PdThx/User.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/User.m" afterPath="$PROJECT_DIR$/PdThx/User.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PdThx/main.m" afterPath="$PROJECT_DIR$/PdThx/main.m" />
     </list>
     <ignored path="IPhone-Application.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -147,100 +48,6 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="PdThx" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="ConfirmPaymentDialogController.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PdThx/ConfirmPaymentDialogController.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SendMoneyController.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PdThx/SendMoneyController.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="55" selection-start="1253" selection-end="1253" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RequestMoneyController.m" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PdThx/RequestMoneyController.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="523" column="0" selection-start="18586" selection-end="18586" vertical-scroll-proportion="0.034013607">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SendMoneyController.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PdThx/SendMoneyController.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="172" column="0" selection-start="5478" selection-end="5620" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UITransactionTableViewCell.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UITransactionTableViewCell.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="88" selection-start="3846" selection-end="3846" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UITransactionTableViewCell.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UITransactionTableViewCell.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="18" selection-start="419" selection-end="419" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UIBaseViewController.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PdThx/UIBaseViewController.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="20" selection-start="2200" selection-end="2200" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UIBaseViewController.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PdThx/UIBaseViewController.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SignInViewController.m" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PdThx/SignInViewController.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="12" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SignInViewController.h" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PdThx/SignInViewController.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="17" selection-start="685" selection-end="685" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -276,8 +83,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
-    <option name="width" value="1440" />
-    <option name="height" value="820" />
+    <option name="width" value="1344" />
+    <option name="height" value="760" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -329,86 +136,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Images" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Classes" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Classes" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Services" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PdThx" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Classes" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Protocols" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodePBXReferenceNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -484,15 +211,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="820" extended-state="0" />
+    <frame x="0" y="22" width="1344" height="760" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3308157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963988" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32963988" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3253352" sideWeight="0.22022161" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31051517" sideWeight="0.6703601" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4598338" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329296" sideWeight="0.5407855" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4592145" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963988" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
@@ -500,7 +227,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963988" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32963988" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -634,16 +361,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UITransactionTableViewCell.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="18" selection-start="419" selection-end="419" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UITransactionTableViewCell.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="88" selection-start="3846" selection-end="3846" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PdThx/SendMoneyController.m">
       <provider selected="true" editor-type-id="text-editor">
         <state line="172" column="0" selection-start="5478" selection-end="5620" vertical-scroll-proportion="0.0">
@@ -653,16 +370,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PdThx/RequestMoneyController.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="523" column="0" selection-start="18586" selection-end="18586" vertical-scroll-proportion="0.034013607">
-          <folding />
-        </state>
+        <state line="523" column="0" selection-start="18586" selection-end="18586" vertical-scroll-proportion="0.034013607" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PdThx/SendMoneyController.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="55" selection-start="1253" selection-end="1253" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="33" column="55" selection-start="1253" selection-end="1253" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PdThx/ConfirmPaymentDialogController.m">

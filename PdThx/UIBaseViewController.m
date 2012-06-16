@@ -181,14 +181,8 @@ CGSize scrollViewOriginalSize;
 }
 
 -(void) signOutClicked {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    [prefs removeObjectForKey:@"userId"];
-    [prefs removeObjectForKey:@"paymentAccountId"];
-    
-    [prefs synchronize];
-    
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) backToWelcomeTabbedArea];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
 }
 -(void) actionButtonClicked:(id)sender{
     NSLog(@"Action Button Clicked");

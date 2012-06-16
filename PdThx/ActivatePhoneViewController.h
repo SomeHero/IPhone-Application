@@ -15,6 +15,7 @@
     IBOutlet UIButton *remindMeLaterButton;
     NSString* registrationKey;
     
+    
 }
 
 - (IBAction)pressedActivate:(id)sender;
