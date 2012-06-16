@@ -13,7 +13,7 @@
 #import "UserSetupACHAccountComplete.h"
 #import "ACHAccountReminderProtocol.h"
 
-@interface SetupACHAccountController : UIBaseViewController<UITextFieldDelegate> {
+@interface SetupACHAccountController : UIViewController<UITextFieldDelegate> {
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;
     IBOutlet UITextField* txtAccountNumber;

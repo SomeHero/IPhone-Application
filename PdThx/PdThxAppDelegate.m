@@ -27,6 +27,7 @@
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,
     permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
+@synthesize user;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -35,23 +36,57 @@
     
     [self.window addSubview:self.tabBarController.view];
     [self.tabBarController setSelectedIndex:0];
+    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
     [self.window bringSubviewToFront:self.tabBarController.view];
 }
 
--(void)showNewUserFlow:(int)tabToDisplay
+-(void)startUserSetupFlow
 {
     [self.welcomeTabBarController.view removeFromSuperview];
     [self.tabBarController.view removeFromSuperview];
-    
     [self.window addSubview:self.newUserFlowTabController.view];
-    [self.newUserFlowTabController setSelectedIndex:tabToDisplay];
-    [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
+    
+    /*          
+     TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
+     ASK THEM TO ADD IT NOW
+     */
+    if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
+    {
+        currentReminderTab = 1;
+        [self.newUserFlowTabController setSelectedIndex:1];
+        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+    }
+    else if( currentReminderTab < 2 && ((user.firstName == (id)[NSNull null] || [user.firstName length] == 0) ||
+       (user.lastName == (id)[NSNull null] || [user.lastName length] == 0))) {
+        // No bank account, prompt user to add one now.
+        currentReminderTab = 2;
+        [self.newUserFlowTabController setSelectedIndex:2];
+        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        
+
+    }
+    else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+    {
+        currentReminderTab = 3;
+        [self.newUserFlowTabController setSelectedIndex:3];
+        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        
+    }
+    else {
+        currentReminderTab = 4;
+        [self switchToMainAreaTabbedView];
+    }
+
+    
+
 }
 
 -(void)backToWelcomeTabbedArea
 {
     [self.tabBarController.view removeFromSuperview];
     
+    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
     [self.window addSubview:self.welcomeTabBarController.view];
     [self.welcomeTabBarController setSelectedIndex:1];
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
@@ -91,6 +126,7 @@
     tempArray = [[NSMutableArray alloc] init];
     
     areFacebookContactsLoaded = NO;
+    currentReminderTab = 0;
     
     [self loadAllContacts];
     
@@ -146,16 +182,21 @@
     [prefs removeObjectForKey:@"userId"];
     [prefs removeObjectForKey:@"paymentAccountId"];
     
+    [prefs synchronize];
+    
     // Implement Removal of Facebook Contacts from contactArray when they log out of their FACEBOOK-lined account.
     if ( [fBook isSessionValid] )
         [fBook logout];
     
     areFacebookContactsLoaded = NO;
+    currentReminderTab = 0;
     
     // Reload all Contacts (without Facebook permissions)
     [self loadAllContacts];
 
     [prefs synchronize];
+    
+    [self backToWelcomeTabbedArea];
 }
 
 -(void)forgetMe
@@ -386,14 +427,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     return [fBook handleOpenURL:url];
 }
 
-- (void)fbDidLogin {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
-    [defaults setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
-    [defaults synchronize];
-    
-    infoRequest = [fBook requestWithGraphPath:@"me" andDelegate:self];
-}
 
 - (void)dealloc
 {
@@ -402,6 +435,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [welcomeTabBarController release];
     [fBook release];
     [newUserFlowTabController release];
+    [user release];
     [super dealloc];
 }
 

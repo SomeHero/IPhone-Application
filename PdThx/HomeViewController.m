@@ -43,7 +43,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [btnRequestMoney release];
     [btnSendMoney release];
     [userService release];
-    [signInViewController release];
 
     [super dealloc];
 }
@@ -77,10 +76,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [self setTitle: @"Home"];
     //[self.parentViewController.navigationItem setHidesBackButton:YES animated:NO];
-
-    userService = [[UserService alloc] init];
-    [userService setUserInformationCompleteDelegate: self];
     
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+
+    //NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    //[prefs setValue:user.userName forKey:@"userName"];
+    //[prefs synchronize];
+    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
+    lblUserName.text = user.preferredName;
+    lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
+    lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
+    
+    [numberFormatter release];
+
 }
 #pragma mark - View lifecycle
 -(void) viewDidAppear:(BOOL)animated{
@@ -90,19 +100,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* userId = [prefs stringForKey:@"userId"];
     NSLog ( @"UserID in HomeView: %@" , userId );
     
-    if([userId length] == 0)
-    {
-        signInViewController = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-        
-        [signInViewController setSignInCompleteDelegate: self];
-        [signInViewController setAchSetupCompleteDelegate:self];
-        
-        [self.navigationController pushViewController:signInViewController animated:NO];
-        
-        [self.navigationItem setBackBarButtonItem:[[[UIBarButtonItem alloc] initWithCustomView:[[UIView new] autorelease]] autorelease]];
-    } else {
-        [userService getUserInformation:userId];
-    }
+
+    //[userService getUserInformation:userId];
 }
 
 -(void)userInformationDidComplete:(User*) user {

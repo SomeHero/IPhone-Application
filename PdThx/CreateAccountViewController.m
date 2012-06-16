@@ -59,6 +59,8 @@
     [registerUserService release]; 
     [registrationKey release];
     [userService release];
+    [service release];
+    [faceBookSignInHelper release];
     
     [super dealloc];
 }
@@ -122,24 +124,20 @@
 }
 -(void)userInformationDidComplete:(User*) user {
     
-    if([user.mobileNumber length] > 0) {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setObject:user.mobileNumber forKey: @"mobileNumber"];
-        [prefs synchronize];
-        
-        SetupACHAccountController* setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle:nil];
-        
-        [setupACHAccountController setAchSetupCompleteDelegate:self];
-        [self.navigationController pushViewController:setupACHAccountController animated:true];
-        
-        [setupACHAccountController release];
-    } else {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString* userId = [prefs stringForKey:@"userId"];
-        
-        [self getUserInformation:userId];
-    }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];
+    bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
+    
+    if(paymentAccountAccount != (id)[NSNull null] && [paymentAccountAccount length] > 0)
+        user.hasACHAccount = true;
+    user.hasSecurityPin = setupSecurityPin;
+    
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
+    return;
 }
 #pragma mark - View lifecycle
 
@@ -147,8 +145,12 @@
 {
     [super viewDidLoad];
     
+    faceBookSignInHelper = [[FacebookSignIn alloc] init];
     registerUserService = [[RegisterUserService alloc] init];
     [registerUserService setUserRegistrationCompleteDelegate: self];
+    
+    service = [[SignInWithFBService alloc] init];
+    service.fbSignInCompleteDelegate = self;
     
     userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
@@ -246,7 +248,19 @@
         //[securityPinModal show];
     }
 }
+- (IBAction)signInWithFacebookClicked:(id)sender {
+    [faceBookSignInHelper signInWithFacebook: self];
+}
 
+-(void) request:(FBRequest *)request didLoad:(id)result
+{
+    [service validateUser:result];
+}
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog ( @"Error occurred -> %@" , [error description] );
+}
 -(IBAction) btnCreateAccountClicked:(id) sender {
     [self createAccount];    
 }
@@ -311,13 +325,33 @@
     txtPassword.text = @"";
     txtConfirmPassword.text = @"";
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showNewUserFlow:1];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(void)userRegistrationDidFail:(NSString*) response
 {
     [spinner stopAnimating];
     
     [self showAlertView: @"User Registration Failed" withMessage: response];
+}
+/*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue:userId forKey:@"userId"];
+    [prefs setValue:mobileNumber forKey:@"mobileNumber"];
+    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
+    [prefs setBool:hasSecurityPin forKey:@"setupSecurityPin"];
+    
+    [prefs synchronize];
+    
+    [userService setUserInformationCompleteDelegate: self];
+    [userService getUserInformation: userId];
+    
+    
+}
+
+-(void)fbSignInDidFail:(NSString *) reason {
+    [self showAlertView:@"Facebook Sign In Failed" withMessage:[NSString stringWithFormat:@"%@. Check your username, password, and data connection.",reason]];
 }
 -(void) showConfirmSecurityPin {
     confirmSecurityPinModal = [[ConfirmSecurityPinDialog alloc] initWithFrame:self.view.bounds];

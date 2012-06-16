@@ -166,6 +166,8 @@
     
     [achSetupCompleteDelegate achSetupDidComplete];
     
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
+    
     // Move to Home View Controller inside NavigationController again
     //[self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -196,8 +198,11 @@
         if (buttonIndex == 0) {
             NSLog(@"User skipped adding bank account");
             
-            [userSetupACHAccountComplete achAccountSetupDidSkip];
+            //[userSetupACHAccountComplete achAccountSetupDidSkip];
             // TODO: Load Tabbed View Controller with Home View
+            
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
+            
         }
         else if ( buttonIndex == 1 ){
             NSLog(@"User chose to add bank account.");
