@@ -7,7 +7,6 @@
 //
 
 #import "WelcomeScreenViewController.h"
-#import "SignInViewController.h"
 #import "CreateAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UINavigationBar+CustomImage.h"
@@ -71,13 +70,14 @@
 }
 
 - (IBAction)newToPaidThxButtonAction:(id)sender {
+    
     CreateAccountViewController *ViewC = [[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle:nil];
     [self.navigationController pushViewController:ViewC animated:YES];
 }
 
 - (IBAction)alreadyUsePaidThxButtonAction:(id)sender {
-    SignInViewController *VC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-    [self.navigationController pushViewController:VC animated:YES];
+    //SignInViewController *VC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
+    //[self.navigationController pushViewController:VC animated:YES];
 }
 
 - (IBAction)firstTimeUserButtonPressed:(id)sender 

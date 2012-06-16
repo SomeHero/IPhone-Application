@@ -59,7 +59,9 @@
 
 - (IBAction)pressedRemindMeLater:(id)sender
 {
-    [self.tabBarController setSelectedIndex:2];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
 }
 
 -(IBAction) sendInAppSMS:(id) sender
@@ -84,12 +86,19 @@
     {
 		case MessageComposeResultCancelled:
 			NSLog(@"Cancelled");
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+            
 			break;
 		case MessageComposeResultFailed:
+            
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+            
 			break;
 		case MessageComposeResultSent:
             NSLog(@"Complete");
-            [self.tabBarController setSelectedIndex:2];
+            
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+            
             
 			break;
             

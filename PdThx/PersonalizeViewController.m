@@ -8,6 +8,8 @@
 
 #import "PersonalizeViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PdThxAppDelegate.h"
+#import "User.h"
 
 @interface PersonalizeViewController ()
 
@@ -31,11 +33,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    firstNameField.text = [prefs valueForKey:@"firstName"];
-    lastNameField.text = [prefs valueForKey:@"lastName"];
-    [userImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture",         [prefs valueForKey:@"facebook_id"]]]]] forState:UIControlStateNormal];
+    firstNameField.text = user.firstName;
+    lastNameField.text = user.lastName;
+    
+    if([user.imageUrl length] > 0)
+    {
+        [userImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
+    }
+    else {
+        [userImageButton setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    }
     
     [userImageButton.layer setCornerRadius:6.0];
     [userImageButton.layer setMasksToBounds:YES];

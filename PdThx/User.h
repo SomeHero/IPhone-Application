@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface User : NSObject {
+@interface User : NSObject<NSCopying> {
 @private
     NSString* userId;
     NSString* mobileNumber;
@@ -17,10 +17,16 @@
     NSString* userName;
     bool isLockedOut;
     NSString* userStatus;
+    NSString* preferredName;
     NSString* firstName;
     NSString* lastName;
+    NSString* imageUrl;
     NSDecimalNumber* totalMoneySent;
     NSDecimalNumber* totalMoneyReceived;
+    NSString* preferredPaymentAccountId;
+    NSString* preferredReceiveAccountId;
+    bool hasACHAccount;
+    bool hasSecurityPin;
 }
 
 @property(nonatomic, retain) NSString* userId;
@@ -29,10 +35,17 @@
 @property(nonatomic, retain) NSString* userName;
 @property bool isLockedOut;
 @property(nonatomic, retain) NSString* userStatus;
+@property(nonatomic, retain) NSString* preferredName;
 @property(nonatomic, retain) NSString* firstName;
 @property(nonatomic, retain) NSString* lastName;
+@property(nonatomic, retain) NSString* imageUrl;
 @property(nonatomic, retain) NSDecimalNumber* totalMoneySent;
 @property(nonatomic, retain) NSDecimalNumber* totalMoneyReceived;
+@property(nonatomic, retain) NSString* preferredPaymentAccountId;
+@property(nonatomic, retain) NSString* preferredReceiveAccountId;
+@property(nonatomic) bool hasACHAccount;
+@property(nonatomic) bool hasSecurityPin;
+
 
 -(User *) initWithDictionary : (NSDictionary *) dictionary;
 

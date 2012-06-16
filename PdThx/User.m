@@ -10,6 +10,10 @@
 @implementation User
 
 @synthesize userId, mobileNumber, emailAddress,  userName, isLockedOut, userStatus, firstName, lastName, totalMoneySent, totalMoneyReceived;
+@synthesize hasACHAccount, hasSecurityPin;
+@synthesize preferredPaymentAccountId, preferredReceiveAccountId;
+@synthesize preferredName;
+@synthesize imageUrl;
 
 -(id)init {
     self = [super init];
@@ -19,10 +23,16 @@
         emailAddress = [[NSString alloc] init];
         userName = [[NSString alloc] init];
         userStatus = [[NSString alloc] init];
+        preferredName = [[NSString alloc] init];
         firstName = [[NSString alloc] init];
         lastName = [[NSString alloc] init];
+        imageUrl = [[NSString alloc] init];
         totalMoneySent = [[NSDecimalNumber alloc] init];
         totalMoneyReceived = [[NSDecimalNumber alloc] init];
+        hasACHAccount = false;
+        hasSecurityPin = false;
+        preferredPaymentAccountId = [[NSString alloc] init];
+        preferredReceiveAccountId = [[NSString alloc] init];
     }
     
     return self;
@@ -31,18 +41,45 @@
     self = [super init];
     
     if(self) { 
-    userId = [[dictionary valueForKey:@"userId"] copy];
-    mobileNumber = [dictionary valueForKey:@"mobileNumber"];
-    emailAddress = [dictionary valueForKey:@"emailAddress"];
-    userName = [dictionary valueForKey:@"userName"];
-    isLockedOut = [dictionary objectForKey:@"isLockedOut"];
-    userStatus = [dictionary valueForKey:@"userStatus"];
-    firstName = [dictionary valueForKey:@"firstName"];
-    lastName = [dictionary valueForKey:@"lastName"];
-    totalMoneySent = [dictionary objectForKey:@"totalMoneySent"];
-    totalMoneyReceived = [dictionary objectForKey: @"totalMoneyReceived"];
+        userId = [[dictionary valueForKey:@"userId"] copy];
+        mobileNumber = [dictionary valueForKey:@"mobileNumber"];
+        emailAddress = [dictionary valueForKey:@"emailAddress"];
+        userName = [dictionary valueForKey:@"userName"];
+        isLockedOut = [dictionary objectForKey:@"isLockedOut"];
+        userStatus = [dictionary valueForKey:@"userStatus"];
+        preferredName = [dictionary valueForKey: @"senderName"];
+        firstName = [dictionary valueForKey:@"firstName"];
+        lastName = [dictionary valueForKey:@"lastName"];
+        imageUrl = [dictionary valueForKey:@"imageUrl"];
+        totalMoneySent = [dictionary objectForKey:@"totalMoneySent"];
+        totalMoneyReceived = [dictionary objectForKey: @"totalMoneyReceived"];
+        preferredPaymentAccountId = [dictionary valueForKey: @"preferredPaymentAccountId"];
+        preferredReceiveAccountId = [dictionary valueForKey: @"preferredReceiveAccountId"];
     }
     
     return self;
+}
+// In the implementation
+-(id)copyWithZone:(NSZone *)zone
+{
+    // We'll ignore the zone for now
+    User *another = [[User alloc] init];
+
+    another.userId = userId;
+    another.mobileNumber = mobileNumber;
+    another.emailAddress = emailAddress;
+    another.userName = userName;
+    another.isLockedOut = isLockedOut;
+    another.userStatus = userStatus;
+    another.preferredName = preferredName;
+    another.firstName = firstName;
+    another.lastName = lastName;
+    another.imageUrl = imageUrl;
+    another.totalMoneySent = totalMoneySent;
+    another.totalMoneyReceived = totalMoneyReceived;
+    another.preferredPaymentAccountId = preferredPaymentAccountId;
+    another.preferredReceiveAccountId = preferredReceiveAccountId;
+    
+    return another;
 }
 @end

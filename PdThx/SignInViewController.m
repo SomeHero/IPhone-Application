@@ -5,7 +5,6 @@
 //  Created by James Rhodes on 4/15/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 
-
 #import "SignInViewController.h"
 #import "CreateAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -59,8 +58,8 @@
     [signInCompleteDelegate release];
     [signInUserService release];
     [SignInWithFBService release];
+    [faceBookSignInHelper release];
     
-
     [loginFBButton release];
     [loginFBButton release];
     [super dealloc];
@@ -84,11 +83,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    faceBookSignInHelper = [[FacebookSignIn alloc] init];
     signInUserService = [[SignInUserService alloc] init];
     [signInUserService setUserSignInCompleteDelegate:self];
     service = [[SignInWithFBService alloc] init];
     service.fbSignInCompleteDelegate = self;
-        
+    
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
@@ -117,20 +117,20 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
-  NSInteger nextTag = textField.tag + 1;
-  // Try to find next responder
-  UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
     if (nextResponder) {
         // Found next responder, so set it.
         [textField resignFirstResponder];
         [nextResponder becomeFirstResponder];
-  } else {
+    } else {
         // Not found, so remove keyboard.
         [textField resignFirstResponder];
-
+        
         [self signInUser];
-  }
-  return NO; // We do not want UITextField to insert line-breaks.
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -142,28 +142,28 @@
 - (void)signInUser {
     NSString* username = [NSString stringWithString:@""];
     NSString* password = [NSString stringWithString: @""];
-
+    
     if([txtEmailAddress.text length] > 0)
         username = txtEmailAddress.text;
-
+    
     if([txtPassword.text length] > 0)
         password = txtPassword.text;
-
+    
     BOOL isValid = YES;
-
+    
     if(isValid && ![self isValidUserName:username])
     {
         [self showAlertView:@"Invalid UserName!" withMessage: @"You did not enter a user name.  Please try again."];
-
+        
         isValid = NO;
     }
     if(isValid && ![self isValidPassword:password])
     {
         [self showAlertView:@"Invalid Password!" withMessage:@"You did not enter a password.  Please try again."];
-
+        
         isValid = NO;
     }
-
+    
     if(isValid) {
         [signInUserService validateUser:username withPassword:password];
     }
@@ -181,21 +181,12 @@
     
     [prefs synchronize];
     
-    /*          
-     TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
-     ASK THEM TO ADD IT NOW
-     */
-    if ( !hasACHaccount ){
-        // No bank account, prompt user to add one now.
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showNewUserFlow:1];
-        return;
-    } else {
-        txtPassword.text = @"";
-        txtEmailAddress.text = @"";
-        
-        // Sign in Completed, Switch to normal tab set
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
-    }
+    UserService* userService = [[UserService alloc] init];
+    [userService setUserInformationCompleteDelegate: self];
+    
+    [userService getUserInformation: userId];
+    
+    
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {
@@ -214,7 +205,7 @@
     [prefs setBool:hasSecurityPin forKey:@"setupSecurityPin"];
     
     [prefs synchronize];
-
+    
     
     txtPassword.text = @"";
     txtEmailAddress.text = @"";
@@ -241,29 +232,28 @@
     [self showAlertView:@"User Validation Failed!" withMessage: reason];
 }
 
-/*
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ( alertView == bankAlert ){
-        if (buttonIndex == 0) {
-            NSLog(@"User skipped adding bank account again");
-            [signInCompleteDelegate signInDidComplete];
-        } else if ( buttonIndex == 1 ) {
-            NSLog(@"User chose to add bank account.");
-            // Simply dismisses the alert view and allows the person to retry entering bank information
-            setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle: nil];
-            
-            [setupACHAccountController setUserSetupACHAccountComplete:self];
-            [setupACHAccountController setAchSetupCompleteDelegate:self];
-            [self.navigationController presentModalViewController:setupACHAccountController animated:NO];
-            [setupACHAccountController release];
-        }
-        else {
-            // You should never get here.
-            NSLog(@"Error occurred, no valid button selected.");
-        }
-    }
+
+-(void)userInformationDidComplete:(User*) user {
+    
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];
+    bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
+    
+    if(paymentAccountAccount != (id)[NSNull null] && [paymentAccountAccount length] > 0)
+        user.hasACHAccount = true;
+    user.hasSecurityPin = setupSecurityPin;
+    
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
+    return;
 }
-*/
+-(void)userInformationDidFail:(NSString*) message {
+    [self showAlertView: @"Error Sending Money" withMessage: message];
+}
 
 -(void)achAccountSetupDidComplete
 {
@@ -280,15 +270,15 @@
 
 -(IBAction) btnSignInClicked:(id) sender {
     [self signInUser];
-
+    
 }
 /*
--(IBAction) btnCreateAnAccountClicked:(id) sender {
-    CreateAccountViewController *createAccountViewController = [[[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle: nil] autorelease];
-    
-    [createAccountViewController setAchSetupCompleteDelegate: self];
-    [self.navigationController pushViewController:createAccountViewController animated:YES];
-}
+ -(IBAction) btnCreateAnAccountClicked:(id) sender {
+ CreateAccountViewController *createAccountViewController = [[[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle: nil] autorelease];
+ 
+ [createAccountViewController setAchSetupCompleteDelegate: self];
+ [self.navigationController pushViewController:createAccountViewController animated:YES];
+ }
  */
 
 -(IBAction) bgTouched:(id) sender {
@@ -310,27 +300,8 @@
     return true;
 }
 
-- (IBAction)doFBLogin:(id)sender {
-    NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
-    
-    if ( ![fBook isSessionValid] )
-        [fBook authorize:permissions];
-    
-    // Paste This To Be Able to Do Graph Calls
-    fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"FBAccessTokenKey"] 
-        && [defaults objectForKey:@"FBExpirationDateKey"]) {
-        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-    }
-    
-    // Graph Command is Used to Graph User Information.
-    // This requests only basic, and Email Address Information.
-    // This does not require the user accepts the Email Address Permission
-    [fBook requestWithGraphPath:@"me" andDelegate:self];
-    
-    [permissions release];
+- (IBAction)signInWithFacebookClicked:(id)sender {
+    [faceBookSignInHelper signInWithFacebook: self];
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result
@@ -344,12 +315,12 @@
 }
 
 /*
--(void)achSetupDidComplete {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-    
-    [achSetupCompleteDelegate achSetupDidComplete];
-}
-*/
+ -(void)achSetupDidComplete {
+ [self.navigationController dismissModalViewControllerAnimated:YES];
+ 
+ [achSetupCompleteDelegate achSetupDidComplete];
+ }
+ */
 
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField

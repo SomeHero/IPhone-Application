@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 #import "PhoneNumberFormatting.h"
+#import "User.h"
 
 @class PdThxViewController;
 
@@ -24,6 +25,8 @@
     IBOutlet UITabBarController *newUserFlowTabController;
     FBRequest *friendRequest;
     FBRequest *infoRequest;
+    User* user;
+    NSInteger currentReminderTab;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -40,7 +43,7 @@
 @property (nonatomic, retain) UITabBarController *newUserFlowTabController;
 @property (nonatomic, retain) FBRequest *friendRequest;
 @property (nonatomic, retain) FBRequest *infoRequest;
-
+@property(nonatomic, retain) User* user;
 
 -(void)signOut;
 -(void)forgetMe;
@@ -51,6 +54,6 @@
 
 -(void)switchToMainAreaTabbedView;
 -(void)backToWelcomeTabbedArea;
--(void)showNewUserFlow:(int)tabToDisplay;
+-(void)startUserSetupFlow;
 
 @end
