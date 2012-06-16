@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PhoneNumberFormatting.h"
 
-@interface UIBaseViewController : UIViewController {
+@interface UIBaseViewController : UIViewController <UITextFieldDelegate>
+{
     IBOutlet UIScrollView *scrollView;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
