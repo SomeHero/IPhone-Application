@@ -68,6 +68,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 }
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 201 ) {
         
@@ -89,6 +90,8 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
     NSString* message = [NSString stringWithString: @"Unable to send money"];
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     [sendMoneyCompleteDelegate sendMoneyDidFail: message];
     

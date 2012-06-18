@@ -8,8 +8,9 @@
 
 #import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
+#import "UISetupUserBaseViewController.h"
 
-@interface ActivatePhoneViewController : UIViewController <MFMessageComposeViewControllerDelegate>
+@interface ActivatePhoneViewController : UISetupUserBaseViewController <MFMessageComposeViewControllerDelegate>
 {
     IBOutlet UIButton *activateButton;
     IBOutlet UIButton *remindMeLaterButton;

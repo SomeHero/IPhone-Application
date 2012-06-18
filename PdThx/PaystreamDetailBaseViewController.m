@@ -8,7 +8,6 @@
 
 #import "PaystreamDetailBaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "TestController.h"
 #import "SetupSecurityPin.h"
 
 @implementation PaystreamDetailBaseViewController

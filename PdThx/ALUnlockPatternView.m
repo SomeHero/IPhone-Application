@@ -91,17 +91,23 @@
         _lineWidth=kLineWidth;
         _repeatSelection=NO;
         _showLine=YES;
+        
+        NSInteger cellWidth = (self.frame.size.width/3);
+        NSInteger cellHeight = (self.frame.size.height/3);
+        
         NSMutableArray *cellCollection=[[[NSMutableArray alloc] init] autorelease];
         for (int i=1; i<=9; i++) {
             UIButton *cell=[UIButton buttonWithType:UIButtonTypeCustom];
             cell.tag=i;
-            cell.frame=CGRectMake( ((i-1)%3)*self.frame.size.width/3,
-                                  ((i-1)/3)*self.frame.size.height/3,
-                                  self.frame.size.width/3,
-                                  self.frame.size.height/3);
+            
+            cell.frame=CGRectMake( (((i-1)%3)*cellWidth) + (cellWidth/2-30),
+                                  (((i-1)/3)*cellHeight) + (cellHeight/2-30),
+                                  60,
+                                  60);
             //cell.layer.borderWidth=1.0;
             cell.userInteractionEnabled=NO;
             cell.adjustsImageWhenHighlighted=NO;
+            
             [cell setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             //[cell setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
             [self addSubview:cell];

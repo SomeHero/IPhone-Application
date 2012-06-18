@@ -57,14 +57,13 @@
         [self.newUserFlowTabController setSelectedIndex:1];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
     }
-    else if( currentReminderTab < 2 && ((user.firstName == (id)[NSNull null] || [user.firstName length] == 0) ||
-       (user.lastName == (id)[NSNull null] || [user.lastName length] == 0))) {
+    //else if( currentReminderTab < 2 && ((user.firstName == (id)[NSNull null] || [user.firstName length] == 0) ||
+      // (user.lastName == (id)[NSNull null] || [user.lastName length] == 0))) {
+    else if( currentReminderTab < 2) {
         // No bank account, prompt user to add one now.
         currentReminderTab = 2;
         [self.newUserFlowTabController setSelectedIndex:2];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        
-
     }
     else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
     {
@@ -74,7 +73,7 @@
         
     }
     else {
-        currentReminderTab = 4;
+        currentReminderTab = 0;
         [self switchToMainAreaTabbedView];
     }
 
