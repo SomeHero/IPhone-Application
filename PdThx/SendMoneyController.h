@@ -19,14 +19,15 @@
 #import "ContactSelectViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "AmountSelectChosenProtocol.h"
+#import "CustomSecurityPinSwipeController.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol> {
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
     
     IBOutlet UIButton *btnSendMoney;
-    ConfirmPaymentDialogController *securityPinModalPanel;
+    User* user;
     NSString* amount;
     NSString* comments;
     NSString* recipientUri;
@@ -70,9 +71,6 @@
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendMoneyClicked:(id) sender;
--(void)showModalPanel;
--(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
-fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount;
 -(void) signOutClicked;
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest;
 -(BOOL) isValidAmount:(NSString *) amountToTest;

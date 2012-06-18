@@ -17,8 +17,6 @@
 @synthesize scrollView;
 
 //size of tab bar
-int kTabBarSize = 20;
-int lastCharCount = 0;
 
 //Fake Update
 //--size of application screen---

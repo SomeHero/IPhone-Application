@@ -18,15 +18,13 @@
 #import "RequestMoneyService.h"
 #import "ContactSelectViewController.h"
 #import "AmountSelectViewController.h"
+#import "CustomSecurityPinSwipeController.h"
 
 #define kOFFSET_FOR_KEYBOARD 100.0
 
 @interface RequestMoneyController ()
 - (BOOL)isValidRecipientUri:(NSString *)recipientUriToTest;
 - (BOOL)isValidAmount:(NSString *)amountToTest;
-
-- (void)requestMoney;
-- (void)showModalPanel;
 
 
 @end
@@ -68,7 +66,7 @@ float tableHeight = 30;
     /*  ------------------------------------------------------ */
     [txtAmount release];
     [txtComments release];
-    [securityPinModalPanel release];
+    [user release];
     [amount release];
     [comments release];
     [recipientImageButton release];
@@ -102,6 +100,8 @@ float tableHeight = 30;
 {
 
     [super viewDidLoad];
+    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     /*                  View Setup              */
     /*  --------------------------------------- */
@@ -229,7 +229,6 @@ float tableHeight = 30;
     if(success) {
 
         [self.scrollView scrollsToTop];
-        [securityPinModalPanel hide];
 
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"$0.00"];
@@ -271,81 +270,48 @@ float tableHeight = 30;
     }
 }
 
-- (void)requestMoney {
-     
-    amount = [[NSString alloc] initWithString: @""];
-    comments = [[NSString alloc] initWithString: @""];
-
-    if([txtAmount.text length] > 0) {
-        amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
-    }
-
-    if([txtComments.text length] > 0)
-        comments = [txtComments.text copy];
-
-    BOOL isValid = YES;
-
-    if(isValid && ![self isValidRecipientUri: recipientUri])
-    {
-        [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
-
-        isValid = NO;
-    }
-    if(isValid && ![self isValidAmount:amount])
-    {
-        [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
-
-        isValid = NO;
-    }
-
-    if(isValid)
-    {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString* userId = [prefs stringForKey:@"userId"];
-
-        if([userId length] > 0)
-            [self showModalPanel];
-        else
-        {
-            SignInViewController *signInViewController;
-            signInViewController = [[[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil] autorelease];
-            [signInViewController setSignInCompleteDelegate: self];
-            [signInViewController setAchSetupCompleteDelegate:self];
-
-            [self.navigationController pushViewController:signInViewController animated:YES];
-        }
-    }
-}
-
 -(IBAction) btnSendRequestClicked:(id)sender {
-
-    [self requestMoney];
+        
+        User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+        
+        if([txtAmount.text length] > 0) {
+            amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
+        }
+        
+        if([txtComments.text length] > 0)
+            comments = [txtComments.text copy];
+        
+        BOOL isValid = YES;
+        
+        if(isValid && ![self isValidRecipientUri:recipientUri])
+        {
+            [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
+            
+            isValid = NO;
+        }
+        if(isValid && ![self isValidAmount:amount])
+        {
+            [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
+            
+            isValid = NO;
+        }
+        if(isValid) {
+            //Check to make sure the user has completed post reg signup process
+            //if((user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+            
+            //[((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+            
+            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+            [controller setSecurityPinSwipeDelegate: self];
+            [controller setNavigationTitle: @"Confirm"];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+            
+            [self presentModalViewController:controller animated:YES];
+        }
 
 }
-- (IBAction)showModalPanel {
-
-    [txtAmount resignFirstResponder];
-    [txtComments resignFirstResponder];
-
-	securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
-
-    securityPinModalPanel.dialogTitle.text = @"Swipe Your Pin";
-    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To send your request for %@ to %@, swipe your security pin below.", txtAmount.text, @"Recipient"];
-    [securityPinModalPanel.btnCancelPayment setTitle:@"Cancel Request" forState:UIControlStateNormal];
-    securityPinModalPanel.delegate = self;
-
-
-	///////////////////////////////////
-	// Add the panel to our view
-	[self.view addSubview:securityPinModalPanel];
-
-	///////////////////////////////////
-	// Show the panel from the center of the button that was pressed
-	[securityPinModalPanel show];
-}
--(void) securityPinComplete:(SetupSecurityPin *) modalPanel
-               selectedCode:(NSString*) code {
-
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
+{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSString* userId = [prefs stringForKey:@"userId"];
@@ -367,15 +333,14 @@ float tableHeight = 30;
         recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
     }
+    
+    
+    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:pin fromUserId:userId withFromAccount:user.preferredReceiveAccountId withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 
-    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
-
-    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount  withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
 -(void)requestMoneyDidComplete {
 
     [self.scrollView scrollsToTop];
-    [securityPinModalPanel hide];
     
     recipientUri = @"";
     [txtAmount setText: @"$0.00"];
@@ -424,55 +389,14 @@ float tableHeight = 30;
     self.recipientUri = contact.recipientUri;
 
 }
-#pragma mark - UAModalDisplayPanelViewDelegate 
-
-// Optional: This is called before the open animations.
-//   Only used if delegate is set.
-- (void)willShowModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"willShowModalPanel called with modalPanel: %@", modalPanel);
-}
-
-// Optional: This is called after the open animations.
-//   Only used if delegate is set.
-- (void)didShowModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"didShowModalPanel called with modalPanel: %@", modalPanel);
-}
-
-// Optional: This is called when the close button is pressed
-//   You can use it to perform validations
-//   Return YES to close the panel, otherwise NO
-//   Only used if delegate is set.
-- (BOOL)shouldCloseModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"shouldCloseModalPanel called with modalPanel: %@", modalPanel);
-	return YES;
-}
-
-// Optional: This is called before the close animations.
-//   Only used if delegate is set.
-- (void)willCloseModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"willCloseModalPanel called with modalPanel: %@", modalPanel);
-}
-
-// Optional: This is called after the close animations.
-//   Only used if delegate is set.
-- (void)didCloseModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"didCloseModalPanel called with modalPanel: %@", modalPanel);
-}
-#pragma mark SignCompleteProtocol methods
--(void)signInDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
-#pragma mark ACHSetupCompleteProtocol methods
--(void)achSetupDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
-
 
 -(void)didSelectAmount:(double)amountSent
 {
-    txtAmount.text = [[NSString stringWithFormat:@"%f",amountSent] copy];
+    NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    [numberFormatter setCurrencySymbol:@""];
+    NSString *numberAsString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:amountSent]];
+    txtAmount.text = [NSString stringWithFormat:@"%@",numberAsString];
 }
 
 

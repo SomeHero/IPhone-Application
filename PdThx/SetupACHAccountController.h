@@ -12,8 +12,11 @@
 #import "UserSetupACHAccount.h"
 #import "UserSetupACHAccountComplete.h"
 #import "ACHAccountReminderProtocol.h"
+#import "CustomSecurityPinSwipeController.h"
+#import "CustomSecurityPinSwipeProtocol.h"
+#import "UISetupUserBaseViewController.h"
 
-@interface SetupACHAccountController : UIViewController<UITextFieldDelegate> {
+@interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate> {
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;
     IBOutlet UITextField* txtAccountNumber;
@@ -22,6 +25,7 @@
     UserSetupACHAccount* userSetupACHAccountService;
     UIAlertView * skipBankAlert;
     IBOutlet UIBarButtonItem *skipButton;
+    CustomSecurityPinSwipeController *controller;
 }
 
 @property(nonatomic, retain) UITextField* txtNameOnAccount;
