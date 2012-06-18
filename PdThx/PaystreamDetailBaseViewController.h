@@ -15,7 +15,6 @@
 #import "AcceptPaymentRequestProtocol.h"
 #import "RejectPaymentRequestProtocol.h"
 #import "ConfirmPaymentDialogController.h"
-#import "SecurityPinSwipeController.h"
 
 @interface PaystreamDetailBaseViewController : UIViewController<SecurityPinCompleteDelegate, AcceptPaymentRequestProtocol, CancelPaymentProtocol> {
     IBOutlet UIView *detailSubView;

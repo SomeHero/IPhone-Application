@@ -33,9 +33,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self setTitle: @"Personalize"];
+    
     User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     firstNameField.text = user.firstName;
     lastNameField.text = user.lastName;
     

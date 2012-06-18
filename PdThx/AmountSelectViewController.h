@@ -18,6 +18,7 @@
     IBOutlet UIButton *quickAmount1;
     IBOutlet UIButton *quickAmount2;
     IBOutlet UIButton *quickAmount3;
+    IBOutlet UILabel *lblGo;
 }
 
 - (IBAction)amountChanged:(id)sender;
@@ -28,5 +29,6 @@
 - (IBAction)pressedQuickAmount3:(id)sender;
 
 @property (assign) id amountChosenDelegate;
+@property(nonatomic, assign) UILabel* lblGo;
 
 @end

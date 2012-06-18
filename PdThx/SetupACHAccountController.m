@@ -13,6 +13,7 @@
 #import "SetupACHAccountController.h"
 #import "HomeViewController.h"
 #import "PdThxAppDelegate.h"
+#import "CustomSecurityPinSwipeController.h"
 
 @interface SetupACHAccountController ()
 - (void)createACHAccount;
@@ -68,6 +69,8 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
+    [self setTitle: @"Enable Payments"];
+    
     userSetupACHAccountService = [[UserSetupACHAccount alloc] init];
     [userSetupACHAccountService setUserACHSetupCompleteDelegate: self];
 }
@@ -175,9 +178,32 @@
     [self showAlertView: @"Unable to Setup Account" withMessage:message];
 }
 -(IBAction) btnSetupACHAccountClicked:(id) sender {
-    [self createACHAccount];
+    controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    [controller setNavigationTitle: @"Setup your Pin"];
+    [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 button below."]];
+    [controller setTag:1];
+    
+    [self presentModalViewController:controller animated:YES];
 }
- 
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin;
+{
+    if([sender tag] == 1)
+    {
+        controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+        [controller setSecurityPinSwipeDelegate: self];
+        [controller setNavigationTitle: @"Confirm your Pin"];
+        [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 button below."]];
+        [controller setTag:2];    
+        [self presentModalViewController:controller animated:YES];
+    }
+    else if([sender tag] == 2)
+        [self createACHAccount];
+}
+-(void)swipeDidCancel: (id)sender
+{
+    //do nothing
+}
 -(IBAction) btnRemindMeLaterClicked:(id)sender {
     /*
         User has selected to skip the ACH Bank Account Add Form

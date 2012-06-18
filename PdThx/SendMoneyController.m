@@ -54,7 +54,7 @@ float tableHeight2 = 30;
     /*  ------------------------------------------------------ */
     [txtAmount release];
     [txtComments release];
-    [securityPinModalPanel release];
+    [user release];
     [amount release];
     [comments release];
     [recipientImageButton release];
@@ -91,6 +91,8 @@ float tableHeight2 = 30;
 {
     [super viewDidLoad];
 
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
     /*                  View Setup              */
     /*  --------------------------------------- */
     scrollView.frame = CGRectMake(0, 0, 320, 420);
@@ -219,16 +221,8 @@ float tableHeight2 = 30;
 
 
 -(IBAction) btnSendMoneyClicked:(id)sender {
-    [self sendMoney];
-}
-
--(IBAction) bgTouched:(id) sender {
-    [txtAmount resignFirstResponder];
-    [txtComments resignFirstResponder];
-}
-
-
-- (void)sendMoney {
+    
+    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
@@ -251,28 +245,51 @@ float tableHeight2 = 30;
         
         isValid = NO;
     }
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    
     if(isValid) {
-        NSString* userId = [prefs stringForKey:@"userId"];
+        //Check to make sure the user has completed post reg signup process
+        //if((user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
         
-        if([userId length] > 0)
-            [self showModalPanel];
-        else
-        {
-            SignInViewController *signInViewController = [[[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil] autorelease];
-            
-            [signInViewController setSignInCompleteDelegate:self];
-            [signInViewController setAchSetupCompleteDelegate:self];
-            
-            [self.navigationController pushViewController:signInViewController animated:YES];
-        }
+        //[((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+        
+        CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+        [controller setSecurityPinSwipeDelegate: self];
+        [controller setNavigationTitle: @"Confirm"];
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+        
+        [self presentModalViewController:controller animated:YES];
     }
 }
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString* userId = [prefs stringForKey:@"userId"];
+    NSString* senderUri;
+    NSString* username = [prefs stringForKey:@"userName"];
+    
+    NSString* recipientImageUri = [NSString stringWithString: @""];
+    NSString* recipientFirstName = [NSString stringWithString: @""];
+    NSString* recipientLastName =[NSString stringWithString: @""];
+    
+    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
+        senderUri = username;
+    }
+    else
+        senderUri = [prefs stringForKey:@"mobileNumber"];
+    
+    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+        recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
+        recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
+        recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
+    }
 
-
+    
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:pin fromUserId:userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+}
+-(IBAction) bgTouched:(id) sender {
+    [txtAmount resignFirstResponder];
+    [txtComments resignFirstResponder];
+}
 
 /*  --------------------------------------------------------- */
 /*                Services                                    */
@@ -361,53 +378,8 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 /*                Protocol Delegate Methods                   */
 /*  --------------------------------------------------------- */
 
-
-#pragma mark SignCompleteProtocol methods
--(void)signInDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
-
-#pragma mark ACHSetupCompleteProtocol methods
--(void)achSetupDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
-
-
--(void) securityPinComplete:(ConfirmPaymentDialogController *) modalPanel
-               selectedCode:(NSString*) code {
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* senderUri;
-    NSString* username = [prefs stringForKey:@"userName"];
-    
-    NSString* recipientImageUri = [NSString stringWithString: @""];
-    NSString* recipientFirstName = [NSString stringWithString: @""];
-    NSString* recipientLastName =[NSString stringWithString: @""];
-    
-    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
-        senderUri = username;
-    }
-    else
-        senderUri = [prefs stringForKey:@"mobileNumber"];
-    
-    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
-        recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
-        recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
-        recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
-    }
-    
-    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
-    
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
-}
-
 -(void)sendMoneyDidComplete {
     [self.scrollView scrollsToTop];
-    [securityPinModalPanel hide];
     
     recipientUri = @"";
     [txtAmount setText: @"$0.00"];
@@ -423,6 +395,7 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 }
 
 -(void)sendMoneyDidFail:(NSString*) message {
+    
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
 
@@ -474,10 +447,6 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     return NO; // We do not want UITextField to insert line-breaks.
 }
 
-
-
-
-
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
     NSString *theJSON = [request responseString];
@@ -492,7 +461,6 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     if(success) {
         
         [self.scrollView scrollsToTop];
-        [securityPinModalPanel hide];
         
         recipientUri = @"";
         [txtAmount setText: @"$0.00"];
@@ -523,70 +491,11 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     } 
     
     return YES;
-}
-
-- (IBAction)showModalPanel {
-         
-    [txtAmount resignFirstResponder];
-    [txtComments resignFirstResponder];
-    
-    securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
-    
-    securityPinModalPanel.dialogTitle.text = @"Confirm Your Payment";
-    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To confirm your payment of %@ to %@, swipe your pin below.", [[txtAmount.text copy] autorelease], recipientUri];
-    [securityPinModalPanel.btnCancelPayment setTitle: @"Cancel Payment" forState: UIControlStateNormal];
-    securityPinModalPanel.delegate = self;
-    
-    ///////////////////////////////////
-    // Add the panel to our view
-    [self.view addSubview:securityPinModalPanel];
-         
-    ///////////////////////////////////
-    // Show the panel from the center of the button that was pressed
-    [securityPinModalPanel show];
-}
-     
-     
-#pragma mark - UAModalDisplayPanelViewDelegate 
-     
-     // Optional: This is called before the open animations.
-     //   Only used if delegate is set.
-     - (void)willShowModalPanel:(UAModalPanel *)modalPanel {
-         UADebugLog(@"willShowModalPanel called with modalPanel: %@", modalPanel);
-     }
-     
-     // Optional: This is called after the open animations.
-     //   Only used if delegate is set.
-     - (void)didShowModalPanel:(UAModalPanel *)modalPanel {
-         UADebugLog(@"didShowModalPanel called with modalPanel: %@", modalPanel);
-     }
-     
-     // Optional: This is called when the close button is pressed
-     //   You can use it to perform validations
-     //   Return YES to close the panel, otherwise NO
-     //   Only used if delegate is set.
-     - (BOOL)shouldCloseModalPanel:(UAModalPanel *)modalPanel {
-         UADebugLog(@"shouldCloseModalPanel called with modalPanel: %@", modalPanel);
-         return YES;
-     }
-     
-     // Optional: This is called before the close animations.
-     //   Only used if delegate is set.
-     - (void)willCloseModalPanel:(UAModalPanel *)modalPanel {
-         UADebugLog(@"willCloseModalPanel called with modalPanel: %@", modalPanel);
-     }
-     
-     // Optional: This is called after the close animations.
-     //   Only used if delegate is set.
-     - (void)didCloseModalPanel:(UAModalPanel *)modalPanel {
-         UADebugLog(@"didCloseModalPanel called with modalPanel: %@", modalPanel);
-    }
-
-
+} 
 
 -(void)didSelectAmount:(double)amountSent
 {
-    txtAmount.text = [NSString stringWithFormat:@"%f",amountSent];
+    txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
 @end
 

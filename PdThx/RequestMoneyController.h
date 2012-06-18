@@ -16,21 +16,22 @@
 #import "ACHSetupCompleteProtocol.h"
 #import "UIBaseViewController.h"
 #import "RequestMoneyService.h"
+#import "User.h"
 #import "Contact.h"
 #import "ContactSelectChosenProtocol.h"
 #import "CoreLocation/CoreLocation.h"
 #import "AmountSelectChosenProtocol.h"
+#import "CustomSecurityPinSwipeProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate,  UITableViewDelegate, UITextFieldDelegate, SignInCompleteProtocol, ACHSetupCompleteProtocol, SecurityPinCompleteDelegate, UITableViewDataSource, ContactSelectChosenProtocol, 
-    CLLocationManagerDelegate, AmountSelectChosenProtocol> {
+@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol> {
 
     IBOutlet UIView *viewPanel;
         IBOutlet UITextField *txtAmount;
         IBOutlet UITextView *txtComments;
         
     IBOutlet UIButton *btnSendRequest;
-    ConfirmPaymentDialogController *securityPinModalPanel;
         
+    User* user;
     NSString* recipientUri;
     NSString* amount;
     NSString* comments;
@@ -71,10 +72,6 @@
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendRequestClicked:(id) sender;
-
--(void)showModalPanel;
--(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
-              fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount;
 
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest;
 -(BOOL) isValidAmount:(NSString *) amountToTest;

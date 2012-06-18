@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UISetupUserBaseViewController.h"
 
-@interface PersonalizeViewController : UIViewController
+@interface PersonalizeViewController : UISetupUserBaseViewController
 {
     IBOutlet UIButton *userImageButton;
     IBOutlet UITextField *firstNameField;

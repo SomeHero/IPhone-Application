@@ -22,6 +22,7 @@
 @implementation AmountSelectViewController
 
 @synthesize amountChosenDelegate;
+@synthesize lblGo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,7 +66,75 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
+    [tempAmount appendString: @""];
+    
+    if([string isEqualToString:@""]) {
+        for (int i = 0; i< [textField.text length] - 1; i++) {
+            if([string length] == 0 && i == [textField.text length] - 1)
+                continue;
+            
+            char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
+            
+            if(digit == '$')
+                continue;
+            if(digit == '.')
+                continue;
+            
+            [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
+        }
+        [tempAmount appendString: string];
+        [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
+        if([tempAmount length] < 4)
+            [tempAmount insertString:@"0" atIndex:0];
+            
+        if([tempAmount isEqualToString: @"0.00"])
+        {
+            [goButton setBackgroundImage: [UIImage imageNamed: @"btn-go-disabled-50x48.png"] forState:UIControlStateNormal];
+            lblGo.textColor = [UIColor colorWithRed:142 green:144 blue:151 alpha:1.0];
+            
+            [goButton setEnabled:NO];
+        }
+        [textField setText:tempAmount];
+        
+    }
+    else if([string stringByTrimmingCharactersInSet:
+             [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
+        
+        BOOL firstDigit = YES;
+        for (int i = 0; i< [textField.text length]; i++) {
+            
+            char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
+            
+            if(digit == '$')
+                continue;
+            if(digit == '.')
+                continue;
+            if(digit == '0' && firstDigit) {
+                firstDigit = NO;
+                continue;
+                
+            }
+            firstDigit = NO;
+            [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
+        }
+        [tempAmount appendString: string];
+        [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
+        if([tempAmount length] < 4)
+            [tempAmount insertString:@"0" atIndex:0];
+        [textField setText:tempAmount];
+        
+        [goButton setBackgroundImage: [UIImage imageNamed: @"btn-go-active-50x48.png"] forState:UIControlStateNormal];
+        lblGo.textColor = [UIColor whiteColor];
+        lblGo.alpha = 1.0;
+        
+        [goButton setEnabled:YES];
+    }
+    
+    return NO;
+}
 
 - (void)setTitle:(NSString *)title
 {
@@ -106,7 +175,10 @@
 
 - (IBAction)pressedGoButton:(id)sender
 {
+    double amount = [amountDisplayLabel.text doubleValue];
+    [amountChosenDelegate didSelectAmount: amount];
     
+    [self.navigationController popToRootViewControllerAnimated:YES]; 
 }
 
 - (IBAction)pressedQuickAmount0:(id)sender {
