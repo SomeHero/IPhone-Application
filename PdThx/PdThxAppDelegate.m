@@ -47,6 +47,9 @@
     [self.window addSubview:self.newUserFlowTabController.view];
     [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    bool isNewUser = [prefs boolForKey: @"isNewUser"];
     /*          
      TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
      ASK THEM TO ADD IT NOW
@@ -57,11 +60,11 @@
         [self.newUserFlowTabController setSelectedIndex:1];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
     }
-    //else if( currentReminderTab < 2 && ((user.firstName == (id)[NSNull null] || [user.firstName length] == 0) ||
-      // (user.lastName == (id)[NSNull null] || [user.lastName length] == 0))) {
-    else if( currentReminderTab < 2) {
+    else if(currentReminderTab < 2 && isNewUser) {
         // No bank account, prompt user to add one now.
         currentReminderTab = 2;
+        [prefs setValue:NO forKey:@"isNewUser"];
+        
         [self.newUserFlowTabController setSelectedIndex:2];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
     }
