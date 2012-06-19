@@ -37,8 +37,15 @@
     
     User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    firstNameField.text = user.firstName;
-    lastNameField.text = user.lastName;
+    if(user.firstName != (id)[NSNull null] && [user.firstName length] > 0)
+         firstNameField.text = user.firstName;
+    else
+        firstNameField.text = @"";
+    
+    if(user.lastName != (id)[NSNull null] && [user.lastName length] > 0)
+        lastNameField.text = user.lastName;
+    else
+        lastNameField.text = @"";
     
     if([user.imageUrl length] > 0)
     {
@@ -83,6 +90,6 @@
 }
 - (IBAction)pressedSaveContinue:(id)sender 
 {
-    [self.tabBarController setSelectedIndex:3];
+     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 @end

@@ -319,13 +319,13 @@
     
     [prefs setObject:userId forKey:@"userId"];
     [prefs synchronize];
-    
-    
+
     txtEmailAddress.text = @"";
     txtPassword.text = @"";
     txtConfirmPassword.text = @"";
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [userService setUserInformationCompleteDelegate: self];
+    [userService getUserInformation: userId];
 }
 -(void)userRegistrationDidFail:(NSString*) response
 {

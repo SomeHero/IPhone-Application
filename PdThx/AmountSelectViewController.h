@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "AmountSelectChosenProtocol.h"
+#import "User.h"
+#import "PdThxAppDelegate.h"
 
 @interface AmountSelectViewController : UIViewController <UITextFieldDelegate>
 {
@@ -19,6 +21,8 @@
     IBOutlet UIButton *quickAmount2;
     IBOutlet UIButton *quickAmount3;
     IBOutlet UILabel *lblGo;
+    IBOutlet UILabel *lblLimit;
+    User* user;
 }
 
 - (IBAction)amountChanged:(id)sender;

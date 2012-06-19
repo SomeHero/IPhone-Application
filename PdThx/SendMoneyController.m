@@ -286,6 +286,10 @@ float tableHeight2 = 30;
     
     [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:pin fromUserId:userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
+-(void)swipeDidCancel: (id)sender
+{
+    //do nothing
+}
 -(IBAction) bgTouched:(id) sender {
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
@@ -381,24 +385,33 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 -(void)sendMoneyDidComplete {
     [self.scrollView scrollsToTop];
     
-    recipientUri = @"";
-    [txtAmount setText: @"$0.00"];
-    [txtComments setText: @""];
-    contactHead.text = @"Select a Recipient";
-    contactDetail.text = @"Click Here";
-    [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
+    TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
+    controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    [controller setTransactionConfirmationDelegate: self];
     
-    NSString* message = [NSString stringWithString:@"Your money was sent"];
-    
-    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
-    [self showAlertView:@"Money Sent!" withMessage: message];
+    [self presentModalViewController:controller animated:YES];
 }
 
 -(void)sendMoneyDidFail:(NSString*) message {
     
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
-
+-(void)onHomeClicked {
+    txtAmount.text = @"$0.00";
+    
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    txtComments.text = @"";
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
+}
+-(void)onContinueClicked {
+    txtAmount.text = @"$0.00";
+    
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    txtComments.text = @"";
+}
 -(void)didChooseContact:(Contact *)contact
 {
     recipient = contact;
