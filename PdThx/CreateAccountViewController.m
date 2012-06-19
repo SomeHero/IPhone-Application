@@ -318,6 +318,8 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setObject:userId forKey:@"userId"];
+    [prefs setBool:YES forKey: @"isNewUser"];
+    
     [prefs synchronize];
 
     txtEmailAddress.text = @"";

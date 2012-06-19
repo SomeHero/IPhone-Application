@@ -56,7 +56,7 @@
 }
 -(void) validateUserComplete:(ASIHTTPRequest *)request
 {
-    if([request responseStatusCode] == 200 ) {
+    if([request responseStatusCode] == 200 || [request responseStatusCode] == 201 ) {
         NSLog(@"User Validation Success");
         
         NSString *theJSON = [request responseString];
@@ -72,13 +72,11 @@
         NSString* mobileNumber = [jsonDictionary valueForKey: @"mobileNumber"];
         NSString* paymentAccountId = [jsonDictionary valueForKey: @"paymentAccountId"];
         
-        /*      For Reference
-         -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserID:(NSString*)userID;
-         
-         -(void)fbSignInDidFail:(NSString *)reason;
-         */
+        bool isNewUser = NO;
+        if([request responseStatusCode] == 201)
+            isNewUser = YES;
         
-        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber];
+        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber isNewUser:isNewUser];
         
     } else
     {
