@@ -338,21 +338,40 @@ float tableHeight = 30;
     [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:pin fromUserId:userId withFromAccount:user.preferredReceiveAccountId withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 
 }
+-(void)swipeDidCancel: (id)sender
+{
+    //do nothing
+}
 -(void)requestMoneyDidComplete {
 
     [self.scrollView scrollsToTop];
     
-    recipientUri = @"";
-    [txtAmount setText: @"$0.00"];
-    [txtComments setText: @""];
+    TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
+    controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    [controller setTransactionConfirmationDelegate: self];
+    
+    [self presentModalViewController:controller animated:YES];
+}
+
+-(void)sendMoneyDidFail:(NSString*) message {
+    
+    [self showAlertView: @"Error Sending Money" withMessage: message];
+}
+-(void)onHomeClicked {
+    txtAmount.text = @"$0.00";
+    
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
-    [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    txtComments.text = @"";
     
-    NSString* message = [NSString stringWithString:@"Your request was sent"];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
+}
+-(void)onContinueClicked {
+    txtAmount.text = @"$0.00";
     
-    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
-    [self showAlertView:@"Request Sent!" withMessage: message];
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    txtComments.text = @"";
 }
 -(void)requestMoneyDidFail: (NSString*) message {
     [self showAlertView: @"Error Requesting Money" withMessage:message];

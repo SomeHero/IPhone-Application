@@ -212,11 +212,15 @@
     [prefs synchronize];
 
 }
+
 -(void)switchToSendMoneyController {
     [self.tabBarController setSelectedIndex:1];
 }
 -(void)switchToRequestMoneyController {
     [self.tabBarController setSelectedIndex:2];
+}
+-(void)switchToPaystreamController {
+    [self.tabBarController setSelectedIndex:3];
 }
 
 /*

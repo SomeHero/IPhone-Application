@@ -27,6 +27,7 @@
     NSString* preferredReceiveAccountId;
     bool hasACHAccount;
     bool hasSecurityPin;
+    NSDecimalNumber *limit;
 }
 
 @property(nonatomic, retain) NSString* userId;
@@ -45,6 +46,7 @@
 @property(nonatomic, retain) NSString* preferredReceiveAccountId;
 @property(nonatomic) bool hasACHAccount;
 @property(nonatomic) bool hasSecurityPin;
+@property(nonatomic, retain) NSDecimalNumber* limit;
 
 
 -(User *) initWithDictionary : (NSDictionary *) dictionary;

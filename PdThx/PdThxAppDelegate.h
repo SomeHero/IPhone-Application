@@ -49,6 +49,7 @@
 -(void)forgetMe;
 -(void)switchToSendMoneyController;
 -(void)switchToRequestMoneyController;
+-(void)switchToPaystreamController;
 -(void)backToHomeView;
 -(void)loadAllContacts;
 

@@ -22,6 +22,7 @@
 #import "CoreLocation/CoreLocation.h"
 #import "AmountSelectChosenProtocol.h"
 #import "CustomSecurityPinSwipeProtocol.h"
+#import "TransactionConfirmationViewController.h"
 
 @interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol> {
 
