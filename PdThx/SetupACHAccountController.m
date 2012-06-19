@@ -67,7 +67,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     
     // Do any additional setup after loading the view from its nib.
     [self setTitle: @"Enable Payments"];
@@ -78,6 +78,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
 }
 - (void)viewDidUnload
 {
@@ -165,11 +166,14 @@
 }
 
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
+
+    txtAccountNumber.text = @"";
+    txtConfirmAccountNumber.text = @"";
+    txtRoutingNumber.text = @"";
+    txtNameOnAccount.text = @"";
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    [prefs setObject:paymentAccountId forKey:@"paymentAccountId"];
-    [prefs synchronize];
+    user.preferredPaymentAccountId = paymentAccountId;
+    user.preferredReceiveAccountId = paymentAccountId;
     
     [achSetupCompleteDelegate achSetupDidComplete];
     
