@@ -85,14 +85,15 @@ float tableHeight2 = 30;
 -(void) viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
+    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
     /*                  View Setup              */
     /*  --------------------------------------- */
     scrollView.frame = CGRectMake(0, 0, 320, 420);
@@ -261,21 +262,9 @@ float tableHeight2 = 30;
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* senderUri;
-    NSString* username = [prefs stringForKey:@"userName"];
-    
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
     NSString* recipientLastName =[NSString stringWithString: @""];
-    
-    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
-        senderUri = username;
-    }
-    else
-        senderUri = [prefs stringForKey:@"mobileNumber"];
     
     if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
@@ -284,7 +273,7 @@ float tableHeight2 = 30;
     }
 
     
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:pin fromUserId:userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
 -(void)swipeDidCancel: (id)sender
 {
@@ -403,6 +392,8 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
     
+    [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
+    
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
 }
 -(void)onContinueClicked {
@@ -411,6 +402,9 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
+    
+    [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
+    
 }
 -(void)didChooseContact:(Contact *)contact
 {
@@ -459,41 +453,6 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     }
     return NO; // We do not want UITextField to insert line-breaks.
 }
-
--(void) sendMoneyComplete:(ASIHTTPRequest *)request
-{
-    NSString *theJSON = [request responseString];
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    [parser release];
-    
-    bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
-    NSString *message = [jsonDictionary objectForKey:@"message"];
-    
-    if(success) {
-        
-        [self.scrollView scrollsToTop];
-        
-        recipientUri = @"";
-        [txtAmount setText: @"$0.00"];
-        [txtComments setText: @""];
-        
-        [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
-        [self showAlertView:@"Money Sent!" withMessage: message];
-        
-    }
-    else {
-        [self showAlertView: @"Sorry. Try Again!" withMessage:message];
-    }
-    
-}
-
--(void) sendMoneyFailed:(ASIHTTPRequest *)request
-{
-    NSLog(@"Send Money Failed");
-}
-
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     if(textField.tag == 1)

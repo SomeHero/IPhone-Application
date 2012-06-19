@@ -35,7 +35,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     
     NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
-                                 theSenderUri, @"senderUri",
+                                 userId, @"senderId",
                                  fromAccount, @"senderAccountId",
                                  theRecipientUri, @"recipientUri",
                                  theAmount, @"amount",
