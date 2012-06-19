@@ -15,6 +15,7 @@
 #import "CustomSecurityPinSwipeController.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "UISetupUserBaseViewController.h"
+#import "User.h"
 
 @interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate> {
     IBOutlet UITextField* txtNameOnAccount;
@@ -25,7 +26,8 @@
     UserSetupACHAccount* userSetupACHAccountService;
     UIAlertView * skipBankAlert;
     IBOutlet UIBarButtonItem *skipButton;
-    CustomSecurityPinSwipeController *controller;
+    CustomSecurityPinSwipeController *controller;    
+    User* user;
 }
 
 @property(nonatomic, retain) UITextField* txtNameOnAccount;

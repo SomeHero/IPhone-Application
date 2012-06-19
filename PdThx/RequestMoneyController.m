@@ -93,15 +93,13 @@ float tableHeight = 30;
 
     [super viewDidAppear:animated];
 
-
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
 
 }
 - (void)viewDidLoad
 {
 
     [super viewDidLoad];
-    
-    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     /*                  View Setup              */
     /*  --------------------------------------- */
@@ -161,7 +159,6 @@ float tableHeight = 30;
     contactDetail.text = @"Click Here";
 
 }
-
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     if (newLocation != nil) {
@@ -312,21 +309,9 @@ float tableHeight = 30;
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* senderUri;
-    NSString* username = [prefs stringForKey:@"userName"];
-    
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
     NSString* recipientLastName =[NSString stringWithString: @""];
-    
-    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
-        senderUri = username;
-    }
-    else
-        senderUri = [prefs stringForKey:@"mobileNumber"];
     
     if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
@@ -335,7 +320,7 @@ float tableHeight = 30;
     }
     
     
-    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:pin fromUserId:userId withFromAccount:user.preferredReceiveAccountId withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredReceiveAccountId withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 
 }
 -(void)swipeDidCancel: (id)sender
@@ -360,6 +345,8 @@ float tableHeight = 30;
 -(void)onHomeClicked {
     txtAmount.text = @"$0.00";
     
+    [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
+
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
@@ -372,6 +359,8 @@ float tableHeight = 30;
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
+    
+    [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
 }
 -(void)requestMoneyDidFail: (NSString*) message {
     [self showAlertView: @"Error Requesting Money" withMessage:message];
@@ -385,7 +374,7 @@ float tableHeight = 30;
     else if ( contact.facebookID.length > 0 )
         [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
     else
-        [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
     
     
     recipientImageButton.imageView.image = nil;

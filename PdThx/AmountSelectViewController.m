@@ -37,11 +37,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+-(void)viewDidAppear:(BOOL)animated {
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     lblLimit.text = [NSString stringWithFormat: @"$%0.2f", [user.limit doubleValue]];
-    [amountDisplayLabel becomeFirstResponder];
     
+    [amountDisplayLabel becomeFirstResponder];
 }
 
 - (void)viewDidUnload
