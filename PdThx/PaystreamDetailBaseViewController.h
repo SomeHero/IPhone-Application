@@ -15,6 +15,9 @@
 #import "AcceptPaymentRequestProtocol.h"
 #import "RejectPaymentRequestProtocol.h"
 #import "ConfirmPaymentDialogController.h"
+#import "CustomSecurityPinSwipeController.h"
+#import "User.h"
+#import "PdThxAppDelegate.h"
 
 @interface PaystreamDetailBaseViewController : UIViewController<SecurityPinCompleteDelegate, AcceptPaymentRequestProtocol, CancelPaymentProtocol> {
     IBOutlet UIView *detailSubView;
@@ -38,8 +41,11 @@
     UIButton* btnAcceptRequest;
     UIButton* btnRejectRequest;
     PullableView* pullableView;
+    User* user;
     UIViewController* parent;
     ConfirmPaymentDialogController *securityPinModalPanel;
+
+    CustomSecurityPinSwipeController *controller;
 }
 
 @property (nonatomic, retain) UIView *detailSubview;

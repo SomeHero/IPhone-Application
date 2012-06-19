@@ -209,12 +209,9 @@
             switch (indexPath.row) {
                 case 0:
                 {   
-                    if ([prefs boolForKey:@"setupSecurityPin"]) {
-                        [self showOldSecurityPin];
-                    }
-                    else {
-                        [self showNewSecurityPin];
-                    }
+                    ChangeSecurityPinController *controller = [[ChangeSecurityPinController alloc] initWithNibName:@"ChangeSecurityPinController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
                     break;
                 }
                 case 1:

@@ -20,8 +20,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import "AmountSelectChosenProtocol.h"
 #import "CustomSecurityPinSwipeController.h"
+#import "TransactionConfirmationViewController.h"
+#import "TransactionConfirmationProtocol.h"
+#import "CustomSecurityPinSwipeProtocol.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol> {
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, SecurityPinCompleteDelegate, TransactionConfirmationProtocol> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
@@ -45,6 +48,7 @@
     CLLocationManager *lm;
     double latitude;
     double longitude;
+    
 }
 
 

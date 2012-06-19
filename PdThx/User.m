@@ -14,6 +14,7 @@
 @synthesize preferredPaymentAccountId, preferredReceiveAccountId;
 @synthesize preferredName;
 @synthesize imageUrl;
+@synthesize limit;
 
 -(id)init {
     self = [super init];
@@ -55,6 +56,7 @@
         totalMoneyReceived = [dictionary objectForKey: @"totalMoneyReceived"];
         preferredPaymentAccountId = [dictionary valueForKey: @"preferredPaymentAccountId"];
         preferredReceiveAccountId = [dictionary valueForKey: @"preferredReceiveAccountId"];
+        limit = [dictionary objectForKey: @"upperLimit"];
     }
     
     return self;
@@ -79,6 +81,7 @@
     another.totalMoneyReceived = totalMoneyReceived;
     another.preferredPaymentAccountId = preferredPaymentAccountId;
     another.preferredReceiveAccountId = preferredReceiveAccountId;
+    another.limit = limit;
     
     return another;
 }

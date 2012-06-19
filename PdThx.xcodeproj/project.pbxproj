@@ -167,6 +167,22 @@
 		5B3F4CF6155FD99D00A67649 /* SignInUserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4CF5155FD99C00A67649 /* SignInUserService.m */; };
 		5B3F4CFA155FF3C600A67649 /* UserSetupACHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */; };
 		5B3F4D3A1561EB3300A67649 /* PhoneNumberFormatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4D391561EB3300A67649 /* PhoneNumberFormatting.m */; };
+		5B5D08D4158FF40100E90A1A /* ChangeSecurityPinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D08D2158FF40100E90A1A /* ChangeSecurityPinController.m */; };
+		5B5D08D5158FF40100E90A1A /* ChangeSecurityPinController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08D3158FF40100E90A1A /* ChangeSecurityPinController.xib */; };
+		5B5D08F51590048D00E90A1A /* TransactionConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D08F31590048D00E90A1A /* TransactionConfirmationViewController.m */; };
+		5B5D08F61590048D00E90A1A /* TransactionConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08F41590048D00E90A1A /* TransactionConfirmationViewController.xib */; };
+		5B5D0904159006A600E90A1A /* BTNImDone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08F8159006A600E90A1A /* BTNImDone@2x.png */; };
+		5B5D0905159006A600E90A1A /* BTNImDoneActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08F9159006A600E90A1A /* BTNImDoneActive@2x.png */; };
+		5B5D0906159006A600E90A1A /* BTNsendAnother@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08FA159006A600E90A1A /* BTNsendAnother@2x.png */; };
+		5B5D0907159006A600E90A1A /* BTNSendAnotherActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08FB159006A600E90A1A /* BTNSendAnotherActive@2x.png */; };
+		5B5D0908159006A600E90A1A /* BTNshareFB@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08FC159006A600E90A1A /* BTNshareFB@2x.png */; };
+		5B5D0909159006A600E90A1A /* BTNshareFBActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08FD159006A600E90A1A /* BTNshareFBActive@2x.png */; };
+		5B5D090A159006A600E90A1A /* BTNshareTwit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08FE159006A600E90A1A /* BTNshareTwit@2x.png */; };
+		5B5D090B159006A600E90A1A /* BTNshareTwitActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D08FF159006A600E90A1A /* BTNshareTwitActive@2x.png */; };
+		5B5D090C159006A600E90A1A /* successScreenShot.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D0900159006A600E90A1A /* successScreenShot.png */; };
+		5B5D090D159006A600E90A1A /* tagBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D0901159006A600E90A1A /* tagBox@2x.png */; };
+		5B5D090E159006A600E90A1A /* tagHolder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D0902159006A600E90A1A /* tagHolder@2x.png */; };
+		5B5D090F159006A600E90A1A /* tagX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D0903159006A600E90A1A /* tagX@2x.png */; };
 		5B692C5314D4777D00E6E663 /* SendMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692C5114D4777D00E6E663 /* SendMoneyController.m */; };
 		5B692C5414D4777D00E6E663 /* SendMoneyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B692C5214D4777D00E6E663 /* SendMoneyController.xib */; };
 		5B692CBB14D5E9E100E6E663 /* RequestMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692CB914D5E9DE00E6E663 /* RequestMoneyController.m */; };
@@ -684,6 +700,25 @@
 		5B3F4CFE1560B7DF00A67649 /* RequestMoneyCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyCompleteProtocol.h; sourceTree = "<group>"; };
 		5B3F4D381561EB3300A67649 /* PhoneNumberFormatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumberFormatting.h; sourceTree = "<group>"; };
 		5B3F4D391561EB3300A67649 /* PhoneNumberFormatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumberFormatting.m; sourceTree = "<group>"; };
+		5B5D08D1158FF40000E90A1A /* ChangeSecurityPinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeSecurityPinController.h; sourceTree = "<group>"; };
+		5B5D08D2158FF40100E90A1A /* ChangeSecurityPinController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeSecurityPinController.m; sourceTree = "<group>"; };
+		5B5D08D3158FF40100E90A1A /* ChangeSecurityPinController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeSecurityPinController.xib; sourceTree = "<group>"; };
+		5B5D08F21590048D00E90A1A /* TransactionConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionConfirmationViewController.h; sourceTree = "<group>"; };
+		5B5D08F31590048D00E90A1A /* TransactionConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionConfirmationViewController.m; sourceTree = "<group>"; };
+		5B5D08F41590048D00E90A1A /* TransactionConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionConfirmationViewController.xib; sourceTree = "<group>"; };
+		5B5D08F8159006A600E90A1A /* BTNImDone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNImDone@2x.png"; sourceTree = "<group>"; };
+		5B5D08F9159006A600E90A1A /* BTNImDoneActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNImDoneActive@2x.png"; sourceTree = "<group>"; };
+		5B5D08FA159006A600E90A1A /* BTNsendAnother@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNsendAnother@2x.png"; sourceTree = "<group>"; };
+		5B5D08FB159006A600E90A1A /* BTNSendAnotherActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNSendAnotherActive@2x.png"; sourceTree = "<group>"; };
+		5B5D08FC159006A600E90A1A /* BTNshareFB@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNshareFB@2x.png"; sourceTree = "<group>"; };
+		5B5D08FD159006A600E90A1A /* BTNshareFBActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNshareFBActive@2x.png"; sourceTree = "<group>"; };
+		5B5D08FE159006A600E90A1A /* BTNshareTwit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNshareTwit@2x.png"; sourceTree = "<group>"; };
+		5B5D08FF159006A600E90A1A /* BTNshareTwitActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTNshareTwitActive@2x.png"; sourceTree = "<group>"; };
+		5B5D0900159006A600E90A1A /* successScreenShot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = successScreenShot.png; sourceTree = "<group>"; };
+		5B5D0901159006A600E90A1A /* tagBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tagBox@2x.png"; sourceTree = "<group>"; };
+		5B5D0902159006A600E90A1A /* tagHolder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tagHolder@2x.png"; sourceTree = "<group>"; };
+		5B5D0903159006A600E90A1A /* tagX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tagX@2x.png"; sourceTree = "<group>"; };
+		5B5D091015901ACE00E90A1A /* TransactionConfirmationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionConfirmationProtocol.h; sourceTree = "<group>"; };
 		5B692C5014D4777C00E6E663 /* SendMoneyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyController.h; sourceTree = "<group>"; };
 		5B692C5114D4777D00E6E663 /* SendMoneyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyController.m; sourceTree = "<group>"; };
 		5B692C5214D4777D00E6E663 /* SendMoneyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendMoneyController.xib; sourceTree = "<group>"; };
@@ -1226,6 +1261,18 @@
 		5427662D157FEE0D00D33AC1 /* Send Money Images */ = {
 			isa = PBXGroup;
 			children = (
+				5B5D08F8159006A600E90A1A /* BTNImDone@2x.png */,
+				5B5D08F9159006A600E90A1A /* BTNImDoneActive@2x.png */,
+				5B5D08FA159006A600E90A1A /* BTNsendAnother@2x.png */,
+				5B5D08FB159006A600E90A1A /* BTNSendAnotherActive@2x.png */,
+				5B5D08FC159006A600E90A1A /* BTNshareFB@2x.png */,
+				5B5D08FD159006A600E90A1A /* BTNshareFBActive@2x.png */,
+				5B5D08FE159006A600E90A1A /* BTNshareTwit@2x.png */,
+				5B5D08FF159006A600E90A1A /* BTNshareTwitActive@2x.png */,
+				5B5D0900159006A600E90A1A /* successScreenShot.png */,
+				5B5D0901159006A600E90A1A /* tagBox@2x.png */,
+				5B5D0902159006A600E90A1A /* tagHolder@2x.png */,
+				5B5D0903159006A600E90A1A /* tagX@2x.png */,
 				541EE595158A1E9C00131B0E /* Amount Select */,
 				5BDF440815794A8700FEDFBD /* recipient_search_go.png */,
 				54A13A58158576AF00668984 /* Final Images */,
@@ -1295,6 +1342,7 @@
 				5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */,
 				5BC9C3B3158C41D800E20D9D /* SignInViewController.h */,
 				5BC9C3B4158C41D800E20D9D /* SignInViewController.m */,
+				54A139AC15826F3900668984 /* Home View */,
 				5BC9C3B9158C459400E20D9D /* CreateAccountViewController.h */,
 				5BC9C3BA158C459400E20D9D /* CreateAccountViewController.m */,
 			);
@@ -1304,6 +1352,9 @@
 		54A139A815826C2200668984 /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				5B5D08F21590048D00E90A1A /* TransactionConfirmationViewController.h */,
+				5B5D08F31590048D00E90A1A /* TransactionConfirmationViewController.m */,
+				5B5D08F41590048D00E90A1A /* TransactionConfirmationViewController.xib */,
 				549FD4441588F87300809EAA /* Request Money */,
 				549FD4431588F86E00809EAA /* Send Money */,
 				54A139AA15826E8000668984 /* Contact Table View */,
@@ -1340,9 +1391,7 @@
 		54A139AB15826EAF00668984 /* Main Area Tabbed Views */ = {
 			isa = PBXGroup;
 			children = (
-				54A139AC15826F3900668984 /* Home View */,
 				54A139DC158430E900668984 /* Do Good View */,
-				54A139AC15826F3900668984 /* Home View */,
 				54A139A915826E0600668984 /* Paystream Views */,
 				54A139A815826C2200668984 /* Send/Request Money */,
 			);
@@ -1392,6 +1441,9 @@
 				D587EDE5157FB72800ABE854 /* MeCodeViewController.m */,
 				54276628157F9D1700D33AC1 /* MECodeSetupViewController.h */,
 				54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */,
+				5B5D08D1158FF40000E90A1A /* ChangeSecurityPinController.h */,
+				5B5D08D2158FF40100E90A1A /* ChangeSecurityPinController.m */,
+				5B5D08D3158FF40100E90A1A /* ChangeSecurityPinController.xib */,
 			);
 			name = "Profile Views";
 			sourceTree = "<group>";
@@ -2084,6 +2136,7 @@
 				5B8147C31587BC2100CE10AA /* CancelPaymentRequestProtocol.h */,
 				5B8147C41587BC4C00CE10AA /* CancelPaymentProtocol.h */,
 				5BF1F214158ED44200CFBF77 /* CustomSecurityPinSwipeProtocol.h */,
+				5B5D091015901ACE00E90A1A /* TransactionConfirmationProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2642,6 +2695,20 @@
 				5BF1F211158EB05F00CFBF77 /* btn-pinswipe-60x60.png in Resources */,
 				5BF1F212158EB05F00CFBF77 /* btn-pinswipe-pressed-60x60.png in Resources */,
 				5BF1F213158EB05F00CFBF77 /* btn-pinswipe-selected-60x60.png in Resources */,
+				5B5D08D5158FF40100E90A1A /* ChangeSecurityPinController.xib in Resources */,
+				5B5D08F61590048D00E90A1A /* TransactionConfirmationViewController.xib in Resources */,
+				5B5D0904159006A600E90A1A /* BTNImDone@2x.png in Resources */,
+				5B5D0905159006A600E90A1A /* BTNImDoneActive@2x.png in Resources */,
+				5B5D0906159006A600E90A1A /* BTNsendAnother@2x.png in Resources */,
+				5B5D0907159006A600E90A1A /* BTNSendAnotherActive@2x.png in Resources */,
+				5B5D0908159006A600E90A1A /* BTNshareFB@2x.png in Resources */,
+				5B5D0909159006A600E90A1A /* BTNshareFBActive@2x.png in Resources */,
+				5B5D090A159006A600E90A1A /* BTNshareTwit@2x.png in Resources */,
+				5B5D090B159006A600E90A1A /* BTNshareTwitActive@2x.png in Resources */,
+				5B5D090C159006A600E90A1A /* successScreenShot.png in Resources */,
+				5B5D090D159006A600E90A1A /* tagBox@2x.png in Resources */,
+				5B5D090E159006A600E90A1A /* tagHolder@2x.png in Resources */,
+				5B5D090F159006A600E90A1A /* tagX@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2756,6 +2823,8 @@
 				5BC9C3BC158C459400E20D9D /* CreateAccountViewController.m in Sources */,
 				5BF1F205158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m in Sources */,
 				5BF1F218158F4FC100CFBF77 /* UISetupUserBaseViewController.m in Sources */,
+				5B5D08D4158FF40100E90A1A /* ChangeSecurityPinController.m in Sources */,
+				5B5D08F51590048D00E90A1A /* TransactionConfirmationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
