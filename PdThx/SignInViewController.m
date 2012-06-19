@@ -171,10 +171,11 @@
 
 
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
--(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber isNewUser:(BOOL)isNewUser {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
+    [prefs setBool:isNewUser forKey:@"isNewUser"];
     
     [prefs synchronize];
     
