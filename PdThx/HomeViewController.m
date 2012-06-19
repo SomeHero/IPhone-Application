@@ -77,19 +77,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self setTitle: @"Home"];
     //[self.parentViewController.navigationItem setHidesBackButton:YES animated:NO];
     
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-
-    //NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    //[prefs setValue:user.userName forKey:@"userName"];
-    //[prefs synchronize];
-    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
-    lblUserName.text = user.preferredName;
-    lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
-    lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
-    
-    [numberFormatter release];
 
 }
 #pragma mark - View lifecycle
@@ -100,6 +87,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* userId = [prefs stringForKey:@"userId"];
     NSLog ( @"UserID in HomeView: %@" , userId );
     
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    
+    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
+    lblUserName.text = user.preferredName;
+    lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
+    lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
+    
+    [numberFormatter release];
 
     //[userService getUserInformation:userId];
 }

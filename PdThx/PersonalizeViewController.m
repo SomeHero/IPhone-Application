@@ -35,10 +35,15 @@
     
     [self setTitle: @"Personalize"];
     
+    
+    [userImageButton.layer setCornerRadius:6.0];
+    [userImageButton.layer setMasksToBounds:YES];
+}   
+-(void)viewDidAppear:(BOOL)animated {
     User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     if(user.firstName != (id)[NSNull null] && [user.firstName length] > 0)
-         firstNameField.text = user.firstName;
+        firstNameField.text = user.firstName;
     else
         firstNameField.text = @"";
     
@@ -54,11 +59,7 @@
     else {
         [userImageButton setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
     }
-    
-    [userImageButton.layer setCornerRadius:6.0];
-    [userImageButton.layer setMasksToBounds:YES];
-}   
-
+}
 - (void)viewDidUnload
 {
     [userImageButton release];

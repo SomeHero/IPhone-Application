@@ -15,6 +15,7 @@
 @synthesize preferredName;
 @synthesize imageUrl;
 @synthesize limit;
+@synthesize userUri;
 
 -(id)init {
     self = [super init];
@@ -34,6 +35,7 @@
         hasSecurityPin = false;
         preferredPaymentAccountId = [[NSString alloc] init];
         preferredReceiveAccountId = [[NSString alloc] init];
+        userUri = [[NSString alloc] init];
     }
     
     return self;
@@ -57,6 +59,14 @@
         preferredPaymentAccountId = [dictionary valueForKey: @"preferredPaymentAccountId"];
         preferredReceiveAccountId = [dictionary valueForKey: @"preferredReceiveAccountId"];
         limit = [dictionary objectForKey: @"upperLimit"];
+        
+        if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0)
+        {
+            userUri = mobileNumber;
+        }
+        else {
+            userUri = userName;
+        }
     }
     
     return self;
@@ -82,6 +92,7 @@
     another.preferredPaymentAccountId = preferredPaymentAccountId;
     another.preferredReceiveAccountId = preferredReceiveAccountId;
     another.limit = limit;
+    another.userUri = userUri;
     
     return another;
 }

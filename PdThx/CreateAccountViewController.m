@@ -338,9 +338,6 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
-    [prefs setValue:mobileNumber forKey:@"mobileNumber"];
-    [prefs setValue:paymentAccountId forKey:@"paymentAccountId"];
-    [prefs setBool:hasSecurityPin forKey:@"setupSecurityPin"];
     
     [prefs synchronize];
     

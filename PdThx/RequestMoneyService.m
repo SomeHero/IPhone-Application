@@ -32,7 +32,7 @@
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  rootUrl, apiKey]] autorelease];  
     NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
-                                 theSenderUri, @"senderUri",
+                                 userId, @"senderId",
                                  fromAccount, @"senderAccountId",
                                  theRecipientUri, @"recipientUri",
                                  theAmount, @"amount",

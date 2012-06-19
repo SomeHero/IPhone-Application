@@ -260,7 +260,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [viewNoItems setBackgroundColor: [UIColor whiteColor]];
         [viewNoItems addSubview: lblNoItems];
         
-        [self.view addSubview:viewNoItems];
+        //[self.view addSubview:viewNoItems];
         
         [lblNoItems release];
         [viewNoItems release];
