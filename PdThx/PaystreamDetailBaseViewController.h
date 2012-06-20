@@ -35,11 +35,6 @@
     IBOutlet UILabel* lblSentDate;
     IBOutlet UIView* quoteView;
     IBOutlet UIView* actionView;
-    UIButton* btnCancelPayment;
-    UIButton* btnSendReminder;
-    UIButton* btnCancelRequest;
-    UIButton* btnAcceptRequest;
-    UIButton* btnRejectRequest;
     PullableView* pullableView;
     User* user;
     UIViewController* parent;
