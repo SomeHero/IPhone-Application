@@ -508,12 +508,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)startIconDownload:(PaystreamMessage *)message forIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Starting download for section #%d row #%d", indexPath.section, indexPath.row);
     IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
     
     if ( iconDownloader == nil )
     {
-        NSLog(@"Icon downloader for section #%d row #%d NIL", indexPath.section, indexPath.row);
         iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.message = message;
         iconDownloader.indexPathInTableView = indexPath;
@@ -553,7 +551,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
     
-    if (iconDownloader != nil)
+    if (iconDownloader != nil && iconDownloader.message.imgData )
     {
         UIPaystreamTableViewCell *cell = (UIPaystreamTableViewCell*)[transactionsTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         
