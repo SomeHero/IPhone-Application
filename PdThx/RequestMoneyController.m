@@ -153,7 +153,7 @@ float tableHeight = 30;
     [self setTitle:@"Request $"];
     
     [txtAmount setDelegate:self];
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
@@ -228,7 +228,7 @@ float tableHeight = 30;
         [self.scrollView scrollsToTop];
 
         //[txtRecipientUri setText: @""];
-        [txtAmount setText: @"$0.00"];
+        [txtAmount setText: @"0.00"];
         [txtComments setText: @""];
         
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
@@ -343,7 +343,7 @@ float tableHeight = 30;
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
 -(void)onHomeClicked {
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
 
@@ -354,7 +354,7 @@ float tableHeight = 30;
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
 }
 -(void)onContinueClicked {
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
