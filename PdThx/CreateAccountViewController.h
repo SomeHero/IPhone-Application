@@ -10,12 +10,14 @@
 #import "SetupSecurityPin.h"
 #import "ConfirmSecurityPinDialog.h"
 #import "SetupACHAccountController.h"
+#import "UserSignInCompleteProtocol.h"
 #import "ASIHTTPRequest.h"
 #import "RegisterUserService.h"
 #import "UserService.h"
 #import <MessageUI/MessageUI.h>
+#import "FacebookSignIn.h"
 
-@interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, SecurityPinCompleteDelegate, ConfirmSecurityPinCompleteDelegate,
+@interface CreateAccountViewController : UIBaseViewController<UserSignInCompleteProtocol,UIAlertViewDelegate, SecurityPinCompleteDelegate, ConfirmSecurityPinCompleteDelegate,
 ACHSetupCompleteProtocol, UITextFieldDelegate, MFMessageComposeViewControllerDelegate> {
     IBOutlet UIButton *btnCreateAccount;
     IBOutlet UITextField *txtEmailAddress;
@@ -30,19 +32,26 @@ ACHSetupCompleteProtocol, UITextFieldDelegate, MFMessageComposeViewControllerDel
     IBOutlet UIView *viewPanel;
     id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
     ASIHTTPRequest *requestObj;
+    SignInWithFBService *service;
     RegisterUserService* registerUserService;
     UserService* userService;
     NSString* registrationKey;
+    float animatedDistance;
+    FacebookSignIn* faceBookSignInHelper;
+    
 }
+
 @property(nonatomic, retain) UIButton *btnCreateAccount;
 @property(nonatomic, retain) UITextField *txtEmailAddress;
 @property(nonatomic, retain) UITextField *txtPassword;
 @property(nonatomic, retain) UITextField *txtConfirmPassword;
 @property(nonatomic, assign) UIView* viewPanel;
 @property(retain) id achSetupCompleteDelegate;
+@property(nonatomic, assign) float animatedDistance;
 
 
 -(IBAction) bgTouched:(id) sender;
+- (IBAction)signInWithFacebookClicked:(id)sender;
 -(IBAction) btnCreateAccountClicked:(id) sender;
 -(BOOL) isValidEmailAddress:(NSString*) emailAddressToTest;
 -(BOOL)isValidPassword:(NSString *) passwordToTest;

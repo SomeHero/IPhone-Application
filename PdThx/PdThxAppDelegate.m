@@ -17,13 +17,82 @@
 #import "Contact.h"
 #import <AddressBook/AddressBook.h>
 #import "PhoneNumberFormatting.h"
+#import "ContactSelectViewController.h"
+#import "UINavigationBar+CustomImage.h"
+
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize tabBarController=_tabBarController;
-@synthesize fBook, deviceToken, phoneNumberFormatter, permissions, tempArray, contactsArray;
+@synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
+@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,
+    permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
+@synthesize user;
 
+-(void)switchToMainAreaTabbedView
+{
+    [self.welcomeTabBarController.view removeFromSuperview];
+    [self.newUserFlowTabController.view removeFromSuperview];
+    
+    [self.window addSubview:self.tabBarController.view];
+    [self.tabBarController setSelectedIndex:0];
+    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
+    [self.window bringSubviewToFront:self.tabBarController.view];
+}
+
+-(void)startUserSetupFlow
+{
+    [self.welcomeTabBarController.view removeFromSuperview];
+    [self.tabBarController.view removeFromSuperview];
+    [self.window addSubview:self.newUserFlowTabController.view];
+    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    bool isNewUser = [prefs boolForKey: @"isNewUser"];
+    /*          
+     TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
+     ASK THEM TO ADD IT NOW
+     */
+    if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
+    {
+        currentReminderTab = 1;
+        [self.newUserFlowTabController setSelectedIndex:1];
+        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+    }
+    else if(currentReminderTab < 2 && isNewUser) {
+        // No bank account, prompt user to add one now.
+        currentReminderTab = 2;
+        [prefs setValue:NO forKey:@"isNewUser"];
+        
+        [self.newUserFlowTabController setSelectedIndex:2];
+        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+    }
+    else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+    {
+        currentReminderTab = 3;
+        [self.newUserFlowTabController setSelectedIndex:3];
+        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        
+    }
+    else {
+        currentReminderTab = 0;
+        [self switchToMainAreaTabbedView];
+    }
+
+    
+
+}
+
+-(void)backToWelcomeTabbedArea
+{
+    [self.tabBarController.view removeFromSuperview];
+    
+    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
+    [self.window addSubview:self.welcomeTabBarController.view];
+    [self.welcomeTabBarController setSelectedIndex:1];
+    [self.window bringSubviewToFront:self.welcomeTabBarController.view];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,8 +101,11 @@
     [self.tabBarController setDelegate:self];
 
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
-    [self.window addSubview:self.tabBarController.view];
-    [self.tabBarController setSelectedIndex:1];
+    
+    [self.welcomeTabBarController setDelegate:self];
+    [self.window addSubview:self.welcomeTabBarController.view];
+    [self.welcomeTabBarController setSelectedIndex:0];
+    [self.window bringSubviewToFront:welcomeTabBarController.view];
     
     
     // Make the device expect notifications
@@ -43,6 +115,7 @@
     fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     if ([defaults objectForKey:@"FBAccessTokenKey"] 
         && [defaults objectForKey:@"FBExpirationDateKey"]) {
         fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
@@ -50,11 +123,13 @@
     }
     
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
-    
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
     contactsArray = [[NSMutableArray alloc] init];
     tempArray = [[NSMutableArray alloc] init];
+    
+    areFacebookContactsLoaded = NO;
+    currentReminderTab = 0;
     
     [self loadAllContacts];
     
@@ -110,16 +185,21 @@
     [prefs removeObjectForKey:@"userId"];
     [prefs removeObjectForKey:@"paymentAccountId"];
     
+    [prefs synchronize];
+    
     // Implement Removal of Facebook Contacts from contactArray when they log out of their FACEBOOK-lined account.
     if ( [fBook isSessionValid] )
         [fBook logout];
     
-    NSLog (@"Session should be invalid.. Worked? %@", [fBook isSessionValid] ? @"YES" : @"NO");
+    areFacebookContactsLoaded = NO;
+    currentReminderTab = 0;
     
     // Reload all Contacts (without Facebook permissions)
     [self loadAllContacts];
 
     [prefs synchronize];
+    
+    [self backToWelcomeTabbedArea];
 }
 
 -(void)forgetMe
@@ -136,13 +216,26 @@
     [prefs synchronize];
 
 }
+
 -(void)switchToSendMoneyController {
     [self.tabBarController setSelectedIndex:1];
 }
 -(void)switchToRequestMoneyController {
     [self.tabBarController setSelectedIndex:2];
 }
+-(void)switchToPaystreamController {
+    [self.tabBarController setSelectedIndex:3];
+}
 
+/*
+-(UIImage*)findImageForContact:(Contact*)contact;
+{
+    if ( [contactsArray indexOfObject:contact] )
+        return ((Contact*)[contactsArray objectAtIndex:[contactsArray indexOfObject:contact]]).imgData;
+    else
+        return [UIImage imageWithContentsOfFile:@"avatar_unknown.jpg"];
+}
+ */
 
 /*       Push Notification Handling         */
 
@@ -220,7 +313,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     Contact * contact;
     
     if ( [fBook isSessionValid] ){
-        [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
+        friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
     }
     
     // get the address book
@@ -233,6 +326,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         CFStringRef lastName = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
         NSString *contactFirstLast = [NSString stringWithFormat: @"%@ %@", (NSString *)firstName, (NSString *)lastName];
         
@@ -240,23 +334,25 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
         
         // Handles Multiple Phone Numbers for One Contact...
-        for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
-            CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
-            NSString *phoneNumber = (NSString *) phoneNumberRef;
-            
-            contact = [[Contact alloc] init];
-            contact.name = contactFirstLast;
-            contact.firstName = (NSString*)firstName;
-            contact.lastName = (NSString*)lastName;
-            NSLog(@"Phone Number: %@", phoneNumber);
-            contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
-            contact.recipientUri = [contact.phoneNumber copy];
-            NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
-            [tempArray addObject:contact];
-            
-            index++;
-            
-            [contact release];
+        if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){
+            for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
+                CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
+                NSString *phoneNumber = (NSString *) phoneNumberRef;
+                
+                contact = [[Contact alloc] init];
+                contact.name = contactFirstLast;
+                contact.firstName = (NSString*)firstName;
+                contact.lastName = (NSString*)lastName;
+                NSLog(@"Phone Number: %@", phoneNumber);
+                contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
+                contact.recipientUri = [contact.phoneNumber copy];
+                //NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
+                [tempArray addObject:contact];
+                
+                index++;
+                
+                [contact release];
+            }
         }
     }
     
@@ -265,23 +361,29 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
-    NSArray *friendArray = [result objectForKey:@"data"];
-    NSArray *splitName;
-    Contact *friend;
-    for ( NSDictionary *dict in friendArray ){
-        friend = [[Contact alloc] init];
-        friend.facebookID = [dict objectForKey:@"id"];
-        friend.name = [dict objectForKey:@"name"];
-        splitName = [friend.name componentsSeparatedByString:@" "];
-        
-        friend.firstName = [splitName objectAtIndex:0];
-        friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
-        
-        friend.imgData = NULL;
-        friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
-        [tempArray addObject:friend];
-        [friend release];
+    if ( request == friendRequest )
+    {
+        NSArray *friendArray = [result objectForKey:@"data"];
+        NSArray *splitName;
+        Contact *friend;
+        for ( NSDictionary *dict in friendArray ){
+            friend = [[Contact alloc] init];
+            friend.facebookID = [dict objectForKey:@"id"];
+            friend.name = [dict objectForKey:@"name"];
+            splitName = [friend.name componentsSeparatedByString:@" "];
+            
+            friend.firstName = [splitName objectAtIndex:0];
+            friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
+            
+            friend.imgData = NULL;
+            friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
+            [tempArray addObject:friend];
+            [friend release];
+        }
     }
+    
+    areFacebookContactsLoaded = YES;
+    
     [self sortContacts];
 }
 
@@ -292,7 +394,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     } else {
         [contactsArray removeAllObjects];
     }
-    for ( int i = 0 ; i < 27 ; i ++ )
+    for ( int i = 0 ; i < 28 ; i ++ )
         [contactsArray addObject:[[NSMutableArray alloc] init]];
     
     tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
@@ -308,8 +410,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for (Contact*person in tempArray) {
         comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
         
-        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-65] addObject:person];
+        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
+    
     NSLog(@"Contacts Ready.");
 }
 
@@ -329,20 +434,25 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     return [fBook handleOpenURL:url];
 }
 
-- (void)fbDidLogin {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
-    [defaults setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
-    [defaults synchronize];
-    
-    [fBook requestWithGraphPath:@"me" andDelegate:self];
+
+-(void)fbDidLogin
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
+    [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
+    [prefs synchronize];
 }
+
 
 - (void)dealloc
 {
     [_window release];
     [_tabBarController release];
+    [welcomeTabBarController release];
     [fBook release];
+    [newUserFlowTabController release];
+    [user release];
     [super dealloc];
 }
+
 @end

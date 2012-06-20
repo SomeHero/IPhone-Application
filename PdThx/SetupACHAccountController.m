@@ -13,6 +13,7 @@
 #import "SetupACHAccountController.h"
 #import "HomeViewController.h"
 #import "PdThxAppDelegate.h"
+#import "CustomSecurityPinSwipeController.h"
 
 @interface SetupACHAccountController ()
 - (void)createACHAccount;
@@ -34,6 +35,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self setTitle:@"HI_RYAN"];
     }
     return self;
 }
@@ -65,12 +67,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
     // Do any additional setup after loading the view from its nib.
+    [self setTitle: @"Enable Payments"];
+    
     userSetupACHAccountService = [[UserSetupACHAccount alloc] init];
     [userSetupACHAccountService setUserACHSetupCompleteDelegate: self];
 }
-
+-(void)viewDidAppear:(BOOL)animated {
+    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
+}
 - (void)viewDidUnload
 {
     [skipButton release];
@@ -157,13 +166,18 @@
 }
 
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
+
+    txtAccountNumber.text = @"";
+    txtConfirmAccountNumber.text = @"";
+    txtRoutingNumber.text = @"";
+    txtNameOnAccount.text = @"";
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    [prefs setObject:paymentAccountId forKey:@"paymentAccountId"];
-    [prefs synchronize];
+    user.preferredPaymentAccountId = paymentAccountId;
+    user.preferredReceiveAccountId = paymentAccountId;
     
     [achSetupCompleteDelegate achSetupDidComplete];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
     
     // Move to Home View Controller inside NavigationController again
     //[self.navigationController popToRootViewControllerAnimated:YES];
@@ -172,9 +186,32 @@
     [self showAlertView: @"Unable to Setup Account" withMessage:message];
 }
 -(IBAction) btnSetupACHAccountClicked:(id) sender {
-    [self createACHAccount];
+    controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    [controller setNavigationTitle: @"Setup your Pin"];
+    [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+    [controller setTag:1];
+    
+    [self presentModalViewController:controller animated:YES];
 }
- 
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin;
+{
+    if([sender tag] == 1)
+    {
+        controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+        [controller setSecurityPinSwipeDelegate: self];
+        [controller setNavigationTitle: @"Confirm your Pin"];
+        [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+        [controller setTag:2];    
+        [self presentModalViewController:controller animated:YES];
+    }
+    else if([sender tag] == 2)
+        [self createACHAccount];
+}
+-(void)swipeDidCancel: (id)sender
+{
+    //do nothing
+}
 -(IBAction) btnRemindMeLaterClicked:(id)sender {
     /*
         User has selected to skip the ACH Bank Account Add Form
@@ -194,9 +231,12 @@
     if ( alertView == skipBankAlert ){
         if (buttonIndex == 0) {
             NSLog(@"User skipped adding bank account");
-
-            [userSetupACHAccountComplete achACcountSetupDidSkip];
+            
+            //[userSetupACHAccountComplete achAccountSetupDidSkip];
             // TODO: Load Tabbed View Controller with Home View
+            
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
+            
         }
         else if ( buttonIndex == 1 ){
             NSLog(@"User chose to add bank account.");
@@ -263,11 +303,10 @@
         [prefs setObject:paymentAccountId forKey:@"paymentAccountId"];
         [prefs synchronize];
         
+        user.preferredPaymentAccountId = paymentAccountId;
+        user.preferredReceiveAccountId = paymentAccountId;
+        
         [achSetupCompleteDelegate achSetupDidComplete];
-        
-        // Go to main Controller Again
-        //[self.navigationController popToRootViewControllerAnimated:YES];
-        
     }
     else {
         [self showAlertView:@"Unable to setup ACH Acccount!" withMessage:@"Exception setting up your bank account information"];

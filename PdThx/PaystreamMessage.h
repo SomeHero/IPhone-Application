@@ -20,9 +20,9 @@
     NSDate* createDate;
     NSString* direction;
     NSString* recipientName;
-    NSString* recipientImageUri;
     NSString* senderName;
-    NSString* senderImageUri;
+    NSString* transactionImageUri;
+    UIImage * imgData;
 }
 
 @property(nonatomic, retain) NSDecimalNumber* amount;
@@ -35,8 +35,8 @@
 @property(nonatomic, retain) NSDate* createDate;
 @property(nonatomic, retain) NSString* direction;
 @property(nonatomic, retain) NSString* recipientName;
-@property(nonatomic, retain) NSString* recipientImageUri;
+@property(nonatomic, retain) NSString* transactionImageUri;
 @property(nonatomic, retain) NSString* senderName;
-@property(nonatomic, retain) NSString* senderImageUri;
+@property (nonatomic, retain) UIImage * imgData;
 
 @end

@@ -9,9 +9,15 @@
 #import "CreateAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SetupACHAccountController.h"
+#import "PdThxAppDelegate.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400
+
+#define KEYBOARD_ANIMATION_DURATION 0.3
+#define MINIMUM_SCROLL_FRACTION 0.0
+#define MAXIMUM_SCROLL_FRACTION 0.8
+#define KEYBOARD_HEIGHT 162
 
 @interface CreateAccountViewController ()
 - (void)createAccount;
@@ -22,7 +28,7 @@
 
 @synthesize txtEmailAddress,  txtPassword, txtConfirmPassword;
 @synthesize btnCreateAccount, viewPanel;
-@synthesize achSetupCompleteDelegate;
+@synthesize achSetupCompleteDelegate, animatedDistance;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -53,6 +59,8 @@
     [registerUserService release]; 
     [registrationKey release];
     [userService release];
+    [service release];
+    [faceBookSignInHelper release];
     
     [super dealloc];
 }
@@ -116,24 +124,20 @@
 }
 -(void)userInformationDidComplete:(User*) user {
     
-    if([user.mobileNumber length] > 0) {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setObject:user.mobileNumber forKey: @"mobileNumber"];
-        [prefs synchronize];
-        
-        SetupACHAccountController* setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle:nil];
-        
-        [setupACHAccountController setAchSetupCompleteDelegate:self];
-        [self.navigationController pushViewController:setupACHAccountController animated:true];
-        
-        [setupACHAccountController release];
-    } else {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString* userId = [prefs stringForKey:@"userId"];
-        
-        [self getUserInformation:userId];
-    }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];
+    bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
+    
+    if(paymentAccountAccount != (id)[NSNull null] && [paymentAccountAccount length] > 0)
+        user.hasACHAccount = true;
+    user.hasSecurityPin = setupSecurityPin;
+    
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
+    return;
 }
 #pragma mark - View lifecycle
 
@@ -141,8 +145,12 @@
 {
     [super viewDidLoad];
     
+    faceBookSignInHelper = [[FacebookSignIn alloc] init];
     registerUserService = [[RegisterUserService alloc] init];
     [registerUserService setUserRegistrationCompleteDelegate: self];
+    
+    service = [[SignInWithFBService alloc] init];
+    service.fbSignInCompleteDelegate = self;
     
     userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
@@ -240,12 +248,24 @@
         //[securityPinModal show];
     }
 }
-
--(IBAction) btnCreateAccountClicked:(id) sender {
-    
-    [self createAccount];
-    
+- (IBAction)signInWithFacebookClicked:(id)sender 
+{
+    [faceBookSignInHelper signInWithFacebook: self];
 }
+
+-(void) request:(FBRequest *)request didLoad:(id)result
+{
+    [service validateUser:result];
+}
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog ( @"Error occurred -> %@" , [error description] );
+}
+-(IBAction) btnCreateAccountClicked:(id) sender {
+    [self createAccount];    
+}
+
 -(void) securityPinComplete:(SetupSecurityPin*) modalPanel 
                selectedCode:(NSString*) code {
     
@@ -299,16 +319,40 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setObject:userId forKey:@"userId"];
+    [prefs setBool:YES forKey: @"isNewUser"];
+    
     [prefs synchronize];
+
+    txtEmailAddress.text = @"";
+    txtPassword.text = @"";
+    txtConfirmPassword.text = @"";
     
-    [self sendInAppSMS: self];
-    
+    [userService setUserInformationCompleteDelegate: self];
+    [userService getUserInformation: userId];
 }
 -(void)userRegistrationDidFail:(NSString*) response
 {
     [spinner stopAnimating];
     
     [self showAlertView: @"User Registration Failed" withMessage: response];
+}
+/*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber isNewUser:(BOOL)isNewUser
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setValue:userId forKey:@"userId"];
+    
+    [prefs synchronize];
+    
+    [userService setUserInformationCompleteDelegate: self];
+    [userService getUserInformation: userId];
+    
+    
+}
+
+-(void)fbSignInDidFail:(NSString *) reason {
+    [self showAlertView:@"Facebook Sign In Failed" withMessage:[NSString stringWithFormat:@"%@. Check your username, password, and data connection.",reason]];
 }
 -(void) showConfirmSecurityPin {
     confirmSecurityPinModal = [[ConfirmSecurityPinDialog alloc] initWithFrame:self.view.bounds];
@@ -350,5 +394,4 @@
 -(void)achSetupDidComplete {
     [achSetupCompleteDelegate achSetupDidComplete];
 }
-
 @end
