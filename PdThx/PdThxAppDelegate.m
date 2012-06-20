@@ -114,12 +114,10 @@
     
     fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
     
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     if ([defaults objectForKey:@"FBAccessTokenKey"] 
         && [defaults objectForKey:@"FBExpirationDateKey"]) {
-        NSLog(@"Access Token: %@" , [[defaults objectForKey:@"FBAccessTokenKey"]stringValue]);
-            NSLog(@"Access Token: %@" , [[defaults objectForKey:@"FBExpirationDateKey"]stringValue]);
         fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
         fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
     }
@@ -437,6 +435,15 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 }
 
 
+-(void)fbDidLogin
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
+    [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
+    [prefs synchronize];
+}
+
+
 - (void)dealloc
 {
     [_window release];
@@ -447,7 +454,5 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [user release];
     [super dealloc];
 }
-
-
 
 @end
