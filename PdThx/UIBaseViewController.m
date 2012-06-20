@@ -53,9 +53,16 @@ CGSize scrollViewOriginalSize;
     CGRect aRect = self.view.frame;
 
     aRect.size.height -= kbSize.height +40;
-    if (!CGRectContainsPoint(aRect, currTextField.frame.origin) ) {
-        CGPoint scrollPoint = CGPointMake(0.0, (currTextField.frame.origin.y + currTextField.frame.size.height) - (aRect.size.height + 40));
-        [scrollView setContentOffset:scrollPoint animated:YES];
+    if ( [currTextField isKindOfClass:[UITextView class]] ){
+        if (!CGRectContainsPoint(aRect, ((UITextView*)currTextField).frame.origin) ) {
+            CGPoint scrollPoint = CGPointMake(0.0, (((UITextView*)currTextField).frame.origin.y + ((UITextView*)currTextField).frame.size.height) - (aRect.size.height + 40));
+            [scrollView setContentOffset:scrollPoint animated:YES];
+        }
+    } else {
+        if (!CGRectContainsPoint(aRect, ((UITextField*)currTextField).frame.origin) ) {
+            CGPoint scrollPoint = CGPointMake(0.0, (((UITextField*)currTextField).frame.origin.y + ((UITextField*)currTextField).frame.size.height) - (aRect.size.height + 40));
+            [scrollView setContentOffset:scrollPoint animated:YES];
+        }
     }
 }
 
@@ -75,6 +82,11 @@ CGSize scrollViewOriginalSize;
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     currTextField = nil;
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -122,7 +134,7 @@ CGSize scrollViewOriginalSize;
     
     
     if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
-        //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
     [super viewDidLoad];

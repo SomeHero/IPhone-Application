@@ -92,6 +92,11 @@ float tableHeight2 = 30;
     
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [txtComments resignFirstResponder];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

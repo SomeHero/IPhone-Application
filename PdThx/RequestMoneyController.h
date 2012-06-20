@@ -24,14 +24,14 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "TransactionConfirmationViewController.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol> {
+@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate> {
 
     IBOutlet UIView *viewPanel;
         IBOutlet UITextField *txtAmount;
         IBOutlet UITextView *txtComments;
         
     IBOutlet UIButton *btnSendRequest;
-        
+    
     User* user;
     NSString* recipientUri;
     NSString* amount;
@@ -51,6 +51,10 @@
     double latitude;
     double longitude;
         
+    IBOutlet UIButton *attachPictureButton;
+    IBOutlet UITextField *characterCountLabel;
+    
+    
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
@@ -65,11 +69,14 @@
 @property(nonatomic, retain) UIButton *recipientImageButton;
 @property(nonatomic, retain) NSString* recipientUri;
 @property(nonatomic, retain) CLLocationManager *lm;
+@property(nonatomic, retain) UITextField *characterCountLabel;
 
+@property(nonatomic, retain) UIButton *attachPictureButton;
 /*              Button Actions              */
 /*  --------------------------------------- */
 - (IBAction)pressedChooseRecipientButton:(id)sender;
 - (IBAction)pressedAmountButton:(id)sender;
+- (IBAction)pressedAttachPictureButton:(id)sender;
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendRequestClicked:(id) sender;
