@@ -23,15 +23,14 @@
 - (void)dealloc {
     [service release];
     [fBook release];
+    [super dealloc];
 }
+
 - (void)signInWithFacebook:(id)sender {
-    NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
+    NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", @"publish_stream", nil];
     
-    if ( ![fBook isSessionValid] )
-        [fBook authorize:permissions];
-    
-    // Paste This To Be Able to Do Graph Calls
     fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:@"FBAccessTokenKey"] 
         && [defaults objectForKey:@"FBExpirationDateKey"]) {
@@ -39,10 +38,15 @@
         fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
     }
     
+    if ( ![fBook isSessionValid] )
+        [fBook authorize:permissions];
+    
+    NSLog(@"Back from authorization... Valid? %@", [fBook isSessionValid] ? @"YES" : @"NO" );
+    
     // Graph Command is Used to Graph User Information.
     // This requests only basic, and Email Address Information.
     // This does not require the user accepts the Email Address Permission
-    [fBook requestWithGraphPath:@"me" andDelegate: sender];
+    [fBook requestWithGraphPath:@"me" andDelegate:((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate])];
     
     [permissions release];
 }

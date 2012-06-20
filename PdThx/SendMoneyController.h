@@ -49,6 +49,8 @@
     double latitude;
     double longitude;
     
+    IBOutlet UIImageView *contactButtonBGImage;
+    IBOutlet UIImageView *amountButtonBGImage;
 }
 
 
@@ -65,6 +67,10 @@
 @property(nonatomic, retain) UIButton *recipientImageButton;
 @property(nonatomic, retain) NSString* recipientUri;
 @property(nonatomic, retain) CLLocationManager *lm;
+
+@property(nonatomic, retain) UIImageView *contactButtonBGImage;
+@property(nonatomic, retain) UIImageView *amountButtonBGImage;
+
 
 
 /*              Button Actions              */

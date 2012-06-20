@@ -64,6 +64,8 @@ float tableHeight2 = 30;
     [chooseAmountButton release];
     
     [btnSendMoney release];
+    [contactButtonBGImage release];
+    [amountButtonBGImage release];
     [super dealloc];
 }
 
@@ -105,7 +107,7 @@ float tableHeight2 = 30;
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
     
-    
+    contactButtonBGImage.highlighted = NO;
     /*          Location Services Setup         */
     /*  --------------------------------------- */
     lm = [[CLLocationManager alloc] init];
@@ -149,7 +151,7 @@ float tableHeight2 = 30;
     [self setTitle:@"Send $"];
     
     [txtAmount setDelegate:self];
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
@@ -174,6 +176,10 @@ float tableHeight2 = 30;
     txtComments = nil;
     [btnSendMoney release];
     btnSendMoney = nil;
+    [contactButtonBGImage release];
+    contactButtonBGImage = nil;
+    [amountButtonBGImage release];
+    amountButtonBGImage = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;
@@ -217,7 +223,6 @@ float tableHeight2 = 30;
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.amountChosenDelegate = self;
-    
 }
 
 
@@ -260,6 +265,7 @@ float tableHeight2 = 30;
         [self presentModalViewController:controller animated:YES];
     }
 }
+
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
     NSString* recipientImageUri = [NSString stringWithString: @""];
@@ -275,10 +281,12 @@ float tableHeight2 = 30;
     
     [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
+
 -(void)swipeDidCancel: (id)sender
 {
     //do nothing
 }
+
 -(IBAction) bgTouched:(id) sender {
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
@@ -373,6 +381,8 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
 -(void)sendMoneyDidComplete {
     [self.scrollView scrollsToTop];
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
     
     TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
@@ -382,40 +392,47 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 }
 
 -(void)sendMoneyDidFail:(NSString*) message {
-    
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
 -(void)onHomeClicked {
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
+    
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
     
     [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
 }
 -(void)onContinueClicked {
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
     
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
     [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
     
 }
 -(void)didChooseContact:(Contact *)contact
 {
+    contactButtonBGImage.highlighted = YES;
+    [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
     if ( contact.imgData )
         [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
     else if ( contact.facebookID.length > 0 )
         [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
-    else
+    else {
         [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
-    
+        [recipientImageButton.layer setBorderWidth:0.0];
+    }
     
     recipientImageButton.imageView.image = nil;
     
@@ -467,6 +484,7 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 
 -(void)didSelectAmount:(double)amountSent
 {
+    amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
 @end
