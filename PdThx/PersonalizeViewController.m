@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PdThxAppDelegate.h"
 #import "User.h"
+#import "ASIFormDataRequest.h"
 
 @interface PersonalizeViewController ()
 
@@ -34,7 +35,6 @@
     // Do any additional setup after loading the view from its nib.
     
     [self setTitle: @"Personalize"];
-    
     
     [userImageButton.layer setCornerRadius:6.0];
     [userImageButton.layer setMasksToBounds:YES];
@@ -92,5 +92,41 @@
 - (IBAction)pressedSaveContinue:(id)sender 
 {
      [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+}
+-(void)uploadFile:(NSString*)file toURL: (NSString*) uploadURL{
+    
+    NSURL *url = [NSURL URLWithString: uploadURL];
+    
+    requestObj = [ASIFormDataRequest requestWithURL:url];
+    
+    [requestObj setUseKeychainPersistence:YES];
+    //if you have your site secured by .htaccess
+    
+    //[request setUsername:@"login"];
+    //[request setPassword:@"password"];
+    
+    
+    NSString *fileName = [NSString stringWithFormat:@"ipodfile%@.jpg", file];
+    [requestObj addPostValue:fileName forKey:@"name"];
+    
+    // Upload an image
+    //NSData *imageData = UIImageJPEGRepresentation([UIImage imageName:fileName])
+    //[request setData:imageData withFileName:fileName andContentType:@"image/jpeg" forKey:@"userfile"];
+    
+    [requestObj setDelegate:self];
+    [requestObj setDidFinishSelector:@selector(uploadRequestFinished:)];
+    [requestObj setDidFailSelector:@selector(uploadRequestFailed:)];
+    
+    [requestObj startAsynchronous];
+}
+
+- (void)uploadRequestFinished:(ASIHTTPRequest *)request{    
+    NSString *responseString = [request responseString];
+    NSLog("Upload response %@", responseString);
+}
+
+- (void)uploadRequestFailed:(ASIHTTPRequest *)request{
+    
+    NSLog(@" Error - Statistics file upload failed: \"%@\"",[[request error] localizedDescription]); 
 }
 @end

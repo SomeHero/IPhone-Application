@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "UISetupUserBaseViewController.h"
+#import "ASIHTTPRequest.h"
 
 @interface PersonalizeViewController : UISetupUserBaseViewController
 {
     IBOutlet UIButton *userImageButton;
     IBOutlet UITextField *firstNameField;
     IBOutlet UITextField *lastNameField;
-    
+    ASIHTTPRequest *requestObj;
     IBOutlet UIButton *saveContinueButton;
+    
 }
 
 @property (nonatomic, retain) UIButton *userImageButton;
