@@ -11,6 +11,7 @@
 #import "MeCodeViewController.h"
 
 #import "MECodeSetupViewController.h"
+#import "AccountListViewController.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400
@@ -218,6 +219,12 @@
                 {
                     MeCodeViewController *VC = [[MeCodeViewController alloc] initWithNibName:@"MeCodeViewController" bundle:nil];
                     [self.navigationController pushViewController:VC animated:YES];                  break; 
+                }
+                case 2:
+                {
+                    AccountListViewController* controller = [[AccountListViewController alloc] initWithNibName: @"AccountListViewController" bundle:nil];
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
                 }
                 default:
                     break;

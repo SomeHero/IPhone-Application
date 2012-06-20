@@ -63,6 +63,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     // Do any additional setup after loading the view from its nib.
     //setup internal viewpanel
+    userService = [[UserService alloc] init];
+    [userService setUserInformationCompleteDelegate: self];
+    
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
@@ -85,61 +88,22 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString* userId = [prefs stringForKey:@"userId"];
-    NSLog ( @"UserID in HomeView: %@" , userId );
-    
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-    
-    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
-    lblUserName.text = user.preferredName;
-    lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
-    lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
-    
-    [numberFormatter release];
 
-    //[userService getUserInformation:userId];
+    [userService getUserInformation:userId];
 }
 
 -(void)userInformationDidComplete:(User*) user {
 
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
     
-    PhoneNumberFormatting *formatter = [[PhoneNumberFormatting alloc] init];
-    NSLog(@"FirstName: %@ LastName: %@",user.firstName,user.lastName);
-    
-    if((!(user.firstName == (id)[NSNull null] || user.firstName.length == 0 )) && (!(user.lastName == (id)[NSNull null] || user.lastName.length == 0 ))) {
-            lblUserName.text = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
-    } else if (!(user.mobileNumber == (id)[NSNull null] || user.mobileNumber.length == 0 ) ){
-        if ( user.mobileNumber.length > 0 )
-            lblUserName.text = [formatter stringToFormattedPhoneNumber: user.mobileNumber];
-    } else if ( !(user.emailAddress == (id)[NSNull null] || user.emailAddress.length == 0 ) ){
-        if ( user.emailAddress.length > 0 )
-            lblUserName.text = user.emailAddress;
-    } else {
-        lblUserName.text = @"PaidThx User";
-    }
-    
-    /*if ( ( user.firstName != NULL && user.firstName.length > 0 ) && ( user.lastName != NULL && user.lastName.length > 0 ))
-        lblUserName.text = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
-    else if ( user.emailAddress != NULL && user.emailAddress.length != 0 )
-        lblUserName.text = user.emailAddress;
-    else if ( user.mobileNumber != NULL && user.mobileNumber.length != 0 )
-        lblUserName.text = [formatter stringToFormattedPhoneNumber: user.mobileNumber];
-    else
-        lblUserName.text = @"PaidThx User";
-     */
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setValue:user.userName forKey:@"userName"];
-    [prefs synchronize];
-    
+    lblUserName.text = user.preferredName;
     lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
     lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
-
+    
     [numberFormatter release];
-    [formatter release];
 }
 -(void)userInformationDidFail:(NSString*) message {
     [self showAlertView: @"Error Sending Money" withMessage: message];

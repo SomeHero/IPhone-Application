@@ -76,8 +76,7 @@
         if([request responseStatusCode] == 201)
             isNewUser = YES;
         
-        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber isNewUser:isNewUser];
-        
+        [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber isNewUser:isNewUser];     
     } else
     {
         NSLog(@"User Validation Failed");

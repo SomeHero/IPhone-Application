@@ -87,47 +87,164 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     UIImage* greenBackgroundNormal = [UIImage imageNamed: @"btn-psdetail-green-267x40.png"];
     UIImage* greenBackgroundActive = [UIImage imageNamed: @"btn-psdetail-green-267x40-active.png"];
     
-    btnCancelPayment = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btnCancelPayment setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-    [btnCancelPayment setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-    [btnCancelPayment setTitle: @"Cancel Payment" forState:UIControlStateNormal];
-  [btnCancelPayment setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-    [btnCancelPayment addTarget:self action:@selector(btnCancelPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
-
-    btnSendReminder = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btnSendReminder setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-    [btnSendReminder setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-    [btnSendReminder setTitle: @"Send a Reminder" forState:UIControlStateNormal];
-    [btnSendReminder setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-    [btnSendReminder addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
-    
-    btnAcceptRequest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btnAcceptRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-    [btnAcceptRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-    [btnAcceptRequest setTitle: @"Accept & Pay" forState:UIControlStateNormal];
-    [btnAcceptRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-    [btnAcceptRequest addTarget:self action:@selector(btnAcceptRequestClicked) forControlEvents:UIControlEventTouchUpInside];
-    
-    btnRejectRequest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btnRejectRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-    [btnRejectRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-    [btnRejectRequest setTitle: @"Reject Request" forState:UIControlStateNormal];
-    [btnRejectRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-    [btnRejectRequest addTarget:self action:@selector(btnRejectRequestClicked) forControlEvents:UIControlEventTouchUpInside];
-    
-    btnCancelRequest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btnCancelRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-    [btnCancelRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-    [btnCancelRequest setTitle: @"Cancel Request" forState:UIControlStateNormal];
-    [btnCancelRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-    [btnCancelRequest addTarget:self action:@selector(btnCancelRequestClicked) forControlEvents:UIControlEventTouchUpInside];
-    
     paystreamServices = [[PaystreamService alloc] init];
     
     [paystreamServices setCancelPaymentProtocol: self];
     [paystreamServices setCancePaymentRequestProtocol: self];
     [paystreamServices setAcceptPaymentRequestProtocol: self];
     [paystreamServices setRejectPaymentRequestProtocol: self];
+
+    txtRecipient.text = messageDetail.recipientName;
+    txtSender.text = messageDetail.senderName;
+    [btnCurrentStatus setTitle: messageDetail.messageStatus forState:UIControlStateNormal];
+    
+    //btnSender setImage: [UIImage imageWithContentsOfFile: messageDetail.senderUri];
+    //btnRecipient setImage: [UIImage imageWithContentsOfFile:<#(NSString *)#> forState:<#(UIControlState)#>
+    // Settings
+	NSString*	s;
+	NSString*	art		= @"bg-message-stretch.png";
+	CGSize		caps		= CGSizeMake(25, 24);
+	UIFont*		font		= [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
+	CGFloat		padTRBL[4]	= {15, 8, 8, 8};
+	UIView*		bubble;
+    
+	// Create bubble
+	s = [NSString stringWithFormat: @"\"%@\"", messageDetail.comments];
+    
+    bubble =[self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
+	bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
+	[self.quoteView addSubview:bubble];
+    
+    NSInteger yPos = 5;
+    
+    if([messageDetail.messageType isEqualToString: @"Payment"]) {
+        if([messageDetail.direction isEqualToString: @"Out"]) { 
+            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+                UIButton* btnCancelPayment = [[UIButton alloc] init];
+                
+                [btnCancelPayment setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
+                [btnCancelPayment setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnCancelPayment setTitle: @"Cancel Payment" forState:UIControlStateNormal];
+                [btnCancelPayment setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
+                [btnCancelPayment addTarget:self action:@selector(btnCancelPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+                [actionView addSubview:btnCancelPayment];
+                
+                [btnCancelPayment release];
+                
+                yPos = yPos + btnCancelPayment.frame.size.height + 5;
+            }
+            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+                UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
+                
+                [btnSendReminder setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
+                [btnSendReminder setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnSendReminder setTitle: @"Send a Reminder" forState:UIControlStateNormal];
+                [btnSendReminder setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
+                [btnSendReminder addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+                
+                [actionView addSubview:btnSendReminder];
+                
+                [btnSendReminder release];
+                
+                yPos = yPos + btnSendReminder.frame.size.height + 5;
+            }
+        }
+    }
+    if([messageDetail.messageType isEqualToString: @"PaymentRequest"]) {
+        if([messageDetail.direction isEqualToString: @"In"]) {
+            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+                UIButton* btnAcceptRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
+                
+                [btnAcceptRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
+                [btnAcceptRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnAcceptRequest setTitle: @"Accept & Pay" forState:UIControlStateNormal];
+                [btnAcceptRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
+                [btnAcceptRequest addTarget:self action:@selector(btnAcceptRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+                
+                [actionView addSubview:btnAcceptRequest];
+                
+                [btnAcceptRequest release];
+                
+                yPos = yPos + btnAcceptRequest.frame.size.height + 5;
+            }
+            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+                UIButton* btnRejectRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
+                
+                [btnRejectRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
+                [btnRejectRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnRejectRequest setTitle: @"Reject Request" forState:UIControlStateNormal];
+                [btnRejectRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
+                [btnRejectRequest addTarget:self action:@selector(btnRejectRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+                [actionView addSubview:btnRejectRequest];
+                
+                [btnRejectRequest release];
+                
+                yPos = yPos + btnRejectRequest.frame.size.height + 5;
+            }
+        }
+        else if([messageDetail.direction isEqualToString: @"Out"]) {
+            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+               
+                UIButton* btnCancelRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
+            
+                [btnCancelRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
+                [btnCancelRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnCancelRequest setTitle: @"Cancel Request" forState:UIControlStateNormal];
+                [btnCancelRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
+                [btnCancelRequest addTarget:self action:@selector(btnCancelRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+                
+                [actionView addSubview:btnCancelRequest];
+                
+                [btnCancelRequest release];
+                
+                yPos = yPos + btnCancelRequest.frame.size.height + 5;
+            }
+            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+                UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
+                
+                [btnSendReminder setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
+                [btnSendReminder setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnSendReminder setTitle: @"Send a Reminder" forState:UIControlStateNormal];
+                [btnSendReminder setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
+                [btnSendReminder addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+                
+                
+                [actionView addSubview:btnSendReminder];
+                
+                [btnSendReminder release];
+                
+                yPos = yPos + btnSendReminder.frame.size.height + 5;
+            }
+        }
+    }
+    if([messageDetail.messageType isEqualToString: @"Payment"]) {
+        if([messageDetail.direction isEqualToString: @"Out"]) { 
+            navBar.topItem.title = @"$ Send";
+        } else {
+            navBar.topItem.title = @"$ Received";
+        }
+    }
+    else {
+        if([messageDetail.direction isEqualToString: @"Out"]) { 
+            navBar.topItem.title = @"Request Sent";
+        } else {
+            navBar.topItem.title = @"Request Received";
+        }
+    }
+    
+    /* ---------------------------------------------------- */
+    /*      Custom Settings Button Implementation           */
+    /* ---------------------------------------------------- */
+    
+    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-X-35x30.png"];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, 35, 30);
+    [settingsBtn addTarget:self action:@selector(closeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+    
+    navBar.topItem.leftBarButtonItem = settingsButtons;
+    [settingsButtons release];
 }
 -(void)cancelPaymentDidComplete {
     //[self.navigationController popToRootViewControllerAnimated: YES];
@@ -162,107 +279,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 } 
--(void)viewDidAppear:(BOOL)animated
-{
-    txtRecipient.text = messageDetail.recipientName;
-    txtSender.text = messageDetail.senderName;
-    [btnCurrentStatus setTitle: messageDetail.messageStatus forState:UIControlStateNormal];
-    
-    //btnSender setImage: [UIImage imageWithContentsOfFile: messageDetail.senderUri];
-    //btnRecipient setImage: [UIImage imageWithContentsOfFile:<#(NSString *)#> forState:<#(UIControlState)#>
-    // Settings
-	NSString*	s;
-	NSString*	art		= @"bg-message-stretch.png";
-	CGSize		caps		= CGSizeMake(25, 24);
-	UIFont*		font		= [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
-	CGFloat		padTRBL[4]	= {15, 8, 8, 8};
-	UIView*		bubble;
-    
-	// Create bubble
-	s = [NSString stringWithFormat: @"\"%@\"", messageDetail.comments];
-    
-    bubble =[self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
-	bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
-	[self.quoteView addSubview:bubble];
-    
-    NSInteger yPos = 5;
-    
-    if([messageDetail.messageType isEqualToString: @"Payment"]) {
-        if([messageDetail.direction isEqualToString: @"Out"]) { 
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                btnCancelPayment.frame = CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40);
-                [actionView addSubview:btnCancelPayment];
-                
-                yPos = yPos + btnCancelPayment.frame.size.height + 5;
-            }
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                btnSendReminder.frame = CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40);
-                [actionView addSubview:btnSendReminder];
-                
-                yPos = yPos + btnSendReminder.frame.size.height + 5;
-            }
-        }
-    }
-    if([messageDetail.messageType isEqualToString: @"PaymentRequest"]) {
-        if([messageDetail.direction isEqualToString: @"In"]) {
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                btnAcceptRequest.frame = CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40);
-                [actionView addSubview:btnAcceptRequest];
-                
-                yPos = yPos + btnAcceptRequest.frame.size.height + 5;
-            }
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                btnRejectRequest.frame = CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40);
-                [actionView addSubview:btnRejectRequest];
-                
-                yPos = yPos + btnSendReminder.frame.size.height + 5;
-            }
-        }
-        else if([messageDetail.direction isEqualToString: @"Out"]) {
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                btnCancelRequest.frame = CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40);
-                [actionView addSubview:btnCancelRequest];
-                
-                yPos = yPos + btnCancelRequest.frame.size.height + 5;
-            }
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                btnSendReminder.frame = CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40);
-                [actionView addSubview:btnSendReminder];
-                
-                yPos = yPos + btnSendReminder.frame.size.height + 5;
-            }
-        }
-    }
-    if([messageDetail.messageType isEqualToString: @"Payment"]) {
-        if([messageDetail.direction isEqualToString: @"Out"]) { 
-            navBar.topItem.title = @"$ Send";
-        } else {
-            navBar.topItem.title = @"$ Received";
-        }
-    }
-    else {
-        if([messageDetail.direction isEqualToString: @"Out"]) { 
-            navBar.topItem.title = @"Request Sent";
-        } else {
-            navBar.topItem.title = @"Request Received";
-        }
-    }
 
-    /* ---------------------------------------------------- */
-    /*      Custom Settings Button Implementation           */
-    /* ---------------------------------------------------- */
-    
-    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-X-35x30.png"];
-    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
-    settingsBtn.frame = CGRectMake(0, 0, 35, 30);
-    [settingsBtn addTarget:self action:@selector(closeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
-    
-    navBar.topItem.leftBarButtonItem = settingsButtons;
-    [settingsButtons release];
-    
-}
+
 -(void)btnCancelPaymentClicked {
     [paystreamServices cancelPayment: messageDetail.messageId];
 }
