@@ -26,6 +26,17 @@
     [super dealloc];
 }
 
+
+-(void)fbDidLogin
+{
+    NSLog(@"Got here.");
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
+    [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
+    [prefs synchronize];
+}
+
+
 - (void)signInWithFacebook:(id)sender {
     NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", @"publish_stream", nil];
     
@@ -46,7 +57,7 @@
     // Graph Command is Used to Graph User Information.
     // This requests only basic, and Email Address Information.
     // This does not require the user accepts the Email Address Permission
-    [fBook requestWithGraphPath:@"me" andDelegate:((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate])];
+    [fBook requestWithGraphPath:@"me" andDelegate:sender];
     
     [permissions release];
 }

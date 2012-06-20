@@ -28,7 +28,7 @@
 
 @synthesize txtEmailAddress,  txtPassword, txtConfirmPassword;
 @synthesize btnCreateAccount, viewPanel;
-@synthesize achSetupCompleteDelegate;
+@synthesize achSetupCompleteDelegate, animatedDistance;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -248,7 +248,8 @@
         //[securityPinModal show];
     }
 }
-- (IBAction)signInWithFacebookClicked:(id)sender {
+- (IBAction)signInWithFacebookClicked:(id)sender 
+{
     [faceBookSignInHelper signInWithFacebook: self];
 }
 
@@ -336,7 +337,8 @@
     [self showAlertView: @"User Registration Failed" withMessage: response];
 }
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
--(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber {
+-(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber isNewUser:(BOOL)isNewUser
+{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
