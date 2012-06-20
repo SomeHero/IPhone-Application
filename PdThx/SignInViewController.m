@@ -288,6 +288,9 @@
 - (IBAction)signInWithFacebookClicked:(id)sender {
     if ( ![fBook isSessionValid] )
         [faceBookSignInHelper signInWithFacebook:self];
+    else {
+        [fBook requestWithGraphPath:@"me" andDelegate:self];
+    }
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result
