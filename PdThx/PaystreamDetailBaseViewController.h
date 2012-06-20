@@ -18,6 +18,7 @@
 #import "CustomSecurityPinSwipeController.h"
 #import "User.h"
 #import "PdThxAppDelegate.h"
+#import "UINavigationBar+CustomImage.h"
 
 @interface PaystreamDetailBaseViewController : UIViewController<SecurityPinCompleteDelegate, AcceptPaymentRequestProtocol, CancelPaymentProtocol> {
     IBOutlet UIView *detailSubView;
