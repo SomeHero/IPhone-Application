@@ -15,7 +15,11 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@synthesize transactionImage, transactionAmount, transactionDate,transactionRecipient, transactionStatus,transactionType;
+@synthesize transactionAmount, transactionDate,transactionRecipient, transactionStatus,transactionType, transactionImageButton;
+@synthesize lblComments;
+@synthesize lblTransactionDirection;
+@synthesize overlayView;
+@synthesize stampView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -35,13 +39,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (void)dealloc {
-    [transactionImage release];
+    [transactionImageButton release];
     [transactionStatus release];
     [transactionType release];
     [transactionRecipient release];
     [transactionAmount release];
     [transactionDate release];
     [transactionStatusImage release];
+    [lblComments release];
+    [lblTransactionDirection release];
+    [overlayView release];
+    [stampView release];
+    
     [super dealloc];
 }
 @end

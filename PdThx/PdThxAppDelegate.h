@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 #import "PhoneNumberFormatting.h"
+#import "User.h"
 
 @class PdThxViewController;
 
@@ -20,6 +21,12 @@
     NSMutableArray *tempArray;
     NSArray * permissions;
     UIAlertView * notifAlert;
+    IBOutlet UITabBarController *welcomeTabBarController;
+    IBOutlet UITabBarController *newUserFlowTabController;
+    FBRequest *friendRequest;
+    FBRequest *infoRequest;
+    User* user;
+    NSInteger currentReminderTab;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -31,12 +38,23 @@
 @property (nonatomic, retain) NSMutableArray *tempArray;
 @property (nonatomic, retain) NSArray * permissions;
 @property (nonatomic, retain) UIAlertView * notifAlert;
+@property (nonatomic, assign) bool areFacebookContactsLoaded;
+@property (nonatomic, retain) UITabBarController *welcomeTabBarController;
+@property (nonatomic, retain) UITabBarController *newUserFlowTabController;
+@property (nonatomic, retain) FBRequest *friendRequest;
+@property (nonatomic, retain) FBRequest *infoRequest;
+@property(nonatomic, retain) User* user;
 
 -(void)signOut;
 -(void)forgetMe;
 -(void)switchToSendMoneyController;
 -(void)switchToRequestMoneyController;
+-(void)switchToPaystreamController;
 -(void)backToHomeView;
 -(void)loadAllContacts;
+
+-(void)switchToMainAreaTabbedView;
+-(void)backToWelcomeTabbedArea;
+-(void)startUserSetupFlow;
 
 @end

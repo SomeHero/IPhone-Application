@@ -15,9 +15,9 @@
 @synthesize transactionId, paymentId, senderUri, recipientUri, amount, achTransactionId, transactionStatus, transactionCategory, transactionType,
 standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  createDate, lastUpdatedDate, direction;
 @synthesize recipientName;
-@synthesize recipientImageUri;
+@synthesize transactionImageUri;
 @synthesize senderName;
-@synthesize senderImageUri;
+@synthesize comments;
 
 -(id)init {
     self = [super init];
@@ -41,9 +41,9 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         lastUpdatedDate = [[NSDate alloc] init];
         direction = [[NSString alloc] init];
         recipientName = [[NSString alloc] init];
-        recipientImageUri = [[NSString alloc] init];
+        transactionImageUri = [[NSString alloc] init];
         senderName = [[NSString alloc] init];
-        senderImageUri = [[NSString alloc] init];
+        comments = [[NSString alloc] init];
     }
     
     return self;
@@ -76,9 +76,9 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         lastUpdatedDate = [[dictionary valueForKey:@"lastUpdatedDate"] copy];
         direction = [[dictionary valueForKey:@"direction"] copy];
         senderName = [[dictionary valueForKey:@"senderName"] copy];
-        senderImageUri = [[dictionary valueForKey:@"senderImageUri"] copy];
         recipientName = [[dictionary valueForKey:@"recipientName"] copy];
-        recipientImageUri = [[dictionary valueForKey:@"recipientImageUri"] copy];
+        transactionImageUri = [[dictionary valueForKey:@"transactionImageUri"] copy];
+        comments = [[dictionary valueForKey: @"comments"] copy];
     }
     
     [format release];
@@ -104,9 +104,9 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
     [lastUpdatedDate release];
     [direction release];
     [senderName release];
-    [senderImageUri release];
     [recipientName release];
-    [recipientImageUri release];
+    [transactionImageUri release];
+    [comments release];
     
     [super dealloc];
 }

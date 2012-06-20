@@ -55,7 +55,7 @@
 
 @implementation IconDownloader
 
-@synthesize contact;
+@synthesize contact, message;
 @synthesize indexPathInTableView;
 @synthesize delegate;
 @synthesize activeDownload;
@@ -80,11 +80,27 @@
 {
     self.activeDownload = [NSMutableData data];
     // alloc+init and start an NSURLConnection; release on completion/failure
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
+    NSURLConnection *conn;
+    
+    if ( contact != NULL && contact != (id)[NSNull null] && contact.facebookID.length > 0){
+        conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
                               [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]] delegate:self];
-    self.imageConnection = conn;
-    [conn release];
+        
+        self.imageConnection = conn;
+        [conn release];
+        
+    } else if ( message != (id)[NSNull null]) {
+        if ( message.transactionImageUri != (id)[NSNull null] ){
+            conn = [[NSURLConnection alloc] initWithRequest:
+                    [NSURLRequest requestWithURL:
+                     [NSURL URLWithString:message.transactionImageUri]] delegate:self];
+            
+            self.imageConnection = conn;
+            [conn release];
+        }
+    }
+
 }
 
 - (void)cancelDownload
@@ -116,12 +132,15 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     // Set appIcon and clear temporary data/image
-    UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
+    UIImage *imagez = [[UIImage alloc] initWithData:self.activeDownload];
 
-    self.contact.imgData = image;
+    if ( contact != NULL )
+        self.contact.imgData = imagez;
+    else if ( message != (id)[NSNull null] )
+        message.imgData = imagez;
     
     self.activeDownload = nil;
-    [image release];
+    [imagez release];
     
     // Release the connection now that it's finished
     self.imageConnection = nil;

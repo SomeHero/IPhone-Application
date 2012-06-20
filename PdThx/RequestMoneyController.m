@@ -17,16 +17,14 @@
 #import "SetupSecurityPin.h"
 #import "RequestMoneyService.h"
 #import "ContactSelectViewController.h"
+#import "AmountSelectViewController.h"
+#import "CustomSecurityPinSwipeController.h"
 
-#define kOFFSET_FOR_KEYBOARD 80.0
+#define kOFFSET_FOR_KEYBOARD 100.0
 
 @interface RequestMoneyController ()
 - (BOOL)isValidRecipientUri:(NSString *)recipientUriToTest;
 - (BOOL)isValidAmount:(NSString *)amountToTest;
-
-- (void)requestMoney;
-- (void)signOutClicked;
-- (void)showModalPanel;
 
 
 @end
@@ -39,7 +37,8 @@
 @synthesize recipientImageButton;
 @synthesize chooseRecipientButton;
 @synthesize contactHead;
-@synthesize contactDetail;
+@synthesize contactDetail, lm;
+@synthesize amount, chooseAmountButton;
 
 
 float tableHeight = 30;
@@ -55,14 +54,28 @@ float tableHeight = 30;
 
 - (void)dealloc
 {
+    /*  ------------------------------------------------------ */
+    /*                View/Services Releases                   */
+    /*  ------------------------------------------------------ */
     [viewPanel release];
+    [requestMoneyService release];
+    [lm release];
+    
+    /*  ------------------------------------------------------ */
+    /*                Image/TextField Releases                 */
+    /*  ------------------------------------------------------ */
     [txtAmount release];
     [txtComments release];
-    [btnSendRequest release];
-    [securityPinModalPanel release];
+    [user release];
     [amount release];
     [comments release];
-    [requestMoneyService release];
+    [recipientImageButton release];
+    [chooseRecipientButton release];
+    [contactHead release];
+    [contactDetail release];
+    [chooseAmountButton release];
+    
+    [btnSendRequest release];
 
     [super dealloc];
 }
@@ -80,73 +93,88 @@ float tableHeight = 30;
 
     [super viewDidAppear:animated];
 
-
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
 
 }
 - (void)viewDidLoad
 {
 
     [super viewDidLoad];
-
-    [recipientImageButton.layer setCornerRadius:12.0];
-    [recipientImageButton.layer setMasksToBounds:YES];
     
+    /*                  View Setup              */
+    /*  --------------------------------------- */
+    scrollView.frame = CGRectMake(0, 0, 320, 420);
+    [scrollView setContentSize:CGSizeMake(320, 420)];
+    //[whiteBoxView.layer  setCornerRadius:7.0];
+    
+    
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setCornerRadius: 8.0];
+    
+    
+    /*          Location Services Setup         */
+    /*  --------------------------------------- */
+    lm = [[CLLocationManager alloc] init];
+    if ([lm locationServicesEnabled]) {
+        lm.delegate = self;
+        lm.desiredAccuracy = kCLLocationAccuracyBest;
+        lm.distanceFilter = 1000.0f;
+        [lm startUpdatingLocation];
+    }
+    
+    
+    /*         Button Visiblity Handling        */
+    /*  --------------------------------------- */
+    chooseRecipientButton.backgroundColor = [UIColor clearColor];
+    chooseAmountButton.backgroundColor = [UIColor clearColor];
+    [recipientImageButton.layer setCornerRadius:5.0];
+    [recipientImageButton.layer setMasksToBounds:YES];
+    [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
+    
+    
+    
+    /*          Services/ViewController Initialization         */
+    /*  ------------------------------------------------------ */
     requestMoneyService = [[RequestMoneyService alloc] init];
     [requestMoneyService setRequestMoneyCompleteDelegate: self];
-    
+     
+
+    /*                TextField Initialization                 */
+    /*  ------------------------------------------------------ */
     autoCompleteArray = [[NSMutableArray alloc] init];
-
-    //---set the viewable frame of the scroll view---
-    scrollView.frame = CGRectMake(0, 0, 320, 460);
-    //---set the content size of the scroll view---
-    [scrollView setContentSize:CGSizeMake(320, 713)];
-
-
-    //[self loadContacts];
-
-    self.navigationItem.title = @"Request $";
-
-    //setup internal viewpanel
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
-
-    //Search Bar
-	//txtRecipientUri.borderStyle = UITextBorderStyleRoundedRect; // rounded, recessed rectangle
-	//txtRecipientUri.autocorrectionType = UITextAutocorrectionTypeNo;
-	//txtRecipientUri.textAlignment = UITextAlignmentLeft;
-	//txtRecipientUri.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	//txtRecipientUri.returnKeyType = UIReturnKeyDone;
-	//txtRecipientUri.font = [UIFont fontWithName:@"Trebuchet MS" size:22];
-	//txtRecipientUri.textColor = [UIColor blackColor];
-	//[txtRecipientUri setDelegate:self];
-
-	//Autocomplete Table
-	//autoCompleteTableView = [[UITableView alloc] initWithFrame:CGRectMake(txtRecipientUri.frame.origin.x+2, txtRecipientUri.frame.origin.y + txtRecipientUri.frame.size.height, txtRecipientUri.frame.size.width - 4, tableHeight) style:UITableViewStylePlain];
-	autoCompleteTableView.delegate = self;
-	autoCompleteTableView.dataSource = self;
-	autoCompleteTableView.scrollEnabled = YES;
-	autoCompleteTableView.hidden = YES;
-	autoCompleteTableView.rowHeight = tableHeight;
-	[self.scrollView addSubview:autoCompleteTableView];
-	[autoCompleteTableView release];
-
+    recipientUri = [[NSString alloc] initWithString: @""];
+    amount = [[NSString alloc] initWithString: @""];
+    
+    
+    comments = [[NSString alloc] initWithString: @""];
+    
+    [self setTitle:@"Request $"];
+    
     [txtAmount setDelegate:self];
-
     txtAmount.text = @"$0.00";
-
-    //setup internal viewpanel
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
 
 }
 
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    if (newLocation != nil) {
+        latitude = newLocation.coordinate.latitude;
+        longitude = newLocation.coordinate.longitude;
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"%@", error.description);
+}
+
+
 - (void)viewDidUnload
 {
+    [lm stopUpdatingLocation];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -157,146 +185,30 @@ float tableHeight = 30;
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+/*  ------------------------------------------------------ */
+/*                Button Action Handling                   */
+/*  ------------------------------------------------------ */
+
+- (IBAction)pressedChooseRecipientButton:(id)sender 
+{
+    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.contactSelectChosenDelegate = self;
+}
+
+- (IBAction)pressedAmountButton:(id)sender 
+{
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+    
+}
+
 -(IBAction) bgTouched:(id) sender {
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
-}
-// Take string from Search Textfield and compare it with autocomplete array
-- (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring {
-
-	// Put anything that starts with this substring into the autoCompleteArray
-	// The items in this array is what will show up in the table view
-
-	[autoCompleteArray removeAllObjects];
-
-	for(Contact *contact in allResults) {
-        NSRange substringRangeLowerCase = [contact.phoneNumber rangeOfString:[substring lowercaseString]];
-		NSRange substringRangeUpperCase = [contact.phoneNumber rangeOfString:[substring uppercaseString]];
-
-		if (substringRangeLowerCase.length != 0 || substringRangeUpperCase.length != 0) {
-			[autoCompleteArray addObject: contact];
-		}
-	}
-	autoCompleteTableView.hidden = NO;
-	[autoCompleteTableView reloadData];
-}
-- (void) finishedSearching {
-	autoCompleteTableView.hidden = YES;
-}
-#pragma mark UITextFieldDelegate methods
-// Close keyboard when Enter or Done is pressed
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if (textField.tag == 0)
-        [self finishedSearching];
-
-  NSInteger nextTag = textField.tag + 1;
-  // Try to find next responder
-  UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-    if (nextResponder) {
-        // Found next responder, so set it.
-        [textField resignFirstResponder];
-        [nextResponder becomeFirstResponder];
-    } else {
-        // Not found, so remove keyboard.
-        [textField resignFirstResponder];
-
-        [self requestMoney];
-    }
-    return NO; // We do not want UITextField to insert line-breaks.
-}
-
-// String in Search textfield
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(textField.tag == 0) {
-        NSString *substring = [NSString stringWithString:textField.text];
-        substring = [substring stringByReplacingCharactersInRange:range withString:string];
-        [self searchAutocompleteEntriesWithSubstring:substring];
-
-        return YES;
-    } else if(textField.tag == 1) {
-        NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
-        [tempAmount appendString: @"$"];
-
-        if([string isEqualToString:@""]) {
-            for (int i = 0; i< [textField.text length] - 1; i++) {
-                if([string length] == 0 && i == [textField.text length] - 1)
-                    continue;
-
-                char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
-
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-
-        }
-        else if([string stringByTrimmingCharactersInSet:
-                 [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
-
-            BOOL firstDigit = YES;
-            for (int i = 0; i< [textField.text length]; i++) {
-
-                char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
-
-                if(digit == '$')
-                    continue;
-                if(digit == '.')
-                    continue;
-                if(digit == '0' && firstDigit) {
-                    firstDigit = NO;
-                    continue;
-
-                }
-                firstDigit = NO;
-                [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
-            }
-            [tempAmount appendString: string];
-            [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
-            if([tempAmount length] < 5)
-                [tempAmount insertString:@"0" atIndex:1];
-            [textField setText:tempAmount];
-
-        }
-
-        return NO;
-    }
-    return YES;
-}
-
-#pragma mark UITableViewDelegate methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
-
-	
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell;
-    static NSString *AutoCompleteRowIdentifier = @"AutoCompleteRowIdentifier";
-	cell = [tableView dequeueReusableCellWithIdentifier:AutoCompleteRowIdentifier];
-	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteRowIdentifier] autorelease];
-	}
-    Contact *contact = [autoCompleteArray objectAtIndex:indexPath.row];
-
-    cell.textLabel.text = contact.phoneNumber;
-    cell.detailTextLabel.text = contact.name;
-    cell.isAccessibilityElement = YES;
-
-	return cell;
 }
 
 
@@ -314,12 +226,11 @@ float tableHeight = 30;
     if(success) {
 
         [self.scrollView scrollsToTop];
-        [securityPinModalPanel hide];
 
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"$0.00"];
         [txtComments setText: @""];
-
+        
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
 
@@ -333,38 +244,15 @@ float tableHeight = 30;
     // statsCommuniqueDoneProblem ... !
     NSLog(@"Request Money Failed");
 }
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if(textField.tag == 1)
-    {
-        [textField setText: @"$0.00"];
-        
-        return NO;
-    } 
-    
-    return YES;
-}
--(void) signOutClicked {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    [appDelegate signOut];
 
-    UINavigationController *navController = self.navigationController;
-
-    RequestMoneyController *requestMoneyController = [[[RequestMoneyController alloc] initWithNibName:@"RequestMoneyController" bundle:nil] autorelease];
-
-    //[requestMoneyController setSignInCompleteDelegate: self];
-    //[requestMoneyController setAchSetupCompleteDelegate:self];
-
-    [self removeCurrentViewFromNavigation: navController];
-    [navController pushViewController:requestMoneyController animated: YES];
-
-}
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
     if([recipientUriToTest length]  == 0)
         return false;
     
     return true;
-    }
+}
+
 -(BOOL) isValidAmount:(NSString *) amountToTest {
     amountToTest = [amountToTest stringByReplacingOccurrencesOfString:@"$" withString:@""];
 
@@ -379,136 +267,103 @@ float tableHeight = 30;
     }
 }
 
-- (void)requestMoney {
-     
-    amount = [[NSString alloc] initWithString: @""];
-    comments = [[NSString alloc] initWithString: @""];
-
-    if([txtAmount.text length] > 0) {
-        amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
-    }
-
-    if([txtComments.text length] > 0)
-        comments = txtComments.text;
-
-    BOOL isValid = YES;
-
-    if(isValid && ![self isValidRecipientUri: recipientUri])
-    {
-        [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
-
-        isValid = NO;
-    }
-    if(isValid && ![self isValidAmount:amount])
-    {
-        [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
-
-        isValid = NO;
-    }
-
-    if(isValid)
-    {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString* userId = [prefs stringForKey:@"userId"];
-
-        if([userId length] > 0)
-            [self showModalPanel];
-        else
-        {
-            SignInViewController *signInViewController;
-            signInViewController = [[[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil] autorelease];
-            [signInViewController setSignInCompleteDelegate: self];
-            [signInViewController setAchSetupCompleteDelegate:self];
-
-            [self.navigationController pushViewController:signInViewController animated:YES];
-        }
-    }
-}
-
 -(IBAction) btnSendRequestClicked:(id)sender {
-
-    [self requestMoney];
+        
+        User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+        
+        if([txtAmount.text length] > 0) {
+            amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
+        }
+        
+        if([txtComments.text length] > 0)
+            comments = [txtComments.text copy];
+        
+        BOOL isValid = YES;
+        
+        if(isValid && ![self isValidRecipientUri:recipientUri])
+        {
+            [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
+            
+            isValid = NO;
+        }
+        if(isValid && ![self isValidAmount:amount])
+        {
+            [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
+            
+            isValid = NO;
+        }
+        if(isValid) {
+            //Check to make sure the user has completed post reg signup process
+            //if((user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+            
+            //[((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+            
+            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+            [controller setSecurityPinSwipeDelegate: self];
+            [controller setNavigationTitle: @"Confirm"];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+            
+            [self presentModalViewController:controller animated:YES];
+        }
 
 }
-- (IBAction)showModalPanel {
-
-    [txtAmount resignFirstResponder];
-    [txtComments resignFirstResponder];
-
-	securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
-
-    securityPinModalPanel.dialogTitle.text = @"Swipe Your Pin";
-    securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To send your request for %@ to %@, swipe your security pin below.", txtAmount.text, @"Recipient"];
-    [securityPinModalPanel.btnCancelPayment setTitle:@"Cancel Request" forState:UIControlStateNormal];
-    securityPinModalPanel.delegate = self;
-
-
-	///////////////////////////////////
-	// Add the panel to our view
-	[self.view addSubview:securityPinModalPanel];
-
-	///////////////////////////////////
-	// Show the panel from the center of the button that was pressed
-	[securityPinModalPanel show];
-}
--(void) securityPinComplete:(SetupSecurityPin *) modalPanel
-               selectedCode:(NSString*) code {
-
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString* userId = [prefs stringForKey:@"userId"];
-    NSString* senderUri;
-    NSString* username = [prefs stringForKey:@"userName"];
-    
-    double latitude = 0.0;
-    double longitude = 0.0;
-    
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
+{
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
     NSString* recipientLastName =[NSString stringWithString: @""];
-    
-    if ( [[username substringToIndex:3] isEqual:@"fb_"] ) {
-        senderUri = username;
-    }
-    else
-        senderUri = [prefs stringForKey:@"mobileNumber"];
     
     if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
         recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
     }
+    
+    
+    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredReceiveAccountId withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 
-    NSString* fromAccount = [prefs stringForKey:@"paymentAccountId"];
-
-    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:senderUri withComment:comments withSecurityPin:code fromUserId:userId withFromAccount:fromAccount  withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+}
+-(void)swipeDidCancel: (id)sender
+{
+    //do nothing
 }
 -(void)requestMoneyDidComplete {
 
     [self.scrollView scrollsToTop];
-    [securityPinModalPanel hide];
     
-    recipientUri = @"";
-    [txtAmount setText: @"$0.00"];
-    [txtComments setText: @""];
+    TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
+    controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    [controller setTransactionConfirmationDelegate: self];
+    
+    [self presentModalViewController:controller animated:YES];
+}
+
+-(void)sendMoneyDidFail:(NSString*) message {
+    
+    [self showAlertView: @"Error Sending Money" withMessage: message];
+}
+-(void)onHomeClicked {
+    txtAmount.text = @"$0.00";
+    
+    [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
+
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
-    [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    txtComments.text = @"";
     
-    NSString* message = [NSString stringWithString:@"Your request was sent"];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
+}
+-(void)onContinueClicked {
+    txtAmount.text = @"$0.00";
     
-    [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
-    [self showAlertView:@"Request Sent!" withMessage: message];
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    txtComments.text = @"";
+    
+    [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
 }
 -(void)requestMoneyDidFail: (NSString*) message {
     [self showAlertView: @"Error Requesting Money" withMessage:message];
-}
-- (IBAction)pressedChooseRecipientButton:(id)sender 
-{
-    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
-    
-    [self.navigationController pushViewController:newView animated:YES];
-    newView.contactSelectChosenDelegate = self;
 }
 
 -(void)didChooseContact:(Contact *)contact
@@ -519,7 +374,7 @@ float tableHeight = 30;
     else if ( contact.facebookID.length > 0 )
         [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
     else
-        [recipientImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
     
     
     recipientImageButton.imageView.image = nil;
@@ -542,48 +397,15 @@ float tableHeight = 30;
     self.recipientUri = contact.recipientUri;
 
 }
-#pragma mark - UAModalDisplayPanelViewDelegate 
 
-// Optional: This is called before the open animations.
-//   Only used if delegate is set.
-- (void)willShowModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"willShowModalPanel called with modalPanel: %@", modalPanel);
-}
-
-// Optional: This is called after the open animations.
-//   Only used if delegate is set.
-- (void)didShowModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"didShowModalPanel called with modalPanel: %@", modalPanel);
+-(void)didSelectAmount:(double)amountSent
+{
+    NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    [numberFormatter setCurrencySymbol:@""];
+    NSString *numberAsString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:amountSent]];
+    txtAmount.text = [NSString stringWithFormat:@"%@",numberAsString];
 }
 
-// Optional: This is called when the close button is pressed
-//   You can use it to perform validations
-//   Return YES to close the panel, otherwise NO
-//   Only used if delegate is set.
-- (BOOL)shouldCloseModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"shouldCloseModalPanel called with modalPanel: %@", modalPanel);
-	return YES;
-}
 
-// Optional: This is called before the close animations.
-//   Only used if delegate is set.
-- (void)willCloseModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"willCloseModalPanel called with modalPanel: %@", modalPanel);
-}
-
-// Optional: This is called after the close animations.
-//   Only used if delegate is set.
-- (void)didCloseModalPanel:(UAModalPanel *)modalPanel {
-	UADebugLog(@"didCloseModalPanel called with modalPanel: %@", modalPanel);
-}
-#pragma mark SignCompleteProtocol methods
--(void)signInDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
-#pragma mark ACHSetupCompleteProtocol methods
--(void)achSetupDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showModalPanel];
-}
 @end

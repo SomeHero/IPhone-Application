@@ -11,7 +11,6 @@
 #import "SignInCompleteProtocol.h"
 #import "UIBaseViewController.h"
 #import "UserService.h"
-#import "SignInViewController.h"
 
 @interface HomeViewController : UIBaseViewController<SignInCompleteProtocol, ACHSetupCompleteProtocol, UserInformationCompleteProtocol>
 {
@@ -23,7 +22,6 @@
     IBOutlet UILabel *lblMoneySent;
     IBOutlet UILabel *lblMoneyReceived;
     UserService *userService;
-    SignInViewController* signInViewController;
 }
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UIView *moneyView;
