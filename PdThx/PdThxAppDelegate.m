@@ -114,9 +114,12 @@
     
     fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
     
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:@"FBAccessTokenKey"] 
         && [defaults objectForKey:@"FBExpirationDateKey"]) {
+        NSLog(@"Access Token: %@" , [[defaults objectForKey:@"FBAccessTokenKey"]stringValue]);
+            NSLog(@"Access Token: %@" , [[defaults objectForKey:@"FBExpirationDateKey"]stringValue]);
         fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
         fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
     }

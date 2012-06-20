@@ -123,10 +123,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ( indexPath.section > 0 )
-        return 60;
-    else 
-        return 44;
+    //if ( indexPath.section > 0 )
+    return 60;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -246,7 +244,7 @@
                 // Valid phone number entered... show a new contact with that information
                 // entered in the search box.
                 myCell.contactName.text = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
-                myCell.contactDetail.text = @"New Phone# Recipient";
+                myCell.contactDetail.text = @"New Phone Recipient";
                 return myCell;
             } else if ( entryType == 2 ) {
                 // Valid email address entered, show a new contact box with that information
@@ -360,13 +358,13 @@
             if ( retVal > 0 ){ // Always > 0 (handled by enabled/disabled)
                 if ( retVal == 1 ){
                     // Phone Number
-                    contact.name = @"New Phone Number";
-                    contact.phoneNumber = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    contact.name = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    contact.phoneNumber = @"New Phone Recipient";
                     contact.recipientUri = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                 } else if ( retVal == 2 ){
                     // Email
-                    contact.name = @"New Email Address";
-                    contact.emailAddress = txtSearchBox.text;
+                    contact.name = txtSearchBox.text;
+                    contact.emailAddress = @"New Email Address";
                     contact.recipientUri = txtSearchBox.text;
                 }
             }
