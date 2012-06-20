@@ -15,6 +15,7 @@
 #import "PdThxAppDelegate.h"
 #import "Facebook.h"
 #import "HomeViewController.h"
+#import "SVProgressHUD.h"
 
 
 #define KEYBOARD_ANIMATION_DURATION 0.3
@@ -165,6 +166,7 @@
     }
     
     if(isValid) {
+        //[SVProgressHUD showWithStatus:@"Logging in..."];
         [signInUserService validateUser:username withPassword:password];
     }
 }
@@ -208,6 +210,8 @@
     UserService* userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
     
+    
+    //[SVProgressHUD showWithStatus:@"Getting user information..."];
     [userService getUserInformation: userId];
 }
 
@@ -217,8 +221,6 @@
 
 
 -(void)userInformationDidComplete:(User*) user {
-    
-    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];
@@ -228,10 +230,11 @@
         user.hasACHAccount = true;
     user.hasSecurityPin = setupSecurityPin;
     
+    //[SVProgressHUD showSuccessWithStatus:@"Yay?"];
+    
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
-    
     return;
 }
 -(void)userInformationDidFail:(NSString*) message {
@@ -253,7 +256,6 @@
 
 -(IBAction) btnSignInClicked:(id) sender {
     [self signInUser];
-    
 }
 /*
  -(IBAction) btnCreateAnAccountClicked:(id) sender {
@@ -284,7 +286,8 @@
 }
 
 - (IBAction)signInWithFacebookClicked:(id)sender {
-    [faceBookSignInHelper signInWithFacebook: self];
+    if ( ![fBook isSessionValid] )
+        [faceBookSignInHelper signInWithFacebook:self];
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result

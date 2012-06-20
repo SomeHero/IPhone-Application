@@ -203,3 +203,5 @@ CGSize scrollViewOriginalSize;
     titleView.text = title;
     [titleView sizeToFit];
 }
+
+@end
