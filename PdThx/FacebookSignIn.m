@@ -27,9 +27,8 @@
 }
 
 
--(void)fbDidLogin
+-(void)fbDidLogin // Does this even do anything? I don't think it gets called.
 {
-    NSLog(@"Got here.");
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
     [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
@@ -51,8 +50,6 @@
     
     if ( ![fBook isSessionValid] )
         [fBook authorize:permissions];
-    
-    NSLog(@"Back from authorization... Valid? %@", [fBook isSessionValid] ? @"YES" : @"NO" );
     
     // Graph Command is Used to Graph User Information.
     // This requests only basic, and Email Address Information.

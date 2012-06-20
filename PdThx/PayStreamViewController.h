@@ -15,10 +15,6 @@
 #import "PhoneNumberFormatting.h"
 #import "IconDownloader.h"
 #import "PaystreamDetailBaseViewController.h"
-#import "PaystreamIncomingPaymentViewController.h"
-#import "PaystreamIncomingRequestViewController.h"
-#import "PaystreamOutgoingPaymentViewController.h"
-#import "PaystreamOutgoingRequestViewController.h"
 #import "StyledPullableView.h"
 
 @class UITransactionTableViewCell;
