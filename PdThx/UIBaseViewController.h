@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "PhoneNumberFormatting.h"
 
-@interface UIBaseViewController : UIViewController <UITextFieldDelegate>
+@interface UIBaseViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 {
     IBOutlet UIScrollView *scrollView;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
-    UITextField *currTextField;
+    NSObject *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
 }
 
