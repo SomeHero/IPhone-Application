@@ -38,6 +38,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PaystreamIncomingPaymentViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
     // Do any additional setup after loading the view from its nib.
 }
 

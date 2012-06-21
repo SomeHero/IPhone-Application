@@ -7,7 +7,7 @@
 //
 
 #import "UIAccountTableCell.h"
-
+#import "PdThxAppDelegate.h"
 
 @implementation UIAccountTableCell
 
@@ -44,6 +44,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"UIAccountTableCell"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 - (void)viewDidUnload

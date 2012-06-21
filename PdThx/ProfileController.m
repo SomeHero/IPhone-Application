@@ -70,6 +70,11 @@
     
     [super viewDidLoad];
     //self.clearsSelectionOnViewWillAppear = NO;
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"ProfileController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 - (void)viewDidUnload

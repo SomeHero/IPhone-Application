@@ -37,6 +37,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"AmountSelectViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)viewDidAppear:(BOOL)animated {
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;

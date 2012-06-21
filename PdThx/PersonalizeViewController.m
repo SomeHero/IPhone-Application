@@ -38,6 +38,11 @@
     
     [userImageButton.layer setCornerRadius:6.0];
     [userImageButton.layer setMasksToBounds:YES];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PersonalizeViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }   
 -(void)viewDidAppear:(BOOL)animated {
     User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;

@@ -7,7 +7,7 @@
 //
 
 #import "AccountListViewController.h"
-
+#import "PdThxAppDelegate.h"
 
 @implementation AccountListViewController
 
@@ -51,6 +51,11 @@
     
     [userAccountsTableView setRowHeight:120];
     [userAccountsTableView setEditing:NO];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"AccountListViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
     
 }
 -(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts {

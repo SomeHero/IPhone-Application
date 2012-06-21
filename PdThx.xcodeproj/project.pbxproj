@@ -500,6 +500,8 @@
 		D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDE5157FB72800ABE854 /* MeCodeViewController.m */; };
 		D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
+		D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */; };
+		D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1120,6 +1122,9 @@
 		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
 		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
 		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
+		D5FC51D0159247A000C2302E /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
+		D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1127,12 +1132,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */,
+				5B69E17514B0BCA8003A0F66 /* CFNetwork.framework in Frameworks */,
 				54CACC841587C6F000631B84 /* MediaPlayer.framework in Frameworks */,
 				54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */,
 				54B5F26F156EADEC00D970A3 /* MessageUI.framework in Frameworks */,
 				5B69E17914B0BCC5003A0F66 /* MobileCoreServices.framework in Frameworks */,
 				5B69E17714B0BCB4003A0F66 /* SystemConfiguration.framework in Frameworks */,
-				5B69E17514B0BCA8003A0F66 /* CFNetwork.framework in Frameworks */,
 				5B69E17314B0BC9B003A0F66 /* Security.framework in Frameworks */,
 				5B69E17114B0BC81003A0F66 /* libxml2.dylib in Frameworks */,
 				5B69E16F14B0BC5B003A0F66 /* libz.dylib in Frameworks */,
@@ -1142,6 +1148,7 @@
 				5B69DF8014AE6067003A0F66 /* Foundation.framework in Frameworks */,
 				5B69DF8214AE6067003A0F66 /* CoreGraphics.framework in Frameworks */,
 				54B5F24A156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */,
+				D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1436,8 +1443,8 @@
 			children = (
 				5BD27902153FABA500CAFC12 /* ConfirmSecurityPinDialog.h */,
 				5BD27903153FABA600CAFC12 /* ConfirmSecurityPinDialog.m */,
-				5BD278F6153BD2D100CAFC12 /* SetupSecurityPin.m */,
 				5BD278F5153BD2D100CAFC12 /* SetupSecurityPin.h */,
+				5BD278F6153BD2D100CAFC12 /* SetupSecurityPin.m */,
 				5BE6F77214E3859300599EF2 /* ALUnlockPatternView.h */,
 				5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */,
 				5BF1F202158EAF6400CFBF77 /* CustomSecurityPinSwipeController.h */,
@@ -1909,6 +1916,7 @@
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
+				D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */,
 				54CACC831587C6F000631B84 /* MediaPlayer.framework */,
 				54764F5615810DFC008187B6 /* CoreLocation.framework */,
 				54B5F26E156EADEB00D970A3 /* MessageUI.framework */,
@@ -2197,8 +2205,8 @@
 				5B3F4CEE155F6FB600A67649 /* PaystreamMessage.m */,
 				5BD27BCF1547BD9F00CAFC12 /* Contact.h */,
 				5BD27BD01547BDA000CAFC12 /* Contact.m */,
-				5BE6F7AB14E9E0F000599EF2 /* Environment.m */,
 				5BE6F7AA14E9E0EE00599EF2 /* Environment.h */,
+				5BE6F7AB14E9E0F000599EF2 /* Environment.m */,
 				5BF3EE231591563D0011BAD8 /* BankAccount.h */,
 				5BF3EE241591563F0011BAD8 /* BankAccount.m */,
 			);
@@ -2245,6 +2253,8 @@
 		5BD27BD21547BF4700CAFC12 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */,
+				D5FC51D0159247A000C2302E /* GANTracker.h */,
 				5BB14560158B948C00EA652A /* AmountSelectViewController.xib */,
 				541EE5FF158A6AC900131B0E /* New User Creation Flow */,
 				541EE610158A719900131B0E /* Settings and Profile */,
@@ -2979,6 +2989,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3072,6 +3083,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3097,6 +3109,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3202,6 +3215,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3279,6 +3293,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3353,6 +3368,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3428,6 +3444,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3502,6 +3519,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
+					"\"$(SRCROOT)/PdThx\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";

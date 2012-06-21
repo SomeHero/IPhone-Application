@@ -74,6 +74,11 @@
     
     userSetupACHAccountService = [[UserSetupACHAccount alloc] init];
     [userSetupACHAccountService setUserACHSetupCompleteDelegate: self];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"SetUpACHAccountController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)viewDidAppear:(BOOL)animated {
     

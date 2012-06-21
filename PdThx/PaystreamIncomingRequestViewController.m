@@ -63,7 +63,11 @@
     // Do any additional setup after loading the view from its nib.
     [paystreamServices setAcceptPaymentRequestProtocol: self];
     [paystreamServices setRejectPaymentRequestProtocol: self];
-
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PaystreamIncomdingRequestViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 
 }
 

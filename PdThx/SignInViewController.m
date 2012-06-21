@@ -96,6 +96,11 @@
     
     
     fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"SignInViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated 

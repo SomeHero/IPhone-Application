@@ -193,6 +193,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
     
     [detailView release];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PayStreamViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

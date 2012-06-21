@@ -7,6 +7,7 @@
 //
 
 #import "DoGoodViewController.h"
+#import "PdThxAppDelegate.h"
 
 @interface DoGoodViewController ()
 
@@ -30,6 +31,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"Do Good"];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"DoGoodViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 - (void)viewDidUnload

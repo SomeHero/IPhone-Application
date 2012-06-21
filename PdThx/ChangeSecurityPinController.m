@@ -118,6 +118,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     
     [self.viewPinLock addSubview:custom];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"ChangeSecurityPinController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
     
     //[self.view addSubview: header];
     //[self.view addSubview:body];

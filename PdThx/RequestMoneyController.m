@@ -157,6 +157,11 @@ float tableHeight = 30;
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"RequestMoneyController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 
 }
 

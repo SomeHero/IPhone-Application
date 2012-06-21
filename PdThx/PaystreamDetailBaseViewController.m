@@ -245,6 +245,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     navBar.topItem.leftBarButtonItem = settingsButtons;
     [settingsButtons release];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PayStreamDetailBaseViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)cancelPaymentDidComplete {
     //[self.navigationController popToRootViewControllerAnimated: YES];

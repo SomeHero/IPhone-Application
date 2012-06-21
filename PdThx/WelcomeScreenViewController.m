@@ -38,6 +38,11 @@
     [viewPanel.layer setMasksToBounds:YES];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"WelcomeScreenViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void) didReceiveMemoryWarning
 {

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MECodeSetupViewController : UIViewController <UITextFieldDelegate>
-{
+{               //REMOVE THIS CLASS
     IBOutlet UITextField *meCodeField;
     IBOutlet UITextField *createDateField;
     IBOutlet UITextField *approvedField;

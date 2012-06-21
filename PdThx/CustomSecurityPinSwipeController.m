@@ -7,6 +7,7 @@
 //
 
 #import "CustomSecurityPinSwipeController.h"
+#import "PdThxAppDelegate.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor \
 colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -97,6 +98,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     
     [self.viewPinLock addSubview:custom];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"CustomSecurityPinSwipeController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 
     //[self.view addSubview: header];
     //[self.view addSubview:body];

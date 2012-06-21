@@ -63,6 +63,11 @@
     
     self.navigationItem.rightBarButtonItem = settingsButtons;
     [settingsButtons release];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PaystreamOutgoingPaymentViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)viewWillAppear:(BOOL)animated {
     if(!([messageDetail.messageStatus isEqualToString: @"Processing"]))
