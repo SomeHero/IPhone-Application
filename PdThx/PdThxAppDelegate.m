@@ -19,7 +19,7 @@
 #import "PhoneNumberFormatting.h"
 #import "ContactSelectViewController.h"
 #import "UINavigationBar+CustomImage.h"
-
+#import "GANTracker.h"
 
 @implementation PdThxAppDelegate
 
@@ -100,6 +100,10 @@
     permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
     [self.tabBarController setDelegate:self];
 
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *googleAnalyticsKey = [NSString stringWithString: myEnvironment.GoogleAnalyticsKey];
+    
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
     
     [self.welcomeTabBarController setDelegate:self];
@@ -135,6 +139,30 @@
     
     [self.window makeKeyAndVisible];
     
+    [[GANTracker sharedTracker] startTrackerWithAccountID:googleAnalyticsKey
+                                           dispatchPeriod:10
+                                                 delegate:nil];
+    
+    NSError *error; 
+    if(![[GANTracker sharedTracker] setCustomVariableAtIndex:1
+                                                        name:@"iPhone1"
+                                                       value:@"iv1"
+                                                   withError:&error]){
+        //Handle Error Here
+    }
+    if(![[GANTracker sharedTracker] trackEvent:@"my_category"
+                                        action:@"my_action"
+                                         label:@"my_label"
+                                         value:-1
+                                     withError:&error]){
+        //Handle Error Here
+    }
+    if(![[GANTracker sharedTracker] trackPageview:@"app_entry_point"
+                                        withError:&error]){
+        //Handle Error Here
+    }
+    
+
     return YES;
 }
 
@@ -452,6 +480,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [fBook release];
     [newUserFlowTabController release];
     [user release];
+    [[GANTracker sharedTracker] stopTracker];
     [super dealloc];
 }
 

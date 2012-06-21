@@ -10,7 +10,8 @@
 #import "FBConnect.h"
 #import "PhoneNumberFormatting.h"
 #import "User.h"
-
+#import "GANTracker.h"
+#import "Environment.h"
 @class PdThxViewController;
 
 @interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FBSessionDelegate,FBRequestDelegate> {

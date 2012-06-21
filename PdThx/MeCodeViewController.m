@@ -7,7 +7,7 @@
 //
 
 #import "MeCodeViewController.h"
-
+#import "PdThxAppDelegate.h"
 @interface MeCodeViewController ()
 
 @end
@@ -33,6 +33,11 @@
     [super viewDidLoad];
     meCodeService = [[MeCodeService alloc] init];
     [meCodeService setMeCodeCreateCompleteDelegate:self];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"MeCodeViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
     
     // Do any additional setup after loading the view from its nib.
 }

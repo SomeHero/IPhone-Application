@@ -16,6 +16,7 @@
 #import "UIPaystreamTableViewCell.h"
 #import "IconDownloader.h"
 #import "CreateAccountViewController.h"
+#import "PaystreamOutgoingPaymentViewController.h"
 
 @implementation PayStreamViewController
 
@@ -125,7 +126,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [super viewDidLoad];
     
-    
     [self addPullToRefreshHeader];
     
     CGFloat xOffset = 0;
@@ -193,6 +193,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
     
     [detailView release];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PayStreamViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -376,10 +381,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSLog(@"Image stored for amount %@ : %@", item.amount,item.transactionImageUri);
     if ( !item.imgData && item.transactionImageUri != (id)[NSNull null] )
     {
-        if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO)
-        {
+        if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO) {
             [self startIconDownload:item forIndexPath:indexPath];
-        }
+        } 
         // if a download is deferred or in progress, return a placeholder image
         [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
     } else if ( item.imgData ) {
@@ -509,10 +513,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)startIconDownload:(PaystreamMessage *)message forIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Starting download for section #%d row #%d", indexPath.section, indexPath.row);
     IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
     
     if ( iconDownloader == nil )
     {
+        NSLog(@"Icon downloader for section #%d row #%d NIL", indexPath.section, indexPath.row);
         iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.message = message;
         iconDownloader.indexPathInTableView = indexPath;
@@ -520,6 +526,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [psImagesDownloading setObject:iconDownloader forKey:indexPath];
         [iconDownloader startDownload];
         [iconDownloader release];
+    } else {
+        [self appImageDidLoad:indexPath];
     }
 }
 
@@ -550,7 +558,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
     
-    if (iconDownloader != nil)
+    if (iconDownloader != nil && iconDownloader.message.imgData )
     {
         UIPaystreamTableViewCell *cell = (UIPaystreamTableViewCell*)[transactionsTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         
@@ -862,6 +870,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     refreshLabel.text = self.textPull;
     refreshArrow.hidden = NO;
     [refreshSpinner stopAnimating];
+    
+    [self loadImagesForOnscreenRows];
 }
 
 - (void)refresh {

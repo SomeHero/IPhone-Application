@@ -96,6 +96,12 @@
     
     
     fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"SignInViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated 
@@ -257,6 +263,7 @@
 -(IBAction) btnSignInClicked:(id) sender {
     [self signInUser];
 }
+
 /*
  -(IBAction) btnCreateAnAccountClicked:(id) sender {
  CreateAccountViewController *createAccountViewController = [[[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle: nil] autorelease];

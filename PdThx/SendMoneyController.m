@@ -92,6 +92,11 @@ float tableHeight2 = 30;
     
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [txtComments resignFirstResponder];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -155,6 +160,11 @@ float tableHeight2 = 30;
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"SendMoneyController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 - (void)viewDidUnload

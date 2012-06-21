@@ -7,6 +7,7 @@
 //
 
 #import "AboutPageViewController.h"
+#import "PdThxAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface AboutPageViewController ()
@@ -41,6 +42,11 @@
     }
     
     [self setTitle:@"About"];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"AboutPageViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 

@@ -31,14 +31,14 @@
 
 @implementation RequestMoneyController
 
-@synthesize recipientUri;
+@synthesize recipientUri, attachPictureButton;
 @synthesize txtAmount, txtComments, btnSendRequest;
 @synthesize viewPanel;
 @synthesize recipientImageButton;
 @synthesize chooseRecipientButton;
 @synthesize contactHead;
 @synthesize contactDetail, lm;
-@synthesize amount, chooseAmountButton;
+@synthesize amount, chooseAmountButton, characterCountLabel;
 
 
 float tableHeight = 30;
@@ -77,6 +77,9 @@ float tableHeight = 30;
     
     [btnSendRequest release];
 
+    [attachPictureButton release];
+    [characterCountLabel release];
+    [characterCountLabel release];
     [super dealloc];
 }
 
@@ -147,17 +150,42 @@ float tableHeight = 30;
     recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
     
+    txtComments.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changedCommentBox:) name:@"UITextViewTextDidChangeNotification" object:nil];
+    
     
     comments = [[NSString alloc] initWithString: @""];
     
     [self setTitle:@"Request $"];
     
     [txtAmount setDelegate:self];
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
+    
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"RequestMoneyController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
+    
+    attachPictureButton.hidden = YES;
+    /*          Image Attachment Handling           */
+    if ( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] )
+        attachPictureButton.hidden = NO;
+}
 
+
+-(void)changedCommentBox:(NSNotification*)notification
+{
+    if ( [txtComments.text length] <= 140 ){
+        characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
+    } else {
+        txtComments.text = [txtComments.text substringToIndex:140];
+        characterCountLabel.placeholder = @"140/140";
+    }
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
@@ -175,6 +203,12 @@ float tableHeight = 30;
 - (void)viewDidUnload
 {
     [lm stopUpdatingLocation];
+    [attachPictureButton release];
+    attachPictureButton = nil;
+    [characterCountLabel release];
+    characterCountLabel = nil;
+    [characterCountLabel release];
+    characterCountLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -206,6 +240,40 @@ float tableHeight = 30;
     
 }
 
+- (IBAction)pressedAttachPictureButton:(id)sender {
+    if ( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] )
+    {
+        UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        imagePicker.allowsImageEditing = NO;
+        [self presentModalViewController:imagePicker animated:YES];
+    }
+}
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    
+    [picker release];
+}
+
+-(void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo
+{
+    [self dismissModalViewControllerAnimated:YES];
+    
+    UIAlertView *alert;
+    if ( error )
+        alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Unable to use the image taken" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    else
+        alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your image was attached to the request." delegate:self cancelButtonTitle:@"YAY!" otherButtonTitles:nil];
+    
+    [alert show];
+    [alert release];
+}
+
+
 -(IBAction) bgTouched:(id) sender {
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
@@ -228,7 +296,7 @@ float tableHeight = 30;
         [self.scrollView scrollsToTop];
 
         //[txtRecipientUri setText: @""];
-        [txtAmount setText: @"$0.00"];
+        [txtAmount setText: @"0.00"];
         [txtComments setText: @""];
         
         [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
@@ -343,7 +411,7 @@ float tableHeight = 30;
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
 -(void)onHomeClicked {
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
 
@@ -354,7 +422,7 @@ float tableHeight = 30;
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
 }
 -(void)onContinueClicked {
-    txtAmount.text = @"$0.00";
+    txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
@@ -378,9 +446,6 @@ float tableHeight = 30;
     
     
     recipientImageButton.imageView.image = nil;
-    // Image Formatting
-    [recipientImageButton.layer setCornerRadius:12.0];
-    [recipientImageButton.layer setMasksToBounds:YES];
     
     contactHead.text = contact.name;
     

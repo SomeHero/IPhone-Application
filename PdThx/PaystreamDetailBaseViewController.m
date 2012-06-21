@@ -140,8 +140,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
                 UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
-                [btnSendReminder setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-                [btnSendReminder setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
+                [btnSendReminder setBackgroundImage: greenBackgroundActive forState:UIControlStateSelected];
                 [btnSendReminder setTitle: @"Send a Reminder" forState:UIControlStateNormal];
                 [btnSendReminder setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
                 [btnSendReminder addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -159,8 +159,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
                 UIButton* btnAcceptRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
-                [btnAcceptRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-                [btnAcceptRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnAcceptRequest setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
+                [btnAcceptRequest setBackgroundImage: greenBackgroundActive forState:UIControlStateSelected];
                 [btnAcceptRequest setTitle: @"Accept & Pay" forState:UIControlStateNormal];
                 [btnAcceptRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
                 [btnAcceptRequest addTarget:self action:@selector(btnAcceptRequestClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -206,8 +206,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
                 UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
-                [btnSendReminder setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-                [btnSendReminder setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
+                [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
+                [btnSendReminder setBackgroundImage: greenBackgroundActive forState:UIControlStateSelected];
                 [btnSendReminder setTitle: @"Send a Reminder" forState:UIControlStateNormal];
                 [btnSendReminder setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
                 [btnSendReminder addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -249,6 +249,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     navBar.topItem.leftBarButtonItem = settingsButtons;
     [settingsButtons release];
+
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PayStreamDetailBaseViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)cancelPaymentDidComplete {
     //[self.navigationController popToRootViewControllerAnimated: YES];

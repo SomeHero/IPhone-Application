@@ -46,6 +46,11 @@
     // Do any additional setup after loading the view from its nib.
     
     [paystreamServices setCancePaymentRequestProtocol: self];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PaystreamOutgoingRequestViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 -(void)cancelPaymentRequestDidComplete {
