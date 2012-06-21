@@ -29,6 +29,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle: @"Activate"];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"ActivatePhontViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 - (void)viewDidUnload

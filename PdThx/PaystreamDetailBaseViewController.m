@@ -61,6 +61,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Do any additional setup after loading the view from its nib.
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
+    if ([self.navBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
+        [self.navBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+
     [lblCurrentStatusHeader setBackgroundColor: UIColorFromRGB(0xdbefee)];
     [lblCurrentStatusHeader setTextColor: UIColorFromRGB(0x2d7c81)];
     
@@ -245,6 +249,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     navBar.topItem.leftBarButtonItem = settingsButtons;
     [settingsButtons release];
+
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"PayStreamDetailBaseViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)cancelPaymentDidComplete {
     //[self.navigationController popToRootViewControllerAnimated: YES];

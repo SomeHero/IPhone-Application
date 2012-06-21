@@ -74,6 +74,11 @@
     
     userSetupACHAccountService = [[UserSetupACHAccount alloc] init];
     [userSetupACHAccountService setUserACHSetupCompleteDelegate: self];
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"SetUpACHAccountController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)viewDidAppear:(BOOL)animated {
     
@@ -101,7 +106,13 @@
         // Not found, so remove keyboard and try to create ach account
         [textField resignFirstResponder];
 
-        [self createACHAccount];
+        controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+        [controller setSecurityPinSwipeDelegate: self];
+        [controller setNavigationTitle: @"Setup your Pin"];
+        [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+        [controller setTag:1];
+        
+        [self presentModalViewController:controller animated:YES];
     }
     return NO; // We do not want UITextField to insert line-breaks.
 }
@@ -111,7 +122,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)createACHAccount {
+- (void)createACHAccount:(NSString*) securityPin {
     NSString* nameOnAccount = [NSString stringWithString: @""];
     NSString* routingNumber = [NSString stringWithString: @""];
     NSString* accountNumber = [NSString stringWithString: @""];
@@ -161,7 +172,7 @@
     }
 
     if(isValid) {
-        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType];
+        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin];
     }
 }
 
@@ -206,7 +217,7 @@
         [self presentModalViewController:controller animated:YES];
     }
     else if([sender tag] == 2)
-        [self createACHAccount];
+        [self createACHAccount: pin];
 }
 -(void)swipeDidCancel: (id)sender
 {

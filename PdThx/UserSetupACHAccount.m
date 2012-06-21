@@ -29,7 +29,7 @@
 }
 
 
--(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType
+-(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin;
 {
     
     Environment *myEnvironment = [Environment sharedInstance];
@@ -48,6 +48,7 @@
                                  routingNumber, @"routingNumber",
                                  accountNumber, @"accountNumber",
                                  accountType, @"accountType",
+                                 securityPin, @"securityPin",
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation]; 
@@ -65,6 +66,8 @@
     [request startAsynchronous];
 }
 -(void) setupACHAccountComplete: (ASIHTTPRequest *) request {
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     
     if([request responseStatusCode] == 201 ) {
@@ -94,6 +97,8 @@
 }
 -(void) setupACHAccountFailed:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     NSString* message = [NSString stringWithFormat: @"Unable to setup ACH Account"];
     
     [userACHSetupCompleteDelegate userACHSetupDidFail: message];

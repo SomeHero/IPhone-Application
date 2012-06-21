@@ -44,6 +44,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"TransactionConfirmationViewController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 -(void)viewDidAppear:(BOOL)animated {
     lblConfirmationHeader.text = confirmationText;

@@ -9,7 +9,7 @@
 #import "MECodeSetupViewController.h"
 
 @interface MECodeSetupViewController ()
-
+                    ///////REMOVE THIS CLASS
 @end
 
 @implementation MECodeSetupViewController
