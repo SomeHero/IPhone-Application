@@ -16,6 +16,7 @@
 @implementation UserService
 
 @synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate;
+@synthesize personalizeUserCompleteDelegate;
 
 -(id)init {
     self = [super init];
@@ -137,10 +138,74 @@
         NSLog(@"Security Pin Failed, Error Code %d", [request responseStatusCode]);
     }
 }
-
 -(void) setupSecurityPinFailed:(ASIHTTPRequest *)request
 {
     NSString* message = [NSString stringWithFormat: @"Unable to change security pin.  Unhandled Exception"];
+    
+    [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
+    
+    NSLog(@"Security Pin Failed with Exception");
+}
+
+-(void) personalizeUser:(NSString*) userId WithFirstName: (NSString*) firstName withLastName :(NSString*) lastName withImage: (NSString*) imageUrl {
+    
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/personalize_user?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    
+    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              firstName, @"FirstName",
+                              lastName, @"LastName",
+                              imageUrl, @"ImageUrl",
+                              nil];
+    
+    NSString* newJSON = [userData JSONRepresentation];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(personalizeUserDidComplete:)];
+    [requestObj setDidFailSelector:@selector(personalizeUserDidFail:)];
+    [requestObj startAsynchronous];
+}
+-(void) personalizeUserDidComplete: (ASIHTTPRequest *)request {
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 200 ) {
+        NSLog(@"Personalize User Complete");
+        
+        [personalizeUserCompleteDelegate personalizeUserDidComplete];
+        
+    } else
+    {
+        NSLog(@"Personalize User Failed");
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        
+        [personalizeUserCompleteDelegate personalizeUserDidFail: message];
+        
+        NSLog(@"Security Pin Failed, Error Code %d", [request responseStatusCode]);
+    }
+}
+-(void) personalizeUserDidFail:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    NSString* message = [NSString stringWithFormat: [request responseString]];
     
     [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
     
