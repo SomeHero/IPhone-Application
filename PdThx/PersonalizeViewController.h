@@ -9,15 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "UISetupUserBaseViewController.h"
 #import "ASIHTTPRequest.h"
+#import "PersonalizeUserCompleteProtocol.h"
+#import "UserService.h"
 
-@interface PersonalizeViewController : UISetupUserBaseViewController
+#import <QuartzCore/QuartzCore.h>
+
+@interface PersonalizeViewController : UISetupUserBaseViewController<PersonalizeUserCompleteProtocol>
 {
     IBOutlet UIButton *userImageButton;
     IBOutlet UITextField *firstNameField;
     IBOutlet UITextField *lastNameField;
-    ASIHTTPRequest *requestObj;
     IBOutlet UIButton *saveContinueButton;
-    
+    IBOutlet UIView* viewPanel;
+    ASIHTTPRequest *requestObj;
+    UserService* userService;
 }
 
 @property (nonatomic, retain) UIButton *userImageButton;
@@ -25,7 +30,7 @@
 @property (nonatomic, retain) UITextField *lastNameField;
 @property (nonatomic, retain) UIButton *saveContinueButton;
 
-
 - (IBAction)pressedSaveContinue:(id)sender;
+-(IBAction) bgTouched:(id) sender;
 
 @end

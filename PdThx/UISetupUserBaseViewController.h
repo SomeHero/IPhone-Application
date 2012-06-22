@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PhoneNumberFormatting.h"
+#import "User.h"
 
 @interface UISetupUserBaseViewController : UIViewController <UITextFieldDelegate>
 {
@@ -16,6 +17,7 @@
     NSMutableArray *allResults;
     UITextField *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
+    User* user;
 }
 
 @property(nonatomic, retain) UIScrollView *scrollView;

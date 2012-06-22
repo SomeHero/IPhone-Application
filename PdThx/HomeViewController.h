@@ -15,21 +15,21 @@
 @interface HomeViewController : UIBaseViewController<SignInCompleteProtocol, ACHSetupCompleteProtocol, UserInformationCompleteProtocol>
 {
     IBOutlet UIView *viewPanel;
-    IBOutlet UIView *moneyView;
     IBOutlet UIButton *btnRequestMoney;
     IBOutlet UIButton *btnSendMoney;
+    IBOutlet UIButton *btnUserImage;
     IBOutlet UILabel *lblUserName;
-    IBOutlet UILabel *lblMoneySent;
-    IBOutlet UILabel *lblMoneyReceived;
+    IBOutlet UILabel* lblPayPoints;
+    IBOutlet UILabel* lblScore;
+    IBOutlet UILabel* lblIncreaseScore;
+    IBOutlet UILabel* lblPaystreamCount;
+    
     UserService *userService;
 }
 @property(nonatomic, retain) UIView *viewPanel;
-@property(nonatomic, retain) UIView *moneyView;
 @property(nonatomic, retain) UIButton *btnRequestMoney;
 @property(nonatomic, retain) UIButton *btnSendMoney;
 @property(nonatomic, retain) UILabel *lblUserName;
-@property(nonatomic, retain) UILabel *lblMoneySent;
-@property(nonatomic, retain) UILabel *lblMoneyReceived;
 
 -(IBAction) btnRequestMoneyClicked:(id) sender;
 -(IBAction) btnSendMoneyClicked:(id) sender;
