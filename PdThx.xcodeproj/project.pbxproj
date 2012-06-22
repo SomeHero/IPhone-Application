@@ -1055,6 +1055,7 @@
 		5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamOutgoingPaymentViewController.xib; sourceTree = "<group>"; };
 		5B905802157FCB9D00D0373B /* PaystreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamService.h; sourceTree = "<group>"; };
 		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
+		5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalizeUserCompleteProtocol.h; sourceTree = "<group>"; };
 		5BB14529158ADC5000EA652A /* stampCancelled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled.png; sourceTree = "<group>"; };
 		5BB1452B158ADCE200EA652A /* stampPaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampPaid.png; sourceTree = "<group>"; };
 		5BB1452D158ADD0700EA652A /* stampRefunded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRefunded.png; sourceTree = "<group>"; };
@@ -1253,6 +1254,7 @@
 			children = (
 				541EE604158A70EC00131B0E /* ActivatePhoneViewController.xib */,
 				541EE609158A70FA00131B0E /* PersonalizeViewController.xib */,
+				5BD278FF153E8A1D00CAFC12 /* SetupACHAccountController.xib */,
 			);
 			name = "New User Creation Flow";
 			sourceTree = "<group>";
@@ -1264,6 +1266,8 @@
 				541EE603158A70EC00131B0E /* ActivatePhoneViewController.m */,
 				541EE607158A70FA00131B0E /* PersonalizeViewController.h */,
 				541EE608158A70FA00131B0E /* PersonalizeViewController.m */,
+				5BD278FD153E8A1B00CAFC12 /* SetupACHAccountController.h */,
+				5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */,
 			);
 			name = "New User Creation";
 			sourceTree = "<group>";
@@ -1412,8 +1416,6 @@
 		54A139A715826C1000668984 /* Sign In View */ = {
 			isa = PBXGroup;
 			children = (
-				5BD278FD153E8A1B00CAFC12 /* SetupACHAccountController.h */,
-				5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */,
 				5BC9C3B3158C41D800E20D9D /* SignInViewController.h */,
 				5BC9C3B4158C41D800E20D9D /* SignInViewController.m */,
 				54A139AC15826F3900668984 /* Home View */,
@@ -2254,6 +2256,7 @@
 				5BF1F214158ED44200CFBF77 /* CustomSecurityPinSwipeProtocol.h */,
 				5B5D091015901ACE00E90A1A /* TransactionConfirmationProtocol.h */,
 				5BF3EE2915915C6C0011BAD8 /* BankAccountRequestProtocol.h */,
+				5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2331,7 +2334,6 @@
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
 				5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */,
-				5BD278FF153E8A1D00CAFC12 /* SetupACHAccountController.xib */,
 				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
 				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
@@ -2353,8 +2355,8 @@
 			children = (
 				5BD27BEC154B92FB00CAFC12 /* UserService.h */,
 				5BD27BED154B92FB00CAFC12 /* UserService.m */,
-				5B3F4A9C155F41E200A67649 /* SendMoneyService.h */,
 				5B3F4A9D155F41E300A67649 /* SendMoneyService.m */,
+				5B3F4A9C155F41E200A67649 /* SendMoneyService.h */,
 				5B3F4A9F155F4F1300A67649 /* RequestMoneyService.h */,
 				5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */,
 				5B3F4AA2155F571900A67649 /* GetPayStreamService.h */,

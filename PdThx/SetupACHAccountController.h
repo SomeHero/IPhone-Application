@@ -15,7 +15,7 @@
 #import "CustomSecurityPinSwipeController.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "UISetupUserBaseViewController.h"
-#import "User.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate> {
     IBOutlet UITextField* txtNameOnAccount;
@@ -23,11 +23,11 @@
     IBOutlet UITextField* txtAccountNumber;
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UIButton* btnSetupACHAccount;
+    IBOutlet UIView* viewPanel;
     UserSetupACHAccount* userSetupACHAccountService;
     UIAlertView * skipBankAlert;
     IBOutlet UIBarButtonItem *skipButton;
     CustomSecurityPinSwipeController *controller;    
-    User* user;
 }
 
 @property(nonatomic, retain) UITextField* txtNameOnAccount;

@@ -24,7 +24,6 @@
     NSString* newSecurityPin;
     UIActivityIndicatorView* spinner;
     UserService* userService;
-    User* user;
 }
 @property(nonatomic, retain) NSDictionary *profileOptions;
 @property(nonatomic, retain) NSArray *sections;

@@ -118,6 +118,9 @@ CGSize scrollViewOriginalSize;
 - (void)viewDidLoad
 {
     [self registerForKeyboardNotifications];
+    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
     

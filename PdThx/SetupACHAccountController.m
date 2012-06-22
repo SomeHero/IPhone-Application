@@ -68,6 +68,10 @@
 {
     [super viewDidLoad];
 
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setCornerRadius: 8.0];
+    
     
     // Do any additional setup after loading the view from its nib.
     [self setTitle: @"Enable Payments"];

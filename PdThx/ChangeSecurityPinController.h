@@ -24,7 +24,6 @@
     bool didCancel;
     CustomSecurityPinSwipeController *controller;
     UserService* userService;
-    User* user;
     NSString* oldSecurityPin;
     NSString* newSecurityPin;
 }
