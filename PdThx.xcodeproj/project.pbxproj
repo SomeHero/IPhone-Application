@@ -2392,11 +2392,11 @@
 			isa = PBXGroup;
 			children = (
 				5BF3EE1E159144170011BAD8 /* AccountListViewController.h */,
-				5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */,
 				5BF3EE1F159144170011BAD8 /* AccountListViewController.m */,
+				5BF3EE20159144170011BAD8 /* AccountListViewController.xib */,
+				5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */,
 				5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */,
 				5B8B4F95159357FF00820B3E /* AddACHAccountViewController.xib */,
-				5BF3EE20159144170011BAD8 /* AccountListViewController.xib */,
 				5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */,
 				5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */,
 				5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */,
