@@ -27,6 +27,7 @@
 
 @synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
+@synthesize contactButtonBGImage, amountButtonBGImage, characterCountLabel;
 
 float tableHeight2 = 30;
 
@@ -40,7 +41,6 @@ float tableHeight2 = 30;
 }
 - (void)dealloc
 {
-    
     /*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
@@ -81,6 +81,16 @@ float tableHeight2 = 30;
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+-(void)changedCommentBox:(NSNotification*)notification
+{
+    if ( [txtComments.text length] <= 140 ){
+        characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
+    } else {
+        txtComments.text = [txtComments.text substringToIndex:140];
+        characterCountLabel.placeholder = @"140/140";
+    }
 }
 
 #pragma mark - View lifecycle
@@ -165,6 +175,9 @@ float tableHeight2 = 30;
                                         withError:&error]){
         //Handle Error Here
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changedCommentBox:) name:@"UITextViewTextDidChangeNotification" object:nil];
+    
 }
 
 - (void)viewDidUnload
