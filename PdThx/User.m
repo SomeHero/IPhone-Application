@@ -59,6 +59,7 @@
         preferredPaymentAccountId = [dictionary valueForKey: @"preferredPaymentAccountId"];
         preferredReceiveAccountId = [dictionary valueForKey: @"preferredReceiveAccountId"];
         limit = [dictionary objectForKey: @"upperLimit"];
+        hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
         
         if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0)
         {
@@ -91,6 +92,7 @@
     another.totalMoneyReceived = totalMoneyReceived;
     another.preferredPaymentAccountId = preferredPaymentAccountId;
     another.preferredReceiveAccountId = preferredReceiveAccountId;
+    another.hasSecurityPin = hasSecurityPin;
     another.limit = limit;
     another.userUri = userUri;
     

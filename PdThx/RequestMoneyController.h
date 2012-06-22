@@ -23,6 +23,7 @@
 #import "AmountSelectChosenProtocol.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "TransactionConfirmationViewController.h"
+#import "AddACHAccountViewController.h"
 
 @interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate> {
 

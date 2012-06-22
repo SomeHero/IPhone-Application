@@ -21,9 +21,16 @@
     IBOutlet UITextField* txtAccountNumber;
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UISegmentedControl* ctrlAccountType;
+    IBOutlet UITextView* ctrlHeaderText;
+    NSString* navBarTitle;
+    NSString* headerText;
     UserSetupACHAccount* accountService;
     User* user;
+    CustomSecurityPinSwipeController* controller;
 }
+
+@property(nonatomic, retain) NSString* navBarTitle;
+@property(nonatomic, retain) NSString* headerText;
 
 -(IBAction) btnCreateAccountClicked:(id)sender;
 -(IBAction) bgClicked:(id)sender;
