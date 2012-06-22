@@ -17,6 +17,8 @@
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *btnRequestMoney;
     IBOutlet UIButton *btnSendMoney;
+    IBOutlet UIButton *btnProfile;
+    IBOutlet UIButton *btnPaystream;
     IBOutlet UIButton *btnUserImage;
     IBOutlet UILabel *lblUserName;
     IBOutlet UILabel* lblPayPoints;
@@ -33,5 +35,7 @@
 
 -(IBAction) btnRequestMoneyClicked:(id) sender;
 -(IBAction) btnSendMoneyClicked:(id) sender;
+-(IBAction) btnProfileClicked:(id) sender;
+-(IBAction) btnPaystreamClicked: (id) sender;
 
 @end

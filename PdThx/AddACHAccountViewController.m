@@ -14,6 +14,8 @@
 
 @implementation AddACHAccountViewController
 
+@synthesize navBarTitle, headerText;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,7 +34,8 @@
     self.navigationItem.leftBarButtonItem= cancelButton;
     [cancelButton release];
     
-    [self setTitle: @"Add Account"];
+    [self setTitle: navBarTitle];
+    [ctrlHeaderText setText: headerText];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
@@ -54,11 +57,21 @@
 
 -(IBAction) btnCreateAccountClicked:(id)sender
 {
-    CustomSecurityPinSwipeController* controller = [[CustomSecurityPinSwipeController alloc] init];
+    controller = [[[CustomSecurityPinSwipeController alloc] init] retain];
     [controller setSecurityPinSwipeDelegate: self];
 
+    if(user.hasSecurityPin)
+    {
+        [controller setHeaderText: @"Swipe your pin to add your new bank account"];
+        [controller setNavigationTitle: @"Confirm"];
+        [controller setTag: 1];
+    }
+    else {
+        [controller setHeaderText: @"To complete setting up your account, create a security pin by connecting 4 buttons below."];
+        [controller setNavigationTitle: @"Setup your Pin"];
+        [controller setTag: 1];
+    }
     [self.parentViewController presentModalViewController:controller animated:YES];
-    [controller release];
 }
 -(void)cancelClicked {
     [self dismissModalViewControllerAnimated:YES];
@@ -66,9 +79,34 @@
 
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:pin];
+    if(user.hasSecurityPin)
+    {
+        [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:pin];
+    }
+    else {
+        if([sender tag] == 1)
+        {
+            controller =[[[CustomSecurityPinSwipeController alloc] init] retain];
+            [controller setSecurityPinSwipeDelegate: self];
+            [controller setNavigationTitle: @"Confirm your Pin"];
+            [controller setHeaderText: [NSString stringWithFormat:@"Confirm your pin, by swiping it again below"]];
+            [controller setTag:2];    
+            [self presentModalViewController:controller animated:YES];
+            
+            [controller release];
+        }
+        else if([sender tag] == 2)
+            [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:pin];
+        
+        
+    }
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
+    
+    if([user.preferredPaymentAccountId length] == 0)
+        user.preferredPaymentAccountId = paymentAccountId;
+    if([user.preferredReceiveAccountId length] == 0)
+        user.preferredReceiveAccountId = paymentAccountId;
     
     txtAccountNumber.text = @"";
     txtConfirmAccountNumber.text = @"";
@@ -112,4 +150,10 @@
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];
 }
+-(void)delete:(id)sender {
+        
+    [super dealloc];
+    
+    [navBarTitle release];
+    [headerText release];}
 @end
