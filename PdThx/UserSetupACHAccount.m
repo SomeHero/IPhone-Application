@@ -29,7 +29,7 @@
 }
 
 
--(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin;
+-(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin withSecurityQuestionID:(int)questionID withSecurityQuestionAnswer:(NSString*)questionAnswer;
 {
     
     Environment *myEnvironment = [Environment sharedInstance];
@@ -49,6 +49,8 @@
                                  accountNumber, @"accountNumber",
                                  accountType, @"accountType",
                                  securityPin, @"securityPin",
+                                 [NSNumber numberWithInt:questionID], @"SecurityQuestionID",
+                                 questionAnswer, @"SecurityQuestionAnswer",
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation]; 
@@ -56,7 +58,7 @@
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
+    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
     [request setRequestMethod: @"POST"];	
     
     [request setDelegate:self];
