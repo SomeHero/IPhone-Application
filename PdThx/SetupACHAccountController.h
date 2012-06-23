@@ -15,19 +15,21 @@
 #import "CustomSecurityPinSwipeController.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "UISetupUserBaseViewController.h"
-#import "User.h"
+#import <QuartzCore/QuartzCore.h>
+#import "SecurityQuestionInputProtocol.h"
 
-@interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate> {
+@interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate, SecurityQuestionInputProtocol> {
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;
     IBOutlet UITextField* txtAccountNumber;
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UIButton* btnSetupACHAccount;
+    IBOutlet UIView* viewPanel;
     UserSetupACHAccount* userSetupACHAccountService;
     UIAlertView * skipBankAlert;
     IBOutlet UIBarButtonItem *skipButton;
-    CustomSecurityPinSwipeController *controller;    
-    User* user;
+    CustomSecurityPinSwipeController *controller;
+    NSString* securityPin;
 }
 
 @property(nonatomic, retain) UITextField* txtNameOnAccount;
@@ -36,6 +38,7 @@
 @property(nonatomic, retain) UITextField* txtConfirmAccountNumber;
 @property(retain) id<UserSetupACHAccountComplete> userSetupACHAccountComplete;
 @property (retain) id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
+@property(nonatomic, retain) NSString*securityPin;
 
 @property(nonatomic,retain) UIAlertView* skipBankAlert;
 

@@ -336,9 +336,7 @@ float tableHeight = 30;
 }
 
 -(IBAction) btnSendRequestClicked:(id)sender {
-        
-        User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-        
+
         if([txtAmount.text length] > 0) {
             amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
         }
@@ -366,12 +364,23 @@ float tableHeight = 30;
             
             //[((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
             
-            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-            [controller setSecurityPinSwipeDelegate: self];
-            [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
-            
-            [self presentModalViewController:controller animated:YES];
+            if([user.preferredPaymentAccountId length] > 0)
+            {
+                CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+                [controller setSecurityPinSwipeDelegate: self];
+                [controller setNavigationTitle: @"Confirm"];
+                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+                
+                [self presentModalViewController:controller animated:YES];
+            } else {
+                AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
+                UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+                
+                [controller setNavBarTitle: @"Enable Payment"];
+                [controller setHeaderText: @"To complete requesting money, complete your account by adding a bank account"];
+                
+                [self presentModalViewController: navBar animated:YES];
+            }
         }
 
 }

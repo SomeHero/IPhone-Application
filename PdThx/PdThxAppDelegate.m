@@ -20,6 +20,7 @@
 #import "ContactSelectViewController.h"
 #import "UINavigationBar+CustomImage.h"
 #import "GANTracker.h"
+#import "GetSecurityQuestionsService.h"
 
 @implementation PdThxAppDelegate
 
@@ -27,7 +28,7 @@
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,
     permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
-@synthesize user;
+@synthesize user, securityQuestionCompleteDelegate, SecurityQuestionArray;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -137,6 +138,11 @@
     
     [self loadAllContacts];
     
+    // TODO: Security Question Delegate
+    GetSecurityQuestionsService *serv = [[GetSecurityQuestionsService alloc] init];
+    serv.questionsLoadedDelegate = self;
+    [serv getSecurityQuestions:NO]; // Get All questions
+    
     [self.window makeKeyAndVisible];
     
     [[GANTracker sharedTracker] startTrackerWithAccountID:googleAnalyticsKey
@@ -164,6 +170,14 @@
     
 
     return YES;
+}
+
+-(void)loadedSecurityQuestions:(NSMutableArray *)questionArray
+{
+    SecurityQuestionArray = questionArray;
+    for (NSDictionary* dict in SecurityQuestionArray){
+        NSLog(@"In app Delegate: %@", dict);
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -23,6 +23,7 @@
 #import "TransactionConfirmationViewController.h"
 #import "TransactionConfirmationProtocol.h"
 #import "CustomSecurityPinSwipeProtocol.h"
+#import "AddACHAccountViewController.h"
 
 @interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, SecurityPinCompleteDelegate, TransactionConfirmationProtocol, UITextViewDelegate> {
     IBOutlet UIView *viewPanel;

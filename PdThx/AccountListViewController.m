@@ -67,6 +67,8 @@
 - (IBAction)addAccountClicked:(id)sender {
     AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    [controller setTitle: @"Add Account"];
+    [controller setHeaderText: @"Add another bank account by entering the account information below"];
     
     [self presentModalViewController:navBar animated:YES];
     [navBar release];

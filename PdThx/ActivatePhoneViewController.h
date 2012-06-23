@@ -9,11 +9,13 @@
 #import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
 #import "UISetupUserBaseViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ActivatePhoneViewController : UISetupUserBaseViewController <MFMessageComposeViewControllerDelegate>
 {
     IBOutlet UIButton *activateButton;
     IBOutlet UIButton *remindMeLaterButton;
+    IBOutlet UIView* viewPanel;
     NSString* registrationKey;
     
     

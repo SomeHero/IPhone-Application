@@ -68,7 +68,7 @@
 }
 -(void)unlockPatternView:(ALUnlockPatternView *)patternView selectedCode:(NSString *)code{
 
-    [_delegate securityPinComplete:(SetupSecurityPin *) self selectedCode:code];
+    [_delegate securityPinComplete:(ConfirmPaymentDialogController *) self selectedCode:code];
     
 }
 -(IBAction) btnCancelClicked:(id) sender {

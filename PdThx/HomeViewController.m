@@ -19,7 +19,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @implementation HomeViewController
 
-@synthesize moneyView, lblUserName, lblMoneySent, lblMoneyReceived;
+@synthesize lblUserName;
 @synthesize viewPanel;
 @synthesize btnRequestMoney, btnSendMoney;
 
@@ -36,10 +36,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)dealloc
 {
     [viewPanel release];
-    [moneyView release];
     [lblUserName release];
-    [lblMoneySent release];
-    [lblMoneyReceived release];
     [btnRequestMoney release];
     [btnSendMoney release];
     [userService release];
@@ -69,13 +66,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
+
+    UIImage *imgSendMoneyActive  = [UIImage imageNamed:@"btn-send-146x130-active.png"];
+    [btnSendMoney setImage:imgSendMoneyActive forState:UIControlStateHighlighted];
+
+    UIImage *imgRequestMoneyActive  = [UIImage imageNamed:@"btn-request-146x130-active.png"];
+    [btnRequestMoney setImage:imgRequestMoneyActive forState:UIControlStateHighlighted];
+
+    UIImage *imgProfileActive = [UIImage imageNamed: @"btn-profile-308x70-active.png"];
+    [btnProfile setImage: imgProfileActive forState:UIControlStateHighlighted];
     
-    [[moneyView layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[moneyView layer] setBorderWidth:1];
-    
-    [lblUserName setTextColor: UIColorFromRGB(0x51a5ba)];
-    [lblMoneySent setTextColor: UIColorFromRGB(0x196779)]; 
-    [lblMoneyReceived setTextColor: UIColorFromRGB(0x1c8839)];
+    UIImage *imgPaystreamActive = [UIImage imageNamed: @"btn-paystream-292x42-active.png"];
+    [btnPaystream setImage:imgPaystreamActive forState:UIControlStateHighlighted];
     
     [self setTitle: @"Home"];
     //[self.parentViewController.navigationItem setHidesBackButton:YES animated:NO];
@@ -100,9 +102,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
     
     lblUserName.text = user.preferredName;
-    lblMoneySent.text = [numberFormatter stringFromNumber:user.totalMoneySent];
-    lblMoneyReceived.text = [numberFormatter stringFromNumber:user.totalMoneyReceived];
-    
+    lblPayPoints.text = user.userName;
+    lblScore.text = @"80";
+    lblIncreaseScore.text = @"+ Link your Facebook Account";
+    lblPaystreamCount.text = @"5";
+
     [numberFormatter release];
 }
 -(void)userInformationDidFail:(NSString*) message {
@@ -142,7 +146,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [appDelegate switchToSendMoneyController];
 }
-
+-(IBAction) btnProfileClicked:(id) sender {
+    
+}
+-(IBAction) btnPaystreamClicked: (id) sender {
+    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate switchToPaystreamController];
+}
 
 
 @end

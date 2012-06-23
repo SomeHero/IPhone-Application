@@ -36,6 +36,14 @@
     
     [self setTitle: @"Personalize"];
     
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setCornerRadius: 8.0];
+    
+    
+    userService = [[UserService alloc] init];
+    [userService setPersonalizeUserCompleteDelegate: self];
+    
     [userImageButton.layer setCornerRadius:6.0];
     [userImageButton.layer setMasksToBounds:YES];
     NSError *error;
@@ -45,8 +53,7 @@
     }
 }   
 -(void)viewDidAppear:(BOOL)animated {
-    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
+
     if(user.firstName != (id)[NSNull null] && [user.firstName length] > 0)
         firstNameField.text = user.firstName;
     else
@@ -92,11 +99,22 @@
     [firstNameField release];
     [lastNameField release];
     [saveContinueButton release];
+    [userService release];
     [super dealloc];
 }
 - (IBAction)pressedSaveContinue:(id)sender 
 {
-     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: @""];
+}
+-(void) personalizeUserDidComplete {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+}
+-(void) personalizeUserDidFail:(NSString*) response {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+}
+-(IBAction) bgTouched:(id) sender {
+    [firstNameField resignFirstResponder];
+    [lastNameField resignFirstResponder];
 }
 -(void)uploadFile:(NSString*)file toURL: (NSString*) uploadURL{
     
