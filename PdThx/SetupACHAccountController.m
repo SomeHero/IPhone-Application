@@ -14,6 +14,7 @@
 #import "HomeViewController.h"
 #import "PdThxAppDelegate.h"
 #import "CustomSecurityPinSwipeController.h"
+#import "AddSecurityQuestionViewController.h"
 
 @interface SetupACHAccountController ()
 - (void)createACHAccount;
@@ -29,6 +30,7 @@
 @synthesize achSetupCompleteDelegate;
 @synthesize userSetupACHAccountComplete;
 @synthesize skipBankAlert;
+@synthesize securityPin;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -126,7 +128,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)createACHAccount:(NSString*) securityPin {
+- (void)createACHAccount:(NSString*)pin withSecurityQuestionId:(int)questionId withSecurityQuestionAnswer:(NSString*)questionAnswer
+{
     NSString* nameOnAccount = [NSString stringWithString: @""];
     NSString* routingNumber = [NSString stringWithString: @""];
     NSString* accountNumber = [NSString stringWithString: @""];
@@ -176,7 +179,8 @@
     }
 
     if(isValid) {
-        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin];
+        NSLog(@"Registering with SecurityQuestionId and Answer: %d -- %@", questionId, questionAnswer);
+        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
     }
 }
 
@@ -221,8 +225,20 @@
         [self presentModalViewController:controller animated:YES];
     }
     else if([sender tag] == 2)
-        [self createACHAccount: pin];
+    {
+        securityPin = pin;
+        AddSecurityQuestionViewController *securityQuestionController = [[[AddSecurityQuestionViewController alloc] init] autorelease];
+        [securityQuestionController setSecurityQuestionEnteredDelegate:self];
+        [controller setNavigationTitle: @"Create a Security Question"];
+        [self presentModalViewController:securityQuestionController animated:YES];
+    }
 }
+
+-(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
+{
+    [self createACHAccount:securityPin withSecurityQuestionId:questionId withSecurityQuestionAnswer:questionAnswer];
+}
+
 -(void)swipeDidCancel: (id)sender
 {
     //do nothing

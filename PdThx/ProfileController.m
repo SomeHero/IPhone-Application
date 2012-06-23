@@ -205,7 +205,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
     

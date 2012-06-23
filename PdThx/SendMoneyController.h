@@ -25,7 +25,7 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, SecurityPinCompleteDelegate, TransactionConfirmationProtocol> {
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, SecurityPinCompleteDelegate, TransactionConfirmationProtocol, UITextViewDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
@@ -41,7 +41,6 @@
     IBOutlet UIButton *chooseRecipientButton;
     IBOutlet UIButton *chooseAmountButton;
     
-    
     IBOutlet UILabel *contactHead;
     IBOutlet UILabel *contactDetail;
     IBOutlet UIButton *recipientImageButton;
@@ -52,6 +51,8 @@
     
     IBOutlet UIImageView *contactButtonBGImage;
     IBOutlet UIImageView *amountButtonBGImage;
+    
+    IBOutlet UITextField *characterCountLabel;
 }
 
 
@@ -71,6 +72,8 @@
 
 @property(nonatomic, retain) UIImageView *contactButtonBGImage;
 @property(nonatomic, retain) UIImageView *amountButtonBGImage;
+
+@property(nonatomic, retain) UITextField *characterCountLabel;
 
 
 

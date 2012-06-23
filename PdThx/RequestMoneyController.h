@@ -25,11 +25,12 @@
 #import "TransactionConfirmationViewController.h"
 #import "AddACHAccountViewController.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate> {
+@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate> 
+{
 
     IBOutlet UIView *viewPanel;
-        IBOutlet UITextField *txtAmount;
-        IBOutlet UITextView *txtComments;
+    IBOutlet UITextField *txtAmount;
+    IBOutlet UITextView *txtComments;
         
     IBOutlet UIButton *btnSendRequest;
     

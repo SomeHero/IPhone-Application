@@ -17,7 +17,7 @@
 
 @property(retain) id userACHSetupCompleteDelegate;
 
--(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin;
+-(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin withSecurityQuestionID:(int)questionID withSecurityQuestionAnswer:(NSString*)questionAnswer;
 
 
 @end
