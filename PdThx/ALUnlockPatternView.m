@@ -100,10 +100,10 @@
             UIButton *cell=[UIButton buttonWithType:UIButtonTypeCustom];
             cell.tag=i;
             
-            cell.frame=CGRectMake( (((i-1)%3)*cellWidth) + (cellWidth/2-30),
-                                  (((i-1)/3)*cellHeight) + (cellHeight/2-30),
-                                  60,
-                                  60);
+            cell.frame=CGRectMake( (((i-1)%3)*cellWidth) + (cellWidth/2-35),
+                                  (((i-1)/3)*cellHeight) + (cellHeight/2-35),
+                                  70,
+                                  70);
             //cell.layer.borderWidth=1.0;
             cell.userInteractionEnabled=NO;
             cell.adjustsImageWhenHighlighted=NO;

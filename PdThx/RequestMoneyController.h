@@ -50,6 +50,9 @@
     CLLocationManager* lm;
     double latitude;
     double longitude;
+    
+    IBOutlet UIImageView *contactButtonBGImage;
+    IBOutlet UIImageView *amountButtonBGImage;
         
     IBOutlet UIButton *attachPictureButton;
     IBOutlet UITextField *characterCountLabel;
@@ -70,6 +73,9 @@
 @property(nonatomic, retain) NSString* recipientUri;
 @property(nonatomic, retain) CLLocationManager *lm;
 @property(nonatomic, retain) UITextField *characterCountLabel;
+
+@property(nonatomic, retain) UIImageView *contactButtonBGImage;
+@property(nonatomic, retain) UIImageView *amountButtonBGImage;
 
 @property(nonatomic, retain) UIButton *attachPictureButton;
 /*              Button Actions              */
