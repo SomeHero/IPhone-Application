@@ -15,7 +15,7 @@
 @implementation UserSetupACHAccount
 
 @synthesize userACHSetupCompleteDelegate;
-
+ 
 -(id)init {
     self = [super init];
     
@@ -28,6 +28,42 @@
     [super dealloc];
 }
 
+-(void) addACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin
+{
+    
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/add_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];  
+    
+    [rootUrl release];
+    [apiKey release];
+    
+    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 userId, @"userId",
+                                 //deviceId, @"deviceId",
+                                 nameOnAccount, @"nameOnAccount",
+                                 routingNumber, @"routingNumber",
+                                 accountNumber, @"accountNumber",
+                                 accountType, @"accountType",
+                                 securityPin, @"securityPin",
+                                 nil];
+    
+    NSString *newJSON = [paymentData JSONRepresentation]; 
+    
+    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
+    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setRequestMethod: @"POST"];	
+    
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(setupACHAccountComplete:)];
+    [request setDidFailSelector:@selector(setupACHAccountFailed:)];
+    
+    [request startAsynchronous];
+}
 
 -(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin withSecurityQuestionID:(int)questionID withSecurityQuestionAnswer:(NSString*)questionAnswer;
 {
@@ -70,8 +106,7 @@
 -(void) setupACHAccountComplete: (ASIHTTPRequest *) request {
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
-    
-    
+
     if([request responseStatusCode] == 201 ) {
         NSLog(@"ACH Account Setup Success");
         

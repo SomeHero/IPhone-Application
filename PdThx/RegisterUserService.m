@@ -50,6 +50,8 @@
 }
 -(void) registerUserComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if([request responseStatusCode] == 201 ) {
         NSLog(@"User Registration Success");
         

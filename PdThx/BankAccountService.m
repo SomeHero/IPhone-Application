@@ -33,6 +33,8 @@
 }
 -(void) getUserAccountsComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if([request responseStatusCode] == 200 ) {
         
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
@@ -66,6 +68,7 @@
 -(void) getUserAccountsFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Error Getting User Accounts");
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     [bankAccountRequestDelegate getUserAccountsDidFail: [request responseStatusMessage]];
 }

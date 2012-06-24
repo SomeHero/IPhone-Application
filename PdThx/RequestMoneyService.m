@@ -64,6 +64,7 @@
 }
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 201 ) {
         
@@ -83,7 +84,7 @@
 }
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Request Money Failed");
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     NSString* message = [NSString stringWithString: @"Unable to send request for money"];
     

@@ -546,8 +546,15 @@
                 // Add $me code implementation ** TODO: **
             
                 if ( hasSimilarity.location != NSNotFound ){
+                    NSLog(@"Add filtered result %@", contact.name);
+                     @try {
                     [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
                     foundFiltered = YES;
+                    }
+            @catch (NSException* e) {
+                NSLog(@"Exception: %@", e);
+            }
+
                 }
             }
         }
