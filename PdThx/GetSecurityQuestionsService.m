@@ -49,6 +49,8 @@
 
 -(void) getSecurityQuestionsComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if([request responseStatusCode] == 200 ) {
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
@@ -70,6 +72,8 @@
 }
 -(void) getSecurityQuestionsFailed:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     NSLog(@"Error Getting Security Questions");
 }
 

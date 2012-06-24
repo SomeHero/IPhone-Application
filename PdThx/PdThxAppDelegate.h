@@ -30,7 +30,6 @@
     User* user;
     NSInteger currentReminderTab;
     id<GetSecurityQuestionsProtocol> securityQuestionCompleteDelegate;
-    NSMutableArray *SecurityQuestionArray;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

@@ -13,8 +13,11 @@
 #import "UserSetupACHAccountComplete.h"
 #import "User.h"
 #import "PdThxAppDelegate.h"
+#import "AddSecurityQuestionViewController.h"
+#import "UIBaseViewController.h"
+#import "ValidationHelper.h"
 
-@interface AddACHAccountViewController : UIViewController<CustomSecurityPinSwipeProtocol>
+@interface AddACHAccountViewController : UIBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol>
 {
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;
@@ -24,9 +27,12 @@
     IBOutlet UITextView* ctrlHeaderText;
     NSString* navBarTitle;
     NSString* headerText;
+    NSString* securityPin;
     UserSetupACHAccount* accountService;
     User* user;
     CustomSecurityPinSwipeController* controller;
+    AddSecurityQuestionViewController* addSecurityQuestionController;
+    ValidationHelper* validationHelper;
 }
 
 @property(nonatomic, retain) NSString* navBarTitle;

@@ -451,6 +451,7 @@
 		5B8B4FC11593954900820B3E /* btn-send-146x130@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4FAF1593954900820B3E /* btn-send-146x130@2x.png */; };
 		5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */; };
 		5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B905803157FCB9D00D0373B /* PaystreamService.m */; };
+		5BABF06915975DEB00FB4BD5 /* ValidationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */; };
 		5BB1452A158ADC5000EA652A /* stampCancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14529158ADC5000EA652A /* stampCancelled.png */; };
 		5BB1452C158ADCE200EA652A /* stampPaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452B158ADCE200EA652A /* stampPaid.png */; };
 		5BB14530158ADD0700EA652A /* stampRefunded.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452D158ADD0700EA652A /* stampRefunded.png */; };
@@ -1067,6 +1068,8 @@
 		5B905802157FCB9D00D0373B /* PaystreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamService.h; sourceTree = "<group>"; };
 		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
 		5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalizeUserCompleteProtocol.h; sourceTree = "<group>"; };
+		5BABF06715975DEB00FB4BD5 /* ValidationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationHelper.h; sourceTree = "<group>"; };
+		5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationHelper.m; sourceTree = "<group>"; };
 		5BB14529158ADC5000EA652A /* stampCancelled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled.png; sourceTree = "<group>"; };
 		5BB1452B158ADCE200EA652A /* stampPaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampPaid.png; sourceTree = "<group>"; };
 		5BB1452D158ADD0700EA652A /* stampRefunded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRefunded.png; sourceTree = "<group>"; };
@@ -2304,6 +2307,8 @@
 				54E3DDEA15713E6700F63820 /* IconDownloader.m */,
 				5BB145E3158C284500EA652A /* FacebookSignIn.h */,
 				5BB145E4158C284500EA652A /* FacebookSignIn.m */,
+				5BABF06715975DEB00FB4BD5 /* ValidationHelper.h */,
+				5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -3019,6 +3024,7 @@
 				5B8B4F96159357FF00820B3E /* AddACHAccountViewController.m in Sources */,
 				54FA47441594C3AF007CFA33 /* AddSecurityQuestionViewController.m in Sources */,
 				54FA47481595B74E007CFA33 /* GetSecurityQuestionsService.m in Sources */,
+				5BABF06915975DEB00FB4BD5 /* ValidationHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

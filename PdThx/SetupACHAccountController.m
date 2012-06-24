@@ -50,7 +50,10 @@
     [txtConfirmAccountNumber release];
     [btnSetupACHAccount release];
     [userSetupACHAccountService release];
+    [controller release];
+    [securityQuestionController release];
     //[achSetupCompleteDelegate release];
+    [validationHelper release];
 
     [skipButton release];
     [super dealloc];
@@ -70,6 +73,8 @@
 {
     [super viewDidLoad];
 
+    validationHelper = [[ValidationHelper alloc] init];
+    
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
@@ -153,25 +158,25 @@
 
     BOOL isValid = YES;
 
-    if(isValid && ![self isValidNameOnAccount:nameOnAccount])
+    if(isValid && ![validationHelper isValidNameOnAccount:nameOnAccount])
     {
         [self showAlertView:@"Invalid Name on Account!" withMessage: @"You did not enter the name on account.  Please try again."];
 
         isValid = NO;
     }
-    if(isValid && ![self isValidRoutingNumber:routingNumber])
+    if(isValid && ![validationHelper isValidRoutingNumber:routingNumber])
     {
         [self showAlertView:@"Invalid Routing Number!" withMessage:@"The routing number you entered is invalid. Please try again."];
 
         isValid = NO;
     }
-    if(isValid && ![self isValidAccountNumber:accountNumber])
+    if(isValid && ![validationHelper isValidAccountNumber:accountNumber])
     {
         [self showAlertView:@"Invalid Account Number!" withMessage:@"The account number you entered is invalid. Please try again."];
 
         isValid = NO;
     }
-    if(isValid && ![self doesAccountNumberMatch: accountNumber doesMatch: confirmAccountNumber])
+    if(isValid && ![validationHelper doesAccountNumberMatch: accountNumber doesMatch: confirmAccountNumber])
     {
         [self showAlertView:@"Account Number Mismatch!" withMessage:@"The account numbers do not match. Please try again."];
 
@@ -180,6 +185,7 @@
 
     if(isValid) {
         NSLog(@"Registering with SecurityQuestionId and Answer: %d -- %@", questionId, questionAnswer);
+        
         [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
     }
 }
@@ -227,10 +233,15 @@
     else if([sender tag] == 2)
     {
         securityPin = pin;
-        AddSecurityQuestionViewController *securityQuestionController = [[[AddSecurityQuestionViewController alloc] init] autorelease];
+
+        securityQuestionController = [[[AddSecurityQuestionViewController alloc] init] autorelease];
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:securityQuestionController];
+        
         [securityQuestionController setSecurityQuestionEnteredDelegate:self];
-        [controller setNavigationTitle: @"Create a Security Question"];
-        [self presentModalViewController:securityQuestionController animated:YES];
+        [securityQuestionController setNavigationTitle: @"Add a Security Question"];
+
+        [self presentModalViewController:navBar animated:YES];
+        [navBar release];
     }
 }
 
@@ -350,35 +361,6 @@
 -(void) setupACHAccountFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Setup ACH Account Failed");
-}
-
--(BOOL)isValidNameOnAccount:(NSString *) nameToTest {
-    if([nameToTest length] == 0)
-        return false;
-    
-    return true;
-}
-
--(BOOL)isValidRoutingNumber:(NSString *) routingNumberToTest {
-    if([routingNumberToTest length] == 0)
-        return false;
-    
-    return true;
-}
-
--(BOOL)isValidAccountNumber:(NSString *) accountNumberToTest {
-    if([accountNumberToTest length] == 0)
-        return false;
-    
-    return true;
-}
-
-
--(BOOL)doesAccountNumberMatch:(NSString *) accountNumberToTest doesMatch:(NSString *) confirmationNumber {
-    if(![accountNumberToTest isEqualToString:confirmationNumber])
-        return false;
-    
-    return true;
 }
 
 -(IBAction) bgTouched:(id) sender {

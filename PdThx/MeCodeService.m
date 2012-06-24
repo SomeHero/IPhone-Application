@@ -43,6 +43,8 @@
 }
 -(void) validateMeCodeComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if([request responseStatusCode] == 201 ) {
         NSLog(@"MeCode Creation Success!");
         
@@ -69,6 +71,7 @@
 -(void) validateMeCodeFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"MeCode Creation failed with Exception");
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     NSString* response = [NSString stringWithString: @"Unable to create MeCode Try again."];
     

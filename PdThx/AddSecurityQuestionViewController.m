@@ -8,6 +8,7 @@
 
 #import "AddSecurityQuestionViewController.h"
 #import "PdThxAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AddSecurityQuestionViewController ()
 
@@ -16,6 +17,7 @@
 @implementation AddSecurityQuestionViewController
 
 @synthesize chooseQuestionButton, submitButton, questionPicker, answerField, securityQuestionEnteredDelegate;
+@synthesize navigationTitle, headerText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +34,11 @@
     // Do any additional setup after loading the view from its nib.
     
     answerField.delegate = self;
+    
+    // TODO: Security Question Delegate
+    securityQuestionService = [[GetSecurityQuestionsService alloc] init];
+    securityQuestionService.questionsLoadedDelegate = self;
+
 }
 
 - (void)viewDidUnload
@@ -48,7 +55,19 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+-(void)viewDidAppear:(BOOL)animated {
+    [self setTitle: navigationTitle];
+    
+    
+    UIBarButtonItem *cancelButton =  [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemAction target:self action:@selector(cancelClicked)];
+    
+    self.navigationItem.leftBarButtonItem= cancelButton;
+    [cancelButton release];
+}
+-(void)cancelClicked {
 
+    [self dismissModalViewControllerAnimated:YES];
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -59,13 +78,22 @@
     [answerField release];
     [submitButton release];
     [questionPicker release];
+    [navigationTitle release];
+    [headerText release];
+    
     [super dealloc];
 }
 - (IBAction)showQuestionPicker:(id)sender {
-    questionPicker.hidden = NO;
+    [securityQuestionService getSecurityQuestions:NO]; // Get All questions
+    
 }
-
-
+-(void)loadedSecurityQuestions:(NSMutableArray *)questionArray
+{
+    securityQuestions = questionArray;
+    
+    questionPicker.hidden = NO;
+    [questionPicker reloadAllComponents];
+}
 /*      Setting up Picker View      */
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
 {
@@ -73,15 +101,18 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
-    return [(((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).SecurityQuestionArray) count];
+    return [securityQuestions count];
 }
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [[(((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).SecurityQuestionArray) objectAtIndex:row] objectForKey:@"Question"];
+    return [[securityQuestions objectAtIndex:row] objectForKey:@"Question"];
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     questionId = row;
+    NSString* question = [NSString stringWithString:[[securityQuestions objectAtIndex:row] objectForKey: @"Question"]];
+    currentQuestion.text = question;
+    
     questionPicker.hidden = YES;
 }
 
@@ -98,6 +129,12 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+
+-(IBAction) bgTouched:(id) sender {
+    [answerField resignFirstResponder];
+    [questionPicker setHidden:YES];
 }
 
 @end

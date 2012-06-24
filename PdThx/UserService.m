@@ -43,10 +43,10 @@
 }
 -(void) getUserInformationComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     NSString *theJSON = [request responseString];
-    
-    NSLog ( @"Got user information of %@" , theJSON );
-    
+
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
@@ -60,6 +60,8 @@
 }
 -(void) getUserInformationFailed:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     NSLog(@"Setup User Info Failed");
 }
 
@@ -115,6 +117,8 @@
 }
 
 -(void) setSecurityPinComplete: (ASIHTTPRequest *)request {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if([request responseStatusCode] == 200 ) {
         NSLog(@"Changing security pin worked!");
         
