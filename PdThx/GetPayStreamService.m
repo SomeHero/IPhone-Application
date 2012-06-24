@@ -74,7 +74,7 @@
 
         for(int i = 0; i <[tempTransactions count]; i++)
         {
-            [transactions addObject:[[[PaystreamMessage alloc] initWithDictionary: [tempTransactions objectAtIndex:(NSUInteger) i]] autorelease]];
+            [transactions addObject: [[[PaystreamMessage alloc] initWithDictionary: [tempTransactions objectAtIndex:(NSUInteger) i]] autorelease]];
         }
 
         [parser release];

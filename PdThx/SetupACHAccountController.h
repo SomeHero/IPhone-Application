@@ -41,7 +41,6 @@
 @property(nonatomic, retain) UITextField* txtAccountNumber;
 @property(nonatomic, retain) UITextField* txtConfirmAccountNumber;
 @property(retain) id<UserSetupACHAccountComplete> userSetupACHAccountComplete;
-@property (retain) id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
 @property(nonatomic, retain) NSString*securityPin;
 
 @property(nonatomic,retain) UIAlertView* skipBankAlert;
@@ -50,8 +49,5 @@
 
 -(IBAction) btnSetupACHAccountClicked:(id) sender;
 -(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType;
-
-
-- (IBAction)doSkip:(id)sender;
 
 @end

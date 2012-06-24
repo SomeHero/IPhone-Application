@@ -30,7 +30,7 @@
     
     
     if(self) {
-        amount = [[NSNumber alloc] init];
+        amount = [[NSDecimalNumber alloc] init];
         comments = [[NSString alloc] init];
         messageId = [[NSString alloc] init];
         messageStatus = [[NSString alloc] init];

@@ -112,17 +112,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void)userInformationDidFail:(NSString*) message {
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
--(void)signInDidComplete {
-    [self.navigationController popViewControllerAnimated:NO];
-    [self.navigationItem setHidesBackButton:YES animated:NO];
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) loadAllContacts];
-}
--(void)achSetupDidComplete {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self.navigationItem setHidesBackButton:YES animated:NO];
-}
-
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];

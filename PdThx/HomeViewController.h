@@ -12,7 +12,7 @@
 #import "UIBaseViewController.h"
 #import "UserService.h"
 
-@interface HomeViewController : UIBaseViewController<SignInCompleteProtocol, ACHSetupCompleteProtocol, UserInformationCompleteProtocol>
+@interface HomeViewController : UIBaseViewController< UserInformationCompleteProtocol>
 {
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *btnRequestMoney;

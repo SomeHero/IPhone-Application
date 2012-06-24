@@ -32,8 +32,7 @@
 @implementation SignInViewController
 
 @synthesize txtEmailAddress, txtPassword, animatedDistance;
-@synthesize signInCompleteDelegate; // setupACHAccountController
-@synthesize viewPanel, fBook, service, bankAlert; // achSetupCompleteDelegate
+@synthesize viewPanel, fBook, service, bankAlert;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,7 +55,6 @@
     [txtPassword release];
     [signInUserService release];
     [fBook release];
-    [signInCompleteDelegate release];
     [signInUserService release];
     [SignInWithFBService release];
     [faceBookSignInHelper release];
@@ -245,18 +243,6 @@
 }
 -(void)userInformationDidFail:(NSString*) message {
     [self showAlertView: @"Error Sending Money" withMessage: message];
-}
-
--(void)achAccountSetupDidComplete
-{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-    [signInCompleteDelegate signInDidComplete];
-}
-
--(void)achAccountSetupDidSkip
-{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-    [signInCompleteDelegate signInDidComplete];
 }
 
 

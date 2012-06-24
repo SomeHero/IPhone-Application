@@ -18,6 +18,7 @@
 
 @synthesize chooseQuestionButton, submitButton, questionPicker, answerField, securityQuestionEnteredDelegate;
 @synthesize navigationTitle, headerText;
+@synthesize questionId, questionAnswer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
