@@ -145,7 +145,7 @@
 
 - (void)uploadRequestFinished:(ASIHTTPRequest *)request{    
     NSString *responseString = [request responseString];
-    NSLog("Upload response %@", responseString);
+    NSLog(@"Upload response %@", responseString);
 }
 
 - (void)uploadRequestFailed:(ASIHTTPRequest *)request{

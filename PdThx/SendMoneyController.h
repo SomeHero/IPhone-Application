@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ALUnlockPatternView.h"
 #import "ASIHTTPRequest.h"
-#import "ConfirmPaymentDialogController.h"
 #import "SignInCompleteProtocol.h"
-#import "ACHSetupCompleteProtocol.h"
 #import "UIBaseViewController.h"
 #import "Environment.h"
 #import "SendMoneyService.h"
@@ -25,7 +23,7 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, SecurityPinCompleteDelegate, TransactionConfirmationProtocol, UITextViewDelegate> {
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
@@ -85,7 +83,6 @@
 
 -(IBAction) bgTouched:(id) sender;
 -(IBAction) btnSendMoneyClicked:(id) sender;
--(void) signOutClicked;
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest;
 -(BOOL) isValidAmount:(NSString *) amountToTest;
 @end

@@ -28,8 +28,8 @@ standardEntryClass, paymentChannel, transactionBatchId, transactionSentDate,  cr
         paymentId = [[NSString alloc] init];
         senderUri = [[NSString alloc] init];
         recipientUri = [[NSString alloc] init];
-        amount = [[NSNumber alloc] init];
-        achTransactionId = [[NSString alloc] init];
+        amount = [[NSDecimalNumber alloc] init];
+        achTransactionId = [[NSNumber alloc] init];
         transactionStatus = [[NSString alloc] init];
         transactionCategory = [[NSString alloc] init];
         transactionType = [[NSString alloc] init];

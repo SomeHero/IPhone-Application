@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UIBaseViewController.h"
-#import "UserSignInCompleteProtocol.h"
 #import "UserInformationCompleteProtocol.h"
 #import "SignInCompleteProtocol.h"
-#import "ACHSetupCompleteProtocol.h"
 #import "SignInUserService.h"
 #import "SignInWithFBService.h"
 #import "Facebook.h"
@@ -19,27 +17,22 @@
 #import "UserSetupACHAccountComplete.h"
 #import "FacebookSignIn.h"
 
-@interface SignInViewController : UIBaseViewController<UserSignInCompleteProtocol,UserInformationCompleteProtocol, UITextFieldDelegate, FBRequestDelegate, UINavigationBarDelegate>
+@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, UITextFieldDelegate, FBRequestDelegate, UINavigationBarDelegate>
 {
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *loginFBButton;
-    id<SignInCompleteProtocol> signInCompleteDelegate;
-    //id<ACHSetupCompleteProtocol> achSetupCompleteDelegate;
     SignInUserService *signInUserService;
     SignInWithFBService *service;
     Facebook *fBook;
     UIAlertView * bankAlert;
-    //SetupACHAccountController * setupACHAccountController;
     float animatedDistance;
     FacebookSignIn* faceBookSignInHelper;
 }
 
 @property(nonatomic, retain) UITextField *txtEmailAddress;
 @property(nonatomic, retain) UITextField *txtPassword;
-@property(retain) id signInCompleteDelegate;
-//@property(retain) id achSetupCompleteDelegate;
 @property(nonatomic, assign) UIView* viewPanel;
 @property(nonatomic, retain) Facebook * fBook;
 @property(nonatomic, retain) SignInWithFBService* service;

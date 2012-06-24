@@ -12,6 +12,7 @@
 
 @protocol SignInCompleteProtocol <NSObject>
 
-    -(void)signInDidComplete;
+-(void) userSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber;
+-(void) userSignInDidFail:response;
 
 @end

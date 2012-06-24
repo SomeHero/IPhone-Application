@@ -21,7 +21,6 @@
     NSLog(@"Passed deviceToken into registerUser of string: %@" , deviceId);
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSString *rootUrl = myEnvironment.pdthxWebServicesBaseUrl;
     NSString *apiKey = myEnvironment.pdthxAPIKey;
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];

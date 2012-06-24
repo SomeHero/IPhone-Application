@@ -34,9 +34,7 @@
     [sections release];
     [oldSecurityPin release];
     [newSecurityPin release];
-    [securityPinModal release];
-    [confirmSecurityPinModal release];
-    
+
     [super dealloc];
 }
 
@@ -255,118 +253,6 @@
     
 }
 
-- (void) showOldSecurityPin {
-    securityPinModal = [[[SetupSecurityPin alloc] initWithFrame:self.view.bounds] autorelease];
-    
-    securityPinModal.delegate = self;
-    securityPinModal.lblTitle.text = @"Input Your Old Pin";
-    securityPinModal.lblHeading.text = @"";
-    securityPinModal.tag = 1;
-    
-    ///////////////////////////////////
-    // Add the panel to our view
-    [self.view addSubview:securityPinModal];
-    
-    ///////////////////////////////////
-    // Show the panel from the center of the button that was pressed
-    [securityPinModal show];  
-}
-
-- (void) showNewSecurityPin {
-    securityPinModal = [[[SetupSecurityPin alloc] initWithFrame:self.view.bounds] autorelease];
-    
-    securityPinModal.delegate = self;
-    securityPinModal.lblTitle.text = @"Input Your New Pin";
-    securityPinModal.lblHeading.text = @"";
-    securityPinModal.tag = 2;
-    
-    ///////////////////////////////////
-    // Add the panel to our view
-    [self.view addSubview:securityPinModal];
-    
-    ///////////////////////////////////
-    // Show the panel from the center of the button that was pressed
-    [securityPinModal show];  
-}
-
--(void) securityPinComplete:(SetupSecurityPin*) modalPanel 
-               selectedCode:(NSString*) code {
-    
-    if([code length] < 4) {
-        [self showAlertView:@"Invalid Pin" withMessage:@"Select atleast 4 dots when setting up a pin"];
-    } else {
-        [modalPanel hide];
-        
-        
-        if (modalPanel.tag == 1) {
-            oldSecurityPin = [[NSString alloc] initWithString: code];
-            [self showNewSecurityPin];
-        }
-        else if (modalPanel.tag == 2) {
-            newSecurityPin = [[NSString alloc] initWithString: code];
-            
-            modalPanel.lblTitle.text = @"Confirm Your Pin";
-            modalPanel.lblHeading.text = @"";
-            
-            [modalPanel setNeedsDisplay];
-            
-            [self showConfirmSecurityPin];
-        }
-    }
-    
-    
-}
-
--(void) showConfirmSecurityPin {
-    confirmSecurityPinModal = [[ConfirmSecurityPinDialog alloc] initWithFrame:self.view.bounds];
-    
-    confirmSecurityPinModal.tag = 3;
-    confirmSecurityPinModal.delegate = self;
-    
-    ///////////////////////////////////
-    // Add the panel to our view
-    [self.view addSubview:confirmSecurityPinModal];
-    
-    ///////////////////////////////////
-    // Show the panel from the center of the button that was pressed
-    [confirmSecurityPinModal show];
-}
--(void) confirmSecurityPinComplete:(ConfirmSecurityPinDialog*) modalPanel 
-                      selectedCode:(NSString*) code {
-    
-    if([code length] < 4) {
-        [self showAlertView:@"Invalid Pin" withMessage:@"Your pin is atleast 4 dots"];
-    }
-    else if(![code isEqualToString:newSecurityPin])
-        [self showAlertView: @"Pin Mismatch" withMessage:@"The pins don't match. Try again"];
-    else {
-        [modalPanel hide];
-        [modalPanel removeFromSuperview];
-        
-        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [spinner setCenter:CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0)]; // I do this because I'm in landscape mode
-        [self.view addSubview:spinner]; // spinner is not visible until started
-        
-        [spinner startAnimating];
-        
-        //Do something.
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString* userId = [prefs stringForKey:@"userId"];
-        
-        
-        if (oldSecurityPin != NULL) {
-            [userService changeSecurityPin:userId WithOld:oldSecurityPin AndNew:newSecurityPin];
-        }
-        else {
-            [userService setupSecurityPin:userId WithPin:newSecurityPin];
-        }
-        
-        
-        
-    }
-    
-}
 
 -(void) userSecurityPinDidComplete {
     [spinner stopAnimating];

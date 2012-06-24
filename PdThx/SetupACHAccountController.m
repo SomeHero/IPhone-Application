@@ -16,18 +16,12 @@
 #import "CustomSecurityPinSwipeController.h"
 #import "AddSecurityQuestionViewController.h"
 
-@interface SetupACHAccountController ()
-- (void)createACHAccount;
-
-@end
-
 @implementation SetupACHAccountController
 
 @synthesize txtNameOnAccount;
 @synthesize txtConfirmAccountNumber;
 @synthesize txtAccountNumber;
 @synthesize txtRoutingNumber;
-@synthesize achSetupCompleteDelegate;
 @synthesize userSetupACHAccountComplete;
 @synthesize skipBankAlert;
 @synthesize securityPin;
@@ -52,7 +46,6 @@
     [userSetupACHAccountService release];
     [controller release];
     [securityQuestionController release];
-    //[achSetupCompleteDelegate release];
     [validationHelper release];
 
     [skipButton release];
@@ -199,9 +192,7 @@
     
     user.preferredPaymentAccountId = paymentAccountId;
     user.preferredReceiveAccountId = paymentAccountId;
-    
-    [achSetupCompleteDelegate achSetupDidComplete];
-    
+
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
     
     // Move to Home View Controller inside NavigationController again
@@ -348,7 +339,6 @@
         user.preferredPaymentAccountId = paymentAccountId;
         user.preferredReceiveAccountId = paymentAccountId;
         
-        [achSetupCompleteDelegate achSetupDidComplete];
     }
     else {
         [self showAlertView:@"Unable to setup ACH Acccount!" withMessage:@"Exception setting up your bank account information"];

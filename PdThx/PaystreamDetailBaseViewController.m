@@ -8,7 +8,6 @@
 
 #import "PaystreamDetailBaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "SetupSecurityPin.h"
 
 @implementation PaystreamDetailBaseViewController
 
@@ -295,13 +294,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [paystreamServices cancelPayment: messageDetail.messageId];
 }
 -(void)btnAcceptRequestClicked {
-    securityPinModalPanel = [[[ConfirmPaymentDialogController alloc] initWithFrame:self.view.bounds] autorelease];
-    
-    securityPinModalPanel.dialogTitle.text = @"Confirm Your Payment";
-    //securityPinModalPanel.dialogHeading.text = [NSString stringWithFormat: @"To confirm your payment of %@ to %@, swipe your pin below.", [[txtAmount.text copy] autorelease], recipientUri];
-    [securityPinModalPanel.btnCancelPayment setTitle: @"Cancel Payment" forState: UIControlStateNormal];
-    securityPinModalPanel.delegate = self;
-    
+
     controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm your Pin"];

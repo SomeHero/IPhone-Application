@@ -40,6 +40,10 @@
     [paystreamServices cancelPayment: messageDetail.messageId];
 }
 
+-(IBAction) btnSenderReminder:(id) sender {
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -94,5 +98,16 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened {
+    
+}
+- (void)pullableView:(PullableView *)pView didMoveLocation:(float)relativePosition {
+    
+}
+- (void)pullableView:(PullableView *)pView startedAnimation:(float)animationDuration withDirection:(BOOL)directionBoolean {
+    
+}
+
 
 @end

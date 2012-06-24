@@ -207,22 +207,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* userId = [prefs stringForKey:@"userId"];
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
-    
-    if([userId length] == 0)
-    {
-       signInViewController = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-        
-        [signInViewController setSignInCompleteDelegate: self];
-        [signInViewController setAchSetupCompleteDelegate:self];
-        
-        //[self.view addSubview:signInViewController.view];
-        [self.navigationController pushViewController:signInViewController animated:NO];
 
-    } else {
-        
-        [getPayStreamService getPayStream:userId];
-
-    }
+    [getPayStreamService getPayStream:userId];
 }
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
@@ -354,8 +340,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"transactionCell";
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
      

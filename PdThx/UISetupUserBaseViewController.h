@@ -26,5 +26,5 @@
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;
 -(void) signOutClicked;
 -(void) actionButtonClicked:(id)sender;
--(void)loadContacts;
+
 @end

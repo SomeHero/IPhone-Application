@@ -14,7 +14,7 @@
 
 @implementation UIBaseViewController
 
-@synthesize scrollView;
+@synthesize mainScrollView;
 
 //size of tab bar
 
@@ -45,8 +45,8 @@ CGSize scrollViewOriginalSize;
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
 
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    scrollView.contentInset = contentInsets;
-    scrollView.scrollIndicatorInsets = contentInsets;
+    mainScrollView.contentInset = contentInsets;
+    mainScrollView.scrollIndicatorInsets = contentInsets;
 
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your application might not need or want this behavior.
@@ -56,12 +56,12 @@ CGSize scrollViewOriginalSize;
     if ( [currTextField isKindOfClass:[UITextView class]] ){
         if (!CGRectContainsPoint(aRect, ((UITextView*)currTextField).frame.origin) ) {
             CGPoint scrollPoint = CGPointMake(0.0, (((UITextView*)currTextField).frame.origin.y + ((UITextView*)currTextField).frame.size.height) - (aRect.size.height + 40));
-            [scrollView setContentOffset:scrollPoint animated:YES];
+            [mainScrollView setContentOffset:scrollPoint animated:YES];
         }
     } else {
         if (!CGRectContainsPoint(aRect, ((UITextField*)currTextField).frame.origin) ) {
             CGPoint scrollPoint = CGPointMake(0.0, (((UITextField*)currTextField).frame.origin.y + ((UITextField*)currTextField).frame.size.height) - (aRect.size.height + 40));
-            [scrollView setContentOffset:scrollPoint animated:YES];
+            [mainScrollView setContentOffset:scrollPoint animated:YES];
         }
     }
 }
@@ -70,8 +70,8 @@ CGSize scrollViewOriginalSize;
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    scrollView.contentInset = contentInsets;
-    scrollView.scrollIndicatorInsets = contentInsets;
+    mainScrollView.contentInset = contentInsets;
+    mainScrollView.scrollIndicatorInsets = contentInsets;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -100,7 +100,7 @@ CGSize scrollViewOriginalSize;
 
 - (void)dealloc
 {
-    [scrollView release];
+    [mainScrollView release];
     [autoCompleteArray release];
     [allResults release];
     [phoneNumberFormatter release];
@@ -145,9 +145,7 @@ CGSize scrollViewOriginalSize;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    bool setupPassword = [prefs boolForKey:@"setupPassword"];
     NSString* userId = [prefs stringForKey: @"userId"];
-    
     
     if([userId length] > 0)
     {
