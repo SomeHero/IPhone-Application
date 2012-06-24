@@ -56,6 +56,8 @@
 }
 -(void) validateUserComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if([request responseStatusCode] == 200 || [request responseStatusCode] == 201 ) {
         NSLog(@"User Validation Success");
         
@@ -90,6 +92,7 @@
 -(void) validateUserFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"User Validation Failed with Exception");
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     NSString* response = [NSString stringWithString: @"Unable to validate user.  Try again."];
     

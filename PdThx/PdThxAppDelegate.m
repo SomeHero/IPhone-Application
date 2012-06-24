@@ -138,11 +138,6 @@
     
     [self loadAllContacts];
     
-    // TODO: Security Question Delegate
-    GetSecurityQuestionsService *serv = [[GetSecurityQuestionsService alloc] init];
-    serv.questionsLoadedDelegate = self;
-    [serv getSecurityQuestions:NO]; // Get All questions
-    
     [self.window makeKeyAndVisible];
     
     [[GANTracker sharedTracker] startTrackerWithAccountID:googleAnalyticsKey
@@ -170,14 +165,6 @@
     
 
     return YES;
-}
-
--(void)loadedSecurityQuestions:(NSMutableArray *)questionArray
-{
-    SecurityQuestionArray = questionArray;
-    for (NSDictionary* dict in SecurityQuestionArray){
-        NSLog(@"In app Delegate: %@", dict);
-    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -366,14 +353,31 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     int index = 0;
     for (int i = 1; i < nPeople; i++) {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
-        CFStringRef firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
-        CFStringRef lastName = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+        CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
-        NSString *contactFirstLast = [NSString stringWithFormat: @"%@ %@", (NSString *)firstName, (NSString *)lastName];
         
-        if([(NSString *)lastName length] == 0)
-            contactFirstLast = [NSString stringWithFormat: @"%@", (NSString *) firstName];
+        NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
+        firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
+        NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
+        lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
+        NSString *contactFirstLast = @"";
+        
+        if([firstName length] > 0) {
+            contactFirstLast = [NSString stringWithFormat: @"%@", firstName];
+        }
+        if([lastName length] > 0 && [contactFirstLast length] > 0) {
+            contactFirstLast = [NSString stringWithFormat: @"%@ %@", contactFirstLast, lastName];
+        } else if([lastName length] > 0) {
+             contactFirstLast = [NSString stringWithFormat: @"%@", lastName];
+        } else {
+            contactFirstLast = @"No Name Found"; 
+        }
+        
+        NSLog(@"%@", contactFirstLast);
         
         // Handles Multiple Phone Numbers for One Contact...
         if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){

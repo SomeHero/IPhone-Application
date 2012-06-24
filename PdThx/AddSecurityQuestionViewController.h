@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SecurityQuestionInputProtocol.h"
+#import "GetSecurityQuestionsService.h"
+#import "GetSecurityQuestionsProtocol.h"
 
-@interface AddSecurityQuestionViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+
+@interface AddSecurityQuestionViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol>
 {
     IBOutlet UIButton *chooseQuestionButton;
     IBOutlet UITextField *answerField;
@@ -19,6 +22,11 @@
     id<SecurityQuestionInputProtocol> securityQuestionEnteredDelegate;
     int questionId;
     NSString *questionAnswer;
+    NSString* navigationTitle;
+    NSString* headerText;
+    IBOutlet UILabel* currentQuestion;
+    GetSecurityQuestionsService* securityQuestionService;
+     NSMutableArray *securityQuestions;
 }
 
 @property (nonatomic, retain) UIButton *chooseQuestionButton;
@@ -28,9 +36,11 @@
 @property (nonatomic, retain) UIButton *submitButton;
 @property (nonatomic, retain) UIPickerView *questionPicker;
 @property (retain) id<SecurityQuestionInputProtocol> securityQuestionEnteredDelegate;
-
+@property(nonatomic, retain) NSString* navigationTitle;
+@property(nonatomic, retain) NSString* headerText;
 
 - (IBAction)showQuestionPicker:(id)sender;
 - (IBAction)doSubmit:(id)sender;
+-(IBAction) bgTouched:(id) sender;
 
 @end

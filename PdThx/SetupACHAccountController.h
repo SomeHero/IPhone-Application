@@ -17,6 +17,8 @@
 #import "UISetupUserBaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SecurityQuestionInputProtocol.h"
+#import "AddSecurityQuestionViewController.h"
+#import "ValidationHelper.h"
 
 @interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate, SecurityQuestionInputProtocol> {
     IBOutlet UITextField* txtNameOnAccount;
@@ -29,7 +31,9 @@
     UIAlertView * skipBankAlert;
     IBOutlet UIBarButtonItem *skipButton;
     CustomSecurityPinSwipeController *controller;
+    AddSecurityQuestionViewController *securityQuestionController;
     NSString* securityPin;
+    ValidationHelper* validationHelper;
 }
 
 @property(nonatomic, retain) UITextField* txtNameOnAccount;
@@ -49,10 +53,5 @@
 
 
 - (IBAction)doSkip:(id)sender;
-
--(BOOL)isValidNameOnAccount:(NSString *) nameToTest;
--(BOOL)isValidRoutingNumber:(NSString *) routingNumberToTest;
--(BOOL)isValidAccountNumber:(NSString *) accountNumberToTest;
--(BOOL)doesAccountNumberMatch:(NSString *) accountNumberToTest doesMatch:(NSString *) confirmationNumber;
 
 @end

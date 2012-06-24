@@ -28,6 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    validationHelper = [[ValidationHelper alloc] init];
+    
     // Do any additional setup after loading the view from its nib.
     UIBarButtonItem *cancelButton =  [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemAction target:self action:@selector(cancelClicked)];
     
@@ -57,21 +60,68 @@
 
 -(IBAction) btnCreateAccountClicked:(id)sender
 {
-    controller = [[[CustomSecurityPinSwipeController alloc] init] retain];
-    [controller setSecurityPinSwipeDelegate: self];
+    NSString* nameOnAccount = [NSString stringWithString: @""];
+    NSString* routingNumber = [NSString stringWithString: @""];
+    NSString* accountNumber = [NSString stringWithString: @""];
+    NSString* confirmAccountNumber = [NSString stringWithString: @""];
 
-    if(user.hasSecurityPin)
+    if([txtNameOnAccount.text length] > 0)
+        nameOnAccount = [NSString stringWithString: txtNameOnAccount.text];
+    
+    if([txtRoutingNumber.text length] > 0)
+        routingNumber = [NSString stringWithString: txtRoutingNumber.text];
+    
+    if([txtAccountNumber.text length] > 0)
+        accountNumber = [NSString stringWithString: txtAccountNumber.text];
+    
+    if([txtConfirmAccountNumber.text length] > 0)
+        confirmAccountNumber = [NSString stringWithString: txtConfirmAccountNumber.text];
+    
+    BOOL isValid = YES;
+    
+    if(isValid && ![validationHelper isValidNameOnAccount:nameOnAccount])
     {
-        [controller setHeaderText: @"Swipe your pin to add your new bank account"];
-        [controller setNavigationTitle: @"Confirm"];
-        [controller setTag: 1];
+        [self showAlertView:@"Invalid Name on Account!" withMessage: @"You did not enter the name on account.  Please try again."];
+        
+        isValid = NO;
     }
-    else {
-        [controller setHeaderText: @"To complete setting up your account, create a security pin by connecting 4 buttons below."];
-        [controller setNavigationTitle: @"Setup your Pin"];
-        [controller setTag: 1];
+    if(isValid && ![validationHelper isValidRoutingNumber:routingNumber])
+    {
+        [self showAlertView:@"Invalid Routing Number!" withMessage:@"The routing number you entered is invalid. Please try again."];
+        
+        isValid = NO;
     }
-    [self.parentViewController presentModalViewController:controller animated:YES];
+    if(isValid && ![validationHelper isValidAccountNumber:accountNumber])
+    {
+        [self showAlertView:@"Invalid Account Number!" withMessage:@"The account number you entered is invalid. Please try again."];
+        
+        isValid = NO;
+    }
+    if(isValid && ![validationHelper doesAccountNumberMatch: accountNumber doesMatch: confirmAccountNumber])
+    {
+        [self showAlertView:@"Account Number Mismatch!" withMessage:@"The account numbers do not match. Please try again."];
+        
+        isValid = NO;
+    }
+    
+    if(isValid) {
+
+        controller = [[[CustomSecurityPinSwipeController alloc] init] retain];
+        [controller setSecurityPinSwipeDelegate: self];
+        
+        if(user.hasSecurityPin)
+        {
+            [controller setHeaderText: @"Swipe your pin to add your new bank account"];
+            [controller setNavigationTitle: @"Confirm"];
+            [controller setTag: 1];
+        }
+        else {
+            [controller setHeaderText: @"To complete setting up your account, create a security pin by connecting 4 buttons below."];
+            [controller setNavigationTitle: @"Setup your Pin"];
+            [controller setTag: 1];
+        }
+        [self.parentViewController presentModalViewController:controller animated:YES];
+    }
 }
 -(void)cancelClicked {
     [self dismissModalViewControllerAnimated:YES];
@@ -81,11 +131,15 @@
 {
     if(user.hasSecurityPin)
     {
-        [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:pin];
+        securityPin = pin;
+        
+        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
     }
     else {
         if([sender tag] == 1)
         {
+            securityPin = pin;
+        
             controller =[[[CustomSecurityPinSwipeController alloc] init] retain];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm your Pin"];
@@ -96,10 +150,27 @@
             [controller release];
         }
         else if([sender tag] == 2)
-            [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:pin];
+            
+            securityPin = pin;
         
+            addSecurityQuestionController = [[[AddSecurityQuestionViewController alloc] init] retain];
+        
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
+        
+            [addSecurityQuestionController setSecurityQuestionEnteredDelegate:self];
+            [addSecurityQuestionController setNavigationTitle: @"Add a Security Question"];
+        
+            [self presentModalViewController:navBar animated:YES];
+        
+            [navBar release];
         
     }
+}
+-(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
+{
+    [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
+    
+    [self dismissModalViewControllerAnimated:YES];
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
     
@@ -155,5 +226,8 @@
     [super dealloc];
     
     [navBarTitle release];
-    [headerText release];}
+    [headerText release];
+    [securityPin release];
+    [validationHelper release];
+}
 @end
