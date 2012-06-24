@@ -38,7 +38,7 @@
 @synthesize contactHead;
 @synthesize contactDetail, lm;
 @synthesize amount, chooseAmountButton, characterCountLabel;
-
+@synthesize contactButtonBGImage, amountButtonBGImage;
 
 float tableHeight = 30;
 
@@ -407,6 +407,9 @@ float tableHeight = 30;
 
     [self.mainScrollView scrollsToTop];
     
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
+    
     TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
     [controller setTransactionConfirmationDelegate: self];
@@ -419,6 +422,9 @@ float tableHeight = 30;
     [self showAlertView: @"Error Sending Money" withMessage: message];
 }
 -(void)onHomeClicked {
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
+    
     txtAmount.text = @"0.00";
     
     [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
@@ -430,6 +436,10 @@ float tableHeight = 30;
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
 }
 -(void)onContinueClicked {
+    
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
+    
     txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
@@ -444,6 +454,7 @@ float tableHeight = 30;
 
 -(void)didChooseContact:(Contact *)contact
 {
+    contactButtonBGImage.highlighted = YES;
     recipient = contact;
     if ( contact.imgData )
         [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
@@ -473,11 +484,8 @@ float tableHeight = 30;
 
 -(void)didSelectAmount:(double)amountSent
 {
-    NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
-    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-    [numberFormatter setCurrencySymbol:@""];
-    NSString *numberAsString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:amountSent]];
-    txtAmount.text = [NSString stringWithFormat:@"%@",numberAsString];
+    amountButtonBGImage.highlighted = YES;
+    txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
 
 
