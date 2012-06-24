@@ -411,7 +411,7 @@
 										<string key="NSFrame">{{243, 156}, {60, 31}}</string>
 										<reference key="NSSuperview" ref="620361931"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
+										<reference key="NSNextKeyView" ref="498133478"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -580,6 +580,22 @@
 						<reference key="destination" ref="931325739"/>
 					</object>
 					<int key="connectionID">84</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">amountButtonBGImage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="541311064"/>
+					</object>
+					<int key="connectionID">87</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">contactButtonBGImage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="164438063"/>
+					</object>
+					<int key="connectionID">88</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -824,7 +840,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">84</int>
+			<int key="maxID">88</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -889,11 +905,13 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>amountButtonBGImage</string>
 							<string>attachPictureButton</string>
 							<string>btnSendRequest</string>
 							<string>characterCountLabel</string>
 							<string>chooseAmountButton</string>
 							<string>chooseRecipientButton</string>
+							<string>contactButtonBGImage</string>
 							<string>contactDetail</string>
 							<string>contactHead</string>
 							<string>recipientImageButton</string>
@@ -903,11 +921,13 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIImageView</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UITextField</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIButton</string>
@@ -920,11 +940,13 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>amountButtonBGImage</string>
 							<string>attachPictureButton</string>
 							<string>btnSendRequest</string>
 							<string>characterCountLabel</string>
 							<string>chooseAmountButton</string>
 							<string>chooseRecipientButton</string>
+							<string>contactButtonBGImage</string>
 							<string>contactDetail</string>
 							<string>contactHead</string>
 							<string>recipientImageButton</string>
@@ -934,6 +956,10 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">amountButtonBGImage</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">attachPictureButton</string>
 								<string key="candidateClassName">UIButton</string>
@@ -953,6 +979,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">chooseRecipientButton</string>
 								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">contactButtonBGImage</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">contactDetail</string>

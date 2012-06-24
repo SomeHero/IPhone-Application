@@ -167,7 +167,6 @@
 		54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54FA473E1594AEFE007CFA33 /* AddACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */; };
-		54FA47401594AF2A007CFA33 /* RequestMoneyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA473F1594AF2A007CFA33 /* RequestMoneyController.xib */; };
 		54FA47441594C3AF007CFA33 /* AddSecurityQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */; };
 		54FA47451594C3AF007CFA33 /* AddSecurityQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */; };
 		54FA47481595B74E007CFA33 /* GetSecurityQuestionsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47471595B74D007CFA33 /* GetSecurityQuestionsService.m */; };
@@ -451,28 +450,28 @@
 		5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */; };
 		5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B905803157FCB9D00D0373B /* PaystreamService.m */; };
 		5BABF06915975DEB00FB4BD5 /* ValidationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */; };
-		5BB1452A158ADC5000EA652A /* stampCancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14529158ADC5000EA652A /* stampCancelled.png */; };
-		5BB1452C158ADCE200EA652A /* stampPaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452B158ADCE200EA652A /* stampPaid.png */; };
-		5BB14530158ADD0700EA652A /* stampRefunded.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452D158ADD0700EA652A /* stampRefunded.png */; };
-		5BB14531158ADD0700EA652A /* stampRejected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452E158ADD0700EA652A /* stampRejected.png */; };
-		5BB14532158ADD0700EA652A /* stampReturned.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1452F158ADD0700EA652A /* stampReturned.png */; };
-		5BB14534158ADD3100EA652A /* stampPaid2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14533158ADD3100EA652A /* stampPaid2x.png */; };
-		5BB14536158ADD3B00EA652A /* stampCancelled2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14535158ADD3B00EA652A /* stampCancelled2x.png */; };
-		5BB14538158ADD4500EA652A /* stampRefunded2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14537158ADD4500EA652A /* stampRefunded2x.png */; };
-		5BB1453A158ADD4D00EA652A /* stampRejected2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14539158ADD4D00EA652A /* stampRejected2x.png */; };
-		5BB1453C158ADD5A00EA652A /* stampReturned2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB1453B158ADD5A00EA652A /* stampReturned2x.png */; };
+		5BB1452A158ADC5000EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB1452C158ADCE200EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB14530158ADD0700EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB14531158ADD0700EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB14532158ADD0700EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB14534158ADD3100EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB14536158ADD3B00EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB14538158ADD4500EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB1453A158ADD4D00EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB1453C158ADD5A00EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5BB14561158B948C00EA652A /* AmountSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14560158B948C00EA652A /* AmountSelectViewController.xib */; };
 		5BB14576158B961A00EA652A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB14575158B961A00EA652A /* MainWindow.xib */; };
-		5BB145B8158B989600EA652A /* stampCancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145AE158B989600EA652A /* stampCancelled.png */; };
-		5BB145B9158B989600EA652A /* stampCancelled2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145AF158B989600EA652A /* stampCancelled2x.png */; };
-		5BB145BA158B989600EA652A /* stampPaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B0158B989600EA652A /* stampPaid.png */; };
-		5BB145BB158B989600EA652A /* stampPaid2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B1158B989600EA652A /* stampPaid2x.png */; };
-		5BB145BC158B989600EA652A /* stampRefunded.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B2158B989600EA652A /* stampRefunded.png */; };
-		5BB145BD158B989600EA652A /* stampRefunded2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B3158B989600EA652A /* stampRefunded2x.png */; };
-		5BB145BE158B989600EA652A /* stampRejected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B4158B989600EA652A /* stampRejected.png */; };
-		5BB145BF158B989600EA652A /* stampRejected2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B5158B989600EA652A /* stampRejected2x.png */; };
-		5BB145C0158B989600EA652A /* stampReturned.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B6158B989600EA652A /* stampReturned.png */; };
-		5BB145C1158B989600EA652A /* stampReturned2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB145B7158B989600EA652A /* stampReturned2x.png */; };
+		5BB145B8158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145B9158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145BA158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145BB158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145BC158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145BD158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145BE158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145BF158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145C0158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
+		5BB145C1158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5BB145E5158C284500EA652A /* FacebookSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB145E4158C284500EA652A /* FacebookSignIn.m */; };
 		5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE183214DECC93002A3618 /* SendMoneyRequest.m */; };
 		5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BBE183414DF2D13002A3618 /* Entitlements.plist */; };
@@ -504,6 +503,13 @@
 		5BEBF01914B2281900379108 /* ProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEBF01714B2281900379108 /* ProfileController.m */; };
 		5BEBF01A14B2281900379108 /* ProfileController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01814B2281900379108 /* ProfileController.xib */; };
 		5BEBF01C14B2282A0037910A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BEBF01C14B2282A00379109 /* Localizable.strings */; };
+		5BF07AE6159784190020EA2F /* btn-pinswipe-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */; };
+		5BF07AE7159784190020EA2F /* btn-pinswipe-70x70@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */; };
+		5BF07AE8159784190020EA2F /* btn-pinswipe-pressed-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE2159784190020EA2F /* btn-pinswipe-pressed-70x70.png */; };
+		5BF07AE9159784190020EA2F /* btn-pinswipe-pressed-70x70@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE3159784190020EA2F /* btn-pinswipe-pressed-70x70@2x.png */; };
+		5BF07AEA159784190020EA2F /* btn-pinswipe-selected-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE4159784190020EA2F /* btn-pinswipe-selected-70x70.png */; };
+		5BF07AEB159784190020EA2F /* btn-pinswipe-selected-70x70@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE5159784190020EA2F /* btn-pinswipe-selected-70x70@2x.png */; };
+		5BF07B0015978A200020EA2F /* RequestMoneyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AFF15978A200020EA2F /* RequestMoneyController.xib */; };
 		5BF1F1F0158CCCD700CFBF77 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */; };
 		5BF1F205158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF1F203158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m */; };
 		5BF1F206158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F204158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib */; };
@@ -721,7 +727,6 @@
 		54E3DDEA15713E6700F63820 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
 		54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactSelectChosenProtocol.h; sourceTree = "<group>"; };
 		54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddACHAccountViewController.xib; sourceTree = "<group>"; };
-		54FA473F1594AF2A007CFA33 /* RequestMoneyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestMoneyController.xib; sourceTree = "<group>"; };
 		54FA47411594C3AF007CFA33 /* AddSecurityQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSecurityQuestionViewController.h; sourceTree = "<group>"; };
 		54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSecurityQuestionViewController.m; sourceTree = "<group>"; };
 		54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSecurityQuestionViewController.xib; sourceTree = "<group>"; };
@@ -776,7 +781,6 @@
 		5B692C5214D4777D00E6E663 /* SendMoneyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendMoneyController.xib; sourceTree = "<group>"; };
 		5B692CB814D5E9DB00E6E663 /* RequestMoneyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyController.h; sourceTree = "<group>"; };
 		5B692CB914D5E9DE00E6E663 /* RequestMoneyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestMoneyController.m; sourceTree = "<group>"; };
-		5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestMoneyController.xib; path = "/Users/PaidThx/Desktop/My Fork/PdThx/RequestMoneyController.xib"; sourceTree = "<absolute>"; };
 		5B69DF7914AE6067003A0F66 /* PaidThx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaidThx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B69DF7D14AE6067003A0F66 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5B69DF7F14AE6067003A0F66 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1118,6 +1122,13 @@
 		5BEBF01714B2281900379108 /* ProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileController.m; sourceTree = "<group>"; };
 		5BEBF01814B2281900379108 /* ProfileController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileController.xib; sourceTree = "<group>"; };
 		5BEBF01C14B2282A00379109 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-70x70.png"; sourceTree = "<group>"; };
+		5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-70x70@2x.png"; sourceTree = "<group>"; };
+		5BF07AE2159784190020EA2F /* btn-pinswipe-pressed-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-pressed-70x70.png"; sourceTree = "<group>"; };
+		5BF07AE3159784190020EA2F /* btn-pinswipe-pressed-70x70@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-pressed-70x70@2x.png"; sourceTree = "<group>"; };
+		5BF07AE4159784190020EA2F /* btn-pinswipe-selected-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-selected-70x70.png"; sourceTree = "<group>"; };
+		5BF07AE5159784190020EA2F /* btn-pinswipe-selected-70x70@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-selected-70x70@2x.png"; sourceTree = "<group>"; };
+		5BF07AFF15978A200020EA2F /* RequestMoneyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestMoneyController.xib; sourceTree = "<group>"; };
 		5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		5BF1F202158EAF6400CFBF77 /* CustomSecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeController.h; sourceTree = "<group>"; };
 		5BF1F203158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPinSwipeController.m; sourceTree = "<group>"; };
@@ -1271,8 +1282,8 @@
 		541EE60D158A712100131B0E /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				5BF07AFF15978A200020EA2F /* RequestMoneyController.xib */,
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
-				5B692CBA14D5E9E000E6E663 /* RequestMoneyController.xib */,
 			);
 			name = "Send/Request Money";
 			sourceTree = "<group>";
@@ -1841,16 +1852,6 @@
 				5438039B1562BE6B00BD6284 /* request_decide_icon.png */,
 				5438039C1562BE6B00BD6284 /* request_money_off.png */,
 				5438039D1562BE6B00BD6284 /* request_pending_icon.png */,
-				5BB145AE158B989600EA652A /* stampCancelled.png */,
-				5BB145AF158B989600EA652A /* stampCancelled2x.png */,
-				5BB145B0158B989600EA652A /* stampPaid.png */,
-				5BB145B1158B989600EA652A /* stampPaid2x.png */,
-				5BB145B2158B989600EA652A /* stampRefunded.png */,
-				5BB145B3158B989600EA652A /* stampRefunded2x.png */,
-				5BB145B4158B989600EA652A /* stampRejected.png */,
-				5BB145B5158B989600EA652A /* stampRejected2x.png */,
-				5BB145B6158B989600EA652A /* stampReturned.png */,
-				5BB145B7158B989600EA652A /* stampReturned2x.png */,
 				5438039E1562BE6B00BD6284 /* transaction_complete_icon.png */,
 				5438039F1562BE6B00BD6284 /* transaction_pending_icon.png */,
 				543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */,
@@ -1873,6 +1874,12 @@
 		54CACB3B1586789D00631B84 /* Pin Swipe Images */ = {
 			isa = PBXGroup;
 			children = (
+				5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */,
+				5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */,
+				5BF07AE2159784190020EA2F /* btn-pinswipe-pressed-70x70.png */,
+				5BF07AE3159784190020EA2F /* btn-pinswipe-pressed-70x70@2x.png */,
+				5BF07AE4159784190020EA2F /* btn-pinswipe-selected-70x70.png */,
+				5BF07AE5159784190020EA2F /* btn-pinswipe-selected-70x70@2x.png */,
 				5BF1F208158EB05F00CFBF77 /* btn-pinswipe-60x60@2x.png */,
 				5BF1F209158EB05F00CFBF77 /* btn-pinswipe-pressed-60x60@2x.png */,
 				5BF1F20A158EB05F00CFBF77 /* btn-pinswipe-selected-60x60@2x.png */,
@@ -2315,7 +2322,6 @@
 				5BD278FA153E7F0300CAFC12 /* Dialogs */,
 				5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */,
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
-				54FA473F1594AF2A007CFA33 /* RequestMoneyController.xib */,
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
 				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
@@ -2792,28 +2798,28 @@
 				541EE61B158A7C1000131B0E /* icon-setup-checkbox@2x.png in Resources */,
 				541EE61E158A7C1E00131B0E /* icon-setup-checkbox-checked.png in Resources */,
 				541EE61F158A7C1E00131B0E /* icon-setup-checkbox.png in Resources */,
-				5BB1452A158ADC5000EA652A /* stampCancelled.png in Resources */,
-				5BB1452C158ADCE200EA652A /* stampPaid.png in Resources */,
-				5BB14530158ADD0700EA652A /* stampRefunded.png in Resources */,
-				5BB14531158ADD0700EA652A /* stampRejected.png in Resources */,
-				5BB14532158ADD0700EA652A /* stampReturned.png in Resources */,
-				5BB14534158ADD3100EA652A /* stampPaid2x.png in Resources */,
-				5BB14536158ADD3B00EA652A /* stampCancelled2x.png in Resources */,
-				5BB14538158ADD4500EA652A /* stampRefunded2x.png in Resources */,
-				5BB1453A158ADD4D00EA652A /* stampRejected2x.png in Resources */,
-				5BB1453C158ADD5A00EA652A /* stampReturned2x.png in Resources */,
+				5BB1452A158ADC5000EA652A /* (null) in Resources */,
+				5BB1452C158ADCE200EA652A /* (null) in Resources */,
+				5BB14530158ADD0700EA652A /* (null) in Resources */,
+				5BB14531158ADD0700EA652A /* (null) in Resources */,
+				5BB14532158ADD0700EA652A /* (null) in Resources */,
+				5BB14534158ADD3100EA652A /* (null) in Resources */,
+				5BB14536158ADD3B00EA652A /* (null) in Resources */,
+				5BB14538158ADD4500EA652A /* (null) in Resources */,
+				5BB1453A158ADD4D00EA652A /* (null) in Resources */,
+				5BB1453C158ADD5A00EA652A /* (null) in Resources */,
 				5BB14561158B948C00EA652A /* AmountSelectViewController.xib in Resources */,
 				5BB14576158B961A00EA652A /* MainWindow.xib in Resources */,
-				5BB145B8158B989600EA652A /* stampCancelled.png in Resources */,
-				5BB145B9158B989600EA652A /* stampCancelled2x.png in Resources */,
-				5BB145BA158B989600EA652A /* stampPaid.png in Resources */,
-				5BB145BB158B989600EA652A /* stampPaid2x.png in Resources */,
-				5BB145BC158B989600EA652A /* stampRefunded.png in Resources */,
-				5BB145BD158B989600EA652A /* stampRefunded2x.png in Resources */,
-				5BB145BE158B989600EA652A /* stampRejected.png in Resources */,
-				5BB145BF158B989600EA652A /* stampRejected2x.png in Resources */,
-				5BB145C0158B989600EA652A /* stampReturned.png in Resources */,
-				5BB145C1158B989600EA652A /* stampReturned2x.png in Resources */,
+				5BB145B8158B989600EA652A /* (null) in Resources */,
+				5BB145B9158B989600EA652A /* (null) in Resources */,
+				5BB145BA158B989600EA652A /* (null) in Resources */,
+				5BB145BB158B989600EA652A /* (null) in Resources */,
+				5BB145BC158B989600EA652A /* (null) in Resources */,
+				5BB145BD158B989600EA652A /* (null) in Resources */,
+				5BB145BE158B989600EA652A /* (null) in Resources */,
+				5BB145BF158B989600EA652A /* (null) in Resources */,
+				5BB145C0158B989600EA652A /* (null) in Resources */,
+				5BB145C1158B989600EA652A /* (null) in Resources */,
 				5BC9C3BD158C459400E20D9D /* CreateAccountViewController.xib in Resources */,
 				5BF1F1F0158CCCD700CFBF77 /* SignInViewController.xib in Resources */,
 				5BF1F206158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib in Resources */,
@@ -2865,8 +2871,14 @@
 				5B8B4FC01593954900820B3E /* btn-send-146x130.png in Resources */,
 				5B8B4FC11593954900820B3E /* btn-send-146x130@2x.png in Resources */,
 				54FA473E1594AEFE007CFA33 /* AddACHAccountViewController.xib in Resources */,
-				54FA47401594AF2A007CFA33 /* RequestMoneyController.xib in Resources */,
 				54FA47451594C3AF007CFA33 /* AddSecurityQuestionViewController.xib in Resources */,
+				5BF07AE6159784190020EA2F /* btn-pinswipe-70x70.png in Resources */,
+				5BF07AE7159784190020EA2F /* btn-pinswipe-70x70@2x.png in Resources */,
+				5BF07AE8159784190020EA2F /* btn-pinswipe-pressed-70x70.png in Resources */,
+				5BF07AE9159784190020EA2F /* btn-pinswipe-pressed-70x70@2x.png in Resources */,
+				5BF07AEA159784190020EA2F /* btn-pinswipe-selected-70x70.png in Resources */,
+				5BF07AEB159784190020EA2F /* btn-pinswipe-selected-70x70@2x.png in Resources */,
+				5BF07B0015978A200020EA2F /* RequestMoneyController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

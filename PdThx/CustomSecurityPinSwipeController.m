@@ -83,9 +83,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     custom.repeatSelection=YES;
     custom.radiusPercentage=10;
     custom.delegate=self;
-    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-60x60.png"] forState:UIControlStateNormal];
-    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-selected-60x60.png"] forState:UIControlStateSelected];
-    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-pressed-60x60.png"] forState:UIControlStateHighlighted];
+    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-70x70.png"] forState:UIControlStateNormal];
+    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-selected70x70.png"] forState:UIControlStateSelected];
+    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-pressed-70x70.png"] forState:UIControlStateHighlighted];
     for (int i=0;i<[custom.cells count];i++) {
         UIButton* b=(UIButton*)[custom.cells objectAtIndex:i];        
         
@@ -108,6 +108,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     //[self.view addSubview:body];
 }
 -(void)viewDidAppear:(BOOL)animated {
+    
+    NSLog(@"%@", headerText);
     
     lblHeader.text = headerText;
     
