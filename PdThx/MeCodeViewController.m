@@ -106,7 +106,7 @@
 }
 -(void)meCodeCreateDidFail:(NSString*) response
 {
-    NSLog(response);
+    NSLog(@"%@", response);
 }
 
 - (IBAction)CheckAvailibilityButtonAction:(id)sender {

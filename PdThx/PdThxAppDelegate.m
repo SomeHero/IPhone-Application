@@ -20,15 +20,13 @@
 #import "ContactSelectViewController.h"
 #import "UINavigationBar+CustomImage.h"
 #import "GANTracker.h"
-#import "GetSecurityQuestionsService.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
-@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,
-    permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
-@synthesize user, securityQuestionCompleteDelegate, SecurityQuestionArray;
+@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
+@synthesize user;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -488,8 +486,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
     [prefs synchronize];
 }
-
-
+- (void)fbDidNotLogin:(BOOL)cancelled {
+    
+}
+- (void)fbDidExtendToken:(NSString*)accessToken
+               expiresAt:(NSDate*)expiresAt {
+    
+}
+- (void)fbDidLogout {
+    
+}
+- (void)fbSessionInvalidated {
+    
+}
 - (void)dealloc
 {
     [_window release];

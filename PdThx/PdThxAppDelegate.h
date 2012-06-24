@@ -12,10 +12,10 @@
 #import "User.h"
 #import "GANTracker.h"
 #import "Environment.h"
-#import "GetSecurityQuestionsProtocol.h"
+
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FBSessionDelegate,FBRequestDelegate, GetSecurityQuestionsProtocol> {
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FBSessionDelegate, FBRequestDelegate> {
     Facebook * fBook;
     NSString * deviceToken;
     NSMutableArray *contactsArray;
@@ -29,7 +29,6 @@
     FBRequest *infoRequest;
     User* user;
     NSInteger currentReminderTab;
-    id<GetSecurityQuestionsProtocol> securityQuestionCompleteDelegate;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -48,17 +47,11 @@
 @property (nonatomic, retain) FBRequest *infoRequest;
 @property(nonatomic, retain) User* user;
 
-@property(nonatomic, retain) NSMutableArray *SecurityQuestionArray;
-
-@property(retain) id<GetSecurityQuestionsProtocol> securityQuestionCompleteDelegate;
-
-
 -(void)signOut;
 -(void)forgetMe;
 -(void)switchToSendMoneyController;
 -(void)switchToRequestMoneyController;
 -(void)switchToPaystreamController;
--(void)backToHomeView;
 -(void)loadAllContacts;
 
 -(void)switchToMainAreaTabbedView;

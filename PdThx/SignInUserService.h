@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequest.h"
-#import "UserSignInCompleteProtocol.h"
+#import "SignInCompleteProtocol.h"
 
 @interface SignInUserService : NSObject {
     ASIHTTPRequest *requestObj;
-    id<UserSignInCompleteProtocol> signInCompleteDelegate;
+    id<SignInCompleteProtocol> userSignInCompleteDelegate;
 }
 
 @property(retain) id userSignInCompleteDelegate;

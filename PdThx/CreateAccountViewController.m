@@ -47,8 +47,6 @@
     [txtConfirmPassword release];
     [btnCreateAccount release];
     [viewPanel release];
-    [securityPinModal release];
-    [confirmSecurityPinModal release];
     [spinner release];
     [securityPin release];
     
@@ -105,7 +103,6 @@
             
             SetupACHAccountController* setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle:nil];
             
-            [setupACHAccountController setAchSetupCompleteDelegate:self];
             [self.navigationController pushViewController:setupACHAccountController animated:true];
             
             [setupACHAccountController release];
@@ -271,52 +268,6 @@
 -(IBAction) btnCreateAccountClicked:(id) sender {
     [self createAccount];    
 }
-
--(void) securityPinComplete:(SetupSecurityPin*) modalPanel 
-               selectedCode:(NSString*) code {
-    
-    if([code length] < 4) {
-        [self showAlertView:@"Invalid Pin" withMessage:@"Select atleast 4 dots when setting up a pin"];
-    } else {
-        [modalPanel hide];
-        
-        securityPin = [[NSString alloc] initWithString: code];
-        
-        modalPanel.lblTitle.text = @"Confirm Your Pin";
-        modalPanel.lblHeading.text = @"Great, now let's confirm your pin, by connecting the same dots in the same pattern";
-        
-        [modalPanel setNeedsDisplay];
-        
-        [self showConfirmSecurityPin];
-    }
-    
-    
-}
--(void) confirmSecurityPinComplete:(ConfirmSecurityPinDialog*) modalPanel 
-                      selectedCode:(NSString*) code {
-    
-    if([code length] < 4) {
-        [self showAlertView:@"Invalid Pin" withMessage:@"Your pin is atleast 4 dots"];
-    }
-    else if(![code isEqualToString:securityPin])
-        [self showAlertView: @"Pin Mismatch" withMessage:@"The pins don't match. Try again"];
-    else {
-        [modalPanel hide];
-        [modalPanel removeFromSuperview];
-        
-        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [spinner setCenter:CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0)]; // I do this because I'm in landscape mode
-        [self.view addSubview:spinner]; // spinner is not visible until started
-        
-        [spinner startAnimating];
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSLog(@"Prefs currenty stores: %@" , [prefs stringForKey:@"deviceToken"]);
-        
-        [registerUserService registerUser:userName withPassword:password withMobileNumber:@"" withSecurityPin:securityPin withDeviceId:[prefs stringForKey:@"deviceToken"]];
-    }
-    
-}
 -(void)userRegistrationDidComplete:(NSString*) userId withSenderUri:(NSString*) senderUri 
 {
     [spinner stopAnimating];
@@ -359,20 +310,6 @@
 
 -(void)fbSignInDidFail:(NSString *) reason {
     [self showAlertView:@"Facebook Sign In Failed" withMessage:[NSString stringWithFormat:@"%@. Check your username, password, and data connection.",reason]];
-}
--(void) showConfirmSecurityPin {
-    confirmSecurityPinModal = [[ConfirmSecurityPinDialog alloc] initWithFrame:self.view.bounds];
-    
-    confirmSecurityPinModal.tag = 1;
-    confirmSecurityPinModal.delegate = self;
-    
-    ///////////////////////////////////
-    // Add the panel to our view
-    [self.view addSubview:confirmSecurityPinModal];
-    
-    ///////////////////////////////////
-    // Show the panel from the center of the button that was pressed
-    [confirmSecurityPinModal show];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtEmailAddress resignFirstResponder];

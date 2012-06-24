@@ -14,7 +14,6 @@
 #import "Contact.h"
 #import "Environment.h"
 #import "SignInViewController.h"
-#import "SetupSecurityPin.h"
 #import "RequestMoneyService.h"
 #import "ContactSelectViewController.h"
 #import "AmountSelectViewController.h"
@@ -106,8 +105,8 @@ float tableHeight = 30;
     
     /*                  View Setup              */
     /*  --------------------------------------- */
-    scrollView.frame = CGRectMake(0, 0, 320, 420);
-    [scrollView setContentSize:CGSizeMake(320, 420)];
+    mainScrollView.frame = CGRectMake(0, 0, 320, 420);
+    [mainScrollView setContentSize:CGSizeMake(320, 420)];
     //[whiteBoxView.layer  setCornerRadius:7.0];
     
     
@@ -293,13 +292,13 @@ float tableHeight = 30;
 
     if(success) {
 
-        [self.scrollView scrollsToTop];
+        [self.mainScrollView scrollsToTop];
 
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"0.00"];
         [txtComments setText: @""];
         
-        [[self scrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+        [[self mainScrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
 
     }
@@ -406,7 +405,7 @@ float tableHeight = 30;
 }
 -(void)requestMoneyDidComplete {
 
-    [self.scrollView scrollsToTop];
+    [self.mainScrollView scrollsToTop];
     
     TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];

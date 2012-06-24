@@ -39,4 +39,6 @@
 @property(nonatomic, retain) NSString* senderName;
 @property (nonatomic, retain) UIImage * imgData;
 
+-(id)initWithDictionary:(NSDictionary *)dictionary;
+
 @end

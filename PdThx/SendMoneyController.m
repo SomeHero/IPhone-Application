@@ -13,14 +13,12 @@
 #import "ASIHTTPRequest.h"
 #import "Contact.h"
 #import "SignInViewController.h"
-#import "SetupSecurityPin.h"
 #import "SendMoneyService.h"
 #import "ContactSelectViewController.h"
 #import "AmountSelectViewController.h"
 
 @interface SendMoneyController ()
-- (void)sendMoney;
-
+-(void) sendMoney;
 @end
 
 @implementation SendMoneyController
@@ -113,8 +111,8 @@ float tableHeight2 = 30;
 
     /*                  View Setup              */
     /*  --------------------------------------- */
-    scrollView.frame = CGRectMake(0, 0, 320, 420);
-    [scrollView setContentSize:CGSizeMake(320, 420)];
+    mainScrollView.frame = CGRectMake(0, 0, 320, 420);
+    [mainScrollView setContentSize:CGSizeMake(320, 420)];
     [whiteBoxView.layer  setCornerRadius:7.0];
     
     
@@ -250,7 +248,9 @@ float tableHeight2 = 30;
 
 
 -(IBAction) btnSendMoneyClicked:(id)sender {
-       
+    [self sendMoney];
+}
+-(void) sendMoney {
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
     }
@@ -296,7 +296,6 @@ float tableHeight2 = 30;
         }
     }
 }
-
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
     NSString* recipientImageUri = [NSString stringWithString: @""];
@@ -411,7 +410,7 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
 /*  --------------------------------------------------------- */
 
 -(void)sendMoneyDidComplete {
-    [self.scrollView scrollsToTop];
+    [self.mainScrollView scrollsToTop];
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     

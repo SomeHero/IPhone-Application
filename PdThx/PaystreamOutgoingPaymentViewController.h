@@ -12,7 +12,7 @@
 #import "CancelPaymentProtocol.h"
 #import "PullableView.h"
 
-@interface PaystreamOutgoingPaymentViewController : PaystreamDetailBaseViewController <PullableViewDelegate, CancelPaymentProtocol> {
+@interface PaystreamOutgoingPaymentViewController : PaystreamDetailBaseViewController <PullableViewDelegate> {
     IBOutlet UIButton* btnCancel;
 }
 

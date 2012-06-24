@@ -11,19 +11,18 @@
 
 @interface UIBaseViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 {
-    IBOutlet UIScrollView *scrollView;
+    IBOutlet UIScrollView *mainScrollView;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
     NSObject *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
 }
 
-@property(nonatomic, retain) UIScrollView *scrollView;
+@property(nonatomic, retain) UIScrollView *mainScrollView;
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;
 -(void) signOutClicked;
 -(void) actionButtonClicked:(id)sender;
--(void)loadContacts;
 
 @end
