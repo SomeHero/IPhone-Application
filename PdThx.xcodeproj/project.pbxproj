@@ -556,6 +556,8 @@
 		5BF07B5E15980D000020EA2F /* icon-settings-sharing-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07B4515980D000020EA2F /* icon-settings-sharing-40x40.png */; };
 		5BF07B5F15980D000020EA2F /* icon-settings-sharing-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07B4615980D000020EA2F /* icon-settings-sharing-40x40@2x.png */; };
 		5BF07B6015980D000020EA2F /* icon-settings-social-40x40-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07B4715980D000020EA2F /* icon-settings-social-40x40-active.png */; };
+		5BF07B6415989DF10020EA2F /* ChoosePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF07B6215989DF10020EA2F /* ChoosePictureViewController.m */; };
+		5BF07B6515989DF10020EA2F /* ChoosePictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07B6315989DF10020EA2F /* ChoosePictureViewController.xib */; };
 		5BF1F1F0158CCCD700CFBF77 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */; };
 		5BF1F205158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF1F203158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m */; };
 		5BF1F206158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F204158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib */; };
@@ -1223,6 +1225,9 @@
 		5BF07B4515980D000020EA2F /* icon-settings-sharing-40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-sharing-40x40.png"; sourceTree = "<group>"; };
 		5BF07B4615980D000020EA2F /* icon-settings-sharing-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-sharing-40x40@2x.png"; sourceTree = "<group>"; };
 		5BF07B4715980D000020EA2F /* icon-settings-social-40x40-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-social-40x40-active.png"; sourceTree = "<group>"; };
+		5BF07B6115989DF10020EA2F /* ChoosePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePictureViewController.h; sourceTree = "<group>"; };
+		5BF07B6215989DF10020EA2F /* ChoosePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePictureViewController.m; sourceTree = "<group>"; };
+		5BF07B6315989DF10020EA2F /* ChoosePictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoosePictureViewController.xib; sourceTree = "<group>"; };
 		5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		5BF1F202158EAF6400CFBF77 /* CustomSecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeController.h; sourceTree = "<group>"; };
 		5BF1F203158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPinSwipeController.m; sourceTree = "<group>"; };
@@ -1358,6 +1363,9 @@
 				541EE608158A70FA00131B0E /* PersonalizeViewController.m */,
 				5BD278FD153E8A1B00CAFC12 /* SetupACHAccountController.h */,
 				5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */,
+				5BF07B6115989DF10020EA2F /* ChoosePictureViewController.h */,
+				5BF07B6215989DF10020EA2F /* ChoosePictureViewController.m */,
+				5BF07B6315989DF10020EA2F /* ChoosePictureViewController.xib */,
 			);
 			name = "New User Creation";
 			sourceTree = "<group>";
@@ -3073,6 +3081,7 @@
 				5BF07B5E15980D000020EA2F /* icon-settings-sharing-40x40.png in Resources */,
 				5BF07B5F15980D000020EA2F /* icon-settings-sharing-40x40@2x.png in Resources */,
 				5BF07B6015980D000020EA2F /* icon-settings-social-40x40-active.png in Resources */,
+				5BF07B6515989DF10020EA2F /* ChoosePictureViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3195,6 +3204,7 @@
 				5BABF06915975DEB00FB4BD5 /* ValidationHelper.m in Sources */,
 				5BF07B041597926B0020EA2F /* IncreaseProfileViewController.m in Sources */,
 				5BF07B07159794580020EA2F /* UIModalBaseViewController.m in Sources */,
+				5BF07B6415989DF10020EA2F /* ChoosePictureViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
