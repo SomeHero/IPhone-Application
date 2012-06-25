@@ -206,9 +206,6 @@
 {
     // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    
     switch(indexPath.section) {
         case 0:
         {
@@ -222,7 +219,49 @@
                 }
             }
         }
-            
+        case 1:
+        {
+            switch (indexPath.row) 
+            {
+                case 0:
+                {
+                    AccountListViewController  *controller = [[AccountListViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES]; 
+                    
+                    [controller release];
+                    
+                }
+            }
+        }
+        case 2:
+        {
+            switch (indexPath.row) {
+                case 3:
+                {
+                    MeCodeSetupViewController* controller = [[MeCodeSetupViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES]; 
+                    
+                    [controller release];
+                    break;
+                }
+                    
+                default:
+                    break;
+            }
+        }
+        case 5:
+        {
+            switch (indexPath.row) 
+            {
+                case 1:
+                {
+                    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
+                    break;
+                }
+                default:
+                    break;
+            }
+        }    
         default:
             break;
     }
