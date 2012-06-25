@@ -152,11 +152,15 @@ CGSize scrollViewOriginalSize;
         /* ---------------------------------------------------- */
         /*      Custom Signout  Button Implementation           */
         /* ---------------------------------------------------- */
+        if ( [self.navigationController.viewControllers count] == 1 )
+        {
+            NSLog(@"No left bar button item for %@, loading sign out button", self );
+            UIBarButtonItem *signOutButton =  [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonSystemItemAction target:self action:@selector(signOutClicked)];
+            
+            self.navigationItem.leftBarButtonItem= signOutButton;
+            [signOutButton release];
+        }
         
-        UIBarButtonItem *signOutButton =  [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonSystemItemAction target:self action:@selector(signOutClicked)];
-        
-        self.navigationItem.leftBarButtonItem= signOutButton;
-        [signOutButton release];
         
         /* ---------------------------------------------------- */
         /*      Custom Settings Button Implementation           */

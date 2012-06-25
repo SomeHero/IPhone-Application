@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		540025A71598A53600332A10 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 540025A61598A53600332A10 /* ChangePasswordViewController.m */; };
+		540025A91598A55C00332A10 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540025A81598A55C00332A10 /* ChangePasswordViewController.xib */; };
+		540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 540025B81598B3F500332A10 /* MeCodeSetupViewController.m */; };
+		540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */; };
 		54196D9B156695B9009F29C5 /* button_quick_link_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 54196D9A156695B9009F29C5 /* button_quick_link_request.png */; };
 		541EE5881589092200131B0E /* TAB-DG.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5821589092200131B0E /* TAB-DG.png */; };
 		541EE58A1589092200131B0E /* TAB-HM.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5841589092200131B0E /* TAB-HM.png */; };
@@ -51,8 +55,6 @@
 		541EE61B158A7C1000131B0E /* icon-setup-checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE619158A7C1000131B0E /* icon-setup-checkbox@2x.png */; };
 		541EE61E158A7C1E00131B0E /* icon-setup-checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE61C158A7C1E00131B0E /* icon-setup-checkbox-checked.png */; };
 		541EE61F158A7C1E00131B0E /* icon-setup-checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE61D158A7C1E00131B0E /* icon-setup-checkbox.png */; };
-		5427662B157F9D1700D33AC1 /* MECodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */; };
-		5427662C157F9D1700D33AC1 /* MECodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */; };
 		54276637157FEE3700D33AC1 /* messageBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 54276630157FEE3700D33AC1 /* messageBox.png */; };
 		543803A11562BE6B00BD6284 /* button_quick_link_send.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803941562BE6B00BD6284 /* button_quick_link_send.png */; };
 		543803A31562BE6B00BD6284 /* paystream_received_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803961562BE6B00BD6284 /* paystream_received_icon.png */; };
@@ -572,8 +574,6 @@
 		5BF3EE2815915A580011BAD8 /* BankAccountService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2715915A580011BAD8 /* BankAccountService.m */; };
 		5BF3EE2D159163380011BAD8 /* UIAccountTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */; };
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
-		D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDE5157FB72800ABE854 /* MeCodeViewController.m */; };
-		D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
 		D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */; };
 		D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */; };
@@ -590,6 +590,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		540025A41598A51A00332A10 /* ChangePasswordCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordCompleteProtocol.h; sourceTree = "<group>"; };
+		540025A51598A53600332A10 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		540025A61598A53600332A10 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		540025A81598A55C00332A10 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
+		540025B81598B3F500332A10 /* MeCodeSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeSetupViewController.m; sourceTree = "<group>"; };
+		540025B91598B3F500332A10 /* MeCodeSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeSetupViewController.h; sourceTree = "<group>"; };
+		540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeSetupViewController.xib; sourceTree = "<group>"; };
 		54196D9A156695B9009F29C5 /* button_quick_link_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_quick_link_request.png; sourceTree = "<group>"; };
 		541EE5821589092200131B0E /* TAB-DG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-DG.png"; sourceTree = "<group>"; };
 		541EE5841589092200131B0E /* TAB-HM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-HM.png"; sourceTree = "<group>"; };
@@ -639,9 +646,6 @@
 		541EE619158A7C1000131B0E /* icon-setup-checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-setup-checkbox@2x.png"; sourceTree = "<group>"; };
 		541EE61C158A7C1E00131B0E /* icon-setup-checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-setup-checkbox-checked.png"; sourceTree = "<group>"; };
 		541EE61D158A7C1E00131B0E /* icon-setup-checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-setup-checkbox.png"; sourceTree = "<group>"; };
-		54276628157F9D1700D33AC1 /* MECodeSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MECodeSetupViewController.h; path = ../MECodeSetupViewController.h; sourceTree = "<group>"; };
-		54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MECodeSetupViewController.m; path = ../MECodeSetupViewController.m; sourceTree = "<group>"; };
-		5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MECodeSetupViewController.xib; path = ../MECodeSetupViewController.xib; sourceTree = "<group>"; };
 		54276630157FEE3700D33AC1 /* messageBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messageBox.png; sourceTree = "<group>"; };
 		542F12241595C2B90098D77D /* SecurityQuestionInputProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionInputProtocol.h; sourceTree = "<group>"; };
 		543803941562BE6B00BD6284 /* button_quick_link_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_quick_link_send.png; path = images/button_quick_link_send.png; sourceTree = "<group>"; };
@@ -794,7 +798,6 @@
 		5B3F4CF2155F7BB000A67649 /* RegisterUserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterUserService.m; sourceTree = "<group>"; };
 		5B3F4CF4155FD99B00A67649 /* SignInUserService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInUserService.h; sourceTree = "<group>"; };
 		5B3F4CF5155FD99C00A67649 /* SignInUserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInUserService.m; sourceTree = "<group>"; };
-		5B3F4CF7155FEBF200A67649 /* UserSignInCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSignInCompleteProtocol.h; sourceTree = "<group>"; };
 		5B3F4CF8155FF3C400A67649 /* UserSetupACHAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSetupACHAccount.h; sourceTree = "<group>"; };
 		5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSetupACHAccount.m; sourceTree = "<group>"; };
 		5B3F4CFB1560185500A67649 /* UserRegistrationCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegistrationCompleteProtocol.h; sourceTree = "<group>"; };
@@ -1247,9 +1250,6 @@
 		5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccountTableCell.h; sourceTree = "<group>"; };
 		5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccountTableCell.m; sourceTree = "<group>"; };
 		5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIAccountTableCell.xib; sourceTree = "<group>"; };
-		D587EDE4157FB72800ABE854 /* MeCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeViewController.h; sourceTree = "<group>"; };
-		D587EDE5157FB72800ABE854 /* MeCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeViewController.m; sourceTree = "<group>"; };
-		D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeViewController.xib; sourceTree = "<group>"; };
 		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
 		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
 		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
@@ -1404,8 +1404,8 @@
 			isa = PBXGroup;
 			children = (
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
-				D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */,
-				5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */,
+				540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */,
+				540025A81598A55C00332A10 /* ChangePasswordViewController.xib */,
 			);
 			name = "Settings and Profile";
 			sourceTree = "<group>";
@@ -1598,14 +1598,14 @@
 		54A139B01582704700668984 /* Profile Views */ = {
 			isa = PBXGroup;
 			children = (
+				540025B81598B3F500332A10 /* MeCodeSetupViewController.m */,
+				540025B91598B3F500332A10 /* MeCodeSetupViewController.h */,
 				5BEBF01614B2281800379108 /* ProfileController.h */,
 				5BEBF01714B2281900379108 /* ProfileController.m */,
-				D587EDE4157FB72800ABE854 /* MeCodeViewController.h */,
-				D587EDE5157FB72800ABE854 /* MeCodeViewController.m */,
-				54276628157F9D1700D33AC1 /* MECodeSetupViewController.h */,
-				54276629157F9D1700D33AC1 /* MECodeSetupViewController.m */,
 				5B5D08D1158FF40000E90A1A /* ChangeSecurityPinController.h */,
 				5B5D08D2158FF40100E90A1A /* ChangeSecurityPinController.m */,
+				540025A51598A53600332A10 /* ChangePasswordViewController.h */,
+				540025A61598A53600332A10 /* ChangePasswordViewController.m */,
 				5B5D08D3158FF40100E90A1A /* ChangeSecurityPinController.xib */,
 			);
 			name = "Profile Views";
@@ -2321,13 +2321,13 @@
 				5BD27913154445E100CAFC12 /* SignInCompleteProtocol.h */,
 				5BD27BD61548D95700CAFC12 /* SignOutCompleteProtocol.h */,
 				5BD27BEF154B978000CAFC12 /* UserInformationCompleteProtocol.h */,
-				5B3F4CF7155FEBF200A67649 /* UserSignInCompleteProtocol.h */,
 				54B5F258156D6B4000D970A3 /* FBSignInCompleteProtocol.h */,
 				5B3F4CFB1560185500A67649 /* UserRegistrationCompleteProtocol.h */,
 				5B3F4CFC156018EB00A67649 /* UserACHSetupCompleteProtocol.h */,
 				5B3F4CF0155F74C700A67649 /* GetPayStreamCompleteProtocol.h */,
 				5B3F4CFD1560AFA700A67649 /* SendMoneyCompleteProtocol.h */,
 				5B3F4CFE1560B7DF00A67649 /* RequestMoneyCompleteProtocol.h */,
+				540025A41598A51A00332A10 /* ChangePasswordCompleteProtocol.h */,
 				54B5F270156EB62700D970A3 /* UserSetupACHAccountComplete.h */,
 				54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */,
 				541EE5AB158A24CA00131B0E /* AmountSelectChosenProtocol.h */,
@@ -2426,8 +2426,6 @@
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
 				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
 				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
-				D587EDE6157FB72800ABE854 /* MeCodeViewController.xib */,
-				5427662A157F9D1700D33AC1 /* MECodeSetupViewController.xib */,
 				541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */,
 				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 				54A139DF158430FA00668984 /* DoGoodViewController.xib */,
@@ -2843,8 +2841,6 @@
 				54B5F28B156FCECB00D970A3 /* ContactSelectViewController.xib in Resources */,
 				54DE15A81577FB0F005709BC /* btn-facebook.png in Resources */,
 				5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */,
-				D587EDE8157FB72800ABE854 /* MeCodeViewController.xib in Resources */,
-				5427662C157F9D1700D33AC1 /* MECodeSetupViewController.xib in Resources */,
 				54276637157FEE3700D33AC1 /* messageBox.png in Resources */,
 				5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */,
 				54A139E1158430FA00668984 /* DoGoodViewController.xib in Resources */,
@@ -3073,6 +3069,8 @@
 				5BF07B5E15980D000020EA2F /* icon-settings-sharing-40x40.png in Resources */,
 				5BF07B5F15980D000020EA2F /* icon-settings-sharing-40x40@2x.png in Resources */,
 				5BF07B6015980D000020EA2F /* icon-settings-social-40x40-active.png in Resources */,
+				540025A91598A55C00332A10 /* ChangePasswordViewController.xib in Resources */,
+				540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3163,9 +3161,7 @@
 				54B5F286156FCA5A00D970A3 /* ContactTableViewCell.m in Sources */,
 				54B5F28A156FCECB00D970A3 /* ContactSelectViewController.m in Sources */,
 				54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */,
-				D587EDE7157FB72800ABE854 /* MeCodeViewController.m in Sources */,
 				D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */,
-				5427662B157F9D1700D33AC1 /* MECodeSetupViewController.m in Sources */,
 				5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */,
 				54A139A515826B0A00668984 /* AmountSelectViewController.m in Sources */,
 				54A139E0158430FA00668984 /* DoGoodViewController.m in Sources */,
@@ -3195,6 +3191,8 @@
 				5BABF06915975DEB00FB4BD5 /* ValidationHelper.m in Sources */,
 				5BF07B041597926B0020EA2F /* IncreaseProfileViewController.m in Sources */,
 				5BF07B07159794580020EA2F /* UIModalBaseViewController.m in Sources */,
+				540025A71598A53600332A10 /* ChangePasswordViewController.m in Sources */,
+				540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3863,7 +3861,7 @@
 				5BBE183614DF2D60002A3618 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Dev;
+			defaultConfigurationName = Test;
 		};
 		5B69DFB014AE6068003A0F66 /* Build configuration list for PBXNativeTarget "PdThx" */ = {
 			isa = XCConfigurationList;
@@ -3878,7 +3876,7 @@
 				5BBE183714DF2D60002A3618 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Dev;
+			defaultConfigurationName = Test;
 		};
 		5B69DFB314AE6068003A0F66 /* Build configuration list for PBXNativeTarget "PdThxTests" */ = {
 			isa = XCConfigurationList;
@@ -3893,7 +3891,7 @@
 				5BBE183814DF2D60002A3618 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Dev;
+			defaultConfigurationName = Test;
 		};
 /* End XCConfigurationList section */
 	};

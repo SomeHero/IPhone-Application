@@ -16,7 +16,7 @@
 @implementation UserService
 
 @synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate;
-@synthesize personalizeUserCompleteDelegate;
+@synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate;
 
 -(id)init {
     self = [super init];
@@ -214,6 +214,67 @@
     [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
     
     NSLog(@"Security Pin Failed with Exception");
+}
+
+-(void) changePasswordFor: (NSString*) userId WithOld: (NSString*) oldPassword AndNew:(NSString*) newPassword 
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_password", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];  
+    
+    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              oldPassword, @"currentPassword",
+                              newPassword, @"newPassword",
+                              nil];
+    
+    NSString* newJSON = [userData JSONRepresentation];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(changePasswordComplete:)];
+    [requestObj setDidFailSelector:@selector(changePasswordFailed:)];
+    [requestObj startAsynchronous];
+}
+
+
+-(void) changePasswordComplete: (ASIHTTPRequest *)request {
+    if([request responseStatusCode] == 200 ) {
+        NSLog(@"Changing password worked!");
+        
+        [changePasswordCompleteDelegate changePasswordSuccess];
+        
+    } else
+    {
+        NSLog(@"%@", [request responseStatusMessage]);
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        
+        [changePasswordCompleteDelegate changePasswordDidFail:message];
+        
+        NSLog(@"Password Change Failed, Error Code %d", [request responseStatusCode]);
+    }
+}
+
+-(void) changePasswordFailed:(ASIHTTPRequest *)request
+{
+    NSString* message = [NSString stringWithFormat: @"Unable to change password.  Unhandled Exception"];
+    
+    [changePasswordCompleteDelegate changePasswordDidFail:message];
+    
+    NSLog(@"Password change failed with Exception");
 }
 
 - (void)dealloc

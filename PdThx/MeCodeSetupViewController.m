@@ -1,23 +1,18 @@
 //
-//  MeCodeViewController.m
+//  MeCodeSetupViewController.m
 //  PdThx
 //
 //  Created by Justin Cheng on 6/6/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MeCodeViewController.h"
+#import "MeCodeSetupViewController.h"
 #import "PdThxAppDelegate.h"
-@interface MeCodeViewController ()
 
-@end
-
-@implementation MeCodeViewController
-@synthesize CreateDateField;
-@synthesize IsApprovedStatus;
+@implementation MeCodeSetupViewController
 @synthesize MeCodeField;
-@synthesize Submitbutton;
-@synthesize CheckAvailibilityButton;
+@synthesize SubmitButton;
+@synthesize meCodeService;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,7 +29,7 @@
     meCodeService = [[MeCodeService alloc] init];
     [meCodeService setMeCodeCreateCompleteDelegate:self];
     NSError *error;
-    if(![[GANTracker sharedTracker] trackPageview:@"MeCodeViewController"
+    if(![[GANTracker sharedTracker] trackPageview:@"MeCodeSetupViewController"
                                         withError:&error]){
         //Handle Error Here
     }
@@ -67,12 +62,6 @@
 {
     [MeCodeField release];
     MeCodeField = nil;
-    [CheckAvailibilityButton release];
-    CheckAvailibilityButton = nil;
-    [IsApprovedStatus release];
-    IsApprovedStatus = nil;
-    [self setCreateDateField:nil];
-    [self setIsApprovedStatus:nil];
     [SubmitButton release];
     SubmitButton = nil;
     [super viewDidUnload];
@@ -88,10 +77,6 @@
 - (void)dealloc {
     [meCodeService release];
     [MeCodeField release];
-    [CheckAvailibilityButton release];
-    [IsApprovedStatus release];
-    [CreateDateField release];
-    [IsApprovedStatus release];
     [SubmitButton release];
     [super dealloc];
 }
@@ -102,14 +87,12 @@
 }
 -(void) meCodeCreateSuccess
 {
+    [self showAlertView:@"MeCode Setup" withMessage:[NSString stringWithFormat:@"MeCode: %@ successfully created!", MeCodeField.text]];
+    MeCodeField.text = @"";
     NSLog(@"MeCode Success!!");
 }
 -(void)meCodeCreateDidFail:(NSString*) response
 {
     NSLog(@"%@", response);
-}
-
-- (IBAction)CheckAvailibilityButtonAction:(id)sender {
-    
 }
 @end
