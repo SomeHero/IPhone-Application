@@ -138,6 +138,8 @@
 		54B5F286156FCA5A00D970A3 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5F285156FCA5700D970A3 /* ContactTableViewCell.m */; };
 		54B5F28A156FCECB00D970A3 /* ContactSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5F288156FCEC700D970A3 /* ContactSelectViewController.m */; };
 		54B5F28B156FCECB00D970A3 /* ContactSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */; };
+		54B687E91598CC7F0023C874 /* ChoosePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B687E61598CC7F0023C874 /* ChoosePictureViewController.m */; };
+		54B687EA1598CC7F0023C874 /* ChoosePictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B687E81598CC7F0023C874 /* ChoosePictureViewController.xib */; };
 		54B9B40A156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
 		54B9B40B156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
 		54CACB38158676CF00631B84 /* NavigationBar-320x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB36158676CF00631B84 /* NavigationBar-320x44.png */; };
@@ -743,6 +745,9 @@
 		54B5F287156FCEC400D970A3 /* ContactSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactSelectViewController.h; sourceTree = "<group>"; };
 		54B5F288156FCEC700D970A3 /* ContactSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactSelectViewController.m; sourceTree = "<group>"; };
 		54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactSelectViewController.xib; sourceTree = "<group>"; };
+		54B687E61598CC7F0023C874 /* ChoosePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePictureViewController.m; sourceTree = "<group>"; };
+		54B687E71598CC7F0023C874 /* ChoosePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePictureViewController.h; sourceTree = "<group>"; };
+		54B687E81598CC7F0023C874 /* ChoosePictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoosePictureViewController.xib; sourceTree = "<group>"; };
 		54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp_remind_later_button.png; sourceTree = "<group>"; };
 		54CACB36158676CF00631B84 /* NavigationBar-320x44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavigationBar-320x44.png"; sourceTree = "<group>"; };
 		54CACB37158676CF00631B84 /* NavigationBar-320x44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavigationBar-320x44@2x.png"; sourceTree = "<group>"; };
@@ -1587,6 +1592,7 @@
 		54A139AF1582702700668984 /* Custom UI Features */ = {
 			isa = PBXGroup;
 			children = (
+				54B687E41598CC710023C874 /* ChoosePicture */,
 				54E3877A15911D6800A18DD9 /* ActivityIndicator */,
 				54A139AE1582701600668984 /* Pin Swipe View */,
 				54A139CE1584102700668984 /* iOS4 Navigation Bar Image */,
@@ -1905,6 +1911,16 @@
 				54B5F241156C450300D970A3 /* libfacebook_ios_sdk.a */,
 			);
 			path = "facebook-ios-sdk";
+			sourceTree = "<group>";
+		};
+		54B687E41598CC710023C874 /* ChoosePicture */ = {
+			isa = PBXGroup;
+			children = (
+				54B687E61598CC7F0023C874 /* ChoosePictureViewController.m */,
+				54B687E71598CC7F0023C874 /* ChoosePictureViewController.h */,
+				54B687E81598CC7F0023C874 /* ChoosePictureViewController.xib */,
+			);
+			name = ChoosePicture;
 			sourceTree = "<group>";
 		};
 		54CACB321586754900631B84 /* Home View */ = {
@@ -3071,6 +3087,7 @@
 				5BF07B6015980D000020EA2F /* icon-settings-social-40x40-active.png in Resources */,
 				540025A91598A55C00332A10 /* ChangePasswordViewController.xib in Resources */,
 				540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */,
+				54B687EA1598CC7F0023C874 /* ChoosePictureViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3193,6 +3210,7 @@
 				5BF07B07159794580020EA2F /* UIModalBaseViewController.m in Sources */,
 				540025A71598A53600332A10 /* ChangePasswordViewController.m in Sources */,
 				540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */,
+				54B687E91598CC7F0023C874 /* ChoosePictureViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
