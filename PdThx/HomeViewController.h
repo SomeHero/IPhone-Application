@@ -11,6 +11,7 @@
 #import "SignInCompleteProtocol.h"
 #import "UIBaseViewController.h"
 #import "UserService.h"
+#import "IncreaseProfileViewController.h"
 
 @interface HomeViewController : UIBaseViewController< UserInformationCompleteProtocol>
 {
@@ -25,7 +26,7 @@
     IBOutlet UILabel* lblScore;
     IBOutlet UILabel* lblIncreaseScore;
     IBOutlet UILabel* lblPaystreamCount;
-    
+
     UserService *userService;
 }
 @property(nonatomic, retain) UIView *viewPanel;
@@ -37,5 +38,6 @@
 -(IBAction) btnSendMoneyClicked:(id) sender;
 -(IBAction) btnProfileClicked:(id) sender;
 -(IBAction) btnPaystreamClicked: (id) sender;
+-(IBAction) btnIncreaseScoreClicked: (id) sender;
 
 @end

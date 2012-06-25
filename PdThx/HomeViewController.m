@@ -143,6 +143,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [appDelegate switchToPaystreamController];
 }
+-(IBAction) btnIncreaseScoreClicked: (id) sender {
+    IncreaseProfileViewController* controller = [[IncreaseProfileViewController alloc] init];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    //[controller setTitle: @"Add Your FaceBook Account"];
+    //[controller setHeaderText: @"Add another bank account by entering the account information below"];
+    
+    [self presentModalViewController:navBar animated:YES];
+    [navBar release];
+    [controller release];
+}
 
 
 @end
