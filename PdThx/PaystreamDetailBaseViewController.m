@@ -122,6 +122,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     if([messageDetail.messageType isEqualToString: @"Payment"]) {
         if([messageDetail.direction isEqualToString: @"Out"]) { 
+            txtSender.text = @"You";
+            txtRecipient.text = messageDetail.recipientName;
+            txtAction.text = [NSString stringWithFormat: @"sent $%0.2f to", [messageDetail.amount doubleValue]];
+            
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
                 UIButton* btnCancelPayment = [[UIButton alloc] init];
                 
@@ -152,9 +156,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 yPos = yPos + btnSendReminder.frame.size.height + 5;
             }
         }
+        else {
+            txtSender.text = messageDetail.senderName;
+            txtRecipient.text = @"You";
+            txtAction.text = [NSString stringWithFormat: @"sent $%0.2f to", [messageDetail.amount doubleValue]];
+        }
     }
     if([messageDetail.messageType isEqualToString: @"PaymentRequest"]) {
+        
         if([messageDetail.direction isEqualToString: @"In"]) {
+            
+            txtSender.text = messageDetail.senderName;
+            txtRecipient.text = @"You";
+            txtAction.text = [NSString stringWithFormat: @"requeseted $%0.2f from", [messageDetail.amount doubleValue]];
+            
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
                 UIButton* btnAcceptRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
@@ -186,6 +201,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             }
         }
         else if([messageDetail.direction isEqualToString: @"Out"]) {
+
+            txtSender.text = @"You";
+            txtRecipient.text = messageDetail.recipientName;
+            txtAction.text = [NSString stringWithFormat: @"requested $%0.2f from", [messageDetail.amount doubleValue]];
+            
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
                
                 UIButton* btnCancelRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];

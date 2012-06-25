@@ -78,13 +78,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     didCancel = false;
     
     ALUnlockPatternView *custom=[[[ALUnlockPatternView alloc] initWithFrame:CGRectMake(0, 0, viewPinLock.frame.size.width, viewPinLock.frame.size.height)] autorelease];
-    custom.lineColor= UIColorFromRGB(0xb5e3f0);
+    custom.lineColor= UIColorFromRGB(0x47ba80);
     custom.lineWidth=15;
     custom.repeatSelection=YES;
     custom.radiusPercentage=10;
     custom.delegate=self;
     [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-70x70.png"] forState:UIControlStateNormal];
-    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-selected70x70.png"] forState:UIControlStateSelected];
+    [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-selected-70x70.png"] forState:UIControlStateSelected];
     [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-pressed-70x70.png"] forState:UIControlStateHighlighted];
     for (int i=0;i<[custom.cells count];i++) {
         UIButton* b=(UIButton*)[custom.cells objectAtIndex:i];        
