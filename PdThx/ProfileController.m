@@ -8,10 +8,9 @@
 
 #import "ProfileController.h"
 #import "PdThxAppDelegate.h"
-#import "MeCodeViewController.h"
-
-#import "MECodeSetupViewController.h"
 #import "AccountListViewController.h"
+#import "MeCodeSetupViewController.h"
+#import "ChangePasswordViewController.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400
@@ -34,7 +33,7 @@
     [sections release];
     [oldSecurityPin release];
     [newSecurityPin release];
-
+    
     [super dealloc];
 }
 
@@ -212,43 +211,18 @@
     
     switch(indexPath.section) {
         case 0:
-            switch (indexPath.row) {
+        {
+            switch (indexPath.row) 
+            {
                 case 0:
-                {   
-                    ChangeSecurityPinController *controller = [[ChangeSecurityPinController alloc] initWithNibName:@"ChangeSecurityPinController" bundle:nil];
-                    
-                    [self.navigationController pushViewController:controller animated:YES];
-                    break;
-                }
-                case 1:
                 {
-                    MeCodeViewController *VC = [[MeCodeViewController alloc] initWithNibName:@"MeCodeViewController" bundle:nil];
-                    [self.navigationController pushViewController:VC animated:YES];                  break; 
-                }
-                case 2:
-                {
-                    AccountListViewController* controller = [[AccountListViewController alloc] initWithNibName: @"AccountListViewController" bundle:nil];
-                    
-                    [self.navigationController pushViewController:controller animated:YES];
-                }
-                default:
-                    break;
-            } 
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            switch(indexPath.row) {
-                case 0: {
-                    [appDelegate forgetMe];
+                    ChangePasswordViewController *pwVC = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
+                    [self.navigationController pushViewController:pwVC animated:YES];      
                     
                 }
-                    
-                    break;
-                default:
-                    break;
             }
+        }
+            
         default:
             break;
     }
