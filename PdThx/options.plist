@@ -38,7 +38,7 @@
 			<key>HighlightedImage</key>
 			<string>icon-settings-social-40x40-active.png</string>
 			<key>Image</key>
-			<string>i</string>
+			<string>icon-settings-social-40x40.png</string>
 			<key>Label</key>
 			<string>Social Networks</string>
 		</dict>
