@@ -212,7 +212,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
-    NSLog(@"Got paystream messages");
     
     transactions = [payStreamMessages copy];
     
@@ -362,7 +361,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
     
-    NSLog(@"Image stored for amount %@ : %@", item.amount,item.transactionImageUri);
+    
     if ( !item.imgData && item.transactionImageUri != (id)[NSNull null] )
     {
         if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO) {
@@ -497,12 +496,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)startIconDownload:(PaystreamMessage *)message forIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Starting download for section #%d row #%d", indexPath.section, indexPath.row);
     IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
     
     if ( iconDownloader == nil )
     {
-        NSLog(@"Icon downloader for section #%d row #%d NIL", indexPath.section, indexPath.row);
         iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.message = message;
         iconDownloader.indexPathInTableView = indexPath;
@@ -693,13 +690,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)pullableView:(PullableView *)pView didMoveLocation:(float)relativePosition
 {
     shadedLayer.layer.opacity = ( 0.7 - (0.7 * relativePosition));
-    NSLog(@"Setting Opacity to %f , position %f", shadedLayer.layer.opacity , relativePosition );
 }
 
 
 - (void)pullableView:(PullableView *)pView startedAnimation:(float)animationDuration withDirection:(BOOL)directionBoolean;
 {
-    NSLog(@"Starting Animation with direction: %@" , directionBoolean ? @"OPENING" : @"CLOSING");
     
     if ( directionBoolean ){
         [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
