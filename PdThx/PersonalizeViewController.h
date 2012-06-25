@@ -32,5 +32,6 @@
 
 - (IBAction)pressedSaveContinue:(id)sender;
 -(IBAction) bgTouched:(id) sender;
+-(IBAction) chooseImageClicked:(id) sender;
 
 @end
