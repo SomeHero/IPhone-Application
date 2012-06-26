@@ -77,6 +77,13 @@
 		544A4F7D15927ED7003EEE7D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 544A4F7C15927ED7003EEE7D /* Default.png */; };
 		544A4F7F15927ED9003EEE7D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 544A4F7E15927ED9003EEE7D /* Default@2x.png */; };
 		54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54764F5615810DFC008187B6 /* CoreLocation.framework */; };
+		5480584C159A03BE00ED591C /* loadingFailed62x62.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805846159A03BE00ED591C /* loadingFailed62x62.png */; };
+		5480584D159A03BE00ED591C /* loadingFailed62x62@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805847159A03BE00ED591C /* loadingFailed62x62@2x.png */; };
+		5480584E159A03BE00ED591C /* loadingImage342x342.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805848159A03BE00ED591C /* loadingImage342x342.png */; };
+		5480584F159A03BE00ED591C /* loadingImage342x342@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805849159A03BE00ED591C /* loadingImage342x342@2x.png */; };
+		54805850159A03BE00ED591C /* loadingPassed62x62.png in Resources */ = {isa = PBXBuildFile; fileRef = 5480584A159A03BE00ED591C /* loadingPassed62x62.png */; };
+		54805851159A03BE00ED591C /* loadingPassed62x62@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5480584B159A03BE00ED591C /* loadingPassed62x62@2x.png */; };
+		54805854159A03FB00ED591C /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54805853159A03FB00ED591C /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		549FD44E1589039E00809EAA /* formBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 549FD44C1589039E00809EAA /* formBox.png */; };
 		549FD44F1589039E00809EAA /* formBoxActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 549FD44D1589039E00809EAA /* formBoxActive.png */; };
 		54A139A515826B0A00668984 /* AmountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A139A315826B0900668984 /* AmountSelectViewController.m */; };
@@ -167,7 +174,6 @@
 		54DE15A81577FB0F005709BC /* btn-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DE15A71577FB0F005709BC /* btn-facebook.png */; };
 		54E3877815911D5C00A18DD9 /* loadingImage342x342.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E3877615911D5C00A18DD9 /* loadingImage342x342.png */; };
 		54E3877915911D5C00A18DD9 /* loadingImage342x342@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E3877715911D5C00A18DD9 /* loadingImage342x342@2x.png */; };
-		54E3877D15911D8400A18DD9 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3877C15911D8400A18DD9 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54FA473E1594AEFE007CFA33 /* AddACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */; };
@@ -671,6 +677,14 @@
 		544A4F7C15927ED7003EEE7D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		544A4F7E15927ED9003EEE7D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		54764F5615810DFC008187B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		54805846159A03BE00ED591C /* loadingFailed62x62.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingFailed62x62.png; sourceTree = "<group>"; };
+		54805847159A03BE00ED591C /* loadingFailed62x62@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingFailed62x62@2x.png"; sourceTree = "<group>"; };
+		54805848159A03BE00ED591C /* loadingImage342x342.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingImage342x342.png; sourceTree = "<group>"; };
+		54805849159A03BE00ED591C /* loadingImage342x342@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingImage342x342@2x.png"; sourceTree = "<group>"; };
+		5480584A159A03BE00ED591C /* loadingPassed62x62.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingPassed62x62.png; sourceTree = "<group>"; };
+		5480584B159A03BE00ED591C /* loadingPassed62x62@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingPassed62x62@2x.png"; sourceTree = "<group>"; };
+		54805852159A03FB00ED591C /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		54805853159A03FB00ED591C /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACHAccountReminderProtocol.h; sourceTree = "<group>"; };
 		549FD44C1589039E00809EAA /* formBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = formBox.png; sourceTree = "<group>"; };
 		549FD44D1589039E00809EAA /* formBoxActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = formBoxActive.png; sourceTree = "<group>"; };
@@ -776,8 +790,6 @@
 		54DE15A71577FB0F005709BC /* btn-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-facebook.png"; sourceTree = "<group>"; };
 		54E3877615911D5C00A18DD9 /* loadingImage342x342.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingImage342x342.png; sourceTree = "<group>"; };
 		54E3877715911D5C00A18DD9 /* loadingImage342x342@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingImage342x342@2x.png"; sourceTree = "<group>"; };
-		54E3877B15911D8400A18DD9 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		54E3877C15911D8400A18DD9 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		54E3DDE915713E6700F63820 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
 		54E3DDEA15713E6700F63820 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
 		54E3DDF115732F4C00F63820 /* ContactSelectChosenProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactSelectChosenProtocol.h; sourceTree = "<group>"; };
@@ -1381,6 +1393,7 @@
 		541EE60D158A712100131B0E /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 				5BF07AFF15978A200020EA2F /* RequestMoneyController.xib */,
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 			);
@@ -2048,8 +2061,14 @@
 		54E3877A15911D6800A18DD9 /* ActivityIndicator */ = {
 			isa = PBXGroup;
 			children = (
-				54E3877B15911D8400A18DD9 /* SVProgressHUD.h */,
-				54E3877C15911D8400A18DD9 /* SVProgressHUD.m */,
+				54805852159A03FB00ED591C /* SVProgressHUD.h */,
+				54805853159A03FB00ED591C /* SVProgressHUD.m */,
+				54805846159A03BE00ED591C /* loadingFailed62x62.png */,
+				54805847159A03BE00ED591C /* loadingFailed62x62@2x.png */,
+				54805848159A03BE00ED591C /* loadingImage342x342.png */,
+				54805849159A03BE00ED591C /* loadingImage342x342@2x.png */,
+				5480584A159A03BE00ED591C /* loadingPassed62x62.png */,
+				5480584B159A03BE00ED591C /* loadingPassed62x62@2x.png */,
 			);
 			name = ActivityIndicator;
 			sourceTree = "<group>";
@@ -2319,9 +2338,11 @@
 		5BD278FA153E7F0300CAFC12 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
+				5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */,
 				5B8868591529257400EA24A4 /* ConfirmPaymentDialog.xib */,
 				5BD27904153FABA800CAFC12 /* ConfirmSecurityPinDialog.xib */,
 				5BD278FB153E7F4200CAFC12 /* SetupSecurityPinDialog.xib */,
+				5BF1F204158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib */,
 			);
 			name = Dialogs;
 			sourceTree = "<group>";
@@ -2435,8 +2456,6 @@
 				541EE60D158A712100131B0E /* Send/Request Money */,
 				541EE60C158A710B00131B0E /* Welcome Signed Out Flow */,
 				5BD278FA153E7F0300CAFC12 /* Dialogs */,
-				5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */,
-				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
 				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
@@ -2447,7 +2466,6 @@
 				54A139DF158430FA00668984 /* DoGoodViewController.xib */,
 				54CACC6815879A3000631B84 /* WelcomeScreenViewController.xib */,
 				54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */,
-				5BF1F204158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3088,6 +3106,12 @@
 				540025A91598A55C00332A10 /* ChangePasswordViewController.xib in Resources */,
 				540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */,
 				54B687EA1598CC7F0023C874 /* ChoosePictureViewController.xib in Resources */,
+				5480584C159A03BE00ED591C /* loadingFailed62x62.png in Resources */,
+				5480584D159A03BE00ED591C /* loadingFailed62x62@2x.png in Resources */,
+				5480584E159A03BE00ED591C /* loadingImage342x342.png in Resources */,
+				5480584F159A03BE00ED591C /* loadingImage342x342@2x.png in Resources */,
+				54805850159A03BE00ED591C /* loadingPassed62x62.png in Resources */,
+				54805851159A03BE00ED591C /* loadingPassed62x62@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3196,7 +3220,6 @@
 				5BF1F218158F4FC100CFBF77 /* UISetupUserBaseViewController.m in Sources */,
 				5B5D08D4158FF40100E90A1A /* ChangeSecurityPinController.m in Sources */,
 				5B5D08F51590048D00E90A1A /* TransactionConfirmationViewController.m in Sources */,
-				54E3877D15911D8400A18DD9 /* SVProgressHUD.m in Sources */,
 				5BF3EE21159144170011BAD8 /* AccountListViewController.m in Sources */,
 				5BF3EE25159156430011BAD8 /* BankAccount.m in Sources */,
 				5BF3EE2815915A580011BAD8 /* BankAccountService.m in Sources */,
@@ -3211,6 +3234,7 @@
 				540025A71598A53600332A10 /* ChangePasswordViewController.m in Sources */,
 				540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */,
 				54B687E91598CC7F0023C874 /* ChoosePictureViewController.m in Sources */,
+				54805854159A03FB00ED591C /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -65,6 +65,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tabBarController.tabBar setUserInteractionEnabled:NO];
 
     validationHelper = [[ValidationHelper alloc] init];
     
