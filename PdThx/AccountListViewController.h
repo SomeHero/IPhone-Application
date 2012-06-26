@@ -14,8 +14,10 @@
 #import "PdThxAppDelegate.h"
 #import "UIAccountTableCell.h"
 #import "AddACHAccountViewController.h"
+#import "EditACHAccountViewController.h"
+#import "UISetupUserBaseViewController.h"
 
-@interface AccountListViewController : UIViewController<BankAccountRequestProtocol, UITableViewDataSource, UITableViewDelegate>{
+@interface AccountListViewController : UISetupUserBaseViewController<BankAccountRequestProtocol, UITableViewDataSource, UITableViewDelegate>{
     IBOutlet UIScrollView* scrollview;
     IBOutlet UIPickerView *senderAccountPickerView;
     IBOutlet UIPickerView *receiveAccountPickerView;
@@ -25,10 +27,7 @@
     NSMutableArray *arrayColors;
     NSMutableArray *userBankAccounts;
     BankAccountService *bankAccountService;
-    User* user;
 }
-
-- (IBAction)addAccountClicked:(id)sender;
 
 
 @end

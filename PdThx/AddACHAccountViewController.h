@@ -16,9 +16,11 @@
 #import "AddSecurityQuestionViewController.h"
 #import "UIBaseViewController.h"
 #import "ValidationHelper.h"
+#import "UISetupUserBaseViewController.h"
 
-@interface AddACHAccountViewController : UIBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol>
+@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol>
 {
+    IBOutlet UIScrollView* mainScrollView;
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;
     IBOutlet UITextField* txtAccountNumber;
@@ -29,7 +31,6 @@
     NSString* headerText;
     NSString* securityPin;
     UserSetupACHAccount* accountService;
-    User* user;
     CustomSecurityPinSwipeController* controller;
     AddSecurityQuestionViewController* addSecurityQuestionController;
     ValidationHelper* validationHelper;

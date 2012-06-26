@@ -10,9 +10,9 @@
 #import "SecurityQuestionInputProtocol.h"
 #import "GetSecurityQuestionsService.h"
 #import "GetSecurityQuestionsProtocol.h"
+#import "UISetupUserBaseViewController.h"
 
-
-@interface AddSecurityQuestionViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol>
+@interface AddSecurityQuestionViewController : UISetupUserBaseViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol>
 {
     IBOutlet UIButton *chooseQuestionButton;
     IBOutlet UITextField *answerField;

@@ -11,6 +11,7 @@
 #import "UIBaseViewController.h"
 #import "UserService.h"
 #import "UISetupUserBaseViewController.h"
+#import "MeCodeSetupViewController.h"
 
 @interface ProfileController : UISetupUserBaseViewController   
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate> {

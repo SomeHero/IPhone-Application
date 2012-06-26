@@ -509,8 +509,6 @@
 		5BD27BEA154B7E3E00CAFC12 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BE9154B7E3D00CAFC12 /* User.m */; };
 		5BD27BEE154B92FB00CAFC12 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BED154B92FB00CAFC12 /* UserService.m */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
-		5BE6F77414E3859300599EF2 /* ALUnlockPatternView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */; };
-		5BE6F77714E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
 		5BE06BFC159A11B700CB630F /* icon-settings-bank-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BFA159A11B600CB630F /* icon-settings-bank-40x40.png */; };
@@ -1406,6 +1404,7 @@
 		541EE60D158A712100131B0E /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 				5BF07AFF15978A200020EA2F /* RequestMoneyController.xib */,
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 			);
@@ -3123,11 +3122,14 @@
 				5480584F159A03BE00ED591C /* loadingImage342x342@2x.png in Resources */,
 				54805850159A03BE00ED591C /* loadingPassed62x62.png in Resources */,
 				54805851159A03BE00ED591C /* loadingPassed62x62@2x.png in Resources */,
+<<<<<<< HEAD
+=======
 				5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */,
 				5BE06BFC159A11B700CB630F /* icon-settings-bank-40x40.png in Resources */,
 				5BE06BFD159A11B700CB630F /* icon-settings-bank-40x40@2x.png in Resources */,
 				5B3A5D48159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib in Resources */,
 				5B3A5D54159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib in Resources */,
+>>>>>>> 58f2b357a74c33d73d3b64a0b4d49ea8806893f3
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3249,9 +3251,12 @@
 				540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */,
 				54B687E91598CC7F0023C874 /* ChoosePictureViewController.m in Sources */,
 				54805854159A03FB00ED591C /* SVProgressHUD.m in Sources */,
+<<<<<<< HEAD
+=======
 				5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */,
 				5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */,
 				5B3A5D53159A208F0028D3F6 /* ALUnlockPatternView.m in Sources */,
+>>>>>>> 58f2b357a74c33d73d3b64a0b4d49ea8806893f3
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
