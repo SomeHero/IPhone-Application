@@ -83,25 +83,29 @@
 #pragma mark - Show then dismiss methods
 
 + (void)showSuccessWithStatus:(NSString *)string {
-    [SVProgressHUD showImage:[UIImage imageNamed:@"SVProgressHUD.bundle/success.png"] status:string];
+    [SVProgressHUD showImage:[UIImage imageNamed:@"loadingPassed62x62.png"] status:string];
 }
 
 + (void)showSuccessWithStatus:(NSString *)string duration:(NSTimeInterval)duration {
     [SVProgressHUD show];
-    [SVProgressHUD showImage:[UIImage imageNamed:@"SVProgressHUD.bundle/success.png"] status:string];
+    [SVProgressHUD showImage:[UIImage imageNamed:@"loadingPassed62x62.png"] status:string];
 }
 
 + (void)showErrorWithStatus:(NSString *)string {
-    [SVProgressHUD showImage:[UIImage imageNamed:@"SVProgressHUD.bundle/error.png"] status:string];
+    [SVProgressHUD showImage:[UIImage imageNamed:@"loadingFailed62x62.png"] status:string];
 }
 
 + (void)showErrorWithStatus:(NSString *)string duration:(NSTimeInterval)duration {
     [SVProgressHUD show];
-    [SVProgressHUD showImage:[UIImage imageNamed:@"SVProgressHUD.bundle/error.png"] status:string];
+    [SVProgressHUD showImage:[UIImage imageNamed:@"loadingFailed62x62.png"] status:string];
 }
 
 + (void)showImage:(UIImage *)image status:(NSString *)string {
-    [[SVProgressHUD sharedView] showImage:image status:string duration:1.0];
+    if ( image == [UIImage imageNamed:@"loadingFailed62x62.png"] )
+        [[SVProgressHUD sharedView] showImage:image status:string duration:1.5];
+    else
+        [[SVProgressHUD sharedView] showImage:image status:string duration:0.8];
+     
 }
 
 
@@ -116,7 +120,7 @@
 }
 
 + (void)dismissWithSuccess:(NSString *)string afterDelay:(NSTimeInterval)seconds {
-    [[SVProgressHUD sharedView] showImage:[UIImage imageNamed:@"SVProgressHUD.bundle/success.png"] status:string duration:seconds];
+    [[SVProgressHUD sharedView] showImage:[UIImage imageNamed:@"loadingPassed62x62.png"] status:string duration:seconds];
 }
 
 + (void)dismissWithError:(NSString*)string {
@@ -124,7 +128,7 @@
 }
 
 + (void)dismissWithError:(NSString *)string afterDelay:(NSTimeInterval)seconds {
-    [[SVProgressHUD sharedView] showImage:[UIImage imageNamed:@"SVProgressHUD.bundle/error.png"] status:string duration:seconds];
+    [[SVProgressHUD sharedView] showImage:[UIImage imageNamed:@"loadingFailed62x62.png"] status:string duration:seconds];
 }
 
 
@@ -149,7 +153,7 @@
     switch (self.maskType) {
         case SVProgressHUDMaskTypeBlack: {
             [[UIColor whiteColor] set];
-            CGContextSetAlpha(context, 0.7);
+            CGContextSetAlpha(context, 0.65);
             CGContextFillRect(context, self.bounds);
             break;
         }
@@ -174,23 +178,33 @@
 }
 
 - (void)setStatus:(NSString *)string {
+    self.maskType = SVProgressHUDMaskTypeBlack;
     CGFloat hudWidth = 171.0;
     CGFloat hudHeight = 171.0;
     CGRect labelRect = CGRectZero;
     
-    labelRect = CGRectMake(CGRectGetWidth(self.hudView.bounds), 131, 171, 20);  
+    /*
+     CGRect labelRect = CGRectZero;
+     CGSize labelSize = CGSizeMake(160.0, 20.0);
+     CGPoint labelCenter = CGPointMake(171/2, 131);
+     labelRect = CGRectMake(labelCenter.x, labelCenter.y-(labelSize.width/2), labelSize.width, labelSize.height);
+     */
+    
+    labelRect = CGRectMake(10, 131, 151, 20);
     
 	self.hudView.bounds = CGRectMake(0, 0, hudWidth, hudHeight);
     
-    self.imageView.center = CGPointMake(CGRectGetWidth(self.hudView.bounds)/2, 36);
+    self.imageView.center = CGPointMake(ceil(CGRectGetWidth(self.hudView.bounds)/2)+1, self.hudView.bounds.size.height*0.525);
 	
 	self.stringLabel.hidden = NO;
 	self.stringLabel.text = string;
-    self.stringLabel.textColor = [UIColor colorWithRed:89/255.0 green:89/255.0 blue:89/255.0 alpha:1.0];
+    self.stringLabel.textColor = [UIColor colorWithRed:64/255.0 green:64/255.0 blue:64/255.0 alpha:1.0];
+    self.stringLabel.adjustsFontSizeToFitWidth = YES;
+    
 	self.stringLabel.frame = labelRect;
     stringLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
 	
-    self.spinnerView.center = CGPointMake(ceil(CGRectGetWidth(self.hudView.bounds)/2)+2, self.hudView.bounds.size.height*0.53);
+    self.spinnerView.center = CGPointMake(ceil(CGRectGetWidth(self.hudView.bounds)/2)+1, self.hudView.bounds.size.height*0.525);
 }
 
 - (void)setFadeOutTimer:(NSTimer *)newTimer 
@@ -377,7 +391,7 @@
 - (void)dismiss {
     dispatch_async(dispatch_get_main_queue(), ^{
 
-        [UIView animateWithDuration:0.15
+        [UIView animateWithDuration:0.10
                               delay:0
                             options:UIViewAnimationCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
                          animations:^{	
@@ -392,10 +406,6 @@
 
                                  [overlayWindow removeFromSuperview];
                                  overlayWindow = nil;
-                                 
-                                 // uncomment to make sure UIWindow is gone from app.windows
-                                 //NSLog(@"%@", [UIApplication sharedApplication].windows);
-                                 //NSLog(@"keyWindow = %@", [UIApplication sharedApplication].keyWindow);
                              }
                          }];
     });
@@ -442,7 +452,7 @@
 		stringLabel.adjustsFontSizeToFitWidth = YES;
 		stringLabel.textAlignment = UITextAlignmentCenter;
 		stringLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-		stringLabel.font = [UIFont boldSystemFontOfSize:16];
+		stringLabel.font = [UIFont fontWithName:@"Helvetica" size:16];
         stringLabel.numberOfLines = 0;
     }
     
@@ -454,7 +464,7 @@
 
 - (UIImageView *)imageView {
     if (imageView == nil)
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
     
     if(!imageView.superview)
         [self.hudView addSubview:imageView];

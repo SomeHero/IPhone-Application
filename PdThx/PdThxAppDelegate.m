@@ -59,7 +59,7 @@
         [self.newUserFlowTabController setSelectedIndex:1];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
     }
-    else if(currentReminderTab < 2 && isNewUser) {
+    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) ) {
         // No bank account, prompt user to add one now.
         currentReminderTab = 2;
         [prefs setValue:NO forKey:@"isNewUser"];

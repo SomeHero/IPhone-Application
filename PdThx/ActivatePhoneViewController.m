@@ -27,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tabBarController.tabBar setUserInteractionEnabled:NO];
+    
     // Do any additional setup after loading the view from its nib.
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
