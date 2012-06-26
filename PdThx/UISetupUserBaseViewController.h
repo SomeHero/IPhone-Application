@@ -24,7 +24,6 @@
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;
--(void) signOutClicked;
 -(void) actionButtonClicked:(id)sender;
 
 @end

@@ -150,17 +150,6 @@ CGSize scrollViewOriginalSize;
     
     if([userId length] > 0)
     {
-        /* ---------------------------------------------------- */
-        /*      Custom Signout  Button Implementation           */
-        /* ---------------------------------------------------- */
-        if ( [self.navigationController.viewControllers count] == 1 )
-        {
-            NSLog(@"No left bar button item for %@, loading sign out button", self );
-            UIBarButtonItem *signOutButton =  [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonSystemItemAction target:self action:@selector(signOutClicked)];
-            
-            self.navigationItem.leftBarButtonItem= signOutButton;
-            [signOutButton release];
-        }
         
         
         /* ---------------------------------------------------- */
@@ -191,11 +180,6 @@ CGSize scrollViewOriginalSize;
     [controllers removeLastObject];
     
     navController.viewControllers = controllers;
-}
-
--(void) signOutClicked {
-    
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
 }
 -(void) actionButtonClicked:(id)sender{
     NSLog(@"Action Button Clicked");

@@ -146,10 +146,6 @@ CGSize scrollViewOriginalSize;
     navController.viewControllers = controllers;
 }
 
--(void) signOutClicked {
-    
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
-}
 -(void) actionButtonClicked:(id)sender{
     NSLog(@"Action Button Clicked");
     

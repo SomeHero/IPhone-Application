@@ -29,15 +29,12 @@
 {
     [super viewDidLoad];
     
+    mainScrollView.contentSize = CGSizeMake(320, 640);
+    [self.view addSubview:mainScrollView];
+    
     validationHelper = [[ValidationHelper alloc] init];
     
-    // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *cancelButton =  [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemAction target:self action:@selector(cancelClicked)];
-    
-    self.navigationItem.leftBarButtonItem= cancelButton;
-    [cancelButton release];
-    
-    [self setTitle: navBarTitle];
+    [self setTitle: @"Add Account"];
     [ctrlHeaderText setText: headerText];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
@@ -184,7 +181,7 @@
     txtRoutingNumber.text = @"";
     txtNameOnAccount.text = @"";
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated: YES];
 
 }
 -(void)userACHSetupDidFail:(NSString*) message {
