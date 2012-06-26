@@ -182,10 +182,6 @@
 		54FA47481595B74E007CFA33 /* GetSecurityQuestionsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47471595B74D007CFA33 /* GetSecurityQuestionsService.m */; };
 		5B1A74B7158A48CC00DB973F /* bg-message-stretch.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A74B5158A48CC00DB973F /* bg-message-stretch.png */; };
 		5B1A74B8158A48CC00DB973F /* bg-message-stretch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A74B6158A48CC00DB973F /* bg-message-stretch@2x.png */; };
-		5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */; };
-		5B3A5D48159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3A5D46159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib */; };
-		5B3A5D53159A208F0028D3F6 /* ALUnlockPatternView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D51159A208F0028D3F6 /* ALUnlockPatternView.m */; };
-		5B3A5D54159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3A5D52159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib */; };
 		5B3F4A9E155F41E300A67649 /* SendMoneyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4A9D155F41E300A67649 /* SendMoneyService.m */; };
 		5B3F4AA1155F4F1300A67649 /* RequestMoneyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */; };
 		5B3F4AA4155F571900A67649 /* GetPayStreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F4AA3155F571900A67649 /* GetPayStreamService.m */; };
@@ -513,6 +509,8 @@
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
 		5BE06BFC159A11B700CB630F /* icon-settings-bank-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BFA159A11B600CB630F /* icon-settings-bank-40x40.png */; };
 		5BE06BFD159A11B700CB630F /* icon-settings-bank-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BFB159A11B600CB630F /* icon-settings-bank-40x40@2x.png */; };
+		5BE6F77414E3859300599EF2 /* ALUnlockPatternView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */; };
+		5BE6F77714E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */; };
 		5BE6F7A314E9D87A00599EF2 /* Environments.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6F7A214E9D87A00599EF2 /* Environments.plist */; };
 		5BE6F7AC14E9E0F200599EF2 /* Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6F7AB14E9E0F000599EF2 /* Environment.m */; };
 		5BE6F7B315010F8700599EF2 /* paidthx-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6F7B215010F8700599EF2 /* paidthx-icon.png */; };
@@ -573,6 +571,8 @@
 		5BF07B5F15980D000020EA2F /* icon-settings-sharing-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07B4615980D000020EA2F /* icon-settings-sharing-40x40@2x.png */; };
 		5BF07B6015980D000020EA2F /* icon-settings-social-40x40-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07B4715980D000020EA2F /* icon-settings-social-40x40-active.png */; };
 		5BF1F1F0158CCCD700CFBF77 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */; };
+		5BF1F205158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF1F203158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m */; };
+		5BF1F206158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F204158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib */; };
 		5BF1F20E158EB05F00CFBF77 /* btn-pinswipe-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F208158EB05F00CFBF77 /* btn-pinswipe-60x60@2x.png */; };
 		5BF1F20F158EB05F00CFBF77 /* btn-pinswipe-pressed-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F209158EB05F00CFBF77 /* btn-pinswipe-pressed-60x60@2x.png */; };
 		5BF1F210158EB05F00CFBF77 /* btn-pinswipe-selected-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1F20A158EB05F00CFBF77 /* btn-pinswipe-selected-60x60@2x.png */; };
@@ -806,13 +806,6 @@
 		54FA47491595BAA8007CFA33 /* GetSecurityQuestionsProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetSecurityQuestionsProtocol.h; sourceTree = "<group>"; };
 		5B1A74B5158A48CC00DB973F /* bg-message-stretch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-message-stretch.png"; sourceTree = "<group>"; };
 		5B1A74B6158A48CC00DB973F /* bg-message-stretch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-message-stretch@2x.png"; sourceTree = "<group>"; };
-		5B3A5D44159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeController.h; sourceTree = "<group>"; };
-		5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPinSwipeController.m; sourceTree = "<group>"; };
-		5B3A5D46159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSecurityPinSwipeController.xib; sourceTree = "<group>"; };
-		5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeProtocol.h; sourceTree = "<group>"; };
-		5B3A5D50159A208F0028D3F6 /* ALUnlockPatternView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALUnlockPatternView.h; sourceTree = "<group>"; };
-		5B3A5D51159A208F0028D3F6 /* ALUnlockPatternView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALUnlockPatternView.m; sourceTree = "<group>"; };
-		5B3A5D52159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ALUnlockPatternViewDemoViewController.xib; sourceTree = "<group>"; };
 		5B3F4A9C155F41E200A67649 /* SendMoneyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyService.h; sourceTree = "<group>"; };
 		5B3F4A9D155F41E300A67649 /* SendMoneyService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyService.m; sourceTree = "<group>"; };
 		5B3F4A9F155F4F1300A67649 /* RequestMoneyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyService.h; sourceTree = "<group>"; };
@@ -1195,6 +1188,9 @@
 		5BE06BF9159A038800CB630F /* DeleteBankAccountProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteBankAccountProtocol.h; sourceTree = "<group>"; };
 		5BE06BFA159A11B600CB630F /* icon-settings-bank-40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-bank-40x40.png"; sourceTree = "<group>"; };
 		5BE06BFB159A11B600CB630F /* icon-settings-bank-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-bank-40x40@2x.png"; sourceTree = "<group>"; };
+		5BE6F77214E3859300599EF2 /* ALUnlockPatternView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALUnlockPatternView.h; sourceTree = "<group>"; };
+		5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALUnlockPatternView.m; sourceTree = "<group>"; };
+		5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ALUnlockPatternViewDemoViewController.xib; sourceTree = "<group>"; };
 		5BE6F7A214E9D87A00599EF2 /* Environments.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Environments.plist; sourceTree = "<group>"; };
 		5BE6F7AA14E9E0EE00599EF2 /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
 		5BE6F7AB14E9E0F000599EF2 /* Environment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Environment.m; sourceTree = "<group>"; };
@@ -1259,12 +1255,16 @@
 		5BF07B4615980D000020EA2F /* icon-settings-sharing-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-sharing-40x40@2x.png"; sourceTree = "<group>"; };
 		5BF07B4715980D000020EA2F /* icon-settings-social-40x40-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-social-40x40-active.png"; sourceTree = "<group>"; };
 		5BF1F1EE158CCCD600CFBF77 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		5BF1F202158EAF6400CFBF77 /* CustomSecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeController.h; sourceTree = "<group>"; };
+		5BF1F203158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPinSwipeController.m; sourceTree = "<group>"; };
+		5BF1F204158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSecurityPinSwipeController.xib; sourceTree = "<group>"; };
 		5BF1F208158EB05F00CFBF77 /* btn-pinswipe-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-60x60@2x.png"; sourceTree = "<group>"; };
 		5BF1F209158EB05F00CFBF77 /* btn-pinswipe-pressed-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-pressed-60x60@2x.png"; sourceTree = "<group>"; };
 		5BF1F20A158EB05F00CFBF77 /* btn-pinswipe-selected-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-selected-60x60@2x.png"; sourceTree = "<group>"; };
 		5BF1F20B158EB05F00CFBF77 /* btn-pinswipe-60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-60x60.png"; sourceTree = "<group>"; };
 		5BF1F20C158EB05F00CFBF77 /* btn-pinswipe-pressed-60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-pressed-60x60.png"; sourceTree = "<group>"; };
 		5BF1F20D158EB05F00CFBF77 /* btn-pinswipe-selected-60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-selected-60x60.png"; sourceTree = "<group>"; };
+		5BF1F214158ED44200CFBF77 /* CustomSecurityPinSwipeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeProtocol.h; sourceTree = "<group>"; };
 		5BF1F215158F4FAE00CFBF77 /* UISetupUserBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISetupUserBaseViewController.h; sourceTree = "<group>"; };
 		5BF1F216158F4FB500CFBF77 /* UISetupUserBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISetupUserBaseViewController.m; sourceTree = "<group>"; };
 		5BF3EE1E159144170011BAD8 /* AccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountListViewController.h; sourceTree = "<group>"; };
@@ -1404,6 +1404,7 @@
 		541EE60D158A712100131B0E /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 				5BF07AFF15978A200020EA2F /* RequestMoneyController.xib */,
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 			);
@@ -1601,17 +1602,23 @@
 			name = "Home View";
 			sourceTree = "<group>";
 		};
+		54A139AE1582701600668984 /* Pin Swipe View */ = {
+			isa = PBXGroup;
+			children = (
+				5BE6F77214E3859300599EF2 /* ALUnlockPatternView.h */,
+				5BE6F77314E3859300599EF2 /* ALUnlockPatternView.m */,
+				5BF1F202158EAF6400CFBF77 /* CustomSecurityPinSwipeController.h */,
+				5BF1F203158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m */,
+			);
+			name = "Pin Swipe View";
+			sourceTree = "<group>";
+		};
 		54A139AF1582702700668984 /* Custom UI Features */ = {
 			isa = PBXGroup;
 			children = (
-				5B3A5D50159A208F0028D3F6 /* ALUnlockPatternView.h */,
-				5B3A5D51159A208F0028D3F6 /* ALUnlockPatternView.m */,
-				5B3A5D52159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib */,
-				5B3A5D44159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.h */,
-				5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */,
-				5B3A5D46159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib */,
 				54B687E41598CC710023C874 /* ChoosePicture */,
 				54E3877A15911D6800A18DD9 /* ActivityIndicator */,
+				54A139AE1582701600668984 /* Pin Swipe View */,
 				54A139CE1584102700668984 /* iOS4 Navigation Bar Image */,
 				54A139B115827E5000668984 /* Keyboard Top Accessory */,
 			);
@@ -2344,9 +2351,11 @@
 		5BD278FA153E7F0300CAFC12 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
+				5BE6F77614E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib */,
 				5B8868591529257400EA24A4 /* ConfirmPaymentDialog.xib */,
 				5BD27904153FABA800CAFC12 /* ConfirmSecurityPinDialog.xib */,
 				5BD278FB153E7F4200CAFC12 /* SetupSecurityPinDialog.xib */,
+				5BF1F204158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib */,
 			);
 			name = Dialogs;
 			sourceTree = "<group>";
@@ -2354,7 +2363,6 @@
 		5BD279111544431C00CAFC12 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
 				542F12241595C2B90098D77D /* SecurityQuestionInputProtocol.h */,
 				54FA47491595BAA8007CFA33 /* GetSecurityQuestionsProtocol.h */,
@@ -2378,6 +2386,7 @@
 				5B8147C21587BAFF00CE10AA /* RejectPaymentRequestProtocol.h */,
 				5B8147C31587BC2100CE10AA /* CancelPaymentRequestProtocol.h */,
 				5B8147C41587BC4C00CE10AA /* CancelPaymentProtocol.h */,
+				5BF1F214158ED44200CFBF77 /* CustomSecurityPinSwipeProtocol.h */,
 				5B5D091015901ACE00E90A1A /* TransactionConfirmationProtocol.h */,
 				5BF3EE2915915C6C0011BAD8 /* BankAccountRequestProtocol.h */,
 				5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */,
@@ -2841,6 +2850,7 @@
 				5BEBF01A14B2281900379108 /* ProfileController.xib in Resources */,
 				5B692C5414D4777D00E6E663 /* SendMoneyController.xib in Resources */,
 				5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */,
+				5BE6F77714E385BE00599EF2 /* ALUnlockPatternViewDemoViewController.xib in Resources */,
 				5BE6F7A314E9D87A00599EF2 /* Environments.plist in Resources */,
 				5BE6F7B315010F8700599EF2 /* paidthx-icon.png in Resources */,
 				5B88680C1527F43D00EA24A4 /* home_off.png in Resources */,
@@ -3010,6 +3020,7 @@
 				5BB145C1158B989600EA652A /* (null) in Resources */,
 				5BC9C3BD158C459400E20D9D /* CreateAccountViewController.xib in Resources */,
 				5BF1F1F0158CCCD700CFBF77 /* SignInViewController.xib in Resources */,
+				5BF1F206158EAF6400CFBF77 /* CustomSecurityPinSwipeController.xib in Resources */,
 				5BF1F20E158EB05F00CFBF77 /* btn-pinswipe-60x60@2x.png in Resources */,
 				5BF1F20F158EB05F00CFBF77 /* btn-pinswipe-pressed-60x60@2x.png in Resources */,
 				5BF1F210158EB05F00CFBF77 /* btn-pinswipe-selected-60x60@2x.png in Resources */,
@@ -3113,17 +3124,18 @@
 				540025A91598A55C00332A10 /* ChangePasswordViewController.xib in Resources */,
 				540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */,
 				54B687EA1598CC7F0023C874 /* ChoosePictureViewController.xib in Resources */,
+<<<<<<< Updated upstream
 				5480584C159A03BE00ED591C /* loadingFailed62x62.png in Resources */,
 				5480584D159A03BE00ED591C /* loadingFailed62x62@2x.png in Resources */,
 				5480584E159A03BE00ED591C /* loadingImage342x342.png in Resources */,
 				5480584F159A03BE00ED591C /* loadingImage342x342@2x.png in Resources */,
 				54805850159A03BE00ED591C /* loadingPassed62x62.png in Resources */,
 				54805851159A03BE00ED591C /* loadingPassed62x62@2x.png in Resources */,
+=======
 				5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */,
 				5BE06BFC159A11B700CB630F /* icon-settings-bank-40x40.png in Resources */,
 				5BE06BFD159A11B700CB630F /* icon-settings-bank-40x40@2x.png in Resources */,
-				5B3A5D48159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib in Resources */,
-				5B3A5D54159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib in Resources */,
+>>>>>>> Stashed changes
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3183,6 +3195,7 @@
 				5B692C5314D4777D00E6E663 /* SendMoneyController.m in Sources */,
 				5B692CBB14D5E9E100E6E663 /* RequestMoneyController.m in Sources */,
 				5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */,
+				5BE6F77414E3859300599EF2 /* ALUnlockPatternView.m in Sources */,
 				5BE6F7AC14E9E0F200599EF2 /* Environment.m in Sources */,
 				5B88684B1529142C00EA24A4 /* UIView+JMNoise.m in Sources */,
 				5B88684E1529142C00EA24A4 /* UAModalPanel.m in Sources */,
@@ -3227,6 +3240,7 @@
 				5BB145E5158C284500EA652A /* FacebookSignIn.m in Sources */,
 				5BC9C3B6158C41D800E20D9D /* SignInViewController.m in Sources */,
 				5BC9C3BC158C459400E20D9D /* CreateAccountViewController.m in Sources */,
+				5BF1F205158EAF6400CFBF77 /* CustomSecurityPinSwipeController.m in Sources */,
 				5BF1F218158F4FC100CFBF77 /* UISetupUserBaseViewController.m in Sources */,
 				5B5D08D4158FF40100E90A1A /* ChangeSecurityPinController.m in Sources */,
 				5B5D08F51590048D00E90A1A /* TransactionConfirmationViewController.m in Sources */,
@@ -3244,10 +3258,11 @@
 				540025A71598A53600332A10 /* ChangePasswordViewController.m in Sources */,
 				540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */,
 				54B687E91598CC7F0023C874 /* ChoosePictureViewController.m in Sources */,
+<<<<<<< Updated upstream
 				54805854159A03FB00ED591C /* SVProgressHUD.m in Sources */,
+=======
 				5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */,
-				5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */,
-				5B3A5D53159A208F0028D3F6 /* ALUnlockPatternView.m in Sources */,
+>>>>>>> Stashed changes
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

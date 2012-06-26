@@ -38,8 +38,8 @@
         bankAccountId = [[dictionary valueForKey:@"Id"] copy];
         accountNumber = [[dictionary valueForKey:@"AccountNumber"] copy];
         routingNumber = [[dictionary valueForKey:@"RoutingNumber"] copy];
-        accountType = [[dictionary valueForKey:@"accountType"] copy];
-        nameOnAccount = [[dictionary objectForKey:@"nameOnAccount"] copy];
+        accountType = [[dictionary valueForKey:@"AccountType"] copy];
+        nameOnAccount = [[dictionary objectForKey:@"NameOnAccount"] copy];
     }
     
     return self;

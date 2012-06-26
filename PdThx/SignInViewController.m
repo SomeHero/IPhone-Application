@@ -158,19 +158,20 @@
     
     if(isValid && ![self isValidUserName:username])
     {
-        [self showAlertView:@"Invalid UserName!" withMessage: @"You did not enter a user name.  Please try again."];
+        [SVProgressHUD showErrorWithStatus:@"Invalid Username/Password!"];
+        // [self showAlertView:@"Invalid UserName!" withMessage: @"You did not enter a user name.  Please try again."];
         
         isValid = NO;
     }
     if(isValid && ![self isValidPassword:password])
     {
-        [self showAlertView:@"Invalid Password!" withMessage:@"You did not enter a password.  Please try again."];
+        [SVProgressHUD showErrorWithStatus:@"Invalid Username/Password!"];
+        // [self showAlertView:@"Invalid Password!" withMessage:@"You did not enter a password.  Please try again."];
         
         isValid = NO;
     }
     
     if(isValid) {
-        //[SVProgressHUD showWithStatus:@"Logging in..."];
         [signInUserService validateUser:username withPassword:password];
     }
 }
@@ -215,12 +216,13 @@
     [userService setUserInformationCompleteDelegate: self];
     
     
-    //[SVProgressHUD showWithStatus:@"Getting user information..."];
+    [SVProgressHUD showWithStatus:@"Loading profile"];
     [userService getUserInformation: userId];
 }
 
 -(void)userSignInDidFail:(NSString *) reason {
-    [self showAlertView:@"User Validation Failed!" withMessage: reason];
+    [SVProgressHUD showErrorWithStatus:@"Sign in Failed"];
+    //[self showAlertView:@"User Validation Failed!" withMessage: reason];
 }
 
 
@@ -234,7 +236,7 @@
         user.hasACHAccount = true;
     user.hasSecurityPin = setupSecurityPin;
     
-    //[SVProgressHUD showSuccessWithStatus:@"Yay?"];
+    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
@@ -242,11 +244,13 @@
     return;
 }
 -(void)userInformationDidFail:(NSString*) message {
-    [self showAlertView: @"Error Sending Money" withMessage: message];
+    [SVProgressHUD showErrorWithStatus:@"User info failed."];
+    //[self showAlertView: @"Error Sending Money" withMessage: message];
 }
 
 
 -(IBAction) btnSignInClicked:(id) sender {
+    [SVProgressHUD showWithStatus:@"Signing In"];
     [self signInUser];
 }
 
@@ -259,7 +263,8 @@
  }
  */
 
--(IBAction) bgTouched:(id) sender {
+-(IBAction) bgTouched:(id) sender 
+{
     [txtEmailAddress resignFirstResponder];
     [txtPassword resignFirstResponder];
 }
