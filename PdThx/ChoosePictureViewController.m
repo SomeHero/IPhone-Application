@@ -42,7 +42,7 @@
     newImage = UIGraphicsGetImageFromCurrentImageContext(); 
     UIGraphicsEndImageContext();
 
-    [self imageUpload:UIImageJPEGRepresentation(imageView.image, 1.0) filename:imageName];
+    [self imageUpload:UIImageJPEGRepresentation(newImage, 1.0) filename:imageName];
 
 }
 
@@ -69,7 +69,7 @@
         
         NSString* fileName = [[jsonDictionary valueForKey: @"FileName"] copy];
         
-        NSLog(@"Image Uploaded %@", fileName);
+        NSLog(@"Image Uploaded F/N:%@", fileName);
         
 
     }
