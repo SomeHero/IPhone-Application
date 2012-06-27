@@ -100,6 +100,13 @@
     }
     
     fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ( [defaults objectForKey:@"FBAccessTokenKey"] && [defaults objectForKey:@"FBExpirationDateKey"] ){
+        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated 

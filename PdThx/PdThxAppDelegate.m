@@ -353,6 +353,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
+        
+        UIImage * tempImgData = nil;
+        
+        if ( ABPersonHasImageData(ref) ) {
+            if ( &ABPersonCopyImageData != nil ){
+                tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageDataWithFormat(ref, kABPersonImageFormatThumbnail)];
+            } else {
+                tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageData(ref)];
+            }
+        }
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
         
@@ -362,18 +373,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
+        NSString* emailAddress = [NSString stringWithFormat:@"%@", (NSString*)emailAddr];
+        emailAddress = [emailAddress stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
         NSString *contactFirstLast = @"";
         
-        if([firstName length] > 0) {
-            contactFirstLast = [NSString stringWithFormat: @"%@", firstName];
-        }
-        if([lastName length] > 0 && [contactFirstLast length] > 0) {
-            contactFirstLast = [NSString stringWithFormat: @"%@ %@", contactFirstLast, lastName];
-        } else if([lastName length] > 0) {
-             contactFirstLast = [NSString stringWithFormat: @"%@", lastName];
+        if( [firstName length] > 0 || [lastName length] > 0 ){
+            contactFirstLast = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
         } else {
-            contactFirstLast = @"No Name Found"; 
+            contactFirstLast = @"Unlabeled Contact";
         }
+        
+        contactFirstLast = [contactFirstLast stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
         
         NSLog(@"%@", contactFirstLast);
         
@@ -390,6 +401,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 NSLog(@"Phone Number: %@", phoneNumber);
                 contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
                 contact.recipientUri = [contact.phoneNumber copy];
+                
+                if ( tempImgData != nil ) {
+                    NSLog(@"Loading image for %@", contactFirstLast);
+                    contact.imgData = tempImgData;
+                }
+                    
+                
                 //NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
                 [tempArray addObject:contact];
                 
