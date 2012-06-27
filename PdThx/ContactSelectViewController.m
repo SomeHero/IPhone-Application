@@ -220,7 +220,6 @@
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
     
-    NSLog(@"Reloading TableView, Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
     Contact *contact;
     if ( isFiltered == YES ) {
         if ( foundFiltered == NO ){ // Only Show it once (section0)
@@ -298,7 +297,10 @@
         } else {
             myCell.contactName.text = contact.name;
             myCell.contactDetail.text = contact.phoneNumber;
-            [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+            if ( contact.imgData )
+                [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+            else
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
         }
     } else {
         Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -334,7 +336,11 @@
         } else {
             myCell.contactName.text = contact.name;
             myCell.contactDetail.text = contact.phoneNumber;
-            [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+            
+            if ( contact.imgData != nil )
+                [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+            else
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
         }
     }
     
@@ -546,7 +552,6 @@
                 // Add $me code implementation ** TODO: **
             
                 if ( hasSimilarity.location != NSNotFound ){
-                    NSLog(@"Add filtered result %@", contact.name);
                      @try {
                     [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
                     foundFiltered = YES;
@@ -559,7 +564,6 @@
             }
         }
     }
-    NSLog(@"Filtered? %@ Found? %@", isFiltered ? @"YES" : @"NO" , foundFiltered ? @"YES" : @"NO");
     [tvSubview reloadData];
 }
 @end
