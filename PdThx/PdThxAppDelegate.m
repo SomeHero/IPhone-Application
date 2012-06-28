@@ -368,8 +368,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
     int index = 0;
     for (int i = 1; i < nPeople; i++) {
+        NSLog(@"%@", @"Started Next Person");
+        
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+        
+        NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
+        firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
+        NSLog(@"%@", firstName);
+        
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
         CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
         
@@ -385,14 +393,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
         
-        NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
-        firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+    
         
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
+        NSLog(@"%@", lastName);
+        
         NSString* emailAddress = [NSString stringWithFormat:@"%@", (NSString*)emailAddr];
         emailAddress = [emailAddress stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
+        NSLog(@"%@", emailAddress);
         
         NSString *contactFirstLast = @"";
         
@@ -426,12 +437,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 }
                     
                 
-                //NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
                 [tempArray addObject:contact];
                 
                 index++;
                 
                 [contact release];
+               
             }
         }
     }
@@ -490,7 +501,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for (Contact*person in tempArray) {
         comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
         
-        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+        if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
+        {
+            [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+        }
+        else {
+            [[contactsArray objectAtIndex:27] addObject:person];
+        }
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];

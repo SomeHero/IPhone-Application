@@ -319,13 +319,14 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
+    [prefs setBool:isNewUser forKey:@"isNewUser"];
     
     [prefs synchronize];
     
+    userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
+        
     [userService getUserInformation: userId];
-    
-    
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {
