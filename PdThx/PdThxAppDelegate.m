@@ -565,14 +565,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     myProgHud.imgView.hidden = YES;
     myProgHud.activityIndicator.hidden = NO;
     [[myProgHud activityIndicator] startAnimating];
-    
+
     if ( !myProgHud.view.superview ){
+        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
+        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
         myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.alpha = 0.3;
+        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
         [self.window addSubview:myProgHud.view];
-        [UIView animateWithDuration:0.2 animations:^{
+        
+        [UIView animateWithDuration:0.5 animations:^{
             myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.alpha = 1.0;
+            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
         }];
     }
 }
@@ -593,15 +596,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [[myProgHud activityIndicator] stopAnimating];
     myProgHud.activityIndicator.hidden = YES;
     
-    
     if ( !myProgHud.view.superview ){
+        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
+        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
         myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.alpha = 0.0;
+        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
         [self.window addSubview:myProgHud.view];
-        [UIView animateWithDuration:0.4 animations:^{
+        
+        [UIView animateWithDuration:0.5 animations:^{
             myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.alpha = 1.0;
+            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
         }];
+        
     }
     
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
@@ -626,24 +632,30 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     
     if ( !myProgHud.view.superview ){
+        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
+        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
         myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.alpha = 0.3;
+        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
         [self.window addSubview:myProgHud.view];
-        [UIView animateWithDuration:0.2 animations:^{
+        
+        [UIView animateWithDuration:0.5 animations:^{
             myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.alpha = 1.0;
+            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
         }];
+        
     }
     
     [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
 }
 
-
 -(void)dismissProgressHUD
 {
-    if ( myProgHud != nil && myProgHud.view.superview ) {
+    [UIView animateWithDuration:0.5 animations:^{
+        myProgHud.fadedLayer.alpha = 0.0;
+        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
+    } completion:^(BOOL finished) {
         [myProgHud.view removeFromSuperview];
-    }
+    }];
 }
 
 
