@@ -91,11 +91,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString* userId = [prefs stringForKey:@"userId"];
 
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Loading" withDetailedStatus:@"Getting profile"];
+    
     [userService getUserInformation:userId];
 }
 
--(void)userInformationDidComplete:(User*) user {
-
+-(void)userInformationDidComplete:(User*) user 
+{
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
 
@@ -106,11 +109,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     lblScore.text = @"80";
     lblIncreaseScore.text = @"+ Link your Facebook Account";
     lblPaystreamCount.text = @"5";
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
 
     [numberFormatter release];
 }
+
 -(void)userInformationDidFail:(NSString*) message {
-    [self showAlertView: @"Error Sending Money" withMessage: message];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
 }
 - (void)viewDidUnload
 {

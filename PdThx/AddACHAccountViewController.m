@@ -78,25 +78,29 @@
     
     if(isValid && ![validationHelper isValidNameOnAccount:nameOnAccount])
     {
-        [self showAlertView:@"Invalid Name on Account!" withMessage: @"You did not enter the name on account.  Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Account Name"];
         
         isValid = NO;
     }
     if(isValid && ![validationHelper isValidRoutingNumber:routingNumber])
     {
-        [self showAlertView:@"Invalid Routing Number!" withMessage:@"The routing number you entered is invalid. Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Routing Number"];
         
         isValid = NO;
     }
     if(isValid && ![validationHelper isValidAccountNumber:accountNumber])
     {
-        [self showAlertView:@"Invalid Account Number!" withMessage:@"The account number you entered is invalid. Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Account Number"];
         
         isValid = NO;
     }
     if(isValid && ![validationHelper doesAccountNumberMatch: accountNumber doesMatch: confirmAccountNumber])
     {
-        [self showAlertView:@"Account Number Mismatch!" withMessage:@"The account numbers do not match. Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Account number mismatch"];
         
         isValid = NO;
     }
@@ -130,6 +134,8 @@
     {
         securityPin = pin;
         
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
         [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
     }
     else {
@@ -165,12 +171,14 @@
 }
 -(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
 {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
+    
     [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
     
     [self dismissModalViewControllerAnimated:YES];
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
-    
     if([user.preferredPaymentAccountId length] == 0)
         user.preferredPaymentAccountId = paymentAccountId;
     if([user.preferredReceiveAccountId length] == 0)
@@ -181,11 +189,14 @@
     txtRoutingNumber.text = @"";
     txtNameOnAccount.text = @"";
     
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Account Added!" withDetailedStatus:@"Linked bank account"];
+    
     [self.navigationController popViewControllerAnimated: YES];
 
 }
--(void)userACHSetupDidFail:(NSString*) message {
-    [self showAlertView: @"Unable to Setup Account" withMessage:message];
+-(void)userACHSetupDidFail:(NSString*) message {PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
 -(void)swipeDidCancel: (id)sender
 {

@@ -34,7 +34,7 @@
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
-    [requestObj setRequestMethod: @"GET"];	
+    [requestObj setRequestMethod: @"GET"];
     
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(getUserInformationComplete:)];
@@ -43,19 +43,25 @@
 }
 -(void) getUserInformationComplete:(ASIHTTPRequest *)request
 {
-    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    if ( [request responseStatusCode] == 200 ){
+        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
+        
+        
+        [userInformationCompleteDelegate userInformationDidComplete:user];
+    } else {
+        [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
+    }
     
-    NSString *theJSON = [request responseString];
-
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    [parser release];
-    
-    User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
-    
-    
-    [userInformationCompleteDelegate userInformationDidComplete:user];
     
 }
 -(void) getUserInformationFailed:(ASIHTTPRequest *)request

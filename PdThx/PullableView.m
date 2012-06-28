@@ -23,7 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         animate = YES;
-        animationDuration = 0.4;
+        animationDuration = 0.7;
         
         toggleOnTap = YES;
         
@@ -122,15 +122,6 @@
     
     [delegate pullableView:self startedAnimation:animationDuration withDirection:( opened ? YES : NO )];
     
-    if (anim) {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-    }
-    
-    self.center = opened ? openedCenter : closedCenter;
     
     if (anim) {
         
@@ -138,10 +129,13 @@
         dragRecognizer.enabled = NO;
         tapRecognizer.enabled = NO;
         
-        [UIView commitAnimations];
+        [UIView animateWithDuration:animationDuration delay:0.0 options:UIViewAnimationCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction animations:^{
+            self.center = opened ? openedCenter : closedCenter;
+        } completion:^(BOOL finished) {
+            [self animationDidStop:@"Slideover" finished:[NSNumber numberWithBool:TRUE] context:nil];
+        }];
         
     } else {
-        
         if ([delegate respondsToSelector:@selector(pullableView:didChangeState:)]) {
             [delegate pullableView:self didChangeState:opened];
         }

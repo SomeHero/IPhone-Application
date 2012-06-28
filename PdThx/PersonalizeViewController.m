@@ -106,12 +106,18 @@
 }
 - (IBAction)pressedSaveContinue:(id)sender 
 {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
     [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: @""];
 }
 -(void) personalizeUserDidComplete {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(void) personalizeUserDidFail:(NSString*) response {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Check data connection"];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(IBAction) bgTouched:(id) sender {
