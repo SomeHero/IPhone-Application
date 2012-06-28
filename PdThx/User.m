@@ -63,11 +63,9 @@
         limit = [dictionary objectForKey: @"upperLimit"];
         hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
         
-        if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0)
-        {
+        if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0) {
             userUri = mobileNumber;
-        }
-        else {
+        } else {
             userUri = userName;
         }
         securityQuestionId =  (int)[dictionary objectForKey: @"securityQuestionId"];
