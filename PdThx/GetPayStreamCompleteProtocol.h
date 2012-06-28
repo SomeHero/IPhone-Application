@@ -11,5 +11,8 @@
 @protocol GetPayStreamCompleteProtocol;
 
 @protocol GetPayStreamCompleteProtocol <NSObject>
-    -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages;
+
+-(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages;
+-(void)getPayStreamDidFail;
+
 @end

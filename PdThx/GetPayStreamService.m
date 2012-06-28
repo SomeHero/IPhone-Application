@@ -85,7 +85,8 @@
         
     }
     else {
-        NSLog(@"Error Sending Money");
+        NSLog(@"Error Sending Money, or timeout");
+        [getPayStreamCompleteDelegate getPayStreamDidFail];
     }
     
 }

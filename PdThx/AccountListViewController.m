@@ -76,6 +76,8 @@
 {
     [super viewDidAppear:animated];
     
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
     [bankAccountService getUserAccounts: user.userId];
 }
 
@@ -89,6 +91,9 @@
     [super viewDidDisappear:animated];
 }
 -(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
     userBankAccounts = bankAccounts;
     
     [userAccountsTableView reloadData];
@@ -197,14 +202,15 @@
 
 -(void) userSecurityPinDidComplete {
     //[spinner stopAnimating];
-    
-    [self showAlertView: @"Security Pin Change Success!" withMessage: @"Security Pin successfully changed."];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Security pin updated"];
 }
 
 -(void) userSecurityPinDidFail: (NSString*) message {
     //[spinner stopAnimating];
     
-    [self showAlertView: @"Security Pin Change Failed" withMessage: message];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid security pin"];
 }
 
 @end

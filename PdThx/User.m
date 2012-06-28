@@ -16,6 +16,7 @@
 @synthesize imageUrl;
 @synthesize limit;
 @synthesize userUri;
+@synthesize securityQuestionId;
 
 -(id)init {
     self = [super init];
@@ -36,6 +37,7 @@
         preferredPaymentAccountId = [[NSString alloc] init];
         preferredReceiveAccountId = [[NSString alloc] init];
         userUri = [[NSString alloc] init];
+        securityQuestionId = -1;
     }
     
     return self;
@@ -60,6 +62,10 @@
         preferredReceiveAccountId = [dictionary valueForKey: @"preferredReceiveAccountId"];
         limit = [dictionary objectForKey: @"upperLimit"];
         hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
+        if ( [dictionary objectForKey:@"securityQuestionId"] == (id)[NSNull null] || [dictionary objectForKey:@"securityQuestionId"] == NULL )
+            securityQuestionId = -1;
+        else
+            securityQuestionId = [[dictionary valueForKey:@"securityQuestionId"] intValue];
         
         if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0)
         {
@@ -95,6 +101,7 @@
     another.hasSecurityPin = hasSecurityPin;
     another.limit = limit;
     another.userUri = userUri;
+    another.securityQuestionId = securityQuestionId;
     
     return another;
 }
