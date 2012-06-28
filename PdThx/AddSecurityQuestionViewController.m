@@ -118,7 +118,11 @@
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    questionId = row;
+    questionId = [[[securityQuestions objectAtIndex:row] objectForKey: @"Id"] intValue];
+    //NSString* question = [NSString stringWithString:[[securityQuestions objectAtIndex:row] objectForKey: @"Question"]];
+    //currentQuestion.text = question;
+    
+    //questionPicker.hidden = YES;
 }
 
 - (IBAction)doSubmit:(id)sender {
@@ -139,7 +143,7 @@
 
 -(IBAction) bgTouched:(id) sender {
     [answerField resignFirstResponder];
-    [questionPicker setHidden:YES];
+    //[questionPicker setHidden:YES];
 }
 
 @end

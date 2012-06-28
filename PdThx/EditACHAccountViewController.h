@@ -30,5 +30,6 @@
 
 -(IBAction)btnSaveChangesClicked :(id)sender;
 -(IBAction)btnDeleteAccountClicked:(id)sender;
+-(IBAction) bgTouched:(id) sender;
 
 @end

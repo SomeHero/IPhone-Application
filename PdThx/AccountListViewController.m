@@ -45,7 +45,8 @@
     
     bankAccountService = [[BankAccountService alloc] init];
     [bankAccountService setBankAccountRequestDelegate: self];
-    
+    [bankAccountService setPreferredAccountDelegate: self];
+
     [super viewDidLoad];
     //self.clearsSelectionOnViewWillAppear = NO;
     NSError *error;
@@ -54,7 +55,7 @@
         //Handle Error Here
     }
 }
-
+    
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -107,13 +108,15 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if(section == 1)
+    if(section == 2)
+        return 2;
+    else if(section == 1)
         return 1;
     else {
         return [userBankAccounts count];
@@ -129,10 +132,17 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    if(indexPath.section == 1)
+    if(indexPath.section == 2)
+    {
+        if(indexPath.row == 1)
+            cell.textLabel.text = @"Preferred Send Account";
+        else
+            cell.textLabel.text = @"Preferred Receive Account";
+    }
+    else if(indexPath.section == 1)
         cell.textLabel.text = @"Add Account";
     else {
-        cell.textLabel.text = [NSString stringWithFormat: @"********%@",  [[userBankAccounts objectAtIndex: indexPath.row] accountNumber]];
+        cell.textLabel.text = [[userBankAccounts objectAtIndex: indexPath.row] nickName];
     cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
     //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
     }
@@ -191,14 +201,59 @@
         
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];
-    } else {
+    } else if(indexPath.section == 1){
         AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
         
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];
+    } else {
+        myPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
+        myPickerView.delegate = self;
+        myPickerView.showsSelectionIndicator = YES;
+
+        [self.view addSubview:myPickerView];
+        
+        [myPickerView reloadAllComponents];
     }
 }
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+    
+    [bankAccountService setPreferredReceiveAccount:[[userBankAccounts objectAtIndex:row] bankAccountId] forUserId:user.userId];
+}
 
+// tell the picker how many rows are available for a given component
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
+    return [userBankAccounts count];
+}
+
+// tell the picker how many components it will have
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+// tell the picker the title for a given component
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *title;
+    title = [@"" stringByAppendingFormat:@"%@", [[userBankAccounts objectAtIndex:row] nickName]];
+
+    return title;
+}
+
+// tell the picker the width of each row for a given component
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    int sectionWidth = 300;
+    
+    return sectionWidth;
+}
+-(void)setPreferredAccountDidComplete {
+    
+    [myPickerView removeFromSuperview];
+}
+-(void)setPreferredAccountDidFail:(NSString*)errorMessage {
+    
+    [myPickerView removeFromSuperview];
+}
 
 -(void) userSecurityPinDidComplete {
     //[spinner stopAnimating];

@@ -134,9 +134,15 @@
     {
         securityPin = pin;
         
-        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        NSString* accountType = @"Checking";
+    
+        if([ctrlAccountType selectedSegmentIndex] == 1)
+            accountType = @"Savings";
+        
+ 		PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
-        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
+        
+        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
     else {
         if([sender tag] == 1)
@@ -175,6 +181,13 @@
     [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
     
     [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
+    
+    NSString* accountType = @"Checking";
+    
+    if([ctrlAccountType selectedSegmentIndex] == 1)
+        accountType = @"Savings";
+    
+    [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     
     [self dismissModalViewControllerAnimated:YES];
 }

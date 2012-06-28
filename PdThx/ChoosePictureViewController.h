@@ -12,6 +12,8 @@
 #import "ASIFormDataRequest.h"
 #import "JSON.h"
 #import "Environment.h"
+#import "User.h"
+#import "PdThxAppDelegate.h"
 
 @interface ChoosePictureViewController : UIModalBaseViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
 	UIImageView * imageView;

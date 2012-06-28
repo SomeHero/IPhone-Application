@@ -13,15 +13,24 @@
 @interface UIModalBaseViewController : UIViewController<UITextFieldDelegate, UITextViewDelegate>
 {
     IBOutlet UIScrollView *mainScrollView;
+    IBOutlet UINavigationItem *navigationItem;
+    IBOutlet UILabel* lblHeader;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
     NSObject *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
+    NSString* navigationTitle;
+    NSString* headerText;
 }
 
 @property(nonatomic, retain) UIScrollView *mainScrollView;
+@property(nonatomic, retain) NSString* navigationTitle;
+@property(nonatomic, retain) NSString* headerText;
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;
+
+
+-(IBAction) bgTouched:(id) sender;
 
 @end

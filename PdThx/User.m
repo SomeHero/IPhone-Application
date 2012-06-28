@@ -16,6 +16,7 @@
 @synthesize imageUrl;
 @synthesize limit;
 @synthesize userUri;
+@synthesize securityQuestion;
 @synthesize securityQuestionId;
 
 -(id)init {
@@ -37,7 +38,6 @@
         preferredPaymentAccountId = [[NSString alloc] init];
         preferredReceiveAccountId = [[NSString alloc] init];
         userUri = [[NSString alloc] init];
-        securityQuestionId = -1;
     }
     
     return self;
@@ -50,7 +50,7 @@
         mobileNumber = [dictionary valueForKey:@"mobileNumber"];
         emailAddress = [dictionary valueForKey:@"emailAddress"];
         userName = [dictionary valueForKey:@"userName"];
-        isLockedOut = [dictionary objectForKey:@"isLockedOut"];
+        isLockedOut = [[dictionary valueForKey: @"isLockedOut"] boolValue];
         userStatus = [dictionary valueForKey:@"userStatus"];
         preferredName = [dictionary valueForKey: @"senderName"];
         firstName = [dictionary valueForKey:@"firstName"];
@@ -62,10 +62,6 @@
         preferredReceiveAccountId = [dictionary valueForKey: @"preferredReceiveAccountId"];
         limit = [dictionary objectForKey: @"upperLimit"];
         hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
-        if ( [dictionary objectForKey:@"securityQuestionId"] == (id)[NSNull null] || [dictionary objectForKey:@"securityQuestionId"] == NULL )
-            securityQuestionId = -1;
-        else
-            securityQuestionId = [[dictionary valueForKey:@"securityQuestionId"] intValue];
         
         if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0)
         {
@@ -74,6 +70,8 @@
         else {
             userUri = userName;
         }
+        securityQuestionId =  (int)[dictionary objectForKey: @"securityQuestionId"];
+        securityQuestion = [dictionary valueForKey: @"securityQuestion"];
     }
     
     return self;
@@ -102,6 +100,7 @@
     another.limit = limit;
     another.userUri = userUri;
     another.securityQuestionId = securityQuestionId;
+    another.securityQuestion = securityQuestion;
     
     return another;
 }

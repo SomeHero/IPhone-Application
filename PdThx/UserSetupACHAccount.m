@@ -28,7 +28,7 @@
     [super dealloc];
 }
 
--(void) addACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin
+-(void) addACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNickname: (NSString*) nickname withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin
 {
     
     Environment *myEnvironment = [Environment sharedInstance];
@@ -43,6 +43,7 @@
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  userId, @"userId",
                                  //deviceId, @"deviceId",
+                                 nickname, @"nickName",
                                  nameOnAccount, @"nameOnAccount",
                                  routingNumber, @"routingNumber",
                                  accountNumber, @"accountNumber",
@@ -65,7 +66,7 @@
     [request startAsynchronous];
 }
 
--(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin withSecurityQuestionID:(int)questionID withSecurityQuestionAnswer:(NSString*)questionAnswer;
+-(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNickname: (NSString*) nickname withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin withSecurityQuestionID:(int)questionID withSecurityQuestionAnswer:(NSString*)questionAnswer;
 {
     
     Environment *myEnvironment = [Environment sharedInstance];
@@ -80,6 +81,7 @@
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  userId, @"userId",
                                  //deviceId, @"deviceId",
+                                 nickname, @"nickName",
                                  nameOnAccount, @"nameOnAccount",
                                  routingNumber, @"routingNumber",
                                  accountNumber, @"accountNumber",

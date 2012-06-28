@@ -15,6 +15,8 @@
 @implementation UIModalBaseViewController
 
 @synthesize mainScrollView;
+@synthesize navigationTitle;
+@synthesize headerText;
 
 //size of tab bar
 
@@ -141,13 +143,15 @@ CGSize scrollViewOriginalSize;
     self.navigationItem.leftBarButtonItem= cancelButton;
     [cancelButton release];
     
+    
+    [self setTitle: navigationTitle];
+    lblHeader.text = headerText;
+
     [super viewDidLoad];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-
-    
     
 }
 
@@ -188,6 +192,7 @@ CGSize scrollViewOriginalSize;
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
+    
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
     if (!titleView) {
         titleView = [[UILabel alloc] initWithFrame:CGRectZero];
