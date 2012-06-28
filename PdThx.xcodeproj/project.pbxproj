@@ -489,6 +489,9 @@
 		5BB145E5158C284500EA652A /* FacebookSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB145E4158C284500EA652A /* FacebookSignIn.m */; };
 		5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE183214DECC93002A3618 /* SendMoneyRequest.m */; };
 		5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BBE183414DF2D13002A3618 /* Entitlements.plist */; };
+		5BC2DB47159B494A00BB961D /* SecurityQuestionChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DB45159B494900BB961D /* SecurityQuestionChallengeViewController.m */; };
+		5BC2DB48159B494A00BB961D /* SecurityQuestionChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BC2DB46159B494900BB961D /* SecurityQuestionChallengeViewController.xib */; };
+		5BC2DB4E159B962400BB961D /* SecurityQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DB4D159B961800BB961D /* SecurityQuestionService.m */; };
 		5BC9C3B6158C41D800E20D9D /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9C3B4158C41D800E20D9D /* SignInViewController.m */; };
 		5BC9C3BC158C459400E20D9D /* CreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9C3BA158C459400E20D9D /* CreateAccountViewController.m */; };
 		5BC9C3BD158C459400E20D9D /* CreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BC9C3BB158C459400E20D9D /* CreateAccountViewController.xib */; };
@@ -1153,6 +1156,14 @@
 		5BBE183114DECC91002A3618 /* SendMoneyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyRequest.h; sourceTree = "<group>"; };
 		5BBE183214DECC93002A3618 /* SendMoneyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyRequest.m; sourceTree = "<group>"; };
 		5BBE183414DF2D13002A3618 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetPreferredAccountProtocol.h; sourceTree = "<group>"; };
+		5BC2DB44159B494900BB961D /* SecurityQuestionChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionChallengeViewController.h; sourceTree = "<group>"; };
+		5BC2DB45159B494900BB961D /* SecurityQuestionChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityQuestionChallengeViewController.m; sourceTree = "<group>"; };
+		5BC2DB46159B494900BB961D /* SecurityQuestionChallengeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecurityQuestionChallengeViewController.xib; sourceTree = "<group>"; };
+		5BC2DB4C159B961300BB961D /* SecurityQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionService.h; sourceTree = "<group>"; };
+		5BC2DB4D159B961800BB961D /* SecurityQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityQuestionService.m; sourceTree = "<group>"; };
+		5BC2DB4F159B971100BB961D /* SecurityQuestionAnsweredProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionAnsweredProtocol.h; sourceTree = "<group>"; };
+		5BC2DB50159BDA6300BB961D /* SecurityQuestionChallengeProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionChallengeProtocol.h; sourceTree = "<group>"; };
 		5BC9C3B3158C41D800E20D9D /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		5BC9C3B4158C41D800E20D9D /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		5BC9C3B9158C459400E20D9D /* CreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAccountViewController.h; sourceTree = "<group>"; };
@@ -1539,6 +1550,9 @@
 				54A139AC15826F3900668984 /* Home View */,
 				5BC9C3B9158C459400E20D9D /* CreateAccountViewController.h */,
 				5BC9C3BA158C459400E20D9D /* CreateAccountViewController.m */,
+				5BC2DB44159B494900BB961D /* SecurityQuestionChallengeViewController.h */,
+				5BC2DB45159B494900BB961D /* SecurityQuestionChallengeViewController.m */,
+				5BC2DB46159B494900BB961D /* SecurityQuestionChallengeViewController.xib */,
 			);
 			name = "Sign In View";
 			sourceTree = "<group>";
@@ -2355,6 +2369,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
+				5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
 				542F12241595C2B90098D77D /* SecurityQuestionInputProtocol.h */,
 				54FA47491595BAA8007CFA33 /* GetSecurityQuestionsProtocol.h */,
@@ -2383,6 +2398,8 @@
 				5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */,
 				5BE06BF8159A037500CB630F /* UpdateBankAccountProtocol.h */,
 				5BE06BF9159A038800CB630F /* DeleteBankAccountProtocol.h */,
+				5BC2DB4F159B971100BB961D /* SecurityQuestionAnsweredProtocol.h */,
+				5BC2DB50159BDA6300BB961D /* SecurityQuestionChallengeProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2503,6 +2520,8 @@
 				5B905803157FCB9D00D0373B /* PaystreamService.m */,
 				5BF3EE2615915A570011BAD8 /* BankAccountService.h */,
 				5BF3EE2715915A580011BAD8 /* BankAccountService.m */,
+				5BC2DB4C159B961300BB961D /* SecurityQuestionService.h */,
+				5BC2DB4D159B961800BB961D /* SecurityQuestionService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -3124,6 +3143,7 @@
 				5BE06BFD159A11B700CB630F /* icon-settings-bank-40x40@2x.png in Resources */,
 				5B3A5D48159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib in Resources */,
 				5B3A5D54159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib in Resources */,
+				5BC2DB48159B494A00BB961D /* SecurityQuestionChallengeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3248,6 +3268,8 @@
 				5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */,
 				5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */,
 				5B3A5D53159A208F0028D3F6 /* ALUnlockPatternView.m in Sources */,
+				5BC2DB47159B494A00BB961D /* SecurityQuestionChallengeViewController.m in Sources */,
+				5BC2DB4E159B962400BB961D /* SecurityQuestionService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

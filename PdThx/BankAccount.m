@@ -10,6 +10,7 @@
 
 @implementation BankAccount
 
+@synthesize nickName;
 @synthesize bankAccountId;
 @synthesize nameOnAccount;
 @synthesize accountNumber;
@@ -20,6 +21,7 @@
     self = [super init];
     if(self) {
         
+        nickName = [[NSString alloc] init];
         bankAccountId = [[NSString alloc] init];
         nameOnAccount = [[NSString alloc] init];
         accountNumber = [[NSString alloc] init];
@@ -35,6 +37,7 @@
     self = [super init];
     
     if(self) { 
+        nickName = [[dictionary valueForKey: @"Nickname"] copy];
         bankAccountId = [[dictionary valueForKey:@"Id"] copy];
         accountNumber = [[dictionary valueForKey:@"AccountNumber"] copy];
         routingNumber = [[dictionary valueForKey:@"RoutingNumber"] copy];
@@ -50,6 +53,7 @@
     // We'll ignore the zone for now
     BankAccount *another = [[BankAccount alloc] init];
     
+    another.nickName = nickName;
     another.bankAccountId = bankAccountId;
     another.accountNumber = accountNumber;
     another.routingNumber = routingNumber;

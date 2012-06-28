@@ -130,7 +130,12 @@
     {
         securityPin = pin;
         
-        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
+        NSString* accountType = @"Checking";
+        
+        if([ctrlAccountType selectedSegmentIndex] == 1)
+            accountType = @"Savings";
+        
+        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
     else {
         if([sender tag] == 1)
@@ -165,7 +170,12 @@
 }
 -(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
 {
-    [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
+    NSString* accountType = @"Checking";
+    
+    if([ctrlAccountType selectedSegmentIndex] == 1)
+        accountType = @"Savings";
+    
+    [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     
     [self dismissModalViewControllerAnimated:YES];
 }

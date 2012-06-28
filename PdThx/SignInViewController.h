@@ -16,8 +16,10 @@
 #import "SetupACHAccountController.h"
 #import "UserSetupACHAccountComplete.h"
 #import "FacebookSignIn.h"
+#import "SecurityQuestionChallengeViewController.h"
+#import "SecurityQuestionChallengeProtocol.h"
 
-@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, UITextFieldDelegate, FBRequestDelegate, UINavigationBarDelegate>
+@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBRequestDelegate, UINavigationBarDelegate>
 {
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;

@@ -179,8 +179,8 @@
 
     if(isValid) {
         NSLog(@"Registering with SecurityQuestionId and Answer: %d -- %@", questionId, questionAnswer);
-        
-        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
+
+        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNickname:@"" withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
     }
 }
 

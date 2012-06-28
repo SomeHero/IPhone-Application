@@ -16,6 +16,8 @@
 @synthesize imageUrl;
 @synthesize limit;
 @synthesize userUri;
+@synthesize securityQuestion;
+@synthesize securityQuestionId;
 
 -(id)init {
     self = [super init];
@@ -48,7 +50,7 @@
         mobileNumber = [dictionary valueForKey:@"mobileNumber"];
         emailAddress = [dictionary valueForKey:@"emailAddress"];
         userName = [dictionary valueForKey:@"userName"];
-        isLockedOut = [dictionary objectForKey:@"isLockedOut"];
+        isLockedOut = [[dictionary valueForKey: @"isLockedOut"] boolValue];
         userStatus = [dictionary valueForKey:@"userStatus"];
         preferredName = [dictionary valueForKey: @"senderName"];
         firstName = [dictionary valueForKey:@"firstName"];
@@ -68,6 +70,8 @@
         else {
             userUri = userName;
         }
+        securityQuestionId =  (int)[dictionary objectForKey: @"securityQuestionId"];
+        securityQuestion = [dictionary valueForKey: @"securityQuestion"];
     }
     
     return self;
@@ -95,6 +99,8 @@
     another.hasSecurityPin = hasSecurityPin;
     another.limit = limit;
     another.userUri = userUri;
+    another.securityQuestionId = securityQuestionId;
+    another.securityQuestion = securityQuestion;
     
     return another;
 }

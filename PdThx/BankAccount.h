@@ -11,6 +11,7 @@
 
 @interface BankAccount : NSObject {
 @private
+    NSString* nickName;
     NSString* bankAccountId;
     NSString* routingNumber;
     NSString* accountNumber;
@@ -18,6 +19,7 @@
     NSString* accountType;
 }
 
+@property(nonatomic, retain) NSString* nickName;
 @property(nonatomic, retain) NSString* bankAccountId;
 @property(nonatomic, retain) NSString* routingNumber;
 @property(nonatomic, retain) NSString* accountNumber;

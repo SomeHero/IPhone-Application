@@ -29,6 +29,8 @@
     bool hasSecurityPin;
     NSDecimalNumber *limit;
     NSString* userUri;
+    NSString* securityQuestion;
+    int securityQuestionId;
 }
 
 @property(nonatomic, retain) NSString* userId;
@@ -49,6 +51,8 @@
 @property(nonatomic) bool hasSecurityPin;
 @property(nonatomic, retain) NSDecimalNumber* limit;
 @property(nonatomic, retain) NSString* userUri;
+@property(nonatomic, retain) NSString* securityQuestion;
+@property int securityQuestionId;
 
 -(User *) initWithDictionary : (NSDictionary *) dictionary;
 

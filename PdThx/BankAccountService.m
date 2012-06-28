@@ -13,6 +13,7 @@
 
 @synthesize bankAccountRequestDelegate;
 @synthesize deleteBankAccountDelegate, updateBankAccountDelegate;
+@synthesize preferredAccountDelegate;
 
 -(void) getUserAccounts:(NSString*) userId {
     
@@ -113,7 +114,7 @@
     
     [deleteBankAccountDelegate deleteBankAccountDidFail: [request responseStatusMessage]];
 }
--(void) updateBankAccount:(NSString *) accountId forUserId: (NSString*) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin {
+-(void) updateBankAccount:(NSString *) accountId forUserId: (NSString*) userId withNickname: (NSString*) nickname withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin {
     
     Environment *myEnvironment = [Environment sharedInstance];
     
@@ -121,6 +122,7 @@
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
+                                 nickname, @"nickName",
                                  nameOnAccount, @"nameOnAccount",
                                  routingNumber, @"routingNumber",
                                  accountType, @"accountType",
@@ -168,5 +170,79 @@
     [updateBankAccountDelegate updateBankAccountDidFail: [request responseStatusMessage]];
 }
 
+-(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId {
+    Environment *myEnvironment = [Environment sharedInstance];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_send_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    
+    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 //deviceId, @"deviceId",
+                                 accountId, @"PaymentAccountId",
+                                 @"2589", @"SecurityPin",
+                                 nil];
+    
+    NSString *newJSON = [paymentData JSONRepresentation]; 
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(setPreferedAccountDidComplete:)];
+    [requestObj setDidFailSelector:@selector(setPreferredAccountDidFail:)];
+    [requestObj startAsynchronous];
+}
+-(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId {
+    Environment *myEnvironment = [Environment sharedInstance];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_receive_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    
+    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 //deviceId, @"deviceId",
+                                 accountId, @"PaymentAccountId",
+                                 @"2589", @"SecurityPin",
+                                 nil];
+    
+    NSString *newJSON = [paymentData JSONRepresentation]; 
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(setPreferredAccountDidComplete:)];
+    [requestObj setDidFailSelector:@selector(setPreferredAccountDidFail:)];
+    [requestObj startAsynchronous];
+}
+-(void) setPreferredAccountDidComplete:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 200 ) {
+        
+        [preferredAccountDelegate setPreferredAccountDidComplete];
+        
+    }
+    else {
+        
+        NSLog(@"Error Getting User Accounts");
+        
+        [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+        
+    }
+    
+    
+}
+-(void) setPreferredAccountDidFail:(ASIHTTPRequest *)request
+{
+    NSLog(@"Error Getting User Accounts");
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+}
 
 @end
