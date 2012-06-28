@@ -135,9 +135,6 @@
         securityPin = pin;
         
         NSString* accountType = @"Checking";
-        
-    	PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    	[appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
     
         if([ctrlAccountType selectedSegmentIndex] == 1)
             accountType = @"Savings";
@@ -184,6 +181,8 @@
     [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
     
     [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
+    
+    NSString* accountType = @"Checking";
     
     if([ctrlAccountType selectedSegmentIndex] == 1)
         accountType = @"Savings";

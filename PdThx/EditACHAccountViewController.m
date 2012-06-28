@@ -72,7 +72,6 @@
 
 	PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Saving changes"];
-    [
     
     [bankAccountService updateBankAccount:bankAccount.bankAccountId forUserId:user.userId withNickname:txtNickName.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: @"2578"];
 }

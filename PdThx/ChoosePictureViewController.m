@@ -29,12 +29,10 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissModalViewControllerAnimated:YES];
-	imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    images = [info retain];
-}
--(void)uploadClicked {
+	UIImage *image = [[info objectForKey:@"UIImagePickerControllerOriginalImage"] retain];
+    imageView.image = image; 
+    
     //[imageView setImage:[info objectForKey:@"UIImagePickerControllerOriginalImage"]];
-    UIImage *image = [images objectForKey:@"UIImagePickerControllerOriginalImage"];
     NSString *imageName = @"uploaded.jpg";
     UIGraphicsBeginImageContext(CGSizeMake(320,480)); 
     UIImage *newImage=nil;
@@ -42,21 +40,31 @@
     newImage = UIGraphicsGetImageFromCurrentImageContext(); 
     UIGraphicsEndImageContext();
 
-    [self imageUpload:UIImageJPEGRepresentation(newImage, 1.0) filename:imageName];
+    [self imageUpload:UIImagePNGRepresentation(newImage) filename:imageName];
 
 }
 
+
 - (void)imageUpload:(NSData *)imageData filename:(NSString *)filename{
-    NSURL *url = [NSURL URLWithString:@"http://23.21.203.171/api/internal/api/FileUpload"];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+
+    Environment *myEnvironment = [Environment sharedInstance];
+    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/upload_member_image?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, user.userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    
+    [user release];
+    
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:urlToSend];
     // Upload a file on disk
-    [request setData:imageData withFileName:@"photo.jpg" andContentType:@"image/jpeg" forKey:@"file"];
+    [request addData:imageData withFileName:@"photo.jpg" andContentType:@"image/jpeg" forKey:@"file"];
     [request setDelegate:self];
     [request startAsynchronous];
 }
 
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 201 ) {
         
