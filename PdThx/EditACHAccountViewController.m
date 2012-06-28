@@ -58,12 +58,19 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 -(IBAction)btnSaveChangesClicked :(id)sender {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Saving changes"];
     [bankAccountService updateBankAccount:bankAccount.bankAccountId forUserId:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:@"Checking" withSecurityPin:@"2578"];
 }
+
 -(IBAction)btnDeleteAccountClicked:(id)sender {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Deleting Account" withDetailedStatus:@"Unlinking bank account"];
     [bankAccountService deleteBankAccount: bankAccount.bankAccountId forUserId:user.userId];
 }
+
 -(void)deleteBankAccountDidComplete {
     [self.navigationController popViewControllerAnimated:YES];
 }

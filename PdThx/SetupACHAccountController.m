@@ -129,6 +129,7 @@
 
 - (void)createACHAccount:(NSString*)pin withSecurityQuestionId:(int)questionId withSecurityQuestionAnswer:(NSString*)questionAnswer
 {
+    
     NSString* nameOnAccount = [NSString stringWithString: @""];
     NSString* routingNumber = [NSString stringWithString: @""];
     NSString* accountNumber = [NSString stringWithString: @""];
@@ -154,31 +155,39 @@
 
     if(isValid && ![validationHelper isValidNameOnAccount:nameOnAccount])
     {
-        [self showAlertView:@"Invalid Name on Account!" withMessage: @"You did not enter the name on account.  Please try again."];
-
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid account name"];
+        
         isValid = NO;
     }
     if(isValid && ![validationHelper isValidRoutingNumber:routingNumber])
     {
-        [self showAlertView:@"Invalid Routing Number!" withMessage:@"The routing number you entered is invalid. Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid routing number"];
 
         isValid = NO;
     }
     if(isValid && ![validationHelper isValidAccountNumber:accountNumber])
     {
-        [self showAlertView:@"Invalid Account Number!" withMessage:@"The account number you entered is invalid. Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid account number"];
 
         isValid = NO;
     }
     if(isValid && ![validationHelper doesAccountNumberMatch: accountNumber doesMatch: confirmAccountNumber])
     {
-        [self showAlertView:@"Account Number Mismatch!" withMessage:@"The account numbers do not match. Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Account number mismatch"];
 
         isValid = NO;
     }
 
     if(isValid) {
         NSLog(@"Registering with SecurityQuestionId and Answer: %d -- %@", questionId, questionAnswer);
+        
+        
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Linking Account" withDetailedStatus:@"Securing information"];
         
         [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
     }
@@ -195,13 +204,15 @@
     user.preferredReceiveAccountId = paymentAccountId;
 
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
-    
     // Move to Home View Controller inside NavigationController again
     //[self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void)userACHSetupDidFail:(NSString*) message {
-    [self showAlertView: @"Unable to Setup Account" withMessage:message];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Unable to link account"];
+    NSLog(@"Error linking bank account: %@", message);
 }
+
 -(IBAction) btnSetupACHAccountClicked:(id) sender {
     controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
     [controller setSecurityPinSwipeDelegate: self];
@@ -239,6 +250,9 @@
 
 -(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
 {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Question Created" withDetailedStatus:@"Added security question"];
+    
     [self createACHAccount:securityPin withSecurityQuestionId:questionId withSecurityQuestionAnswer:questionAnswer];
 }
 
@@ -342,7 +356,8 @@
         
     }
     else {
-        [self showAlertView:@"Unable to setup ACH Acccount!" withMessage:@"Exception setting up your bank account information"];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Unable to link account"];
     }
     
     [paymentAccountId release];

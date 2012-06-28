@@ -208,16 +208,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
 
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
     [getPayStreamService getPayStream:userId];
 }
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
     
     transactions = [payStreamMessages copy];
     
     [self buildTransactionDictionary: transactions];
     
-    if([transactions count] == 0) 
+    if([transactions count] == 0)
     {
         [transactionsTableView setHidden:YES];
         
@@ -258,9 +262,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     else
     {
-        [transactionsTableView setHidden:NO];
+        if ( transactionsTableView.hidden == YES )
+            [transactionsTableView setHidden:NO];
+        
         
         [[self transactionsTableView] reloadData];
+        [self loadImagesForOnscreenRows];
     }
 }
 
@@ -347,9 +354,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         cell = [nib objectAtIndex:0];
     }
 
-     
+    
     [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
-
+    
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
     // Configure the cell...
@@ -672,6 +679,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 [filteredTransactions addObject: transaction];
         }
     }
+    
     [self buildTransactionDictionary: filteredTransactions];
     
     [transactionsTableView reloadData];
@@ -701,16 +709,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
     
         if ( detailView.layer.position.x != detailView.openedCenter.x ){
+            [UIView animateWithDuration:animationDuration animations:^{
+                shadedLayer.layer.opacity = 0.7;
+            }];
+            
+            /*
             [UIView beginAnimations:@"Darken" context:NULL];
             [UIView setAnimationDuration:animationDuration];
             shadedLayer.layer.opacity = 0.7;
             [UIView commitAnimations];
+             */
         }
     } else {
-        [UIView beginAnimations:@"Lighten" context:NULL];
-        [UIView setAnimationDuration:animationDuration];
-        shadedLayer.layer.opacity = 0.0;
-        [UIView commitAnimations];
+        [UIView animateWithDuration:animationDuration animations:^{
+            shadedLayer.layer.opacity = 0.0;
+        }];
     }
 }
 
@@ -861,9 +874,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
     
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
+    
     [getPayStreamService getPayStream:userId];
     
-    [self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
+    [self performSelector:@selector(stopLoading) withObject:nil afterDelay:0.5];
 }
 
 

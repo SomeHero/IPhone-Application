@@ -130,6 +130,10 @@
         user.hasACHAccount = true;
     user.hasSecurityPin = setupSecurityPin;
     
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Account Created" withDetailedStatus:@"Welcome to PaidThx"];
+    
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
@@ -215,25 +219,32 @@
     
     if(isValid && ![self isValidEmailAddress:userName])
     {
-        [self showAlertView:@"Invalid Email Address!" withMessage: @"You entered an invalid email address.  Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Enter an email address"];
         
         isValid = NO;
     }
     if(isValid && ![self isValidPassword:password])
     {
-        [self showAlertView:@"Invalid Password!" withMessage:@"You entered an invalid password.  Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid password"];
         
         isValid = NO;
     }
     if(isValid && ![self doesPasswordMatch:password passwordToMatch:confirmPassword])
     {
-        [self showAlertView:@"Passwords Don't Match!" withMessage:@"The passwords you entered don't match.  Please try again."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Password mismatch"];
         
         isValid = NO;
     }
     
     if(isValid) {
         [spinner startAnimating];
+        
+        
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Signing up" withDetailedStatus:@"Registering user"];
         
         [registerUserService registerUser:userName withPassword:password withMobileNumber:@"" withSecurityPin:@"" withDeviceId:@""];
         
@@ -265,13 +276,17 @@
 {
     NSLog ( @"Error occurred -> %@" , [error description] );
 }
+
 -(IBAction) btnCreateAccountClicked:(id) sender {
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Signing up" withDetailedStatus:@"Checking connection"];
+    
     [self createAccount];    
 }
 -(void)userRegistrationDidComplete:(NSString*) userId withSenderUri:(NSString*) senderUri 
 {
     [spinner stopAnimating];
-    
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
@@ -284,6 +299,10 @@
     txtPassword.text = @"";
     txtConfirmPassword.text = @"";
     
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Signing Up" withDetailedStatus:@"Loading profile"];
+    
     [userService setUserInformationCompleteDelegate: self];
     [userService getUserInformation: userId];
 }
@@ -291,7 +310,8 @@
 {
     [spinner stopAnimating];
     
-    [self showAlertView: @"User Registration Failed" withMessage: response];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Username in use"];
 }
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber isNewUser:(BOOL)isNewUser
@@ -309,7 +329,8 @@
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {
-    [self showAlertView:@"Facebook Sign In Failed" withMessage:[NSString stringWithFormat:@"%@. Check your username, password, and data connection.",reason]];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Signup Failed!" withDetailedStatus:@"Check username/password"];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtEmailAddress resignFirstResponder];

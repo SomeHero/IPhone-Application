@@ -16,7 +16,7 @@
 
 @implementation AddSecurityQuestionViewController
 
-@synthesize chooseQuestionButton, submitButton, questionPicker, answerField, securityQuestionEnteredDelegate;
+@synthesize submitButton, questionPicker, answerField, securityQuestionEnteredDelegate;
 @synthesize navigationTitle, headerText;
 @synthesize questionId, questionAnswer;
 
@@ -25,6 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -33,19 +34,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     answerField.delegate = self;
     
     // TODO: Security Question Delegate
     securityQuestionService = [[GetSecurityQuestionsService alloc] init];
     securityQuestionService.questionsLoadedDelegate = self;
-
+    [securityQuestionService getSecurityQuestions:NO];
 }
 
 - (void)viewDidUnload
 {
-    [chooseQuestionButton release];
-    chooseQuestionButton = nil;
     [answerField release];
     answerField = nil;
     [submitButton release];
@@ -75,7 +73,6 @@
 }
 
 - (void)dealloc {
-    [chooseQuestionButton release];
     [answerField release];
     [submitButton release];
     [questionPicker release];
@@ -85,15 +82,26 @@
     [super dealloc];
 }
 - (IBAction)showQuestionPicker:(id)sender {
-    [securityQuestionService getSecurityQuestions:NO]; // Get All questions
-    
+    //[securityQuestionService getSecurityQuestions:NO]; // Get All questions
+    questionPicker.hidden = NO;
 }
 -(void)loadedSecurityQuestions:(NSMutableArray *)questionArray
 {
     securityQuestions = questionArray;
     
-    questionPicker.hidden = NO;
     [questionPicker reloadAllComponents];
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ( [defaults objectForKey:@"securityQuestionId"] == NULL )
+        NSLog(@"Null Question Id");
+    else 
+        NSLog(@"Question ID: %d", [[defaults objectForKey:@"securityQuestionId"] integerValue]);
+    
+    if ( [[defaults objectForKey:@"securityQuestionId"] intValue] >= 0 ){
+        questionId = [[defaults objectForKey:@"securityQuestionId"] integerValue];
+        [questionPicker selectedRowInComponent:questionId];
+    }
+    
 }
 /*      Setting up Picker View      */
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
@@ -111,18 +119,14 @@
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     questionId = row;
-    NSString* question = [NSString stringWithString:[[securityQuestions objectAtIndex:row] objectForKey: @"Question"]];
-    currentQuestion.text = question;
-    
-    questionPicker.hidden = YES;
 }
 
 - (IBAction)doSubmit:(id)sender {
     if ( [answerField.text length] > 0 ){
         [securityQuestionEnteredDelegate choseSecurityQuestion:questionId withAnswer:answerField.text];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Answer" message:@"Please enter a security question and answer." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Question Answer"];
     }
 }
 
