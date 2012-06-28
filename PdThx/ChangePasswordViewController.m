@@ -7,6 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "PdThxAppDelegate.h"
 
 @implementation ChangePasswordViewController
 @synthesize txtOldPassword, txtNewPassword, txtConfirmPassword;
@@ -66,11 +67,17 @@
         [userService setChangePasswordCompleteDelegate:self];
         NSUserDefaults* prefs = [NSUserDefaults standardUserDefaults];
         NSString* userId = [prefs stringForKey:@"userId"];
+        
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Changing password"];
         [userService changePasswordFor:userId WithOld:txtOldPassword.text AndNew:txtNewPassword.text];
+        
+        
     }
     else 
     {
-        [self showAlertView:@"Unable to change password" withMessage:@"New password and confirm password fields do not match."];
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Password mismatch"];
     }
 }
 
@@ -86,10 +93,15 @@
     txtOldPassword.text = @"";
     txtNewPassword.text = @"";
     txtConfirmPassword.text = @"";
-    NSLog(@"Password successfully changed!!");
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Password changed"];
 }
 -(void) changePasswordDidFail:(NSString*) response
 {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Invalid pin/password"];
+    
     NSLog(@"%@", response);
 }
 @end

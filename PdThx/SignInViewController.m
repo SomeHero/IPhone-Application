@@ -15,7 +15,6 @@
 #import "PdThxAppDelegate.h"
 #import "Facebook.h"
 #import "HomeViewController.h"
-#import "SVProgressHUD.h"
 
 
 #define KEYBOARD_ANIMATION_DURATION 0.3
@@ -99,7 +98,9 @@
         //Handle Error Here
     }
     
-    fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    PdThxAppDelegate * appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
+    fBook = appDelegate.fBook;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated 
@@ -158,21 +159,24 @@
     
     if(isValid && ![self isValidUserName:username])
     {
-        [SVProgressHUD showErrorWithStatus:@"Invalid Username/Password!"];
         // [self showAlertView:@"Invalid UserName!" withMessage: @"You did not enter a user name.  Please try again."];
         
         isValid = NO;
     }
     if(isValid && ![self isValidPassword:password])
     {
-        [SVProgressHUD showErrorWithStatus:@"Invalid Username/Password!"];
         // [self showAlertView:@"Invalid Password!" withMessage:@"You did not enter a password.  Please try again."];
         
         isValid = NO;
     }
     
     if(isValid) {
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Accessing account"];
         [signInUserService validateUser:username withPassword:password];
+    } else {
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid username/password"];
     }
 }
 
@@ -188,6 +192,7 @@
     
     UserService* userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
+    
     
     [userService getUserInformation: userId];
     
@@ -216,12 +221,15 @@
     [userService setUserInformationCompleteDelegate: self];
     
     
-    [SVProgressHUD showWithStatus:@"Loading profile"];
+    PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Getting your profile"];
+    
     [userService getUserInformation: userId];
 }
 
 -(void)userSignInDidFail:(NSString *) reason {
-    [SVProgressHUD showErrorWithStatus:@"Sign in Failed"];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid user/pass"];
     //[self showAlertView:@"User Validation Failed!" withMessage: reason];
 }
 
@@ -236,7 +244,8 @@
         user.hasACHAccount = true;
     user.hasSecurityPin = setupSecurityPin;
     
-    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Complete!" withDetailedStatus:@""];
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
@@ -258,13 +267,16 @@
     return;
 }
 -(void)userInformationDidFail:(NSString*) message {
-    [SVProgressHUD showErrorWithStatus:@"User info failed."];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error loading user"];
     //[self showAlertView: @"Error Sending Money" withMessage: message];
 }
 
 
 -(IBAction) btnSignInClicked:(id) sender {
-    [SVProgressHUD showWithStatus:@"Signing In"];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Checking password"];
+	
     [self signInUser];
 }
 

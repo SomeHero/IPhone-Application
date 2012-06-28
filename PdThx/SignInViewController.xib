@@ -274,7 +274,7 @@
 									<object class="IBUITextField" id="490343589">
 										<reference key="NSNextResponder" ref="764254352"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{20, 159}, {241, 31}}</string>
+										<string key="NSFrame">{{20, 159}, {268, 31}}</string>
 										<reference key="NSSuperview" ref="764254352"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="96557440"/>
@@ -282,7 +282,7 @@
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUIText">imagetest@paidthx.com</string>
+										<string key="IBUIText">jjm@paidthx.com</string>
 										<string key="IBUIPlaceholder">Email Address or Mobile #</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">3</int>
@@ -314,7 +314,7 @@
 									<object class="IBUITextField" id="328673354">
 										<reference key="NSNextResponder" ref="764254352"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{20, 207}, {260, 33}}</string>
+										<string key="NSFrame">{{20, 207}, {268, 33}}</string>
 										<reference key="NSSuperview" ref="764254352"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="646181845"/>
@@ -538,8 +538,8 @@
 							<reference ref="217265210"/>
 							<reference ref="328673354"/>
 							<reference ref="430263630"/>
-							<reference ref="646181845"/>
 							<reference ref="772782077"/>
+							<reference ref="646181845"/>
 							<reference ref="490343589"/>
 						</object>
 						<reference key="parent" ref="848181516"/>

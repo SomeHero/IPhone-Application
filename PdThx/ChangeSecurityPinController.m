@@ -57,8 +57,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [controller setTag:2];    
         [self presentModalViewController:controller animated:YES];
     }
-    else if([sender tag] == 2)
+    else if([sender tag] == 2) {
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Updating" withDetailedStatus:@"Changing security pin"];
+        
         [userService changeSecurityPin:user.userId WithOld:oldSecurityPin AndNew:newSecurityPin];
+    }
 }
 -(void)swipeDidCancel: (id)sender
 {
@@ -139,7 +143,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void) userSecurityPinDidComplete {
     //[spinner stopAnimating];
     
-    [self showAlertView: @"Security Pin Change Success!" withMessage: @"Security Pin successfully changed."];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Security pin changed"];
 }
 
 -(void) userSecurityPinDidFail: (NSString*) message {
@@ -147,7 +152,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [self.navigationController popViewControllerAnimated:YES]; 
     
-    [self showAlertView: @"Security Pin Change Failed" withMessage: message];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Pin change failed"];
 }
 - (void)viewDidUnload
 {

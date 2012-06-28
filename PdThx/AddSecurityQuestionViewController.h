@@ -14,9 +14,7 @@
 
 @interface AddSecurityQuestionViewController : UISetupUserBaseViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol>
 {
-    IBOutlet UIButton *chooseQuestionButton;
     IBOutlet UITextField *answerField;
-    
     IBOutlet UIButton *submitButton;
     IBOutlet UIPickerView *questionPicker;
     id<SecurityQuestionInputProtocol> securityQuestionEnteredDelegate;
@@ -24,12 +22,10 @@
     NSString *questionAnswer;
     NSString* navigationTitle;
     NSString* headerText;
-    IBOutlet UILabel* currentQuestion;
     GetSecurityQuestionsService* securityQuestionService;
      NSMutableArray *securityQuestions;
 }
 
-@property (nonatomic, retain) UIButton *chooseQuestionButton;
 @property (nonatomic, retain) UITextField *answerField;
 @property (nonatomic, assign) int questionId;
 @property (nonatomic, retain) NSString *questionAnswer;
@@ -39,7 +35,6 @@
 @property(nonatomic, retain) NSString* navigationTitle;
 @property(nonatomic, retain) NSString* headerText;
 
-- (IBAction)showQuestionPicker:(id)sender;
 - (IBAction)doSubmit:(id)sender;
 -(IBAction) bgTouched:(id) sender;
 

@@ -12,6 +12,7 @@
 #import "User.h"
 #import "GANTracker.h"
 #import "Environment.h"
+#import "myProgressHud.h"
 
 @class PdThxViewController;
 
@@ -29,6 +30,8 @@
     FBRequest *infoRequest;
     User* user;
     NSInteger currentReminderTab;
+    myProgressHud *myProgHud;
+    
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -46,6 +49,7 @@
 @property (nonatomic, retain) FBRequest *friendRequest;
 @property (nonatomic, retain) FBRequest *infoRequest;
 @property(nonatomic, retain) User* user;
+@property (nonatomic, retain) myProgressHud *myProgHud;
 
 -(void)signOut;
 -(void)forgetMe;
@@ -57,5 +61,11 @@
 -(void)switchToMainAreaTabbedView;
 -(void)backToWelcomeTabbedArea;
 -(void)startUserSetupFlow;
+
+- (void)showWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus;
+
+- (void)showSuccessWithStatus:(NSString *)string withDetailedStatus:(NSString*)detailStatus;
+- (void)showErrorWithStatus:(NSString *)string withDetailedStatus:(NSString*)detailStatus;
+- (void)dismissProgressHUD;
 
 @end

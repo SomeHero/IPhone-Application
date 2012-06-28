@@ -20,13 +20,15 @@
 #import "ContactSelectViewController.h"
 #import "UINavigationBar+CustomImage.h"
 #import "GANTracker.h"
+#import "myProgressHud.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
-@synthesize user;
+@synthesize user, myProgHud;
+
 
 -(void)switchToMainAreaTabbedView
 {
@@ -37,6 +39,10 @@
     [self.tabBarController setSelectedIndex:0];
     [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
     [self.window bringSubviewToFront:self.tabBarController.view];
+    
+    // Keep Progress Bar on top
+    if ( myProgHud.view.superview )
+        [self.window bringSubviewToFront:myProgHud.view];
 }
 
 -(void)startUserSetupFlow
@@ -58,6 +64,9 @@
         currentReminderTab = 1;
         [self.newUserFlowTabController setSelectedIndex:1];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+        if ( myProgHud.view.superview )
+            [self.window bringSubviewToFront:myProgHud.view];
     }
     else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) ) {
         // No bank account, prompt user to add one now.
@@ -66,12 +75,18 @@
         
         [self.newUserFlowTabController setSelectedIndex:2];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+        if ( myProgHud.view.superview )
+            [self.window bringSubviewToFront:myProgHud.view];
     }
     else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
     {
         currentReminderTab = 3;
         [self.newUserFlowTabController setSelectedIndex:3];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+        if ( myProgHud.view.superview )
+            [self.window bringSubviewToFront:myProgHud.view];
         
     }
     else {
@@ -91,6 +106,9 @@
     [self.window addSubview:self.welcomeTabBarController.view];
     [self.welcomeTabBarController setSelectedIndex:1];
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
+    // Keep Progress Bar on top
+    if ( myProgHud.view.superview )
+        [self.window bringSubviewToFront:myProgHud.view];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -161,7 +179,7 @@
         //Handle Error Here
     }
     
-
+    
     return YES;
 }
 
@@ -353,6 +371,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
+        
+        UIImage * tempImgData = nil;
+        
+        if ( ABPersonHasImageData(ref) ) {
+            if ( &ABPersonCopyImageData != nil ){
+                tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageDataWithFormat(ref, kABPersonImageFormatThumbnail)];
+            } else {
+                tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageData(ref)];
+            }
+        }
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
         
@@ -362,18 +391,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
+        NSString* emailAddress = [NSString stringWithFormat:@"%@", (NSString*)emailAddr];
+        emailAddress = [emailAddress stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
         NSString *contactFirstLast = @"";
         
-        if([firstName length] > 0) {
-            contactFirstLast = [NSString stringWithFormat: @"%@", firstName];
-        }
-        if([lastName length] > 0 && [contactFirstLast length] > 0) {
-            contactFirstLast = [NSString stringWithFormat: @"%@ %@", contactFirstLast, lastName];
-        } else if([lastName length] > 0) {
-             contactFirstLast = [NSString stringWithFormat: @"%@", lastName];
+        if( [firstName length] > 0 || [lastName length] > 0 ){
+            contactFirstLast = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
         } else {
-            contactFirstLast = @"No Name Found"; 
+            contactFirstLast = @"Unlabeled Contact";
         }
+        
+        contactFirstLast = [contactFirstLast stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
         
         NSLog(@"%@", contactFirstLast);
         
@@ -390,6 +419,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 NSLog(@"Phone Number: %@", phoneNumber);
                 contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
                 contact.recipientUri = [contact.phoneNumber copy];
+                
+                if ( tempImgData != nil ) {
+                    NSLog(@"Loading image for %@", contactFirstLast);
+                    contact.imgData = tempImgData;
+                }
+                    
+                
                 //NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
                 [tempArray addObject:contact];
                 
@@ -486,16 +522,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
     [prefs synchronize];
 }
+
 - (void)fbDidNotLogin:(BOOL)cancelled {
     
 }
+
 - (void)fbDidExtendToken:(NSString*)accessToken
                expiresAt:(NSDate*)expiresAt {
     
 }
+
 - (void)fbDidLogout {
-    
+    // Do your facebook access token and expiration key deletion here.
 }
+
 - (void)fbSessionInvalidated {
     
 }
@@ -510,5 +550,101 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [[GANTracker sharedTracker] stopTracker];
     [super dealloc];
 }
+
+
+/*      Lets try our OWN progress dialogs...        */
+- (void)showWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus {
+    if ( myProgHud == nil ){
+        myProgHud = [[myProgressHud alloc] init];
+        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    }
+    
+    myProgHud.topLabel.text = status;
+    myProgHud.detailLabel.text = detailedStatus;
+    
+    myProgHud.imgView.hidden = YES;
+    myProgHud.activityIndicator.hidden = NO;
+    [[myProgHud activityIndicator] startAnimating];
+    
+    if ( !myProgHud.view.superview ){
+        myProgHud.fadedLayer.alpha = 0.0;
+        myProgHud.layerToAnimate.alpha = 0.3;
+        [self.window addSubview:myProgHud.view];
+        [UIView animateWithDuration:0.2 animations:^{
+            myProgHud.fadedLayer.alpha = 0.5;
+            myProgHud.layerToAnimate.alpha = 1.0;
+        }];
+    }
+}
+
+- (void)showSuccessWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus 
+{
+    if ( myProgHud == nil ){
+        myProgHud = [[myProgressHud alloc] init];
+        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    }
+    
+    myProgHud.topLabel.text = status;
+    myProgHud.detailLabel.text = detailedStatus;
+    
+    myProgHud.imgView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
+    myProgHud.imgView.hidden = NO;
+    
+    [[myProgHud activityIndicator] stopAnimating];
+    myProgHud.activityIndicator.hidden = YES;
+    
+    
+    if ( !myProgHud.view.superview ){
+        myProgHud.fadedLayer.alpha = 0.0;
+        myProgHud.layerToAnimate.alpha = 0.0;
+        [self.window addSubview:myProgHud.view];
+        [UIView animateWithDuration:0.4 animations:^{
+            myProgHud.fadedLayer.alpha = 0.5;
+            myProgHud.layerToAnimate.alpha = 1.0;
+        }];
+    }
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
+}
+
+
+- (void)showErrorWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus
+{
+    if ( myProgHud == nil ){
+        myProgHud = [[myProgressHud alloc] init];
+        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    }
+    
+    myProgHud.topLabel.text = status;
+    myProgHud.detailLabel.text = detailedStatus;
+    
+    myProgHud.imgView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
+    myProgHud.imgView.hidden = NO;
+    
+    [[myProgHud activityIndicator] stopAnimating];
+    myProgHud.activityIndicator.hidden = YES;
+    
+    
+    if ( !myProgHud.view.superview ){
+        myProgHud.fadedLayer.alpha = 0.0;
+        myProgHud.layerToAnimate.alpha = 0.3;
+        [self.window addSubview:myProgHud.view];
+        [UIView animateWithDuration:0.2 animations:^{
+            myProgHud.fadedLayer.alpha = 0.5;
+            myProgHud.layerToAnimate.alpha = 1.0;
+        }];
+    }
+    
+    [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
+}
+
+
+-(void)dismissProgressHUD
+{
+    if ( myProgHud != nil && myProgHud.view.superview ) {
+        [myProgHud.view removeFromSuperview];
+    }
+}
+
 
 @end
