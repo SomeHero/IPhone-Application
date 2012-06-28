@@ -129,7 +129,6 @@
 
 - (void)createACHAccount:(NSString*)pin withSecurityQuestionId:(int)questionId withSecurityQuestionAnswer:(NSString*)questionAnswer
 {
-    
     NSString* nameOnAccount = [NSString stringWithString: @""];
     NSString* routingNumber = [NSString stringWithString: @""];
     NSString* accountNumber = [NSString stringWithString: @""];
@@ -184,12 +183,11 @@
 
     if(isValid) {
         NSLog(@"Registering with SecurityQuestionId and Answer: %d -- %@", questionId, questionAnswer);
-        
-        
+
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Linking Account" withDetailedStatus:@"Securing information"];
         
-        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
+        [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNickname:@"" withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
     }
 }
 

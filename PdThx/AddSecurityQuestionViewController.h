@@ -23,7 +23,7 @@
     NSString* navigationTitle;
     NSString* headerText;
     GetSecurityQuestionsService* securityQuestionService;
-     NSMutableArray *securityQuestions;
+    NSMutableArray *securityQuestions;
 }
 
 @property (nonatomic, retain) UITextField *answerField;

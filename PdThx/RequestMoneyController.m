@@ -417,9 +417,16 @@ float tableHeight = 30;
     [self presentModalViewController:controller animated:YES];
 }
 
--(void)sendMoneyDidFail:(NSString*) message {
+-(void)requestMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
     
-    [self showAlertView: @"Error Sending Money" withMessage: message];
+    if(lockedOut) {
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
+        
+        [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
+    }
+    else {
+        [self showAlertView: @"Error Sending Request" withMessage: message];
+    }
 }
 -(void)onHomeClicked {
     contactButtonBGImage.highlighted = NO;
@@ -447,9 +454,6 @@ float tableHeight = 30;
     txtComments.text = @"";
     
     [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
-}
--(void)requestMoneyDidFail: (NSString*) message {
-    [self showAlertView: @"Error Requesting Money" withMessage:message];
 }
 
 -(void)didChooseContact:(Contact *)contact

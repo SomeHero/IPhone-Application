@@ -14,20 +14,25 @@
 #import "BankAccountRequestProtocol.h"
 #import "UpdateBankAccountProtocol.h"
 #import "DeleteBankAccountProtocol.h"
+#import "SetPreferredAccountProtocol.h"
 
 @interface BankAccountService : NSObject {
     ASIHTTPRequest *requestObj;
     id<BankAccountRequestProtocol> bankAccountRequestDelegate;
     id<UpdateBankAccountProtocol> updateBankAccountDelegate;
     id<DeleteBankAccountProtocol> deleteBankAccountDelegate;
+    id<SetPreferredAccountProtocol> preferredAccountDelegate;
 }
 
 @property(retain) id bankAccountRequestDelegate;
 @property(retain) id updateBankAccountDelegate;
 @property(retain) id deleteBankAccountDelegate;
+@property(retain) id preferredAccountDelegate;
 
 -(void) getUserAccounts:(NSString*) userId;
 -(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId;
--(void) updateBankAccount:(NSString *) accountId forUserId: (NSString*) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin;
+-(void) updateBankAccount:(NSString *) accountId forUserId: (NSString*) userId withNickname: (NSString*) nickname withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin;
+-(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId;
+-(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId;
 
 @end

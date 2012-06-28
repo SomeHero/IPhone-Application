@@ -418,11 +418,22 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
     [controller setTransactionConfirmationDelegate: self];
     
+    [self dismissModalViewControllerAnimated:YES];
     [self presentModalViewController:controller animated:YES];
 }
 
--(void)sendMoneyDidFail:(NSString*) message {
-    [self showAlertView: @"Error Sending Money" withMessage: message];
+-(void)sendMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
+    
+    if(lockedOut) {
+        [self dismissModalViewControllerAnimated: YES];
+        
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
+        
+        [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
+    }
+    else {
+        [self showAlertView: @"Error Sending Money" withMessage: message];
+    }
 }
 -(void)onHomeClicked {
     txtAmount.text = @"0.00";

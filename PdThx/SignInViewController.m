@@ -249,7 +249,21 @@
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    if(user.isLockedOut)
+    {
+        SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
+        [controller setNavigationTitle: @"Security Question"];
+        [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
+        controller.user = [user copy];
+        [controller setSecurityQuestionChallengeDelegate: self];
+        
+        [self presentModalViewController:controller animated:YES];
+        
+        [controller release];
+    } else {
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    }
+    
     return;
 }
 -(void)userInformationDidFail:(NSString*) message {
@@ -313,13 +327,14 @@
     NSLog ( @"Error occurred -> %@" , [error description] );
 }
 
-/*
- -(void)achSetupDidComplete {
- [self.navigationController dismissModalViewControllerAnimated:YES];
- 
- [achSetupCompleteDelegate achSetupDidComplete];
- }
- */
+-(void)securityQuestionAnsweredCorrect {
+    [self dismissModalViewControllerAnimated: YES];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+}
+-(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage {
+        
+}
 
 
 @end

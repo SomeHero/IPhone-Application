@@ -10,6 +10,7 @@
 #import "BankAccount.h"
 #import "BankAccountService.h"
 #import "BankAccountRequestProtocol.h"
+#import "SetPreferredAccountProtocol.h"
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "UIAccountTableCell.h"
@@ -17,7 +18,7 @@
 #import "EditACHAccountViewController.h"
 #import "UISetupUserBaseViewController.h"
 
-@interface AccountListViewController : UISetupUserBaseViewController<BankAccountRequestProtocol, UITableViewDataSource, UITableViewDelegate>{
+@interface AccountListViewController : UISetupUserBaseViewController<BankAccountRequestProtocol, SetPreferredAccountProtocol, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate>{
     IBOutlet UIScrollView* scrollview;
     IBOutlet UIPickerView *senderAccountPickerView;
     IBOutlet UIPickerView *receiveAccountPickerView;
@@ -27,6 +28,7 @@
     NSMutableArray *arrayColors;
     NSMutableArray *userBankAccounts;
     BankAccountService *bankAccountService;
+    UIPickerView *myPickerView;
 }
 
 

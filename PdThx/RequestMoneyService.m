@@ -75,10 +75,18 @@
     }
     else {
         NSLog(@"Error Requesting Money");
+       
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        bool isLockedOut = [[jsonDictionary valueForKey: @"isLockedOut"] boolValue];
+        NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
         
         NSString* message = [NSString stringWithString: @"Unable to send request for money"];
         
-        [requestMoneyCompleteDelegate requestMoneyDidFail: message];
+        [requestMoneyCompleteDelegate requestMoneyDidFail:message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
     }
     
 }
@@ -86,9 +94,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    bool isLockedOut = [[jsonDictionary valueForKey: @"isLockedOut"] boolValue];
+    NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+    
     NSString* message = [NSString stringWithString: @"Unable to send request for money"];
     
-    [requestMoneyCompleteDelegate requestMoneyDidFail: message];
+    [requestMoneyCompleteDelegate requestMoneyDidFail: message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
 }
 - (void)dealloc
 {
