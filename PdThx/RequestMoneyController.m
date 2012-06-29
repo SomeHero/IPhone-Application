@@ -263,13 +263,40 @@ float tableHeight = 30;
     [self dismissModalViewControllerAnimated:YES];
     
     UIAlertView *alert;
-    if ( error )
-        alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Unable to use the image taken" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    else
-        alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Your image was attached to the request." delegate:self cancelButtonTitle:@"YAY!" otherButtonTitles:nil];
-    
-    [alert show];
-    [alert release];
+    if ( error ){
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+        // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+        // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+        // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+        [appDelegate showAlertWithResult:false withTitle:@"Image Save Error" withSubtitle:@"Error saving your image to your phone" withDetailText:@"Your phone was unable to save the image you stored. Please make sure you have sufficient available memory to save the photo, and try again." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+     } else {
+         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+         
+         // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+         // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+         [appDelegate showAlertWithResult:true withTitle:@"Image Saved!" withSubtitle:@"Your image has been saved" withDetailText:@"Your image was saved, but make sure to save your changes on the next screen!" withLeftButtonOption:0 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:1 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+     }
+}
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ) {
+        // Dismiss, error uploading image alert view clicked.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+
+        [appDelegate dismissAlertView];
+    } else {
+        // Successfully saved image, just go back to personalize screen and load the image.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+        
+        // TODO: There needs to be a protocol here to load the image as being on top.
+    }
 }
 
 

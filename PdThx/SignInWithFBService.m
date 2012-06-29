@@ -16,6 +16,7 @@
 @implementation SignInWithFBService
 
 @synthesize  fbSignInCompleteDelegate;
+
 -(void) validateUser:(NSDictionary*)response
 {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -35,7 +36,7 @@
     
     [prefs setValue:[response valueForKey:@"first_name"] forKey:@"firstName"];
     [prefs setValue:[response valueForKey:@"last_name"] forKey:@"lastName"];
-    [prefs setValue:[response valueForKey:@"id"] forKey:@"facebook_id"];
+    [prefs setValue:[response valueForKey:@"id"] forKey:@"facebookId"];
     
     [prefs synchronize];
     
@@ -54,6 +55,7 @@
     
     [requestObj startAsynchronous];
 }
+
 -(void) validateUserComplete:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
@@ -79,8 +81,7 @@
             isNewUser = YES;
         
         [fbSignInCompleteDelegate fbSignInDidComplete:hasBankAccount withSecurityPin:hasSecurityPin withUserId:userId withPaymentAccountId:paymentAccountId withMobileNumber:mobileNumber isNewUser:isNewUser];     
-    } else
-    {
+    } else {
         NSLog(@"User Validation Failed");
         
         NSString* response = [NSString stringWithString: @"Unable to validate user.  Try again."];
@@ -89,6 +90,7 @@
     }
     
 }
+
 -(void) validateUserFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"User Validation Failed with Exception");

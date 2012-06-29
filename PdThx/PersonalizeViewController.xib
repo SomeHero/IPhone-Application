@@ -260,7 +260,6 @@
 								<string key="NSFrame">{{4, 287}, {298, 60}}</string>
 								<reference key="NSSuperview" ref="790778842"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -358,6 +357,7 @@
 								<reference key="IBUIBackgroundColor" ref="11861669"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUITag">1</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>

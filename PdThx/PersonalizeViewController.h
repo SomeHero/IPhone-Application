@@ -14,7 +14,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface PersonalizeViewController : UISetupUserBaseViewController<PersonalizeUserCompleteProtocol>
+@interface PersonalizeViewController : UISetupUserBaseViewController<PersonalizeUserCompleteProtocol, UITextFieldDelegate>
 {
     IBOutlet UIButton *userImageButton;
     IBOutlet UITextField *firstNameField;

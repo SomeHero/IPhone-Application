@@ -176,7 +176,6 @@
 										<string key="NSFrame">{{60, 319}, {238, 35}}</string>
 										<reference key="NSSuperview" ref="764254352"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">2</int>
@@ -282,7 +281,7 @@
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUIText">jjm@paidthx.com</string>
+										<string key="IBUIText">test001@paidthx.com</string>
 										<string key="IBUIPlaceholder">Email Address or Mobile #</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">3</int>
