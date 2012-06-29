@@ -1,19 +1,21 @@
 //
-//  myProgressHud.m
+//  ProgressHudInnnerViewController.m
 //  PdThx
 //
-//  Created by James Rhodes on 6/26/12.
+//  Created by James Rhodes on 6/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "myProgressHud.h"
+#import "ProgressHudInnnerViewController.h"
 
-@interface myProgressHud ()
+@interface ProgressHudInnnerViewController ()
 
 @end
 
-@implementation myProgressHud
+@implementation ProgressHudInnnerViewController
 
+
+@synthesize topLabel, detailLabel, activityIndicator, imgView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,9 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view from its nib.
+    self.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidUnload
@@ -44,7 +45,4 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 @end

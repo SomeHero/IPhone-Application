@@ -13,6 +13,9 @@
 #import "GANTracker.h"
 #import "Environment.h"
 #import "myProgressHud.h"
+#import "ProgressHudInnnerViewController.h"
+#import "CustomAlertViewController.h"
+#import "CustomAlertViewProtocol.h"
 
 @class PdThxViewController;
 
@@ -30,8 +33,9 @@
     FBRequest *infoRequest;
     User* user;
     NSInteger currentReminderTab;
-    myProgressHud *myProgHud;
-    
+    myProgressHud *myProgHudOverlay;
+    ProgressHudInnnerViewController *myProgHudInnerView;
+    CustomAlertViewController *customAlert;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -49,7 +53,11 @@
 @property (nonatomic, retain) FBRequest *friendRequest;
 @property (nonatomic, retain) FBRequest *infoRequest;
 @property(nonatomic, retain) User* user;
-@property (nonatomic, retain) myProgressHud *myProgHud;
+@property (nonatomic, retain) myProgressHud *myProgHudOverlay;
+@property (nonatomic, retain) ProgressHudInnnerViewController *myProgHudInnerView;
+@property (nonatomic, retain) CustomAlertViewController *customAlert;
+
+@property (nonatomic, assign) int animationTimer;
 
 -(void)signOut;
 -(void)forgetMe;
@@ -66,6 +74,10 @@
 
 - (void)showSuccessWithStatus:(NSString *)string withDetailedStatus:(NSString*)detailStatus;
 - (void)showErrorWithStatus:(NSString *)string withDetailedStatus:(NSString*)detailStatus;
+
 - (void)dismissProgressHUD;
+- (void)dismissAlertView;
+
+-(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withRightButtonOption:(int)rightButtonOption withDelegate:(id)alertDelegate;
 
 @end
