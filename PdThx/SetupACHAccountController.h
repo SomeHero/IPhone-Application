@@ -29,7 +29,6 @@
     IBOutlet UIButton* btnSetupACHAccount;
     IBOutlet UIView* viewPanel;
     UserSetupACHAccount* userSetupACHAccountService;
-    UIAlertView * skipBankAlert;
     IBOutlet UIBarButtonItem *skipButton;
     CustomSecurityPinSwipeController *controller;
     AddSecurityQuestionViewController *securityQuestionController;
@@ -43,8 +42,6 @@
 @property(nonatomic, retain) UITextField* txtConfirmAccountNumber;
 @property(retain) id<UserSetupACHAccountComplete> userSetupACHAccountComplete;
 @property(nonatomic, retain) NSString*securityPin;
-
-@property(nonatomic,retain) UIAlertView* skipBankAlert;
 
 -(IBAction) bgTouched:(id) sender;
 

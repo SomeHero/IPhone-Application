@@ -22,8 +22,9 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "TransactionConfirmationViewController.h"
 #import "AddACHAccountViewController.h"
+#import "CustomAlertViewProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate> 
+@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
 {
 
     IBOutlet UIView *viewPanel;

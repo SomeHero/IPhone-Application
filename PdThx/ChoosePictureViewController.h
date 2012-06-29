@@ -14,8 +14,9 @@
 #import "Environment.h"
 #import "User.h"
 #import "PdThxAppDelegate.h"
+#import "CustomAlertViewProtocol.h"
 
-@interface ChoosePictureViewController : UIModalBaseViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+@interface ChoosePictureViewController : UIModalBaseViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, CustomAlertViewProtocol> {
 	UIImageView * imageView;
 	UIButton * choosePhotoBtn;
 	UIButton * takePhotoBtn;

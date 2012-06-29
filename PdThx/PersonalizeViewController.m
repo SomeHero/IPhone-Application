@@ -37,6 +37,8 @@
     [self.tabBarController.tabBar setUserInteractionEnabled:NO];
     
     [self setTitle: @"Personalize"];
+    firstNameField.delegate = self;
+    lastNameField.delegate = self;
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
@@ -145,4 +147,23 @@
     [navBar release];
     [controller release];
 }
+
+-(BOOL)textFieldShouldReturn:(UITextField*)textField;
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [textField resignFirstResponder];
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        [self pressedSaveContinue:self];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+    
+}
+
 @end
