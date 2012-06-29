@@ -21,13 +21,14 @@
 #import "UINavigationBar+CustomImage.h"
 #import "GANTracker.h"
 #import "myProgressHud.h"
+#import "CustomAlertViewController.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
-@synthesize user, myProgHud;
+@synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
 
 
 -(void)switchToMainAreaTabbedView
@@ -41,8 +42,10 @@
     [self.window bringSubviewToFront:self.tabBarController.view];
     
     // Keep Progress Bar on top
-    if ( myProgHud.view.superview )
-        [self.window bringSubviewToFront:myProgHud.view];
+    if ( myProgHudOverlay.view.superview ){
+        [self.window bringSubviewToFront:myProgHudOverlay.view];
+        [self.window bringSubviewToFront:myProgHudInnerView.view];
+    }
 }
 
 -(void)startUserSetupFlow
@@ -65,8 +68,10 @@
         [self.newUserFlowTabController setSelectedIndex:1];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
         // Keep Progress Bar on top
-        if ( myProgHud.view.superview )
-            [self.window bringSubviewToFront:myProgHud.view];
+        if ( myProgHudOverlay.view.superview ){
+            [self.window bringSubviewToFront:myProgHudOverlay.view];
+            [self.window bringSubviewToFront:myProgHudInnerView.view];
+        }
     }
     else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) ) {
         // No bank account, prompt user to add one now.
@@ -76,8 +81,10 @@
         [self.newUserFlowTabController setSelectedIndex:2];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
         // Keep Progress Bar on top
-        if ( myProgHud.view.superview )
-            [self.window bringSubviewToFront:myProgHud.view];
+        if ( myProgHudOverlay.view.superview ){
+            [self.window bringSubviewToFront:myProgHudOverlay.view];
+            [self.window bringSubviewToFront:myProgHudInnerView.view];
+        }
     }
     else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
     {
@@ -85,8 +92,10 @@
         [self.newUserFlowTabController setSelectedIndex:3];
         [self.window bringSubviewToFront:self.newUserFlowTabController.view];
         // Keep Progress Bar on top
-        if ( myProgHud.view.superview )
-            [self.window bringSubviewToFront:myProgHud.view];
+        if ( myProgHudOverlay.view.superview ){
+            [self.window bringSubviewToFront:myProgHudOverlay.view];
+            [self.window bringSubviewToFront:myProgHudInnerView.view];
+        }
         
     }
     else {
@@ -106,9 +115,12 @@
     [self.window addSubview:self.welcomeTabBarController.view];
     [self.welcomeTabBarController setSelectedIndex:1];
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
+    
     // Keep Progress Bar on top
-    if ( myProgHud.view.superview )
-        [self.window bringSubviewToFront:myProgHud.view];
+    if ( myProgHudOverlay.view.superview ){
+        [self.window bringSubviewToFront:myProgHudOverlay.view];
+        [self.window bringSubviewToFront:myProgHudInnerView.view];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -488,7 +500,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
     for (Contact*person in tempArray) {
-        comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
+        if ( person.firstName.length > 0 )
+            comparedString = person.firstName;
+        else if ( person.lastName.length > 0 )
+            comparedString = person.lastName;
+        else
+            comparedString = person.phoneNumber;
         
         [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
     }
@@ -547,6 +564,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [fBook release];
     [newUserFlowTabController release];
     [user release];
+    [myProgHudInnerView release];
+    [myProgHudOverlay release];
+    [customAlert release];
     [[GANTracker sharedTracker] stopTracker];
     [super dealloc];
 }
@@ -554,109 +574,231 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 /*      Lets try our OWN progress dialogs...        */
 - (void)showWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus {
-    if ( myProgHud == nil ){
-        myProgHud = [[myProgressHud alloc] init];
-        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    if ( myProgHudOverlay.view.superview == nil ){
+        myProgHudOverlay = [[myProgressHud alloc] init];
+        myProgHudInnerView = [[ProgressHudInnnerViewController alloc] init];
+        
+        myProgHudOverlay.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+        myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
     }
     
-    myProgHud.topLabel.text = status;
-    myProgHud.detailLabel.text = detailedStatus;
+    myProgHudInnerView.topLabel.text = status;
+    myProgHudInnerView.detailLabel.text = detailedStatus;
     
-    myProgHud.imgView.hidden = YES;
-    myProgHud.activityIndicator.hidden = NO;
-    [[myProgHud activityIndicator] startAnimating];
-
-    if ( !myProgHud.view.superview ){
-        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
-        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-        [self.window addSubview:myProgHud.view];
+    myProgHudInnerView.imgView.hidden = YES;
+    myProgHudInnerView.activityIndicator.hidden = NO;
+    [[myProgHudInnerView activityIndicator] startAnimating];
+    
+    
+    if ( !myProgHudOverlay.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
         
-        [UIView animateWithDuration:0.5 animations:^{
-            myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
-        }];
+        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+        myProgHudInnerView.view.alpha = 0.0;
+        
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:myProgHudInnerView.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
+                             myProgHudInnerView.view.alpha = 1.0;
+                             self.myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
     }
 }
 
 - (void)showSuccessWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus 
 {
-    if ( myProgHud == nil ){
-        myProgHud = [[myProgressHud alloc] init];
-        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    if ( myProgHudOverlay == nil ){
+        myProgHudOverlay = [[myProgressHud alloc] init];
+        myProgHudOverlay.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+        myProgHudInnerView = [[ProgressHudInnnerViewController alloc] init];
+        myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
     }
     
-    myProgHud.topLabel.text = status;
-    myProgHud.detailLabel.text = detailedStatus;
+    myProgHudInnerView.topLabel.text = status;
+    myProgHudInnerView.detailLabel.text = detailedStatus;
     
-    myProgHud.imgView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
-    myProgHud.imgView.hidden = NO;
+    myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
+    myProgHudInnerView.imgView.hidden = NO;
     
-    [[myProgHud activityIndicator] stopAnimating];
-    myProgHud.activityIndicator.hidden = YES;
+    [[myProgHudInnerView activityIndicator] stopAnimating];
+    myProgHudInnerView.activityIndicator.hidden = YES;
     
-    if ( !myProgHud.view.superview ){
-        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
-        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-        [self.window addSubview:myProgHud.view];
+    
+    if ( !myProgHudOverlay.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
         
-        [UIView animateWithDuration:0.5 animations:^{
-            myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
-        }];
+        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+        myProgHudInnerView.view.alpha = 0.0;
         
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:myProgHudInnerView.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
+                             myProgHudInnerView.view.alpha = 1.0;
+                             self.myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+                         }];
     }
+    
     
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
 }
 
 
-- (void)showErrorWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus
+- (void)showErrorWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus 
 {
-    if ( myProgHud == nil ){
-        myProgHud = [[myProgressHud alloc] init];
-        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    if ( myProgHudOverlay == nil ){
+        myProgHudOverlay = [[myProgressHud alloc] init];
+        myProgHudOverlay.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+        myProgHudInnerView = [[ProgressHudInnnerViewController alloc] init];
+         myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
     }
     
-    myProgHud.topLabel.text = status;
-    myProgHud.detailLabel.text = detailedStatus;
+    myProgHudInnerView.topLabel.text = status;
+    myProgHudInnerView.detailLabel.text = detailedStatus;
     
-    myProgHud.imgView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
-    myProgHud.imgView.hidden = NO;
+    myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
+    myProgHudInnerView.imgView.hidden = NO;
     
-    [[myProgHud activityIndicator] stopAnimating];
-    myProgHud.activityIndicator.hidden = YES;
+    [[myProgHudInnerView activityIndicator] stopAnimating];
+    myProgHudInnerView.activityIndicator.hidden = YES;
     
     
-    if ( !myProgHud.view.superview ){
-        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
-        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-        [self.window addSubview:myProgHud.view];
+    if ( !myProgHudOverlay.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
         
-        [UIView animateWithDuration:0.5 animations:^{
-            myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
-        }];
+        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+        myProgHudInnerView.view.alpha = 0.0;
         
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:myProgHudInnerView.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
+                             myProgHudInnerView.view.alpha = 1.0;
+                             
+                             self.myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+                         }];
     }
     
-    [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
 }
 
 -(void)dismissProgressHUD
 {
-    [UIView animateWithDuration:0.5 animations:^{
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-    } completion:^(BOOL finished) {
-        [myProgHud.view removeFromSuperview];
-    }];
+    [UIView animateWithDuration:0.25
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+                         myProgHudInnerView.view.alpha = 0.0;
+                         self.myProgHudOverlay.view.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         [myProgHudInnerView.view removeFromSuperview];
+                         [myProgHudOverlay.view removeFromSuperview];
+                     }];
 }
 
+-(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withRightButtonOption:(int)rightButtonOption withDelegate:(id)alertDelegate
+{
+    if ( customAlert == nil ) {
+        customAlert = [[CustomAlertViewController alloc] init];
+        customAlert.view.frame = CGRectMake(self.window.frame.size.width/2-customAlert.view.frame.size.width/2, self.window.frame.size.height/2-customAlert.view.frame.size.height/2, customAlert.view.frame.size.width, customAlert.view.frame.size.height);
+        
+        customAlert.leftButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        customAlert.rightButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        
+        customAlert.alertViewDelegate = alertDelegate;
+    }
+    
+    if ( !customAlert.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
+        customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1/1.3, 1/1.3);
+        customAlert.view.alpha = 0.0;
+        
+        // Customize the popover view
+        if ( success )
+            customAlert.resultImageView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
+        else
+            customAlert.resultImageView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
+            
+        customAlert.topTitleLabel.text = title;
+        customAlert.subTitleLabel.text = subtitle;
+        customAlert.detailedTextView.text = detailedText;
+        
+        /*       Button Options    
+         *   Left Button:
+                0 - Sample1
+         *   Right Button:
+                0 - Sample2
+         */
+        if ( leftButtonOption == 0 ){
+            [customAlert.leftButton setTitle:@"Skip!" forState:UIControlStateNormal];
+            [customAlert.leftButton setTitle:@"Skip!" forState:UIControlStateHighlighted];
+            [customAlert.leftButton setTitle:@"Skip!" forState:UIControlStateSelected];
+            // NEED RGB VALUES OF BUTTON TEXT
+        }
+        
+        if ( rightButtonOption == 0 ){
+            [customAlert.rightButton setTitle:@"Go Back" forState:UIControlStateNormal];
+            [customAlert.rightButton setTitle:@"Go Back" forState:UIControlStateHighlighted];
+            [customAlert.rightButton setTitle:@"Go Back" forState:UIControlStateSelected];
+            // NEED RGB VALUES OF BUTTON TEXT
+        }
+        
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:customAlert.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
+                             customAlert.view.alpha = 1.0;
+                             myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+        }];
+    }
+}
+
+-(void)dismissAlertView
+{
+    [UIView animateWithDuration:0.25
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1/1.3, 1/1.3);
+
+                         // Fade Out
+                         customAlert.view.alpha = 0.0;
+                         myProgHudOverlay.view.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         [myProgHudOverlay.view removeFromSuperview];
+                         [customAlert.view removeFromSuperview];
+                         customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
+                     }];
+}
 
 @end

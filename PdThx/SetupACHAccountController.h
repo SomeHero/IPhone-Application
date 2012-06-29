@@ -19,8 +19,9 @@
 #import "SecurityQuestionInputProtocol.h"
 #import "AddSecurityQuestionViewController.h"
 #import "ValidationHelper.h"
+#import "CustomAlertViewProtocol.h"
 
-@interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate, SecurityQuestionInputProtocol> {
+@interface SetupACHAccountController : UISetupUserBaseViewController<UITextFieldDelegate, SecurityQuestionInputProtocol, CustomAlertViewProtocol> {
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;
     IBOutlet UITextField* txtAccountNumber;

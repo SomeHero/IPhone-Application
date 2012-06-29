@@ -268,10 +268,33 @@
                         [Go Back] [Ok]
      */
     
-    skipBankAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Without adding a bank account, you will not be able to send or receive money using PaidThx. Press \"Go Back\" to add a bank account now. Press \"Skip\" to skip adding a bank account. You are able to add a bank account later under the \"Settings\" tab" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Go Back", nil];
-    
-    [skipBankAlert show];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showAlertWithResult:0 withTitle:@"Warning! Read me" withSubtitle:@"Skip ACH Account Setup" withDetailText:@"Without adding a bank account, you will not be able to send or receive money using PaidThx. You are able to add a bank account later in the \"Settings\" area." withLeftButtonOption:0 withRightButtonOption:0 withDelegate:self];
 }
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ){
+        NSLog(@"User skipped adding bank account");
+        
+        //[userSetupACHAccountComplete achAccountSetupDidSkip];
+        // TODO: Load Tabbed View Controller with Home View
+        
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate dismissAlertView];
+        
+        [appDelegate switchToMainAreaTabbedView];
+    } else if ( index == 1 ){
+        NSLog(@"User chose to add bank account.");
+        
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate dismissAlertView];
+        // Simply dismisses the alert view and allows the person to retry entering bank information
+    } else {
+        NSLog(@"Error, invalid alert view answer chosen.");
+    }
+}
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ( alertView == skipBankAlert ){
@@ -294,6 +317,7 @@
         }
     }
 }
+
 -(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType
 {
     
