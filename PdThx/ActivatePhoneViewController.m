@@ -115,7 +115,6 @@
             
             [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 			break;
-            
 		default:
 			break;
 	}

@@ -195,8 +195,6 @@
     
     
     [userService getUserInformation: userId];
-    
-    
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {

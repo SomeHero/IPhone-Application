@@ -93,10 +93,6 @@
 			NSLog(@"Cancelled");
 			break;
 		case MessageComposeResultFailed:
-			//UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MyApp" message:@"Unknown Error"
-            // delegate:self cancelButtonTitle:@”OK” otherButtonTitles: nil];
-			//[alert show];
-			//[alert release];
 			break;
 		case MessageComposeResultSent:
             NSLog(@"Complete");

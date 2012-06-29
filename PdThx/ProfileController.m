@@ -254,6 +254,7 @@
             {
                 case 1:
                 {
+                    [self.navigationController popToRootViewControllerAnimated:NO];
                     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
                     break;
                 }
