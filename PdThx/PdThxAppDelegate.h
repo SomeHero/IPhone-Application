@@ -16,6 +16,10 @@
 #import "ProgressHudInnnerViewController.h"
 #import "CustomAlertViewController.h"
 #import "CustomAlertViewProtocol.h"
+#import "ActivatePhoneViewController.h"
+#import "PersonalizeViewController.h"
+#import "AddACHAccountViewController.h"
+#import "SetupFlowViewController.h"
 
 @class PdThxViewController;
 
@@ -36,6 +40,10 @@
     myProgressHud *myProgHudOverlay;
     ProgressHudInnnerViewController *myProgHudInnerView;
     CustomAlertViewController *customAlert;
+    UINavigationController* setupFlowController;
+    //AddACHAccountViewController* achAccountSetupController;
+    PersonalizeViewController* personalizeController;
+    ActivatePhoneViewController* activatePhoneController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -69,6 +77,7 @@
 -(void)switchToMainAreaTabbedView;
 -(void)backToWelcomeTabbedArea;
 -(void)startUserSetupFlow;
+-(void)endUserSetupFlow;
 
 - (void)showWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus;
 - (void)showSuccessWithStatus:(NSString *)string withDetailedStatus:(NSString*)detailStatus;

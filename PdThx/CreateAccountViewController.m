@@ -9,6 +9,7 @@
 #import "CreateAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SetupACHAccountController.h"
+#import "AddACHAccountViewController.h"
 #import "PdThxAppDelegate.h"
 
 #define kScreenWidth  320
@@ -97,7 +98,7 @@
 		case MessageComposeResultSent:
             NSLog(@"Complete");
             
-            SetupACHAccountController* setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle:nil];
+            AddACHAccountViewController* setupACHAccountController = [[AddACHAccountViewController alloc] init];
             
             [self.navigationController pushViewController:setupACHAccountController animated:true];
             
@@ -132,7 +133,7 @@
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
     
     return;
 }
@@ -315,13 +316,14 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
+    [prefs setBool:isNewUser forKey:@"isNewUser"];
     
     [prefs synchronize];
     
+    userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
+        
     [userService getUserInformation: userId];
-    
-    
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {

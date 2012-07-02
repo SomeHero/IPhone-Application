@@ -66,6 +66,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
+    
+    [btnUserImage.layer setCornerRadius:6.0];
+    [btnUserImage.layer setMasksToBounds:YES];
 
     UIImage *imgSendMoneyActive  = [UIImage imageNamed:@"btn-send-146x130-active.png"];
     [btnSendMoney setImage:imgSendMoneyActive forState:UIControlStateHighlighted];
@@ -82,7 +85,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self setTitle: @"Home"];
     //[self.parentViewController.navigationItem setHidesBackButton:YES animated:NO];
     
-
 }
 #pragma mark - View lifecycle
 -(void) viewDidAppear:(BOOL)animated{
@@ -103,6 +105,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
 
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
+    
+    if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
+        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
+    }else {
+        [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    }
     
     lblUserName.text = user.preferredName;
     lblPayPoints.text = user.userName;

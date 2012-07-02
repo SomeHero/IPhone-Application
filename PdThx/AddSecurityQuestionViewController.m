@@ -36,6 +36,7 @@
     // Do any additional setup after loading the view from its nib.
     answerField.delegate = self;
     
+    questionId = 1;
     // TODO: Security Question Delegate
     securityQuestionService = [[GetSecurityQuestionsService alloc] init];
     securityQuestionService.questionsLoadedDelegate = self;

@@ -12,6 +12,7 @@
 @implementation ChoosePictureViewController
 
 @synthesize imageView,choosePhotoBtn, takePhotoBtn;
+@synthesize chooseMemberImageDelegate;
 
 
 -(IBAction) getPhoto:(id) sender {
@@ -28,19 +29,12 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	[picker dismissModalViewControllerAnimated:YES];
-	UIImage *image = [[info objectForKey:@"UIImagePickerControllerOriginalImage"] retain];
-    imageView.image = image; 
+	images = [info copy];
     
-    //[imageView setImage:[info objectForKey:@"UIImagePickerControllerOriginalImage"]];
-    NSString *imageName = @"uploaded.jpg";
-    UIGraphicsBeginImageContext(CGSizeMake(320,480)); 
-    UIImage *newImage=nil;
-    [image drawInRect:CGRectMake(0, 0,320,480)];
-    newImage = UIGraphicsGetImageFromCurrentImageContext(); 
-    UIGraphicsEndImageContext();
-
-    [self imageUpload:UIImagePNGRepresentation(newImage) filename:imageName];
+    selectedImage = [[images objectForKey:@"UIImagePickerControllerOriginalImage"] retain];
+    imageView.image = selectedImage; 
+    
+    [picker dismissModalViewControllerAnimated:YES];
 
 }
 
@@ -75,11 +69,11 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* fileName = [[jsonDictionary valueForKey: @"FileName"] copy];
+        NSString* fileName = [[jsonDictionary valueForKey: @"ImageUrl"] copy];
         
         NSLog(@"Image Uploaded F/N:%@", fileName);
         
-
+        [chooseMemberImageDelegate chooseMemberImageDidComplete: fileName];
     }
     else {
         NSLog(@"Error Uploading Image");
@@ -134,6 +128,19 @@
     self.navigationItem.rightBarButtonItem= uploadButton;
     [uploadButton release];
  }
+-(void)uploadClicked {
+    
+    //[imageView setImage:[info objectForKey:@"UIImagePickerControllerOriginalImage"]];
+    NSString *imageName = @"uploaded.jpg";
+    UIGraphicsBeginImageContext(CGSizeMake(320,480)); 
+    UIImage *newImage=nil;
+    
+    [selectedImage drawInRect:CGRectMake(0, 0,320,480)];
+    newImage = UIGraphicsGetImageFromCurrentImageContext(); 
+    UIGraphicsEndImageContext();
+    
+    [self imageUpload:UIImagePNGRepresentation(newImage) filename:imageName];
+}
 
 
 

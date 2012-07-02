@@ -132,6 +132,9 @@ CGSize scrollViewOriginalSize;
 - (void)viewDidLoad
 {
     [self registerForKeyboardNotifications];
+    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
     if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
@@ -142,7 +145,6 @@ CGSize scrollViewOriginalSize;
     
     self.navigationItem.leftBarButtonItem= cancelButton;
     [cancelButton release];
-    
     
     [self setTitle: navigationTitle];
     lblHeader.text = headerText;

@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     mainScrollView.contentSize = CGSizeMake(320, 640);
-    [self.view addSubview:mainScrollView];
+    [mainView addSubview:mainScrollView];
     
     validationHelper = [[ValidationHelper alloc] init];
     
@@ -180,16 +180,15 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
     
-    [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: @"Checking" withSecurityPin:securityPin];
-    
     NSString* accountType = @"Checking";
     
     if([ctrlAccountType selectedSegmentIndex] == 1)
         accountType = @"Savings";
     
-    [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
+    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
     
-    [self dismissModalViewControllerAnimated:YES];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
     if([user.preferredPaymentAccountId length] == 0)

@@ -129,9 +129,10 @@
     static NSString *CellIdentifier = @"Cell";
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UIProfileTableViewCell *cell = (UIProfileTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     NSString *optionSection = [sections objectAtIndex:[indexPath section]];
     
@@ -212,11 +213,12 @@
             {
                 case 0:
                 {
-                    ChangePasswordViewController *pwVC = [[ChangePasswordViewController alloc] initWithNibName:@"ChangePasswordViewController" bundle:nil];
-                    [self.navigationController pushViewController:pwVC animated:YES];      
+                    EditProfileViewController *controller = [[EditProfileViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES];      
                     
                 }
             }
+            break;
         }
         case 1:
         {
@@ -231,13 +233,30 @@
                     
                 }
             }
+            break;
         }
         case 2:
         {
             switch (indexPath.row) {
+                case 0:
+                {
+                    EmailAccountListViewController* controller = [[EmailAccountListViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES]; 
+                    
+                    [controller release];
+                    break;
+                }
+                case 2:
+                {
+                    PhoneListViewController* controller = [[PhoneListViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES]; 
+                    
+                    [controller release];
+                    break;
+                }
                 case 3:
                 {
-                    MeCodeSetupViewController* controller = [[MeCodeSetupViewController alloc] init];
+                    MeCodeListViewController* controller = [[MeCodeListViewController alloc] init];
                     [self.navigationController pushViewController:controller animated:YES]; 
                     
                     [controller release];
@@ -247,6 +266,35 @@
                 default:
                     break;
             }
+            break;
+        }
+        case 3:
+        {
+            switch (indexPath.row) 
+            {
+                case 0:
+                {
+                    NotificationConfigurationViewController* controller = [[NotificationConfigurationViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES]; 
+                    
+                    [controller release];
+                    break;
+                }
+                case 1:
+                {
+                    break;
+                }
+                case 2:
+                {
+                    SecurityAndPrivacyViewControllerViewController* controller =
+                    [[SecurityAndPrivacyViewControllerViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                    break;
+                    
+                }
+            }
+            break;
         }
         case 5:
         {
@@ -261,6 +309,7 @@
                 default:
                     break;
             }
+            break;
         }    
         default:
             break;

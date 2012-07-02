@@ -20,6 +20,7 @@
 
 @interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol>
 {
+    IBOutlet UIView* mainView;
     IBOutlet UIScrollView* mainScrollView;
     IBOutlet UITextField* txtNickname;
     IBOutlet UITextField* txtNameOnAccount;
