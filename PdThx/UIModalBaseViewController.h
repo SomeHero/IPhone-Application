@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PhoneNumberFormatting.h"
 #import "User.h"
+#import "PdThxAppDelegate.h"
 
 @interface UIModalBaseViewController : UIViewController<UITextFieldDelegate, UITextViewDelegate>
 {
@@ -21,6 +22,7 @@
     PhoneNumberFormatting* phoneNumberFormatter;
     NSString* navigationTitle;
     NSString* headerText;
+    User* user;
 }
 
 @property(nonatomic, retain) UIScrollView *mainScrollView;

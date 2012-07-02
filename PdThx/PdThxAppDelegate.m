@@ -34,7 +34,7 @@
 -(void)switchToMainAreaTabbedView
 {
     [self.welcomeTabBarController.view removeFromSuperview];
-    [self.newUserFlowTabController.view removeFromSuperview];
+    //[self.newUserFlowTabController.view removeFromSuperview];
     
     [self.window addSubview:self.tabBarController.view];
     [self.tabBarController setSelectedIndex:0];
@@ -50,76 +50,92 @@
         [self.window bringSubviewToFront:myProgHudOverlay.view];
         [self.window bringSubviewToFront:customAlert.view];
     }
+    
+    [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
 {
-    [self.welcomeTabBarController.view removeFromSuperview];
-    [self.tabBarController.view removeFromSuperview];
-    [self.window addSubview:self.newUserFlowTabController.view];
-    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
-    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     bool isNewUser = [prefs boolForKey: @"isNewUser"];
+    
     /*          
      TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
      ASK THEM TO ADD IT NOW
      */
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
-        currentReminderTab = 1;
-        [self.newUserFlowTabController setSelectedIndex:1];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
         
-        // Keep Progress Bar & Alert Views on top
-        if ( myProgHudOverlay.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:myProgHudInnerView.view];
+        currentReminderTab += 1;  
+        
+        ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
+        
+        if(setupFlowController == nil) {
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
+            [self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
         }
-        if ( customAlert.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:customAlert.view];
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
         }
+       
     }
-    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) ) {
-        // No bank account, prompt user to add one now.
-        currentReminderTab = 2;
-        [prefs setValue:NO forKey:@"isNewUser"];
+    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) || (currentReminderTab < 2 && user.lastName == (id)[NSNull null])) {
+
+        currentReminderTab += 1;  
         
-        [self.newUserFlowTabController setSelectedIndex:2];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
         
-        // Keep Progress Bar & Alert Views on top
-        if ( myProgHudOverlay.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:myProgHudInnerView.view];
+        if(setupFlowController == nil) {
+                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
         }
-        if ( customAlert.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:customAlert.view];
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
         }
+
     }
     else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
     {
-        currentReminderTab = 3;
-        [self.newUserFlowTabController setSelectedIndex:3];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
         
-        // Keep Progress Bar & Alert Views on top
-        if ( myProgHudOverlay.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:myProgHudInnerView.view];
-        }
-        if ( customAlert.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:customAlert.view];
-        }
         
-    }
+        currentReminderTab += 1;  
+        
+        AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
+        
+        if(setupFlowController == nil) {
+                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
+        }
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
+        }
+        //currentReminderTab = 3;
+        //[self.newUserFlowTabController setSelectedIndex:3];
+        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+
+        
+        [controller release];
+        
+    } 
     else {
-        currentReminderTab = 0;
-        [self switchToMainAreaTabbedView];
+        currentReminderTab += 1;
+        
+        if(setupFlowController != nil) {
+            [[myProgHudInnerView activityIndicator] stopAnimating];
+            
+            [prefs setBool:false forKey:@"isNewUser"];
+            
+            [prefs synchronize];
+            
+            [self.tabBarController dismissModalViewControllerAnimated:YES];
+            
+            [setupFlowController release];
+            setupFlowController = nil;
+            
+        }
     }
     
     
@@ -441,8 +457,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
     int index = 0;
     for (int i = 1; i < nPeople; i++) {
+        NSLog(@"%@", @"Started Next Person");
+        
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+        
+        NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
+        firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
+        NSLog(@"%@", firstName);
+        
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
         CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
         
@@ -458,14 +482,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
         
-        NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
-        firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+    
         
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
+        NSLog(@"%@", lastName);
+        
         NSString* emailAddress = [NSString stringWithFormat:@"%@", (NSString*)emailAddr];
         emailAddress = [emailAddress stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
+        NSLog(@"%@", emailAddress);
         
         NSString *contactFirstLast = @"";
         
@@ -499,12 +526,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 }
                 
                 
-                //NSLog(@"Added phone contact: %@ -> %@" , contact.name, contact.phoneNumber);
                 [tempArray addObject:contact];
                 
                 index++;
                 
                 [contact release];
+               
             }
         }
     }
@@ -565,7 +592,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         else
             comparedString = person.phoneNumber;
         
-        [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+        if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
+        {
+            [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+        }
+        else {
+            [[contactsArray objectAtIndex:27] addObject:person];
+        }
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
@@ -779,8 +812,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          self.myProgHudOverlay.view.alpha = 0.0;
                      }
                      completion:^(BOOL finished) {
-                         [myProgHudInnerView.view removeFromSuperview];
+                         
                          [myProgHudOverlay.view removeFromSuperview];
+                         [myProgHudOverlay.view removeFromSuperview];
+                         
                      }];
 }
 

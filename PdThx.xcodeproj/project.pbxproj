@@ -201,6 +201,16 @@
 		54FA47441594C3AF007CFA33 /* AddSecurityQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */; };
 		54FA47451594C3AF007CFA33 /* AddSecurityQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */; };
 		54FA47481595B74E007CFA33 /* GetSecurityQuestionsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47471595B74D007CFA33 /* GetSecurityQuestionsService.m */; };
+		5B0A227315A0B93000BDA5F8 /* AddMeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A227115A0B93000BDA5F8 /* AddMeCodeViewController.m */; };
+		5B0A227415A0B93000BDA5F8 /* AddMeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A227215A0B93000BDA5F8 /* AddMeCodeViewController.xib */; };
+		5B0A227815A0BAD200BDA5F8 /* AddPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A227615A0BAD200BDA5F8 /* AddPhoneViewController.m */; };
+		5B0A227915A0BAD200BDA5F8 /* AddPhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A227715A0BAD200BDA5F8 /* AddPhoneViewController.xib */; };
+		5B0A227D15A0BB2B00BDA5F8 /* AddEmailAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A227B15A0BB2B00BDA5F8 /* AddEmailAddressViewController.m */; };
+		5B0A227E15A0BB2B00BDA5F8 /* AddEmailAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A227C15A0BB2B00BDA5F8 /* AddEmailAddressViewController.xib */; };
+		5B0A228115A0CD1700BDA5F8 /* PayPointService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A228015A0CD1600BDA5F8 /* PayPointService.m */; };
+		5B0A228415A0D00A00BDA5F8 /* PayPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A228315A0D00A00BDA5F8 /* PayPoint.m */; };
+		5B0A228A15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */; };
+		5B0A228B15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */; };
 		5B1A74B7158A48CC00DB973F /* bg-message-stretch.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A74B5158A48CC00DB973F /* bg-message-stretch.png */; };
 		5B1A74B8158A48CC00DB973F /* bg-message-stretch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A74B6158A48CC00DB973F /* bg-message-stretch@2x.png */; };
 		5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */; };
@@ -295,6 +305,10 @@
 		5B88685A1529257500EA24A4 /* ConfirmPaymentDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8868591529257400EA24A4 /* ConfirmPaymentDialog.xib */; };
 		5B88686A152959A100EA24A4 /* button_send_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B886869152959A100EA24A4 /* button_send_money.png */; };
 		5B88686C15295A6600EA24A4 /* button_request_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88686B15295A6600EA24A4 /* button_request_money.png */; };
+		5B8B455115A135A900822B67 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B454F15A135A900822B67 /* EditProfileViewController.m */; };
+		5B8B455215A135A900822B67 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B455015A135A900822B67 /* EditProfileViewController.xib */; };
+		5B8B455915A137A900822B67 /* UIProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B455715A137A900822B67 /* UIProfileTableViewCell.m */; };
+		5B8B455A15A137A900822B67 /* UIProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B455815A137A900822B67 /* UIProfileTableViewCell.xib */; };
 		5B8B4F96159357FF00820B3E /* AddACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */; };
 		5B8B4FB01593954900820B3E /* bg-verification-308x71.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */; };
 		5B8B4FB11593954900820B3E /* bg-verification-308x71@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9F1593954900820B3E /* bg-verification-308x71@2x.png */; };
@@ -314,6 +328,15 @@
 		5B8B4FBF1593954900820B3E /* btn-send-146x130-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4FAD1593954900820B3E /* btn-send-146x130-active@2x.png */; };
 		5B8B4FC01593954900820B3E /* btn-send-146x130.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4FAE1593954900820B3E /* btn-send-146x130.png */; };
 		5B8B4FC11593954900820B3E /* btn-send-146x130@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4FAF1593954900820B3E /* btn-send-146x130@2x.png */; };
+		5B8BDE56159D49B800E01753 /* MeCodeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BDE54159D49B800E01753 /* MeCodeListViewController.m */; };
+		5B8BDE57159D49B800E01753 /* MeCodeListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8BDE55159D49B800E01753 /* MeCodeListViewController.xib */; };
+		5B8BDE5B159D49F900E01753 /* PhoneListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BDE59159D49F900E01753 /* PhoneListViewController.m */; };
+		5B8BDE5C159D49F900E01753 /* PhoneListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8BDE5A159D49F900E01753 /* PhoneListViewController.xib */; };
+		5B8BDE60159D4A0C00E01753 /* EmailAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BDE5E159D4A0C00E01753 /* EmailAccountListViewController.m */; };
+		5B8BDE61159D4A0C00E01753 /* EmailAccountListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8BDE5F159D4A0C00E01753 /* EmailAccountListViewController.xib */; };
+		5B8BDE66159D554500E01753 /* NotificationConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BDE64159D554500E01753 /* NotificationConfigurationViewController.m */; };
+		5B8BDE67159D554500E01753 /* NotificationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8BDE65159D554500E01753 /* NotificationConfigurationViewController.xib */; };
+		5B8BDE6A159D5EE900E01753 /* security.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B8BDE69159D5EE900E01753 /* security.plist */; };
 		5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */; };
 		5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B905803157FCB9D00D0373B /* PaystreamService.m */; };
 		5BABF06915975DEB00FB4BD5 /* ValidationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */; };
@@ -363,6 +386,8 @@
 		5BD27BD11547BDA000CAFC12 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BD01547BDA000CAFC12 /* Contact.m */; };
 		5BD27BEA154B7E3E00CAFC12 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BE9154B7E3D00CAFC12 /* User.m */; };
 		5BD27BEE154B92FB00CAFC12 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BED154B92FB00CAFC12 /* UserService.m */; };
+		5BD3DE25159E03AF00F698D5 /* SetupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3DE23159E03AF00F698D5 /* SetupFlowViewController.m */; };
+		5BD3DE26159E03AF00F698D5 /* SetupFlowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -684,6 +709,26 @@
 		54FA47461595B74D007CFA33 /* GetSecurityQuestionsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSecurityQuestionsService.h; sourceTree = "<group>"; };
 		54FA47471595B74D007CFA33 /* GetSecurityQuestionsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSecurityQuestionsService.m; sourceTree = "<group>"; };
 		54FA47491595BAA8007CFA33 /* GetSecurityQuestionsProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetSecurityQuestionsProtocol.h; sourceTree = "<group>"; };
+		5B0A226E159F691D00BDA5F8 /* ChooseMemberImageProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseMemberImageProtocol.h; sourceTree = "<group>"; };
+		5B0A227015A0B93000BDA5F8 /* AddMeCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMeCodeViewController.h; sourceTree = "<group>"; };
+		5B0A227115A0B93000BDA5F8 /* AddMeCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMeCodeViewController.m; sourceTree = "<group>"; };
+		5B0A227215A0B93000BDA5F8 /* AddMeCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddMeCodeViewController.xib; sourceTree = "<group>"; };
+		5B0A227515A0BAD200BDA5F8 /* AddPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPhoneViewController.h; sourceTree = "<group>"; };
+		5B0A227615A0BAD200BDA5F8 /* AddPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPhoneViewController.m; sourceTree = "<group>"; };
+		5B0A227715A0BAD200BDA5F8 /* AddPhoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPhoneViewController.xib; sourceTree = "<group>"; };
+		5B0A227A15A0BB2B00BDA5F8 /* AddEmailAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEmailAddressViewController.h; sourceTree = "<group>"; };
+		5B0A227B15A0BB2B00BDA5F8 /* AddEmailAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEmailAddressViewController.m; sourceTree = "<group>"; };
+		5B0A227C15A0BB2B00BDA5F8 /* AddEmailAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddEmailAddressViewController.xib; sourceTree = "<group>"; };
+		5B0A227F15A0CD1600BDA5F8 /* PayPointService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPointService.h; sourceTree = "<group>"; };
+		5B0A228015A0CD1600BDA5F8 /* PayPointService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPointService.m; sourceTree = "<group>"; };
+		5B0A228215A0D00A00BDA5F8 /* PayPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPoint.h; sourceTree = "<group>"; };
+		5B0A228315A0D00A00BDA5F8 /* PayPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPoint.m; sourceTree = "<group>"; };
+		5B0A228615A0D21900BDA5F8 /* GetPayPointProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetPayPointProtocol.h; sourceTree = "<group>"; };
+		5B0A228715A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityAndPrivacyViewControllerViewController.h; sourceTree = "<group>"; };
+		5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityAndPrivacyViewControllerViewController.m; sourceTree = "<group>"; };
+		5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecurityAndPrivacyViewControllerViewController.xib; sourceTree = "<group>"; };
+		5B0E84C2159E3DEC00EC4E9C /* UserSetupCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSetupCompleteProtocol.h; sourceTree = "<group>"; };
+		5B0E84C4159E40A000EC4E9C /* UserSetupStepCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSetupStepCompleteProtocol.h; sourceTree = "<group>"; };
 		5B1A74B5158A48CC00DB973F /* bg-message-stretch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-message-stretch.png"; sourceTree = "<group>"; };
 		5B1A74B6158A48CC00DB973F /* bg-message-stretch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-message-stretch@2x.png"; sourceTree = "<group>"; };
 		5B3A5D44159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeController.h; sourceTree = "<group>"; };
@@ -832,6 +877,12 @@
 		5B8868591529257400EA24A4 /* ConfirmPaymentDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmPaymentDialog.xib; sourceTree = "<group>"; };
 		5B886869152959A100EA24A4 /* button_send_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_send_money.png; sourceTree = "<group>"; };
 		5B88686B15295A6600EA24A4 /* button_request_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_request_money.png; sourceTree = "<group>"; };
+		5B8B454E15A135A900822B67 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		5B8B454F15A135A900822B67 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		5B8B455015A135A900822B67 /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
+		5B8B455615A137A900822B67 /* UIProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIProfileTableViewCell.h; sourceTree = "<group>"; };
+		5B8B455715A137A900822B67 /* UIProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIProfileTableViewCell.m; sourceTree = "<group>"; };
+		5B8B455815A137A900822B67 /* UIProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIProfileTableViewCell.xib; sourceTree = "<group>"; };
 		5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddACHAccountViewController.h; sourceTree = "<group>"; };
 		5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddACHAccountViewController.m; sourceTree = "<group>"; };
 		5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-verification-308x71.png"; sourceTree = "<group>"; };
@@ -852,6 +903,19 @@
 		5B8B4FAD1593954900820B3E /* btn-send-146x130-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-send-146x130-active@2x.png"; sourceTree = "<group>"; };
 		5B8B4FAE1593954900820B3E /* btn-send-146x130.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-send-146x130.png"; sourceTree = "<group>"; };
 		5B8B4FAF1593954900820B3E /* btn-send-146x130@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-send-146x130@2x.png"; sourceTree = "<group>"; };
+		5B8BDE53159D49B800E01753 /* MeCodeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeListViewController.h; sourceTree = "<group>"; };
+		5B8BDE54159D49B800E01753 /* MeCodeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeListViewController.m; sourceTree = "<group>"; };
+		5B8BDE55159D49B800E01753 /* MeCodeListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeListViewController.xib; sourceTree = "<group>"; };
+		5B8BDE58159D49F900E01753 /* PhoneListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneListViewController.h; sourceTree = "<group>"; };
+		5B8BDE59159D49F900E01753 /* PhoneListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneListViewController.m; sourceTree = "<group>"; };
+		5B8BDE5A159D49F900E01753 /* PhoneListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhoneListViewController.xib; sourceTree = "<group>"; };
+		5B8BDE5D159D4A0C00E01753 /* EmailAccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailAccountListViewController.h; sourceTree = "<group>"; };
+		5B8BDE5E159D4A0C00E01753 /* EmailAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailAccountListViewController.m; sourceTree = "<group>"; };
+		5B8BDE5F159D4A0C00E01753 /* EmailAccountListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailAccountListViewController.xib; sourceTree = "<group>"; };
+		5B8BDE63159D554500E01753 /* NotificationConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationConfigurationViewController.h; sourceTree = "<group>"; };
+		5B8BDE64159D554500E01753 /* NotificationConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationConfigurationViewController.m; sourceTree = "<group>"; };
+		5B8BDE65159D554500E01753 /* NotificationConfigurationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationConfigurationViewController.xib; sourceTree = "<group>"; };
+		5B8BDE69159D5EE900E01753 /* security.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = security.plist; sourceTree = "<group>"; };
 		5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaystreamOutgoingPaymentViewController.xib; sourceTree = "<group>"; };
 		5B905802157FCB9D00D0373B /* PaystreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamService.h; sourceTree = "<group>"; };
 		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
@@ -905,6 +969,9 @@
 		5BD27BEC154B92FB00CAFC12 /* UserService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserService.h; sourceTree = "<group>"; };
 		5BD27BED154B92FB00CAFC12 /* UserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserService.m; sourceTree = "<group>"; };
 		5BD27BEF154B978000CAFC12 /* UserInformationCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationCompleteProtocol.h; sourceTree = "<group>"; };
+		5BD3DE22159E03AF00F698D5 /* SetupFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupFlowViewController.h; sourceTree = "<group>"; };
+		5BD3DE23159E03AF00F698D5 /* SetupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupFlowViewController.m; sourceTree = "<group>"; };
+		5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupFlowViewController.xib; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -1104,6 +1171,9 @@
 				541EE608158A70FA00131B0E /* PersonalizeViewController.m */,
 				5BD278FD153E8A1B00CAFC12 /* SetupACHAccountController.h */,
 				5BD278FE153E8A1C00CAFC12 /* SetupACHAccountController.m */,
+				5BD3DE22159E03AF00F698D5 /* SetupFlowViewController.h */,
+				5BD3DE23159E03AF00F698D5 /* SetupFlowViewController.m */,
+				5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */,
 			);
 			name = "New User Creation";
 			sourceTree = "<group>";
@@ -1378,15 +1448,18 @@
 		54A139B01582704700668984 /* Profile Views */ = {
 			isa = PBXGroup;
 			children = (
-				540025B81598B3F500332A10 /* MeCodeSetupViewController.m */,
-				540025B91598B3F500332A10 /* MeCodeSetupViewController.h */,
+				5B8B454C15A1358E00822B67 /* UserProfile */,
+				5B8BDE68159D5EC800E01753 /* Security */,
+				5B8BDE62159D552E00E01753 /* Notifications */,
+				5B8BDE4F159D495E00E01753 /* MeCodes */,
+				5B8BDE4E159D495800E01753 /* Phones */,
+				5B8BDE4D159D495000E01753 /* SocialNetworks */,
+				5B8BDE4B159D494400E01753 /* EmailAccounts */,
 				5BEBF01614B2281800379108 /* ProfileController.h */,
 				5BEBF01714B2281900379108 /* ProfileController.m */,
-				5B5D08D1158FF40000E90A1A /* ChangeSecurityPinController.h */,
-				5B5D08D2158FF40100E90A1A /* ChangeSecurityPinController.m */,
-				540025A51598A53600332A10 /* ChangePasswordViewController.h */,
-				540025A61598A53600332A10 /* ChangePasswordViewController.m */,
-				5B5D08D3158FF40100E90A1A /* ChangeSecurityPinController.xib */,
+				5B8B455615A137A900822B67 /* UIProfileTableViewCell.h */,
+				5B8B455715A137A900822B67 /* UIProfileTableViewCell.m */,
+				5B8B455815A137A900822B67 /* UIProfileTableViewCell.xib */,
 			);
 			name = "Profile Views";
 			sourceTree = "<group>";
@@ -1684,6 +1757,13 @@
 			name = "Activity Indicator";
 			sourceTree = "<group>";
 		};
+		5B0A228515A0D1EC00BDA5F8 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
@@ -1906,6 +1986,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		5B8B454C15A1358E00822B67 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				5B8B454E15A135A900822B67 /* EditProfileViewController.h */,
+				5B8B454F15A135A900822B67 /* EditProfileViewController.m */,
+				5B8B455015A135A900822B67 /* EditProfileViewController.xib */,
+			);
+			name = UserProfile;
+			sourceTree = "<group>";
+		};
 		5B8B4F9C1593953B00820B3E /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1929,6 +2019,80 @@
 				5B8B4FAF1593954900820B3E /* btn-send-146x130@2x.png */,
 			);
 			name = Home;
+			sourceTree = "<group>";
+		};
+		5B8BDE4B159D494400E01753 /* EmailAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				5B8BDE5D159D4A0C00E01753 /* EmailAccountListViewController.h */,
+				5B8BDE5E159D4A0C00E01753 /* EmailAccountListViewController.m */,
+				5B8BDE5F159D4A0C00E01753 /* EmailAccountListViewController.xib */,
+				5B0A227A15A0BB2B00BDA5F8 /* AddEmailAddressViewController.h */,
+				5B0A227B15A0BB2B00BDA5F8 /* AddEmailAddressViewController.m */,
+				5B0A227C15A0BB2B00BDA5F8 /* AddEmailAddressViewController.xib */,
+			);
+			name = EmailAccounts;
+			sourceTree = "<group>";
+		};
+		5B8BDE4D159D495000E01753 /* SocialNetworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SocialNetworks;
+			sourceTree = "<group>";
+		};
+		5B8BDE4E159D495800E01753 /* Phones */ = {
+			isa = PBXGroup;
+			children = (
+				5B8BDE58159D49F900E01753 /* PhoneListViewController.h */,
+				5B8BDE59159D49F900E01753 /* PhoneListViewController.m */,
+				5B8BDE5A159D49F900E01753 /* PhoneListViewController.xib */,
+				5B0A227515A0BAD200BDA5F8 /* AddPhoneViewController.h */,
+				5B0A227615A0BAD200BDA5F8 /* AddPhoneViewController.m */,
+				5B0A227715A0BAD200BDA5F8 /* AddPhoneViewController.xib */,
+			);
+			name = Phones;
+			sourceTree = "<group>";
+		};
+		5B8BDE4F159D495E00E01753 /* MeCodes */ = {
+			isa = PBXGroup;
+			children = (
+				540025B81598B3F500332A10 /* MeCodeSetupViewController.m */,
+				540025B91598B3F500332A10 /* MeCodeSetupViewController.h */,
+				5B8BDE53159D49B800E01753 /* MeCodeListViewController.h */,
+				5B8BDE54159D49B800E01753 /* MeCodeListViewController.m */,
+				5B8BDE55159D49B800E01753 /* MeCodeListViewController.xib */,
+				5B0A227015A0B93000BDA5F8 /* AddMeCodeViewController.h */,
+				5B0A227115A0B93000BDA5F8 /* AddMeCodeViewController.m */,
+				5B0A227215A0B93000BDA5F8 /* AddMeCodeViewController.xib */,
+			);
+			name = MeCodes;
+			sourceTree = "<group>";
+		};
+		5B8BDE62159D552E00E01753 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				5B8BDE63159D554500E01753 /* NotificationConfigurationViewController.h */,
+				5B8BDE64159D554500E01753 /* NotificationConfigurationViewController.m */,
+				5B8BDE65159D554500E01753 /* NotificationConfigurationViewController.xib */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
+		5B8BDE68159D5EC800E01753 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				5B5D08D1158FF40000E90A1A /* ChangeSecurityPinController.h */,
+				5B5D08D2158FF40100E90A1A /* ChangeSecurityPinController.m */,
+				540025A51598A53600332A10 /* ChangePasswordViewController.h */,
+				540025A61598A53600332A10 /* ChangePasswordViewController.m */,
+				5B5D08D3158FF40100E90A1A /* ChangeSecurityPinController.xib */,
+				5B8BDE69159D5EE900E01753 /* security.plist */,
+				5B0A228715A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.h */,
+				5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */,
+				5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */,
+			);
+			name = Security;
 			sourceTree = "<group>";
 		};
 		5B9057EF157F8B8D00D0373B /* Detail View Controllers */ = {
@@ -1956,6 +2120,7 @@
 		5BD279111544431C00CAFC12 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				5B0A228515A0D1EC00BDA5F8 /* New Group */,
 				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
 				5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
@@ -1988,6 +2153,10 @@
 				5BE06BF9159A038800CB630F /* DeleteBankAccountProtocol.h */,
 				5BC2DB4F159B971100BB961D /* SecurityQuestionAnsweredProtocol.h */,
 				5BC2DB50159BDA6300BB961D /* SecurityQuestionChallengeProtocol.h */,
+				5B0E84C2159E3DEC00EC4E9C /* UserSetupCompleteProtocol.h */,
+				5B0E84C4159E40A000EC4E9C /* UserSetupStepCompleteProtocol.h */,
+				5B0A226E159F691D00BDA5F8 /* ChooseMemberImageProtocol.h */,
+				5B0A228615A0D21900BDA5F8 /* GetPayPointProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2007,6 +2176,8 @@
 				5BE6F7AB14E9E0F000599EF2 /* Environment.m */,
 				5BF3EE231591563D0011BAD8 /* BankAccount.h */,
 				5BF3EE241591563F0011BAD8 /* BankAccount.m */,
+				5B0A228215A0D00A00BDA5F8 /* PayPoint.h */,
+				5B0A228315A0D00A00BDA5F8 /* PayPoint.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -2110,6 +2281,8 @@
 				5BF3EE2715915A580011BAD8 /* BankAccountService.m */,
 				5BC2DB4C159B961300BB961D /* SecurityQuestionService.h */,
 				5BC2DB4D159B961800BB961D /* SecurityQuestionService.m */,
+				5B0A227F15A0CD1600BDA5F8 /* PayPointService.h */,
+				5B0A228015A0CD1600BDA5F8 /* PayPointService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -2582,6 +2755,18 @@
 				54D3A80B159D842700364483 /* smallButtonRed240x78@2x.png in Resources */,
 				54D3A80C159D842700364483 /* verifiedBG600x546.png in Resources */,
 				54D3A80D159D842700364483 /* verifiedBG600x546@2x.png in Resources */,
+				5B8BDE57159D49B800E01753 /* MeCodeListViewController.xib in Resources */,
+				5B8BDE5C159D49F900E01753 /* PhoneListViewController.xib in Resources */,
+				5B8BDE61159D4A0C00E01753 /* EmailAccountListViewController.xib in Resources */,
+				5B8BDE67159D554500E01753 /* NotificationConfigurationViewController.xib in Resources */,
+				5B8BDE6A159D5EE900E01753 /* security.plist in Resources */,
+				5BD3DE26159E03AF00F698D5 /* SetupFlowViewController.xib in Resources */,
+				5B0A227415A0B93000BDA5F8 /* AddMeCodeViewController.xib in Resources */,
+				5B0A227915A0BAD200BDA5F8 /* AddPhoneViewController.xib in Resources */,
+				5B0A227E15A0BB2B00BDA5F8 /* AddEmailAddressViewController.xib in Resources */,
+				5B0A228B15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib in Resources */,
+				5B8B455215A135A900822B67 /* EditProfileViewController.xib in Resources */,
+				5B8B455A15A137A900822B67 /* UIProfileTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2710,6 +2895,19 @@
 				54805872159A507700ED591C /* myProgressHud.m in Sources */,
 				54D3A7D3159D353900364483 /* ProgressHudInnnerViewController.m in Sources */,
 				54D3A7F0159D839300364483 /* CustomAlertViewController.m in Sources */,
+				5B8BDE56159D49B800E01753 /* MeCodeListViewController.m in Sources */,
+				5B8BDE5B159D49F900E01753 /* PhoneListViewController.m in Sources */,
+				5B8BDE60159D4A0C00E01753 /* EmailAccountListViewController.m in Sources */,
+				5B8BDE66159D554500E01753 /* NotificationConfigurationViewController.m in Sources */,
+				5BD3DE25159E03AF00F698D5 /* SetupFlowViewController.m in Sources */,
+				5B0A227315A0B93000BDA5F8 /* AddMeCodeViewController.m in Sources */,
+				5B0A227815A0BAD200BDA5F8 /* AddPhoneViewController.m in Sources */,
+				5B0A227D15A0BB2B00BDA5F8 /* AddEmailAddressViewController.m in Sources */,
+				5B0A228115A0CD1700BDA5F8 /* PayPointService.m in Sources */,
+				5B0A228415A0D00A00BDA5F8 /* PayPoint.m in Sources */,
+				5B0A228A15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m in Sources */,
+				5B8B455115A135A900822B67 /* EditProfileViewController.m in Sources */,
+				5B8B455915A137A900822B67 /* UIProfileTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

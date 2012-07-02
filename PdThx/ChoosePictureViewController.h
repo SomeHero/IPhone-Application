@@ -15,18 +15,21 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "CustomAlertViewProtocol.h"
+#import "ChooseMemberImageProtocol.h"
 
-@interface ChoosePictureViewController : UIModalBaseViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, CustomAlertViewProtocol> {
+@interface ChoosePictureViewController : UIModalBaseViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, CustomAlertViewProtocol>{
 	UIImageView * imageView;
 	UIButton * choosePhotoBtn;
 	UIButton * takePhotoBtn;
     NSDictionary* images;
+    UIImage* selectedImage;
+    id<ChooseMemberImageProtocol> chooseMemberImageDelegate;
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView * imageView;
 @property (nonatomic, retain) IBOutlet UIButton * choosePhotoBtn;
 @property (nonatomic, retain) IBOutlet UIButton * takePhotoBtn;
-
+@property (nonatomic, retain) id<ChooseMemberImageProtocol> chooseMemberImageDelegate;
 -(IBAction) getPhoto:(id) sender;
 
 @end

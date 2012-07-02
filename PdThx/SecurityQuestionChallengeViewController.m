@@ -14,7 +14,6 @@
 
 @implementation SecurityQuestionChallengeViewController
 
-@synthesize user;
 @synthesize securityQuestionChallengeDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

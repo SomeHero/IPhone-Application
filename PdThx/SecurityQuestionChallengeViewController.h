@@ -20,7 +20,6 @@
 {
     IBOutlet UITextView* lblSecurityQuestion;
     IBOutlet UITextField* txtSecurityQuestionAnswer;
-    User* user;
     SecurityQuestionService* securityQuestionService;
     UserService* userService;
     id<SecurityQuestionChallengeProtocol> securityQuestionChallengeDelegate;

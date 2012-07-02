@@ -58,6 +58,8 @@
 }   
 -(void)viewDidAppear:(BOOL)animated {
 
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
     if(user.firstName != (id)[NSNull null] && [user.firstName length] > 0)
         firstNameField.text = user.firstName;
     else
@@ -109,12 +111,19 @@
 - (IBAction)pressedSaveContinue:(id)sender 
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
-    [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: @""];
+    
+    NSString* imageUrl = [NSString stringWithString: @""];
+    
+    if(user.imageUrl != (id)[NSNull null])
+        imageUrl = user.imageUrl;
+    
+    //[appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
+    [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: imageUrl];
 }
 -(void) personalizeUserDidComplete {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
+    
+    //[appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(void) personalizeUserDidFail:(NSString*) response {
@@ -140,6 +149,7 @@
 
 -(IBAction) chooseImageClicked:(id) sender {
     ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
+    [controller setChooseMemberImageDelegate: self];
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     [controller setTitle: @"Select Picture"];
     
@@ -147,7 +157,13 @@
     [navBar release];
     [controller release];
 }
-
+-(void)chooseMemberImageDidComplete: (NSString*) imageUrl 
+{
+    [userImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageUrl]]] forState:UIControlStateNormal];
+    
+    user.imageUrl = imageUrl;
+    [self dismissModalViewControllerAnimated:YES];
+}
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
     NSInteger nextTag = textField.tag + 1;
