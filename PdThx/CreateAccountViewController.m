@@ -9,6 +9,7 @@
 #import "CreateAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SetupACHAccountController.h"
+#import "AddACHAccountViewController.h"
 #import "PdThxAppDelegate.h"
 
 #define kScreenWidth  320
@@ -93,15 +94,11 @@
 			NSLog(@"Cancelled");
 			break;
 		case MessageComposeResultFailed:
-			//UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MyApp" message:@"Unknown Error"
-            // delegate:self cancelButtonTitle:@”OK” otherButtonTitles: nil];
-			//[alert show];
-			//[alert release];
 			break;
 		case MessageComposeResultSent:
             NSLog(@"Complete");
             
-            SetupACHAccountController* setupACHAccountController = [[SetupACHAccountController alloc] initWithNibName:@"SetupACHAccountController" bundle:nil];
+            AddACHAccountViewController* setupACHAccountController = [[AddACHAccountViewController alloc] init];
             
             [self.navigationController pushViewController:setupACHAccountController animated:true];
             
@@ -136,7 +133,7 @@
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
     
     return;
 }

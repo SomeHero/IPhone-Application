@@ -11,7 +11,14 @@
 #import "UIBaseViewController.h"
 #import "UserService.h"
 #import "UISetupUserBaseViewController.h"
+#import "MeCodeListViewController.h"
 #import "MeCodeSetupViewController.h"
+#import "PhoneListViewController.h"
+#import "EmailAccountListViewController.h"
+#import "NotificationConfigurationViewController.h"
+#import "SecurityAndPrivacyViewControllerViewController.h"
+#import "EditProfileViewController.h"
+#import "UIProfileTableViewCell.h"
 
 @interface ProfileController : UISetupUserBaseViewController   
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate> {

@@ -14,7 +14,6 @@
 
 @implementation myProgressHud
 
-@synthesize topLabel, detailLabel, activityIndicator, imgView, fadedLayer, layerToAnimate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,25 +28,12 @@
 {
     [super viewDidLoad];
     
-    self.fadedLayer.backgroundColor = [UIColor whiteColor];
-    self.layerToAnimate.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
-    [activityIndicator release];
-    activityIndicator = nil;
-    [topLabel release];
-    topLabel = nil;
-    [detailLabel release];
-    detailLabel = nil;
-    [imgView release];
-    imgView = nil;
-    [fadedLayer release];
-    fadedLayer = nil;
-    [layerToAnimate release];
-    layerToAnimate = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -59,12 +45,6 @@
 }
 
 - (void)dealloc {
-    [activityIndicator release];
-    [topLabel release];
-    [detailLabel release];
-    [imgView release];
-    [fadedLayer release];
-    [layerToAnimate release];
     [super dealloc];
 }
 @end

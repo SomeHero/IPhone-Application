@@ -37,6 +37,8 @@
     [self.tabBarController.tabBar setUserInteractionEnabled:NO];
     
     [self setTitle: @"Personalize"];
+    firstNameField.delegate = self;
+    lastNameField.delegate = self;
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
@@ -56,6 +58,8 @@
 }   
 -(void)viewDidAppear:(BOOL)animated {
 
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
     if(user.firstName != (id)[NSNull null] && [user.firstName length] > 0)
         firstNameField.text = user.firstName;
     else
@@ -107,12 +111,19 @@
 - (IBAction)pressedSaveContinue:(id)sender 
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
-    [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: @""];
+    
+    NSString* imageUrl = [NSString stringWithString: @""];
+    
+    if(user.imageUrl != (id)[NSNull null])
+        imageUrl = user.imageUrl;
+    
+    //[appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
+    [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: imageUrl];
 }
 -(void) personalizeUserDidComplete {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
+    
+    //[appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(void) personalizeUserDidFail:(NSString*) response {
@@ -138,6 +149,7 @@
 
 -(IBAction) chooseImageClicked:(id) sender {
     ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
+    [controller setChooseMemberImageDelegate: self];
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     [controller setTitle: @"Select Picture"];
     
@@ -145,4 +157,29 @@
     [navBar release];
     [controller release];
 }
+-(void)chooseMemberImageDidComplete: (NSString*) imageUrl 
+{
+    [userImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageUrl]]] forState:UIControlStateNormal];
+    
+    user.imageUrl = imageUrl;
+    [self dismissModalViewControllerAnimated:YES];
+}
+-(BOOL)textFieldShouldReturn:(UITextField*)textField;
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [textField resignFirstResponder];
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        [self pressedSaveContinue:self];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+    
+}
+
 @end

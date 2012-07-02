@@ -11,10 +11,11 @@
 #import "ASIHTTPRequest.h"
 #import "PersonalizeUserCompleteProtocol.h"
 #import "UserService.h"
+#import "ChooseMemberImageProtocol.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface PersonalizeViewController : UISetupUserBaseViewController<PersonalizeUserCompleteProtocol>
+@interface PersonalizeViewController : UISetupUserBaseViewController<PersonalizeUserCompleteProtocol, ChooseMemberImageProtocol, UITextFieldDelegate>
 {
     IBOutlet UIButton *userImageButton;
     IBOutlet UITextField *firstNameField;

@@ -23,7 +23,6 @@
 @synthesize txtAccountNumber;
 @synthesize txtRoutingNumber;
 @synthesize userSetupACHAccountComplete;
-@synthesize skipBankAlert;
 @synthesize securityPin;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -201,7 +200,7 @@
     user.preferredPaymentAccountId = paymentAccountId;
     user.preferredReceiveAccountId = paymentAccountId;
 
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
     // Move to Home View Controller inside NavigationController again
     //[self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -268,32 +267,39 @@
                         [Go Back] [Ok]
      */
     
-    skipBankAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Without adding a bank account, you will not be able to send or receive money using PaidThx. Press \"Go Back\" to add a bank account now. Press \"Skip\" to skip adding a bank account. You are able to add a bank account later under the \"Settings\" tab" delegate:self cancelButtonTitle:@"Skip" otherButtonTitles:@"Go Back", nil];
     
-    [skipBankAlert show];
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+    // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+    // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+    // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+    [appDelegate showAlertWithResult:false withTitle:@"Warning!" withSubtitle:@"Skipping your bank setup" withDetailText:@"If you skip linking a bank account to PaidThx, you will not be able to send or receive money. For the best experience, click \"Go Back\" and setup your account now. You can also set one up in the \"Settings\" area later." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonRed240x78.png" withLeftButtonSelectedImageString:@"smallButtonRed240x78_a.png" withLeftButtonTitle:@"Skip" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGreen240x78.png" withRightButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withRightButtonTitle:@"Go Back" withRightButtonTitleColor:[UIColor whiteColor] withDelegate:self];
+    
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ( alertView == skipBankAlert ){
-        if (buttonIndex == 0) {
-            NSLog(@"User skipped adding bank account");
-            
-            //[userSetupACHAccountComplete achAccountSetupDidSkip];
-            // TODO: Load Tabbed View Controller with Home View
-            
-            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
-            
-        }
-        else if ( buttonIndex == 1 ){
-            NSLog(@"User chose to add bank account.");
-            // Simply dismisses the alert view and allows the person to retry entering bank information
-        }
-        else {
-            // You should never get here.
-            NSLog(@"Error occurred, no valid button.");
-        }
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ){
+        NSLog(@"User skipped adding bank account");
+        
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate dismissAlertView];
+        
+        [appDelegate switchToMainAreaTabbedView];
+    } else if ( index == 1 ){
+        NSLog(@"User chose to add bank account.");
+        
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate dismissAlertView];
+        // Simply dismisses the alert view and allows the person to retry entering bank information
+    } else {
+        NSLog(@"Error, invalid alert view answer chosen.");
     }
 }
+
+
 -(void) setupACHAccount:(NSString *) accountNumber forUser:(NSString *) userId withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType
 {
     

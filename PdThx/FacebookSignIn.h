@@ -12,10 +12,13 @@
 #import "PdThxAppDelegate.h"
 
 
-@interface FacebookSignIn : NSObject<FBRequestDelegate> {
+@interface FacebookSignIn : NSObject<FBSessionDelegate, FBRequestDelegate> {
     SignInWithFBService *service;
     Facebook *fBook;
+    id userInfoDelegate;
 }
+
+
 
 - (void)signInWithFacebook:(id)sender;
 

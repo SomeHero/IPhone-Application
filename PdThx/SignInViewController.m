@@ -195,8 +195,6 @@
     
     
     [userService getUserInformation: userId];
-    
-    
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {
@@ -210,7 +208,8 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
-    
+    [prefs setBool:false forKey:@"isNewUser"];
+
     [prefs synchronize];
     
     
@@ -261,7 +260,7 @@
         
         [controller release];
     } else {
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
     }
     
     return;

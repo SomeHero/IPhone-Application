@@ -21,81 +21,125 @@
 #import "UINavigationBar+CustomImage.h"
 #import "GANTracker.h"
 #import "myProgressHud.h"
+#import "CustomAlertViewController.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
-@synthesize user, myProgHud;
+@synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
 
 
 -(void)switchToMainAreaTabbedView
 {
     [self.welcomeTabBarController.view removeFromSuperview];
-    [self.newUserFlowTabController.view removeFromSuperview];
+    //[self.newUserFlowTabController.view removeFromSuperview];
     
     [self.window addSubview:self.tabBarController.view];
     [self.tabBarController setSelectedIndex:0];
     [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
     [self.window bringSubviewToFront:self.tabBarController.view];
     
-    // Keep Progress Bar on top
-    if ( myProgHud.view.superview )
-        [self.window bringSubviewToFront:myProgHud.view];
+    // Keep Progress Bar & Alert Views on top
+    if ( myProgHudOverlay.view.superview ){
+        [self.window bringSubviewToFront:myProgHudOverlay.view];
+        [self.window bringSubviewToFront:myProgHudInnerView.view];
+    }
+    if ( customAlert.view.superview ){
+        [self.window bringSubviewToFront:myProgHudOverlay.view];
+        [self.window bringSubviewToFront:customAlert.view];
+    }
+    
+    [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
 {
-    [self.welcomeTabBarController.view removeFromSuperview];
-    [self.tabBarController.view removeFromSuperview];
-    [self.window addSubview:self.newUserFlowTabController.view];
-    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
-    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     bool isNewUser = [prefs boolForKey: @"isNewUser"];
+    
     /*          
      TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
      ASK THEM TO ADD IT NOW
      */
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
-        currentReminderTab = 1;
-        [self.newUserFlowTabController setSelectedIndex:1];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        // Keep Progress Bar on top
-        if ( myProgHud.view.superview )
-            [self.window bringSubviewToFront:myProgHud.view];
-    }
-    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) ) {
-        // No bank account, prompt user to add one now.
-        currentReminderTab = 2;
-        [prefs setValue:NO forKey:@"isNewUser"];
         
-        [self.newUserFlowTabController setSelectedIndex:2];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        // Keep Progress Bar on top
-        if ( myProgHud.view.superview )
-            [self.window bringSubviewToFront:myProgHud.view];
+        currentReminderTab += 1;  
+        
+        ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
+        
+        if(setupFlowController == nil) {
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
+            [self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
+        }
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
+        }
+       
+    }
+    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) || (currentReminderTab < 2 && user.lastName == (id)[NSNull null])) {
+
+        currentReminderTab += 1;  
+        
+        PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
+        
+        if(setupFlowController == nil) {
+                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
+        }
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
+        }
+
     }
     else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
     {
-        currentReminderTab = 3;
-        [self.newUserFlowTabController setSelectedIndex:3];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        // Keep Progress Bar on top
-        if ( myProgHud.view.superview )
-            [self.window bringSubviewToFront:myProgHud.view];
         
-    }
+        
+        currentReminderTab += 1;  
+        
+        AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
+        
+        if(setupFlowController == nil) {
+                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
+        }
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
+        }
+        //currentReminderTab = 3;
+        //[self.newUserFlowTabController setSelectedIndex:3];
+        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+
+        
+        [controller release];
+        
+    } 
     else {
-        currentReminderTab = 0;
-        [self switchToMainAreaTabbedView];
+        currentReminderTab += 1;
+        
+        if(setupFlowController != nil) {
+            [[myProgHudInnerView activityIndicator] stopAnimating];
+            
+            [prefs setBool:false forKey:@"isNewUser"];
+            
+            [prefs synchronize];
+            
+            [self.tabBarController dismissModalViewControllerAnimated:YES];
+            
+            [setupFlowController release];
+            setupFlowController = nil;
+            
+        }
     }
-
     
-
+    
+    
 }
 
 -(void)backToWelcomeTabbedArea
@@ -106,9 +150,16 @@
     [self.window addSubview:self.welcomeTabBarController.view];
     [self.welcomeTabBarController setSelectedIndex:1];
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
-    // Keep Progress Bar on top
-    if ( myProgHud.view.superview )
-        [self.window bringSubviewToFront:myProgHud.view];
+    
+    // Keep Progress Bar & Alert Views on top
+    if ( myProgHudOverlay.view.superview ){
+        [self.window bringSubviewToFront:myProgHudOverlay.view];
+        [self.window bringSubviewToFront:myProgHudInnerView.view];
+    }
+    if ( customAlert.view.superview ){
+        [self.window bringSubviewToFront:myProgHudOverlay.view];
+        [self.window bringSubviewToFront:customAlert.view];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -116,7 +167,7 @@
     // Override point for customization after application launch.
     permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
     [self.tabBarController setDelegate:self];
-
+    
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *googleAnalyticsKey = [NSString stringWithString: myEnvironment.GoogleAnalyticsKey];
@@ -204,6 +255,7 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    [fBook extendAccessTokenIfNeeded];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -228,7 +280,13 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs removeObjectForKey:@"userId"];
-    [prefs removeObjectForKey:@"paymentAccountId"];
+    [prefs removeObjectForKey:@"mobileNumber"];
+    [prefs removeObjectForKey:@"paymentAccountId"];      
+    [prefs removeObjectForKey:@"setupPassword"];
+    [prefs removeObjectForKey:@"setupSecurityPin"];
+    [prefs removeObjectForKey:@"deviceToken"];
+    [prefs removeObjectForKey:@"facebookId"];
+    
     
     [prefs synchronize];
     
@@ -241,7 +299,7 @@
     
     // Reload all Contacts (without Facebook permissions)
     [self loadAllContacts];
-
+    
     [prefs synchronize];
     
     [self backToWelcomeTabbedArea];
@@ -257,9 +315,10 @@
     [prefs removeObjectForKey:@"setupPassword"];
     [prefs removeObjectForKey:@"setupSecurityPin"];
     [prefs removeObjectForKey:@"deviceToken"];
+    [prefs removeObjectForKey:@"FBAccessTokenKey"];
+    [prefs removeObjectForKey:@"FBExpirationDateKey"];
     
     [prefs synchronize];
-
 }
 
 -(void)switchToSendMoneyController {
@@ -273,13 +332,13 @@
 }
 
 /*
--(UIImage*)findImageForContact:(Contact*)contact;
-{
-    if ( [contactsArray indexOfObject:contact] )
-        return ((Contact*)[contactsArray objectAtIndex:[contactsArray indexOfObject:contact]]).imgData;
-    else
-        return [UIImage imageWithContentsOfFile:@"avatar_unknown.jpg"];
-}
+ -(UIImage*)findImageForContact:(Contact*)contact;
+ {
+ if ( [contactsArray indexOfObject:contact] )
+ return ((Contact*)[contactsArray objectAtIndex:[contactsArray indexOfObject:contact]]).imgData;
+ else
+ return [UIImage imageWithContentsOfFile:@"avatar_unknown.jpg"];
+ }
  */
 
 /*       Push Notification Handling         */
@@ -325,20 +384,34 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSLog ( @"%@" , jsonString );
         
         if ( [userInfo objectForKey:@"nType"] == @"recPCNF" ) { // Payment Received
-            notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Received" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
-            //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
-            [notifAlert show];
+            // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+            // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+            // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+            // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+            [self showAlertWithResult:true withTitle:@"New Payment Received" withSubtitle:@"Received payment of $X.XX" withDetailText:@"You just received a payment from ?. You can either dismiss this notification and continue with your current process, or press below to view more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
         } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
-            notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
-            //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
-            [notifAlert show];
-        } // Other Cases Not Handled.. May be something wrong..
+            // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+            // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+            // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+            // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+            [self showAlertWithResult:true withTitle:@"New Payment Request" withSubtitle:@"Received payment request for $X.XX" withDetailText:@"You just received a payment request from ?. You can dismiss this and pay it later, or press below to see more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        }
     } else {
         // Application Just Resumed from Background, so load the notification
         // details pane or the payment processing screen (based on notification)
-        notifAlert = [[UIAlertView alloc] initWithTitle:@"Payment Requested" message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Details", nil];
-        //notifAlert.alertViewStyle = UIAlertViewStyleDefault;
-        [notifAlert show];
+        if ( [userInfo objectForKey:@"nType"] == @"recPCNF" ) { // Payment Received
+            // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+            // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+            // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+            // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+            [self showAlertWithResult:true withTitle:@"New Payment Received" withSubtitle:@"Received payment of $X.XX" withDetailText:@"You just received a payment from ?. You can either dismiss this notification and continue with your current process, or press below to view more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
+            // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+            // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+            // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+            // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+            [self showAlertWithResult:true withTitle:@"New Payment Request" withSubtitle:@"Received payment request for $X.XX" withDetailText:@"You just received a payment request from ?. You can dismiss this and pay it later, or press below to see more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        }
         
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
         NSString * jsonString = [writer stringWithObject:userInfo];
@@ -350,6 +423,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
 }
 
+
+
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    [self dismissAlertView];
+    if ( index == 0 ){
+        NSLog(@"User wants more details for notification");
+        
+        
+        // TODO: Load Paystream
+    } else if ( index == 1 ){
+        NSLog(@"User chose to dismiss iOS Push Notification.");
+        // Dismiss iOS Push Notification
+    } 
+}
 
 -(void)loadAllContacts
 {
@@ -435,7 +524,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                     NSLog(@"Loading image for %@", contactFirstLast);
                     contact.imgData = tempImgData;
                 }
-                    
+                
                 
                 [tempArray addObject:contact];
                 
@@ -452,25 +541,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
-    if ( request == friendRequest )
-    {
-        NSArray *friendArray = [result objectForKey:@"data"];
-        NSArray *splitName;
-        Contact *friend;
-        for ( NSDictionary *dict in friendArray ){
-            friend = [[Contact alloc] init];
-            friend.facebookID = [dict objectForKey:@"id"];
-            friend.name = [dict objectForKey:@"name"];
-            splitName = [friend.name componentsSeparatedByString:@" "];
-            
-            friend.firstName = [splitName objectAtIndex:0];
-            friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
-            
-            friend.imgData = NULL;
-            friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
-            [tempArray addObject:friend];
-            [friend release];
-        }
+    NSArray *friendArray = [result objectForKey:@"data"];
+    NSArray *splitName;
+    Contact *friend;
+    for ( NSDictionary *dict in friendArray ){
+        friend = [[Contact alloc] init];
+        friend.facebookID = [dict objectForKey:@"id"];
+        friend.name = [dict objectForKey:@"name"];
+        splitName = [friend.name componentsSeparatedByString:@" "];
+        
+        friend.firstName = [splitName objectAtIndex:0];
+        friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
+        
+        friend.imgData = NULL;
+        friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
+        [tempArray addObject:friend];
+        [friend release];
     }
     
     areFacebookContactsLoaded = YES;
@@ -499,7 +585,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
     for (Contact*person in tempArray) {
-        comparedString = ( person.lastName.length == 0 ? person.firstName : person.lastName );
+        if ( person.firstName.length > 0 )
+            comparedString = person.firstName;
+        else if ( person.lastName.length > 0 )
+            comparedString = person.lastName;
+        else
+            comparedString = person.phoneNumber;
         
         if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
         {
@@ -546,11 +637,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 - (void)fbDidExtendToken:(NSString*)accessToken
                expiresAt:(NSDate*)expiresAt {
-    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:accessToken forKey:@"FBAccessTokenKey"];
+    [defaults setObject:expiresAt forKey:@"FBExpirationDateKey"];
+    [defaults synchronize];
 }
 
 - (void)fbDidLogout {
     // Do your facebook access token and expiration key deletion here.
+    NSUserDefaults * prefs = [NSUserDefaults standardUserDefaults];
+    [prefs removeObjectForKey:@"FBAccessTokenKey"];
+    [prefs removeObjectForKey:@"FBExpirationDateKey"];
+    [prefs synchronize];
 }
 
 - (void)fbSessionInvalidated {
@@ -564,6 +662,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [fBook release];
     [newUserFlowTabController release];
     [user release];
+    [myProgHudInnerView release];
+    [myProgHudOverlay release];
+    [customAlert release];
     [[GANTracker sharedTracker] stopTracker];
     [super dealloc];
 }
@@ -571,109 +672,281 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 /*      Lets try our OWN progress dialogs...        */
 - (void)showWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus {
-    if ( myProgHud == nil ){
-        myProgHud = [[myProgressHud alloc] init];
-        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    if ( myProgHudOverlay.view.superview == nil ){
+        myProgHudOverlay = [[myProgressHud alloc] init];
+        myProgHudInnerView = [[ProgressHudInnnerViewController alloc] init];
+        
+        myProgHudOverlay.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+        myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
     }
     
-    myProgHud.topLabel.text = status;
-    myProgHud.detailLabel.text = detailedStatus;
+    myProgHudInnerView.topLabel.text = status;
+    myProgHudInnerView.detailLabel.text = detailedStatus;
     
-    myProgHud.imgView.hidden = YES;
-    myProgHud.activityIndicator.hidden = NO;
-    [[myProgHud activityIndicator] startAnimating];
-
-    if ( !myProgHud.view.superview ){
-        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
-        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-        [self.window addSubview:myProgHud.view];
+    myProgHudInnerView.imgView.hidden = YES;
+    myProgHudInnerView.activityIndicator.hidden = NO;
+    [[myProgHudInnerView activityIndicator] startAnimating];
+    
+    
+    if ( !myProgHudOverlay.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
         
-        [UIView animateWithDuration:0.5 animations:^{
-            myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
-        }];
+        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+        myProgHudInnerView.view.alpha = 0.0;
+        
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:myProgHudInnerView.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
+                             myProgHudInnerView.view.alpha = 1.0;
+                             self.myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
     }
 }
 
 - (void)showSuccessWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus 
 {
-    if ( myProgHud == nil ){
-        myProgHud = [[myProgressHud alloc] init];
-        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    if ( myProgHudOverlay == nil ){
+        myProgHudOverlay = [[myProgressHud alloc] init];
+        myProgHudOverlay.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+        myProgHudInnerView = [[ProgressHudInnnerViewController alloc] init];
+        myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
     }
     
-    myProgHud.topLabel.text = status;
-    myProgHud.detailLabel.text = detailedStatus;
+    myProgHudInnerView.topLabel.text = status;
+    myProgHudInnerView.detailLabel.text = detailedStatus;
     
-    myProgHud.imgView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
-    myProgHud.imgView.hidden = NO;
+    myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
+    myProgHudInnerView.imgView.hidden = NO;
     
-    [[myProgHud activityIndicator] stopAnimating];
-    myProgHud.activityIndicator.hidden = YES;
+    [[myProgHudInnerView activityIndicator] stopAnimating];
+    myProgHudInnerView.activityIndicator.hidden = YES;
     
-    if ( !myProgHud.view.superview ){
-        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
-        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-        [self.window addSubview:myProgHud.view];
+    
+    if ( !myProgHudOverlay.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
         
-        [UIView animateWithDuration:0.5 animations:^{
-            myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
-        }];
+        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+        myProgHudInnerView.view.alpha = 0.0;
         
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:myProgHudInnerView.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
+                             myProgHudInnerView.view.alpha = 1.0;
+                             self.myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+                         }];
     }
+    
     
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
 }
 
 
-- (void)showErrorWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus
+- (void)showErrorWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus 
 {
-    if ( myProgHud == nil ){
-        myProgHud = [[myProgressHud alloc] init];
-        myProgHud.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+    if ( myProgHudOverlay == nil ){
+        myProgHudOverlay = [[myProgressHud alloc] init];
+        myProgHudOverlay.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
+        myProgHudInnerView = [[ProgressHudInnnerViewController alloc] init];
+        myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
     }
     
-    myProgHud.topLabel.text = status;
-    myProgHud.detailLabel.text = detailedStatus;
+    myProgHudInnerView.topLabel.text = status;
+    myProgHudInnerView.detailLabel.text = detailedStatus;
     
-    myProgHud.imgView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
-    myProgHud.imgView.hidden = NO;
+    myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
+    myProgHudInnerView.imgView.hidden = NO;
     
-    [[myProgHud activityIndicator] stopAnimating];
-    myProgHud.activityIndicator.hidden = YES;
+    [[myProgHudInnerView activityIndicator] stopAnimating];
+    myProgHudInnerView.activityIndicator.hidden = YES;
     
     
-    if ( !myProgHud.view.superview ){
-        myProgHud.layerToAnimate.contentMode = UIViewContentModeScaleToFill;
-        myProgHud.layerToAnimate.contentStretch = CGRectMake(180/self.window.frame.size.width, 0, 180/self.window.frame.size.width, 0.5);
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-        [self.window addSubview:myProgHud.view];
+    if ( !myProgHudOverlay.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
         
-        [UIView animateWithDuration:0.5 animations:^{
-            myProgHud.fadedLayer.alpha = 0.5;
-            myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height/2-180/2, 180, 180);
-        }];
+        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+        myProgHudInnerView.view.alpha = 0.0;
         
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:myProgHudInnerView.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
+                             myProgHudInnerView.view.alpha = 1.0;
+                             
+                             self.myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+                         }];
     }
     
-    [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissProgressHUD) userInfo:nil repeats:NO];
 }
 
 -(void)dismissProgressHUD
 {
-    [UIView animateWithDuration:0.5 animations:^{
-        myProgHud.fadedLayer.alpha = 0.0;
-        myProgHud.layerToAnimate.frame = CGRectMake([[[UIApplication sharedApplication] delegate] window].frame.size.width/2-180/2, myProgHud.view.frame.size.height+180/2, 180, 180);
-    } completion:^(BOOL finished) {
-        [myProgHud.view removeFromSuperview];
-    }];
+    [UIView animateWithDuration:0.25
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
+                         myProgHudInnerView.view.alpha = 0.0;
+                         self.myProgHudOverlay.view.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         [myProgHudOverlay.view removeFromSuperview];
+                         [myProgHudOverlay.view removeFromSuperview];
+                         
+                     }];
 }
 
+-(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withLeftButtonImageString:(NSString*)leftButtonImageString withLeftButtonSelectedImageString:(NSString*)leftButtonSelectedImageString withLeftButtonTitle:(NSString*)leftButtonTitle withLeftButtonTitleColor:(UIColor*)leftButtonTextColor withRightButtonOption:(int)rightButtonOption withRightButtonImageString:(NSString*)rightButtonImageString withRightButtonSelectedImageString:(NSString*)rightButtonSelectedImageString withRightButtonTitle:(NSString*)rightButtonTitle withRightButtonTitleColor:(UIColor*)rightButtonTextColor withDelegate:(id)alertDelegate
+{
+    if ( customAlert == nil ) {
+        customAlert = [[CustomAlertViewController alloc] init];
+        customAlert.view.frame = CGRectMake(self.window.frame.size.width/2-customAlert.view.frame.size.width/2, self.window.frame.size.height/2-customAlert.view.frame.size.height/2, customAlert.view.frame.size.width, customAlert.view.frame.size.height);
+        
+        customAlert.leftButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        customAlert.rightButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    
+    /* RESET THE ALERT VIEW */
+    customAlert.leftButton.hidden = NO;
+    customAlert.leftButton.titleLabel.text = @"Default";
+    customAlert.rightButton.hidden = NO;
+    customAlert.rightButton.titleLabel.text = @"Default";
+    
+    customAlert.resultImageView.image = [UIImage imageNamed:@"paidthx-icon.png"];
+    customAlert.topTitleLabel.text = @"This is a title, okay?";
+    customAlert.subTitleLabel.text = @"This is a subtitle, okay?";
+    customAlert.detailedTextView.text = @"There's some text in this field.. nobody will ever see this... sooo.... whats up?";
+    /* END RESET ALERT VIEW */
+    
+    // Set button clicked delegate.
+    customAlert.alertViewDelegate = alertDelegate;
+    
+    
+    // Customize the Alert View
+    if ( success )
+        customAlert.resultImageView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
+    else
+        customAlert.resultImageView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
+    
+    customAlert.topTitleLabel.text = title;
+    customAlert.subTitleLabel.text = subtitle;
+    customAlert.detailedTextView.text = detailedText;
+    
+    // LEFT BUTTON
+    if ( leftButtonOption == 0 ){
+        // Button Type 0 will be NO BUTTONS on alert view
+        customAlert.leftButton.hidden = YES;
+    } else if ( leftButtonOption == 1 ){
+        // Button Option 1 will always be that it is the only button shown
+        // meaning we will have to move it to the center of the view, alike normal
+        // alert views.
+        customAlert.leftButton.frame = CGRectMake(customAlert.view.frame.size.width/2-120/2, customAlert.view.frame.size
+                                                  .height-59, 120, 39);
+    } else if ( leftButtonOption == 2 ){
+        // Button Option 2 will always be that it is in it's normal location
+        // for two buttons on the alert view. Evenly split, 20 pixels from the bottom of the view, 20 pixels from the left (for left button)
+        customAlert.leftButton.frame = CGRectMake(20, customAlert.view.frame.size
+                                                  .height-59, 120, 39);
+    }
+    
+    [customAlert.leftButton setTitle:leftButtonTitle forState:UIControlStateNormal];
+    [customAlert.leftButton setTitle:leftButtonTitle forState:UIControlStateHighlighted];
+    
+    [customAlert.leftButton setTitleColor:leftButtonTextColor forState:UIControlStateNormal];
+    [customAlert.leftButton setTitleColor:leftButtonTextColor forState:UIControlStateHighlighted];
+    
+    [customAlert.leftButton setBackgroundImage:[UIImage imageNamed:leftButtonImageString ] forState:UIControlStateNormal];
+    [customAlert.leftButton setBackgroundImage:[UIImage imageNamed:leftButtonSelectedImageString] forState:UIControlStateHighlighted];
+    
+    // RIGHT BUTTON
+    
+    if ( rightButtonOption == 0 ){
+        // Button Type 0 will be NO BUTTONS on alert view
+        customAlert.rightButton.hidden = YES;
+    } else if ( rightButtonOption == 1 ){
+        // Button Option 1 will always be that it is the only button shown
+        // meaning we will have to move it to the center of the view, alike normal
+        // alert views.
+        customAlert.rightButton.frame = CGRectMake(customAlert.view.frame.size.width/2+120/2, customAlert.view.frame.size
+                                                   .height-59, 120, 39);
+    } else if ( rightButtonOption == 2 ){
+        // Button Option 2 will always be that it is in it's normal location
+        // for two buttons on the alert view. Evenly split, 20 pixels from the bottom of the view, 20 pixels from the left (for left button)
+        customAlert.rightButton.frame = CGRectMake(160, customAlert.view.frame.size
+                                                   .height-59, 120, 39);
+    }
+    
+    [customAlert.rightButton setTitle:rightButtonTitle forState:UIControlStateNormal];
+    [customAlert.rightButton setTitle:rightButtonTitle forState:UIControlStateHighlighted];
+    [customAlert.rightButton setTitleColor:rightButtonTextColor forState:UIControlStateNormal];
+    [customAlert.rightButton setTitleColor:rightButtonTextColor forState:UIControlStateHighlighted];
+    
+    [customAlert.rightButton setBackgroundImage:[UIImage imageNamed:rightButtonImageString ] forState:UIControlStateNormal];
+    [customAlert.rightButton setBackgroundImage:[UIImage imageNamed:rightButtonSelectedImageString] forState:UIControlStateHighlighted];
+    
+    
+    
+    if ( !customAlert.view.superview ){
+        myProgHudOverlay.view.alpha = 0.0;
+        customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1/1.3, 1/1.3);
+        customAlert.view.alpha = 0.0;
+        
+        [self.window addSubview:myProgHudOverlay.view];
+        [self.window addSubview:customAlert.view];
+        
+        [UIView animateWithDuration:0.25
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
+                             customAlert.view.alpha = 1.0;
+                             myProgHudOverlay.view.alpha = 0.5;
+                         }
+                         completion:^(BOOL finished) {
+                         }];
+    }
+}
+
+-(void)dismissAlertView
+{
+    [UIView animateWithDuration:0.25
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1/1.3, 1/1.3);
+                         
+                         // Fade Out
+                         customAlert.view.alpha = 0.0;
+                         myProgHudOverlay.view.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         [myProgHudOverlay.view removeFromSuperview];
+                         [customAlert.view removeFromSuperview];
+                         customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
+                     }];
+}
 
 @end
