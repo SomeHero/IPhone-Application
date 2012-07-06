@@ -35,15 +35,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.tabBarController.tabBar setUserInteractionEnabled:NO];
+
+    SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
+    [setupNavBar setActiveState:@"Personalize" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:NO whereEnableComplete:NO];
+    [navBar addSubview:setupNavBar];
     
     [self setTitle: @"Personalize"];
     firstNameField.delegate = self;
     lastNameField.delegate = self;
-    
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
-    
     
     userService = [[UserService alloc] init];
     [userService setPersonalizeUserCompleteDelegate: self];

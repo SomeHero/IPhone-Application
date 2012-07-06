@@ -183,6 +183,8 @@
 
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber isNewUser:(BOOL)isNewUser {
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     [prefs setValue:userId forKey:@"userId"];
@@ -198,7 +200,11 @@
 }
 
 -(void)fbSignInDidFail:(NSString *) reason {
+    
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+    
     [self showAlertView:@"Facebook Sign In Failed" withMessage:[NSString stringWithFormat:@"%@. Check your username, password, and data connection.",reason]];
+
 }
 
 
@@ -206,6 +212,8 @@
 -(void)userSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId: (NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    [facebookOverlay setHidden:YES];
     
     [prefs setValue:userId forKey:@"userId"];
     [prefs setBool:false forKey:@"isNewUser"];
@@ -309,11 +317,13 @@
 }
 
 - (IBAction)signInWithFacebookClicked:(id)sender {
-    if ( ![fBook isSessionValid] )
-        [faceBookSignInHelper signInWithFacebook:self];
-    else {
-        [fBook requestWithGraphPath:@"me" andDelegate:self];
-    }
+    FaceBookSignInOverlayViewController* controller =
+    [[FaceBookSignInOverlayViewController alloc] init];
+    [controller setFacebookSignInCompleteDelegate: self];
+    
+    [self.navigationController presentModalViewController:controller animated:YES];
+    
+    [controller release];
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result

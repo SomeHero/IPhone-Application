@@ -79,17 +79,17 @@
 
 -(void)dealloc {
     
-    [amount release];
-    [comments release];
-    [messageId release];
-    [messageStatus release];
-    [messageType release];
-    [senderUri release];
-    [recipientUri release];
-    [imgData release];
-    [transactionImageUri release];
-    
     [super dealloc];
+    
+    //[amount release];
+    //[comments release];
+    //[messageId release];
+    //[messageStatus release];
+    //[messageType release];
+    //[senderUri release];
+    //[recipientUri release];
+    //[imgData release];
+    //[transactionImageUri release];
 }
 
 @end

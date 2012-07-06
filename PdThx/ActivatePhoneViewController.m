@@ -31,11 +31,12 @@
     
     // Do any additional setup after loading the view from its nib.
     
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
+    SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
+    [setupNavBar setActiveState:@"Activate" withJoinComplete:YES whereActivateComplete:NO wherePersonalizeComplete:NO whereEnableComplete:NO];
     
-    [self setTitle: @"Activate"];
+    [navBar addSubview:setupNavBar];
+    
+    [self setTitle: @"Activate Phone"];
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"ActivatePhontViewController"
                                         withError:&error]){
@@ -45,8 +46,6 @@
 
 - (void)viewDidUnload
 {
-    [activateButton release];
-    activateButton = nil;
     [remindMeLaterButton release];
     remindMeLaterButton = nil;
     [super viewDidUnload];
@@ -60,7 +59,6 @@
 }
 
 - (void)dealloc {
-    [activateButton release];
     [remindMeLaterButton release];
     [registrationKey release];
     [super dealloc];

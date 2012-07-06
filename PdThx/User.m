@@ -18,6 +18,11 @@
 @synthesize userUri;
 @synthesize securityQuestion;
 @synthesize securityQuestionId;
+@synthesize numberOfPaystreamUpdates;
+@synthesize outstandingPayments;
+@synthesize payPoints;
+@synthesize bankAccounts;
+@synthesize userAttributes;
 
 -(id)init {
     self = [super init];
@@ -38,6 +43,8 @@
         preferredPaymentAccountId = [[NSString alloc] init];
         preferredReceiveAccountId = [[NSString alloc] init];
         userUri = [[NSString alloc] init];
+        outstandingPayments = [[NSMutableArray alloc] init];
+        userAttributes = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -47,20 +54,20 @@
     
     if(self) { 
         userId = [[dictionary valueForKey:@"userId"] copy];
-        mobileNumber = [dictionary valueForKey:@"mobileNumber"];
-        emailAddress = [dictionary valueForKey:@"emailAddress"];
-        userName = [dictionary valueForKey:@"userName"];
+        mobileNumber = [[dictionary valueForKey:@"mobileNumber"] copy];
+        emailAddress = [[dictionary valueForKey:@"emailAddress"] copy];
+        userName = [[dictionary valueForKey:@"userName"] copy];
         isLockedOut = [[dictionary valueForKey: @"isLockedOut"] boolValue];
-        userStatus = [dictionary valueForKey:@"userStatus"];
-        preferredName = [dictionary valueForKey: @"senderName"];
-        firstName = [dictionary valueForKey:@"firstName"];
-        lastName = [dictionary valueForKey:@"lastName"];
-        imageUrl = [dictionary valueForKey:@"imageUrl"];
-        totalMoneySent = [dictionary objectForKey:@"totalMoneySent"];
-        totalMoneyReceived = [dictionary objectForKey: @"totalMoneyReceived"];
-        preferredPaymentAccountId = [dictionary valueForKey: @"preferredPaymentAccountId"];
-        preferredReceiveAccountId = [dictionary valueForKey: @"preferredReceiveAccountId"];
-        limit = [dictionary objectForKey: @"upperLimit"];
+        userStatus = [[dictionary valueForKey:@"userStatus"] copy];
+        preferredName = [[dictionary valueForKey: @"senderName"] copy];
+        firstName = [[dictionary valueForKey:@"firstName"] copy];
+        lastName = [[dictionary valueForKey:@"lastName"] copy];
+        imageUrl = [[dictionary valueForKey:@"imageUrl"] copy];
+        totalMoneySent = [[dictionary objectForKey:@"totalMoneySent"] copy];
+        totalMoneyReceived = [[dictionary objectForKey: @"totalMoneyReceived"] copy];
+        preferredPaymentAccountId = [[dictionary valueForKey: @"preferredPaymentAccountId"] copy];
+        preferredReceiveAccountId = [[dictionary valueForKey: @"preferredReceiveAccountId"] copy];
+        limit = [[dictionary objectForKey: @"upperLimit"] copy];
         hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
         
         if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0) {
@@ -68,8 +75,45 @@
         } else {
             userUri = userName;
         }
-        securityQuestionId =  (int)[dictionary objectForKey: @"securityQuestionId"];
-        securityQuestion = [dictionary valueForKey: @"securityQuestion"];
+       // securityQuestionId =  [[dictionary objectForKey: @"securityQuestionId"] intValue];
+        securityQuestion = [[dictionary valueForKey: @"securityQuestion"] copy];
+        numberOfPaystreamUpdates = [[dictionary valueForKey: @"numberOfPaystreamUpdates"] intValue];
+        
+        NSArray *tempArray = [[dictionary valueForKey:@"pendingMessages"] copy];
+        
+        outstandingPayments = [[NSMutableArray alloc] init];
+        
+        for(int i = 0; i <[tempArray count]; i++)
+        {
+            [outstandingPayments addObject: [[[PaystreamMessage alloc] initWithDictionary: [tempArray objectAtIndex:(NSUInteger) i]] autorelease]];
+        }
+        
+        NSArray *payPointsArray = [[dictionary valueForKey:@"userPayPoints"] copy];
+        
+        payPoints = [[NSMutableArray alloc] init];
+        
+        for(int i = 0; i <[payPointsArray count]; i++)
+        {
+            [payPoints addObject: [[[PayPoint alloc] initWithDictionary: [payPointsArray objectAtIndex:(NSUInteger) i]] autorelease]];
+        }
+        
+        NSArray *bankAccountsArray = [[dictionary valueForKey:@"bankAccounts"] copy];
+        
+        bankAccounts = [[NSMutableArray alloc] init];
+        
+        for(int i = 0; i <[bankAccountsArray count]; i++)
+        {
+            [bankAccounts addObject: [[[BankAccount alloc] initWithDictionary: [bankAccountsArray objectAtIndex:(NSUInteger) i]] autorelease]];
+        }
+
+        NSArray *userAttributesArray = [[dictionary valueForKey:@"userAttributes"] copy];
+        
+        userAttributes = [[NSMutableArray alloc] init];
+        
+        for(int i = 0; i <[userAttributesArray count]; i++)
+        {
+            [userAttributes addObject: [[[UserAttribute alloc] initWithDictionary: [userAttributesArray objectAtIndex:(NSUInteger) i]] autorelease]];
+        }
     }
     
     return self;
@@ -99,8 +143,18 @@
     another.userUri = userUri;
     another.securityQuestionId = securityQuestionId;
     another.securityQuestion = securityQuestion;
-    
+    another.numberOfPaystreamUpdates = numberOfPaystreamUpdates;
+    another.outstandingPayments = [outstandingPayments copy];
+    another.payPoints = [payPoints copy];
+    another.bankAccounts = [bankAccounts copy];
+    another.userAttributes = [userAttributes copy];
+
     return another;
+}
+-(void)dealloc {
+    [super dealloc];
+    
+
 }
 
 @end

@@ -50,7 +50,8 @@
 - (void)viewDidLoad
 {
     self.title = @"Settings";
-    
+    [tableView setRowHeight: 60];
+
     NSString *path = [[NSBundle mainBundle] pathForResource:@"options" ofType:@"plist"];
     
     NSDictionary *dic = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -127,35 +128,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    UIProfileTableViewCell *cell = (UIProfileTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+
+    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil){
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
+
     NSString *optionSection = [sections objectAtIndex:[indexPath section]];
     
     NSArray *profileSection = [profileOptions objectForKey:optionSection];
     
-    // Configure the cell...
-    NSLog(@"Section:%d Label:%@", indexPath.section, [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"] );
-    if ([[[profileSection objectAtIndex:[indexPath row]]objectForKey:@"Label"]isEqual: @"Security Pin"]) {
-        if ([prefs boolForKey:@"setupSecurityPin"]) {
-            cell.textLabel.text = @"Change Security Pin";
-        }
-        else {
-            cell.textLabel.text = @"Setup Security Pin";
-        }
-    }
-    else {
-        
-        cell.textLabel.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"];
-    }
-    
-    cell.imageView.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
-    cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.lblHeading.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"];
+    cell.lblDescription.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Description"];
+    cell.ctrlImage.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
+    cell.ctrlImage.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -216,6 +204,9 @@
                     EditProfileViewController *controller = [[EditProfileViewController alloc] init];
                     [self.navigationController pushViewController:controller animated:YES];      
                     
+                    [controller release];
+                    
+                    break;
                 }
             }
             break;
@@ -231,6 +222,7 @@
                     
                     [controller release];
                     
+                    break;
                 }
             }
             break;
@@ -244,6 +236,7 @@
                     [self.navigationController pushViewController:controller animated:YES]; 
                     
                     [controller release];
+                    
                     break;
                 }
                 case 2:
@@ -252,6 +245,7 @@
                     [self.navigationController pushViewController:controller animated:YES]; 
                     
                     [controller release];
+                    
                     break;
                 }
                 case 3:
@@ -260,6 +254,7 @@
                     [self.navigationController pushViewController:controller animated:YES]; 
                     
                     [controller release];
+                    
                     break;
                 }
                     
@@ -282,6 +277,12 @@
                 }
                 case 1:
                 {
+                    SharingPreferencesViewController* controller =
+                    [[SharingPreferencesViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                    [controller release];
+                    
                     break;
                 }
                 case 2:
@@ -290,9 +291,56 @@
                     [[SecurityAndPrivacyViewControllerViewController alloc] init];
                     [self.navigationController pushViewController:controller animated:YES];
                     
+                    [controller release];
+                    
                     break;
                     
                 }
+            }
+            break;
+        }
+        case 4:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    HelpViewController* controller = [[HelpViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                    [controller release];
+                    
+                    break;
+                }
+                case 1:
+                {
+                    if ([MFMailComposeViewController canSendMail])
+                    {
+                        MFMailComposeViewController *mail = [[[MFMailComposeViewController alloc] init] autorelease];
+                        
+                        mail.mailComposeDelegate = self;
+                        
+                        [mail setToRecipients:[NSArray arrayWithObject:@"support@paidthx.com"]];
+                        [mail setSubject:@"Hey PaidThx! Here's my feedback"];    
+                        
+                        [self presentModalViewController:mail animated:YES];
+         
+                    }
+                    else
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
+                                                                        message:@"Your device doesn't support the composer sheet"
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil];
+                        [alert show];
+                        [alert release];
+                    }
+                    
+                    break;
+                }
+                    
+                default:
+                    break;
             }
             break;
         }
@@ -300,6 +348,14 @@
         {
             switch (indexPath.row) 
             {
+                case 0:
+                {
+                    TOSViewController* controller = [[TOSViewController alloc] init];
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                    [controller release];
+                    break;
+                }
                 case 1:
                 {
                     [self.navigationController popToRootViewControllerAnimated:NO];
@@ -316,7 +372,30 @@
     }
     
 }
-
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            break;
+        default:
+            NSLog(@"Mail not sent.");
+            break;
+    }
+    
+    // Remove the mail view
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 -(void) userSecurityPinDidComplete {
     [spinner stopAnimating];

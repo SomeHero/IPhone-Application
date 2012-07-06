@@ -17,10 +17,12 @@
 #import "UIBaseViewController.h"
 #import "ValidationHelper.h"
 #import "UISetupUserBaseViewController.h"
+#import "SetupNavigationView.h"
 
 @interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol>
 {
     IBOutlet UIView* mainView;
+    IBOutlet UIView* navBar;
     IBOutlet UIScrollView* mainScrollView;
     IBOutlet UITextField* txtNickname;
     IBOutlet UITextField* txtNameOnAccount;
