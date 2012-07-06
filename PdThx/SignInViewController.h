@@ -18,13 +18,15 @@
 #import "FacebookSignIn.h"
 #import "SecurityQuestionChallengeViewController.h"
 #import "SecurityQuestionChallengeProtocol.h"
+#import "FaceBookSignInOverlayViewController.h"
 
-@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBRequestDelegate, UINavigationBarDelegate>
+@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBRequestDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate>
 {
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *loginFBButton;
+    IBOutlet UIImageView *facebookOverlay;
     SignInUserService *signInUserService;
     SignInWithFBService *service;
     Facebook *fBook;

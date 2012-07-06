@@ -10,9 +10,11 @@
 #import <UIKit/UIKit.h>
 #import "UISetupUserBaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SetupNavigationView.h"
 
 @interface ActivatePhoneViewController : UISetupUserBaseViewController <MFMessageComposeViewControllerDelegate>
 {
+    IBOutlet UIView *navBar;
     IBOutlet UIButton *activateButton;
     IBOutlet UIButton *remindMeLaterButton;
     IBOutlet UIView* viewPanel;

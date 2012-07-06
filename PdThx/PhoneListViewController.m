@@ -27,13 +27,21 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    payPointService = [[PayPointService alloc] init];
-    [payPointService setGetPayPointsDelegate:self];
+    [self setTitle: @"Phones"];
+    
+    //payPointService = [[PayPointService alloc] init];
+    //[payPointService setGetPayPointsDelegate:self];
+    
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'Phone'"];
+    
+    // Do any additional setup after loading the view from its nib.
+    phones = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
+    
     
 }
 -(void)viewDidAppear:(BOOL)animated {
     
-    [payPointService getPayPoints:user.userId ofType:@"Phone"];
+    //[payPointService getPayPoints:user.userId ofType:@"Phone"];
 }
 
 - (void)viewDidUnload
@@ -50,8 +58,8 @@
 
 
 -(void)getPayPointsDidComplete:(NSMutableArray*)payPoints {
-    userPayPoints =payPoints;
-    [payPointTable reloadData];
+    //userPayPoints =payPoints;
+    //[payPointTable reloadData];
 }
 -(void)getPayPointsDidFail: (NSString*) errorMessage {
     
@@ -62,7 +70,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    if([userPayPoints count] > 0)
+    if([phones count] > 0)
         return 2;
     else 
         return 1;
@@ -71,10 +79,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if([userPayPoints count] > 0)
+    if([phones count] > 0)
     {
         if(section ==0)
-            return [userPayPoints count];
+            return [phones count];
         else {
             return 1;
         }
@@ -93,14 +101,14 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    if([userPayPoints count] == 0)
+    if([phones count] == 0)
         cell.textLabel.text = @"Add Mobile Number";
     else 
     {
         if(indexPath.section == 1)
             cell.textLabel.text = @"Add Mobile Number";
         else {
-            cell.textLabel.text = [[userPayPoints objectAtIndex: indexPath.row] uri];
+            cell.textLabel.text = [[phones objectAtIndex: indexPath.row] uri];
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
             //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
         }

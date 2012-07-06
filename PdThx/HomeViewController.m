@@ -116,7 +116,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     lblPayPoints.text = user.userName;
     lblScore.text = @"80";
     lblIncreaseScore.text = @"+ Link your Facebook Account";
-    lblPaystreamCount.text = @"5";
+    lblPaystreamCount.text = [NSString stringWithFormat: @"%d", user.numberOfPaystreamUpdates];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
@@ -153,6 +153,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 -(IBAction) btnProfileClicked:(id) sender {
     
+    EditProfileViewController* controller = [[EditProfileViewController alloc] init];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 -(IBAction) btnPaystreamClicked: (id) sender {
     PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];

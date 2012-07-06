@@ -2,12 +2,17 @@
 //  EditProfileViewController.h
 //  PdThx
 //
-//  Created by James Rhodes on 7/1/12.
+//  Created by James Rhodes on 7/5/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "UISetupUserBaseViewController.h"
+#import "UICustomProfileRowViewController.h"
+#import "UICustomProfileHeaderViewController.h"
 
-@interface EditProfileViewController : UIViewController
-
+@interface EditProfileViewController : UISetupUserBaseViewController<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate>
+{
+    IBOutlet UITableView* profileTable;
+}
 @end

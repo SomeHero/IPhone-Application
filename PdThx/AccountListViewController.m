@@ -77,9 +77,9 @@
 {
     [super viewDidAppear:animated];
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
-    [bankAccountService getUserAccounts: user.userId];
+    //PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    //[appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
+    //[bankAccountService getUserAccounts: user.userId];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -95,9 +95,9 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    userBankAccounts = bankAccounts;
+    //userBankAccounts = bankAccounts;
     
-    [userAccountsTableView reloadData];
+    //[userAccountsTableView reloadData];
 }
 -(void)getUserAccountsDidFail:(NSString*)errorMessage {
     NSLog(@"%@", errorMessage);
@@ -119,7 +119,7 @@
     else if(section == 1)
         return 1;
     else {
-        return [userBankAccounts count];
+        return [user.bankAccounts count];
     }
 }
 
@@ -142,7 +142,7 @@
     else if(indexPath.section == 1)
         cell.textLabel.text = @"Add Account";
     else {
-        cell.textLabel.text = [[userBankAccounts objectAtIndex: indexPath.row] nickName];
+        cell.textLabel.text = [[user.bankAccounts objectAtIndex: indexPath.row] nickName];
     cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
     //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
     }
@@ -197,7 +197,7 @@
 {
     if(indexPath.section == 0)  {
         EditACHAccountViewController* controller = [[EditACHAccountViewController alloc] init];
-        controller.bankAccount = [userBankAccounts objectAtIndex: indexPath.row];
+        controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];
         
         [self.navigationController pushViewController:controller animated:YES];
         [controller release];
@@ -218,13 +218,13 @@
 }
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     
-    [bankAccountService setPreferredReceiveAccount:[[userBankAccounts objectAtIndex:row] bankAccountId] forUserId:user.userId];
+    [bankAccountService setPreferredReceiveAccount:[[user.bankAccounts objectAtIndex:row] bankAccountId] forUserId:user.userId];
 }
 
 // tell the picker how many rows are available for a given component
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
-    return [userBankAccounts count];
+    return [user.bankAccounts count];
 }
 
 // tell the picker how many components it will have
@@ -235,7 +235,7 @@
 // tell the picker the title for a given component
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString *title;
-    title = [@"" stringByAppendingFormat:@"%@", [[userBankAccounts objectAtIndex:row] nickName]];
+    title = [@"" stringByAppendingFormat:@"%@", [[user.bankAccounts objectAtIndex:row] nickName]];
 
     return title;
 }

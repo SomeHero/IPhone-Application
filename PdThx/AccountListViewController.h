@@ -26,7 +26,6 @@
     IBOutlet UIView* viewPanel;
     IBOutlet UIView* editAccountView;
     NSMutableArray *arrayColors;
-    NSMutableArray *userBankAccounts;
     BankAccountService *bankAccountService;
     UIPickerView *myPickerView;
 }
