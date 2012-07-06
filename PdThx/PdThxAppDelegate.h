@@ -20,6 +20,7 @@
 #import "PersonalizeViewController.h"
 #import "AddACHAccountViewController.h"
 #import "SetupFlowViewController.h"
+#import "EnablePaymentsViewController.h"
 
 @class PdThxViewController;
 
@@ -41,9 +42,6 @@
     ProgressHudInnnerViewController *myProgHudInnerView;
     CustomAlertViewController *customAlert;
     UINavigationController* setupFlowController;
-    //AddACHAccountViewController* achAccountSetupController;
-    PersonalizeViewController* personalizeController;
-    ActivatePhoneViewController* activatePhoneController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

@@ -32,9 +32,13 @@
     mainScrollView.contentSize = CGSizeMake(320, 640);
     [mainView addSubview:mainScrollView];
     
+    SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
+    [setupNavBar setActiveState:@"Enable" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:YES whereEnableComplete:NO];
+    [navBar addSubview:setupNavBar];
+    
     validationHelper = [[ValidationHelper alloc] init];
     
-    [self setTitle: @"Add Account"];
+    [self setTitle: @"Enable Payments"];
     [ctrlHeaderText setText: headerText];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;

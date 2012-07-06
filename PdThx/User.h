@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "PaystreamMessage.h"
+#import "PayPoint.h"
+#import "BankAccount.h"
+#import "UserAttribute.h"
 
 @interface User : NSObject<NSCopying> {
 @private
@@ -31,6 +34,12 @@
     NSString* userUri;
     NSString* securityQuestion;
     int securityQuestionId;
+    int numberOfPaystreamUpdates;
+    
+    NSMutableArray* outstandingPayments;
+    NSMutableArray* payPoints;
+    NSMutableArray* bankAccounts;
+    NSMutableArray* userAttributes;
 }
 
 @property(nonatomic, retain) NSString* userId;
@@ -53,6 +62,11 @@
 @property(nonatomic, retain) NSString* userUri;
 @property(nonatomic, retain) NSString* securityQuestion;
 @property int securityQuestionId;
+@property int numberOfPaystreamUpdates;
+@property(nonatomic, retain) NSMutableArray* outstandingPayments;
+@property(nonatomic, retain) NSMutableArray* payPoints;
+@property(nonatomic, retain) NSMutableArray* bankAccounts;
+@property(nonatomic, retain) NSMutableArray* userAttributes;
 
 -(User *) initWithDictionary : (NSDictionary *) dictionary;
 

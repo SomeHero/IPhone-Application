@@ -18,7 +18,7 @@
     IBOutlet UITableView* payPointTable;
     
     PayPointService* payPointService;
-    NSMutableArray* userPayPoints;
+    NSMutableArray* phones;
 }
 
 @end

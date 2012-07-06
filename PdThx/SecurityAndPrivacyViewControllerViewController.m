@@ -42,7 +42,7 @@
 
 - (void)viewDidLoad
 {
-    self.title = @"Settings";
+    [self setTitle: @"Security & Privacy"];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"security" ofType:@"plist"];
     

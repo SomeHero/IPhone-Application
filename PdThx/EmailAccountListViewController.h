@@ -19,7 +19,7 @@
     IBOutlet UITableView* payPointTable;
     
     PayPointService* payPointService;
-    NSMutableArray* userPayPoints;
+    NSArray* emailAddresses;
     
 }
 @end

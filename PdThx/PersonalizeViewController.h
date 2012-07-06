@@ -12,11 +12,13 @@
 #import "PersonalizeUserCompleteProtocol.h"
 #import "UserService.h"
 #import "ChooseMemberImageProtocol.h"
+#import "SetupNavigationView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
 @interface PersonalizeViewController : UISetupUserBaseViewController<PersonalizeUserCompleteProtocol, ChooseMemberImageProtocol, UITextFieldDelegate>
 {
+    IBOutlet UIView *navBar;
     IBOutlet UIButton *userImageButton;
     IBOutlet UITextField *firstNameField;
     IBOutlet UITextField *lastNameField;

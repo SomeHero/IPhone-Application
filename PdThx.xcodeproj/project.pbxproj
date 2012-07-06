@@ -305,10 +305,30 @@
 		5B88685A1529257500EA24A4 /* ConfirmPaymentDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8868591529257400EA24A4 /* ConfirmPaymentDialog.xib */; };
 		5B88686A152959A100EA24A4 /* button_send_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B886869152959A100EA24A4 /* button_send_money.png */; };
 		5B88686C15295A6600EA24A4 /* button_request_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88686B15295A6600EA24A4 /* button_request_money.png */; };
-		5B8B455115A135A900822B67 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B454F15A135A900822B67 /* EditProfileViewController.m */; };
-		5B8B455215A135A900822B67 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B455015A135A900822B67 /* EditProfileViewController.xib */; };
 		5B8B455915A137A900822B67 /* UIProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B455715A137A900822B67 /* UIProfileTableViewCell.m */; };
 		5B8B455A15A137A900822B67 /* UIProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B455815A137A900822B67 /* UIProfileTableViewCell.xib */; };
+		5B8B455C15A245C100822B67 /* im-setup-check-15x15@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B455B15A245C100822B67 /* im-setup-check-15x15@2x.png */; };
+		5B8B456015A2489000822B67 /* SetupNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B455E15A2489000822B67 /* SetupNavigationView.m */; };
+		5B8B456115A2489000822B67 /* SetupNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B455F15A2489000822B67 /* SetupNavigationView.xib */; };
+		5B8B456815A28B1C00822B67 /* UserProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B456715A28B1C00822B67 /* UserProfileItem.m */; };
+		5B8B456C15A3ED0900822B67 /* EnablePaymentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B456A15A3ED0800822B67 /* EnablePaymentsViewController.m */; };
+		5B8B456D15A3ED0900822B67 /* EnablePaymentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B456B15A3ED0900822B67 /* EnablePaymentsViewController.xib */; };
+		5B8B457215A4B68800822B67 /* SharingPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B457015A4B68800822B67 /* SharingPreferencesViewController.m */; };
+		5B8B457315A4B68800822B67 /* SharingPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B457115A4B68800822B67 /* SharingPreferencesViewController.xib */; };
+		5B8B457D15A61F8400822B67 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B457B15A61F8400822B67 /* EditProfileViewController.m */; };
+		5B8B457E15A61F8400822B67 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B457C15A61F8400822B67 /* EditProfileViewController.xib */; };
+		5B8B458715A6219B00822B67 /* UICustomProfileRowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B458515A6219B00822B67 /* UICustomProfileRowViewController.m */; };
+		5B8B458815A6219B00822B67 /* UICustomProfileRowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B458615A6219B00822B67 /* UICustomProfileRowViewController.xib */; };
+		5B8B459115A6231000822B67 /* UICustomProfileHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B458F15A6231000822B67 /* UICustomProfileHeaderViewController.m */; };
+		5B8B459215A6231000822B67 /* UICustomProfileHeaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B459015A6231000822B67 /* UICustomProfileHeaderViewController.xib */; };
+		5B8B459915A6282800822B67 /* UserAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B459815A6282800822B67 /* UserAttribute.m */; };
+		5B8B459F15A65F1D00822B67 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B459D15A65F1D00822B67 /* HelpViewController.m */; };
+		5B8B45A015A65F1D00822B67 /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B459E15A65F1D00822B67 /* HelpViewController.xib */; };
+		5B8B45A415A662F700822B67 /* TOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45A215A662F000822B67 /* TOSViewController.m */; };
+		5B8B45A515A662F700822B67 /* TOSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B45A315A662F500822B67 /* TOSViewController.xib */; };
+		5B8B45AA15A6683300822B67 /* FaceBookSignInOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45A815A6683200822B67 /* FaceBookSignInOverlayViewController.m */; };
+		5B8B45AB15A6683300822B67 /* FaceBookSignInOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B45A915A6683300822B67 /* FaceBookSignInOverlayViewController.xib */; };
+		5B8B45AD15A6686E00822B67 /* Facebook.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B45AC15A6686E00822B67 /* Facebook.jpg */; };
 		5B8B4F96159357FF00820B3E /* AddACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */; };
 		5B8B4FB01593954900820B3E /* bg-verification-308x71.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */; };
 		5B8B4FB11593954900820B3E /* bg-verification-308x71@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9F1593954900820B3E /* bg-verification-308x71@2x.png */; };
@@ -877,12 +897,42 @@
 		5B8868591529257400EA24A4 /* ConfirmPaymentDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmPaymentDialog.xib; sourceTree = "<group>"; };
 		5B886869152959A100EA24A4 /* button_send_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_send_money.png; sourceTree = "<group>"; };
 		5B88686B15295A6600EA24A4 /* button_request_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_request_money.png; sourceTree = "<group>"; };
-		5B8B454E15A135A900822B67 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
-		5B8B454F15A135A900822B67 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
-		5B8B455015A135A900822B67 /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
 		5B8B455615A137A900822B67 /* UIProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIProfileTableViewCell.h; sourceTree = "<group>"; };
 		5B8B455715A137A900822B67 /* UIProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIProfileTableViewCell.m; sourceTree = "<group>"; };
 		5B8B455815A137A900822B67 /* UIProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIProfileTableViewCell.xib; sourceTree = "<group>"; };
+		5B8B455B15A245C100822B67 /* im-setup-check-15x15@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im-setup-check-15x15@2x.png"; sourceTree = "<group>"; };
+		5B8B455D15A2489000822B67 /* SetupNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupNavigationView.h; sourceTree = "<group>"; };
+		5B8B455E15A2489000822B67 /* SetupNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupNavigationView.m; sourceTree = "<group>"; };
+		5B8B455F15A2489000822B67 /* SetupNavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupNavigationView.xib; sourceTree = "<group>"; };
+		5B8B456615A28B1C00822B67 /* UserProfileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileItem.h; sourceTree = "<group>"; };
+		5B8B456715A28B1C00822B67 /* UserProfileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileItem.m; sourceTree = "<group>"; };
+		5B8B456915A3ED0700822B67 /* EnablePaymentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnablePaymentsViewController.h; sourceTree = "<group>"; };
+		5B8B456A15A3ED0800822B67 /* EnablePaymentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnablePaymentsViewController.m; sourceTree = "<group>"; };
+		5B8B456B15A3ED0900822B67 /* EnablePaymentsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnablePaymentsViewController.xib; sourceTree = "<group>"; };
+		5B8B456F15A4B68800822B67 /* SharingPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharingPreferencesViewController.h; sourceTree = "<group>"; };
+		5B8B457015A4B68800822B67 /* SharingPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharingPreferencesViewController.m; sourceTree = "<group>"; };
+		5B8B457115A4B68800822B67 /* SharingPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharingPreferencesViewController.xib; sourceTree = "<group>"; };
+		5B8B457A15A61F8400822B67 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		5B8B457B15A61F8400822B67 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		5B8B457C15A61F8400822B67 /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
+		5B8B458415A6219A00822B67 /* UICustomProfileRowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomProfileRowViewController.h; sourceTree = "<group>"; };
+		5B8B458515A6219B00822B67 /* UICustomProfileRowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomProfileRowViewController.m; sourceTree = "<group>"; };
+		5B8B458615A6219B00822B67 /* UICustomProfileRowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UICustomProfileRowViewController.xib; sourceTree = "<group>"; };
+		5B8B458E15A6230F00822B67 /* UICustomProfileHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomProfileHeaderViewController.h; sourceTree = "<group>"; };
+		5B8B458F15A6231000822B67 /* UICustomProfileHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomProfileHeaderViewController.m; sourceTree = "<group>"; };
+		5B8B459015A6231000822B67 /* UICustomProfileHeaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UICustomProfileHeaderViewController.xib; sourceTree = "<group>"; };
+		5B8B459715A6282800822B67 /* UserAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAttribute.h; sourceTree = "<group>"; };
+		5B8B459815A6282800822B67 /* UserAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAttribute.m; sourceTree = "<group>"; };
+		5B8B459C15A65F1D00822B67 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		5B8B459D15A65F1D00822B67 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		5B8B459E15A65F1D00822B67 /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
+		5B8B45A115A662EC00822B67 /* TOSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOSViewController.h; sourceTree = "<group>"; };
+		5B8B45A215A662F000822B67 /* TOSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOSViewController.m; sourceTree = "<group>"; };
+		5B8B45A315A662F500822B67 /* TOSViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TOSViewController.xib; sourceTree = "<group>"; };
+		5B8B45A715A6683200822B67 /* FaceBookSignInOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceBookSignInOverlayViewController.h; sourceTree = "<group>"; };
+		5B8B45A815A6683200822B67 /* FaceBookSignInOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceBookSignInOverlayViewController.m; sourceTree = "<group>"; };
+		5B8B45A915A6683300822B67 /* FaceBookSignInOverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FaceBookSignInOverlayViewController.xib; sourceTree = "<group>"; };
+		5B8B45AC15A6686E00822B67 /* Facebook.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Facebook.jpg; sourceTree = "<group>"; };
 		5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddACHAccountViewController.h; sourceTree = "<group>"; };
 		5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddACHAccountViewController.m; sourceTree = "<group>"; };
 		5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-verification-308x71.png"; sourceTree = "<group>"; };
@@ -1174,6 +1224,12 @@
 				5BD3DE22159E03AF00F698D5 /* SetupFlowViewController.h */,
 				5BD3DE23159E03AF00F698D5 /* SetupFlowViewController.m */,
 				5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */,
+				5B8B455D15A2489000822B67 /* SetupNavigationView.h */,
+				5B8B455E15A2489000822B67 /* SetupNavigationView.m */,
+				5B8B455F15A2489000822B67 /* SetupNavigationView.xib */,
+				5B8B456915A3ED0700822B67 /* EnablePaymentsViewController.h */,
+				5B8B456A15A3ED0800822B67 /* EnablePaymentsViewController.m */,
+				5B8B456B15A3ED0900822B67 /* EnablePaymentsViewController.xib */,
 			);
 			name = "New User Creation";
 			sourceTree = "<group>";
@@ -1229,6 +1285,7 @@
 		541EE611158A736200131B0E /* New User Creation */ = {
 			isa = PBXGroup;
 			children = (
+				5B8B455B15A245C100822B67 /* im-setup-check-15x15@2x.png */,
 				54805874159B759300ED591C /* bg-setup-progress-320x53.png */,
 				54805875159B759300ED591C /* bg-setup-progress-320x53@2x.png */,
 				54805876159B759300ED591C /* im-setup-check-15x15.png */,
@@ -1378,6 +1435,9 @@
 				5BC2DB44159B494900BB961D /* SecurityQuestionChallengeViewController.h */,
 				5BC2DB45159B494900BB961D /* SecurityQuestionChallengeViewController.m */,
 				5BC2DB46159B494900BB961D /* SecurityQuestionChallengeViewController.xib */,
+				5B8B45A715A6683200822B67 /* FaceBookSignInOverlayViewController.h */,
+				5B8B45A815A6683200822B67 /* FaceBookSignInOverlayViewController.m */,
+				5B8B45A915A6683300822B67 /* FaceBookSignInOverlayViewController.xib */,
 			);
 			name = "Sign In View";
 			sourceTree = "<group>";
@@ -1448,7 +1508,10 @@
 		54A139B01582704700668984 /* Profile Views */ = {
 			isa = PBXGroup;
 			children = (
-				5B8B454C15A1358E00822B67 /* UserProfile */,
+				5B8B45A615A662FF00822B67 /* TOS */,
+				5B8B459B15A65E2900822B67 /* Help */,
+				5B8B457415A61EFB00822B67 /* EditProfile */,
+				5B8B456E15A49F6300822B67 /* Sharing */,
 				5B8BDE68159D5EC800E01753 /* Security */,
 				5B8BDE62159D552E00E01753 /* Notifications */,
 				5B8BDE4F159D495E00E01753 /* MeCodes */,
@@ -1861,6 +1924,7 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5B8B45AC15A6686E00822B67 /* Facebook.jpg */,
 				5BF07B0815980C930020EA2F /* Setting Icons */,
 				5B8B4F9C1593953B00820B3E /* Home */,
 				541EE611158A736200131B0E /* New User Creation */,
@@ -1986,14 +2050,50 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5B8B454C15A1358E00822B67 /* UserProfile */ = {
+		5B8B456E15A49F6300822B67 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				5B8B454E15A135A900822B67 /* EditProfileViewController.h */,
-				5B8B454F15A135A900822B67 /* EditProfileViewController.m */,
-				5B8B455015A135A900822B67 /* EditProfileViewController.xib */,
+				5B8B456F15A4B68800822B67 /* SharingPreferencesViewController.h */,
+				5B8B457015A4B68800822B67 /* SharingPreferencesViewController.m */,
+				5B8B457115A4B68800822B67 /* SharingPreferencesViewController.xib */,
 			);
-			name = UserProfile;
+			name = Sharing;
+			sourceTree = "<group>";
+		};
+		5B8B457415A61EFB00822B67 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				5B8B457A15A61F8400822B67 /* EditProfileViewController.h */,
+				5B8B457B15A61F8400822B67 /* EditProfileViewController.m */,
+				5B8B457C15A61F8400822B67 /* EditProfileViewController.xib */,
+				5B8B458415A6219A00822B67 /* UICustomProfileRowViewController.h */,
+				5B8B458515A6219B00822B67 /* UICustomProfileRowViewController.m */,
+				5B8B458615A6219B00822B67 /* UICustomProfileRowViewController.xib */,
+				5B8B458E15A6230F00822B67 /* UICustomProfileHeaderViewController.h */,
+				5B8B458F15A6231000822B67 /* UICustomProfileHeaderViewController.m */,
+				5B8B459015A6231000822B67 /* UICustomProfileHeaderViewController.xib */,
+			);
+			name = EditProfile;
+			sourceTree = "<group>";
+		};
+		5B8B459B15A65E2900822B67 /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				5B8B459C15A65F1D00822B67 /* HelpViewController.h */,
+				5B8B459D15A65F1D00822B67 /* HelpViewController.m */,
+				5B8B459E15A65F1D00822B67 /* HelpViewController.xib */,
+			);
+			name = Help;
+			sourceTree = "<group>";
+		};
+		5B8B45A615A662FF00822B67 /* TOS */ = {
+			isa = PBXGroup;
+			children = (
+				5B8B45A115A662EC00822B67 /* TOSViewController.h */,
+				5B8B45A215A662F000822B67 /* TOSViewController.m */,
+				5B8B45A315A662F500822B67 /* TOSViewController.xib */,
+			);
+			name = TOS;
 			sourceTree = "<group>";
 		};
 		5B8B4F9C1593953B00820B3E /* Home */ = {
@@ -2178,6 +2278,10 @@
 				5BF3EE241591563F0011BAD8 /* BankAccount.m */,
 				5B0A228215A0D00A00BDA5F8 /* PayPoint.h */,
 				5B0A228315A0D00A00BDA5F8 /* PayPoint.m */,
+				5B8B456615A28B1C00822B67 /* UserProfileItem.h */,
+				5B8B456715A28B1C00822B67 /* UserProfileItem.m */,
+				5B8B459715A6282800822B67 /* UserAttribute.h */,
+				5B8B459815A6282800822B67 /* UserAttribute.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -2765,8 +2869,18 @@
 				5B0A227915A0BAD200BDA5F8 /* AddPhoneViewController.xib in Resources */,
 				5B0A227E15A0BB2B00BDA5F8 /* AddEmailAddressViewController.xib in Resources */,
 				5B0A228B15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib in Resources */,
-				5B8B455215A135A900822B67 /* EditProfileViewController.xib in Resources */,
 				5B8B455A15A137A900822B67 /* UIProfileTableViewCell.xib in Resources */,
+				5B8B455C15A245C100822B67 /* im-setup-check-15x15@2x.png in Resources */,
+				5B8B456115A2489000822B67 /* SetupNavigationView.xib in Resources */,
+				5B8B456D15A3ED0900822B67 /* EnablePaymentsViewController.xib in Resources */,
+				5B8B457315A4B68800822B67 /* SharingPreferencesViewController.xib in Resources */,
+				5B8B457E15A61F8400822B67 /* EditProfileViewController.xib in Resources */,
+				5B8B458815A6219B00822B67 /* UICustomProfileRowViewController.xib in Resources */,
+				5B8B459215A6231000822B67 /* UICustomProfileHeaderViewController.xib in Resources */,
+				5B8B45A015A65F1D00822B67 /* HelpViewController.xib in Resources */,
+				5B8B45A515A662F700822B67 /* TOSViewController.xib in Resources */,
+				5B8B45AB15A6683300822B67 /* FaceBookSignInOverlayViewController.xib in Resources */,
+				5B8B45AD15A6686E00822B67 /* Facebook.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2906,8 +3020,18 @@
 				5B0A228115A0CD1700BDA5F8 /* PayPointService.m in Sources */,
 				5B0A228415A0D00A00BDA5F8 /* PayPoint.m in Sources */,
 				5B0A228A15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m in Sources */,
-				5B8B455115A135A900822B67 /* EditProfileViewController.m in Sources */,
 				5B8B455915A137A900822B67 /* UIProfileTableViewCell.m in Sources */,
+				5B8B456015A2489000822B67 /* SetupNavigationView.m in Sources */,
+				5B8B456815A28B1C00822B67 /* UserProfileItem.m in Sources */,
+				5B8B456C15A3ED0900822B67 /* EnablePaymentsViewController.m in Sources */,
+				5B8B457215A4B68800822B67 /* SharingPreferencesViewController.m in Sources */,
+				5B8B457D15A61F8400822B67 /* EditProfileViewController.m in Sources */,
+				5B8B458715A6219B00822B67 /* UICustomProfileRowViewController.m in Sources */,
+				5B8B459115A6231000822B67 /* UICustomProfileHeaderViewController.m in Sources */,
+				5B8B459915A6282800822B67 /* UserAttribute.m in Sources */,
+				5B8B459F15A65F1D00822B67 /* HelpViewController.m in Sources */,
+				5B8B45A415A662F700822B67 /* TOSViewController.m in Sources */,
+				5B8B45AA15A6683300822B67 /* FaceBookSignInOverlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3258,8 +3382,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -3269,8 +3393,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Dev;

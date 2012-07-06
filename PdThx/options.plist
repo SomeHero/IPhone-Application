@@ -5,6 +5,8 @@
 	<key>Section 2</key>
 	<array>
 		<dict>
+			<key>Description</key>
+			<string>Increase your spending limit</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-profile-40x40-active.png</string>
 			<key>Image</key>
@@ -16,6 +18,8 @@
 	<key>Section 4</key>
 	<array>
 		<dict>
+			<key>Description</key>
+			<string>Add or manage linked bank accounts</string>
 			<key>HighlightedImage</key>
 			<string>icont-setting-accounts-40x40-active.png</string>
 			<key>Image</key>
@@ -27,6 +31,8 @@
 	<key>Section 5</key>
 	<array>
 		<dict>
+			<key>Description</key>
+			<string>Add or manage linked email accounts</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-email-40x40-active.png</string>
 			<key>Image</key>
@@ -35,6 +41,8 @@
 			<string>Email Accounts</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>Add or manage linked social network accounts</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-social-40x40-active.png</string>
 			<key>Image</key>
@@ -43,6 +51,8 @@
 			<string>Social Networks</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>Add or manage linked phone numbers</string>
 			<key>HighlightedImage</key>
 			<string></string>
 			<key>Image</key>
@@ -51,6 +61,8 @@
 			<string>Phones</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>Add or manage linked MeCodes</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-mecode-40x40-active.png</string>
 			<key>Image</key>
@@ -62,6 +74,8 @@
 	<key>Section 6</key>
 	<array>
 		<dict>
+			<key>Description</key>
+			<string>How and when we update you</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-preferences-40x40-active.png</string>
 			<key>Image</key>
@@ -70,6 +84,8 @@
 			<string>Notifications</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>How and when you share activity</string>
 			<key>HighlightedImge</key>
 			<string>icon-settings-sharing-40x40-active.png</string>
 			<key>Image</key>
@@ -78,6 +94,8 @@
 			<string>Sharing</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>Change your password or security options</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-security-40x40-active.png</string>
 			<key>Image</key>
@@ -89,6 +107,8 @@
 	<key>Section 7</key>
 	<array>
 		<dict>
+			<key>Description</key>
+			<string>Issues? Contact us or view FAQs</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-help-40x40-active.png</string>
 			<key>Image</key>
@@ -97,6 +117,8 @@
 			<string>Help</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>Ideas or comments? Let us know!</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-feedback-40x40-active.png</string>
 			<key>Image</key>
@@ -105,6 +127,8 @@
 			<string>Feedback</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>If you like us, tell the world</string>
 			<key>HighlightedImage</key>
 			<string>icon-settings-rate-40x40-active.png</string>
 			<key>Image</key>
@@ -116,6 +140,8 @@
 	<key>Section 8</key>
 	<array>
 		<dict>
+			<key>Description</key>
+			<string>Terms of Service, Security &amp; Privacy</string>
 			<key>HighlightedImage</key>
 			<string></string>
 			<key>Image</key>
@@ -124,20 +150,14 @@
 			<string>User Agreement</string>
 		</dict>
 		<dict>
+			<key>Description</key>
+			<string>Log out of PaidThx</string>
 			<key>HighlightedImage</key>
 			<string></string>
 			<key>Image</key>
 			<string></string>
 			<key>Label</key>
 			<string>Sign Out</string>
-		</dict>
-		<dict>
-			<key>HighlightedImage</key>
-			<string></string>
-			<key>Image</key>
-			<string></string>
-			<key>Label</key>
-			<string>About</string>
 		</dict>
 	</array>
 </dict>

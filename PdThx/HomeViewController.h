@@ -12,6 +12,7 @@
 #import "UIBaseViewController.h"
 #import "UserService.h"
 #import "IncreaseProfileViewController.h"
+#import "EditProfileViewController.h"
 
 @interface HomeViewController : UIBaseViewController< UserInformationCompleteProtocol>
 {

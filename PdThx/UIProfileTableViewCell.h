@@ -14,4 +14,9 @@
     IBOutlet UILabel* lblDescription;
     IBOutlet UIImageView* ctrlImage;
 }
+
+@property(nonatomic, retain) UILabel* lblHeading;
+@property(nonatomic, retain) UILabel* lblDescription;
+@property(nonatomic, retain) UIImageView* ctrlImage;
+
 @end

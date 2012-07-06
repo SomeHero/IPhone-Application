@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "ChangeSecurityPinController.h"
 #import "UIBaseViewController.h"
 #import "UserService.h"
@@ -19,15 +20,19 @@
 #import "SecurityAndPrivacyViewControllerViewController.h"
 #import "EditProfileViewController.h"
 #import "UIProfileTableViewCell.h"
+#import "SharingPreferencesViewController.h"
+#import "HelpViewController.h"
+#import "TOSViewController.h"
 
 @interface ProfileController : UISetupUserBaseViewController   
-<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate> {
+<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, MFMailComposeViewControllerDelegate> {
     NSDictionary *profileOptions;
     NSArray *sections;
     NSString* oldSecurityPin;
     NSString* newSecurityPin;
     UIActivityIndicatorView* spinner;
     UserService* userService;
+    IBOutlet UITableView* tableView;
 }
 @property(nonatomic, retain) NSDictionary *profileOptions;
 @property(nonatomic, retain) NSArray *sections;

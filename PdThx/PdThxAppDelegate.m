@@ -67,7 +67,7 @@
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
         
-        currentReminderTab += 1;  
+        currentReminderTab = 1;  
         
         ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
         
@@ -83,7 +83,7 @@
     }
     else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) || (currentReminderTab < 2 && user.lastName == (id)[NSNull null])) {
 
-        currentReminderTab += 1;  
+        currentReminderTab = 2;  
         
         PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
         
@@ -96,16 +96,39 @@
         }
 
     }
-    else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+    else if (currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0)  && (user.outstandingPayments.count > 0))
+    {
+        currentReminderTab = 3;
+        
+        EnablePaymentsViewController* controller
+        = [[EnablePaymentsViewController alloc] init];
+        controller.message = [user.outstandingPayments objectAtIndex:0];
+        
+        if(setupFlowController == nil) {
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
+        }
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
+        }
+        //currentReminderTab = 3;
+        //[self.newUserFlowTabController setSelectedIndex:3];
+        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+        
+        
+        [controller release];
+    }
+    else if(currentReminderTab < 4 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
     {
         
         
-        currentReminderTab += 1;  
+        currentReminderTab = 4;  
         
         AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
         
         if(setupFlowController == nil) {
-                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -121,7 +144,7 @@
         
     } 
     else {
-        currentReminderTab += 1;
+        currentReminderTab = 5;
         
         if(setupFlowController != nil) {
             [[myProgHudInnerView activityIndicator] stopAnimating];
@@ -137,11 +160,27 @@
             
         }
     }
-    
-    
-    
 }
-
+-(void)endUserSetupFlow
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    currentReminderTab = 5;
+    
+    if(setupFlowController != nil) {
+        [[myProgHudInnerView activityIndicator] stopAnimating];
+        
+        [prefs setBool:false forKey:@"isNewUser"];
+        
+        [prefs synchronize];
+        
+        [self.tabBarController dismissModalViewControllerAnimated:YES];
+        
+        [setupFlowController release];
+        setupFlowController = nil;
+        
+    }
+}
 -(void)backToWelcomeTabbedArea
 {
     [self.tabBarController.view removeFromSuperview];
