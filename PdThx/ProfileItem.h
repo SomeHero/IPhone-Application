@@ -11,12 +11,14 @@
 @interface ProfileItem : NSObject
 <NSCopying> {
 @private
-    NSString* attributeName;
-    NSString* attributeValue;
+    NSInteger itemId;
+    NSString* label;
+    NSInteger sortOrder;
 }
 
-@property(nonatomic, retain) NSString* attributeName;
-@property(nonatomic, retain) NSString* attributeValue;
+@property(nonatomic) NSInteger itemId;
+@property(nonatomic, retain) NSString* label;
+@property(nonatomic) NSInteger sortOrder;
 
 -(ProfileItem *) initWithDictionary : (NSDictionary *) dictionary;
 

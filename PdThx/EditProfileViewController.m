@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    profileItems = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).myApplication.profileItems;
+    profileSections = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).myApplication.profileSections;
 }
 
 - (void)viewDidUnload
@@ -47,47 +47,71 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [profileSections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1 + profileItems.count;
+    if(section == 0)
+        return 1 + [[profileSections objectAtIndex: section] profileItems].count;
+    else {
+         return [[profileSections objectAtIndex: section] profileItems].count;
+    }
 }
 - (CGFloat) tableView: (UITableView *) tableView heightForRowAtIndexPath: (NSIndexPath *) indexPath
 {
-    if(indexPath.row == 0)
-        return 90;
-    else 
-        return 45;
+    if(indexPath.section == 0)
+    {
+        if(indexPath.row == 0)
+            return 90;
+        else 
+            return 45;
+    }
+    
+    return 45;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     static NSString *HeaderCellIdentifier = @"Header";
 
-    if(indexPath.row == 0)
+    if(indexPath.section == 0)
     {
-        UICustomProfileHeaderViewController *cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
-        if (cell == nil){
-            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileHeaderViewController" owner:self options:nil];
-            cell = [nib objectAtIndex:0];
+        if(indexPath.row == 0)
+        {
+            UICustomProfileHeaderViewController *cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+            if (cell == nil){
+                NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileHeaderViewController" owner:self options:nil];
+                cell = [nib objectAtIndex:0];
+                
+            }
+            
+            
+            [cell.btnUserImage.layer setCornerRadius:6.0];
+            [cell.btnUserImage.layer setMasksToBounds:YES];
+            
+            if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
+                [cell.btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
+            }else {
+                [cell.btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
+            }
+            
+            
+            return cell;
             
         }
-        
-        
-        [cell.btnUserImage.layer setCornerRadius:6.0];
-        [cell.btnUserImage.layer setMasksToBounds:YES];
-
-        if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
-            [cell.btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
-        }else {
-            [cell.btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        else {
+            UICustomProfileRowViewController *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil){
+                NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileRowViewController" owner:self options:nil];
+                cell = [nib objectAtIndex:0];
+                
+                cell.lblAttributeName.text = [[[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row - 1] label];
+                //cell.txtAttributeValue.text = [[[profileSections objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row - 1]  attributeValue];
+                
+                return cell;
+            }
         }
-        
-        
-        return cell;
-        
     }
     else {
         UICustomProfileRowViewController *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -95,12 +119,12 @@
             NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileRowViewController" owner:self options:nil];
             cell = [nib objectAtIndex:0];
             
-            cell.lblAttributeName.text = [[profileItems objectAtIndex:indexPath.row - 1] attributeName];
-            cell.txtAttributeValue.text = [[profileItems objectAtIndex:indexPath.row - 1] attributeValue];
+            cell.lblAttributeName.text = [[[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row] label];
+            //cell.txtAttributeValue.text = [[[profileSections objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row - 1]  attributeValue];
+            
+            return cell;
             
         }
-        
-        return cell;
         
     }
 }
