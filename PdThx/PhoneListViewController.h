@@ -12,8 +12,9 @@
 #import "PayPoint.h"
 #import "PayPointService.h"
 #import "GetPayPointProtocol.h"
+#import "AddPayPointCompleteProtocol.h"
 
-@interface PhoneListViewController : UISetupUserBaseViewController<UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>
+@interface PhoneListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>
 {
     IBOutlet UITableView* payPointTable;
     

@@ -21,10 +21,13 @@
 #import "AddACHAccountViewController.h"
 #import "SetupFlowViewController.h"
 #import "EnablePaymentsViewController.h"
+#import "Application.h"
+#import "ApplicationService.h"
+#import "ApplicationSettingsCompleteProtocol.h"
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FBSessionDelegate, FBRequestDelegate> {
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate> {
     Facebook * fBook;
     NSString * deviceToken;
     NSMutableArray *contactsArray;
@@ -42,6 +45,7 @@
     ProgressHudInnnerViewController *myProgHudInnerView;
     CustomAlertViewController *customAlert;
     UINavigationController* setupFlowController;
+    Application* myApplication;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -64,6 +68,7 @@
 @property (nonatomic, retain) CustomAlertViewController *customAlert;
 
 @property (nonatomic, assign) int animationTimer;
+@property(nonatomic, retain) Application* myApplication;
 
 -(void)signOut;
 -(void)forgetMe;

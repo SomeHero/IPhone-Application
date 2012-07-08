@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    profileItems = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).myApplication.profileItems;
 }
 
 - (void)viewDidUnload
@@ -51,7 +52,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1 + user.userAttributes.count;
+    return 1 + profileItems.count;
 }
 - (CGFloat) tableView: (UITableView *) tableView heightForRowAtIndexPath: (NSIndexPath *) indexPath
 {
@@ -94,8 +95,8 @@
             NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileRowViewController" owner:self options:nil];
             cell = [nib objectAtIndex:0];
             
-            cell.lblAttributeName.text = [[user.userAttributes objectAtIndex:indexPath.row - 1] attributeName];
-            cell.txtAttributeValue.text = [[user.userAttributes objectAtIndex:indexPath.row - 1] attributeValue];
+            cell.lblAttributeName.text = [[profileItems objectAtIndex:indexPath.row - 1] attributeName];
+            cell.txtAttributeValue.text = [[profileItems objectAtIndex:indexPath.row - 1] attributeValue];
             
         }
         

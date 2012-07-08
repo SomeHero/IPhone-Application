@@ -23,6 +23,7 @@
 @synthesize payPoints;
 @synthesize bankAccounts;
 @synthesize userAttributes;
+@synthesize userConfigurationItems;
 
 -(id)init {
     self = [super init];
@@ -45,6 +46,7 @@
         userUri = [[NSString alloc] init];
         outstandingPayments = [[NSMutableArray alloc] init];
         userAttributes = [[NSMutableArray alloc] init];
+        userConfigurationItems = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -114,6 +116,16 @@
         {
             [userAttributes addObject: [[[UserAttribute alloc] initWithDictionary: [userAttributesArray objectAtIndex:(NSUInteger) i]] autorelease]];
         }
+        
+        NSArray *userConfigurationsArray = [[dictionary valueForKey:@"userConfigurationVariables"] copy];
+        
+        userConfigurationItems = [[NSMutableArray alloc] init];
+        
+        for(int i = 0; i <[userConfigurationsArray count]; i++)
+        {
+            [userConfigurationItems addObject: [[[UserConfiguration alloc] initWithDictionary: [userConfigurationsArray objectAtIndex:(NSUInteger) i]] autorelease]];
+        }
+        
     }
     
     return self;
@@ -148,6 +160,7 @@
     another.payPoints = [payPoints copy];
     another.bankAccounts = [bankAccounts copy];
     another.userAttributes = [userAttributes copy];
+    another.userConfigurationItems = [userConfigurationItems copy];
 
     return another;
 }

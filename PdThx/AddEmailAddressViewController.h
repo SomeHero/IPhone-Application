@@ -8,12 +8,16 @@
 
 #import "UIModalBaseViewController.h"
 #import "PayPointService.h"
+#import "AddPayPointCompleteProtocol.h"
 
 @interface AddEmailAddressViewController : UIModalBaseViewController
 {
     IBOutlet UITextField* txtEmailAddress;
     PayPointService* payPointService;
+    id<AddPayPointCompleteProtocol> addPayPointComplete;
 }
+
+@property(nonatomic, retain) id<AddPayPointCompleteProtocol> addPayPointComplete;
 
 -(IBAction)btnSubmitClicked;
 
