@@ -336,6 +336,7 @@
 		5B8B45BB15A8EFBD00822B67 /* ApplicationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45BA15A8EFA800822B67 /* ApplicationService.m */; };
 		5B8B45BE15A8F06700822B67 /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45BD15A8F06500822B67 /* Application.m */; };
 		5B8B45C115A8F10F00822B67 /* ProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45C015A8F10B00822B67 /* ProfileItem.m */; };
+		5B8B45C515A9126400822B67 /* ProfileSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45C415A9125600822B67 /* ProfileSection.m */; };
 		5B8B4F96159357FF00820B3E /* AddACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */; };
 		5B8B4FB01593954900820B3E /* bg-verification-308x71.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */; };
 		5B8B4FB11593954900820B3E /* bg-verification-308x71@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9F1593954900820B3E /* bg-verification-308x71@2x.png */; };
@@ -954,6 +955,8 @@
 		5B8B45BF15A8F10800822B67 /* ProfileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileItem.h; sourceTree = "<group>"; };
 		5B8B45C015A8F10B00822B67 /* ProfileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileItem.m; sourceTree = "<group>"; };
 		5B8B45C215A8F8A200822B67 /* ApplicationSettingsCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationSettingsCompleteProtocol.h; sourceTree = "<group>"; };
+		5B8B45C315A9125200822B67 /* ProfileSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSection.h; sourceTree = "<group>"; };
+		5B8B45C415A9125600822B67 /* ProfileSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSection.m; sourceTree = "<group>"; };
 		5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddACHAccountViewController.h; sourceTree = "<group>"; };
 		5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddACHAccountViewController.m; sourceTree = "<group>"; };
 		5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-verification-308x71.png"; sourceTree = "<group>"; };
@@ -2313,6 +2316,8 @@
 				5B8B45BD15A8F06500822B67 /* Application.m */,
 				5B8B45BF15A8F10800822B67 /* ProfileItem.h */,
 				5B8B45C015A8F10B00822B67 /* ProfileItem.m */,
+				5B8B45C315A9125200822B67 /* ProfileSection.h */,
+				5B8B45C415A9125600822B67 /* ProfileSection.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -3074,6 +3079,7 @@
 				5B8B45BB15A8EFBD00822B67 /* ApplicationService.m in Sources */,
 				5B8B45BE15A8F06700822B67 /* Application.m in Sources */,
 				5B8B45C115A8F10F00822B67 /* ProfileItem.m in Sources */,
+				5B8B45C515A9126400822B67 /* ProfileSection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@
 
 @synthesize apiKey;
 @synthesize applicationId;
-@synthesize profileItems;
+@synthesize profileSections;
 
 -(id)init {
     self = [super init];
@@ -32,13 +32,13 @@
         apiKey = [[dictionary valueForKey: @"apiKey"] copy];
         applicationId = [[dictionary valueForKey: @"applicationId"] copy];
         
-        NSArray *tempProfileItemsArray = [[dictionary valueForKey:@"ProfileItems"] copy];
+        NSArray *tempProfileSectionsArray = [[dictionary valueForKey:@"ProfileSections"] copy];
         
-        profileItems = [[NSMutableArray alloc] init];
+        profileSections = [[NSMutableArray alloc] init];
         
-        for(int i = 0; i <[tempProfileItemsArray count]; i++)
+        for(int i = 0; i <[tempProfileSectionsArray count]; i++)
         {
-            [profileItems addObject: [[[ProfileItem alloc] initWithDictionary: [tempProfileItemsArray objectAtIndex:(NSUInteger) i]] autorelease]];
+            [profileSections addObject: [[[ProfileSection alloc] initWithDictionary: [tempProfileSectionsArray objectAtIndex:(NSUInteger) i]] autorelease]];
         }
     }
     
@@ -52,7 +52,7 @@
     
     another.apiKey = apiKey;
     another.applicationId = applicationId;
-    another.profileItems = [profileItems copy];
+    another.profileSections = [profileSections copy];
     
     return another;
 }

@@ -202,6 +202,8 @@
                 case 0:
                 {
                     EditProfileViewController *controller = [[EditProfileViewController alloc] init];
+                    [controller setTitle: @"Me"];
+                    
                     [self.navigationController pushViewController:controller animated:YES];      
                     
                     [controller release];
