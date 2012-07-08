@@ -14,6 +14,8 @@
 
 @implementation AddPhoneViewController
 
+@synthesize addPayPointComplete;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,6 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     payPointService = [[PayPointService alloc] init];
+    [payPointService setAddPayPointCompleteDelegate:self];
 }
 
 - (void)viewDidUnload
@@ -45,5 +48,10 @@
 {
     [payPointService addPayPoint:txtPhoneNumber.text ofType:@"Phone" forUserId:user.userId];
 }
-
+-(void)addPayPointsDidComplete {
+    [addPayPointComplete addPayPointsDidComplete];
+}
+-(void)addPayPointsDidFail: (NSString*) errorMessage {
+    [addPayPointComplete addPayPointsDidFail:errorMessage];
+}
 @end

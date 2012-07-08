@@ -11,6 +11,7 @@
 #import "PayPoint.h"
 #import "BankAccount.h"
 #import "UserAttribute.h"
+#import "UserConfiguration.h"
 
 @interface User : NSObject<NSCopying> {
 @private
@@ -40,6 +41,7 @@
     NSMutableArray* payPoints;
     NSMutableArray* bankAccounts;
     NSMutableArray* userAttributes;
+    NSMutableArray* userConfigurationItems;
 }
 
 @property(nonatomic, retain) NSString* userId;
@@ -67,6 +69,7 @@
 @property(nonatomic, retain) NSMutableArray* payPoints;
 @property(nonatomic, retain) NSMutableArray* bankAccounts;
 @property(nonatomic, retain) NSMutableArray* userAttributes;
+@property(nonatomic, retain) NSMutableArray* userConfigurationItems;
 
 -(User *) initWithDictionary : (NSDictionary *) dictionary;
 

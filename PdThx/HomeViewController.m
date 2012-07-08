@@ -154,6 +154,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(IBAction) btnProfileClicked:(id) sender {
     
     EditProfileViewController* controller = [[EditProfileViewController alloc] init];
+    [controller setTitle: @"Me"];
     
     [self.navigationController pushViewController:controller animated:YES];
     [controller release];

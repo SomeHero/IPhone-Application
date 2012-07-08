@@ -163,6 +163,7 @@
 {
     AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
     controller.navigationTitle = @"Add Email";
+    [controller setAddPayPointComplete:self];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     
@@ -171,6 +172,11 @@
     [navBar release];
     [controller release];
 }
-
+-(void)addPayPointsDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+-(void)addPayPointsDidFail: (NSString*) errorMessage {
+    
+}
 
 @end

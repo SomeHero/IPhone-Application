@@ -12,15 +12,17 @@
 #import "JSON.h"
 #import "PayPoint.h"
 #import "GetPayPointProtocol.h"
+#import "AddPayPointCompleteProtocol.h"
 
 @interface PayPointService : NSObject
 {
     ASIHTTPRequest *requestObj;
     id<GetPayPointProtocol> getPayPointsDelegate;
+    id<AddPayPointCompleteProtocol> addPayPointCompleteDelegate;
 }
 
-@property(retain) id<GetPayPointProtocol> getPayPointsDelegate;
-
+@property(retain) id getPayPointsDelegate;
+@property(retain) id addPayPointCompleteDelegate;
 
 -(void) getPayPoints:(NSString*) userId;
 -(void) getPayPoints:(NSString*) userId ofType: (NSString*) type;

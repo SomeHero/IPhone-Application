@@ -13,10 +13,12 @@
 #import "PayPointService.h"
 #import "GetPayPointProtocol.h"
 #import "User.h"
+#import "AddPayPointCompleteProtocol.h"
 
-@interface MeCodeListViewController : UISetupUserBaseViewController<UITableViewDataSource, UITableViewDelegate>
+@interface MeCodeListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView* payPointTable;
+    AddMeCodeViewController* controller;
     
     NSMutableArray* meCodes;
 }
