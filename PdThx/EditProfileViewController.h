@@ -12,12 +12,12 @@
 #import "UICustomProfileHeaderViewController.h"
 #import "PdThxAppDelegate.h"
 #import "Application.h"
-#import "ProfileItem.h"
+#import "ProfileSection.h"
 
 @interface EditProfileViewController : UISetupUserBaseViewController<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate>
 {
     IBOutlet UITableView* profileTable;
-    NSMutableArray* profileItems;
+    NSMutableArray* profileSections;
 }
 
 @end

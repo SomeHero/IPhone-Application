@@ -10,16 +10,15 @@
 
 @implementation ProfileItem
 
-@synthesize attributeName;
-@synthesize attributeValue;
+@synthesize itemId;
+@synthesize label;
+@synthesize sortOrder;
 
 -(id)init {
     self = [super init];
     if(self) {
         
-        attributeName = [[NSString alloc] init];
-        attributeValue = [[NSString alloc] init];
-
+        label = [[NSString alloc] init];
         
     }
     
@@ -29,8 +28,9 @@
     self = [super init];
     
     if(self) { 
-        attributeName = [[dictionary valueForKey: @"AttributeName"] copy];
-        attributeValue = [[dictionary valueForKey: @"AttributeValue"] copy];
+        itemId = [[dictionary valueForKey: @"Id"] intValue];
+        label = [[dictionary valueForKey: @"Label"] copy];
+        sortOrder = [[dictionary valueForKey: @"SortOrder"] intValue];
     }
     
     return self;
@@ -41,8 +41,9 @@
     // We'll ignore the zone for now
     ProfileItem *another = [[ProfileItem alloc] init];
     
-    another.attributeName = attributeName;
-    another.attributeValue = attributeValue;
+    another.itemId = itemId;
+    another.label = label;
+    another.sortOrder = sortOrder;
 
     return another;
 }

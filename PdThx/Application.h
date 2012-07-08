@@ -7,19 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ProfileItem.h"
+#import "ProfileSection.h"
 
 @interface Application : NSObject
 <NSCopying> {
 @private
     NSString* apiKey;
     NSString* applicationId;
-    NSMutableArray* profileItems;
+    NSMutableArray* profileSections;
 }
 
 @property(nonatomic, retain) NSString* apiKey;
 @property(nonatomic, retain) NSString* applicationId;
-@property(nonatomic, retain) NSMutableArray* profileItems;
+@property(nonatomic, retain) NSMutableArray* profileSections;
 
 -(Application *) initWithDictionary : (NSDictionary *) dictionary;
 
