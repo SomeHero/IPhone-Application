@@ -29,7 +29,7 @@
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
-
+@synthesize myApplication;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -208,6 +208,11 @@
     [self.tabBarController setDelegate:self];
     
     Environment *myEnvironment = [Environment sharedInstance];
+    
+    ApplicationService* applicationService = [[ApplicationService alloc] init];
+    [applicationService setApplicationSettingsDidComplete: self];
+    [applicationService getApplicationSettings:myEnvironment.pdthxAPIKey];
+    
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *googleAnalyticsKey = [NSString stringWithString: myEnvironment.GoogleAnalyticsKey];
     
@@ -987,5 +992,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
                      }];
 }
+-(void)getApplicationSettingsDidComplete:(Application*)application {
+    myApplication = [application copy];
+}
+-(void)getApplicationSettingsDidFail: (NSString*) errorMessage
+{
 
+}
 @end

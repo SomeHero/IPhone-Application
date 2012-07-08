@@ -164,6 +164,7 @@
 {
     AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
     controller.navigationTitle = @"Add Mobile #";
+    [controller setAddPayPointComplete:self];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     
@@ -171,6 +172,12 @@
     
     [navBar release];
     [controller release];
+}
+-(void)addPayPointsDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+-(void)addPayPointsDidFail: (NSString*) errorMessage {
+    
 }
 
 

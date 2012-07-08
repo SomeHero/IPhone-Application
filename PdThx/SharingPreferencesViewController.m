@@ -14,6 +14,9 @@
 
 @implementation SharingPreferencesViewController
 
+@synthesize notificationOptions;
+@synthesize sections;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,7 +30,23 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle: @"Sharing"];
+    [self setTitle: @"Notifications"];
+    
+    configurationKeys = [[NSMutableArray  alloc] init];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"sharing" ofType:@"plist"];
+    
+    NSDictionary *dic = [[NSDictionary alloc] initWithContentsOfFile:path];
+    
+    self.notificationOptions = dic;
+    [dic release];
+    
+    NSArray *array = [[notificationOptions allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    
+    self.sections = array;
+    
+    sections = array;
+    
 }
 
 - (void)viewDidUnload
@@ -41,25 +60,10 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 4;
-}
+
+#pragma mark - Table view data source
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    switch(section)
-    {
-        case 0:
-            return @"When I Send Money";
-        case 1:
-            return @"When I Receive Money";
-        case 2:
-            return @"When I Request Money";
-        case 3:
-            return @"When I Receive a Request";
-        default:
-            return @"";
-    }
+    return [sections objectAtIndex:section];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
@@ -83,10 +87,20 @@
     
     return view;
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return [sections count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 3;
+    NSString *optionSection = [sections objectAtIndex:section];
+    
+    NSArray *profileSection = [notificationOptions objectForKey:optionSection];
+    
+    return [profileSection count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -97,25 +111,34 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"Facebook";
-            break;
-        case 1:
-            cell.textLabel.text = @"Twitter";
-            break;
-        case 2:
-            cell.textLabel.text = @"Google +";
-            break;
-            
-        default:
-            break;
-    }
+    
+    NSString *optionSection = [sections objectAtIndex:[indexPath section]];
+    
+    NSArray *notificationItems = [notificationOptions objectForKey:optionSection];
+                          
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"Key == %@", [[notificationItems objectAtIndex:indexPath.row] valueForKey: @"ConfigurationKey"]];
+
+    NSArray* results = [user.userConfigurationItems filteredArrayUsingPredicate:  predicate];
+    
+    BOOL configurationValue = false;
+    
+    if([results count] == 1)
+        configurationValue = [[[results objectAtIndex:0] Value] boolValue];
+    
+    [configurationKeys addObject:  [[notificationItems objectAtIndex:[indexPath row]] objectForKey:@"ConfigurationKey"]];
+    cell.textLabel.text = [[notificationItems objectAtIndex:[indexPath row]] objectForKey:@"Description"];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
     cell.accessoryView = switchView;
-    [switchView setOn:YES animated:NO];
+    [switchView setTag: [configurationKeys count] - 1];
+
+    if(configurationValue)
+        [switchView setOn:YES animated:NO];
+    else
+        [switchView setOn:NO animated:NO];
+
     [switchView addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
     [switchView release];
     
@@ -168,4 +191,24 @@
 {
     
 }
+- (void) switchChanged:(id)sender {
+    
+    UISwitch* switchControl = sender;
+    
+    UserConfigurationService* service = [[UserConfigurationService alloc] init];
+    
+    UserConfiguration* configurationItem = [[UserConfiguration alloc] init];
+    configurationItem.Key = [configurationKeys objectAtIndex:switchControl.tag];
+    if(switchControl.on){
+        configurationItem.Value = @"true";
+    }
+    else {
+        configurationItem.Value = @"false";
+    }
+    
+    [service updateUserConfiguration:configurationItem.Value forKey:configurationItem.Key forUserId:user.userId];
+    
+    NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
+}
+
 @end

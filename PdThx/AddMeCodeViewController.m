@@ -14,6 +14,8 @@
 
 @implementation AddMeCodeViewController
 
+@synthesize addPayPointComplete;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,6 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     payPointService = [[PayPointService alloc] init];
+    [payPointService setAddPayPointCompleteDelegate:self];
 }
 
 - (void)viewDidUnload
@@ -44,5 +47,10 @@
 -(IBAction)btnSubmitClicked {
     [payPointService addPayPoint:txtMeCode.text ofType:@"MeCode" forUserId: user.userId];
 }
-
+-(void)addPayPointsDidComplete {
+    [addPayPointComplete addPayPointsDidComplete];
+}
+-(void)addPayPointsDidFail: (NSString*) errorMessage {
+    [addPayPointComplete addPayPointsDidFail:errorMessage];
+}
 @end

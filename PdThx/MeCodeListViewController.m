@@ -156,15 +156,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AddMeCodeViewController* controller = [[AddMeCodeViewController alloc] init];
+     controller = [[[AddMeCodeViewController alloc] init] retain];
     controller.navigationTitle = @"Add $MeCode";
+    [controller setAddPayPointComplete:self];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     
     [self.navigationController presentModalViewController:navBar animated:YES];
     
     [navBar release];
-    [controller release];
+    //[controller release];
 }
+-(void)addPayPointsDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+-(void)addPayPointsDidFail: (NSString*) errorMessage {
+    
+}
+
 
 @end

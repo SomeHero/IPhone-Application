@@ -11,6 +11,7 @@
 @implementation PayPointService
 
 @synthesize getPayPointsDelegate;
+@synthesize addPayPointCompleteDelegate;
 
 
 -(void) getPayPoints:(NSString*) userId
@@ -161,30 +162,32 @@
     
     [request startAsynchronous];
 }
--(void) addPayPointsCompleted:(ASIHTTPRequest *)request
+-(void) addPayPointCompleted:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 201 ) {
         
+        [addPayPointCompleteDelegate addPayPointsDidComplete];
         
     }
     else {
         
         NSLog(@"Error Answered Security Questions");
         
-        
+        [addPayPointCompleteDelegate addPayPointsDidFail: [request responseString]];
         
     }
     
     
 }
--(void) addPayPointsFailed:(ASIHTTPRequest *)request
+-(void) addPayPointFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Error Answering Security Questions");
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
+    [addPayPointCompleteDelegate addPayPointsDidFail: [request responseString]];
     
 }
 @end
