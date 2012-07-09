@@ -31,6 +31,9 @@
     // Do any additional setup after loading the view from its nib.
     [self setTitle: @"Notifications"];
     
+    userConfigurationService= [[UserConfigurationService alloc] init];
+    [userConfigurationService setUserSettingsCompleteDelegate: self];
+    
     configurationKeys = [[NSMutableArray  alloc] init];
 
     NSString *path = [[NSBundle mainBundle] pathForResource:@"notifications" ofType:@"plist"];
@@ -193,9 +196,7 @@
 - (void) switchChanged:(id)sender {
     
     UISwitch* switchControl = sender;
-    
-    UserConfigurationService* service = [[UserConfigurationService alloc] init];
-    
+
     UserConfiguration* configurationItem = [[UserConfiguration alloc] init];
     configurationItem.Key = [configurationKeys objectAtIndex:switchControl.tag];
     if(switchControl.on){
@@ -205,10 +206,23 @@
         configurationItem.Value = @"false";
     }
     
-    [service updateUserConfiguration:configurationItem.Value forKey:configurationItem.Key forUserId:user.userId];
+    [userConfigurationService updateUserConfiguration:configurationItem.Value forKey:configurationItem.Key forUserId:user.userId];
     
     NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
 }
-
+-(void)updateUserSettingsDidComplete {
+    [userConfigurationService getUserSettings:user.userId];
+}
+-(void)updateUserSettingsDidFail: (NSString*) errorMessage {
+    
+}
+-(void)getUserSettingsDidComplete: (NSMutableArray*) userSettings {
+    user.userConfigurationItems = userSettings;
+    
+    [tableUserSettings reloadData];
+}
+-(void)getUserSettingsDidFail: (NSString*) errorMessage {
+    
+}
 
 @end

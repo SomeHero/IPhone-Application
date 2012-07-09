@@ -18,9 +18,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @synthesize viewPinLock;
 @synthesize securityPinSwipeDelegate;
-@synthesize lblHeader;
-@synthesize navigationTitle;
-@synthesize headerText;
 @synthesize tag;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

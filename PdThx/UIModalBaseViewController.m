@@ -131,6 +131,9 @@ CGSize scrollViewOriginalSize;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    
+    [super viewDidLoad];
+    
     [self registerForKeyboardNotifications];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
@@ -146,10 +149,9 @@ CGSize scrollViewOriginalSize;
     self.navigationItem.leftBarButtonItem= cancelButton;
     [cancelButton release];
     
-    [self setTitle: navigationTitle];
+    [self setTitle: self.title];
     lblHeader.text = headerText;
 
-    [super viewDidLoad];
 }
 
 -(void) viewDidAppear:(BOOL)animated{

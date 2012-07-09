@@ -23,6 +23,7 @@
 #import "SharingPreferencesViewController.h"
 #import "HelpViewController.h"
 #import "TOSViewController.h"
+#import "ZendeskDropboxSampleViewController.h"
 
 @interface ProfileController : UISetupUserBaseViewController   
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, MFMailComposeViewControllerDelegate> {

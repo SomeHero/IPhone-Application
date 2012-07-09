@@ -337,6 +337,9 @@
 		5B8B45BE15A8F06700822B67 /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45BD15A8F06500822B67 /* Application.m */; };
 		5B8B45C115A8F10F00822B67 /* ProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45C015A8F10B00822B67 /* ProfileItem.m */; };
 		5B8B45C515A9126400822B67 /* ProfileSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45C415A9125600822B67 /* ProfileSection.m */; };
+		5B8B45D215A9CF6400822B67 /* ZendeskDropboxSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B45D115A9CF6400822B67 /* ZendeskDropboxSampleViewController.m */; };
+		5B8B45D415A9CF7600822B67 /* ZendeskDropboxSampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B45D315A9CF7600822B67 /* ZendeskDropboxSampleViewController.xib */; };
+		5B8B45DA15A9D28900822B67 /* libZendeskDropbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B45D815A9D28900822B67 /* libZendeskDropbox.a */; };
 		5B8B4F96159357FF00820B3E /* AddACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */; };
 		5B8B4FB01593954900820B3E /* bg-verification-308x71.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */; };
 		5B8B4FB11593954900820B3E /* bg-verification-308x71@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8B4F9F1593954900820B3E /* bg-verification-308x71@2x.png */; };
@@ -957,6 +960,12 @@
 		5B8B45C215A8F8A200822B67 /* ApplicationSettingsCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationSettingsCompleteProtocol.h; sourceTree = "<group>"; };
 		5B8B45C315A9125200822B67 /* ProfileSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSection.h; sourceTree = "<group>"; };
 		5B8B45C415A9125600822B67 /* ProfileSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSection.m; sourceTree = "<group>"; };
+		5B8B45D015A9CF6300822B67 /* ZendeskDropboxSampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZendeskDropboxSampleViewController.h; sourceTree = "<group>"; };
+		5B8B45D115A9CF6400822B67 /* ZendeskDropboxSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZendeskDropboxSampleViewController.m; sourceTree = "<group>"; };
+		5B8B45D315A9CF7600822B67 /* ZendeskDropboxSampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZendeskDropboxSampleViewController.xib; sourceTree = "<group>"; };
+		5B8B45D815A9D28900822B67 /* libZendeskDropbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libZendeskDropbox.a; sourceTree = "<group>"; };
+		5B8B45D915A9D28900822B67 /* ZendeskDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZendeskDropbox.h; sourceTree = "<group>"; };
+		5B8B45DB15AA134100822B67 /* UserSettingsCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSettingsCompleteProtocol.h; sourceTree = "<group>"; };
 		5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddACHAccountViewController.h; sourceTree = "<group>"; };
 		5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddACHAccountViewController.m; sourceTree = "<group>"; };
 		5B8B4F9E1593954900820B3E /* bg-verification-308x71.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-verification-308x71.png"; sourceTree = "<group>"; };
@@ -1168,6 +1177,7 @@
 				5B69DF8214AE6067003A0F66 /* CoreGraphics.framework in Frameworks */,
 				54B5F24A156C450300D970A3 /* libfacebook_ios_sdk.a in Frameworks */,
 				D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */,
+				5B8B45DA15A9D28900822B67 /* libZendeskDropbox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1532,6 +1542,7 @@
 		54A139B01582704700668984 /* Profile Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B8B45CD15A9CF0E00822B67 /* ZenDesk Feedback */,
 				5B8B45A615A662FF00822B67 /* TOS */,
 				5B8B459B15A65E2900822B67 /* Help */,
 				5B8B457415A61EFB00822B67 /* EditProfile */,
@@ -1854,6 +1865,7 @@
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
+				5B8B45CA15A9CE5300822B67 /* ZendeskDropboxLib */,
 				D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */,
 				54CACC831587C6F000631B84 /* MediaPlayer.framework */,
 				54764F5615810DFC008187B6 /* CoreLocation.framework */,
@@ -2122,6 +2134,26 @@
 			name = TOS;
 			sourceTree = "<group>";
 		};
+		5B8B45CA15A9CE5300822B67 /* ZendeskDropboxLib */ = {
+			isa = PBXGroup;
+			children = (
+				5B8B45D815A9D28900822B67 /* libZendeskDropbox.a */,
+				5B8B45D915A9D28900822B67 /* ZendeskDropbox.h */,
+			);
+			name = ZendeskDropboxLib;
+			path = "../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib";
+			sourceTree = "<group>";
+		};
+		5B8B45CD15A9CF0E00822B67 /* ZenDesk Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				5B8B45D315A9CF7600822B67 /* ZendeskDropboxSampleViewController.xib */,
+				5B8B45D015A9CF6300822B67 /* ZendeskDropboxSampleViewController.h */,
+				5B8B45D115A9CF6400822B67 /* ZendeskDropboxSampleViewController.m */,
+			);
+			name = "ZenDesk Feedback";
+			sourceTree = "<group>";
+		};
 		5B8B4F9C1593953B00820B3E /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -2285,6 +2317,7 @@
 				5B0A228615A0D21900BDA5F8 /* GetPayPointProtocol.h */,
 				5B8B45AE15A762FA00822B67 /* AddPayPointCompleteProtocol.h */,
 				5B8B45C215A8F8A200822B67 /* ApplicationSettingsCompleteProtocol.h */,
+				5B8B45DB15AA134100822B67 /* UserSettingsCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2923,6 +2956,7 @@
 				5B8B45AD15A6686E00822B67 /* Facebook.jpg in Resources */,
 				5B8B45B615A7D48300822B67 /* notifications.plist in Resources */,
 				5B8B45B815A7E82300822B67 /* sharing.plist in Resources */,
+				5B8B45D415A9CF7600822B67 /* ZendeskDropboxSampleViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3080,6 +3114,7 @@
 				5B8B45BE15A8F06700822B67 /* Application.m in Sources */,
 				5B8B45C115A8F10F00822B67 /* ProfileItem.m in Sources */,
 				5B8B45C515A9126400822B67 /* ProfileSection.m in Sources */,
+				5B8B45D215A9CF6400822B67 /* ZendeskDropboxSampleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3163,6 +3198,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3257,6 +3293,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3283,6 +3320,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3389,6 +3427,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3430,8 +3469,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -3467,10 +3506,11 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D9E51710-0C9D-4BDA-B16A-4B0D11AB6483";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C93F1307-04EC-42E7-8E0E-6810446F1E41";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3542,6 +3582,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3618,6 +3659,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3693,6 +3735,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
 					"\"$(SRCROOT)/PdThx\"",
+					"\"$(SRCROOT)/../../Third Party/zendesk_ios_sdk/ZendeskDropboxLib\"",
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";

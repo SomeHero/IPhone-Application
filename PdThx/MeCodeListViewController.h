@@ -18,7 +18,8 @@
 @interface MeCodeListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView* payPointTable;
-    AddMeCodeViewController* controller;
+    
+    PayPointService* payPointService;
     
     NSMutableArray* meCodes;
 }

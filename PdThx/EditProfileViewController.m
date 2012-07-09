@@ -173,7 +173,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    if(indexPath.section == 0 && indexPath.row == 0)
+    {
+        ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
+        [controller setTitle: @"Choose Picture"];
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self.navigationController presentModalViewController:navBar animated:YES];
+        
+        [navBar release];
+        [controller release];
+    }
 }
 
 

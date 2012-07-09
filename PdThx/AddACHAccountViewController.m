@@ -15,6 +15,7 @@
 @implementation AddACHAccountViewController
 
 @synthesize navBarTitle, headerText;
+@synthesize newUserFlow;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -191,8 +192,11 @@
     
     [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
-    
+    if(!newUserFlow) {
+        [self.navigationController dismissModalViewControllerAnimated:YES];
+    }
+
+
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
     if([user.preferredPaymentAccountId length] == 0)
@@ -208,7 +212,13 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showSuccessWithStatus:@"Account Added!" withDetailedStatus:@"Linked bank account"];
     
-    [self.navigationController popViewControllerAnimated: YES];
+    if(newUserFlow) {
+     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+        
+    }
+    else {
+        [self.navigationController dismissModalViewControllerAnimated: YES];
+    }
 
 }
 -(void)userACHSetupDidFail:(NSString*) message {PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];

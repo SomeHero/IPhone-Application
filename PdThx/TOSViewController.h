@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIModalBaseViewController.h"
+#import "Environment.h"
 
-@interface TOSViewController : UIViewController
+@interface TOSViewController : UISetupUserBaseViewController
+{
+    IBOutlet UIWebView *webView;
+}
+
+@property (nonatomic, retain) UIWebView *webView;
 
 @end

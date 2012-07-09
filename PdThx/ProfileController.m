@@ -307,6 +307,8 @@
                 case 0:
                 {
                     HelpViewController* controller = [[HelpViewController alloc] init];
+                    [controller setTitle: @"Help"];
+                    
                     [self.navigationController pushViewController:controller animated:YES];
                     
                     [controller release];
@@ -317,15 +319,16 @@
                 {
                     if ([MFMailComposeViewController canSendMail])
                     {
-                        MFMailComposeViewController *mail = [[[MFMailComposeViewController alloc] init] autorelease];
+                        ZendeskDropboxSampleViewController* controller = [[ZendeskDropboxSampleViewController alloc] init];
+                        [controller setTitle: @"Feedback"];
+
+                        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
                         
-                        mail.mailComposeDelegate = self;
+                        [self.navigationController presentModalViewController:navBar animated:YES];
                         
-                        [mail setToRecipients:[NSArray arrayWithObject:@"support@paidthx.com"]];
-                        [mail setSubject:@"Hey PaidThx! Here's my feedback"];    
-                        
-                        [self presentModalViewController:mail animated:YES];
-         
+                        [navBar release];
+                        [controller release];
+
                     }
                     else
                     {
@@ -353,6 +356,8 @@
                 case 0:
                 {
                     TOSViewController* controller = [[TOSViewController alloc] init];
+                    [controller setTitle:@"User Agreement"];
+                    
                     [self.navigationController pushViewController:controller animated:YES];
                     
                     [controller release];
