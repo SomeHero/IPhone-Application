@@ -7,19 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UISetupUserBaseViewController.h"
+#import "UIModalBaseViewController.h"
 #import "CustomSecurityPinSwipeController.h"
 #import "UserService.h"
 #import "PdThxAppDelegate.h"
 #import "User.h"
 
-@interface ChangeSecurityPinController :UISetupUserBaseViewController<ALUnlockPatternViewDelegate> {
+@interface ChangeSecurityPinController :UIModalBaseViewController<ALUnlockPatternViewDelegate> {
     
     IBOutlet UIView* viewPinLock;
-    IBOutlet UILabel* lblHeader;
     id<CustomSecurityPinSwipeProtocol> securityPinSwipeDelegate;
-    NSString* navigationTitle;
-    NSString* headerText;
     NSInteger tag;
     bool didCancel;
     CustomSecurityPinSwipeController *controller;

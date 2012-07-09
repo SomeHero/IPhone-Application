@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIBaseViewController.h"
+#import "UIModalBaseViewController.h"
 #import "UserService.h"
 
-@interface ChangePasswordViewController : UIBaseViewController <UITextFieldDelegate, ChangePasswordCompleteProtocol>
+@interface ChangePasswordViewController : UIModalBaseViewController <UITextFieldDelegate, ChangePasswordCompleteProtocol>
 {    
     UserService* userService;
     IBOutlet UITextField *txtOldPassword;

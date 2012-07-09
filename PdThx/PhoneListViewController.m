@@ -29,14 +29,12 @@
     // Do any additional setup after loading the view from its nib.
     [self setTitle: @"Phones"];
     
-    //payPointService = [[PayPointService alloc] init];
-    //[payPointService setGetPayPointsDelegate:self];
+    payPointService = [[PayPointService alloc] init];
+    [payPointService setGetPayPointsDelegate:self];
     
     NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'Phone'"];
     
-    // Do any additional setup after loading the view from its nib.
     phones = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
-    
     
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -58,8 +56,13 @@
 
 
 -(void)getPayPointsDidComplete:(NSMutableArray*)payPoints {
-    //userPayPoints =payPoints;
-    //[payPointTable reloadData];
+    user.payPoints = payPoints;
+    
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'Phone'"];
+    
+    phones = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
+    
+    [payPointTable reloadData];
 }
 -(void)getPayPointsDidFail: (NSString*) errorMessage {
     
@@ -163,7 +166,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
-    controller.navigationTitle = @"Add Mobile #";
+    [controller setTitle: @"Add Mobile #"];
+    [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
     [controller setAddPayPointComplete:self];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
@@ -175,6 +179,8 @@
 }
 -(void)addPayPointsDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [payPointService getPayPoints: user.userId];
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     

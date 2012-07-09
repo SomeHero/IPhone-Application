@@ -57,7 +57,13 @@
 
 
 -(void)getPayPointsDidComplete:(NSMutableArray*)payPoints {
-    user.payPoints =payPoints;
+    user.payPoints = payPoints;
+    
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'EmailAddress'"];
+    
+    // Do any additional setup after loading the view from its nib.
+    emailAddresses = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
+    
     [payPointTable reloadData];
 }
 -(void)getPayPointsDidFail: (NSString*) errorMessage {
@@ -162,8 +168,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
-    controller.navigationTitle = @"Add Email";
-    [controller setAddPayPointComplete:self];
+    [controller setTitle: @"Add Email"];
+    [controller setHeaderText: @"To add a new email address to your PaidThx account, enter it below."];[controller setAddPayPointComplete:self];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     
@@ -174,6 +180,8 @@
 }
 -(void)addPayPointsDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [payPointService getPayPoints: user.userId];
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     

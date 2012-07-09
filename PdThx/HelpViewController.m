@@ -26,8 +26,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    Environment *myEnvironment = [Environment sharedInstance];
+    
+    NSString *urlAddress = myEnvironment.helpUrl;
+    
+    //Create a URL object.
+    NSURL *url = [NSURL URLWithString:urlAddress];
+    
+    //URL Requst Object
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    
+    //Load the request in the UIWebView.
+    [webView loadRequest:requestObj];
 }
+
 
 - (void)viewDidUnload
 {

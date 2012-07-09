@@ -10,12 +10,15 @@
 #import "UISetupUserBaseViewController.h"
 #import "UserConfiguration.h"
 #import "UserConfigurationService.h"
+#import "UserSettingsCompleteProtocol.h"
 
-@interface NotificationConfigurationViewController : UISetupUserBaseViewController<UITableViewDataSource, UITableViewDelegate>
+@interface NotificationConfigurationViewController : UISetupUserBaseViewController<UserSettingsCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
 {
     NSDictionary *notificationOptions;
     NSArray *sections;
     NSMutableArray* configurationKeys;
+    UserConfigurationService* userConfigurationService;
+    IBOutlet UITableView* tableUserSettings;
 }
 @property(nonatomic, retain) NSDictionary *notificationOptions;
 @property(nonatomic, retain) NSArray *sections;

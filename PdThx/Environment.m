@@ -17,6 +17,8 @@ static Environment *sharedInstance = nil;
 @synthesize pdthxWebServicesBaseUrl;
 @synthesize deviceToken;
 @synthesize GoogleAnalyticsKey;
+@synthesize helpUrl;
+@synthesize privacyUrl;
 
 - (id)init
 {
@@ -41,6 +43,8 @@ static Environment *sharedInstance = nil;
     self.pdthxWebServicesBaseUrl = [[[NSString alloc] initWithString:[environment valueForKey:@"pdthxWebServicesBaseUrl"]] autorelease];
     self.pdthxAPIKey = [[[NSString alloc] initWithString:[environment valueForKey:@"pdthxAPIKEY"]] autorelease];
     self.GoogleAnalyticsKey =  [[[NSString alloc] initWithString:[environment valueForKey:@"GoogleAnalyticsKey"]] autorelease];
+    self.helpUrl =  [[[NSString alloc] initWithString:[environment valueForKey:@"helpUrl"]] autorelease];
+    self.privacyUrl =  [[[NSString alloc] initWithString:[environment valueForKey:@"privacyUrl"]] autorelease];
     
     [environments release];
 }

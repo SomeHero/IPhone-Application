@@ -25,11 +25,11 @@
     // Do any additional setup after loading the view from its nib.
     [self setTitle: @"MeCodes"];
     
-    //payPointService = [[PayPointService alloc] init];
-    //[payPointService setGetPayPointsDelegate:self];
+    payPointService = [[PayPointService alloc] init];
+    [payPointService setGetPayPointsDelegate:self];
+    
     NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'MeCode'"];
     
-    // Do any additional setup after loading the view from its nib.
     meCodes = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
     
     
@@ -52,8 +52,13 @@
 
 
 -(void)getPayPointsDidComplete:(NSMutableArray*)payPoints {
-    //userPayPoints =payPoints;
-    //[payPointTable reloadData];
+    user.payPoints =payPoints;
+    
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'MeCode'"];
+    
+    meCodes = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
+    
+    [payPointTable reloadData];
 }
 -(void)getPayPointsDidFail: (NSString*) errorMessage {
     
@@ -156,8 +161,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     controller = [[[AddMeCodeViewController alloc] init] retain];
-    controller.navigationTitle = @"Add $MeCode";
+    AddMeCodeViewController* controller = [[[AddMeCodeViewController alloc] init] retain];
+    [controller setTitle: @"Add $MeCode"];
+    [controller setHeaderText: @"To claim your MeCode, enter the MeCode below.  All MeCodes must begin with a $"];
     [controller setAddPayPointComplete:self];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
@@ -165,10 +171,12 @@
     [self.navigationController presentModalViewController:navBar animated:YES];
     
     [navBar release];
-    //[controller release];
+    [controller release];
 }
 -(void)addPayPointsDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [payPointService getPayPoints:user.userId];
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     

@@ -288,6 +288,7 @@ float tableHeight2 = 30;
             [self presentModalViewController:controller animated:YES];
         } else {
             AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
+            controller.newUserFlow = false;
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             
             [controller setNavBarTitle: @"Enable Payment"];

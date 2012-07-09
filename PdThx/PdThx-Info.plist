@@ -71,5 +71,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>ZDURL</key>
+	<string>paidthx.zendesk.com</string>
+	<key>ZDTAG</key>
+	<string>IPhone</string>
 </dict>
 </plist>

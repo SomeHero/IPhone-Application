@@ -10,12 +10,15 @@
 #import "UISetupUserBaseViewController.h"
 #import "UserConfiguration.h"
 #import "UserConfigurationService.h"
+#import "UserSettingsCompleteProtocol.h"
 
-@interface SharingPreferencesViewController : UISetupUserBaseViewController<UITableViewDataSource, UITableViewDelegate>
+@interface SharingPreferencesViewController : UISetupUserBaseViewController<UserSettingsCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
 {
     NSDictionary *notificationOptions;
     NSArray *sections;
     NSMutableArray* configurationKeys;
+    UserConfigurationService* userConfigurationService;
+    IBOutlet UITableView* tableUserSettings;
 }
 @property(nonatomic, retain) NSDictionary *notificationOptions;
 @property(nonatomic, retain) NSArray *sections;

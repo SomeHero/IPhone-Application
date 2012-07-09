@@ -191,14 +191,30 @@
                 case 0:
                 {
                     ChangePasswordViewController* controller = [[ChangePasswordViewController   alloc] init];
-                    [self.navigationController pushViewController:controller animated:YES];
+                    [controller setTitle: @"Change Password"];
+                    [controller setHeaderText: @"To change your password, enter your current password and your new password below."];
+                    
+                    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+                    
+                    [self.navigationController presentModalViewController:navBar animated:YES];
+                    
+                    [navBar release];
+                    [controller release];
                     
                     break;
                 }
                 case 1:
                 {
                     ChangeSecurityPinController* controller = [[ChangeSecurityPinController alloc] init];
-                    [self.navigationController pushViewController:controller animated:YES];
+                    [controller setTitle: @"Change Security Pin"];
+                    [controller setHeaderText: @"To change your security pin, you must first swipe your current security pin."];
+                    
+                    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+                    
+                    [self.navigationController presentModalViewController:navBar animated:YES];
+                    
+                    [navBar release];
+                    [controller release];
                     
                     break;
                 }

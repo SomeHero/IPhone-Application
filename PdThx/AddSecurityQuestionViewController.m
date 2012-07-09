@@ -128,6 +128,10 @@
 
 - (IBAction)doSubmit:(id)sender {
     if ( [answerField.text length] > 0 ){
+        if(questionId == 0) {
+            questionId = [[[securityQuestions objectAtIndex:0] objectForKey: @"Id"] intValue];
+        }
+        
         [securityQuestionEnteredDelegate choseSecurityQuestion:questionId withAnswer:answerField.text];
     } else {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
