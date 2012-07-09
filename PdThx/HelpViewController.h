@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIModalBaseViewController.h"
+#import "Environment.h"
 
-@interface HelpViewController : UIViewController
+@interface HelpViewController : UISetupUserBaseViewController
+{
+    IBOutlet UIWebView *webView;
+}
+
+@property (nonatomic, retain) UIWebView *webView;
 
 @end

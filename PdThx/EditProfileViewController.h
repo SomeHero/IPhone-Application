@@ -13,6 +13,7 @@
 #import "PdThxAppDelegate.h"
 #import "Application.h"
 #import "ProfileSection.h"
+#import "ChoosePictureViewController.h"
 
 @interface EditProfileViewController : UISetupUserBaseViewController<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate>
 {

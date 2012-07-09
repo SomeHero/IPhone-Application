@@ -69,6 +69,9 @@
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     NSLog(@"Setup User Info Failed");
+    
+    [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
+    
 }
 
 -(void) setupSecurityPin:(NSString*) userId WithPin: (NSString*) securityPin {

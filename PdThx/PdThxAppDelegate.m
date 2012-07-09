@@ -126,7 +126,7 @@
         currentReminderTab = 4;  
         
         AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
-        
+        controller.newUserFlow = true;
         if(setupFlowController == nil) {
             setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
             

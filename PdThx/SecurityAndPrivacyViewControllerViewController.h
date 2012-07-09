@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ChangeSecurityPinController.h"
-#import "UIBaseViewController.h"
+#import "UISetupUserBaseViewController.h"
 #import "ChangeSecurityPinController.h"
 #import "ChangePasswordViewController.h"
 
-@interface SecurityAndPrivacyViewControllerViewController : UISetupUserBaseViewController   
+@interface SecurityAndPrivacyViewControllerViewController : UISetupUserBaseViewController 
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate> {
     NSDictionary *profileOptions;
     NSArray *sections;

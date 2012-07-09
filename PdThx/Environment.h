@@ -15,12 +15,17 @@
     NSString *pdthxAPIKey;
     NSString *deviceToken;
     NSString *GoogleAnalyticsKey;
+    NSString* helpUrl;
+    NSString* privacyUrl;
 }
 
 @property(nonatomic, retain) NSString* pdthxWebServicesBaseUrl;
 @property(nonatomic, retain) NSString* pdthxAPIKey;
 @property(nonatomic, retain) NSString* deviceToken;
 @property(nonatomic, retain) NSString* GoogleAnalyticsKey;
+@property(nonatomic, retain) NSString* helpUrl;
+@property(nonatomic, retain) NSString* privacyUrl;
+
 + (Environment *)sharedInstance;
 
 @end

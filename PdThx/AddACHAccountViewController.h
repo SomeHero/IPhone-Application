@@ -38,10 +38,12 @@
     CustomSecurityPinSwipeController* controller;
     AddSecurityQuestionViewController* addSecurityQuestionController;
     ValidationHelper* validationHelper;
+    BOOL newUserFlow;
 }
 
 @property(nonatomic, retain) NSString* navBarTitle;
 @property(nonatomic, retain) NSString* headerText;
+@property(nonatomic) BOOL newUserFlow;
 
 -(IBAction) btnCreateAccountClicked:(id)sender;
 -(IBAction) bgClicked:(id)sender;
