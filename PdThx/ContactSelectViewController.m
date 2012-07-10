@@ -17,6 +17,8 @@
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 
+#define KEYBOARD_SIZE 220
+
 @interface ContactSelectViewController ()
 
 - (void)startIconDownload:(Contact*)contact forIndexPath:(NSIndexPath *)indexPath;
@@ -53,6 +55,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [txtSearchBox becomeFirstResponder];
+    
+    //tvSubview.frame = CGRectMake(tvSubview.frame.origin.x, tvSubview.frame.origin.y, tvSubview.frame.size.width, tvSubview.frame.size.height-KEYBOARD_SIZE);
 }
 
 - (void)viewDidLoad
@@ -151,6 +155,9 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [txtSearchBox resignFirstResponder];
+    
+    
+    //tvSubview.frame = CGRectMake(tvSubview.frame.origin.x, tvSubview.frame.origin.y, tvSubview.frame.size.width, tvSubview.frame.size.height+KEYBOARD_SIZE);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -195,6 +202,7 @@
                             
     return 0;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -429,8 +437,6 @@
     [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
 }
 
-
-
 #pragma mark -
 #pragma mark Table cell image support
 
@@ -564,6 +570,12 @@
             }
         }
     }
+    
     [tvSubview reloadData];
+}
+
+- (IBAction)pressedSearchBox:(id)sender 
+{
+    NSLog(@"Pressed search box, shrinking table view size.");
 }
 @end

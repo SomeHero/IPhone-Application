@@ -499,19 +499,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    NSLog(@"Loading %d contacts", (int)nPeople);
+    
+    
     int index = 0;
-    for (int i = 1; i < nPeople; i++) {
-        NSLog(@"%@", @"Started Next Person");
-        
+    for (int i = 0; i < nPeople; i++) {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         
         NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
         firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
-        NSLog(@"%@", firstName);
-        
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        
+        NSString* lastNameTest = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
+        lastNameTest = [lastNameTest stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
         CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
         
         UIImage * tempImgData = nil;
@@ -525,8 +528,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
-        
-    
         
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
@@ -568,7 +569,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                     NSLog(@"Loading image for %@", contactFirstLast);
                     contact.imgData = tempImgData;
                 }
-                
                 
                 [tempArray addObject:contact];
                 
@@ -628,6 +628,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
+    NSLog( @"Loading %d contacts... ", [tempArray count] );
+    
     for (Contact*person in tempArray) {
         if ( person.firstName.length > 0 )
             comparedString = person.firstName;
@@ -645,9 +647,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
     }
     
+    NSLog( @"Contacts ready, bro... ", [tempArray count] );
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
     
-    NSLog(@"Contacts Ready.");
 }
 
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
