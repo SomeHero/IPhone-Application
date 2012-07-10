@@ -66,7 +66,6 @@
 		543803AD1562BE6B00BD6284 /* transaction_rowalt_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 543803A01562BE6B00BD6284 /* transaction_rowalt_background.png */; };
 		544A4F6B1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 544A4F691592493F003EEE7D /* PaystreamOutgoingPaymentViewController.m */; };
 		544A4F6C1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 544A4F691592493F003EEE7D /* PaystreamOutgoingPaymentViewController.m */; };
-		544A4F6D1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544A4F6A1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.xib */; };
 		544A4F6E1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544A4F6A1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.xib */; };
 		544A4F7115925276003EEE7D /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 544A4F6F15925276003EEE7D /* camera.png */; };
 		544A4F7215925276003EEE7D /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 544A4F7015925276003EEE7D /* camera@2x.png */; };
@@ -75,8 +74,6 @@
 		54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54764F5615810DFC008187B6 /* CoreLocation.framework */; };
 		5480584C159A03BE00ED591C /* loadingFailed62x62.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805846159A03BE00ED591C /* loadingFailed62x62.png */; };
 		5480584D159A03BE00ED591C /* loadingFailed62x62@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805847159A03BE00ED591C /* loadingFailed62x62@2x.png */; };
-		5480584E159A03BE00ED591C /* loadingImage342x342.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805848159A03BE00ED591C /* loadingImage342x342.png */; };
-		5480584F159A03BE00ED591C /* loadingImage342x342@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54805849159A03BE00ED591C /* loadingImage342x342@2x.png */; };
 		54805850159A03BE00ED591C /* loadingPassed62x62.png in Resources */ = {isa = PBXBuildFile; fileRef = 5480584A159A03BE00ED591C /* loadingPassed62x62.png */; };
 		54805851159A03BE00ED591C /* loadingPassed62x62@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5480584B159A03BE00ED591C /* loadingPassed62x62@2x.png */; };
 		5480586E159A3C7000ED591C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5480586D159A3C7000ED591C /* HomeViewController.m */; };
@@ -150,6 +147,7 @@
 		54B687EA1598CC7F0023C874 /* ChoosePictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54B687E81598CC7F0023C874 /* ChoosePictureViewController.xib */; };
 		54B9B40A156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
 		54B9B40B156BE00B00DEA724 /* temp_remind_later_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */; };
+		54BFF48D15AB2826000681A3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E17414B0BCA8003A0F66 /* CFNetwork.framework */; };
 		54CACB38158676CF00631B84 /* NavigationBar-320x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB36158676CF00631B84 /* NavigationBar-320x44.png */; };
 		54CACB39158676CF00631B84 /* NavigationBar-320x44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB37158676CF00631B84 /* NavigationBar-320x44@2x.png */; };
 		54CACB4A1586883D00631B84 /* dogood-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB401586883D00631B84 /* dogood-inactive.png */; };
@@ -283,7 +281,6 @@
 		5B69E16F14B0BC5B003A0F66 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E16E14B0BC5B003A0F66 /* libz.dylib */; };
 		5B69E17114B0BC81003A0F66 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E17014B0BC81003A0F66 /* libxml2.dylib */; };
 		5B69E17314B0BC9B003A0F66 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E17214B0BC9B003A0F66 /* Security.framework */; };
-		5B69E17514B0BCA8003A0F66 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E17414B0BCA8003A0F66 /* CFNetwork.framework */; };
 		5B69E17714B0BCB4003A0F66 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E17614B0BCB4003A0F66 /* SystemConfiguration.framework */; };
 		5B69E17914B0BCC5003A0F66 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E17814B0BCC5003A0F66 /* MobileCoreServices.framework */; };
 		5B69E19A14B117EB003A0F66 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69E19114B117EB003A0F66 /* NSObject+SBJSON.m */; };
@@ -1160,13 +1157,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */,
-				5B69E17514B0BCA8003A0F66 /* CFNetwork.framework in Frameworks */,
+				54BFF48D15AB2826000681A3 /* CFNetwork.framework in Frameworks */,
 				54CACC841587C6F000631B84 /* MediaPlayer.framework in Frameworks */,
 				54764F5715810DFC008187B6 /* CoreLocation.framework in Frameworks */,
 				54B5F26F156EADEC00D970A3 /* MessageUI.framework in Frameworks */,
 				5B69E17914B0BCC5003A0F66 /* MobileCoreServices.framework in Frameworks */,
 				5B69E17714B0BCB4003A0F66 /* SystemConfiguration.framework in Frameworks */,
-				5B69E17514B0BCA8003A0F66 /* CFNetwork.framework in Frameworks */,
 				5B69E17314B0BC9B003A0F66 /* Security.framework in Frameworks */,
 				5B69E17114B0BC81003A0F66 /* libxml2.dylib in Frameworks */,
 				5B69E16F14B0BC5B003A0F66 /* libz.dylib in Frameworks */,
@@ -2802,7 +2798,6 @@
 				54E3877915911D5C00A18DD9 /* loadingImage342x342@2x.png in Resources */,
 				5BF3EE22159144170011BAD8 /* AccountListViewController.xib in Resources */,
 				5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */,
-				544A4F6D1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.xib in Resources */,
 				544A4F7115925276003EEE7D /* camera.png in Resources */,
 				544A4F7215925276003EEE7D /* camera@2x.png in Resources */,
 				544A4F7D15927ED7003EEE7D /* Default.png in Resources */,
@@ -2883,8 +2878,6 @@
 				54B687EA1598CC7F0023C874 /* ChoosePictureViewController.xib in Resources */,
 				5480584C159A03BE00ED591C /* loadingFailed62x62.png in Resources */,
 				5480584D159A03BE00ED591C /* loadingFailed62x62@2x.png in Resources */,
-				5480584E159A03BE00ED591C /* loadingImage342x342.png in Resources */,
-				5480584F159A03BE00ED591C /* loadingImage342x342@2x.png in Resources */,
 				54805850159A03BE00ED591C /* loadingPassed62x62.png in Resources */,
 				54805851159A03BE00ED591C /* loadingPassed62x62@2x.png in Resources */,
 				5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */,
@@ -3185,8 +3178,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3197,6 +3190,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3213,6 +3208,8 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3281,7 +3278,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -3309,7 +3306,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3322,6 +3319,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3339,6 +3337,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3349,7 +3348,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3367,6 +3366,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3417,8 +3417,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D9E51710-0C9D-4BDA-B16A-4B0D11AB6483";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3429,7 +3429,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3447,6 +3447,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3467,8 +3468,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "7FBDF4F3-2C5F-485C-9C17-92B066CBC17E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7FBDF4F3-2C5F-485C-9C17-92B066CBC17E";
 				SDKROOT = iphoneos;
 			};
 			name = Dev;
@@ -3497,8 +3498,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C93F1307-04EC-42E7-8E0E-6810446F1E41";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3509,7 +3510,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3527,6 +3529,8 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3574,7 +3578,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3587,6 +3591,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3604,6 +3609,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3652,7 +3658,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -3664,6 +3670,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3681,6 +3688,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3729,7 +3737,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -3741,8 +3749,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PdThx.app/PdThx";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: James Rhodes";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -3760,7 +3768,8 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6A183EB6-0C5E-443E-BF0D-2B6665FC0950";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
