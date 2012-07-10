@@ -251,6 +251,33 @@
     [requestObj startAsynchronous];
 }
 
+-(void) forgotPasswordFor:(NSString *)userId WithNewPassword:(NSString *)newPassword
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/forgotPassword", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];  
+    
+    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              newPassword, @"newPassword",
+                              nil];
+    
+    NSString* newJSON = [userData JSONRepresentation];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(changePasswordComplete:)];
+    [requestObj setDidFailSelector:@selector(changePasswordFailed:)];
+    [requestObj startAsynchronous];
+}
+
+
+
 
 -(void) changePasswordComplete: (ASIHTTPRequest *)request {
     if([request responseStatusCode] == 200 ) {

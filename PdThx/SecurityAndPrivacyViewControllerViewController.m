@@ -54,7 +54,7 @@
     NSArray *array = [[profileOptions allKeys] sortedArrayUsingSelector:@selector(compare:)];
     
     self.sections = array;
-
+    
     [super viewDidLoad];
     //self.clearsSelectionOnViewWillAppear = NO;
     NSError *error;
@@ -129,7 +129,7 @@
     
     // Configure the cell...
     NSLog(@"Section:%d Label:%@", indexPath.section, [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"] );
-        
+    
     cell.textLabel.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"];
     cell.imageView.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
     cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
@@ -183,7 +183,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    switch(indexPath.section) {
+    switch(indexPath.section) 
+    {
         case 0:
         {
             switch (indexPath.row) 
@@ -218,10 +219,26 @@
                     
                     break;
                 }
+                case 2:
+                {
+                    ForgotPasswordViewController* controller = [[ForgotPasswordViewController alloc] init];
+                    [controller setTitle:@"Forgot Password"];
+                    [controller setHeaderText:@"To change your password, you must input your security question answer and then put in a new password"];
+                    
+                    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+                    
+                    [self.navigationController presentModalViewController:navBar animated:YES];
+                    
+                    [navBar release];
+                    [controller release];
+                    
+                    break;
+                }
+            
             }
         }
     }
-   
+
 }
 
 

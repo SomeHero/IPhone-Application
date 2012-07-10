@@ -11,10 +11,16 @@
 int main(int argc, char *argv[])
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int retVal = 0;
+    @try {
     
-    
-    
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
+        retVal = UIApplicationMain(argc, argv, nil, nil);
+    }
+    @catch (NSException* e) {
+        NSLog(@"Exception - %@", [e description]);
+        exit(EXIT_FAILURE);
+    }
+        
     [pool release];
     return retVal;
 }

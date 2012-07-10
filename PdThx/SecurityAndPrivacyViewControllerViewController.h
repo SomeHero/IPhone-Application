@@ -11,6 +11,7 @@
 #import "UISetupUserBaseViewController.h"
 #import "ChangeSecurityPinController.h"
 #import "ChangePasswordViewController.h"
+#import "ForgotPasswordViewController.h"
 
 @interface SecurityAndPrivacyViewControllerViewController : UISetupUserBaseViewController 
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate> {

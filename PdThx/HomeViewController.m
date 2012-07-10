@@ -106,6 +106,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
     
+    if (user.securityQuestion != (id) [NSNull null] && user.securityQuestion.length > 0) {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setValue:user.securityQuestion forKey:@"securityQuestion"];
+    }
+    
     if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
         [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
     }else {
