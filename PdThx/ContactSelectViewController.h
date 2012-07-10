@@ -41,4 +41,6 @@
 
 - (IBAction)textBoxChanged:(id)sender;
 
+- (IBAction)pressedSearchBox:(id)sender;
+
 @end

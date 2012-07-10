@@ -113,7 +113,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     
     lblUserName.text = user.preferredName;
-    lblPayPoints.text = user.userName;
+    if ( [[user.userName substringToIndex:3] isEqualToString:@"fb_"] )
+        lblPayPoints.text = @"Facebook User";
+    else
+        lblPayPoints.text = user.userName;
+    
     lblScore.text = @"80";
     lblIncreaseScore.text = @"+ Link your Facebook Account";
     lblPaystreamCount.text = [NSString stringWithFormat: @"%d", user.numberOfPaystreamUpdates];
@@ -164,6 +168,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [appDelegate switchToPaystreamController];
 }
+
 -(IBAction) btnIncreaseScoreClicked: (id) sender {
     IncreaseProfileViewController* controller = [[IncreaseProfileViewController alloc] init];
     
