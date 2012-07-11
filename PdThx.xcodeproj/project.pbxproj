@@ -212,6 +212,12 @@
 		5B0A228A15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */; };
 		5B0A228B15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */; };
 		5B11961415AB2397003F8D53 /* libZendeskDropbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B11961215AB2397003F8D53 /* libZendeskDropbox.a */; };
+		5B11962115AB6C3A003F8D53 /* SendDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11961F15AB6C3A003F8D53 /* SendDonationViewController.m */; };
+		5B11962215AB6C3A003F8D53 /* SendDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962015AB6C3A003F8D53 /* SendDonationViewController.xib */; };
+		5B11962615AB6E21003F8D53 /* AcceptPledgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962415AB6E21003F8D53 /* AcceptPledgeViewController.m */; };
+		5B11962715AB6E21003F8D53 /* AcceptPledgeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962515AB6E21003F8D53 /* AcceptPledgeViewController.xib */; };
+		5B11962A15AB76F2003F8D53 /* UISendMoneyBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */; };
+		5B11962D15ABBAF8003F8D53 /* UIRequestMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */; };
 		5B1A74B7158A48CC00DB973F /* bg-message-stretch.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A74B5158A48CC00DB973F /* bg-message-stretch.png */; };
 		5B1A74B8158A48CC00DB973F /* bg-message-stretch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1A74B6158A48CC00DB973F /* bg-message-stretch@2x.png */; };
 		5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */; };
@@ -762,6 +768,16 @@
 		5B0E84C4159E40A000EC4E9C /* UserSetupStepCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSetupStepCompleteProtocol.h; sourceTree = "<group>"; };
 		5B11961215AB2397003F8D53 /* libZendeskDropbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libZendeskDropbox.a; sourceTree = "<group>"; };
 		5B11961315AB2397003F8D53 /* ZendeskDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZendeskDropbox.h; sourceTree = "<group>"; };
+		5B11961E15AB6C3A003F8D53 /* SendDonationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDonationViewController.h; sourceTree = "<group>"; };
+		5B11961F15AB6C3A003F8D53 /* SendDonationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDonationViewController.m; sourceTree = "<group>"; };
+		5B11962015AB6C3A003F8D53 /* SendDonationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendDonationViewController.xib; sourceTree = "<group>"; };
+		5B11962315AB6E21003F8D53 /* AcceptPledgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptPledgeViewController.h; sourceTree = "<group>"; };
+		5B11962415AB6E21003F8D53 /* AcceptPledgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptPledgeViewController.m; sourceTree = "<group>"; };
+		5B11962515AB6E21003F8D53 /* AcceptPledgeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptPledgeViewController.xib; sourceTree = "<group>"; };
+		5B11962815AB76F2003F8D53 /* UISendMoneyBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISendMoneyBaseViewController.h; sourceTree = "<group>"; };
+		5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISendMoneyBaseViewController.m; sourceTree = "<group>"; };
+		5B11962B15ABBAF8003F8D53 /* UIRequestMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRequestMoneyViewController.h; sourceTree = "<group>"; };
+		5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRequestMoneyViewController.m; sourceTree = "<group>"; };
 		5B1A74B5158A48CC00DB973F /* bg-message-stretch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-message-stretch.png"; sourceTree = "<group>"; };
 		5B1A74B6158A48CC00DB973F /* bg-message-stretch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-message-stretch@2x.png"; sourceTree = "<group>"; };
 		5B3A5D44159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeController.h; sourceTree = "<group>"; };
@@ -1609,6 +1625,12 @@
 			children = (
 				54A139DD158430FA00668984 /* DoGoodViewController.h */,
 				54A139DE158430FA00668984 /* DoGoodViewController.m */,
+				5B11961E15AB6C3A003F8D53 /* SendDonationViewController.h */,
+				5B11961F15AB6C3A003F8D53 /* SendDonationViewController.m */,
+				5B11962015AB6C3A003F8D53 /* SendDonationViewController.xib */,
+				5B11962315AB6E21003F8D53 /* AcceptPledgeViewController.h */,
+				5B11962415AB6E21003F8D53 /* AcceptPledgeViewController.m */,
+				5B11962515AB6E21003F8D53 /* AcceptPledgeViewController.xib */,
 			);
 			name = "Do Good View";
 			sourceTree = "<group>";
@@ -2385,6 +2407,10 @@
 				5BF07B031597926B0020EA2F /* IncreaseProfileViewController.m */,
 				5BF07B05159794570020EA2F /* UIModalBaseViewController.h */,
 				5BF07B06159794570020EA2F /* UIModalBaseViewController.m */,
+				5B11962815AB76F2003F8D53 /* UISendMoneyBaseViewController.h */,
+				5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */,
+				5B11962B15ABBAF8003F8D53 /* UIRequestMoneyViewController.h */,
+				5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2948,6 +2974,8 @@
 				5B8B45B615A7D48300822B67 /* notifications.plist in Resources */,
 				5B8B45B815A7E82300822B67 /* sharing.plist in Resources */,
 				5B8B45D415A9CF7600822B67 /* ZendeskDropboxSampleViewController.xib in Resources */,
+				5B11962215AB6C3A003F8D53 /* SendDonationViewController.xib in Resources */,
+				5B11962715AB6E21003F8D53 /* AcceptPledgeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3106,6 +3134,10 @@
 				5B8B45C115A8F10F00822B67 /* ProfileItem.m in Sources */,
 				5B8B45C515A9126400822B67 /* ProfileSection.m in Sources */,
 				5B8B45D215A9CF6400822B67 /* ZendeskDropboxSampleViewController.m in Sources */,
+				5B11962115AB6C3A003F8D53 /* SendDonationViewController.m in Sources */,
+				5B11962615AB6E21003F8D53 /* AcceptPledgeViewController.m in Sources */,
+				5B11962A15AB76F2003F8D53 /* UISendMoneyBaseViewController.m in Sources */,
+				5B11962D15ABBAF8003F8D53 /* UIRequestMoneyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
