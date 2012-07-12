@@ -91,9 +91,6 @@ float tableHeight2 = 30;
 -(void) viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    
-    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -104,73 +101,6 @@ float tableHeight2 = 30;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    /*                  View Setup              */
-    /*  --------------------------------------- */
-    mainScrollView.frame = CGRectMake(0, 0, 320, 420);
-    [mainScrollView setContentSize:CGSizeMake(320, 420)];
-    //[whiteBoxView.layer  setCornerRadius:7.0];
-    
-    
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
-    [[viewPanel layer] setCornerRadius: 8.0];
-    
-    contactButtonBGImage.highlighted = NO;
-    /*          Location Services Setup         */
-    /*  --------------------------------------- */
-    lm = [[CLLocationManager alloc] init];
-    if ([lm locationServicesEnabled]) {
-        lm.delegate = self;
-        lm.desiredAccuracy = kCLLocationAccuracyBest;
-        lm.distanceFilter = 1000.0f;
-        [lm startUpdatingLocation];
-    }
-    
-    
-    /*         Button Visiblity Handling        */
-    /*  --------------------------------------- */
-    chooseRecipientButton.backgroundColor = [UIColor clearColor];
-    chooseAmountButton.backgroundColor = [UIColor clearColor];
-    [recipientImageButton.layer setCornerRadius:5.0];
-    [recipientImageButton.layer setMasksToBounds:YES];
-    [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
-    
-    
-    
-    /*          Services/ViewController Initialization         */
-    /*  ------------------------------------------------------ */
-    sendMoneyService = [[SendMoneyService alloc] init];
-    [sendMoneyService setSendMoneyCompleteDelegate:self];
-    
-    
-    
-    
-    
-    /*                TextField Initialization                 */
-    /*  ------------------------------------------------------ */
-    autoCompleteArray = [[NSMutableArray alloc] init];
-    recipientUri = [[NSString alloc] initWithString: @""];
-    amount = [[NSString alloc] initWithString: @""];
-    
-    
-    comments = [[NSString alloc] initWithString: @""];
-    
-    [self setTitle:@"Send $"];
-    
-    [txtAmount setDelegate:self];
-    txtAmount.text = @"0.00";
-    
-    contactHead.text = @"Select a Recipient";
-    contactDetail.text = @"Click Here";
-    NSError *error;
-    if(![[GANTracker sharedTracker] trackPageview:@"SendMoneyController"
-                                        withError:&error]){
-        //Handle Error Here
-    }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changedCommentBox:) name:@"UITextViewTextDidChangeNotification" object:nil];
     
 }
 
@@ -252,8 +182,25 @@ float tableHeight2 = 30;
     return NO; // We do not want UITextField to insert line-breaks.
 }
 
+/*  ------------------------------------------------------ */
+/*                Button Action Handling                   */
+/*  ------------------------------------------------------ */
 
+- (IBAction)pressedChooseRecipientButton:(id)sender 
+{
+    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.contactSelectChosenDelegate = self;
+}
 
+- (IBAction)pressedAmountButton:(id)sender 
+{
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+}
 @end
 
 

@@ -10,6 +10,8 @@
 #import "UIBaseViewController.h"
 #import "SendDonationViewController.h"
 #import "AcceptPledgeViewController.h"
+#import "MerchantServices.h"
+#import "Merchant.h"
 
 @interface DoGoodViewController : UIBaseViewController
 {

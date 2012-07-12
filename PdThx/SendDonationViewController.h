@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UISendMoneyBaseViewController.h"
+#import "DonationContactSelectViewController.h"
 
 @interface SendDonationViewController : UISendMoneyBaseViewController
+{
+    NSMutableArray* contactsArray;
+}
+
+-(IBAction) btnDonateClicked:(id)sender;
 
 @end
