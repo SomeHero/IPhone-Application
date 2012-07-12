@@ -16,4 +16,6 @@
 @interface ContactSelectViewController : UIContactSelectBaseViewControllerViewController    
 {}
 
+- (IBAction)pressedSearchBox:(id)sender;
+
 @end

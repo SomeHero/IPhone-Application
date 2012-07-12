@@ -48,6 +48,8 @@
 	</dict>
 	<key>Test</key>
 	<dict>
+		<key>New item</key>
+		<string></string>
 		<key>pdthxAPIKEY</key>
 		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
 		<key>GoogleAnalyticsKey</key>
