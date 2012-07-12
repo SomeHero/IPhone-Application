@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "UIBaseViewController.h"
+#import "SendDonationViewController.h"
+#import "AcceptPledgeViewController.h"
+#import "MerchantServices.h"
+#import "Merchant.h"
 
 @interface DoGoodViewController : UIBaseViewController
 {
     IBOutlet UIView *viewPanel;
     
 }
+
+-(IBAction)btnDonateClicked:(id)sender;
+-(IBAction)btnAcceptPledgeClicked:(id)sender;
 
 @end

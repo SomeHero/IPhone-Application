@@ -30,6 +30,8 @@
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
 @synthesize myApplication;
+@synthesize nonProfits;
+@synthesize organizations;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -248,6 +250,7 @@
     currentReminderTab = 0;
     
     [self loadAllContacts];
+    [self loadNonProfits];
     
     [self.window makeKeyAndVisible];
     
@@ -499,22 +502,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    NSLog(@"Loading %d contacts", (int)nPeople);
-    
-    
     int index = 0;
-    for (int i = 0; i < nPeople; i++) {
+    for (int i = 1; i < nPeople; i++) {
+        NSLog(@"%@", @"Started Next Person");
+        
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         
         NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
         firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
+        NSLog(@"%@", firstName);
+        
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-        
-        NSString* lastNameTest = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
-        lastNameTest = [lastNameTest stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
-        
         CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
         
         UIImage * tempImgData = nil;
@@ -528,6 +528,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
+        
+    
         
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
@@ -570,6 +572,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                     contact.imgData = tempImgData;
                 }
                 
+                
                 [tempArray addObject:contact];
                 
                 index++;
@@ -580,9 +583,53 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
     }
     
-    [self sortContacts];
+    contactsArray =  [self sortContacts:tempArray withPostNotificationName:@"refreshContactList" ];
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          contactsArray forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
+    
+    NSLog(@"Contacts Ready.");
 }
-
+-(void) loadNonProfits
+{
+    MerchantServices* merchantServices = [[MerchantServices alloc] init];
+    [merchantServices setMerchantServicesCompleteProtocol:self];
+    
+    [merchantServices getMerchants];
+    
+}
+-(void)getMerchantsDidComplete: (NSMutableArray*) merchants {
+    //nonProfits = merchants;
+    //[self sortContacts:nonProfits withPostNotificationName:@"refreshNonProfitsList"];
+    
+    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
+    
+    for(int i=0; i < [merchants count]; i++)
+    {
+        Merchant* merchant = [merchants objectAtIndex:i];
+        
+        Contact* contact = [[Contact alloc] init];
+        contact.name = merchant.name;
+        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
+        //merchant.merchantId
+        
+        [tempOrganizations addObject:contact];
+    }
+    
+    
+    organizations =  [self sortContacts:tempOrganizations withPostNotificationName:@"refreshContactList" ];
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          contactsArray forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
+    
+    NSLog(@"Contacts Ready.");
+    
+}
+-(void)getMerchantsDidFail: (NSString*) errorMessage {
+    
+}
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
     NSArray *friendArray = [result objectForKey:@"data"];
@@ -605,20 +652,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     areFacebookContactsLoaded = YES;
     
-    [self sortContacts];
+    NSMutableArray* faceBookFriends = [self sortContacts: tempArray withPostNotificationName:@"refreshContactList"];
+    
+    for(int i = 0; i <[faceBookFriends count]; i++)
+    {
+        [contactsArray addObject:[faceBookFriends objectAtIndex:i]];
+    }
 }
 
--(void)sortContacts
+-(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts withPostNotificationName:(NSString*) notificationName
 {
-    if ( contactsArray == NULL ){
-        contactsArray = [[NSMutableArray alloc] init];
-    } else {
-        [contactsArray removeAllObjects];
-    }
-    for ( int i = 0 ; i < 28 ; i ++ )
-        [contactsArray addObject:[[NSMutableArray alloc] init]];
+    NSMutableArray* results = [[[NSMutableArray alloc] init] retain];
     
-    tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    for ( int i = 0 ; i < 28 ; i ++ )
+        [results addObject:[[[NSMutableArray alloc] init] retain]];
+    
+    NSMutableArray* tempArray = [[arrayOfContacts sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     
     NSString * comparedString;
     
@@ -628,8 +677,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
-    NSLog( @"Loading %d contacts... ", [tempArray count] );
-    
     for (Contact*person in tempArray) {
         if ( person.firstName.length > 0 )
             comparedString = person.firstName;
@@ -640,17 +687,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
         {
-            [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+            [[results objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
         }
         else {
-            [[contactsArray objectAtIndex:27] addObject:person];
+            [[results objectAtIndex:27] addObject:person];
         }
     }
     
-    NSLog( @"Contacts ready, bro... ", [tempArray count] );
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
-    
+    return results;
 }
 
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
