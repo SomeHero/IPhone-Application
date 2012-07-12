@@ -31,12 +31,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"Do Good"];
+    
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [viewPanel.layer setMasksToBounds:YES];
+    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setCornerRadius: 8.0];
+    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"DoGoodViewController"
                                         withError:&error]){
         //Handle Error Here
     }
 }
+
 
 - (void)viewDidUnload
 {
@@ -57,4 +64,16 @@
     [super dealloc];
 }
 
+-(IBAction)btnDonateClicked:(id)sender {
+    SendDonationViewController* controller = [[SendDonationViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    [controller release];
+}
+-(IBAction)btnAcceptPledgeClicked:(id)sender {
+    AcceptPledgeViewController* controller = [[AcceptPledgeViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    [controller release];
+}
 @end
