@@ -29,7 +29,7 @@
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
-@synthesize myApplication;
+@synthesize myApplication, fbAppId;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -51,7 +51,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    [self startUserSetupFlow];
+    // [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
@@ -228,7 +228,8 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert )];
     
-    fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
+    fbAppId = @"332189543469634";
+    fBook = [[Facebook alloc] initWithAppId:fbAppId andDelegate:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -604,7 +605,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
     
     areFacebookContactsLoaded = YES;
-    
     [self sortContacts];
 }
 

@@ -705,10 +705,10 @@
 							<reference ref="233120752"/>
 							<reference ref="1019719200"/>
 							<reference ref="773238810"/>
-							<reference ref="553159145"/>
 							<reference ref="433797034"/>
 							<reference ref="976002338"/>
 							<reference ref="213582693"/>
+							<reference ref="553159145"/>
 						</object>
 						<reference key="parent" ref="344606816"/>
 						<string key="objectName">View</string>

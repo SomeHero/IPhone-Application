@@ -22,8 +22,9 @@
 #import "TransactionConfirmationProtocol.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
+#import "Facebook.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate> {
+@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, FBDialogDelegate, FBRequestDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;

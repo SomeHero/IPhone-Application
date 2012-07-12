@@ -186,7 +186,7 @@
     [self.navigationController dismissModalViewControllerAnimated:NO];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
+    NSLog(@"Access Token in Complete: %@", [prefs objectForKey:@"FBAccessTokenKey"]);
     [prefs setValue:userId forKey:@"userId"];
     [prefs setBool:isNewUser forKey:@"isNewUser"];
     
@@ -194,7 +194,6 @@
     
     UserService* userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
-    
     
     [userService getUserInformation: userId];
 }

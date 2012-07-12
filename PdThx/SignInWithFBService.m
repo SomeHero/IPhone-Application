@@ -24,14 +24,18 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/signin_withfacebook?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     
+    NSString* fbAccessTokenKey = [NSString stringWithString:[prefs stringForKey:@"FBAccessTokenKey"]];
+    NSLog(@"Access Token before send: %@",  fbAccessTokenKey);
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey , @"apiKey",
                               [response objectForKey:@"id"], @"accountId",
                               [response objectForKey:@"first_name"], @"firstName",
                               [response objectForKey:@"last_name"], @"lastName",
                               [response objectForKey:@"email"], @"emailAddress",
-                              [prefs stringForKey:@"deviceToken"], @"deviceToken",
+                              fbAccessTokenKey, @"oAuthToken",
+                              [prefs objectForKey:@"deviceToken"], @"deviceToken",
                               nil];
     
     [prefs setValue:[response valueForKey:@"first_name"] forKey:@"firstName"];

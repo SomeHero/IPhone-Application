@@ -419,12 +419,53 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
     [controller setTransactionConfirmationDelegate: self];
     
-    [self dismissModalViewControllerAnimated:YES];
+    
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+    {
+        Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults objectForKey:@"FBAccessTokenKey"] 
+            && [defaults objectForKey:@"FBExpirationDateKey"]) {
+            fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+            fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+        }
+        
+        
+        NSUserDefaults * prefs = [NSUserDefaults standardUserDefaults];
+        
+        NSLog(@"Trying to make dialog with %@ and %@", recipientUri, [recipientUri substringFromIndex:3] );
+        if ( [fBook isSessionValid] ){
+            NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fbAppId, @"app_id",
+                                           [NSString stringWithFormat:@"I just sent you $%@ using PaidThx. Why you ask? %@ - Click here %@ and login with Facebook to pick it up.", txtAmount.text, txtComments.text, @"http://www.paidthx.com"], @"message",
+                                           @"http://www.paidthx.com", @"link",
+                                           @"http://www.crunchbase.com/assets/images/resized/0019/7057/197057v2-max-250x250.png", @"picture",
+                                           @"PaidThx is a social payment network that lets you easily transfer money with your friends, family and favorite organizations through mobile and web technology.", @"description",
+                                           nil];
+            
+            
+            [fBook requestWithGraphPath:[NSString stringWithFormat:@"%@/feed", [recipientUri substringFromIndex:3]] andParams:params andHttpMethod:@"POST" andDelegate:self];
+        }
+    }
+    
+    
+    [self dismissModalViewControllerAnimated:YES]; 
     [self presentModalViewController:controller animated:YES];
 }
 
+-(void) request:(FBRequest *)request didLoad:(id)result
+{
+    NSLog(@"Success on %@", result ? @"SUCCESS" : @"FAILED");
+}
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog ( @"Error occurred -> %@" , [error description] );
+}
+
+
 -(void)sendMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
-    
     if(lockedOut) {
         [self dismissModalViewControllerAnimated: YES];
         
@@ -433,7 +474,7 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
         [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
     }
     else {
-        [self showAlertView: @"Error Sending Money" withMessage: message];
+        [self showAlertView: @"Error Sending Money" withMessage:message];
     }
 }
 -(void)onHomeClicked {

@@ -24,7 +24,7 @@
 #import "AddACHAccountViewController.h"
 #import "CustomAlertViewProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
+@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol, FBRequestDelegate> 
 {
 
     IBOutlet UIView *viewPanel;

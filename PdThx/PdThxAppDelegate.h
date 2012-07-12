@@ -46,6 +46,7 @@
     CustomAlertViewController *customAlert;
     UINavigationController* setupFlowController;
     Application* myApplication;
+    NSString *fbAppId;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -69,6 +70,8 @@
 
 @property (nonatomic, assign) int animationTimer;
 @property(nonatomic, retain) Application* myApplication;
+
+@property (nonatomic, retain) NSString *fbAppId;
 
 -(void)signOut;
 -(void)forgetMe;

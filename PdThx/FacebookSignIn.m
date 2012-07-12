@@ -31,15 +31,12 @@
 -(void)fbDidLogin
 {
     NSLog(@"Got here.");
+    NSLog(@"FBExpirationDate: %@", fBook.expirationDate);
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"FBAccessTokenKey"] 
-        && [defaults objectForKey:@"FBExpirationDateKey"]) {
-        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-        ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-        ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook.accessToken = [defaults objectForKey:@"FBExpirationDateKey"];
-    }
+    [defaults setValue:fBook.accessToken forKey:@"FBAccessTokenKey"];
+    [defaults setValue:fBook.expirationDate forKey:@"FBExpirationDateKey"];
+    [defaults synchronize];
     
     [self requestUserFBInfo];
 }
@@ -73,6 +70,9 @@
 
 -(void)requestUserFBInfo
 {
+    
+    NSLog(@"FBExpirationDate: %@", fBook.expirationDate);
+    
     PdThxAppDelegate*appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
     [fBook requestWithGraphPath:@"me" andDelegate:userInfoDelegate];
     [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];

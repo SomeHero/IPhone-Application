@@ -443,6 +443,36 @@ float tableHeight = 30;
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
     [controller setTransactionConfirmationDelegate: self];
     
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+    {
+        Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults objectForKey:@"FBAccessTokenKey"] 
+            && [defaults objectForKey:@"FBExpirationDateKey"]) {
+            fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+            fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+        }
+        
+        NSUserDefaults * prefs = [NSUserDefaults standardUserDefaults];
+        
+        NSLog(@"Trying to make dialog with %@ and %@", recipientUri, [recipientUri substringFromIndex:3] );
+        if ( [fBook isSessionValid] ){
+            NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fbAppId, @"app_id",
+                                           [NSString stringWithFormat:@"%@ seriously, I really need that $%@ that you owe me for %@ -  Click here %@ and login with Facebook and send it to me instantly.",  [prefs valueForKey:@"firstName"],txtAmount.text, txtComments.text, @"http://www.paidthx.com"], @"message",
+                                           @"http://www.paidthx.com", @"link",
+                                           @"http://www.crunchbase.com/assets/images/resized/0019/7057/197057v2-max-250x250.png", @"picture",
+                                           @"Send me that chedda!", @"name",
+                                           [NSString stringWithFormat:@"%@ can send money to me for FREE!",[prefs valueForKey:@"firstName"]], @"caption",
+                                           @"PaidThx is a social payment network that lets you easily transfer money with your friends, family and favorite organizations through mobile and web technology.", @"description",
+                                           nil];
+            
+            
+            [fBook requestWithGraphPath:[NSString stringWithFormat:@"%@/feed", [recipientUri substringFromIndex:3]] andParams:params andHttpMethod:@"POST" andDelegate:self];
+        }
+    }
+    
     [self presentModalViewController:controller animated:YES];
 }
 
