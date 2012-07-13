@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIModalBaseViewController.h"
+#import "DetailInfoButtonClicked.h"
+#import "UIModalBaseViewController.h"
 
-@interface OrganizationDetailViewController : UIViewController
+@interface OrganizationDetailViewController : UIModalBaseViewController
+{
+    id<DetailInfoButtonClicked> detailInfoButtonClicked;
+}
+
+@property(nonatomic, retain) id detailInfoButtonClicked;
 
 @end

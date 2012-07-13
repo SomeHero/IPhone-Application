@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol DetailInfoButtonClicked;
+
 @protocol DetailInfoButtonClicked <NSObject>
+
+-(void)infoButtonClicked: (NSString*) merchantId;
+
 
 @end

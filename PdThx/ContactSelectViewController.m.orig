@@ -1,3 +1,4 @@
+
 //
 //  ContactSelectViewController.m
 //  PdThx
@@ -16,6 +17,8 @@
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 
+#define KEYBOARD_SIZE 220
+
 @interface ContactSelectViewController ()
 
 - (void)startIconDownload:(Contact*)contact forIndexPath:(NSIndexPath *)indexPath;
@@ -24,14 +27,11 @@
 
 @implementation ContactSelectViewController
 
-@synthesize searchBar, tvSubview, fBook, allResults;
-@synthesize phoneNumberFormatter, fbIconsDownloading,contactSelectChosenDelegate;
-@synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.tableCellViewName = @"ContactTableViewCell";
         // Custom initialization
         fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
         
@@ -44,6 +44,8 @@
     return self;
 }
 
+<<<<<<< HEAD
+=======
 -(void)refreshContactList:(NSNotification*)notification
 {
     [tvSubview reloadData];
@@ -52,8 +54,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [txtSearchBox becomeFirstResponder];
+    
+    //tvSubview.frame = CGRectMake(tvSubview.frame.origin.x, tvSubview.frame.origin.y, tvSubview.frame.size.width, tvSubview.frame.size.height-KEYBOARD_SIZE);
 }
 
+>>>>>>> upstream/development
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,23 +66,29 @@
     // Do any additional setup after loading the view from its nib.
     txtSearchBox.frame =  CGRectMake(txtSearchBox.frame.origin.x, txtSearchBox.frame.origin.y, txtSearchBox.frame.size.width, 40);
     
+<<<<<<< HEAD
+=======
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
 }
 
+/*
 -(void)viewDidAppear:(BOOL)animated
 {
-    UIImage *bgImage = [UIImage imageNamed:@"nav-selector-allcontacts-52x30.png"];
-    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
-    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
-    [settingsBtn addTarget:self action:@selector(actionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
-    
-    self.navigationItem.rightBarButtonItem = settingsButtons;
-    [settingsButtons release];
+    if ( self.navigationController.navigationItem.backBarButtonItem != nil ) {
+        UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
+        UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+        settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+        [settingsBtn addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+        
+        self.navigationItem.backBarButtonItem = settingsButtons;
+        [settingsButtons release];
+    }
 }
+*/
 
 -(void) backButtonClicked
 {
@@ -102,7 +113,7 @@
 
 
 /*
- TABLE VIEW SETUP AND HANDLING
+            TABLE VIEW SETUP AND HANDLING
  */
 
 #pragma mark - Table view data source
@@ -146,6 +157,9 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [txtSearchBox resignFirstResponder];
+    
+    
+    //tvSubview.frame = CGRectMake(tvSubview.frame.origin.x, tvSubview.frame.origin.y, tvSubview.frame.size.width, tvSubview.frame.size.height+KEYBOARD_SIZE);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -187,9 +201,10 @@
                 return 2;
         }
     }
-    
+                            
     return 0;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -207,7 +222,7 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
         myCell = [nib objectAtIndex:0];
     }
-    
+        
     
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
@@ -299,10 +314,10 @@
         }
     } else {
         Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        
+                                                 
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
-            
+        
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
             
             // Only load cached images; defer new downloads until scrolling ends
@@ -370,25 +385,29 @@
                 }
             }
             [contactSelectChosenDelegate didChooseContact:contact];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         } else {
             [contactSelectChosenDelegate didChooseContact:[[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
     } else {
         [contactSelectChosenDelegate didChooseContact:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
 -(IBAction) btnGoClicked:(id)sender {
     Contact* contact = [[[Contact alloc] init] autorelease];
+>>>>>>> upstream/development
     
-    contact.name = [[txtSearchBox text] copy];
-    contact.recipientUri = [[txtSearchBox text] copy];
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          allResults forKey:@"contacts"];
     
+<<<<<<< HEAD
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
+=======
     [contactSelectChosenDelegate didChooseContact: contact];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
@@ -424,103 +443,15 @@
     [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
 }
 
-
-
 #pragma mark -
 #pragma mark Table cell image support
+>>>>>>> upstream/development
 
-- (void)startIconDownload:(Contact *)contact forIndexPath:(NSIndexPath *)indexPath
-{
-    IconDownloader *iconDownloader = [fbIconsDownloading objectForKey:indexPath];
-    if (iconDownloader == nil)
-    {
-        iconDownloader = [[IconDownloader alloc] init];
-        iconDownloader.contact = contact;
-        iconDownloader.indexPathInTableView = indexPath;
-        iconDownloader.delegate = self;
-        [fbIconsDownloading setObject:iconDownloader forKey:indexPath];
-        [iconDownloader startDownload];
-        [iconDownloader release];
-    }
+    self.fbIconsDownloading = [NSMutableDictionary dictionary];
 }
 
-
-// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
-- (void)loadImagesForOnscreenRows
-{
-    if ( isFiltered && [filteredResults count] > 0 )
-    {
-        NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
-        for (NSIndexPath *indexPath in visiblePaths)
-        {
-            if ( indexPath.section > 0 )
-            {
-                Contact *contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                
-                if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
-                {
-                    [self startIconDownload:contact forIndexPath:indexPath];
-                }
-            }
-        }
-    }
-    else if ([allResults count] > 0)
-    {
-        NSArray *visiblePaths = [tvSubview indexPathsForVisibleRows];
-        for (NSIndexPath *indexPath in visiblePaths)
-        {
-            if ( indexPath.section > 0 ){
-                Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                
-                if (!contact.imgData && contact.facebookID.length > 0) // avoid the app icon download if the app already has an icon
-                {
-                    [self startIconDownload:contact forIndexPath:indexPath];
-                }
-            }
-        }
-    }
-}
-
-// called by our ImageDownloader when an icon is ready to be displayed
-- (void)appImageDidLoad:(NSIndexPath *)indexPath
-{
-    IconDownloader *iconDownloader = [fbIconsDownloading objectForKey:indexPath];
-    if (iconDownloader != nil)
-    {
-        ContactTableViewCell *cell = (ContactTableViewCell*)[tvSubview cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
-        
-        // Display the newly loaded image
-        [cell.contactImage setBackgroundImage:iconDownloader.contact.imgData forState:UIControlStateNormal];
-    }
-}
-
-
-#pragma mark -
-#pragma mark Deferred image loading (UIScrollViewDelegate)
-
-// Load images for all onscreen rows when scrolling is finished
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    if (!decelerate)
-	{
-        [self loadImagesForOnscreenRows];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self loadImagesForOnscreenRows];
-}
-
-
-- (void)dealloc {
-    [searchBar release];
-    [tvSubview release];
-    [phoneNumberFormatter release];
-    [fbIconsDownloading release];
-    [super dealloc];
-}
-
+<<<<<<< HEAD
+=======
 - (IBAction)textBoxChanged:(id)sender {
     foundFiltered = NO;
     // Search text bar changed, handle the change...
@@ -545,20 +476,28 @@
                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
                 }
                 // Add $me code implementation ** TODO: **
-                
+            
                 if ( hasSimilarity.location != NSNotFound ){
-                    @try {
-                        [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
-                        foundFiltered = YES;
+                     @try {
+                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
+                    foundFiltered = YES;
                     }
-                    @catch (NSException* e) {
-                        NSLog(@"Exception: %@", e);
-                    }
-                    
+            @catch (NSException* e) {
+                NSLog(@"Exception: %@", e);
+            }
+
                 }
             }
         }
     }
+    
     [tvSubview reloadData];
 }
+
+- (IBAction)pressedSearchBox:(id)sender 
+{
+    NSLog(@"Pressed search box, shrinking table view size.");
+}
+>>>>>>> upstream/development
 @end
+

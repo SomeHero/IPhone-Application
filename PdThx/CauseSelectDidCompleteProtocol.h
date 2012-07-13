@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Contact.h"
 
 @protocol CauseSelectDidCompleteProtocol <NSObject>
+
+-(void)didChooseCause:(Contact*)contact;
 
 @end

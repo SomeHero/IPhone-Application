@@ -20,12 +20,26 @@
 #import "CustomSecurityPinSwipeController.h"
 
 #define kOFFSET_FOR_KEYBOARD 100.0
+#define tableHeight = 30;
 
 @interface RequestMoneyController ()
+- (BOOL)isValidRecipientUri:(NSString *)recipientUriToTest;
+- (BOOL)isValidAmount:(NSString *)amountToTest;
+
 
 @end
 
 @implementation RequestMoneyController
+
+@synthesize recipientUri, attachPictureButton;
+@synthesize txtAmount, txtComments, btnSendRequest;
+@synthesize viewPanel;
+@synthesize recipientImageButton;
+@synthesize chooseRecipientButton;
+@synthesize contactHead;
+@synthesize contactDetail, lm;
+@synthesize amount, chooseAmountButton, characterCountLabel;
+@synthesize contactButtonBGImage, amountButtonBGImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +52,32 @@
 
 - (void)dealloc
 {
+    /*  ------------------------------------------------------ */
+    /*                View/Services Releases                   */
+    /*  ------------------------------------------------------ */
+    [viewPanel release];
+    [requestMoneyService release];
+    [lm release];
+    
+    /*  ------------------------------------------------------ */
+    /*                Image/TextField Releases                 */
+    /*  ------------------------------------------------------ */
+    [txtAmount release];
+    [txtComments release];
+    [user release];
+    [amount release];
+    [comments release];
+    [recipientImageButton release];
+    [chooseRecipientButton release];
+    [contactHead release];
+    [contactDetail release];
+    [chooseAmountButton release];
+    
+    [btnSendRequest release];
+    
+    [attachPictureButton release];
+    [characterCountLabel release];
+    [characterCountLabel release];
     [super dealloc];
 }
 
@@ -45,21 +85,21 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-
+    
     // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
 -(void) viewDidAppear:(BOOL)animated{
-
+    
     [super viewDidAppear:animated];
-
+    
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-
+    
 }
 - (void)viewDidLoad
 {
-
+    
     [super viewDidLoad];
     
     /*                  View Setup              */
@@ -100,8 +140,8 @@
     /*  ------------------------------------------------------ */
     requestMoneyService = [[RequestMoneyService alloc] init];
     [requestMoneyService setRequestMoneyCompleteDelegate: self];
-     
-
+    
+    
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
     autoCompleteArray = [[NSMutableArray alloc] init];
@@ -135,6 +175,29 @@
         attachPictureButton.hidden = NO;
 }
 
+
+-(void)changedCommentBox:(NSNotification*)notification
+{
+    if ( [txtComments.text length] <= 140 ){
+        characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
+    } else {
+        txtComments.text = [txtComments.text substringToIndex:140];
+        characterCountLabel.placeholder = @"140/140";
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    if (newLocation != nil) {
+        latitude = newLocation.coordinate.latitude;
+        longitude = newLocation.coordinate.longitude;
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"%@", error.description);
+}
+
+
 - (void)viewDidUnload
 {
     [lm stopUpdatingLocation];
@@ -149,6 +212,313 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+/*  ------------------------------------------------------ */
+/*                Button Action Handling                   */
+/*  ------------------------------------------------------ */
+
+- (IBAction)pressedChooseRecipientButton:(id)sender 
+{
+    ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.contactSelectChosenDelegate = self;
+}
+
+- (IBAction)pressedAmountButton:(id)sender 
+{
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+    
+}
+
+- (IBAction)pressedAttachPictureButton:(id)sender {
+    if ( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] )
+    {
+        UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        imagePicker.allowsImageEditing = NO;
+        [self presentModalViewController:imagePicker animated:YES];
+    }
+}
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    
+    [picker release];
+}
+
+-(void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo
+{
+    [self dismissModalViewControllerAnimated:YES];
+    
+    UIAlertView *alert;
+    if ( error ){
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+        // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+        // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+        // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+        [appDelegate showAlertWithResult:false withTitle:@"Image Save Error" withSubtitle:@"Error saving your image to your phone" withDetailText:@"Your phone was unable to save the image you stored. Please make sure you have sufficient available memory to save the photo, and try again." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+    } else {
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+        // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+        // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+        // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+        [appDelegate showAlertWithResult:true withTitle:@"Image Saved!" withSubtitle:@"Your image has been saved" withDetailText:@"Your image was saved, but make sure to save your changes on the next screen!" withLeftButtonOption:0 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:1 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+    }
+}
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ) {
+        // Dismiss, error uploading image alert view clicked.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+    } else {
+        // Successfully saved image, just go back to personalize screen and load the image.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+        
+        // TODO: There needs to be a protocol here to load the image as being on top.
+    }
+}
+
+
+-(IBAction) bgTouched:(id) sender {
+    [txtAmount resignFirstResponder];
+    [txtComments resignFirstResponder];
+}
+
+
+-(void) sendMoneyComplete:(ASIHTTPRequest *)request
+{
+    NSString *theJSON = [request responseString];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    bool success = [[jsonDictionary objectForKey:@"success"] boolValue];
+    NSString *message = [jsonDictionary objectForKey:@"message"];
+    
+    if(success) {
+        
+        [self.mainScrollView scrollsToTop];
+        
+        //[txtRecipientUri setText: @""];
+        [txtAmount setText: @"0.00"];
+        [txtComments setText: @""];
+        
+        [[self mainScrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+        [self showAlertView:@"Request Sent!" withMessage: message];
+        
+    }
+    else {
+        [self showAlertView: @"Sorry.  Try Again.!" withMessage:message];
+    }
+}
+-(void) sendMoneyFailed:(ASIHTTPRequest *)request
+{
+    // statsCommuniqueDoneProblem ... !
+    NSLog(@"Request Money Failed");
+}
+
+
+-(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
+    if([recipientUriToTest length]  == 0)
+        return false;
+    
+    return true;
+}
+
+-(BOOL) isValidAmount:(NSString *) amountToTest {
+    amountToTest = [amountToTest stringByReplacingOccurrencesOfString:@"$" withString:@""];
+    
+    @try {
+        if([amountToTest floatValue] > 0.00)
+            return true;
+        else
+            return false;
+    }
+    @catch(NSException *ex) {
+        return false;
+    }
+}
+
+-(IBAction) btnSendRequestClicked:(id)sender {
+    
+    if([txtAmount.text length] > 0) {
+        amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
+    }
+    
+    if([txtComments.text length] > 0)
+        comments = [txtComments.text copy];
+    
+    BOOL isValid = YES;
+    
+    if(isValid && ![self isValidRecipientUri:recipientUri])
+    {
+        [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
+        
+        isValid = NO;
+    }
+    if(isValid && ![self isValidAmount:amount])
+    {
+        [self showAlertView:@"Invalid Amount" withMessage:@"You specified an invalid amount to send.  Please try again."];
+        
+        isValid = NO;
+    }
+    if(isValid) {
+        //Check to make sure the user has completed post reg signup process
+        //if((user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+        
+        //[((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+        
+        if([user.preferredPaymentAccountId length] > 0)
+        {
+            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+            [controller setSecurityPinSwipeDelegate: self];
+            [controller setNavigationTitle: @"Confirm"];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+            
+            [self presentModalViewController:controller animated:YES];
+        } else {
+            AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
+            controller.newUserFlow = false;
+            
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+            
+            [controller setNavBarTitle: @"Enable Payment"];
+            [controller setHeaderText: @"To complete requesting money, complete your account by adding a bank account"];
+            
+            [self presentModalViewController: navBar animated:YES];
+        }
+    }
+    
+}
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
+{
+    NSString* recipientImageUri = [NSString stringWithString: @""];
+    NSString* recipientFirstName = [NSString stringWithString: @""];
+    NSString* recipientLastName =[NSString stringWithString: @""];
+    
+    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+        recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
+        recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
+        recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
+    }
+    
+    
+    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredReceiveAccountId withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    
+}
+-(void)swipeDidCancel: (id)sender
+{
+    //do nothing
+}
+-(void)requestMoneyDidComplete {
+    
+    [self.mainScrollView scrollsToTop];
+    
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
+    
+    TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
+    controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    [controller setTransactionConfirmationDelegate: self];
+    
+    [self presentModalViewController:controller animated:YES];
+}
+
+-(void)requestMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
+    
+    if(lockedOut) {
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
+        
+        [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
+    }
+    else {
+        [self showAlertView: @"Error Sending Request" withMessage: message];
+    }
+}
+-(void)onHomeClicked {
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
+    
+    txtAmount.text = @"0.00";
+    
+    [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
+    
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    txtComments.text = @"";
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
+}
+-(void)onContinueClicked {
+    
+    contactButtonBGImage.highlighted = NO;
+    amountButtonBGImage.highlighted = NO;
+    
+    txtAmount.text = @"0.00";
+    
+    contactHead.text = @"Select a Recipient";
+    contactDetail.text = @"Click Here";
+    txtComments.text = @"";
+    
+    [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
+}
+
+-(void)didChooseContact:(Contact *)contact
+{
+    contactButtonBGImage.highlighted = YES;
+    recipient = contact;
+    if ( contact.imgData )
+        [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+    else if ( contact.facebookID.length > 0 )
+        [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
+    else
+        [recipientImageButton setBackgroundImage: NULL forState:UIControlStateNormal];
+    
+    
+    recipientImageButton.imageView.image = nil;
+    
+    contactHead.text = contact.name;
+    
+    if ( contact.facebookID.length > 0 ){
+        contactDetail.text = @"Facebook Friend";
+    } else if ( contact.phoneNumber ){
+        contactDetail.text = contact.phoneNumber;
+    } else if ( contact.emailAddress.length > 0 ){
+        contactDetail.text = contact.emailAddress;
+    }else {
+        contactDetail.text = @"No Info to Display";
+    }
+    
+    self.recipientUri = contact.recipientUri;
+    
+}
+
+-(void)didSelectAmount:(double)amountSent
+{
+    amountButtonBGImage.highlighted = YES;
+    txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
+}
 
 
 @end

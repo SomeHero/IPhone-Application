@@ -29,7 +29,9 @@
 @synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
-
+@synthesize myApplication;
+@synthesize nonProfits;
+@synthesize organizations;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -41,24 +43,17 @@
     [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
     [self.window bringSubviewToFront:self.tabBarController.view];
     
-<<<<<<< Updated upstream
     // Keep Progress Bar & Alert Views on top
-=======
-    // Keep Progress Bar on top
->>>>>>> Stashed changes
     if ( myProgHudOverlay.view.superview ){
         [self.window bringSubviewToFront:myProgHudOverlay.view];
         [self.window bringSubviewToFront:myProgHudInnerView.view];
     }
-<<<<<<< Updated upstream
     if ( customAlert.view.superview ){
         [self.window bringSubviewToFront:myProgHudOverlay.view];
         [self.window bringSubviewToFront:customAlert.view];
     }
-=======
     
     [self startUserSetupFlow];
->>>>>>> Stashed changes
 }
 
 -(void)startUserSetupFlow
@@ -67,23 +62,14 @@
     
     bool isNewUser = [prefs boolForKey: @"isNewUser"];
     
-    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
     /*          
      TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
      ASK THEM TO ADD IT NOW
      */
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
-<<<<<<< Updated upstream
-        currentReminderTab = 1;
-        [self.newUserFlowTabController setSelectedIndex:1];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
         
-        // Keep Progress Bar & Alert Views on top
-=======
-        
-        currentReminderTab += 1;  
+        currentReminderTab = 1;  
         
         ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
         
@@ -96,32 +82,10 @@
             [setupFlowController pushViewController:controller animated:YES];
         }
        
-            
-        // Keep Progress Bar on top
->>>>>>> Stashed changes
-        if ( myProgHudOverlay.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:myProgHudInnerView.view];
-        }
-<<<<<<< Updated upstream
-        if ( customAlert.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:customAlert.view];
-        }
-=======
->>>>>>> Stashed changes
     }
-    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) ) {
-        // No bank account, prompt user to add one now.
-        
-<<<<<<< Updated upstream
-        [self.newUserFlowTabController setSelectedIndex:2];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        
-        // Keep Progress Bar & Alert Views on top
-=======
-        
-        currentReminderTab += 1;  
+    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) || (currentReminderTab < 2 && user.lastName == (id)[NSNull null])) {
+
+        currentReminderTab = 2;  
         
         PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
         
@@ -132,37 +96,18 @@
         else {
             [setupFlowController pushViewController:controller animated:YES];
         }
-        // Keep Progress Bar on top
->>>>>>> Stashed changes
-        if ( myProgHudOverlay.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:myProgHudInnerView.view];
-        }
-<<<<<<< Updated upstream
-        if ( customAlert.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:customAlert.view];
-        }
+
     }
-    else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+    else if (currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0)  && (user.outstandingPayments.count > 0))
     {
         currentReminderTab = 3;
-        [self.newUserFlowTabController setSelectedIndex:3];
-        [self.window bringSubviewToFront:self.newUserFlowTabController.view];
         
-        // Keep Progress Bar & Alert Views on top
-=======
-    }
-    else if(currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
-    {
-        
-        
-        currentReminderTab += 1;  
-        
-        AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
+        EnablePaymentsViewController* controller
+        = [[EnablePaymentsViewController alloc] init];
+        controller.message = [user.outstandingPayments objectAtIndex:0];
         
         if(setupFlowController == nil) {
-                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -172,37 +117,72 @@
         //[self.newUserFlowTabController setSelectedIndex:3];
         //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
         // Keep Progress Bar on top
->>>>>>> Stashed changes
-        if ( myProgHudOverlay.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:myProgHudInnerView.view];
+        
+        
+        [controller release];
+    }
+    else if(currentReminderTab < 4 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
+    {
+        
+        
+        currentReminderTab = 4;  
+        
+        AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
+        controller.newUserFlow = true;
+        if(setupFlowController == nil) {
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            
         }
-<<<<<<< Updated upstream
-        if ( customAlert.view.superview ){
-            [self.window bringSubviewToFront:myProgHudOverlay.view];
-            [self.window bringSubviewToFront:customAlert.view];
+        else {
+            [setupFlowController pushViewController:controller animated:YES];
         }
-=======
->>>>>>> Stashed changes
+        //currentReminderTab = 3;
+        //[self.newUserFlowTabController setSelectedIndex:3];
+        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+
         
         [controller release];
         
     } 
     else {
-        currentReminderTab += 1;
+        currentReminderTab = 5;
         
         if(setupFlowController != nil) {
+            [[myProgHudInnerView activityIndicator] stopAnimating];
             
-            [[[self myProgHudOverlay] view] removeFromSuperview];
-            [[[self myProgHudInnerView] view] removeFromSuperview
+            [prefs setBool:false forKey:@"isNewUser"];
+            
+            [prefs synchronize];
+            
             [self.tabBarController dismissModalViewControllerAnimated:YES];
+            
+            [setupFlowController release];
+            setupFlowController = nil;
+            
         }
     }
-    
-    
-    
 }
-
+-(void)endUserSetupFlow
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    currentReminderTab = 5;
+    
+    if(setupFlowController != nil) {
+        [[myProgHudInnerView activityIndicator] stopAnimating];
+        
+        [prefs setBool:false forKey:@"isNewUser"];
+        
+        [prefs synchronize];
+        
+        [self.tabBarController dismissModalViewControllerAnimated:YES];
+        
+        [setupFlowController release];
+        setupFlowController = nil;
+        
+    }
+}
 -(void)backToWelcomeTabbedArea
 {
     [self.tabBarController.view removeFromSuperview];
@@ -212,22 +192,15 @@
     [self.welcomeTabBarController setSelectedIndex:1];
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
     
-<<<<<<< Updated upstream
     // Keep Progress Bar & Alert Views on top
-=======
-    // Keep Progress Bar on top
->>>>>>> Stashed changes
     if ( myProgHudOverlay.view.superview ){
         [self.window bringSubviewToFront:myProgHudOverlay.view];
         [self.window bringSubviewToFront:myProgHudInnerView.view];
     }
-<<<<<<< Updated upstream
     if ( customAlert.view.superview ){
         [self.window bringSubviewToFront:myProgHudOverlay.view];
         [self.window bringSubviewToFront:customAlert.view];
     }
-=======
->>>>>>> Stashed changes
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -237,6 +210,11 @@
     [self.tabBarController setDelegate:self];
     
     Environment *myEnvironment = [Environment sharedInstance];
+    
+    ApplicationService* applicationService = [[ApplicationService alloc] init];
+    [applicationService setApplicationSettingsDidComplete: self];
+    [applicationService getApplicationSettings:myEnvironment.pdthxAPIKey];
+    
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *googleAnalyticsKey = [NSString stringWithString: myEnvironment.GoogleAnalyticsKey];
     
@@ -272,6 +250,7 @@
     currentReminderTab = 0;
     
     [self loadAllContacts];
+    [self loadNonProfits];
     
     [self.window makeKeyAndVisible];
     
@@ -523,19 +502,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    NSLog(@"Loading %d contacts", (int)nPeople);
+    
+    
     int index = 0;
-    for (int i = 1; i < nPeople; i++) {
-        NSLog(@"%@", @"Started Next Person");
-        
+    for (int i = 0; i < nPeople; i++) {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         
         NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
         firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
-        NSLog(@"%@", firstName);
-        
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        
+        NSString* lastNameTest = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
+        lastNameTest = [lastNameTest stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        
         CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
         
         UIImage * tempImgData = nil;
@@ -549,8 +531,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
-        
-    
         
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
@@ -593,7 +573,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                     contact.imgData = tempImgData;
                 }
                 
-                
                 [tempArray addObject:contact];
                 
                 index++;
@@ -604,9 +583,53 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
     }
     
-    [self sortContacts];
+    contactsArray =  [self sortContacts:tempArray withPostNotificationName:@"refreshContactList" ];
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          contactsArray forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
+    
+    NSLog(@"Contacts Ready.");
 }
-
+-(void) loadNonProfits
+{
+    MerchantServices* merchantServices = [[MerchantServices alloc] init];
+    [merchantServices setMerchantServicesCompleteProtocol:self];
+    
+    [merchantServices getMerchants];
+    
+}
+-(void)getMerchantsDidComplete: (NSMutableArray*) merchants {
+    //nonProfits = merchants;
+    //[self sortContacts:nonProfits withPostNotificationName:@"refreshNonProfitsList"];
+    
+    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
+    
+    for(int i=0; i < [merchants count]; i++)
+    {
+        Merchant* merchant = [merchants objectAtIndex:i];
+        
+        Contact* contact = [[Contact alloc] init];
+        contact.name = merchant.name;
+        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
+        //merchant.merchantId
+        
+        [tempOrganizations addObject:contact];
+    }
+    
+    
+    organizations =  [self sortContacts:tempOrganizations withPostNotificationName:@"refreshContactList" ];
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          contactsArray forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
+    
+    NSLog(@"Contacts Ready.");
+    
+}
+-(void)getMerchantsDidFail: (NSString*) errorMessage {
+    
+}
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
     NSArray *friendArray = [result objectForKey:@"data"];
@@ -629,20 +652,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     areFacebookContactsLoaded = YES;
     
-    [self sortContacts];
+    NSMutableArray* faceBookFriends = [self sortContacts: tempArray withPostNotificationName:@"refreshContactList"];
+    
+    for(int i = 0; i <[faceBookFriends count]; i++)
+    {
+        [contactsArray addObject:[faceBookFriends objectAtIndex:i]];
+    }
 }
 
--(void)sortContacts
+-(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts withPostNotificationName:(NSString*) notificationName
 {
-    if ( contactsArray == NULL ){
-        contactsArray = [[NSMutableArray alloc] init];
-    } else {
-        [contactsArray removeAllObjects];
-    }
-    for ( int i = 0 ; i < 28 ; i ++ )
-        [contactsArray addObject:[[NSMutableArray alloc] init]];
+    NSMutableArray* results = [[[NSMutableArray alloc] init] retain];
     
-    tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    for ( int i = 0 ; i < 28 ; i ++ )
+        [results addObject:[[[NSMutableArray alloc] init] retain]];
+    
+    NSMutableArray* tempArray = [[arrayOfContacts sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     
     NSString * comparedString;
     
@@ -652,6 +677,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
+    NSLog( @"Loading %d contacts... ", [tempArray count] );
+    
     for (Contact*person in tempArray) {
         if ( person.firstName.length > 0 )
             comparedString = person.firstName;
@@ -662,16 +689,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
         {
-            [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+            [[results objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
         }
         else {
-            [[contactsArray objectAtIndex:27] addObject:person];
+            [[results objectAtIndex:27] addObject:person];
         }
     }
     
+<<<<<<< HEAD
+    return results;
+=======
+    NSLog( @"Contacts ready, bro... ", [tempArray count] );
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
     
-    NSLog(@"Contacts Ready.");
+>>>>>>> upstream/development
 }
 
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
@@ -758,7 +790,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     if ( !myProgHudOverlay.view.superview ){
         myProgHudOverlay.view.alpha = 0.0;
-<<<<<<< Updated upstream
         
         myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
         myProgHudInnerView.view.alpha = 0.0;
@@ -766,15 +797,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [self.window addSubview:myProgHudOverlay.view];
         [self.window addSubview:myProgHudInnerView.view];
         
-=======
-        
-        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
-        myProgHudInnerView.view.alpha = 0.0;
-        
-        [self.window addSubview:myProgHudOverlay.view];
-        [self.window addSubview:myProgHudInnerView.view];
-        
->>>>>>> Stashed changes
         [UIView animateWithDuration:0.25
                               delay:0
                             options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
@@ -800,7 +822,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     myProgHudInnerView.topLabel.text = status;
     myProgHudInnerView.detailLabel.text = detailedStatus;
-<<<<<<< Updated upstream
     
     myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
     myProgHudInnerView.imgView.hidden = NO;
@@ -818,25 +839,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [self.window addSubview:myProgHudOverlay.view];
         [self.window addSubview:myProgHudInnerView.view];
         
-=======
-    
-    myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
-    myProgHudInnerView.imgView.hidden = NO;
-    
-    [[myProgHudInnerView activityIndicator] stopAnimating];
-    myProgHudInnerView.activityIndicator.hidden = YES;
-    
-    
-    if ( !myProgHudOverlay.view.superview ){
-        myProgHudOverlay.view.alpha = 0.0;
-        
-        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
-        myProgHudInnerView.view.alpha = 0.0;
-        
-        [self.window addSubview:myProgHudOverlay.view];
-        [self.window addSubview:myProgHudInnerView.view];
-        
->>>>>>> Stashed changes
         [UIView animateWithDuration:0.25
                               delay:0
                             options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
@@ -860,21 +862,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         myProgHudOverlay = [[myProgressHud alloc] init];
         myProgHudOverlay.view.frame = CGRectMake(0,0,self.window.frame.size.width,self.window.frame.size.height);
         myProgHudInnerView = [[ProgressHudInnnerViewController alloc] init];
-<<<<<<< Updated upstream
         myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
-=======
-         myProgHudInnerView.view.frame = CGRectMake(self.window.frame.size.width/2-180/2, self.window.frame.size.height/2-180/2, 180, 180);
->>>>>>> Stashed changes
     }
     
     myProgHudInnerView.topLabel.text = status;
     myProgHudInnerView.detailLabel.text = detailedStatus;
     
-<<<<<<< Updated upstream
     myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
-=======
-    myProgHudInnerView.imgView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
->>>>>>> Stashed changes
     myProgHudInnerView.imgView.hidden = NO;
     
     [[myProgHudInnerView activityIndicator] stopAnimating];
@@ -883,17 +877,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     if ( !myProgHudOverlay.view.superview ){
         myProgHudOverlay.view.alpha = 0.0;
-<<<<<<< Updated upstream
         
         myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
         myProgHudInnerView.view.alpha = 0.0;
         
-=======
-        
-        myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
-        myProgHudInnerView.view.alpha = 0.0;
-        
->>>>>>> Stashed changes
         [self.window addSubview:myProgHudOverlay.view];
         [self.window addSubview:myProgHudInnerView.view];
         
@@ -925,32 +912,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          self.myProgHudOverlay.view.alpha = 0.0;
                      }
                      completion:^(BOOL finished) {
-                         [myProgHudInnerView.view removeFromSuperview];
+                         
                          [myProgHudOverlay.view removeFromSuperview];
+                         [myProgHudOverlay.view removeFromSuperview];
+                         
                      }];
 }
 
-<<<<<<< Updated upstream
 -(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withLeftButtonImageString:(NSString*)leftButtonImageString withLeftButtonSelectedImageString:(NSString*)leftButtonSelectedImageString withLeftButtonTitle:(NSString*)leftButtonTitle withLeftButtonTitleColor:(UIColor*)leftButtonTextColor withRightButtonOption:(int)rightButtonOption withRightButtonImageString:(NSString*)rightButtonImageString withRightButtonSelectedImageString:(NSString*)rightButtonSelectedImageString withRightButtonTitle:(NSString*)rightButtonTitle withRightButtonTitleColor:(UIColor*)rightButtonTextColor withDelegate:(id)alertDelegate
-=======
--(void)dismissProgressHUDnow
-{
-    [UIView animateWithDuration:0.0
-                          delay:0
-                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1.3, 1.3);
-                         myProgHudInnerView.view.alpha = 0.0;
-                         self.myProgHudOverlay.view.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished) {
-                         [myProgHudInnerView.view removeFromSuperview];
-                         [myProgHudOverlay.view removeFromSuperview];
-                     }];
-}
-
--(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withRightButtonOption:(int)rightButtonOption withDelegate:(id)alertDelegate
->>>>>>> Stashed changes
 {
     if ( customAlert == nil ) {
         customAlert = [[CustomAlertViewController alloc] init];
@@ -958,7 +927,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         customAlert.leftButton.titleLabel.adjustsFontSizeToFitWidth = YES;
         customAlert.rightButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-<<<<<<< Updated upstream
     }
     
     /* RESET THE ALERT VIEW */
@@ -1041,50 +1009,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     
     
-=======
-        
-        customAlert.alertViewDelegate = alertDelegate;
-    }
-    
->>>>>>> Stashed changes
     if ( !customAlert.view.superview ){
         myProgHudOverlay.view.alpha = 0.0;
         customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1/1.3, 1/1.3);
         customAlert.view.alpha = 0.0;
         
-<<<<<<< Updated upstream
-=======
-        // Customize the popover view
-        if ( success )
-            customAlert.resultImageView.image = [UIImage imageNamed:@"loadingPassed62x62.png"];
-        else
-            customAlert.resultImageView.image = [UIImage imageNamed:@"loadingFailed62x62.png"];
-            
-        customAlert.topTitleLabel.text = title;
-        customAlert.subTitleLabel.text = subtitle;
-        customAlert.detailedTextView.text = detailedText;
-        
-        /*       Button Options    
-         *   Left Button:
-                0 - Sample1
-         *   Right Button:
-                0 - Sample2
-         */
-        if ( leftButtonOption == 0 ){
-            [customAlert.leftButton setTitle:@"Skip!" forState:UIControlStateNormal];
-            [customAlert.leftButton setTitle:@"Skip!" forState:UIControlStateHighlighted];
-            [customAlert.leftButton setTitle:@"Skip!" forState:UIControlStateSelected];
-            // NEED RGB VALUES OF BUTTON TEXT
-        }
-        
-        if ( rightButtonOption == 0 ){
-            [customAlert.rightButton setTitle:@"Go Back" forState:UIControlStateNormal];
-            [customAlert.rightButton setTitle:@"Go Back" forState:UIControlStateHighlighted];
-            [customAlert.rightButton setTitle:@"Go Back" forState:UIControlStateSelected];
-            // NEED RGB VALUES OF BUTTON TEXT
-        }
-        
->>>>>>> Stashed changes
         [self.window addSubview:myProgHudOverlay.view];
         [self.window addSubview:customAlert.view];
         
@@ -1097,11 +1026,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                              myProgHudOverlay.view.alpha = 0.5;
                          }
                          completion:^(BOOL finished) {
-<<<<<<< Updated upstream
                          }];
-=======
-        }];
->>>>>>> Stashed changes
     }
 }
 
@@ -1112,11 +1037,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
                          customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1/1.3, 1/1.3);
-<<<<<<< Updated upstream
                          
-=======
-
->>>>>>> Stashed changes
                          // Fade Out
                          customAlert.view.alpha = 0.0;
                          myProgHudOverlay.view.alpha = 0.0;
@@ -1127,5 +1048,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
                      }];
 }
+-(void)getApplicationSettingsDidComplete:(Application*)application {
+    myApplication = [application copy];
+}
+-(void)getApplicationSettingsDidFail: (NSString*) errorMessage
+{
 
+}
 @end

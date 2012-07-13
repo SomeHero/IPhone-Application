@@ -147,6 +147,34 @@
 											<string key="NSResourceName">BTN-cause-298x58-active.png</string>
 										</object>
 									</object>
+									<object class="IBUIButton" id="193484112">
+										<reference key="NSNextResponder" ref="48351761"/>
+										<int key="NSvFlags">292</int>
+										<string key="NSFrame">{{5, 15}, {298, 58}}</string>
+										<reference key="NSSuperview" ref="48351761"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="94196828"/>
+										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<int key="IBUIContentHorizontalAlignment">0</int>
+										<int key="IBUIContentVerticalAlignment">0</int>
+										<reference key="IBUIHighlightedTitleColor" ref="996456353"/>
+										<object class="NSColor" key="IBUINormalTitleColor">
+											<int key="NSColorSpace">1</int>
+											<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
+										</object>
+										<reference key="IBUINormalTitleShadowColor" ref="777330237"/>
+										<object class="IBUIFontDescription" key="IBUIFontDescription" id="301909732">
+											<string key="name">Helvetica-Bold</string>
+											<string key="family">Helvetica</string>
+											<int key="traits">2</int>
+											<double key="pointSize">18</double>
+										</object>
+										<object class="NSFont" key="IBUIFont" id="190491698">
+											<string key="NSName">Helvetica-Bold</string>
+											<double key="NSSize">18</double>
+											<int key="NSfFlags">16</int>
+										</object>
+									</object>
 									<object class="IBUIButton" id="575145569">
 										<reference key="NSNextResponder" ref="48351761"/>
 										<int key="NSvFlags">292</int>
@@ -258,17 +286,8 @@
 											<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
 										</object>
 										<reference key="IBUINormalTitleShadowColor" ref="777330237"/>
-										<object class="IBUIFontDescription" key="IBUIFontDescription" id="301909732">
-											<string key="name">Helvetica-Bold</string>
-											<string key="family">Helvetica</string>
-											<int key="traits">2</int>
-											<double key="pointSize">18</double>
-										</object>
-										<object class="NSFont" key="IBUIFont" id="118856235">
-											<string key="NSName">Helvetica-Bold</string>
-											<double key="NSSize">18</double>
-											<int key="NSfFlags">16</int>
-										</object>
+										<reference key="IBUIFontDescription" ref="301909732"/>
+										<reference key="IBUIFont" ref="190491698"/>
 									</object>
 									<object class="IBUIImageView" id="162951588">
 										<reference key="NSNextResponder" ref="48351761"/>
@@ -346,32 +365,12 @@
 											<int key="NSfFlags">16</int>
 										</object>
 									</object>
-									<object class="IBUIButton" id="193484112">
-										<reference key="NSNextResponder" ref="48351761"/>
-										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{5, 15}, {298, 58}}</string>
-										<reference key="NSSuperview" ref="48351761"/>
-										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="94196828"/>
-										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<int key="IBUIContentHorizontalAlignment">0</int>
-										<int key="IBUIContentVerticalAlignment">0</int>
-										<reference key="IBUIHighlightedTitleColor" ref="996456353"/>
-										<object class="NSColor" key="IBUINormalTitleColor">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
-										</object>
-										<reference key="IBUINormalTitleShadowColor" ref="777330237"/>
-										<reference key="IBUIFontDescription" ref="301909732"/>
-										<reference key="IBUIFont" ref="118856235"/>
-									</object>
 									<object class="IBUIButton" id="381706424">
 										<reference key="NSNextResponder" ref="48351761"/>
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{5, 282}, {298, 50}}</string>
 										<reference key="NSSuperview" ref="48351761"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<reference key="IBUIBackgroundColor" ref="959800369"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -500,14 +499,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">recipientImageButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="193484112"/>
-					</object>
-					<int key="connectionID">28</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">txtAmount</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="316687491"/>
@@ -547,6 +538,14 @@
 					<int key="connectionID">36</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">recipientImageButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="575145569"/>
+					</object>
+					<int key="connectionID">39</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">bgTouched:</string>
 						<reference key="source" ref="328586572"/>
@@ -575,12 +574,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">btnDonateClicked:</string>
+						<string key="label">btnSendMoneyClicked:</string>
 						<reference key="source" ref="381706424"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">37</int>
+					<int key="connectionID">38</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -630,10 +629,10 @@
 							<reference ref="1051170100"/>
 							<reference ref="94196828"/>
 							<reference ref="381706424"/>
-							<reference ref="575145569"/>
 							<reference ref="82797795"/>
 							<reference ref="691096565"/>
 							<reference ref="549865792"/>
+							<reference ref="575145569"/>
 							<reference ref="193484112"/>
 						</array>
 						<reference key="parent" ref="975056604"/>
@@ -735,59 +734,26 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">39</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">SendDonationViewController</string>
-					<string key="superclassName">UISendMoneyBaseViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">btnDonateClicked:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">btnDonateClicked:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">btnDonateClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/SendDonationViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">UIBaseViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">mainScrollView</string>
-						<string key="NS.object.0">UIScrollView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">mainScrollView</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">mainScrollView</string>
-							<string key="candidateClassName">UIScrollView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/UIBaseViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">UISendMoneyBaseViewController</string>
 					<string key="superclassName">UIBaseViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="bgTouched:">id</string>
+						<string key="btnSendMoneyClicked:">id</string>
 						<string key="pressedAmountButton:">id</string>
 						<string key="pressedChooseRecipientButton:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="bgTouched:">
 							<string key="name">bgTouched:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="btnSendMoneyClicked:">
+							<string key="name">btnSendMoneyClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="pressedAmountButton:">
@@ -812,6 +778,7 @@
 						<string key="txtAmount">UITextField</string>
 						<string key="txtComments">UITextView</string>
 						<string key="viewPanel">UIView</string>
+						<string key="whiteBoxView">UIButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="amountButtonBGImage">
@@ -862,10 +829,33 @@
 							<string key="name">viewPanel</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="whiteBoxView">
+							<string key="name">whiteBoxView</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/UISendMoneyBaseViewController.h</string>
+						<string key="minorKey">./Classes/SendDonationViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIBaseViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">mainScrollView</string>
+						<string key="NS.object.0">UIScrollView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">mainScrollView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">mainScrollView</string>
+							<string key="candidateClassName">UIScrollView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UIBaseViewController.h</string>
 					</object>
 				</object>
 			</array>
