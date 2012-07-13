@@ -50,7 +50,9 @@
     Application* myApplication;
     NSMutableArray* nonProfits;
     NSMutableArray* organizations;
+    NSString * fbAppId;
     
+    UINavigationController * mainAreaTabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -72,10 +74,15 @@
 @property (nonatomic, retain) ProgressHudInnnerViewController *myProgHudInnerView;
 @property (nonatomic, retain) CustomAlertViewController *customAlert;
 
+
+@property(nonatomic, retain) UINavigationController * mainAreaTabBarController;
 @property (nonatomic, assign) int animationTimer;
+
+
 @property(nonatomic, retain) Application* myApplication;
 @property(nonatomic, retain) NSMutableArray* nonProfits;
 @property(nonatomic, retain) NSMutableArray* organizations;
+@property(nonatomic, retain) NSString * fbAppId;
 
 -(void)signOut;
 -(void)forgetMe;

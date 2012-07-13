@@ -26,7 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.tableCellViewName = @"DoGoodUITableCellViewController";
+        // self.tableCellViewName = @"DoGoodUITableCellViewController"; // Not finished?
         
         // Custom initialization
         fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;

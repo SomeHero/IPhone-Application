@@ -22,26 +22,27 @@
 #import "GANTracker.h"
 #import "myProgressHud.h"
 #import "CustomAlertViewController.h"
+#import "HomeViewController.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
+@synthesize welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
 @synthesize myApplication;
 @synthesize nonProfits;
 @synthesize organizations;
+@synthesize fbAppId;
+@synthesize mainAreaTabBarController;
 
 -(void)switchToMainAreaTabbedView
 {
     [self.welcomeTabBarController.view removeFromSuperview];
     //[self.newUserFlowTabController.view removeFromSuperview];
     
-    [self.window addSubview:self.tabBarController.view];
-    [self.tabBarController setSelectedIndex:0];
-    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
-    [self.window bringSubviewToFront:self.tabBarController.view];
+    [self.window addSubview:self.mainAreaTabBarController.view];
+    [self.window bringSubviewToFront:self.mainAreaTabBarController.view];
     
     // Keep Progress Bar & Alert Views on top
     if ( myProgHudOverlay.view.superview ){
@@ -53,7 +54,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    [self startUserSetupFlow];
+    // [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
@@ -75,7 +76,7 @@
         
         if(setupFlowController == nil) {
             setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
-            [self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
             
         }
         else {
@@ -90,7 +91,7 @@
         PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
         
         if(setupFlowController == nil) {
-                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -107,7 +108,7 @@
         controller.message = [user.outstandingPayments objectAtIndex:0];
         
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -130,7 +131,7 @@
         AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
         controller.newUserFlow = true;
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -155,7 +156,7 @@
             
             [prefs synchronize];
             
-            [self.tabBarController dismissModalViewControllerAnimated:YES];
+            [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
             
             [setupFlowController release];
             setupFlowController = nil;
@@ -176,7 +177,7 @@
         
         [prefs synchronize];
         
-        [self.tabBarController dismissModalViewControllerAnimated:YES];
+        [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
         
         [setupFlowController release];
         setupFlowController = nil;
@@ -185,9 +186,9 @@
 }
 -(void)backToWelcomeTabbedArea
 {
-    [self.tabBarController.view removeFromSuperview];
+    [mainAreaTabBarController.view removeFromSuperview];
     
-    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
+    [mainAreaTabBarController.navigationController popToRootViewControllerAnimated:NO];
     [self.window addSubview:self.welcomeTabBarController.view];
     [self.welcomeTabBarController setSelectedIndex:1];
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
@@ -207,7 +208,7 @@
 {
     // Override point for customization after application launch.
     permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
-    [self.tabBarController setDelegate:self];
+    [mainAreaTabBarController setDelegate:self];
     
     Environment *myEnvironment = [Environment sharedInstance];
     
@@ -219,6 +220,10 @@
     NSString *googleAnalyticsKey = [NSString stringWithString: myEnvironment.GoogleAnalyticsKey];
     
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
+    
+    HomeViewController *hvc = [[HomeViewController alloc]init];
+    mainAreaTabBarController = [[UINavigationController alloc] initWithRootViewController:hvc];
+    [hvc release];
     
     [self.welcomeTabBarController setDelegate:self];
     [self.window addSubview:self.welcomeTabBarController.view];
@@ -368,15 +373,6 @@
     [prefs synchronize];
 }
 
--(void)switchToSendMoneyController {
-    [self.tabBarController setSelectedIndex:1];
-}
--(void)switchToRequestMoneyController {
-    [self.tabBarController setSelectedIndex:2];
-}
--(void)switchToPaystreamController {
-    [self.tabBarController setSelectedIndex:3];
-}
 
 /*
  -(UIImage*)findImageForContact:(Contact*)contact;
@@ -748,7 +744,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 - (void)dealloc
 {
     [_window release];
-    [_tabBarController release];
+    [mainAreaTabBarController release];
     [welcomeTabBarController release];
     [fBook release];
     [newUserFlowTabController release];
@@ -903,7 +899,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          self.myProgHudOverlay.view.alpha = 0.0;
                      }
                      completion:^(BOOL finished) {
-                         
+                         myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
                          [myProgHudOverlay.view removeFromSuperview];
                          [myProgHudOverlay.view removeFromSuperview];
                          
