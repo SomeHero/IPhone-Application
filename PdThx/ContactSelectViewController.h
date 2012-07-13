@@ -14,7 +14,8 @@
 #import "UIContactSelectBaseViewControllerViewController.h"
 
 @interface ContactSelectViewController : UIContactSelectBaseViewControllerViewController    
-{}
+{
+}
 
 - (IBAction)pressedSearchBox:(id)sender;
 

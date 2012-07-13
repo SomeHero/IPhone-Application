@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "UISendMoneyBaseViewController.h"
+#import "HBTabBarManager.h"
 
-@interface SendMoneyController : UISendMoneyBaseViewController {
+@interface SendMoneyController : UISendMoneyBaseViewController <HBTabBarDelegate> {
 }
+
+
+@property (nonatomic, retain) HBTabBarManager *tabBar;
 
 @end

@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "UIRequestMoneyViewController.h"
+#import "HBTabBarManager.h"
 
-@interface RequestMoneyController : UIRequestMoneyViewController {
-    
+@interface RequestMoneyController : UIRequestMoneyViewController <HBTabBarDelegate> {
 }
+
+
+@property (nonatomic, retain) HBTabBarManager *tabBar;
 
 @end

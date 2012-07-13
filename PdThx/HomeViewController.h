@@ -13,8 +13,9 @@
 #import "UserService.h"
 #import "IncreaseProfileViewController.h"
 #import "EditProfileViewController.h"
+#import "HBTabBarManager.h"
 
-@interface HomeViewController : UIBaseViewController< UserInformationCompleteProtocol>
+@interface HomeViewController : UIBaseViewController< UserInformationCompleteProtocol, HBTabBarDelegate>
 {
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *btnRequestMoney;
@@ -30,15 +31,21 @@
 
     UserService *userService;
 }
+
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UIButton *btnRequestMoney;
 @property(nonatomic, retain) UIButton *btnSendMoney;
 @property(nonatomic, retain) UILabel *lblUserName;
+
+@property (nonatomic, retain) HBTabBarManager *tabBar;
+
 
 -(IBAction) btnRequestMoneyClicked:(id) sender;
 -(IBAction) btnSendMoneyClicked:(id) sender;
 -(IBAction) btnProfileClicked:(id) sender;
 -(IBAction) btnPaystreamClicked: (id) sender;
 -(IBAction) btnIncreaseScoreClicked: (id) sender;
+
+
 
 @end
