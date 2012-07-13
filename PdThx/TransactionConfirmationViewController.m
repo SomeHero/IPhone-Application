@@ -80,36 +80,8 @@
     [transactionConfirmationDelegate onContinueClicked];
 }
 -(IBAction) btnFacebookShare:(id) sender {
-    NSUserDefaults * prefs = [NSUserDefaults standardUserDefaults];
-    if ( [prefs valueForKey:@"facebookId"] && [[prefs valueForKey:@"facebookId"] length] > 0 ) 
-    {
-        Facebook * fBook;
-        fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([defaults objectForKey:@"FBAccessTokenKey"] 
-            && [defaults objectForKey:@"FBExpirationDateKey"]) {
-            fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-            fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-        }
-        
-        if ( [fBook isSessionValid] ){
-            NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                           ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fbAppId, @"app_id",
-                                           @"JUST WORK DAMMIT, follow this link! http://www.paidthx.com", @"message",
-                                           @"http://www.paidthx.com", @"link",
-                                           @"http://www.crunchbase.com/assets/images/resized/0019/7057/197057v2-max-250x250.png", @"picture",
-                                           @"Try out PaidThx!", @"name",
-                                           [NSString stringWithFormat:@"%@ sent money to me for FREE!",@"Chris"], @"caption",
-                                           @"Using PaidThx, you can send money to ANYONE, even my favorite cause, from ANYWHERE!. Available for iPhone/Android to give you complete mobile control.", @"description",
-                                           nil];
-            
-            
-            [fBook requestWithGraphPath:@"feed" andParams:params andHttpMethod:@"POST" andDelegate:self];
-        }
-    }
-}
 
+}
 -(IBAction) btnTwitterShare:(id) sender {
     
 }

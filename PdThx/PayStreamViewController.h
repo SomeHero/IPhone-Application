@@ -16,10 +16,11 @@
 #import "IconDownloader.h"
 #import "PaystreamDetailBaseViewController.h"
 #import "StyledPullableView.h"
+#import "HBTabBarManager.h"
 
 @class UITransactionTableViewCell;
 
-@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate, PullableViewDelegate> {
+@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate, PullableViewDelegate, HBTabBarDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITableView *transactionsTableView;
     NSMutableData *responseData;
@@ -64,6 +65,8 @@
 
 @property (nonatomic, retain) PullableView *detailView;
 @property (nonatomic, retain) UIView *shadedLayer;
+
+@property (nonatomic, retain) HBTabBarManager *tabBar;
 
 -(IBAction)segmentedControlChanged;
 -(void)buildTransactionDictionary:(NSMutableArray*) array;

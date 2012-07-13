@@ -24,6 +24,8 @@
 #import "Application.h"
 #import "ApplicationService.h"
 #import "ApplicationSettingsCompleteProtocol.h"
+#import "Merchant.h"
+#import "MerchantServices.h"
 
 @class PdThxViewController;
 
@@ -46,7 +48,11 @@
     CustomAlertViewController *customAlert;
     UINavigationController* setupFlowController;
     Application* myApplication;
-    NSString *fbAppId;
+    NSMutableArray* nonProfits;
+    NSMutableArray* organizations;
+    NSString * fbAppId;
+    
+    UINavigationController * mainAreaTabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -68,10 +74,15 @@
 @property (nonatomic, retain) ProgressHudInnnerViewController *myProgHudInnerView;
 @property (nonatomic, retain) CustomAlertViewController *customAlert;
 
-@property (nonatomic, assign) int animationTimer;
-@property(nonatomic, retain) Application* myApplication;
 
-@property (nonatomic, retain) NSString *fbAppId;
+@property(nonatomic, retain) UINavigationController * mainAreaTabBarController;
+@property (nonatomic, assign) int animationTimer;
+
+
+@property(nonatomic, retain) Application* myApplication;
+@property(nonatomic, retain) NSMutableArray* nonProfits;
+@property(nonatomic, retain) NSMutableArray* organizations;
+@property(nonatomic, retain) NSString * fbAppId;
 
 -(void)signOut;
 -(void)forgetMe;
