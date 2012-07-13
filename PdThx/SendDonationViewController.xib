@@ -90,7 +90,7 @@
 									<object class="IBUIButton" id="747082893">
 										<reference key="NSNextResponder" ref="48351761"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrameSize">{308, 347}</string>
+										<string key="NSFrameSize">{308, 365}</string>
 										<reference key="NSSuperview" ref="48351761"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="193484112"/>
@@ -371,6 +371,7 @@
 										<string key="NSFrame">{{5, 282}, {298, 50}}</string>
 										<reference key="NSSuperview" ref="48351761"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<reference key="IBUIBackgroundColor" ref="959800369"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -401,7 +402,7 @@
 										</object>
 									</object>
 								</array>
-								<string key="NSFrame">{{6, 11}, {308, 347}}</string>
+								<string key="NSFrame">{{6, 11}, {308, 399}}</string>
 								<reference key="NSSuperview" ref="975056604"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="747082893"/>
@@ -413,7 +414,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 373}</string>
+						<string key="NSFrameSize">{320, 410}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="328586572"/>
@@ -423,7 +424,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
+				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="975056604"/>
@@ -435,7 +436,6 @@
 				<object class="IBUISimulatedNavigationBarMetrics" key="IBUISimulatedTopBarMetrics">
 					<bool key="IBUIPrompted">NO</bool>
 				</object>
-				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</array>
