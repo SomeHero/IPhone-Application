@@ -32,7 +32,7 @@ self = [super init];
 if(self) { 
     merchantId = [[dictionary valueForKey: @"Id"] copy];
     name = [[dictionary valueForKey: @"Name"] copy];
-    imageUrl = [[dictionary valueForKey: @"imageUrl"] copy];
+    imageUrl = [[dictionary valueForKey: @"MerchantImageUrl"] copy];
 }
 
 return self;

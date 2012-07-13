@@ -32,6 +32,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+<<<<<<< HEAD
+=======
+        // self.tableCellViewName = @"ContactTableViewCell"; // Not Finished?
+        
+>>>>>>> upstream/development
         // Custom initialization
         fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
         

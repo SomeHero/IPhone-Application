@@ -12,6 +12,7 @@
 #import "IconDownloader.h"
 #import "ContactSelectChosenProtocol.h"
 
+<<<<<<< HEAD
 @interface ContactSelectViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate>
 {
     IBOutlet UISearchBar *searchBar;
@@ -25,6 +26,10 @@
     IBOutlet UITextField *txtSearchBox;
     bool isFiltered;
     bool foundFiltered;
+=======
+@interface ContactSelectViewController : UIContactSelectBaseViewControllerViewController    
+{
+>>>>>>> upstream/development
 }
 
 @property (nonatomic, retain) UISearchBar *searchBar;

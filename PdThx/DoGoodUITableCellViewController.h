@@ -7,7 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrganizationDetailViewController.h"
 
-@interface DoGoodUITableCellViewController : UIViewController
+@interface DoGoodUITableCellViewController : UITableViewCell
+{
+    IBOutlet UIButton *contactImage;
+    IBOutlet UIButton* btnInfo;
+    IBOutlet UILabel *contactName;
+    IBOutlet UILabel *contactDetail;
+    IBOutlet UIView *overLayView;
+    id<DetailInfoButtonClicked> detailInfoButtonClicked;
+}
+
+@property(nonatomic, retain) id detailInfoButtonClicked;
+
+@property (nonatomic, retain) UIButton *contactImage;
+@property (nonatomic, retain) UILabel *contactName;
+@property (nonatomic, retain) UILabel *contactDetail;
+@property (nonatomic, retain) UIImage *imgData;
+
+-(IBAction)btnInfoClicked:(id)sender;
 
 @end

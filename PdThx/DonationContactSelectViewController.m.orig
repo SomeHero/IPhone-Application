@@ -1,12 +1,12 @@
 //
-//  UIContactSelectBaseViewControllerViewController.m
+//  ContactSelectViewController.m
 //  PdThx
 //
-//  Created by James Rhodes on 7/11/12.
+//  Created by James Rhodes on 5/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIContactSelectBaseViewControllerViewController.h"
+#import "DonationContactSelectViewController.h"
 #import "ContactTableViewCell.h"
 #import "Contact.h"
 #import "PhoneNumberFormatting.h"
@@ -16,24 +16,41 @@
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 
-@interface UIContactSelectBaseViewControllerViewController ()
+@interface DonationContactSelectViewController ()
 
 - (void)startIconDownload:(Contact*)contact forIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
-@implementation UIContactSelectBaseViewControllerViewController
+@implementation DonationContactSelectViewController
 
-@synthesize searchBar, tvSubview, fBook, allResults;
-@synthesize phoneNumberFormatter, fbIconsDownloading,contactSelectChosenDelegate;
+@synthesize searchBar, tvSubview, fBook;
+@synthesize fbIconsDownloading, causeSelectDidComplete;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+<<<<<<< HEAD
+=======
+        // self.tableCellViewName = @"DoGoodUITableCellViewController"; // Not finished?
+        
+>>>>>>> upstream/development
+        // Custom initialization
+        fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+        
+        allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).organizations;
+        
+        filteredResults = [[NSMutableArray alloc] init];
+        for ( int i = 0 ; i < 28 ; i ++ )
+            [filteredResults addObject:[[NSMutableArray alloc] init]];
+    }
+    return self;
+}
 
 -(void)refreshContactList:(NSNotification*)notification
 {
-    NSDictionary* dict = [notification userInfo];
-    
-    filteredResults = [[dict objectForKey:@"contacts"] mutableCopy];
-    
     [tvSubview reloadData];
 }
 
@@ -41,9 +58,24 @@
 {
     [txtSearchBox becomeFirstResponder];
 }
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Do any additional setup after loading the view from its nib.
+    txtSearchBox.frame =  CGRectMake(txtSearchBox.frame.origin.x, txtSearchBox.frame.origin.y, txtSearchBox.frame.size.width, 40);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
+    
+    self.fbIconsDownloading = [NSMutableDictionary dictionary];
+    
+    self.title = @"Donate To";
+}
+
+
 -(void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
     
     /* ---------------------------------------------------- */
     /*      Custom Settings Button Implementation           */
@@ -57,31 +89,9 @@
     UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
     
     self.navigationItem.rightBarButtonItem = settingsButtons;
-
-    [settingsBtn release];
-}
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
+    [settingsButtons release];
 }
 
-/*
- -(void)viewDidAppear:(BOOL)animated
- {
- if ( self.navigationController.navigationItem.backBarButtonItem != nil ) {
- UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
- UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
- [settingsBtn setImage:bgImage forState:UIControlStateNormal];
- settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
- [settingsBtn addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
- UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
- 
- self.navigationItem.backBarButtonItem = settingsButtons;
- [settingsButtons release];
- }
- }
- */
 
 -(void) backButtonClicked
 {
@@ -205,11 +215,12 @@
     UIImageView *altImageView = [[UIImageView alloc] initWithImage:altBackgroundImage];
     [altImageView setContentMode:UIViewContentModeScaleToFill];
     
-    ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
+    DoGoodUITableCellViewController *myCell = (DoGoodUITableCellViewController*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     
     if ( myCell == nil ){
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"DoGoodUITableCellViewController" owner:self options:nil];
         myCell = [nib objectAtIndex:0];
+        [myCell setDetailInfoButtonClicked: self];
     }
     
     
@@ -373,14 +384,14 @@
                     contact.recipientUri = txtSearchBox.text;
                 }
             }
-            [contactSelectChosenDelegate didChooseContact:contact];
+            [causeSelectDidComplete didChooseCause: contact];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            [contactSelectChosenDelegate didChooseContact:[[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+            [causeSelectDidComplete didChooseCause:[[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
             [self.navigationController popViewControllerAnimated:YES];
         }
     } else {
-        [contactSelectChosenDelegate didChooseContact:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+        [causeSelectDidComplete didChooseCause:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -391,8 +402,8 @@
     contact.name = [[txtSearchBox text] copy];
     contact.recipientUri = [[txtSearchBox text] copy];
     
-    [contactSelectChosenDelegate didChooseContact: contact];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [causeSelectDidComplete didChooseCause: contact];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -565,5 +576,15 @@
     }
     [tvSubview reloadData];
 }
+-(void)infoButtonClicked: (NSString*) merchantId;
+{
+    OrganizationDetailViewController* controller = [[OrganizationDetailViewController alloc] init];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [controller release];
+    [navBar release];
+}
 @end
-

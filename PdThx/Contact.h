@@ -18,6 +18,7 @@
     NSString *facebookID;
     UIImage *imgData;
     NSString *recipientUri;
+    NSString* recipientId;
 }
 
 @property(nonatomic, retain) NSString* name;
@@ -28,6 +29,7 @@
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *lastName;
 @property(nonatomic, retain) NSString *recipientUri;
+@property(nonatomic, retain) NSString* recipientId;
 
 -(NSComparisonResult)compare:(Contact*)otherContact;
 

@@ -239,11 +239,8 @@
 		5B11962215AB6C3A003F8D53 /* SendDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962015AB6C3A003F8D53 /* SendDonationViewController.xib */; };
 		5B11962615AB6E21003F8D53 /* AcceptPledgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962415AB6E21003F8D53 /* AcceptPledgeViewController.m */; };
 		5B11962715AB6E21003F8D53 /* AcceptPledgeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962515AB6E21003F8D53 /* AcceptPledgeViewController.xib */; };
-		5B11962A15AB76F2003F8D53 /* UISendMoneyBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */; };
-		5B11962D15ABBAF8003F8D53 /* UIRequestMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */; };
 		5B11963915ADFC6A003F8D53 /* MerchantServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11963815ADFC6A003F8D53 /* MerchantServices.m */; };
 		5B11963D15ADFFD1003F8D53 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11963C15ADFFD1003F8D53 /* Merchant.m */; };
-		5B11964115AE4A2C003F8D53 /* UIContactSelectBaseViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11964015AE4A2A003F8D53 /* UIContactSelectBaseViewControllerViewController.m */; };
 		5B11964415AE63FA003F8D53 /* DonationContactSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11964315AE63F9003F8D53 /* DonationContactSelectViewController.m */; };
 		5B11965015AEF2AC003F8D53 /* nav-selector-allcontacts-52x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B11964615AEF2AC003F8D53 /* nav-selector-allcontacts-52x30.png */; };
 		5B11965115AEF2AC003F8D53 /* nav-selector-allcontacts-52x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B11964715AEF2AC003F8D53 /* nav-selector-allcontacts-52x30@2x.png */; };
@@ -346,6 +343,8 @@
 		5B69E19E14B117EB003A0F66 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69E19914B117EB003A0F66 /* SBJsonWriter.m */; };
 		5B6D130315AF602F00F37A11 /* DoGoodUITableCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D130115AF602F00F37A11 /* DoGoodUITableCellViewController.m */; };
 		5B6D130415AF602F00F37A11 /* DoGoodUITableCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B6D130215AF602F00F37A11 /* DoGoodUITableCellViewController.xib */; };
+		5B6D131315AFA64B00F37A11 /* OrganizationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D131115AFA64A00F37A11 /* OrganizationDetailViewController.m */; };
+		5B6D131415AFA64B00F37A11 /* OrganizationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B6D131215AFA64A00F37A11 /* OrganizationDetailViewController.xib */; };
 		5B88680E1527F4EB00EA24A4 /* send_money_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88680D1527F4EB00EA24A4 /* send_money_off.png */; };
 		5B88681815287E9700EA24A4 /* icon_request_money_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88681715287E9700EA24A4 /* icon_request_money_off.png */; };
 		5B88681D1528824C00EA24A4 /* background_v1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88681C1528824C00EA24A4 /* background_v1.png */; };
@@ -850,17 +849,11 @@
 		5B11962315AB6E21003F8D53 /* AcceptPledgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptPledgeViewController.h; sourceTree = "<group>"; };
 		5B11962415AB6E21003F8D53 /* AcceptPledgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptPledgeViewController.m; sourceTree = "<group>"; };
 		5B11962515AB6E21003F8D53 /* AcceptPledgeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptPledgeViewController.xib; sourceTree = "<group>"; };
-		5B11962815AB76F2003F8D53 /* UISendMoneyBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISendMoneyBaseViewController.h; sourceTree = "<group>"; };
-		5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISendMoneyBaseViewController.m; sourceTree = "<group>"; };
-		5B11962B15ABBAF8003F8D53 /* UIRequestMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRequestMoneyViewController.h; sourceTree = "<group>"; };
-		5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRequestMoneyViewController.m; sourceTree = "<group>"; };
 		5B11963715ADFC6A003F8D53 /* MerchantServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantServices.h; sourceTree = "<group>"; };
 		5B11963815ADFC6A003F8D53 /* MerchantServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantServices.m; sourceTree = "<group>"; };
 		5B11963B15ADFFD1003F8D53 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
 		5B11963C15ADFFD1003F8D53 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		5B11963E15AE06D9003F8D53 /* MerchantServicesCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantServicesCompleteProtocol.h; sourceTree = "<group>"; };
-		5B11963F15AE4A25003F8D53 /* UIContactSelectBaseViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIContactSelectBaseViewControllerViewController.h; sourceTree = "<group>"; };
-		5B11964015AE4A2A003F8D53 /* UIContactSelectBaseViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIContactSelectBaseViewControllerViewController.m; sourceTree = "<group>"; };
 		5B11964215AE63F9003F8D53 /* DonationContactSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonationContactSelectViewController.h; sourceTree = "<group>"; };
 		5B11964315AE63F9003F8D53 /* DonationContactSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonationContactSelectViewController.m; sourceTree = "<group>"; };
 		5B11964615AEF2AC003F8D53 /* nav-selector-allcontacts-52x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-selector-allcontacts-52x30.png"; sourceTree = "<group>"; };
@@ -1010,6 +1003,11 @@
 		5B6D130015AF602F00F37A11 /* DoGoodUITableCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoGoodUITableCellViewController.h; sourceTree = "<group>"; };
 		5B6D130115AF602F00F37A11 /* DoGoodUITableCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoGoodUITableCellViewController.m; sourceTree = "<group>"; };
 		5B6D130215AF602F00F37A11 /* DoGoodUITableCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoGoodUITableCellViewController.xib; sourceTree = "<group>"; };
+		5B6D131015AFA64900F37A11 /* OrganizationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationDetailViewController.h; sourceTree = "<group>"; };
+		5B6D131115AFA64A00F37A11 /* OrganizationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationDetailViewController.m; sourceTree = "<group>"; };
+		5B6D131215AFA64A00F37A11 /* OrganizationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganizationDetailViewController.xib; sourceTree = "<group>"; };
+		5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailInfoButtonClicked.h; sourceTree = "<group>"; };
+		5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CauseSelectDidCompleteProtocol.h; sourceTree = "<group>"; };
 		5B8147C11587B54000CE10AA /* AcceptPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptPaymentRequestProtocol.h; sourceTree = "<group>"; };
 		5B8147C21587BAFF00CE10AA /* RejectPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectPaymentRequestProtocol.h; sourceTree = "<group>"; };
 		5B8147C31587BC2100CE10AA /* CancelPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelPaymentRequestProtocol.h; sourceTree = "<group>"; };
@@ -1787,6 +1785,9 @@
 				5B6D130015AF602F00F37A11 /* DoGoodUITableCellViewController.h */,
 				5B6D130115AF602F00F37A11 /* DoGoodUITableCellViewController.m */,
 				5B6D130215AF602F00F37A11 /* DoGoodUITableCellViewController.xib */,
+				5B6D131015AFA64900F37A11 /* OrganizationDetailViewController.h */,
+				5B6D131115AFA64A00F37A11 /* OrganizationDetailViewController.m */,
+				5B6D131215AFA64A00F37A11 /* OrganizationDetailViewController.xib */,
 			);
 			name = "Do Good View";
 			sourceTree = "<group>";
@@ -2533,6 +2534,8 @@
 				5B8B45C215A8F8A200822B67 /* ApplicationSettingsCompleteProtocol.h */,
 				5B8B45DB15AA134100822B67 /* UserSettingsCompleteProtocol.h */,
 				5B11963E15AE06D9003F8D53 /* MerchantServicesCompleteProtocol.h */,
+				5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */,
+				5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2611,12 +2614,6 @@
 				5BF07B031597926B0020EA2F /* IncreaseProfileViewController.m */,
 				5BF07B05159794570020EA2F /* UIModalBaseViewController.h */,
 				5BF07B06159794570020EA2F /* UIModalBaseViewController.m */,
-				5B11962815AB76F2003F8D53 /* UISendMoneyBaseViewController.h */,
-				5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */,
-				5B11962B15ABBAF8003F8D53 /* UIRequestMoneyViewController.h */,
-				5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */,
-				5B11963F15AE4A25003F8D53 /* UIContactSelectBaseViewControllerViewController.h */,
-				5B11964015AE4A2A003F8D53 /* UIContactSelectBaseViewControllerViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -3201,6 +3198,7 @@
 				5B11966F15AEF30B003F8D53 /* btn-info-50x50@2x.png in Resources */,
 				5B11967415AEF445003F8D53 /* DonationContactSelectViewController.xib in Resources */,
 				5B6D130415AF602F00F37A11 /* DoGoodUITableCellViewController.xib in Resources */,
+				5B6D131415AFA64B00F37A11 /* OrganizationDetailViewController.xib in Resources */,
 				540E635615AFDE890089A5F5 /* HBCustomTabBar.xib in Resources */,
 				540E637115AFE5600089A5F5 /* bg-tabnav-320x55.png in Resources */,
 				540E637215AFE5600089A5F5 /* bg-tabnav-320x55@2x.png in Resources */,
@@ -3386,13 +3384,11 @@
 				5B8B45D215A9CF6400822B67 /* ZendeskDropboxSampleViewController.m in Sources */,
 				5B11962115AB6C3A003F8D53 /* SendDonationViewController.m in Sources */,
 				5B11962615AB6E21003F8D53 /* AcceptPledgeViewController.m in Sources */,
-				5B11962A15AB76F2003F8D53 /* UISendMoneyBaseViewController.m in Sources */,
-				5B11962D15ABBAF8003F8D53 /* UIRequestMoneyViewController.m in Sources */,
 				5B11963915ADFC6A003F8D53 /* MerchantServices.m in Sources */,
 				5B11963D15ADFFD1003F8D53 /* Merchant.m in Sources */,
-				5B11964115AE4A2C003F8D53 /* UIContactSelectBaseViewControllerViewController.m in Sources */,
 				5B11964415AE63FA003F8D53 /* DonationContactSelectViewController.m in Sources */,
 				5B6D130315AF602F00F37A11 /* DoGoodUITableCellViewController.m in Sources */,
+				5B6D131315AFA64B00F37A11 /* OrganizationDetailViewController.m in Sources */,
 				540E635515AFDE890089A5F5 /* HBCustomTabBar.m in Sources */,
 				540E635715AFDE890089A5F5 /* HBTabBarManager.m in Sources */,
 			);
