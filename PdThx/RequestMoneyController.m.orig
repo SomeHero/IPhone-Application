@@ -57,8 +57,8 @@
 
 - (void)dealloc
 {
-        [tabBar release];
-/*  ------------------------------------------------------ */
+<<<<<<< HEAD
+    /*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
     [viewPanel release];
@@ -84,6 +84,9 @@
     [attachPictureButton release];
     [characterCountLabel release];
     [characterCountLabel release];
+=======
+    [tabBar release];
+>>>>>>> upstream/development
     [super dealloc];
 }
 
@@ -247,6 +250,7 @@
     
 }
 
+<<<<<<< HEAD
 - (IBAction)pressedAttachPictureButton:(id)sender {
     if ( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] )
     {
@@ -529,6 +533,9 @@
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
 
+
+@end
+=======
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {
     if( buttonIndex == 0 )
@@ -603,3 +610,4 @@
 
 
 @end
+>>>>>>> upstream/development

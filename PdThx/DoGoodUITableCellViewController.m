@@ -14,32 +14,44 @@
 
 @implementation DoGoodUITableCellViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize contactName, contactDetail, contactImage;
+@synthesize imgData;
+@synthesize detailInfoButtonClicked;
+
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Custom initialization
+        // Initialization code
         
     }
     return self;
 }
 
-- (void)viewDidLoad
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
 }
 
-- (void)viewDidUnload
+- (void)dealloc 
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [contactImage release];
+    [contactImage release];
+    [contactDetail release];
+    [contactName release];
+    [super dealloc];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+-(IBAction)btnInfoClicked:(id)sender
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    UIButton* buttonClicked = (UIButton*)sender;
+    
+    [detailInfoButtonClicked infoButtonClicked: @"James"];
+    
 }
 
 @end
