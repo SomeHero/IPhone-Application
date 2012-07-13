@@ -11,6 +11,33 @@
 		540025A91598A55C00332A10 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540025A81598A55C00332A10 /* ChangePasswordViewController.xib */; };
 		540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 540025B81598B3F500332A10 /* MeCodeSetupViewController.m */; };
 		540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */; };
+		540E635515AFDE890089A5F5 /* HBCustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E635115AFDE890089A5F5 /* HBCustomTabBar.m */; };
+		540E635615AFDE890089A5F5 /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540E635215AFDE890089A5F5 /* HBCustomTabBar.xib */; };
+		540E635715AFDE890089A5F5 /* HBTabBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E635415AFDE890089A5F5 /* HBTabBarManager.m */; };
+		540E637115AFE5600089A5F5 /* bg-tabnav-320x55.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635915AFE5600089A5F5 /* bg-tabnav-320x55.png */; };
+		540E637215AFE5600089A5F5 /* bg-tabnav-320x55@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635A15AFE5600089A5F5 /* bg-tabnav-320x55@2x.png */; };
+		540E637315AFE5600089A5F5 /* dogood-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635B15AFE5600089A5F5 /* dogood-active@2x.png */; };
+		540E637415AFE5600089A5F5 /* dogood-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635C15AFE5600089A5F5 /* dogood-inactive@2x.png */; };
+		540E637515AFE5600089A5F5 /* home-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635D15AFE5600089A5F5 /* home-active@2x.png */; };
+		540E637615AFE5600089A5F5 /* home-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635E15AFE5600089A5F5 /* home-inactive@2x.png */; };
+		540E637715AFE5600089A5F5 /* paystream-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635F15AFE5600089A5F5 /* paystream-active@2x.png */; };
+		540E637815AFE5600089A5F5 /* paystream-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636015AFE5600089A5F5 /* paystream-inactive.png */; };
+		540E637915AFE5600089A5F5 /* paystream-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636115AFE5600089A5F5 /* paystream-inactive@2x.png */; };
+		540E637A15AFE5600089A5F5 /* send-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636215AFE5600089A5F5 /* send-active@2x.png */; };
+		540E637B15AFE5600089A5F5 /* send-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636315AFE5600089A5F5 /* send-inactive.png */; };
+		540E637C15AFE5600089A5F5 /* send-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636415AFE5600089A5F5 /* send-inactive@2x.png */; };
+		540E637D15AFE5600089A5F5 /* tab-paystream-30x30-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636515AFE5600089A5F5 /* tab-paystream-30x30-active.png */; };
+		540E637E15AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636615AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png */; };
+		540E637F15AFE5600089A5F5 /* tab-paystream-30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636715AFE5600089A5F5 /* tab-paystream-30x30.png */; };
+		540E638015AFE5600089A5F5 /* tab-paystream-30x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636815AFE5600089A5F5 /* tab-paystream-30x30@2x.png */; };
+		540E638115AFE5600089A5F5 /* tab-request-30x30-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636915AFE5600089A5F5 /* tab-request-30x30-active.png */; };
+		540E638215AFE5600089A5F5 /* tab-request-30x30-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636A15AFE5600089A5F5 /* tab-request-30x30-active@2x.png */; };
+		540E638315AFE5600089A5F5 /* tab-request-30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636B15AFE5600089A5F5 /* tab-request-30x30.png */; };
+		540E638415AFE5600089A5F5 /* tab-request-30x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636C15AFE5600089A5F5 /* tab-request-30x30@2x.png */; };
+		540E638515AFE5600089A5F5 /* tab-send-30x30-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636D15AFE5600089A5F5 /* tab-send-30x30-active.png */; };
+		540E638615AFE5600089A5F5 /* tab-send-30x30-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636E15AFE5600089A5F5 /* tab-send-30x30-active@2x.png */; };
+		540E638715AFE5600089A5F5 /* tab-send-30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636F15AFE5600089A5F5 /* tab-send-30x30.png */; };
+		540E638815AFE5600089A5F5 /* tab-send-30x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E637015AFE5600089A5F5 /* tab-send-30x30@2x.png */; };
 		54196D9B156695B9009F29C5 /* button_quick_link_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 54196D9A156695B9009F29C5 /* button_quick_link_request.png */; };
 		541EE5881589092200131B0E /* TAB-DG.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5821589092200131B0E /* TAB-DG.png */; };
 		541EE58A1589092200131B0E /* TAB-HM.png in Resources */ = {isa = PBXBuildFile; fileRef = 541EE5841589092200131B0E /* TAB-HM.png */; };
@@ -150,9 +177,7 @@
 		54BFF48D15AB2826000681A3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69E17414B0BCA8003A0F66 /* CFNetwork.framework */; };
 		54CACB38158676CF00631B84 /* NavigationBar-320x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB36158676CF00631B84 /* NavigationBar-320x44.png */; };
 		54CACB39158676CF00631B84 /* NavigationBar-320x44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB37158676CF00631B84 /* NavigationBar-320x44@2x.png */; };
-		54CACB4A1586883D00631B84 /* dogood-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB401586883D00631B84 /* dogood-inactive.png */; };
 		54CACB4B1586883D00631B84 /* dogood-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB411586883D00631B84 /* dogood-inactive@2x.png */; };
-		54CACB4C1586883D00631B84 /* home-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB421586883D00631B84 /* home-inactive.png */; };
 		54CACB4D1586883D00631B84 /* home-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB431586883D00631B84 /* home-inactive@2x.png */; };
 		54CACB4E1586883D00631B84 /* paystream-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB441586883D00631B84 /* paystream-inactive.png */; };
 		54CACB4F1586883D00631B84 /* paystream-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACB451586883D00631B84 /* paystream-inactive@2x.png */; };
@@ -214,11 +239,8 @@
 		5B11962215AB6C3A003F8D53 /* SendDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962015AB6C3A003F8D53 /* SendDonationViewController.xib */; };
 		5B11962615AB6E21003F8D53 /* AcceptPledgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962415AB6E21003F8D53 /* AcceptPledgeViewController.m */; };
 		5B11962715AB6E21003F8D53 /* AcceptPledgeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962515AB6E21003F8D53 /* AcceptPledgeViewController.xib */; };
-		5B11962A15AB76F2003F8D53 /* UISendMoneyBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */; };
-		5B11962D15ABBAF8003F8D53 /* UIRequestMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */; };
 		5B11963915ADFC6A003F8D53 /* MerchantServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11963815ADFC6A003F8D53 /* MerchantServices.m */; };
 		5B11963D15ADFFD1003F8D53 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11963C15ADFFD1003F8D53 /* Merchant.m */; };
-		5B11964115AE4A2C003F8D53 /* UIContactSelectBaseViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11964015AE4A2A003F8D53 /* UIContactSelectBaseViewControllerViewController.m */; };
 		5B11964415AE63FA003F8D53 /* DonationContactSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11964315AE63F9003F8D53 /* DonationContactSelectViewController.m */; };
 		5B11965015AEF2AC003F8D53 /* nav-selector-allcontacts-52x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B11964615AEF2AC003F8D53 /* nav-selector-allcontacts-52x30.png */; };
 		5B11965115AEF2AC003F8D53 /* nav-selector-allcontacts-52x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B11964715AEF2AC003F8D53 /* nav-selector-allcontacts-52x30@2x.png */; };
@@ -321,6 +343,8 @@
 		5B69E19E14B117EB003A0F66 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69E19914B117EB003A0F66 /* SBJsonWriter.m */; };
 		5B6D130315AF602F00F37A11 /* DoGoodUITableCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D130115AF602F00F37A11 /* DoGoodUITableCellViewController.m */; };
 		5B6D130415AF602F00F37A11 /* DoGoodUITableCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B6D130215AF602F00F37A11 /* DoGoodUITableCellViewController.xib */; };
+		5B6D131315AFA64B00F37A11 /* OrganizationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D131115AFA64A00F37A11 /* OrganizationDetailViewController.m */; };
+		5B6D131415AFA64B00F37A11 /* OrganizationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B6D131215AFA64A00F37A11 /* OrganizationDetailViewController.xib */; };
 		5B88680E1527F4EB00EA24A4 /* send_money_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88680D1527F4EB00EA24A4 /* send_money_off.png */; };
 		5B88681815287E9700EA24A4 /* icon_request_money_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88681715287E9700EA24A4 /* icon_request_money_off.png */; };
 		5B88681D1528824C00EA24A4 /* background_v1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B88681C1528824C00EA24A4 /* background_v1.png */; };
@@ -550,6 +574,35 @@
 		540025B81598B3F500332A10 /* MeCodeSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeSetupViewController.m; sourceTree = "<group>"; };
 		540025B91598B3F500332A10 /* MeCodeSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeSetupViewController.h; sourceTree = "<group>"; };
 		540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeSetupViewController.xib; sourceTree = "<group>"; };
+		540E635015AFDE890089A5F5 /* HBCustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCustomTabBar.h; sourceTree = "<group>"; };
+		540E635115AFDE890089A5F5 /* HBCustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCustomTabBar.m; sourceTree = "<group>"; };
+		540E635215AFDE890089A5F5 /* HBCustomTabBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBCustomTabBar.xib; sourceTree = "<group>"; };
+		540E635315AFDE890089A5F5 /* HBTabBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBTabBarManager.h; sourceTree = "<group>"; };
+		540E635415AFDE890089A5F5 /* HBTabBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBTabBarManager.m; sourceTree = "<group>"; };
+		540E635915AFE5600089A5F5 /* bg-tabnav-320x55.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-tabnav-320x55.png"; sourceTree = "<group>"; };
+		540E635A15AFE5600089A5F5 /* bg-tabnav-320x55@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-tabnav-320x55@2x.png"; sourceTree = "<group>"; };
+		540E635B15AFE5600089A5F5 /* dogood-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dogood-active@2x.png"; sourceTree = "<group>"; };
+		540E635C15AFE5600089A5F5 /* dogood-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dogood-inactive@2x.png"; sourceTree = "<group>"; };
+		540E635D15AFE5600089A5F5 /* home-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-active@2x.png"; sourceTree = "<group>"; };
+		540E635E15AFE5600089A5F5 /* home-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-inactive@2x.png"; sourceTree = "<group>"; };
+		540E635F15AFE5600089A5F5 /* paystream-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paystream-active@2x.png"; sourceTree = "<group>"; };
+		540E636015AFE5600089A5F5 /* paystream-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paystream-inactive.png"; sourceTree = "<group>"; };
+		540E636115AFE5600089A5F5 /* paystream-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paystream-inactive@2x.png"; sourceTree = "<group>"; };
+		540E636215AFE5600089A5F5 /* send-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-active@2x.png"; sourceTree = "<group>"; };
+		540E636315AFE5600089A5F5 /* send-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-inactive.png"; sourceTree = "<group>"; };
+		540E636415AFE5600089A5F5 /* send-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-inactive@2x.png"; sourceTree = "<group>"; };
+		540E636515AFE5600089A5F5 /* tab-paystream-30x30-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-paystream-30x30-active.png"; sourceTree = "<group>"; };
+		540E636615AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-paystream-30x30-active@2x.png"; sourceTree = "<group>"; };
+		540E636715AFE5600089A5F5 /* tab-paystream-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-paystream-30x30.png"; sourceTree = "<group>"; };
+		540E636815AFE5600089A5F5 /* tab-paystream-30x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-paystream-30x30@2x.png"; sourceTree = "<group>"; };
+		540E636915AFE5600089A5F5 /* tab-request-30x30-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-request-30x30-active.png"; sourceTree = "<group>"; };
+		540E636A15AFE5600089A5F5 /* tab-request-30x30-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-request-30x30-active@2x.png"; sourceTree = "<group>"; };
+		540E636B15AFE5600089A5F5 /* tab-request-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-request-30x30.png"; sourceTree = "<group>"; };
+		540E636C15AFE5600089A5F5 /* tab-request-30x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-request-30x30@2x.png"; sourceTree = "<group>"; };
+		540E636D15AFE5600089A5F5 /* tab-send-30x30-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-send-30x30-active.png"; sourceTree = "<group>"; };
+		540E636E15AFE5600089A5F5 /* tab-send-30x30-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-send-30x30-active@2x.png"; sourceTree = "<group>"; };
+		540E636F15AFE5600089A5F5 /* tab-send-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-send-30x30.png"; sourceTree = "<group>"; };
+		540E637015AFE5600089A5F5 /* tab-send-30x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-send-30x30@2x.png"; sourceTree = "<group>"; };
 		54196D9A156695B9009F29C5 /* button_quick_link_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_quick_link_request.png; sourceTree = "<group>"; };
 		541EE5821589092200131B0E /* TAB-DG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-DG.png"; sourceTree = "<group>"; };
 		541EE5841589092200131B0E /* TAB-HM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-HM.png"; sourceTree = "<group>"; };
@@ -712,9 +765,7 @@
 		54B9B409156BE00B00DEA724 /* temp_remind_later_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp_remind_later_button.png; sourceTree = "<group>"; };
 		54CACB36158676CF00631B84 /* NavigationBar-320x44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavigationBar-320x44.png"; sourceTree = "<group>"; };
 		54CACB37158676CF00631B84 /* NavigationBar-320x44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavigationBar-320x44@2x.png"; sourceTree = "<group>"; };
-		54CACB401586883D00631B84 /* dogood-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dogood-inactive.png"; sourceTree = "<group>"; };
 		54CACB411586883D00631B84 /* dogood-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dogood-inactive@2x.png"; sourceTree = "<group>"; };
-		54CACB421586883D00631B84 /* home-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-inactive.png"; sourceTree = "<group>"; };
 		54CACB431586883D00631B84 /* home-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-inactive@2x.png"; sourceTree = "<group>"; };
 		54CACB441586883D00631B84 /* paystream-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paystream-inactive.png"; sourceTree = "<group>"; };
 		54CACB451586883D00631B84 /* paystream-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paystream-inactive@2x.png"; sourceTree = "<group>"; };
@@ -798,17 +849,11 @@
 		5B11962315AB6E21003F8D53 /* AcceptPledgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptPledgeViewController.h; sourceTree = "<group>"; };
 		5B11962415AB6E21003F8D53 /* AcceptPledgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptPledgeViewController.m; sourceTree = "<group>"; };
 		5B11962515AB6E21003F8D53 /* AcceptPledgeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptPledgeViewController.xib; sourceTree = "<group>"; };
-		5B11962815AB76F2003F8D53 /* UISendMoneyBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISendMoneyBaseViewController.h; sourceTree = "<group>"; };
-		5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISendMoneyBaseViewController.m; sourceTree = "<group>"; };
-		5B11962B15ABBAF8003F8D53 /* UIRequestMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRequestMoneyViewController.h; sourceTree = "<group>"; };
-		5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRequestMoneyViewController.m; sourceTree = "<group>"; };
 		5B11963715ADFC6A003F8D53 /* MerchantServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantServices.h; sourceTree = "<group>"; };
 		5B11963815ADFC6A003F8D53 /* MerchantServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantServices.m; sourceTree = "<group>"; };
 		5B11963B15ADFFD1003F8D53 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
 		5B11963C15ADFFD1003F8D53 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		5B11963E15AE06D9003F8D53 /* MerchantServicesCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantServicesCompleteProtocol.h; sourceTree = "<group>"; };
-		5B11963F15AE4A25003F8D53 /* UIContactSelectBaseViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIContactSelectBaseViewControllerViewController.h; sourceTree = "<group>"; };
-		5B11964015AE4A2A003F8D53 /* UIContactSelectBaseViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIContactSelectBaseViewControllerViewController.m; sourceTree = "<group>"; };
 		5B11964215AE63F9003F8D53 /* DonationContactSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonationContactSelectViewController.h; sourceTree = "<group>"; };
 		5B11964315AE63F9003F8D53 /* DonationContactSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonationContactSelectViewController.m; sourceTree = "<group>"; };
 		5B11964615AEF2AC003F8D53 /* nav-selector-allcontacts-52x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-selector-allcontacts-52x30.png"; sourceTree = "<group>"; };
@@ -958,6 +1003,11 @@
 		5B6D130015AF602F00F37A11 /* DoGoodUITableCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoGoodUITableCellViewController.h; sourceTree = "<group>"; };
 		5B6D130115AF602F00F37A11 /* DoGoodUITableCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoGoodUITableCellViewController.m; sourceTree = "<group>"; };
 		5B6D130215AF602F00F37A11 /* DoGoodUITableCellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoGoodUITableCellViewController.xib; sourceTree = "<group>"; };
+		5B6D131015AFA64900F37A11 /* OrganizationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationDetailViewController.h; sourceTree = "<group>"; };
+		5B6D131115AFA64A00F37A11 /* OrganizationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationDetailViewController.m; sourceTree = "<group>"; };
+		5B6D131215AFA64A00F37A11 /* OrganizationDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganizationDetailViewController.xib; sourceTree = "<group>"; };
+		5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailInfoButtonClicked.h; sourceTree = "<group>"; };
+		5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CauseSelectDidCompleteProtocol.h; sourceTree = "<group>"; };
 		5B8147C11587B54000CE10AA /* AcceptPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptPaymentRequestProtocol.h; sourceTree = "<group>"; };
 		5B8147C21587BAFF00CE10AA /* RejectPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RejectPaymentRequestProtocol.h; sourceTree = "<group>"; };
 		5B8147C31587BC2100CE10AA /* CancelPaymentRequestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelPaymentRequestProtocol.h; sourceTree = "<group>"; };
@@ -1267,6 +1317,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		540E634E15AFDE650089A5F5 /* Custom Tab bar */ = {
+			isa = PBXGroup;
+			children = (
+				540E635015AFDE890089A5F5 /* HBCustomTabBar.h */,
+				540E635115AFDE890089A5F5 /* HBCustomTabBar.m */,
+				540E635215AFDE890089A5F5 /* HBCustomTabBar.xib */,
+				540E635315AFDE890089A5F5 /* HBTabBarManager.h */,
+				540E635415AFDE890089A5F5 /* HBTabBarManager.m */,
+			);
+			name = "Custom Tab bar";
+			sourceTree = "<group>";
+		};
+		540E635815AFE4AB0089A5F5 /* Custom Tab Bar Images */ = {
+			isa = PBXGroup;
+			children = (
+				540E635915AFE5600089A5F5 /* bg-tabnav-320x55.png */,
+				540E635A15AFE5600089A5F5 /* bg-tabnav-320x55@2x.png */,
+				540E635B15AFE5600089A5F5 /* dogood-active@2x.png */,
+				540E635C15AFE5600089A5F5 /* dogood-inactive@2x.png */,
+				540E635D15AFE5600089A5F5 /* home-active@2x.png */,
+				540E635E15AFE5600089A5F5 /* home-inactive@2x.png */,
+				540E635F15AFE5600089A5F5 /* paystream-active@2x.png */,
+				540E636015AFE5600089A5F5 /* paystream-inactive.png */,
+				540E636115AFE5600089A5F5 /* paystream-inactive@2x.png */,
+				540E636215AFE5600089A5F5 /* send-active@2x.png */,
+				540E636315AFE5600089A5F5 /* send-inactive.png */,
+				540E636415AFE5600089A5F5 /* send-inactive@2x.png */,
+				540E636515AFE5600089A5F5 /* tab-paystream-30x30-active.png */,
+				540E636615AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png */,
+				540E636715AFE5600089A5F5 /* tab-paystream-30x30.png */,
+				540E636815AFE5600089A5F5 /* tab-paystream-30x30@2x.png */,
+				540E636915AFE5600089A5F5 /* tab-request-30x30-active.png */,
+				540E636A15AFE5600089A5F5 /* tab-request-30x30-active@2x.png */,
+				540E636B15AFE5600089A5F5 /* tab-request-30x30.png */,
+				540E636C15AFE5600089A5F5 /* tab-request-30x30@2x.png */,
+				540E636D15AFE5600089A5F5 /* tab-send-30x30-active.png */,
+				540E636E15AFE5600089A5F5 /* tab-send-30x30-active@2x.png */,
+				540E636F15AFE5600089A5F5 /* tab-send-30x30.png */,
+				540E637015AFE5600089A5F5 /* tab-send-30x30@2x.png */,
+			);
+			name = "Custom Tab Bar Images";
+			sourceTree = "<group>";
+		};
 		541EE57F1589090F00131B0E /* Welcome Tab bar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1601,6 +1694,7 @@
 		54A139AF1582702700668984 /* Custom UI Features */ = {
 			isa = PBXGroup;
 			children = (
+				540E634E15AFDE650089A5F5 /* Custom Tab bar */,
 				54D3A7EC159D836B00364483 /* Custom Alert View */,
 				54805866159A3B5700ED591C /* Activity Indicator */,
 				54805865159A3B4B00ED591C /* Pin Swpe */,
@@ -1660,9 +1754,7 @@
 		54A139D71584301400668984 /* Tab Bar Icons */ = {
 			isa = PBXGroup;
 			children = (
-				54CACB401586883D00631B84 /* dogood-inactive.png */,
 				54CACB411586883D00631B84 /* dogood-inactive@2x.png */,
-				54CACB421586883D00631B84 /* home-inactive.png */,
 				54CACB431586883D00631B84 /* home-inactive@2x.png */,
 				54CACB441586883D00631B84 /* paystream-inactive.png */,
 				54CACB451586883D00631B84 /* paystream-inactive@2x.png */,
@@ -1693,6 +1785,9 @@
 				5B6D130015AF602F00F37A11 /* DoGoodUITableCellViewController.h */,
 				5B6D130115AF602F00F37A11 /* DoGoodUITableCellViewController.m */,
 				5B6D130215AF602F00F37A11 /* DoGoodUITableCellViewController.xib */,
+				5B6D131015AFA64900F37A11 /* OrganizationDetailViewController.h */,
+				5B6D131115AFA64A00F37A11 /* OrganizationDetailViewController.m */,
+				5B6D131215AFA64A00F37A11 /* OrganizationDetailViewController.xib */,
 			);
 			name = "Do Good View";
 			sourceTree = "<group>";
@@ -2089,6 +2184,7 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				540E635815AFE4AB0089A5F5 /* Custom Tab Bar Images */,
 				5B11966315AEF2FE003F8D53 /* Donate Images */,
 				5B11964515AEF288003F8D53 /* Navigation Bar Icons */,
 				5B8B45AC15A6686E00822B67 /* Facebook.jpg */,
@@ -2438,6 +2534,8 @@
 				5B8B45C215A8F8A200822B67 /* ApplicationSettingsCompleteProtocol.h */,
 				5B8B45DB15AA134100822B67 /* UserSettingsCompleteProtocol.h */,
 				5B11963E15AE06D9003F8D53 /* MerchantServicesCompleteProtocol.h */,
+				5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */,
+				5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2516,12 +2614,6 @@
 				5BF07B031597926B0020EA2F /* IncreaseProfileViewController.m */,
 				5BF07B05159794570020EA2F /* UIModalBaseViewController.h */,
 				5BF07B06159794570020EA2F /* UIModalBaseViewController.m */,
-				5B11962815AB76F2003F8D53 /* UISendMoneyBaseViewController.h */,
-				5B11962915AB76F2003F8D53 /* UISendMoneyBaseViewController.m */,
-				5B11962B15ABBAF8003F8D53 /* UIRequestMoneyViewController.h */,
-				5B11962C15ABBAF8003F8D53 /* UIRequestMoneyViewController.m */,
-				5B11963F15AE4A25003F8D53 /* UIContactSelectBaseViewControllerViewController.h */,
-				5B11964015AE4A2A003F8D53 /* UIContactSelectBaseViewControllerViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2844,9 +2936,7 @@
 				54A13AAD15865A5D00668984 /* BTN-Nav-X-35x30@2x.png in Resources */,
 				54CACB38158676CF00631B84 /* NavigationBar-320x44.png in Resources */,
 				54CACB39158676CF00631B84 /* NavigationBar-320x44@2x.png in Resources */,
-				54CACB4A1586883D00631B84 /* dogood-inactive.png in Resources */,
 				54CACB4B1586883D00631B84 /* dogood-inactive@2x.png in Resources */,
-				54CACB4C1586883D00631B84 /* home-inactive.png in Resources */,
 				54CACB4D1586883D00631B84 /* home-inactive@2x.png in Resources */,
 				54CACB4E1586883D00631B84 /* paystream-inactive.png in Resources */,
 				54CACB4F1586883D00631B84 /* paystream-inactive@2x.png in Resources */,
@@ -3108,6 +3198,35 @@
 				5B11966F15AEF30B003F8D53 /* btn-info-50x50@2x.png in Resources */,
 				5B11967415AEF445003F8D53 /* DonationContactSelectViewController.xib in Resources */,
 				5B6D130415AF602F00F37A11 /* DoGoodUITableCellViewController.xib in Resources */,
+<<<<<<< HEAD
+				5B6D131415AFA64B00F37A11 /* OrganizationDetailViewController.xib in Resources */,
+=======
+				540E635615AFDE890089A5F5 /* HBCustomTabBar.xib in Resources */,
+				540E637115AFE5600089A5F5 /* bg-tabnav-320x55.png in Resources */,
+				540E637215AFE5600089A5F5 /* bg-tabnav-320x55@2x.png in Resources */,
+				540E637315AFE5600089A5F5 /* dogood-active@2x.png in Resources */,
+				540E637415AFE5600089A5F5 /* dogood-inactive@2x.png in Resources */,
+				540E637515AFE5600089A5F5 /* home-active@2x.png in Resources */,
+				540E637615AFE5600089A5F5 /* home-inactive@2x.png in Resources */,
+				540E637715AFE5600089A5F5 /* paystream-active@2x.png in Resources */,
+				540E637815AFE5600089A5F5 /* paystream-inactive.png in Resources */,
+				540E637915AFE5600089A5F5 /* paystream-inactive@2x.png in Resources */,
+				540E637A15AFE5600089A5F5 /* send-active@2x.png in Resources */,
+				540E637B15AFE5600089A5F5 /* send-inactive.png in Resources */,
+				540E637C15AFE5600089A5F5 /* send-inactive@2x.png in Resources */,
+				540E637D15AFE5600089A5F5 /* tab-paystream-30x30-active.png in Resources */,
+				540E637E15AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png in Resources */,
+				540E637F15AFE5600089A5F5 /* tab-paystream-30x30.png in Resources */,
+				540E638015AFE5600089A5F5 /* tab-paystream-30x30@2x.png in Resources */,
+				540E638115AFE5600089A5F5 /* tab-request-30x30-active.png in Resources */,
+				540E638215AFE5600089A5F5 /* tab-request-30x30-active@2x.png in Resources */,
+				540E638315AFE5600089A5F5 /* tab-request-30x30.png in Resources */,
+				540E638415AFE5600089A5F5 /* tab-request-30x30@2x.png in Resources */,
+				540E638515AFE5600089A5F5 /* tab-send-30x30-active.png in Resources */,
+				540E638615AFE5600089A5F5 /* tab-send-30x30-active@2x.png in Resources */,
+				540E638715AFE5600089A5F5 /* tab-send-30x30.png in Resources */,
+				540E638815AFE5600089A5F5 /* tab-send-30x30@2x.png in Resources */,
+>>>>>>> upstream/development
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3268,13 +3387,16 @@
 				5B8B45D215A9CF6400822B67 /* ZendeskDropboxSampleViewController.m in Sources */,
 				5B11962115AB6C3A003F8D53 /* SendDonationViewController.m in Sources */,
 				5B11962615AB6E21003F8D53 /* AcceptPledgeViewController.m in Sources */,
-				5B11962A15AB76F2003F8D53 /* UISendMoneyBaseViewController.m in Sources */,
-				5B11962D15ABBAF8003F8D53 /* UIRequestMoneyViewController.m in Sources */,
 				5B11963915ADFC6A003F8D53 /* MerchantServices.m in Sources */,
 				5B11963D15ADFFD1003F8D53 /* Merchant.m in Sources */,
-				5B11964115AE4A2C003F8D53 /* UIContactSelectBaseViewControllerViewController.m in Sources */,
 				5B11964415AE63FA003F8D53 /* DonationContactSelectViewController.m in Sources */,
 				5B6D130315AF602F00F37A11 /* DoGoodUITableCellViewController.m in Sources */,
+<<<<<<< HEAD
+				5B6D131315AFA64B00F37A11 /* OrganizationDetailViewController.m in Sources */,
+=======
+				540E635515AFDE890089A5F5 /* HBCustomTabBar.m in Sources */,
+				540E635715AFDE890089A5F5 /* HBTabBarManager.m in Sources */,
+>>>>>>> upstream/development
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3843,11 +3965,7 @@
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-<<<<<<< HEAD
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-=======
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
->>>>>>> upstream/development
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HBTabBarManager.h"
 #import "ALUnlockPatternView.h"
 #import "ASIHTTPRequest.h"
 #import "UAModalPanel.h"
@@ -24,7 +25,7 @@
 #import "AddACHAccountViewController.h"
 #import "CustomAlertViewProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
+@interface RequestMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
 {
     
     IBOutlet UIView *viewPanel;
@@ -60,7 +61,7 @@
     
     
 }
-
+@property (nonatomic, retain) HBTabBarManager *tabBar;
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextView *txtComments;

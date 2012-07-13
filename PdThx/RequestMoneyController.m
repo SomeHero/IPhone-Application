@@ -7,7 +7,11 @@
 //
 
 #import "PdThxAppDelegate.h"
+#import "HomeViewController.h"
+#import "PayStreamViewController.h"
+#import "SendMoneyController.h"
 #import "RequestMoneyController.h"
+#import "DoGoodViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "JSON.h"
 #import "ASIHTTPRequest.h"
@@ -30,6 +34,7 @@
 @end
 
 @implementation RequestMoneyController
+@synthesize tabBar;
 
 @synthesize recipientUri, attachPictureButton;
 @synthesize txtAmount, txtComments, btnSendRequest;
@@ -52,7 +57,8 @@
 
 - (void)dealloc
 {
-    /*  ------------------------------------------------------ */
+        [tabBar release];
+/*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
     [viewPanel release];
@@ -101,6 +107,8 @@
 {
     
     [super viewDidLoad];
+    
+    tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:3];
     
     /*                  View Setup              */
     /*  --------------------------------------- */
@@ -200,6 +208,7 @@
 
 - (void)viewDidUnload
 {
+    tabBar = nil;
     [lm stopUpdatingLocation];
     [attachPictureButton release];
     attachPictureButton = nil;
@@ -518,6 +527,78 @@
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
+}
+
+- (void)tabBarClicked:(NSUInteger)buttonIndex
+{
+    if( buttonIndex == 0 )
+    {
+        //Switch to the groups tab
+        HomeViewController *gvc = [[HomeViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 1 )
+    {
+        //Switch to the groups tab
+        PayStreamViewController *gvc = [[PayStreamViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 2 )
+    {
+        //Switch to the groups tab
+        SendMoneyController *gvc = [[SendMoneyController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 3 )
+    {
+        // Already the current view controller
+        /*
+        //Switch to the groups tab
+        HomeViewController *gvc = [[HomeViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+        */
+    }
+    if( buttonIndex == 4 )
+    {
+        //Switch to the groups tab
+        DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
 }
 
 
