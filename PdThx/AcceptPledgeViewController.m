@@ -150,6 +150,8 @@
     requestMoneyService = [[RequestMoneyService alloc] init];
     [requestMoneyService setRequestMoneyCompleteDelegate: self];
     
+    paystreamService = [[PaystreamService alloc] init];
+    [paystreamService setSendMoneyCompleteDelegate: self];
     
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
@@ -438,15 +440,14 @@
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
     }
     
-    
-    [requestMoneyService requestMoney:amount toRecipient:recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredReceiveAccountId withFromLatitude: latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [paystreamService acceptPledge:user.userId onBehalfOfId:causeId toRecipientUri:recipientUri withAmount:amount withComments:comments fromLatitude:latitude fromLongitude:longitude withRecipientFirstName: recipientFirstName withRecipientLastName:recipientLastName withRecipientImageUri:recipientImageUri withSecurityPin:pin];
     
 }
 -(void)swipeDidCancel: (id)sender
 {
     //do nothing
 }
--(void)requestMoneyDidComplete {
+-(void)sendMoneyDidComplete {
     
     [self.mainScrollView scrollsToTop];
     
@@ -460,7 +461,7 @@
     [self presentModalViewController:controller animated:YES];
 }
 
--(void)requestMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
+-(void)sendMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
     
     if(lockedOut) {
         [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];

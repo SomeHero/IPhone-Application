@@ -674,7 +674,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
     for (Contact*person in tempArray) {
-        if ( person.firstName.length > 0 )
+        if(person.name.length > 0)
+            comparedString = person.name;
+        else if ( person.firstName.length > 0 )
             comparedString = person.firstName;
         else if ( person.lastName.length > 0 )
             comparedString = person.lastName;

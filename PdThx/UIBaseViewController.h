@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "PhoneNumberFormatting.h"
-
+#import "ContactSelectChosenProtocol.h"
+#import "ContactTypeSelectViewController.h"
+#import "TSPopoverController.h"
+#import "TSActionSheet.h"
 
 @interface UIBaseViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 {
     IBOutlet UIScrollView *mainScrollView;
-    NSMutableArray *autoCompleteArray;
-    NSMutableArray *allResults;
     NSObject *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
 }

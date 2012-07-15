@@ -21,6 +21,7 @@
     IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
     Facebook * fBook;
+    NSMutableArray * allResults;
     NSMutableArray * filteredResults;
     NSMutableDictionary *fbIconsDownloading;
     id<CauseSelectDidCompleteProtocol> causeSelectDidComplete;

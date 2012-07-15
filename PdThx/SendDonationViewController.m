@@ -148,6 +148,9 @@
     sendMoneyService = [[SendMoneyService alloc] init];
     [sendMoneyService setSendMoneyCompleteDelegate:self];
     
+    paystreamService = [[PaystreamService alloc] init];
+    [paystreamService setSendMoneyCompleteDelegate: self];
+    
     
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
@@ -300,7 +303,7 @@
     NSString* recipientFirstName = [NSString stringWithString: @""];
     NSString* recipientLastName =[NSString stringWithString: @""];
     
-    [sendMoneyService sendMoney:amount toRecipient: recipientId withRecipientUri: recipient.name fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [paystreamService sendDonation:user.userId toOrganizationId:recipient.recipientId fromSenderAccount:user.preferredPaymentAccountId withAmount:amount withComments:comments fromLatitude:latitude fromLongitude:longitude withRecipientFirstName:recipientFirstName withRecipientLastName:recipientLastName withRecipientImageUri:recipientImageUri withSecurityPin:pin];
 }
 
 -(void)swipeDidCancel: (id)sender

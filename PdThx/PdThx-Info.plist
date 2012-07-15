@@ -63,6 +63,8 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>NSMainNibFile~ipad</key>
+	<string>MainWindow-iPad</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
@@ -71,9 +73,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>ZDURL</key>
-	<string>paidthx.zendesk.com</string>
 	<key>ZDTAG</key>
 	<string>IPhone</string>
+	<key>ZDURL</key>
+	<string>paidthx.zendesk.com</string>
 </dict>
 </plist>
