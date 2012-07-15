@@ -51,6 +51,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     [txtSearchBox becomeFirstResponder];
 }
 
@@ -71,6 +73,7 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     
     /* ---------------------------------------------------- */
     /*      Custom Settings Button Implementation           */
@@ -80,14 +83,29 @@
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [settingsBtn setImage:bgImage forState:UIControlStateNormal];
     settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
-    [settingsBtn addTarget:self action:@selector(actionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [settingsBtn addTarget:self action:@selector(showContextSelect:forEvent:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
     
     self.navigationItem.rightBarButtonItem = settingsButtons;
     [settingsButtons release];
 }
 
+-(void) showContextSelect:(id)sender forEvent:(UIEvent*)event
+{
+    
+    ContactTypeSelectViewController *tableViewController = [[ContactTypeSelectViewController alloc] init];
+    
+    tableViewController.view.frame = CGRectMake(0,0, 220, 216);
 
+    TSPopoverController *popoverController = [[TSPopoverController alloc] initWithContentViewController:tableViewController];
+    
+    popoverController.cornerRadius = 5;
+    popoverController.titleText = @"Select Context";
+    popoverController.popoverBaseColor = [UIColor clearColor];
+    popoverController.popoverGradient= YES;
+    //popoverController.arrowPosition = TSPopoverArrowPositionHorizontal;
+    [popoverController showPopoverWithTouch:event];
+}
 -(void) backButtonClicked
 {
     [self.navigationController popViewControllerAnimated:YES];

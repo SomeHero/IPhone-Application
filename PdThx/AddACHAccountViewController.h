@@ -23,7 +23,6 @@
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
-    IBOutlet UIScrollView* mainScrollView;
     IBOutlet UITextField* txtNickname;
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;

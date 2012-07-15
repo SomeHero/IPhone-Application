@@ -102,9 +102,7 @@ CGSize scrollViewOriginalSize;
 - (void)dealloc
 {
     [mainScrollView release];
-    [autoCompleteArray release];
-    [allResults release];
-    [phoneNumberFormatter release];
+    //[phoneNumberFormatter release];
     
     [super dealloc];
 }
@@ -133,6 +131,7 @@ CGSize scrollViewOriginalSize;
     [self registerForKeyboardNotifications];
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
+    self.navigationItem.hidesBackButton = YES;
     
     if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
@@ -140,7 +139,27 @@ CGSize scrollViewOriginalSize;
     
     [super viewDidLoad];
 }
+-(void)popViewControllerWithAnimation {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if([self.navigationController.viewControllers objectAtIndex:0] != self)
+    {
+        UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
+        UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+        settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+        [settingsBtn addTarget:self action:@selector(popViewControllerWithAnimation) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+        self.navigationItem.hidesBackButton = YES;
+        
+        self.navigationItem.leftBarButtonItem = settingsButtons; 
+    }
+}
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
