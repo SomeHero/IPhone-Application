@@ -25,6 +25,7 @@
 #import "CustomAlertViewProtocol.h"
 #import "DonationContactSelectViewController.h"
 #import "CauseSelectDidCompleteProtocol.h"
+#import "PaystreamService.h"
 
 @interface AcceptPledgeViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, CauseSelectDidCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
 {
@@ -41,7 +42,11 @@
     NSString* amount;
     NSString* comments;
     
+    NSMutableArray *autoCompleteArray;
+    NSMutableArray *allResults;
+    
     RequestMoneyService* requestMoneyService;
+    PaystreamService* paystreamService;
     
     IBOutlet UIButton* chooseCauseButton;
     IBOutlet UIButton *chooseRecipientButton;

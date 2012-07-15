@@ -16,7 +16,176 @@
 @synthesize rejectPaymentRequestProtocol;
 @synthesize cancePaymentRequestProtocol;
 @synthesize cancelPaymentProtocol;
+@synthesize sendMoneyCompleteDelegate;
 
+-(void) sendMoney:(NSString *)theAmount toRecipient:(NSString*)recipientId withRecipientUri:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
+       fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount withFromLatitude:(double)latitude
+withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri
+{
+    
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSString *rootUrl = [NSString stringWithFormat:@"PaystreamMessages"];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl, apiKey]] autorelease];  
+    
+    NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 apiKey, @"apiKey",
+                                 userId, @"senderId",
+                                 recipientId, @"recipientId",
+                                 fromAccount, @"senderAccountId",
+                                 theRecipientUri, @"recipientUri",
+                                 theAmount, @"amount",
+                                 theComments, @"comments",
+                                 [NSString stringWithFormat:@"%f",latitude], @"latitude",
+                                 [NSString stringWithFormat:@"%f",longitude], @"longitude",
+                                 securityPin, @"securityPin",
+                                 @"Payment", @"messageType",
+                                 recipientFirstName, @"recipientFirstName",
+                                 recipientLastName, @"recipientLastName",
+                                 recipientImageUri, @"recipientImageUri",
+                                 nil];
+    
+    
+    NSString *newJSON = [paymentData JSONRepresentation];
+    
+    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
+    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
+    [request setRequestMethod: @"POST"];	
+    
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(sendMoneyComplete:)];
+    [request setDidFailSelector:@selector(sendMoneyFailed:)];
+    
+    [request startAsynchronous];
+    
+    [paymentData release];
+}
+-(void) acceptPledge:(NSString*)senderId onBehalfOfId:(NSString*) behalfOfId toRecipientUri:(NSString*) recipientUri withAmount: (NSString*) amount withComments:(NSString*) comments fromLatitude:(double) latitude fromLongitude: (double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName:(NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri withSecurityPin:(NSString*) securityPin
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/accept_pledge?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
+    
+    NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 apiKey, @"apiKey",
+                                 senderId, @"senderId",
+                                 behalfOfId, @"onBehalfOfId",
+                                 recipientUri, @"recipientUri",
+                                 amount, @"amount",
+                                 comments, @"comments",
+                                 [NSString stringWithFormat:@"%f",latitude], @"latitude",
+                                 [NSString stringWithFormat:@"%f",longitude], @"longitude",
+                                 recipientFirstName, @"recipientFirstName",
+                                 recipientLastName, @"recipientLastName",
+                                 recipientImageUri, @"recipientImageUri",
+                                 securityPin, @"securityPin",
+                                 nil];
+    
+    
+    NSString *newJSON = [requestBody JSONRepresentation];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(sendMoneyComplete:)];
+    [requestObj setDidFailSelector:@selector(sendMoneyFailed:)];
+    
+    [requestObj startAsynchronous];
+}
+-(void) sendDonation:(NSString*)senderId toOrganizationId:(NSString*) organizationId  fromSenderAccount:(NSString*)senderAccountId withAmount: (NSString*) amount withComments:(NSString*) comments fromLatitude:(double) latitude fromLongitude: (double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName:(NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri withSecurityPin:(NSString*) securityPin
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/donate?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
+    
+    NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 apiKey, @"apiKey",
+                                 senderId, @"senderId",
+                                 organizationId, @"organizationId",
+                                 senderAccountId, @"senderAccountId",
+                                 amount, @"amount",
+                                 comments, @"comments",
+                                 [NSString stringWithFormat:@"%f",latitude], @"latitude",
+                                 [NSString stringWithFormat:@"%f",longitude], @"longitude",
+                                 recipientFirstName, @"recipientFirstName",
+                                 recipientLastName, @"recipientLastName",
+                                 recipientImageUri, @"recipientImageUri",
+                                 securityPin, @"securityPin",
+                                 nil];
+    
+    
+    NSString *newJSON = [requestBody JSONRepresentation];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(sendMoneyComplete:)];
+    [requestObj setDidFailSelector:@selector(sendMoneyFailed:)];
+    
+    [requestObj startAsynchronous];
+}
+-(void) sendMoneyComplete:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 201 ) {
+        
+        [sendMoneyCompleteDelegate sendMoneyDidComplete];
+        
+        NSLog(@"Money Sent");
+        
+    }
+    else {
+        
+        NSString* message = [NSString stringWithString: @"Unable to send money"];
+        
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        bool isLockedOut = [[jsonDictionary objectForKey: @"isLockedOut"] boolValue];
+        NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+        
+        [sendMoneyCompleteDelegate sendMoneyDidFail:message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
+        
+        NSLog(@"Error Sending Money");
+    }
+    
+}
+-(void) sendMoneyFailed:(ASIHTTPRequest *)request
+{
+    NSString* message = [NSString stringWithString: @"Unable to send money"];
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    BOOL isLockedOut = [[jsonDictionary valueForKey: @"isLockedOut"] boolValue];
+    NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+    
+    [sendMoneyCompleteDelegate sendMoneyDidFail: message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
+    
+    NSLog(@"Send Money Failed");
+}
 -(void) cancelPayment:(NSString*) messageId {
     
     Environment *myEnvironment = [Environment sharedInstance];

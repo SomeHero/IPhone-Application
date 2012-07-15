@@ -34,6 +34,10 @@
     NSString* amount;
     NSString* comments;
     NSString* recipientUri;
+    
+    NSMutableArray *autoCompleteArray;
+    NSMutableArray *allResults;
+    
     SendMoneyService* sendMoneyService;
     
     // Buttons

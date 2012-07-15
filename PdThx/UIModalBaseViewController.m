@@ -103,8 +103,6 @@ CGSize scrollViewOriginalSize;
 - (void)dealloc
 {
     [mainScrollView release];
-    [autoCompleteArray release];
-    [allResults release];
     [phoneNumberFormatter release];
     
     [super dealloc];
