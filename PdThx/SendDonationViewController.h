@@ -23,6 +23,11 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
 #import "PaystreamService.h"
+#import "HomeViewController.h"
+#import "PayStreamViewController.h"
+#import "SendMoneyController.h"
+#import "RequestMoneyController.h"
+#import "DoGoodViewController.h"
 
 @interface SendDonationViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate> {
     IBOutlet UIView *viewPanel;

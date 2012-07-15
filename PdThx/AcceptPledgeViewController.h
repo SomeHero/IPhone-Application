@@ -26,6 +26,10 @@
 #import "DonationContactSelectViewController.h"
 #import "CauseSelectDidCompleteProtocol.h"
 #import "PaystreamService.h"
+#import "PayStreamViewController.h"
+#import "SendMoneyController.h"
+#import "RequestMoneyController.h"
+#import "DoGoodViewController.h"
 
 @interface AcceptPledgeViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, CauseSelectDidCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
 {
