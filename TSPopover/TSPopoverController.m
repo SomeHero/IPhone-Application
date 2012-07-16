@@ -26,6 +26,7 @@
 
 @implementation TSPopoverController
 
+@synthesize contactSelectWasSelected;
 @synthesize contentViewController = _contentViewController;
 @synthesize contentView = _contentView;
 @synthesize cornerRadius = _cornerRadius;
@@ -65,7 +66,7 @@
 {
     self = [self init];
     
-    [viewController setContactSelectWasSelected: self];
+    //[viewController setContactSelectWasSelected: self];
     
     self.contentViewController = viewController;
     self.contentView = viewController.view;
@@ -208,6 +209,8 @@
 }
 -(void)contactWasSelected:(NSString*)contactType {
     [self dismissPopoverAnimatd:YES];
+    
+    [contactSelectWasSelected contactWasSelected:contactType];
 }
 
 - (void)view:(UIView*)view touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
