@@ -219,6 +219,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
     [getPayStreamService getPayStream:userId];
 }
+-(void)getPayStreamDidFail
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showAlertWithResult:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Dismiss" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+}
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    // No options, just dismiss.
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) dismissAlertView];
+}
+
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];

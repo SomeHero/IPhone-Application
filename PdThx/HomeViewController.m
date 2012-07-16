@@ -155,14 +155,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 -(IBAction) btnRequestMoneyClicked:(id) sender {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate switchToRequestMoneyController];    
+    [self tabBarClicked:3];
 }
 -(IBAction) btnSendMoneyClicked:(id) sender {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate switchToSendMoneyController];
+    [self tabBarClicked:2];
 }
 -(IBAction) btnProfileClicked:(id) sender {
     
