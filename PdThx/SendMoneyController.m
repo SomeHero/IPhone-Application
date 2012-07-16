@@ -55,6 +55,8 @@
     /*  ------------------------------------------------------ */
     /*                Image/TextField Releases                 */
     /*  ------------------------------------------------------ */
+    [recipientUri release];
+    [recipient release];
     [tabBar release];
     [txtAmount release];
     [txtComments release];
@@ -209,6 +211,10 @@
     contactButtonBGImage = nil;
     [amountButtonBGImage release];
     amountButtonBGImage = nil;
+    [recipient release];
+    recipient = nil;
+    [recipientUri release];
+    recipientUri = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;
@@ -389,6 +395,7 @@
     
     [self dismissModalViewControllerAnimated:YES];
     [self presentModalViewController:controller animated:YES];
+    recipientUri = @"";
 }
 
 -(void)sendMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
