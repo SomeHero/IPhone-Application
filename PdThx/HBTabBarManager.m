@@ -46,43 +46,64 @@
     
     if( index == 0 )
     {
-        [tabBar.firstTabImage setImage:[UIImage imageNamed:@"home-active@2x.png"]];
+        [tabBar.firstTabImage setImage:[UIImage imageNamed:@"tab-home-30x30-active.png"]];
+        tabBar.firstTabSelectedOverlay.hidden = NO;
+        tabBar.firstTabLabel.textColor = [UIColor colorWithRed:44/255.0 green:131/255.0 blue:70/255.0 alpha:1.0];
+        //44 131 70 GREEN LABEL
     }
     else
     {
-        [tabBar.firstTabImage setImage:[UIImage imageNamed:@"home-inactive@2x.png"]];
+        [tabBar.firstTabImage setImage:[UIImage imageNamed:@"tab-home-30x30.png"]];
+        tabBar.firstTabSelectedOverlay.hidden = YES;
+        tabBar.firstTabLabel.textColor = [UIColor colorWithRed:92/255.0 green:92/255.0 blue:92/255.0 alpha:1.0];
     }
     if( index == 1 )
     {
         [tabBar.secondTabImage setImage:[UIImage imageNamed:@"tab-paystream-30x30-active.png"]];
+        tabBar.secondTabSelectedOverlay.hidden = NO;
+        tabBar.secondTabLabel.textColor = [UIColor colorWithRed:44/255.0 green:131/255.0 blue:70/255.0 alpha:1.0];
     }
     else
     {
         [tabBar.secondTabImage setImage:[UIImage imageNamed:@"tab-paystream-30x30.png"]];
+        tabBar.secondTabSelectedOverlay.hidden = YES;
+        tabBar.secondTabLabel.textColor = [UIColor colorWithRed:92/255.0 green:92/255.0 blue:92/255.0 alpha:1.0];
     }
     if( index == 2 )
     {
         [tabBar.centerTabImage setImage:[UIImage imageNamed:@"tab-send-30x30-active.png"]];
+        [tabBar.centerTabSelectedOverlay setImage:[UIImage imageNamed:@"bg-tab-send-active-75x57.png"]];
+        tabBar.centerTabLabel.textColor = [UIColor colorWithRed:44/255.0 green:131/255.0 blue:70/255.0 alpha:1.0];
     }
     else
     {
         [tabBar.centerTabImage setImage:[UIImage imageNamed:@"tab-send-30x30.png"]];
+        [tabBar.centerTabSelectedOverlay setImage:[UIImage imageNamed:@"bg-tab-send-75x57.png"]];
+        tabBar.centerTabLabel.textColor = [UIColor colorWithRed:92/255.0 green:92/255.0 blue:92/255.0 alpha:1.0];
     }
     if( index == 3 )
     {
         [tabBar.fourthTabImage setImage:[UIImage imageNamed:@"tab-request-30x30-active.png"]];
+        tabBar.fourthTabSelectedOverlay.hidden = NO;
+        tabBar.fourthTabLabel.textColor = [UIColor colorWithRed:44/255.0 green:131/255.0 blue:70/255.0 alpha:1.0];
     }
     else
     {
         [tabBar.fourthTabImage setImage:[UIImage imageNamed:@"tab-request-30x30.png"]];
+        tabBar.fourthTabSelectedOverlay.hidden = YES;
+        tabBar.fourthTabLabel.textColor = [UIColor colorWithRed:92/255.0 green:92/255.0 blue:92/255.0 alpha:1.0];
     }
     if( index == 4 )
     {
-        [tabBar.fifthTabImage setImage:[UIImage imageNamed:@"dogood-active@2x.png"]];
+        [tabBar.fifthTabImage setImage:[UIImage imageNamed:@"tab-dogood-30x30-active.png"]];
+        tabBar.fifthTabSelectedOverlay.hidden = NO;
+        tabBar.fifthTabLabel.textColor = [UIColor colorWithRed:44/255.0 green:131/255.0 blue:70/255.0 alpha:1.0];
     }
     else
     {
-        [tabBar.fifthTabImage setImage:[UIImage imageNamed:@"dogood-inactive@2x.png"]];
+        [tabBar.fifthTabImage setImage:[UIImage imageNamed:@"tab-dogood-30x30.png"]];
+        tabBar.fifthTabSelectedOverlay.hidden = YES;
+        tabBar.fifthTabLabel.textColor = [UIColor colorWithRed:92/255.0 green:92/255.0 blue:92/255.0 alpha:1.0];
     }
     
     //Configure all the buttons
