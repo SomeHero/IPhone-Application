@@ -109,6 +109,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if (user.securityQuestion != (id) [NSNull null] && user.securityQuestion.length > 0) {
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         [prefs setValue:user.securityQuestion forKey:@"securityQuestion"];
+        [prefs synchronize];
     }
     
     if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {

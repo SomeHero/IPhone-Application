@@ -221,18 +221,16 @@
                 }
                 case 2:
                 {
-                    ForgotPasswordViewController* controller = [[ForgotPasswordViewController alloc] init];
-                    [controller setTitle:@"Forgot Password"];
-                    [controller setHeaderText:@"To change your password, you must input your security question answer and then put in a new password"];
+                    SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
+                    [controller setNavigationTitle: @"Security Question"];
+                    [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
+                    controller.currUser = [user copy];
+                    [controller setSecurityQuestionChallengeDelegate:self];
                     
                     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-                    
                     [self.navigationController presentModalViewController:navBar animated:YES];
                     
-                    [navBar release];
                     [controller release];
-                    
-                    break;
                 }
             
             }
@@ -241,6 +239,27 @@
 
 }
 
+-(void) securityQuestionAnsweredCorrect
+{
+    [self dismissModalViewControllerAnimated: YES];
+    
+    ForgotPinCodeViewController *controller = [[ForgotPinCodeViewController alloc] init];
+    [controller setNavigationTitle:@"Forgot Pin Code"];
+    [controller setHeaderText: @"To change your security pin, input your new pin."];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [navBar release];
+    [controller release];
+}
+
+-(void) securityQuestionAnsweredInCorrect:(NSString *)errorMessage 
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failure" withDetailedStatus:@"Security Question Answer Incorrect."];
+}
 
 -(void) userSecurityPinDidComplete {
     [spinner stopAnimating];

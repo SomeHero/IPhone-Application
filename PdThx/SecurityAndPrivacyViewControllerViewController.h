@@ -11,10 +11,12 @@
 #import "UISetupUserBaseViewController.h"
 #import "ChangeSecurityPinController.h"
 #import "ChangePasswordViewController.h"
-#import "ForgotPasswordViewController.h"
+#import "ForgotPinCodeViewController.h"
+#import "SecurityQuestionChallengeViewController.h"
+#import "SecurityQuestionChallengeProtocol.h"
 
 @interface SecurityAndPrivacyViewControllerViewController : UISetupUserBaseViewController 
-<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate> {
+<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, SecurityQuestionChallengeProtocol> {
     NSDictionary *profileOptions;
     NSArray *sections;
     UIActivityIndicatorView* spinner;
