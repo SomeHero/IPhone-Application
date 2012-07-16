@@ -10,6 +10,7 @@
 
 
 @implementation HBCustomTabBar
+
 @synthesize firstTabButton,
             secondTabButton,
             centerTabButton,
@@ -21,6 +22,20 @@
             centerTabImage,
             fourthTabImage,
             fifthTabImage;
+
+
+@synthesize firstTabLabel,
+secondTabLabel,
+centerTabLabel,
+fourthTabLabel,
+fifthTabLabel;
+
+
+@synthesize firstTabSelectedOverlay,
+secondTabSelectedOverlay,
+centerTabSelectedOverlay,
+fourthTabSelectedOverlay,
+fifthTabSelectedOverlay;
 
 - (id)init
 {
@@ -41,6 +56,29 @@
     [centerTabImage release];
     [fourthTabImage release];
     [fifthTabImage release];
+    
+    
+    [firstTabButton release];
+    [secondTabButton release];
+    [centerTabButton release];
+    [fourthTabButton release];
+    [fifthTabButton release];
+
+    
+    
+    [firstTabLabel release];
+    [secondTabLabel release];
+    [centerTabLabel release];
+    [fourthTabLabel release];
+    [fifthTabLabel release];
+    
+    
+    [firstTabSelectedOverlay release];
+    [secondTabSelectedOverlay release];
+    [centerTabSelectedOverlay release];
+    [fourthTabSelectedOverlay release];
+    [fifthTabSelectedOverlay release];
+    
     [super dealloc];
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1296</int>
+		<int key="IBDocument.SystemTarget">1280</int>
 		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.47</string>
@@ -76,7 +76,7 @@
 						<string key="NSFrame">{{67, 11}, {56, 47}}</string>
 						<reference key="NSSuperview" ref="139969008"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="683179331"/>
+						<reference key="NSNextKeyView" ref="559245931"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -106,23 +106,19 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<reference key="IBUIImage" ref="169424124"/>
 					</object>
-					<object class="IBUIImageView" id="683179331">
+					<object class="IBUIImageView" id="1069278069">
 						<reference key="NSNextResponder" ref="139969008"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{122.5, 3}, {75, 57}}</string>
+						<string key="NSFrame">{{122, 4}, {75, 57}}</string>
 						<reference key="NSSuperview" ref="139969008"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="559245931"/>
+						<reference key="NSNextKeyView" ref="394063399"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">bg-tab-send-75x57.png</string>
-						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">bg-tab-send-75x57-active.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="597446268">
@@ -294,7 +290,7 @@
 						<string key="NSFrame">{{80, 13}, {30, 30}}</string>
 						<reference key="NSSuperview" ref="139969008"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="394063399"/>
+						<reference key="NSNextKeyView" ref="1069278069"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -351,7 +347,6 @@
 						<string key="NSFrame">{{272, 13}, {30, 30}}</string>
 						<reference key="NSSuperview" ref="139969008"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -464,7 +459,7 @@
 					<object class="IBUIButton" id="394063399">
 						<reference key="NSNextResponder" ref="139969008"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{129, 7}, {63, 52}}</string>
+						<string key="NSFrame">{{128, 7}, {64, 52}}</string>
 						<reference key="NSSuperview" ref="139969008"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="597446268"/>
@@ -612,14 +607,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">centerTabSelectedOverlay</string>
-						<reference key="source" ref="139969008"/>
-						<reference key="destination" ref="683179331"/>
-					</object>
-					<int key="connectionID">99</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">firstTabLabel</string>
 						<reference key="source" ref="139969008"/>
 						<reference key="destination" ref="1048501949"/>
@@ -658,6 +645,14 @@
 					</object>
 					<int key="connectionID">104</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">centerTabSelectedOverlay</string>
+						<reference key="source" ref="139969008"/>
+						<reference key="destination" ref="1069278069"/>
+					</object>
+					<int key="connectionID">106</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -686,7 +681,6 @@
 						<reference key="object" ref="139969008"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="683179331"/>
 							<reference ref="285001509"/>
 							<reference ref="892091259"/>
 							<reference ref="559245931"/>
@@ -703,17 +697,13 @@
 							<reference ref="960339599"/>
 							<reference ref="486612625"/>
 							<reference ref="361856460"/>
-							<reference ref="857600735"/>
 							<reference ref="997519590"/>
 							<reference ref="688591226"/>
 							<reference ref="394063399"/>
+							<reference ref="857600735"/>
+							<reference ref="1069278069"/>
 						</object>
 						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">63</int>
-						<reference key="object" ref="683179331"/>
-						<reference key="parent" ref="139969008"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">64</int>
@@ -815,6 +805,11 @@
 						<reference key="object" ref="486612625"/>
 						<reference key="parent" ref="139969008"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">105</int>
+						<reference key="object" ref="1069278069"/>
+						<reference key="parent" ref="139969008"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -824,9 +819,9 @@
 					<string>-1.IBPluginDependency</string>
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
+					<string>105.IBPluginDependency</string>
 					<string>62.CustomClassName</string>
 					<string>62.IBPluginDependency</string>
-					<string>63.IBPluginDependency</string>
 					<string>64.IBPluginDependency</string>
 					<string>65.IBPluginDependency</string>
 					<string>66.IBPluginDependency</string>
@@ -853,8 +848,8 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>HBCustomTabBar</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>HBCustomTabBar</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -890,7 +885,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">104</int>
+			<int key="maxID">106</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1065,10 +1060,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
-		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>
 			<integer value="3100" key="NS.object.0"/>
@@ -1080,7 +1071,6 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>bg-tab-active-56x48.png</string>
-				<string>bg-tab-send-75x57-active.png</string>
 				<string>bg-tab-send-75x57.png</string>
 				<string>bg-tabnav-320x52.png</string>
 				<string>tab-dogood-30x30-active.png</string>
@@ -1097,7 +1087,6 @@
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{56, 48}</string>
-				<string>{16, 16}</string>
 				<string>{75, 57}</string>
 				<string>{320, 52}</string>
 				<string>{30, 30}</string>
