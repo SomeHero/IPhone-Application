@@ -20,13 +20,15 @@
 {
     IBOutlet UITextView* lblSecurityQuestion;
     IBOutlet UITextField* txtSecurityQuestionAnswer;
+    IBOutlet UIButton *btnUnlockAccount;
     SecurityQuestionService* securityQuestionService;
     UserService* userService;
     id<SecurityQuestionChallengeProtocol> securityQuestionChallengeDelegate;
 }
 
-@property(nonatomic, retain) User* user;
+@property(nonatomic, retain) User* currUser;
 @property(retain) id<SecurityQuestionChallengeProtocol> securityQuestionChallengeDelegate;
+@property(nonatomic, retain) IBOutlet UIButton* btnUnlockAccount;
 
 -(IBAction)btnSubmitClicked:(id)sender;
 
