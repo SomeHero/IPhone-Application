@@ -378,7 +378,8 @@
 /*                Protocol Delegate Methods                   */
 /*  --------------------------------------------------------- */
 
--(void)sendMoneyDidComplete {
+-(void)sendMoneyDidComplete 
+{
     [self.mainScrollView scrollsToTop];
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
@@ -399,8 +400,7 @@
         [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
         
         [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
-    }
-    else {
+    } else {
         [self showAlertView: @"Error Sending Money" withMessage: message];
     }
 }
