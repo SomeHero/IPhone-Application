@@ -10,6 +10,6 @@
 
 @protocol ContactTypeSelectWasSelectedDelegate <NSObject>
 
--(void)contactWasSelected:(NSString*)contactType;
+-(void)contactWasSelected:(NSInteger)contactType;
 
 @end

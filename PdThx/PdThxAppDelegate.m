@@ -31,6 +31,8 @@
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
 @synthesize myApplication;
+@synthesize phoneContacts;
+@synthesize faceBookContacts;
 @synthesize nonProfits;
 @synthesize organizations;
 @synthesize fbAppId;
@@ -248,8 +250,22 @@
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
-    contactsArray = [[NSMutableArray alloc] init];
     tempArray = [[NSMutableArray alloc] init];
+    
+    contactsArray = [[NSMutableArray alloc] init];
+    contactsArray = [self sortContacts: contactsArray];
+    
+    phoneContacts = [[NSMutableArray alloc] init];
+    phoneContacts = [self sortContacts:phoneContacts];
+    
+    faceBookContacts = [[NSMutableArray alloc] init];
+    faceBookContacts = [self sortContacts:faceBookContacts];
+    
+    nonProfits = [[NSMutableArray alloc] init];
+    nonProfits = [self sortContacts:nonProfits];
+    
+    organizations = [[NSMutableArray alloc] init];
+    organizations = [self sortContacts:organizations];
     
     areFacebookContactsLoaded = NO;
     currentReminderTab = 0;
@@ -579,10 +595,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
     }
     
-    contactsArray =  [self sortContacts:tempArray withPostNotificationName:@"refreshContactList" ];
+    NSMutableArray* tempPhoneContacts = [self sortContacts: tempArray];
     
+    [contactsArray removeAllObjects];
+    [phoneContacts removeAllObjects];
+    
+    for(int i = 0; i <[tempPhoneContacts count]; i++)
+    {
+        [contactsArray addObject:[tempPhoneContacts objectAtIndex:i]];
+        [phoneContacts addObject:[tempPhoneContacts objectAtIndex:i]];
+    }
+
     NSDictionary* dict = [NSDictionary dictionaryWithObject:
                           contactsArray forKey:@"contacts"];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
     
     NSLog(@"Contacts Ready.");
@@ -596,8 +622,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
 }
 -(void)getMerchantsDidComplete: (NSMutableArray*) merchants {
-    //nonProfits = merchants;
-    //[self sortContacts:nonProfits withPostNotificationName:@"refreshNonProfitsList"];
+    
+    [nonProfits removeAllObjects];
+    [organizations removeAllObjects];
     
     NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
     
@@ -614,13 +641,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
     
     
-    organizations =  [self sortContacts:tempOrganizations withPostNotificationName:@"refreshContactList" ];
+    tempOrganizations =  [self sortContacts:tempOrganizations];
+    
+    for(int i = 0; i <[tempOrganizations count]; i++)
+    {
+        [nonProfits addObject:[tempOrganizations objectAtIndex:i]];
+        [organizations addObject:[tempOrganizations objectAtIndex:i]];
+    }
     
     NSDictionary* dict = [NSDictionary dictionaryWithObject:
                           contactsArray forKey:@"contacts"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
-    
-    NSLog(@"Contacts Ready.");
     
 }
 -(void)getMerchantsDidFail: (NSString*) errorMessage {
@@ -648,15 +679,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     areFacebookContactsLoaded = YES;
     
-    NSMutableArray* faceBookFriends = [self sortContacts: tempArray withPostNotificationName:@"refreshContactList"];
+    NSMutableArray* faceBookFriends = [self sortContacts: tempArray];
+    
+    [faceBookContacts removeAllObjects];
+    [contactsArray removeAllObjects];
     
     for(int i = 0; i <[faceBookFriends count]; i++)
     {
         [contactsArray addObject:[faceBookFriends objectAtIndex:i]];
+        [faceBookContacts addObject:[faceBookFriends objectAtIndex:i]];
     }
 }
 
--(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts withPostNotificationName:(NSString*) notificationName
+-(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts 
 {
     NSMutableArray* results = [[[NSMutableArray alloc] init] retain];
     

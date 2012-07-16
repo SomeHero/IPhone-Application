@@ -34,7 +34,11 @@ typedef NSUInteger TSPopoverArrowPosition;
     TSPopoverArrowDirection arrowDirection;
     CGRect screenRect;
     int titleLabelheight;
+    
+    id<ContactTypeSelectWasSelectedDelegate> contactSelectWasSelected;
 }
+
+@property(nonatomic) id contactSelectWasSelected;
 
 @property (strong, nonatomic) UIViewController *contentViewController;
 @property (strong, nonatomic) UIView *contentView;
@@ -48,6 +52,7 @@ typedef NSUInteger TSPopoverArrowPosition;
 
 - (id)initWithContentViewController:(UIViewController*)viewController;
 - (id)initWithView:(UIView*)view;
+
 - (void) showPopoverWithTouch:(UIEvent*)senderEvent;
 - (void) showPopoverWithCell:(UITableViewCell*)senderCell;
 - (void) showPopoverWithRect:(CGRect)senderRect;
