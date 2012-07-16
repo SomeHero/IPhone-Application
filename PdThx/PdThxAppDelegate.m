@@ -590,7 +590,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 index++;
                 
                 [contact release];
-               
             }
         }
     }
@@ -657,11 +656,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 -(void)getMerchantsDidFail: (NSString*) errorMessage {
     
 }
+
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
     NSArray *friendArray = [result objectForKey:@"data"];
     NSArray *splitName;
     Contact *friend;
+    
     for ( NSDictionary *dict in friendArray ){
         friend = [[Contact alloc] init];
         friend.facebookID = [dict objectForKey:@"id"];
@@ -673,13 +674,25 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         friend.imgData = NULL;
         friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
+        
         [tempArray addObject:friend];
+        
         [friend release];
     }
     
     areFacebookContactsLoaded = YES;
     
-    NSMutableArray* faceBookFriends = [self sortContacts: tempArray];
+    NSMutableArray* faceBookFriends = [self sortContacts:tempArray];
+    /*
+    [self sortContacts:tempArray];
+    for ( Contact*con in tempArray)
+    {
+        if ( con.facebookID != (id)[NSNull null] && [con.facebookID length] > 0 )
+        {
+            [faceBookFriends addObject:con];
+        }
+    }
+    */ 
     
     [faceBookContacts removeAllObjects];
     [contactsArray removeAllObjects];
@@ -698,7 +711,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for ( int i = 0 ; i < 28 ; i ++ )
         [results addObject:[[[NSMutableArray alloc] init] retain]];
     
-    NSMutableArray* tempArray = [[arrayOfContacts sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    NSMutableArray* tmpArray = [[arrayOfContacts sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     
     NSString * comparedString;
     
@@ -708,7 +721,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
-    for (Contact*person in tempArray) {
+    for (Contact*person in tmpArray) {
         if(person.name.length > 0)
             comparedString = person.name;
         else if ( person.firstName.length > 0 )
