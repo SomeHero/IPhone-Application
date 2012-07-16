@@ -398,11 +398,12 @@
 {
     
     ContactTypeSelectViewController *tableViewController = [[ContactTypeSelectViewController alloc] init];
+    [tableViewController setContactSelectWasSelected: self];
     
     tableViewController.view.frame = CGRectMake(0,0, 220, 216);
    
-    TSPopoverController *popoverController = [[TSPopoverController alloc] initWithContentViewController:tableViewController];
-    
+    popoverController = [[TSPopoverController alloc] initWithContentViewController:tableViewController];
+    [popoverController setContactSelectWasSelected: self];
     popoverController.cornerRadius = 5;
     popoverController.titleText = @"Select Context";
     popoverController.popoverBaseColor = [UIColor clearColor];
@@ -579,5 +580,38 @@
         }
     }
     [tvSubview reloadData];
+}
+-(void)contactWasSelected:(NSInteger)contactType {
+    
+    [popoverController dismissPopoverAnimatd:YES];
+    switch (contactType) {
+        case 1:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+            break;
+        case 2:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).phoneContacts;
+            break;
+        case 3:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).faceBookContacts;
+            break;
+        case 4:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).nonProfits;
+            break;
+        case 5:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).organizations;
+            break;
+        default:
+                allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+            break;
+    }
+    
+    filteredResults = [[NSMutableArray alloc] init];
+    for ( int i = 0 ; i < 28 ; i ++ )
+        [filteredResults addObject:[[NSMutableArray alloc] init]];
+    
+    [tvSubview reloadData];
+    
+    [popoverController release];
+    popoverController = nil;
 }
 @end

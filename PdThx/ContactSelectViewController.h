@@ -18,10 +18,12 @@
 #import "TestViewController.h"
 
 
-@interface ContactSelectViewController : UIBaseViewController <UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate>
+@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate>
 {
     IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
+    
+    TSPopoverController *popoverController;
     Facebook * fBook;
     NSMutableArray * allResults;
     NSMutableArray * filteredResults;

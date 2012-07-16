@@ -43,19 +43,19 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 -(IBAction)allContactsClicked:sender {
-    [contactSelectWasSelected contactWasSelected: @"All"];
+    [contactSelectWasSelected contactWasSelected: 1];
 }
 -(IBAction)phoneContactsClicked:sender {
-    [contactSelectWasSelected contactWasSelected: @"Phone"];    
+    [contactSelectWasSelected contactWasSelected: 2];    
 }
 -(IBAction)facebookContactsClicked:sender {
-    [contactSelectWasSelected contactWasSelected: @"Facebook"];
+    [contactSelectWasSelected contactWasSelected: 3];
 }
 -(IBAction)nonProfitsContactsClicked:sender {
-    [contactSelectWasSelected contactWasSelected: @"NonProfits"];
+    [contactSelectWasSelected contactWasSelected: 4];
 }
 -(IBAction)publicDirectoryContactsClicked:sender {
-    [contactSelectWasSelected contactWasSelected: @"Public"];
+    [contactSelectWasSelected contactWasSelected: 5];
 }
 
 @end
