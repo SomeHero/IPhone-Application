@@ -22,8 +22,9 @@
 #import "TransactionConfirmationProtocol.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
+#import "HBTabBarManager.h"
 
-@interface SendMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate> {
+@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
@@ -33,6 +34,10 @@
     NSString* amount;
     NSString* comments;
     NSString* recipientUri;
+    
+    NSMutableArray *autoCompleteArray;
+    NSMutableArray *allResults;
+    
     SendMoneyService* sendMoneyService;
     
     // Buttons
@@ -72,7 +77,7 @@
 @property(nonatomic, retain) UIImageView *amountButtonBGImage;
 
 @property(nonatomic, retain) UITextField *characterCountLabel;
-
+@property (nonatomic, retain) HBTabBarManager *tabBar;
 
 
 /*              Button Actions              */
@@ -85,4 +90,5 @@
 -(IBAction) btnSendMoneyClicked:(id) sender;
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest;
 -(BOOL) isValidAmount:(NSString *) amountToTest;
+
 @end

@@ -54,9 +54,9 @@
 			<key>Description</key>
 			<string>Add or manage linked phone numbers</string>
 			<key>HighlightedImage</key>
-			<string></string>
+			<string>icon-settings-phones-40x40.png</string>
 			<key>Image</key>
-			<string></string>
+			<string>icon-settings-phones-40x40.png</string>
 			<key>Label</key>
 			<string>Phones</string>
 		</dict>
@@ -143,9 +143,9 @@
 			<key>Description</key>
 			<string>Terms of Service, Security &amp; Privacy</string>
 			<key>HighlightedImage</key>
-			<string></string>
+			<string>icon-settings-legal-40x40.png</string>
 			<key>Image</key>
-			<string></string>
+			<string>icon-settings-legal-40x40.png</string>
 			<key>Label</key>
 			<string>User Agreement</string>
 		</dict>
@@ -153,9 +153,9 @@
 			<key>Description</key>
 			<string>Log out of PaidThx</string>
 			<key>HighlightedImage</key>
-			<string></string>
+			<string>icon-settings-signout-40x40.png</string>
 			<key>Image</key>
-			<string></string>
+			<string>icon-settings-signout-40x40.png</string>
 			<key>Label</key>
 			<string>Sign Out</string>
 		</dict>

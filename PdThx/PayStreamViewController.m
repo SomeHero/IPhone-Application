@@ -6,7 +6,11 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "HomeViewController.h"
 #import "PayStreamViewController.h"
+#import "SendMoneyController.h"
+#import "RequestMoneyController.h"
+#import "DoGoodViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SignInViewController.h"
 #import "PdThxAppDelegate.h"
@@ -19,6 +23,7 @@
 #import "PaystreamOutgoingPaymentViewController.h"
 
 @implementation PayStreamViewController
+@synthesize tabBar;
 
 #define UIColorFromRGB(rgbValue) [UIColor \
 colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -77,7 +82,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)dealloc
 {
-    
+    [tabBar release];
     [textPull release];
     [textRelease release];
     [textLoading release];
@@ -125,6 +130,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:1];
     
     [self addPullToRefreshHeader];
     
@@ -212,6 +219,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
     [getPayStreamService getPayStream:userId];
 }
+-(void)getPayStreamDidFail
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showAlertWithResult:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Dismiss" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+}
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    // No options, just dismiss.
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) dismissAlertView];
+}
+
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -274,6 +294,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    tabBar = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -880,6 +901,79 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [getPayStreamService getPayStream:userId];
     
     [self performSelector:@selector(stopLoading) withObject:nil afterDelay:0.5];
+}
+
+
+- (void)tabBarClicked:(NSUInteger)buttonIndex
+{
+    if( buttonIndex == 0 )
+    {
+        //Switch to the groups tab
+        HomeViewController *gvc = [[HomeViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 1 )
+    {
+        // Already the current view controller
+        /*
+        //Switch to the groups tab
+        PayStreamViewController *gvc = [[PayStreamViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+         */
+    }
+    if( buttonIndex == 2 )
+    {
+        //Switch to the groups tab
+        SendMoneyController *gvc = [[SendMoneyController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 3 )
+    {
+        //Switch to the groups tab
+        RequestMoneyController *gvc = [[RequestMoneyController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 4 )
+    {
+        //Switch to the groups tab
+        DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
 }
 
 

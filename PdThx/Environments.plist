@@ -17,12 +17,16 @@
 	</dict>
 	<key>Beta</key>
 	<dict>
+		<key>privacyUrl</key>
+		<string>http://www.paidthx.com/mobile/privacy</string>
+		<key>helpUrl</key>
+		<string>http://www.paidthx.com/mobile/help</string>
 		<key>GoogleAnalyticsKey</key>
 		<string>UA-30208011-8</string>
 		<key>pdthxAPIKEY</key>
 		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
 		<key>pdthxWebServicesBaseUrl</key>
-		<string>http://107.20.137.40/api/internal/api</string>
+		<string>http://www.paidthx.com/api/internal/api</string>
 	</dict>
 	<key>Notifs</key>
 	<dict>

@@ -15,7 +15,6 @@
 
 @interface EditACHAccountViewController : UISetupUserBaseViewController {
     IBOutlet UIView* mainView;
-    IBOutlet UIScrollView* mainScrollView;
     IBOutlet UITextField* txtNickName;
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;

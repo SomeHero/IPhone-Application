@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HBTabBarManager.h"
 #import "ALUnlockPatternView.h"
 #import "ASIHTTPRequest.h"
 #import "UAModalPanel.h"
@@ -24,29 +25,32 @@
 #import "AddACHAccountViewController.h"
 #import "CustomAlertViewProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
+@interface RequestMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
 {
-
+    
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
-        
+    
     IBOutlet UIButton *btnSendRequest;
     
     User* user;
     NSString* recipientUri;
     NSString* amount;
     NSString* comments;
-        
+    
+    NSMutableArray *autoCompleteArray;
+    NSMutableArray *allResults;
+    
     RequestMoneyService* requestMoneyService;
-        
+    
     IBOutlet UIButton *chooseRecipientButton;
     IBOutlet UIButton *chooseAmountButton;
-        
+    
     IBOutlet UILabel *contactHead;
     IBOutlet UILabel *contactDetail;
     IBOutlet UIButton *recipientImageButton;
-        
+    
     Contact *recipient;
     CLLocationManager* lm;
     double latitude;
@@ -54,13 +58,13 @@
     
     IBOutlet UIImageView *contactButtonBGImage;
     IBOutlet UIImageView *amountButtonBGImage;
-        
+    
     IBOutlet UIButton *attachPictureButton;
     IBOutlet UITextField *characterCountLabel;
     
     
 }
-
+@property (nonatomic, retain) HBTabBarManager *tabBar;
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UITextField *txtAmount;
 @property(nonatomic, retain) UITextView *txtComments;

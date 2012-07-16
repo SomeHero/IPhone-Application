@@ -6,7 +6,11 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 #import "PdThxAppDelegate.h"
+#import "HomeViewController.h"
+#import "PayStreamViewController.h"
 #import "SendMoneyController.h"
+#import "RequestMoneyController.h"
+#import "DoGoodViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 #import "JSON.h"
@@ -17,17 +21,18 @@
 #import "ContactSelectViewController.h"
 #import "AmountSelectViewController.h"
 
+#define tableHeight2 = 30;
+
 @interface SendMoneyController ()
 -(void) sendMoney;
 @end
 
 @implementation SendMoneyController
+@synthesize tabBar;
 
 @synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
 @synthesize contactButtonBGImage, amountButtonBGImage, characterCountLabel;
-
-float tableHeight2 = 30;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,6 +55,7 @@ float tableHeight2 = 30;
     /*  ------------------------------------------------------ */
     /*                Image/TextField Releases                 */
     /*  ------------------------------------------------------ */
+    [tabBar release];
     [txtAmount release];
     [txtComments release];
     [user release];
@@ -92,8 +98,8 @@ float tableHeight2 = 30;
 }
 
 #pragma mark - View lifecycle
--(void) viewDidAppear:(BOOL)animated{
-    
+-(void) viewDidAppear:(BOOL)animated
+{    
     [super viewDidAppear:animated];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
@@ -108,7 +114,7 @@ float tableHeight2 = 30;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     /*                  View Setup              */
     /*  --------------------------------------- */
     mainScrollView.frame = CGRectMake(0, 0, 320, 420);
@@ -176,10 +182,12 @@ float tableHeight2 = 30;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changedCommentBox:) name:@"UITextViewTextDidChangeNotification" object:nil];
     
+    tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:2];
 }
 
 - (void)viewDidUnload
 {
+    tabBar = nil;
     [lm stopUpdatingLocation];
     [recipientImageButton release];
     recipientImageButton = nil;
@@ -308,9 +316,9 @@ float tableHeight2 = 30;
         recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
     }
-
     
-    [sendMoneyService sendMoney:amount toRecipient:recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    
+    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
 
 -(void)swipeDidCancel: (id)sender
@@ -323,46 +331,6 @@ float tableHeight2 = 30;
     [txtComments resignFirstResponder];
 }
 
-/*  --------------------------------------------------------- */
-/*                Services                                    */
-/*  --------------------------------------------------------- */
-
--(void) sendMoneyService:(NSString *)theAmount toRecipient:(NSString *)theRecipient fromMobileNumber:(NSString *)fromMobileNumber withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
-fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
-
-    Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
-    NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
-    
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/PaymentService/Payments?apiKey=%@", rootUrl, apiKey]] autorelease];  
-    NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                 userId, @"userId",
-                                 securityPin, @"securityPin",
-                                 fromMobileNumber, @"fromMobileNumber",
-                                 theRecipient, @"toMobileNumber",
-                                 theAmount, @"amount",
-                                 theComments, @"comment",
-                                 fromAccount, @"fromAccount",
-                                 nil];
-    
-    NSString *newJSON = [paymentData JSONRepresentation];
-
-    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
-    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
-    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
-    [request setRequestMethod: @"POST"];	
-    
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(sendMoneyComplete:)];
-    [request setDidFailSelector:@selector(sendMoneyFailed:)];
-    
-    [request startAsynchronous];
-
-    [paymentData release];
-    [apiKey release];
-    [rootUrl release];
-}
 
 
 
@@ -376,18 +344,18 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     
     if(isnumber([recipientUriToTest characterAtIndex:0])) {
         NSCharacterSet *numSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789-"];
-    
-    @try {
-        if(([[recipientUriToTest stringByTrimmingCharactersInSet:numSet] isEqualToString:@""]) && ([[recipientUriToTest stringByReplacingOccurrencesOfString:@"-" withString:@""] length] == 10))
-            return true;
-        else
+        
+        @try {
+            if(([[recipientUriToTest stringByTrimmingCharactersInSet:numSet] isEqualToString:@""]) && ([[recipientUriToTest stringByReplacingOccurrencesOfString:@"-" withString:@""] length] == 10))
+                return true;
+            else
+                return false;
+        }
+        @catch (NSException *exception) {
             return false;
-    }
-    @catch (NSException *exception) {
-        return false;
         }   
     } else {
-       return true;
+        return true;
     }
 }
 
@@ -448,7 +416,7 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     
     [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
+    [self tabBarClicked:1];
 }
 -(void)onContinueClicked {
     txtAmount.text = @"0.00";
@@ -529,6 +497,84 @@ fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
+
+
+- (void)tabBarClicked:(NSUInteger)buttonIndex
+{
+    if( buttonIndex == 0 )
+    {
+        //Switch to the groups tab
+        HomeViewController *gvc = [[HomeViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 1 )
+    {
+        
+        //Switch to the groups tab
+        PayStreamViewController *gvc = [[PayStreamViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+        
+    }
+    if( buttonIndex == 2 )
+    {
+        // Already the current view controller
+        /*
+        //Switch to the groups tab
+        SendMoneyController *gvc = [[SendMoneyController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+         */
+    }
+    if( buttonIndex == 3 )
+    {
+        //Switch to the groups tab
+        RequestMoneyController *gvc = [[RequestMoneyController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 4 )
+    {
+        
+        //Switch to the groups tab
+        DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+        
+    }
+}
+
 @end
 
 

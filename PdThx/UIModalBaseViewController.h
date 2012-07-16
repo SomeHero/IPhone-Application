@@ -16,8 +16,6 @@
     IBOutlet UIScrollView *mainScrollView;
     IBOutlet UINavigationItem *navigationItem;
     IBOutlet UILabel* lblHeader;
-    NSMutableArray *autoCompleteArray;
-    NSMutableArray *allResults;
     NSObject *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
     NSString* navigationTitle;

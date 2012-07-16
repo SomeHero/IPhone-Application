@@ -24,13 +24,14 @@
 #import "Application.h"
 #import "ApplicationService.h"
 #import "ApplicationSettingsCompleteProtocol.h"
+#import "Merchant.h"
+#import "MerchantServices.h"
 
 @class PdThxViewController;
 
 @interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate> {
     Facebook * fBook;
     NSString * deviceToken;
-    NSMutableArray *contactsArray;
     PhoneNumberFormatting *phoneNumberFormatter;
     NSMutableArray *tempArray;
     NSArray * permissions;
@@ -46,14 +47,22 @@
     CustomAlertViewController *customAlert;
     UINavigationController* setupFlowController;
     Application* myApplication;
+    
+    NSMutableArray *contactsArray;
+    NSMutableArray* phoneContacts;
+    NSMutableArray* faceBookContacts;
+    NSMutableArray* nonProfits;
+    NSMutableArray* organizations;
+    
+    NSString * fbAppId;
+    
+    UINavigationController * mainAreaTabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) Facebook * fBook;
-@property (nonatomic, retain) NSString * deviceToken;
-@property (nonatomic, retain) NSMutableArray *contactsArray;
-@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
+@property (nonatomic, retain) NSString * deviceToken;@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, retain) NSMutableArray *tempArray;
 @property (nonatomic, retain) NSArray * permissions;
 @property (nonatomic, retain) UIAlertView * notifAlert;
@@ -67,8 +76,21 @@
 @property (nonatomic, retain) ProgressHudInnnerViewController *myProgHudInnerView;
 @property (nonatomic, retain) CustomAlertViewController *customAlert;
 
+
+@property(nonatomic, retain) UINavigationController * mainAreaTabBarController;
 @property (nonatomic, assign) int animationTimer;
+
+
 @property(nonatomic, retain) Application* myApplication;
+
+
+@property (nonatomic, retain) NSMutableArray *contactsArray;
+@property (nonatomic, retain) NSMutableArray *phoneContacts;
+@property (nonatomic, retain) NSMutableArray *faceBookContacts;
+@property(nonatomic, retain) NSMutableArray* nonProfits;
+@property(nonatomic, retain) NSMutableArray* organizations;
+
+@property(nonatomic, retain) NSString * fbAppId;
 
 -(void)signOut;
 -(void)forgetMe;

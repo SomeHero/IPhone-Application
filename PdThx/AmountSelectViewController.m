@@ -187,28 +187,28 @@
     double amount = [amountDisplayLabel.text doubleValue];
     [amountChosenDelegate didSelectAmount: amount];
     
-    [self.navigationController popToRootViewControllerAnimated:YES]; 
+    [self.navigationController popViewControllerAnimated:YES]; 
 }
 
 - (IBAction)pressedQuickAmount0:(id)sender {
     [amountChosenDelegate didSelectAmount:1.0];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)pressedQuickAmount1:(id)sender {
     [amountChosenDelegate didSelectAmount:5.0];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)pressedQuickAmount2:(id)sender {
     [amountChosenDelegate didSelectAmount:10.0];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)pressedQuickAmount3:(id)sender {
     [amountChosenDelegate didSelectAmount:20.0];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

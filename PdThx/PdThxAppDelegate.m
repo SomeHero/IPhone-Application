@@ -22,24 +22,29 @@
 #import "GANTracker.h"
 #import "myProgressHud.h"
 #import "CustomAlertViewController.h"
+#import "HomeViewController.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize tabBarController=_tabBarController, welcomeTabBarController, newUserFlowTabController;
+@synthesize welcomeTabBarController, newUserFlowTabController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
 @synthesize myApplication;
+@synthesize phoneContacts;
+@synthesize faceBookContacts;
+@synthesize nonProfits;
+@synthesize organizations;
+@synthesize fbAppId;
+@synthesize mainAreaTabBarController;
 
 -(void)switchToMainAreaTabbedView
 {
     [self.welcomeTabBarController.view removeFromSuperview];
     //[self.newUserFlowTabController.view removeFromSuperview];
     
-    [self.window addSubview:self.tabBarController.view];
-    [self.tabBarController setSelectedIndex:0];
-    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
-    [self.window bringSubviewToFront:self.tabBarController.view];
+    [self.window addSubview:self.mainAreaTabBarController.view];
+    [self.window bringSubviewToFront:self.mainAreaTabBarController.view];
     
     // Keep Progress Bar & Alert Views on top
     if ( myProgHudOverlay.view.superview ){
@@ -51,7 +56,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    [self startUserSetupFlow];
+    // [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
@@ -73,7 +78,7 @@
         
         if(setupFlowController == nil) {
             setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
-            [self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
             
         }
         else {
@@ -88,7 +93,7 @@
         PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
         
         if(setupFlowController == nil) {
-                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -105,7 +110,7 @@
         controller.message = [user.outstandingPayments objectAtIndex:0];
         
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -128,7 +133,7 @@
         AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
         controller.newUserFlow = true;
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[self.tabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -153,7 +158,7 @@
             
             [prefs synchronize];
             
-            [self.tabBarController dismissModalViewControllerAnimated:YES];
+            [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
             
             [setupFlowController release];
             setupFlowController = nil;
@@ -174,7 +179,7 @@
         
         [prefs synchronize];
         
-        [self.tabBarController dismissModalViewControllerAnimated:YES];
+        [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
         
         [setupFlowController release];
         setupFlowController = nil;
@@ -183,9 +188,9 @@
 }
 -(void)backToWelcomeTabbedArea
 {
-    [self.tabBarController.view removeFromSuperview];
+    [mainAreaTabBarController.view removeFromSuperview];
     
-    [self.tabBarController.navigationController popToRootViewControllerAnimated:NO];
+    [mainAreaTabBarController.navigationController popToRootViewControllerAnimated:NO];
     [self.window addSubview:self.welcomeTabBarController.view];
     [self.welcomeTabBarController setSelectedIndex:1];
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
@@ -205,7 +210,7 @@
 {
     // Override point for customization after application launch.
     permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
-    [self.tabBarController setDelegate:self];
+    [mainAreaTabBarController setDelegate:self];
     
     Environment *myEnvironment = [Environment sharedInstance];
     
@@ -217,6 +222,10 @@
     NSString *googleAnalyticsKey = [NSString stringWithString: myEnvironment.GoogleAnalyticsKey];
     
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
+    
+    HomeViewController *hvc = [[HomeViewController alloc]init];
+    mainAreaTabBarController = [[UINavigationController alloc] initWithRootViewController:hvc];
+    [hvc release];
     
     [self.welcomeTabBarController setDelegate:self];
     [self.window addSubview:self.welcomeTabBarController.view];
@@ -241,13 +250,28 @@
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
-    contactsArray = [[NSMutableArray alloc] init];
     tempArray = [[NSMutableArray alloc] init];
+    
+    contactsArray = [[NSMutableArray alloc] init];
+    contactsArray = [self sortContacts: contactsArray];
+    
+    phoneContacts = [[NSMutableArray alloc] init];
+    phoneContacts = [self sortContacts:phoneContacts];
+    
+    faceBookContacts = [[NSMutableArray alloc] init];
+    faceBookContacts = [self sortContacts:faceBookContacts];
+    
+    nonProfits = [[NSMutableArray alloc] init];
+    nonProfits = [self sortContacts:nonProfits];
+    
+    organizations = [[NSMutableArray alloc] init];
+    organizations = [self sortContacts:organizations];
     
     areFacebookContactsLoaded = NO;
     currentReminderTab = 0;
     
     [self loadAllContacts];
+    [self loadNonProfits];
     
     [self.window makeKeyAndVisible];
     
@@ -365,15 +389,6 @@
     [prefs synchronize];
 }
 
--(void)switchToSendMoneyController {
-    [self.tabBarController setSelectedIndex:1];
-}
--(void)switchToRequestMoneyController {
-    [self.tabBarController setSelectedIndex:2];
-}
--(void)switchToPaystreamController {
-    [self.tabBarController setSelectedIndex:3];
-}
 
 /*
  -(UIImage*)findImageForContact:(Contact*)contact;
@@ -499,22 +514,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    NSLog(@"Loading %d contacts", (int)nPeople);
-    
-    
     int index = 0;
-    for (int i = 0; i < nPeople; i++) {
+    for (int i = 1; i < nPeople; i++) {
+        NSLog(@"%@", @"Started Next Person");
+        
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         
         NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
         firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
+        NSLog(@"%@", firstName);
+        
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-        
-        NSString* lastNameTest = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
-        lastNameTest = [lastNameTest stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
-        
         CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
         
         UIImage * tempImgData = nil;
@@ -528,6 +540,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
         
         ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
+        
+    
         
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
@@ -570,6 +584,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                     contact.imgData = tempImgData;
                 }
                 
+                
                 [tempArray addObject:contact];
                 
                 index++;
@@ -580,9 +595,68 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
     }
     
-    [self sortContacts];
-}
+    NSMutableArray* tempPhoneContacts = [self sortContacts: tempArray];
+    
+    [contactsArray removeAllObjects];
+    [phoneContacts removeAllObjects];
+    
+    for(int i = 0; i <[tempPhoneContacts count]; i++)
+    {
+        [contactsArray addObject:[tempPhoneContacts objectAtIndex:i]];
+        [phoneContacts addObject:[tempPhoneContacts objectAtIndex:i]];
+    }
 
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          contactsArray forKey:@"contacts"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
+    
+    NSLog(@"Contacts Ready.");
+}
+-(void) loadNonProfits
+{
+    MerchantServices* merchantServices = [[MerchantServices alloc] init];
+    [merchantServices setMerchantServicesCompleteProtocol:self];
+    
+    [merchantServices getMerchants];
+    
+}
+-(void)getMerchantsDidComplete: (NSMutableArray*) merchants {
+    
+    [nonProfits removeAllObjects];
+    [organizations removeAllObjects];
+    
+    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
+    
+    for(int i=0; i < [merchants count]; i++)
+    {
+        Merchant* merchant = [merchants objectAtIndex:i];
+        
+        Contact* contact = [[Contact alloc] init];
+        contact.name = merchant.name;
+        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
+        contact.recipientId =  merchant.merchantId;
+        
+        [tempOrganizations addObject:contact];
+    }
+    
+    
+    tempOrganizations =  [self sortContacts:tempOrganizations];
+    
+    for(int i = 0; i <[tempOrganizations count]; i++)
+    {
+        [nonProfits addObject:[tempOrganizations objectAtIndex:i]];
+        [organizations addObject:[tempOrganizations objectAtIndex:i]];
+    }
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          contactsArray forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
+    
+}
+-(void)getMerchantsDidFail: (NSString*) errorMessage {
+    
+}
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
     NSArray *friendArray = [result objectForKey:@"data"];
@@ -605,20 +679,26 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     areFacebookContactsLoaded = YES;
     
-    [self sortContacts];
+    NSMutableArray* faceBookFriends = [self sortContacts: tempArray];
+    
+    [faceBookContacts removeAllObjects];
+    [contactsArray removeAllObjects];
+    
+    for(int i = 0; i <[faceBookFriends count]; i++)
+    {
+        [contactsArray addObject:[faceBookFriends objectAtIndex:i]];
+        [faceBookContacts addObject:[faceBookFriends objectAtIndex:i]];
+    }
 }
 
--(void)sortContacts
+-(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts 
 {
-    if ( contactsArray == NULL ){
-        contactsArray = [[NSMutableArray alloc] init];
-    } else {
-        [contactsArray removeAllObjects];
-    }
-    for ( int i = 0 ; i < 28 ; i ++ )
-        [contactsArray addObject:[[NSMutableArray alloc] init]];
+    NSMutableArray* results = [[[NSMutableArray alloc] init] retain];
     
-    tempArray = [[tempArray sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    for ( int i = 0 ; i < 28 ; i ++ )
+        [results addObject:[[[NSMutableArray alloc] init] retain]];
+    
+    NSMutableArray* tempArray = [[arrayOfContacts sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     
     NSString * comparedString;
     
@@ -628,10 +708,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
-    NSLog( @"Loading %d contacts... ", [tempArray count] );
-    
     for (Contact*person in tempArray) {
-        if ( person.firstName.length > 0 )
+        if(person.name.length > 0)
+            comparedString = person.name;
+        else if ( person.firstName.length > 0 )
             comparedString = person.firstName;
         else if ( person.lastName.length > 0 )
             comparedString = person.lastName;
@@ -640,17 +720,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
         {
-            [[contactsArray objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+            [[results objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
         }
         else {
-            [[contactsArray objectAtIndex:27] addObject:person];
+            [[results objectAtIndex:27] addObject:person];
         }
     }
     
-    NSLog( @"Contacts ready, bro... ", [tempArray count] );
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:nil];
-    
+    return results;
 }
 
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
@@ -704,7 +781,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 - (void)dealloc
 {
     [_window release];
-    [_tabBarController release];
+    [mainAreaTabBarController release];
     [welcomeTabBarController release];
     [fBook release];
     [newUserFlowTabController release];
@@ -859,7 +936,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          self.myProgHudOverlay.view.alpha = 0.0;
                      }
                      completion:^(BOOL finished) {
-                         
+                         myProgHudInnerView.view.transform = CGAffineTransformScale(self.myProgHudInnerView.view.transform, 1/1.3, 1/1.3);
                          [myProgHudOverlay.view removeFromSuperview];
                          [myProgHudOverlay.view removeFromSuperview];
                          

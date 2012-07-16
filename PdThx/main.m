@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
     int retVal = 0;
     @try {
     
+<<<<<<< HEAD
         retVal = UIApplicationMain(argc, argv, nil, nil);
     }
     @catch (NSException* e) {
@@ -21,6 +22,9 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
         
+=======
+    int retVal = UIApplicationMain(argc, argv, nil, nil);
+>>>>>>> upstream/development
     [pool release];
     return retVal;
 }

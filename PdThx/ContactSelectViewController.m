@@ -1,4 +1,3 @@
-
 //
 //  ContactSelectViewController.m
 //  PdThx
@@ -17,8 +16,6 @@
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 
-#define KEYBOARD_SIZE 220
-
 @interface ContactSelectViewController ()
 
 - (void)startIconDownload:(Contact*)contact forIndexPath:(NSIndexPath *)indexPath;
@@ -28,7 +25,7 @@
 @implementation ContactSelectViewController
 
 @synthesize searchBar, tvSubview, fBook, allResults;
-@synthesize phoneNumberFormatter, fbIconsDownloading,contactSelectChosenDelegate;
+@synthesize fbIconsDownloading,contactSelectChosenDelegate;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,9 +51,9 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [txtSearchBox becomeFirstResponder];
+    [super viewWillAppear:animated];
     
-    //tvSubview.frame = CGRectMake(tvSubview.frame.origin.x, tvSubview.frame.origin.y, tvSubview.frame.size.width, tvSubview.frame.size.height-KEYBOARD_SIZE);
+    [txtSearchBox becomeFirstResponder];
 }
 
 - (void)viewDidLoad
@@ -71,22 +68,20 @@
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
 }
 
-/*
 -(void)viewDidAppear:(BOOL)animated
 {
-    if ( self.navigationController.navigationItem.backBarButtonItem != nil ) {
-        UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
-        UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [settingsBtn setImage:bgImage forState:UIControlStateNormal];
-        settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
-        [settingsBtn addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
-        
-        self.navigationItem.backBarButtonItem = settingsButtons;
-        [settingsButtons release];
-    }
+    [super viewDidAppear:YES];
+    
+    UIImage *bgImage = [UIImage imageNamed:@"nav-selector-allcontacts-52x30.png"];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+    [settingsBtn addTarget:self action:@selector(showContextSelect:forEvent:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+    
+    self.navigationItem.rightBarButtonItem = settingsButtons;
+    [settingsButtons release];
 }
-*/
 
 -(void) backButtonClicked
 {
@@ -111,7 +106,7 @@
 
 
 /*
-            TABLE VIEW SETUP AND HANDLING
+ TABLE VIEW SETUP AND HANDLING
  */
 
 #pragma mark - Table view data source
@@ -155,9 +150,6 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [txtSearchBox resignFirstResponder];
-    
-    
-    //tvSubview.frame = CGRectMake(tvSubview.frame.origin.x, tvSubview.frame.origin.y, tvSubview.frame.size.width, tvSubview.frame.size.height+KEYBOARD_SIZE);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -199,10 +191,9 @@
                 return 2;
         }
     }
-                            
+    
     return 0;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -220,7 +211,7 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
         myCell = [nib objectAtIndex:0];
     }
-        
+    
     
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
@@ -312,10 +303,10 @@
         }
     } else {
         Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-                                                 
+        
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
-        
+            
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
             
             // Only load cached images; defer new downloads until scrolling ends
@@ -383,14 +374,14 @@
                 }
             }
             [contactSelectChosenDelegate didChooseContact:contact];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [contactSelectChosenDelegate didChooseContact:[[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     } else {
         [contactSelectChosenDelegate didChooseContact:[[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -401,9 +392,25 @@
     contact.recipientUri = [[txtSearchBox text] copy];
     
     [contactSelectChosenDelegate didChooseContact: contact];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
+-(void) showContextSelect:(id)sender forEvent:(UIEvent*)event
+{
+    
+    ContactTypeSelectViewController *tableViewController = [[ContactTypeSelectViewController alloc] init];
+    [tableViewController setContactSelectWasSelected: self];
+    
+    tableViewController.view.frame = CGRectMake(0,0, 220, 216);
+   
+    popoverController = [[TSPopoverController alloc] initWithContentViewController:tableViewController];
+    [popoverController setContactSelectWasSelected: self];
+    popoverController.cornerRadius = 5;
+    popoverController.titleText = @"Select Context";
+    popoverController.popoverBaseColor = [UIColor clearColor];
+    popoverController.popoverGradient= YES;
+    //popoverController.arrowPosition = TSPopoverArrowPositionHorizontal;
+    [popoverController showPopoverWithTouch:event];
+}
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
@@ -436,6 +443,8 @@
     NSArray *allDownloads = [self.fbIconsDownloading allValues];
     [allDownloads makeObjectsPerformSelector:@selector(cancelDownload)];
 }
+
+
 
 #pragma mark -
 #pragma mark Table cell image support
@@ -556,26 +565,53 @@
                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
                 }
                 // Add $me code implementation ** TODO: **
-            
+                
                 if ( hasSimilarity.location != NSNotFound ){
-                     @try {
-                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
-                    foundFiltered = YES;
+                    @try {
+                        [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
+                        foundFiltered = YES;
                     }
-            @catch (NSException* e) {
-                NSLog(@"Exception: %@", e);
-            }
-
+                    @catch (NSException* e) {
+                        NSLog(@"Exception: %@", e);
+                    }
+                    
                 }
             }
         }
     }
-    
     [tvSubview reloadData];
 }
-
-- (IBAction)pressedSearchBox:(id)sender 
-{
-    NSLog(@"Pressed search box, shrinking table view size.");
+-(void)contactWasSelected:(NSInteger)contactType {
+    
+    [popoverController dismissPopoverAnimatd:YES];
+    switch (contactType) {
+        case 1:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+            break;
+        case 2:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).phoneContacts;
+            break;
+        case 3:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).faceBookContacts;
+            break;
+        case 4:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).nonProfits;
+            break;
+        case 5:
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).organizations;
+            break;
+        default:
+                allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+            break;
+    }
+    
+    filteredResults = [[NSMutableArray alloc] init];
+    for ( int i = 0 ; i < 28 ; i ++ )
+        [filteredResults addObject:[[NSMutableArray alloc] init]];
+    
+    [tvSubview reloadData];
+    
+    [popoverController release];
+    popoverController = nil;
 }
 @end

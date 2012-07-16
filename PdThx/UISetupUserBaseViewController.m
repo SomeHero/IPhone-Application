@@ -53,8 +53,8 @@ CGSize scrollViewOriginalSize;
     CGRect aRect = self.view.frame;
     
     aRect.size.height -= kbSize.height +40;
-    if (!CGRectContainsPoint(aRect, currTextField.frame.origin) ) {
-        CGPoint scrollPoint = CGPointMake(0.0, (currTextField.frame.origin.y + currTextField.frame.size.height) - (aRect.size.height + 40));
+    if (!CGRectContainsPoint(aRect, currentTextField.frame.origin) ) {
+        CGPoint scrollPoint = CGPointMake(0.0, (currentTextField.frame.origin.y + currentTextField.frame.size.height) - (aRect.size.height + 40));
         [scrollView setContentOffset:scrollPoint animated:YES];
     }
 }
@@ -69,7 +69,7 @@ CGSize scrollViewOriginalSize;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    currTextField = textField;
+    currentTextField = textField;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -136,7 +136,6 @@ CGSize scrollViewOriginalSize;
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil;   
 }
 
