@@ -290,7 +290,7 @@
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/forgot_password", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/reset_password", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];  
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               emailAddress, @"emailAddress",
@@ -313,9 +313,9 @@
 -(void) forgotPasswordComplete: (ASIHTTPRequest*) request
 {
     if([request responseStatusCode] == 200 ) {
-        NSLog(@"Changing password worked!");
+        NSLog(@"Forgot password worked!");
         
-        [changePasswordCompleteDelegate changePasswordSuccess];
+        [forgotPasswordCompleteDelegate forgotPasswordDidComplete];
         
     } else
     {
@@ -330,7 +330,7 @@
         
         NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
         
-        [changePasswordCompleteDelegate changePasswordDidFail:message];
+        [forgotPasswordCompleteDelegate forgotPasswordDidFail:message];
         
         NSLog(@"Password Change Failed, Error Code %d", [request responseStatusCode]);
     }
