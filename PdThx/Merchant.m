@@ -33,6 +33,7 @@ if(self) {
     merchantId = [[dictionary valueForKey: @"Id"] copy];
     name = [[dictionary valueForKey: @"Name"] copy];
     imageUrl = [[dictionary valueForKey: @"MerchantImageUrl"] copy];
+    preferredReceiveAccountId = [[dictionary valueForKey:@"PreferredReceiveAccountId"] copy];
 }
 
 return self;

@@ -11,7 +11,7 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 
-@interface AmountSelectViewController : UIViewController <UITextFieldDelegate>
+@interface AmountSelectViewController : UIBaseViewController <UITextFieldDelegate>
 {
     id<AmountSelectChosenProtocol> amountChosenDelegate;
     IBOutlet UITextField *amountDisplayLabel;

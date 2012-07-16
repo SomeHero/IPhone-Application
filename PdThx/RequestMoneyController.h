@@ -39,6 +39,9 @@
     NSString* amount;
     NSString* comments;
     
+    NSMutableArray *autoCompleteArray;
+    NSMutableArray *allResults;
+    
     RequestMoneyService* requestMoneyService;
     
     IBOutlet UIButton *chooseRecipientButton;

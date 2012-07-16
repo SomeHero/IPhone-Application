@@ -22,6 +22,12 @@
 #import "TransactionConfirmationProtocol.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
+#import "PaystreamService.h"
+#import "HomeViewController.h"
+#import "PayStreamViewController.h"
+#import "SendMoneyController.h"
+#import "RequestMoneyController.h"
+#import "DoGoodViewController.h"
 
 @interface SendDonationViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate> {
     IBOutlet UIView *viewPanel;
@@ -33,7 +39,12 @@
     NSString* amount;
     NSString* comments;
     NSString* recipientId;
+    
+    NSMutableArray *autoCompleteArray;
+    NSMutableArray *allResults;
+    
     SendMoneyService* sendMoneyService;
+    PaystreamService* paystreamService;
     
     // Buttons
     IBOutlet UIButton *chooseRecipientButton;

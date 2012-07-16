@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "PhoneNumberFormatting.h"
 #import "User.h"
+#import "UIBaseViewController.h"
 
-@interface UISetupUserBaseViewController : UIViewController <UITextFieldDelegate>
+@interface UISetupUserBaseViewController : UIBaseViewController <UITextFieldDelegate>
 {
     IBOutlet UIScrollView *scrollView;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
-    UITextField *currTextField;
-    PhoneNumberFormatting* phoneNumberFormatter;
+    UITextField *currentTextField;
     User* user;
 }
 

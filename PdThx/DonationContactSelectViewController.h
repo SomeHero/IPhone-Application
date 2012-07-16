@@ -15,12 +15,16 @@
 #import "DetailInfoButtonClicked.h"
 #import "UIBaseViewController.h"
 #import "CauseSelectDidCompleteProtocol.h"
+#import "ContactSelectWasSelectedDelegate.h"
 
-@interface DonationContactSelectViewController : UIBaseViewController <UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate, DetailInfoButtonClicked>
+@interface DonationContactSelectViewController : UIBaseViewController <UITableViewDelegate, UITableViewDataSource, ContactSelectChosenProtocol, FBRequestDelegate, IconDownloaderDelegate, DetailInfoButtonClicked>
 {
     IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
+    
+    TSPopoverController *popoverController;
     Facebook * fBook;
+    NSMutableArray * allResults;
     NSMutableArray * filteredResults;
     NSMutableDictionary *fbIconsDownloading;
     id<CauseSelectDidCompleteProtocol> causeSelectDidComplete;

@@ -7,19 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIBaseViewController.h"
 #import "Facebook.h"
 #import "PhoneNumberFormatting.h"
 #import "IconDownloader.h"
 #import "ContactSelectChosenProtocol.h"
+#import "ContactTypeSelectViewController.h"
+#import "TSPopoverController.h"
+#import "TSActionSheet.h"
+#import "TestViewController.h"
 
-@interface ContactSelectViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate>
+
+@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate>
 {
     IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
+    
+    TSPopoverController *popoverController;
     Facebook * fBook;
     NSMutableArray * allResults;
     NSMutableArray * filteredResults;
-    PhoneNumberFormatting *phoneNumberFormatter;
     NSMutableDictionary *fbIconsDownloading;
     id<ContactSelectChosenProtocol> contactSelectChosenDelegate;
     IBOutlet UITextField *txtSearchBox;

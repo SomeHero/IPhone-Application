@@ -477,7 +477,7 @@
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
+    [self tabBarClicked:1];
 }
 -(void)onContinueClicked {
     

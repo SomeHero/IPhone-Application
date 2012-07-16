@@ -416,7 +416,7 @@
     
     [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToPaystreamController];
+    [self tabBarClicked:1];
 }
 -(void)onContinueClicked {
     txtAmount.text = @"0.00";

@@ -14,11 +14,13 @@
     NSString* merchantId;
     NSString* name;
     NSString* imageUrl;
+    NSString* preferredReceiveAccountId;
 }
 
 @property(nonatomic, retain) NSString* merchantId;
 @property(nonatomic, retain) NSString* name;
 @property(nonatomic, retain) NSString* imageUrl;
+@property(nonatomic, retain) NSString* preferredReceiveAccountId;
 
 -(Merchant *) initWithDictionary : (NSDictionary *) dictionary;
 
