@@ -21,6 +21,19 @@
     IBOutlet UIButton *centerTabButton;
     IBOutlet UIButton *fourthTabButton;
     IBOutlet UIButton *fifthTabButton;
+    
+    IBOutlet UILabel *firstTabLabel;
+    IBOutlet UILabel *secondTabLabel;
+    IBOutlet UILabel *centerTabLabel;
+    IBOutlet UILabel *fourthTabLabel;
+    IBOutlet UILabel *fifthTabLabel;
+    
+    
+    IBOutlet UIImageView *firstTabSelectedOverlay;
+    IBOutlet UIImageView *secondTabSelectedOverlay;
+    IBOutlet UIImageView *centerTabSelectedOverlay;
+    IBOutlet UIImageView *fourthTabSelectedOverlay;
+    IBOutlet UIImageView *fifthTabSelectedOverlay;
 }
 
 @property (nonatomic, retain) UIImageView *firstTabImage;
@@ -34,5 +47,18 @@
 @property (nonatomic, retain) UIButton *centerTabButton;
 @property (nonatomic, retain) UIButton *fourthTabButton;
 @property (nonatomic, retain) UIButton *fifthTabButton;
+
+
+@property (nonatomic, retain) UILabel *firstTabLabel;
+@property (nonatomic, retain) UILabel *secondTabLabel;
+@property (nonatomic, retain) UILabel *centerTabLabel;
+@property (nonatomic, retain) UILabel *fourthTabLabel;
+@property (nonatomic, retain) UILabel *fifthTabLabel;
+
+@property (nonatomic, retain) UIImageView *firstTabSelectedOverlay;
+@property (nonatomic, retain) UIImageView *secondTabSelectedOverlay;
+@property (nonatomic, retain) UIImageView *centerTabSelectedOverlay;
+@property (nonatomic, retain) UIImageView *fourthTabSelectedOverlay;
+@property (nonatomic, retain) UIImageView *fifthTabSelectedOverlay;
 
 @end
