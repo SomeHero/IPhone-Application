@@ -215,6 +215,7 @@
 		54E3877915911D5C00A18DD9 /* loadingImage342x342@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E3877715911D5C00A18DD9 /* loadingImage342x342@2x.png */; };
 		54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
+		54E77EB015B456860031116B /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */; };
 		54FA473E1594AEFE007CFA33 /* AddACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */; };
 		54FA47441594C3AF007CFA33 /* AddSecurityQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */; };
 		54FA47451594C3AF007CFA33 /* AddSecurityQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */; };
@@ -569,6 +570,7 @@
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
+		C387CB7415B49FDA001A80B0 /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
 		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
@@ -2094,15 +2096,6 @@
 			name = "Activity Indicator";
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-=======
-		5B0A228515A0D1EC00BDA5F8 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		5B11964515AEF288003F8D53 /* Navigation Bar Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -2144,7 +2137,6 @@
 			name = "Donate Images";
 			sourceTree = "<group>";
 		};
->>>>>>> upstream/development
 		5B69DF6E14AE6067003A0F66 = {
 			isa = PBXGroup;
 			children = (
@@ -2638,13 +2630,10 @@
 				5B8B45AE15A762FA00822B67 /* AddPayPointCompleteProtocol.h */,
 				5B8B45C215A8F8A200822B67 /* ApplicationSettingsCompleteProtocol.h */,
 				5B8B45DB15AA134100822B67 /* UserSettingsCompleteProtocol.h */,
-<<<<<<< HEAD
-				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
-=======
 				5B11963E15AE06D9003F8D53 /* MerchantServicesCompleteProtocol.h */,
 				5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */,
 				5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */,
->>>>>>> upstream/development
+				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2953,6 +2942,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
+				C387CB7415B49FDA001A80B0 /* HBCustomTabBar.xib in Resources */,
+=======
+				54E77EB015B456860031116B /* HBCustomTabBar.xib in Resources */,
+>>>>>>> upstream/development
 				5B69DF8814AE6067003A0F66 /* InfoPlist.strings in Resources */,
 				5B69E13514AFAEB5003A0F66 /* lime_green_bubbles_iphone_wallpaper.jpg in Resources */,
 				5B69E14214AFB2FA003A0F66 /* background_nav.png in Resources */,
@@ -3281,10 +3275,6 @@
 				5B8B45B615A7D48300822B67 /* notifications.plist in Resources */,
 				5B8B45B815A7E82300822B67 /* sharing.plist in Resources */,
 				5B8B45D415A9CF7600822B67 /* ZendeskDropboxSampleViewController.xib in Resources */,
-<<<<<<< HEAD
-				C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */,
-				C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */,
-=======
 				5B11962215AB6C3A003F8D53 /* SendDonationViewController.xib in Resources */,
 				5B11962715AB6E21003F8D53 /* AcceptPledgeViewController.xib in Resources */,
 				5B11965015AEF2AC003F8D53 /* nav-selector-allcontacts-52x30.png in Resources */,
@@ -3352,7 +3342,8 @@
 				54B4A8A315B3B2EB001F76D8 /* bg-tab-send-75x57@2x.png in Resources */,
 				54B4A8A415B3B2EB001F76D8 /* bg-tab-send-active-75x57.png in Resources */,
 				54B4A8A515B3B2EB001F76D8 /* bg-tab-send-active-75x57@2x.png in Resources */,
->>>>>>> upstream/development
+				C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */,
+				C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3511,10 +3502,6 @@
 				5B8B45C115A8F10F00822B67 /* ProfileItem.m in Sources */,
 				5B8B45C515A9126400822B67 /* ProfileSection.m in Sources */,
 				5B8B45D215A9CF6400822B67 /* ZendeskDropboxSampleViewController.m in Sources */,
-<<<<<<< HEAD
-				C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */,
-				C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */,
-=======
 				5B11962115AB6C3A003F8D53 /* SendDonationViewController.m in Sources */,
 				5B11962615AB6E21003F8D53 /* AcceptPledgeViewController.m in Sources */,
 				5B11963915ADFC6A003F8D53 /* MerchantServices.m in Sources */,
@@ -3531,7 +3518,8 @@
 				5B6D138115B2633700F37A11 /* UIBarButtonItem+WEPopover.m in Sources */,
 				5B6D138515B2667000F37A11 /* ContactTypeSelectViewController.m in Sources */,
 				5B6D138F15B26F1400F37A11 /* TestViewController.m in Sources */,
->>>>>>> upstream/development
+				C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */,
+				C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

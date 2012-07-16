@@ -215,6 +215,7 @@
 		54E3877915911D5C00A18DD9 /* loadingImage342x342@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E3877715911D5C00A18DD9 /* loadingImage342x342@2x.png */; };
 		54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
+		54E77EB015B456860031116B /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */; };
 		54FA473E1594AEFE007CFA33 /* AddACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */; };
 		54FA47441594C3AF007CFA33 /* AddSecurityQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */; };
 		54FA47451594C3AF007CFA33 /* AddSecurityQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */; };
@@ -2941,7 +2942,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C387CB7415B49FDA001A80B0 /* HBCustomTabBar.xib in Resources */,
+				54E77EB015B456860031116B /* HBCustomTabBar.xib in Resources */,
 				5B69DF8814AE6067003A0F66 /* InfoPlist.strings in Resources */,
 				5B69E13514AFAEB5003A0F66 /* lime_green_bubbles_iphone_wallpaper.jpg in Resources */,
 				5B69E14214AFB2FA003A0F66 /* background_nav.png in Resources */,
