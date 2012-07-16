@@ -12,20 +12,13 @@
 		540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 540025B81598B3F500332A10 /* MeCodeSetupViewController.m */; };
 		540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */; };
 		540E635515AFDE890089A5F5 /* HBCustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E635115AFDE890089A5F5 /* HBCustomTabBar.m */; };
-		540E635615AFDE890089A5F5 /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540E635215AFDE890089A5F5 /* HBCustomTabBar.xib */; };
 		540E635715AFDE890089A5F5 /* HBTabBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E635415AFDE890089A5F5 /* HBTabBarManager.m */; };
 		540E637115AFE5600089A5F5 /* bg-tabnav-320x55.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635915AFE5600089A5F5 /* bg-tabnav-320x55.png */; };
 		540E637215AFE5600089A5F5 /* bg-tabnav-320x55@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635A15AFE5600089A5F5 /* bg-tabnav-320x55@2x.png */; };
 		540E637315AFE5600089A5F5 /* dogood-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635B15AFE5600089A5F5 /* dogood-active@2x.png */; };
-		540E637415AFE5600089A5F5 /* dogood-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635C15AFE5600089A5F5 /* dogood-inactive@2x.png */; };
 		540E637515AFE5600089A5F5 /* home-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635D15AFE5600089A5F5 /* home-active@2x.png */; };
-		540E637615AFE5600089A5F5 /* home-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635E15AFE5600089A5F5 /* home-inactive@2x.png */; };
 		540E637715AFE5600089A5F5 /* paystream-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E635F15AFE5600089A5F5 /* paystream-active@2x.png */; };
-		540E637815AFE5600089A5F5 /* paystream-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636015AFE5600089A5F5 /* paystream-inactive.png */; };
-		540E637915AFE5600089A5F5 /* paystream-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636115AFE5600089A5F5 /* paystream-inactive@2x.png */; };
 		540E637A15AFE5600089A5F5 /* send-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636215AFE5600089A5F5 /* send-active@2x.png */; };
-		540E637B15AFE5600089A5F5 /* send-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636315AFE5600089A5F5 /* send-inactive.png */; };
-		540E637C15AFE5600089A5F5 /* send-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636415AFE5600089A5F5 /* send-inactive@2x.png */; };
 		540E637D15AFE5600089A5F5 /* tab-paystream-30x30-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636515AFE5600089A5F5 /* tab-paystream-30x30-active.png */; };
 		540E637E15AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636615AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png */; };
 		540E637F15AFE5600089A5F5 /* tab-paystream-30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 540E636715AFE5600089A5F5 /* tab-paystream-30x30.png */; };
@@ -597,7 +590,6 @@
 		540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeSetupViewController.xib; sourceTree = "<group>"; };
 		540E635015AFDE890089A5F5 /* HBCustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCustomTabBar.h; sourceTree = "<group>"; };
 		540E635115AFDE890089A5F5 /* HBCustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCustomTabBar.m; sourceTree = "<group>"; };
-		540E635215AFDE890089A5F5 /* HBCustomTabBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBCustomTabBar.xib; sourceTree = "<group>"; };
 		540E635315AFDE890089A5F5 /* HBTabBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBTabBarManager.h; sourceTree = "<group>"; };
 		540E635415AFDE890089A5F5 /* HBTabBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBTabBarManager.m; sourceTree = "<group>"; };
 		540E635915AFE5600089A5F5 /* bg-tabnav-320x55.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-tabnav-320x55.png"; sourceTree = "<group>"; };
@@ -691,6 +683,7 @@
 		544A4F7015925276003EEE7D /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		544A4F7C15927ED7003EEE7D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		544A4F7E15927ED9003EEE7D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBCustomTabBar.xib; sourceTree = "<group>"; };
 		54764F5615810DFC008187B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		54805846159A03BE00ED591C /* loadingFailed62x62.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingFailed62x62.png; sourceTree = "<group>"; };
 		54805847159A03BE00ED591C /* loadingFailed62x62@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingFailed62x62@2x.png"; sourceTree = "<group>"; };
@@ -1373,7 +1366,7 @@
 			children = (
 				540E635015AFDE890089A5F5 /* HBCustomTabBar.h */,
 				540E635115AFDE890089A5F5 /* HBCustomTabBar.m */,
-				540E635215AFDE890089A5F5 /* HBCustomTabBar.xib */,
+				544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */,
 				540E635315AFDE890089A5F5 /* HBTabBarManager.h */,
 				540E635415AFDE890089A5F5 /* HBTabBarManager.m */,
 			);
@@ -3304,19 +3297,12 @@
 				5B11967415AEF445003F8D53 /* DonationContactSelectViewController.xib in Resources */,
 				5B6D130415AF602F00F37A11 /* DoGoodUITableCellViewController.xib in Resources */,
 				5B6D131415AFA64B00F37A11 /* OrganizationDetailViewController.xib in Resources */,
-				540E635615AFDE890089A5F5 /* HBCustomTabBar.xib in Resources */,
 				540E637115AFE5600089A5F5 /* bg-tabnav-320x55.png in Resources */,
 				540E637215AFE5600089A5F5 /* bg-tabnav-320x55@2x.png in Resources */,
 				540E637315AFE5600089A5F5 /* dogood-active@2x.png in Resources */,
-				540E637415AFE5600089A5F5 /* dogood-inactive@2x.png in Resources */,
 				540E637515AFE5600089A5F5 /* home-active@2x.png in Resources */,
-				540E637615AFE5600089A5F5 /* home-inactive@2x.png in Resources */,
 				540E637715AFE5600089A5F5 /* paystream-active@2x.png in Resources */,
-				540E637815AFE5600089A5F5 /* paystream-inactive.png in Resources */,
-				540E637915AFE5600089A5F5 /* paystream-inactive@2x.png in Resources */,
 				540E637A15AFE5600089A5F5 /* send-active@2x.png in Resources */,
-				540E637B15AFE5600089A5F5 /* send-inactive.png in Resources */,
-				540E637C15AFE5600089A5F5 /* send-inactive@2x.png in Resources */,
 				540E637D15AFE5600089A5F5 /* tab-paystream-30x30-active.png in Resources */,
 				540E637E15AFE5600089A5F5 /* tab-paystream-30x30-active@2x.png in Resources */,
 				540E637F15AFE5600089A5F5 /* tab-paystream-30x30.png in Resources */,
@@ -3604,7 +3590,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3705,7 +3691,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3734,7 +3720,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -3846,7 +3832,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3928,8 +3914,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6771C41F-A589-4BEB-8730-864C7721563A";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -4009,7 +3995,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4090,7 +4076,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4170,7 +4156,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
