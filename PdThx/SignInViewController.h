@@ -19,6 +19,7 @@
 #import "SecurityQuestionChallengeViewController.h"
 #import "SecurityQuestionChallengeProtocol.h"
 #import "FaceBookSignInOverlayViewController.h"
+#import "ForgotPasswordViewController.h"
 
 @interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBRequestDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate>
 {
@@ -27,6 +28,7 @@
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *loginFBButton;
     IBOutlet UIImageView *facebookOverlay;
+    IBOutlet UIButton *forgotPassword;
     SignInUserService *signInUserService;
     SignInWithFBService *service;
     Facebook *fBook;
@@ -46,6 +48,7 @@
 
 -(IBAction) bgTouched:(id)sender;
 -(IBAction) btnSignInClicked:(id)sender;
+- (IBAction)forgotPasswordClicked:(id)sender;
 -(BOOL)isValidUserName:(NSString *)userNameToTest;
 -(BOOL)isValidPassword:(NSString *)passwordToTest;
 -(IBAction)signInWithFacebookClicked:(id)sender;

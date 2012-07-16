@@ -14,7 +14,7 @@
 
 @implementation SecurityQuestionChallengeViewController
 
-@synthesize securityQuestionChallengeDelegate;
+@synthesize securityQuestionChallengeDelegate, btnUnlockAccount, currUser;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,11 +35,13 @@
     
 }
 -(void)viewDidAppear:(BOOL)animated {
-   lblSecurityQuestion.text = user.securityQuestion;
+   lblSecurityQuestion.text = currUser.securityQuestion;
     
 }
 - (void)viewDidUnload
 {
+    [btnUnlockAccount release];
+    btnUnlockAccount = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -50,7 +52,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 -(IBAction)btnSubmitClicked:(id)sender {
-    [securityQuestionService validateSecurityAnswer: txtSecurityQuestionAnswer.text forUserId:user.userId];
+    [securityQuestionService validateSecurityAnswer: txtSecurityQuestionAnswer.text forUserId:currUser.userId];
 }
 
 -(IBAction) bgTouched:(id) sender {
@@ -66,4 +68,8 @@
 
 
 
+- (void)dealloc {
+    [btnUnlockAccount release];
+    [super dealloc];
+}
 @end

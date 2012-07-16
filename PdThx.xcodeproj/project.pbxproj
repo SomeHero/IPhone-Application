@@ -568,6 +568,11 @@
 		5BF3EE2815915A580011BAD8 /* BankAccountService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2715915A580011BAD8 /* BankAccountService.m */; };
 		5BF3EE2D159163380011BAD8 /* UIAccountTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */; };
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
+		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
+		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
+		C387CB7415B49FDA001A80B0 /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */; };
+		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
+		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
 		D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */; };
 		D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */; };
@@ -1312,6 +1317,13 @@
 		5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccountTableCell.h; sourceTree = "<group>"; };
 		5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccountTableCell.m; sourceTree = "<group>"; };
 		5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIAccountTableCell.xib; sourceTree = "<group>"; };
+		C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordViewController.xib; sourceTree = "<group>"; };
+		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
+		C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordCompleteProtocol.h; sourceTree = "<group>"; };
+		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
+		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
+		C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPinCodeViewController.xib; sourceTree = "<group>"; };
 		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
 		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
 		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
@@ -1674,6 +1686,9 @@
 		54A139A715826C1000668984 /* Sign In View */ = {
 			isa = PBXGroup;
 			children = (
+				C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */,
+				C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */,
+				C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */,
 				5BC9C3B3158C41D800E20D9D /* SignInViewController.h */,
 				5BC9C3B4158C41D800E20D9D /* SignInViewController.m */,
 				5BC9C3B9158C459400E20D9D /* CreateAccountViewController.h */,
@@ -2079,13 +2094,6 @@
 				54E3877715911D5C00A18DD9 /* loadingImage342x342@2x.png */,
 			);
 			name = "Activity Indicator";
-			sourceTree = "<group>";
-		};
-		5B0A228515A0D1EC00BDA5F8 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		5B11964515AEF288003F8D53 /* Navigation Bar Icons */ = {
@@ -2551,6 +2559,9 @@
 				5B0A228715A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.h */,
 				5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */,
 				5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */,
+				C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */,
+				C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */,
+				C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */,
 			);
 			name = Security;
 			sourceTree = "<group>";
@@ -2580,7 +2591,6 @@
 		5BD279111544431C00CAFC12 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				5B0A228515A0D1EC00BDA5F8 /* New Group */,
 				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
 				5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
@@ -2623,6 +2633,7 @@
 				5B11963E15AE06D9003F8D53 /* MerchantServicesCompleteProtocol.h */,
 				5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */,
 				5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */,
+				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -3327,6 +3338,8 @@
 				54B4A8A315B3B2EB001F76D8 /* bg-tab-send-75x57@2x.png in Resources */,
 				54B4A8A415B3B2EB001F76D8 /* bg-tab-send-active-75x57.png in Resources */,
 				54B4A8A515B3B2EB001F76D8 /* bg-tab-send-active-75x57@2x.png in Resources */,
+				C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */,
+				C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3501,6 +3514,8 @@
 				5B6D138115B2633700F37A11 /* UIBarButtonItem+WEPopover.m in Sources */,
 				5B6D138515B2667000F37A11 /* ContactTypeSelectViewController.m in Sources */,
 				5B6D138F15B26F1400F37A11 /* TestViewController.m in Sources */,
+				C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */,
+				C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,7 +31,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)unlockPatternView:(ALUnlockPatternView *)patternView selectedCode:(NSString *)code{
     oldSecurityPin = [NSString stringWithString:[code copy]];
-
+    
     controller =[[[CustomSecurityPinSwipeController alloc] init] autorelease];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Select a New Pin"];
@@ -50,15 +50,24 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
         [controller setSecurityPinSwipeDelegate: self];
         [controller setNavigationTitle: @"Confirm your Pin"];
-        [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+        [controller setHeaderText: @"Confirm your new pin by swiping it again below."];
         [controller setTag:2];    
         [self presentModalViewController:controller animated:YES];
     }
     else if([sender tag] == 2) {
-        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showWithStatus:@"Updating" withDetailedStatus:@"Changing security pin"];
         
-        [userService changeSecurityPin:user.userId WithOld:oldSecurityPin AndNew:newSecurityPin];
+        if ([newSecurityPin isEqualToString:pin])
+        {
+            PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            [appDelegate showWithStatus:@"Updating" withDetailedStatus:@"Changing security pin"];
+            
+            [userService changeSecurityPin:user.userId WithOld:oldSecurityPin AndNew:newSecurityPin];
+        }
+        else {
+            PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            [appDelegate showErrorWithStatus:@"Failure" withDetailedStatus:@"New Pin Didn't Match."];
+            
+        }
     }
 }
 -(void)swipeDidCancel: (id)sender
@@ -83,7 +92,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Release any cached data, images, etc that aren't in use.
 }
 -(void)viewDidDisappear:(BOOL)animated {
-
+    
 }
 #pragma mark - View lifecycle
 
@@ -92,7 +101,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-
+    
     userService = [[UserService alloc] init];
     [userService setUserSecurityPinCompleteDelegate:self];
     
@@ -150,7 +159,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.navigationController popViewControllerAnimated:YES]; 
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Pin change failed"];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Pin change failed"];
 }
 - (void)viewDidUnload
 {

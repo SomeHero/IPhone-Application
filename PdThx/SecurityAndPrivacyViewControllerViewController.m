@@ -54,7 +54,7 @@
     NSArray *array = [[profileOptions allKeys] sortedArrayUsingSelector:@selector(compare:)];
     
     self.sections = array;
-
+    
     [super viewDidLoad];
     //self.clearsSelectionOnViewWillAppear = NO;
     NSError *error;
@@ -129,7 +129,7 @@
     
     // Configure the cell...
     NSLog(@"Section:%d Label:%@", indexPath.section, [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"] );
-        
+    
     cell.textLabel.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"];
     cell.imageView.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
     cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
@@ -183,7 +183,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    switch(indexPath.section) {
+    switch(indexPath.section) 
+    {
         case 0:
         {
             switch (indexPath.row) 
@@ -218,12 +219,47 @@
                     
                     break;
                 }
+                case 2:
+                {
+                    SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
+                    [controller setNavigationTitle: @"Security Question"];
+                    [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
+                    controller.currUser = [user copy];
+                    [controller setSecurityQuestionChallengeDelegate:self];
+                    
+                    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+                    [self.navigationController presentModalViewController:navBar animated:YES];
+                    
+                    [controller release];
+                }
+            
             }
         }
     }
-   
+
 }
 
+-(void) securityQuestionAnsweredCorrect
+{
+    [self dismissModalViewControllerAnimated: YES];
+    
+    ForgotPinCodeViewController *controller = [[ForgotPinCodeViewController alloc] init];
+    [controller setNavigationTitle:@"Forgot Pin Code"];
+    [controller setHeaderText: @"To change your security pin, input your new pin."];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [navBar release];
+    [controller release];
+}
+
+-(void) securityQuestionAnsweredInCorrect:(NSString *)errorMessage 
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failure" withDetailedStatus:@"Security Question Answer Incorrect."];
+}
 
 -(void) userSecurityPinDidComplete {
     [spinner stopAnimating];
