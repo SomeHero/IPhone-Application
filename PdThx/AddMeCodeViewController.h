@@ -10,7 +10,7 @@
 #import "PayPointService.h"
 #import "AddPayPointCompleteProtocol.h"
 
-@interface AddMeCodeViewController : UIModalBaseViewController<AddPayPointCompleteProtocol>
+@interface AddMeCodeViewController : UIModalBaseViewController <AddPayPointCompleteProtocol>
 {
     IBOutlet UITextField* txtMeCode;
     PayPointService* payPointService;
@@ -22,5 +22,7 @@
 -(IBAction)btnSubmitClicked;
 - (IBAction)meCodeChange:(id)sender;
 - (IBAction)validateMeCode:(id)sender;
+
+- (IBAction)meCodeChanged:(id)sender;
 
 @end

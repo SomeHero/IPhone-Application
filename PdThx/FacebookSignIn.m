@@ -50,7 +50,7 @@
     
     NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", @"publish_stream", nil];
     
-    fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
     fBook.sessionDelegate = self;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -59,8 +59,6 @@
         fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
         fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
     }
-    
-    [defaults synchronize];
     
     if ( ![fBook isSessionValid] ){
         [fBook authorize:permissions];

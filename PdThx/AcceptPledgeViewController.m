@@ -234,6 +234,7 @@
 -(IBAction)pressedChooseCauseButton:(id)sender 
 {
     DonationContactSelectViewController *newView = [[DonationContactSelectViewController alloc] initWithNibName:@"DonationContactSelectViewController" bundle:nil];
+    [newView setTitle: @"Select Cause"];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.causeSelectDidComplete = self; 
@@ -241,6 +242,7 @@
 - (IBAction)pressedChooseRecipientButton:(id)sender 
 {
     ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    [newView setTitle: @"Select Donor"];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.contactSelectChosenDelegate = self;

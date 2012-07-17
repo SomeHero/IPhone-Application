@@ -34,14 +34,6 @@
     service.fbSignInCompleteDelegate = self;
     
 }
--(void)viewDidAppear:(BOOL)animated
-{
-    if ( ![fBook isSessionValid] )
-        [faceBookSignInHelper signInWithFacebook:facebookSignInCompleteDelegate];
-    else {
-        [fBook requestWithGraphPath:@"me" andDelegate:self];
-    }
-}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

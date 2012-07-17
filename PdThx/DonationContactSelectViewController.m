@@ -27,6 +27,7 @@
 @synthesize searchBar, tvSubview, fBook;
 @synthesize fbIconsDownloading, causeSelectDidComplete;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
+@synthesize  allResults;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,8 +67,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
-    
-    self.title = @"Donate To";
 }
 
 
@@ -92,7 +91,6 @@
 
 -(void) showContextSelect:(id)sender forEvent:(UIEvent*)event
 {
-    
     ContactTypeSelectViewController *tableViewController = [[ContactTypeSelectViewController alloc] init];
     
     tableViewController.view.frame = CGRectMake(0,0, 220, 216);
@@ -108,6 +106,7 @@
     //popoverController.arrowPosition = TSPopoverArrowPositionHorizontal;
     [popoverController showPopoverWithTouch:event];
 }
+
 -(void) backButtonClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -147,7 +146,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //if ( indexPath.section > 0 )
+    //if ( indexPath.section > 0 ) // screw it it's all one height.
     return 60;
 }
 
@@ -566,15 +565,16 @@
         NSRange hasSimilarity;
         for ( NSMutableArray*arr3 in allResults ){
             for ( Contact*contact in arr3 ){
-                // Check first case normally
                 hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                if ( hasSimilarity.location == NSNotFound && contact.phoneNumber != NULL ){
+                
+                if ( hasSimilarity.location == NSNotFound && contact.phoneNumber != NULL && [contact.phoneNumber length] > 0 ){
                     hasSimilarity = [[[contact.phoneNumber componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
                 }
-                if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
+                if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL && [contact.emailAddress length] > 0 ){
                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
                 }
                 // Add $me code implementation ** TODO: **
+                
                 
                 if ( hasSimilarity.location != NSNotFound ){
                     @try {
@@ -591,6 +591,7 @@
     }
     [tvSubview reloadData];
 }
+
 -(void)infoButtonClicked: (NSString*) merchantId;
 {
     OrganizationDetailViewController* controller = [[OrganizationDetailViewController alloc] init];
@@ -602,6 +603,7 @@
     [controller release];
     [navBar release];
 }
+
 -(void)contactWasSelected:(NSInteger)contactType {
     
     [popoverController dismissPopoverAnimatd:YES];

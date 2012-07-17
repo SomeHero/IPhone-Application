@@ -13,6 +13,7 @@
 @synthesize itemId;
 @synthesize label;
 @synthesize sortOrder;
+@synthesize attributeId;
 
 -(id)init {
     self = [super init];
@@ -30,6 +31,7 @@
     if(self) { 
         itemId = [[dictionary valueForKey: @"Id"] intValue];
         label = [[dictionary valueForKey: @"Label"] copy];
+        attributeId = [[dictionary valueForKey: @"UserAttributeId"] copy];
         sortOrder = [[dictionary valueForKey: @"SortOrder"] intValue];
     }
     
@@ -43,6 +45,7 @@
     
     another.itemId = itemId;
     another.label = label;
+    another.attributeId = attributeId;
     another.sortOrder = sortOrder;
 
     return another;

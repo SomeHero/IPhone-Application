@@ -77,6 +77,13 @@
         // TODO: There needs to be a protocol here to load the image as being on top.
     }
 }
+
+- (IBAction)meCodeChanged:(id)sender {
+    if ( [txtMeCode.text length] > 0 ){
+        if ( [txtMeCode.text characterAtIndex:0] != '$' )
+            txtMeCode.text = [NSString stringWithFormat:@"$%@",txtMeCode.text];
+    }
+}
 -(void)addPayPointsDidComplete {
     [addPayPointComplete addPayPointsDidComplete];
 }
