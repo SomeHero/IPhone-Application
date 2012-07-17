@@ -14,10 +14,12 @@
     NSInteger itemId;
     NSString* label;
     NSInteger sortOrder;
+    NSString* attributeId;
 }
 
 @property(nonatomic) NSInteger itemId;
 @property(nonatomic, retain) NSString* label;
+@property(nonatomic, retain) NSString* attributeId;
 @property(nonatomic) NSInteger sortOrder;
 
 -(ProfileItem *) initWithDictionary : (NSDictionary *) dictionary;

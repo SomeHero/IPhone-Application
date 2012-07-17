@@ -339,6 +339,12 @@
     
     [self.navigationController presentModalViewController:controller animated:YES];
     
+    if ( ![fBook isSessionValid] )
+        [faceBookSignInHelper signInWithFacebook:self];
+    else {
+        [fBook requestWithGraphPath:@"me" andDelegate:self];
+    }
+    
     [controller release];
 }
 

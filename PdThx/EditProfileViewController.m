@@ -106,8 +106,19 @@
                 NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileRowViewController" owner:self options:nil];
                 cell = [nib objectAtIndex:0];
                 
-                cell.lblAttributeName.text = [[[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row - 1] label];
-                //cell.txtAttributeValue.text = [[[profileSections objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row - 1]  attributeValue];
+                ProfileItem* profileItem = [[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row - 1];
+                
+                cell.lblAttributeName.text = [profileItem label];
+                
+                for(int i = 0; i < [user.userAttributes count]; i++)
+                {
+                    UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+                    if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
+                    {
+                        cell.txtAttributeValue.text = [userAttribute attributeValue];
+                    }
+                }
+                
                 
                 return cell;
             }
