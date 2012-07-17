@@ -10,6 +10,7 @@
 
 @implementation UserAttribute
 
+@synthesize attributeId;
 @synthesize attributeName;
 @synthesize attributeValue;
 
@@ -28,6 +29,7 @@ return self;
 self = [super init];
 
 if(self) { 
+    attributeId = [[dictionary valueForKey: @"AttributeId"] copy];
     attributeName = [[dictionary valueForKey: @"AttributeName"] copy];
     attributeValue = [[dictionary valueForKey:@"AttributeValue"] copy];
 }
@@ -40,6 +42,7 @@ return self;
 // We'll ignore the zone for now
 UserAttribute *another = [[UserAttribute alloc] init];
 
+another.attributeId = attributeId;
 another.attributeName = attributeName;
 another.attributeValue = attributeValue;
 

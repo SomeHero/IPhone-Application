@@ -19,6 +19,6 @@
 
 @property(retain) id fbSignInCompleteDelegate;
 
--(void) validateUser:(Facebook*)fBook;
+-(void) validateUser:(Facebook*)response;
 
 @end
