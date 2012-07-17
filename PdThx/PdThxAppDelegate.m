@@ -56,7 +56,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    // [self startUserSetupFlow];
+    [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
@@ -253,7 +253,7 @@
     tempArray = [[NSMutableArray alloc] init];
     
     contactsArray = [[NSMutableArray alloc] init];
-    contactsArray = [self sortContacts: contactsArray];
+    contactsArray =  [self sortContacts: contactsArray];
     
     phoneContacts = [[NSMutableArray alloc] init];
     phoneContacts = [self sortContacts:phoneContacts];
@@ -655,7 +655,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
 }
 -(void)getMerchantsDidFail: (NSString*) errorMessage {
-    
+        NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
@@ -1077,6 +1077,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 }
 -(void)getApplicationSettingsDidFail: (NSString*) errorMessage
 {
-
+    NSLog( @"Failed to get application settings, error %@" , errorMessage );
 }
 @end

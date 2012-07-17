@@ -233,6 +233,8 @@
 - (IBAction)pressedChooseRecipientButton:(id)sender 
 {
     DonationContactSelectViewController *newView = [[DonationContactSelectViewController alloc] initWithNibName:@"DonationContactSelectViewController" bundle:nil];
+    [newView setTitle: @"Donate To"];
+    
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.causeSelectDidComplete = self;

@@ -66,8 +66,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
-    
-    self.title = @"Donate To";
 }
 
 
