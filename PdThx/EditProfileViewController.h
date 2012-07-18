@@ -14,6 +14,7 @@
 #import "Application.h"
 #import "ProfileSection.h"
 #import "ChoosePictureViewController.h"
+#import "UserAttribute.h"
 
 @interface EditProfileViewController : UISetupUserBaseViewController<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate>
 {

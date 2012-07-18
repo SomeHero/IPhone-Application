@@ -20,6 +20,8 @@
 @property(nonatomic, retain) id<AddPayPointCompleteProtocol> addPayPointComplete;
 
 -(IBAction)btnSubmitClicked;
+- (IBAction)meCodeChange:(id)sender;
+- (IBAction)validateMeCode:(id)sender;
 
 - (IBAction)meCodeChanged:(id)sender;
 
