@@ -71,15 +71,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
+    [bankAccountService getUserAccounts: user.userId];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    //PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    //[appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
-    //[bankAccountService getUserAccounts: user.userId];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -94,10 +93,8 @@
 -(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
-    
-    //userBankAccounts = bankAccounts;
-    
-    //[userAccountsTableView reloadData];
+    user.bankAccounts = bankAccounts;
+    [userAccountsTableView reloadData];
 }
 -(void)getUserAccountsDidFail:(NSString*)errorMessage {
     NSLog(@"%@", errorMessage);
@@ -258,7 +255,7 @@
 -(void) userSecurityPinDidComplete {
     //[spinner stopAnimating];
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Security pin updated"];
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account updated"];
 }
 
 -(void) userSecurityPinDidFail: (NSString*) message {
