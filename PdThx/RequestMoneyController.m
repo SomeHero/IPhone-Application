@@ -68,6 +68,7 @@
     /*  ------------------------------------------------------ */
     /*                Image/TextField Releases                 */
     /*  ------------------------------------------------------ */
+    [recipient release];
     [txtAmount release];
     [txtComments release];
     [user release];
@@ -216,6 +217,8 @@
     characterCountLabel = nil;
     [characterCountLabel release];
     characterCountLabel = nil;
+    [recipient release];
+    recipient = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -332,9 +335,10 @@
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"0.00"];
         [txtComments setText: @""];
-        
+        [recipient setText:@""];
         [[self mainScrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
+        
         
     }
     else {
@@ -452,6 +456,7 @@
     [controller setTransactionConfirmationDelegate: self];
     
     [self presentModalViewController:controller animated:YES];
+     recipientUri = @"";
 }
 
 -(void)requestMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {

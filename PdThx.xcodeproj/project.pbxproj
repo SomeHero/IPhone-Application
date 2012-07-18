@@ -215,7 +215,6 @@
 		54E3877915911D5C00A18DD9 /* loadingImage342x342@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E3877715911D5C00A18DD9 /* loadingImage342x342@2x.png */; };
 		54E3DDEB15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
 		54E3DDEC15713E6700F63820 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3DDEA15713E6700F63820 /* IconDownloader.m */; };
-		54E77EB015B456860031116B /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */; };
 		54E77EBC15B5CE180031116B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E77EBB15B5CE180031116B /* AVFoundation.framework */; };
 		54E77EC915B5D3530031116B /* AROverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E77EC015B5D3530031116B /* AROverlayViewController.m */; };
 		54E77ECA15B5D3530031116B /* bg-checkcapture-320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC115B5D3530031116B /* bg-checkcapture-320x480.png */; };
@@ -225,6 +224,8 @@
 		54E77ECE15B5D3530031116B /* btn-takepic-48x37.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC515B5D3530031116B /* btn-takepic-48x37.png */; };
 		54E77ECF15B5D3530031116B /* btn-takepic-48x37@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC615B5D3530031116B /* btn-takepic-48x37@2x.png */; };
 		54E77ED015B5D3530031116B /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E77EC815B5D3530031116B /* CaptureSessionManager.m */; };
+		54E77ED715B5D6A10031116B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E77ED615B5D6A10031116B /* ImageIO.framework */; };
+		54E77ED915B5D7020031116B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E77ED815B5D7020031116B /* CoreMedia.framework */; };
 		54FA473E1594AEFE007CFA33 /* AddACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */; };
 		54FA47441594C3AF007CFA33 /* AddSecurityQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */; };
 		54FA47451594C3AF007CFA33 /* AddSecurityQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */; };
@@ -276,6 +277,7 @@
 		5B357CF015B28D68000CD5FC /* icon-settings-phones-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357CEC15B28D68000CD5FC /* icon-settings-phones-40x40@2x.png */; };
 		5B357CF415B28D74000CD5FC /* icon-settings-signout-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357CF215B28D74000CD5FC /* icon-settings-signout-40x40.png */; };
 		5B357CF515B28D74000CD5FC /* icon-settings-signout-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357CF315B28D74000CD5FC /* icon-settings-signout-40x40@2x.png */; };
+		5B357CFB15B456F1000CD5FC /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */; };
 		5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */; };
 		5B3A5D48159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3A5D46159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib */; };
 		5B3A5D53159A208F0028D3F6 /* ALUnlockPatternView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D51159A208F0028D3F6 /* ALUnlockPatternView.m */; };
@@ -577,6 +579,10 @@
 		5BF3EE2815915A580011BAD8 /* BankAccountService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2715915A580011BAD8 /* BankAccountService.m */; };
 		5BF3EE2D159163380011BAD8 /* UIAccountTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */; };
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
+		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
+		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
+		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
+		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
 		D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */; };
 		D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */; };
@@ -847,6 +853,8 @@
 		54E77EC615B5D3530031116B /* btn-takepic-48x37@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37@2x.png"; sourceTree = "<group>"; };
 		54E77EC715B5D3530031116B /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
 		54E77EC815B5D3530031116B /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
+		54E77ED615B5D6A10031116B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		54E77ED815B5D7020031116B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddACHAccountViewController.xib; sourceTree = "<group>"; };
 		54FA47411594C3AF007CFA33 /* AddSecurityQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSecurityQuestionViewController.h; sourceTree = "<group>"; };
 		54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSecurityQuestionViewController.m; sourceTree = "<group>"; };
@@ -1332,6 +1340,13 @@
 		5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccountTableCell.h; sourceTree = "<group>"; };
 		5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccountTableCell.m; sourceTree = "<group>"; };
 		5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIAccountTableCell.xib; sourceTree = "<group>"; };
+		C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordViewController.xib; sourceTree = "<group>"; };
+		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
+		C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordCompleteProtocol.h; sourceTree = "<group>"; };
+		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
+		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
+		C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPinCodeViewController.xib; sourceTree = "<group>"; };
 		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
 		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
 		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
@@ -1345,6 +1360,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54E77ED915B5D7020031116B /* CoreMedia.framework in Frameworks */,
+				54E77ED715B5D6A10031116B /* ImageIO.framework in Frameworks */,
 				54E77EBC15B5CE180031116B /* AVFoundation.framework in Frameworks */,
 				D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */,
 				54BFF48D15AB2826000681A3 /* CFNetwork.framework in Frameworks */,
@@ -1695,6 +1712,9 @@
 		54A139A715826C1000668984 /* Sign In View */ = {
 			isa = PBXGroup;
 			children = (
+				C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */,
+				C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */,
+				C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */,
 				5BC9C3B3158C41D800E20D9D /* SignInViewController.h */,
 				5BC9C3B4158C41D800E20D9D /* SignInViewController.m */,
 				5BC9C3B9158C459400E20D9D /* CreateAccountViewController.h */,
@@ -2135,13 +2155,6 @@
 			name = "Take Check Picture";
 			sourceTree = "<group>";
 		};
-		5B0A228515A0D1EC00BDA5F8 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		5B11964515AEF288003F8D53 /* Navigation Bar Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -2205,6 +2218,8 @@
 		5B69DF7C14AE6067003A0F66 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				54E77ED815B5D7020031116B /* CoreMedia.framework */,
+				54E77ED615B5D6A10031116B /* ImageIO.framework */,
 				54E77EBB15B5CE180031116B /* AVFoundation.framework */,
 				54CACC831587C6F000631B84 /* MediaPlayer.framework */,
 				54764F5615810DFC008187B6 /* CoreLocation.framework */,
@@ -2601,6 +2616,9 @@
 				5B0A228715A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.h */,
 				5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */,
 				5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */,
+				C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */,
+				C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */,
+				C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */,
 			);
 			name = Security;
 			sourceTree = "<group>";
@@ -2630,7 +2648,6 @@
 		5BD279111544431C00CAFC12 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				5B0A228515A0D1EC00BDA5F8 /* New Group */,
 				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
 				5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
@@ -2673,6 +2690,7 @@
 				5B11963E15AE06D9003F8D53 /* MerchantServicesCompleteProtocol.h */,
 				5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */,
 				5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */,
+				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -2981,7 +2999,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54E77EB015B456860031116B /* HBCustomTabBar.xib in Resources */,
+				5B357CFB15B456F1000CD5FC /* HBCustomTabBar.xib in Resources */,
 				5B69DF8814AE6067003A0F66 /* InfoPlist.strings in Resources */,
 				5B69E13514AFAEB5003A0F66 /* lime_green_bubbles_iphone_wallpaper.jpg in Resources */,
 				5B69E14214AFB2FA003A0F66 /* background_nav.png in Resources */,
@@ -3383,6 +3401,8 @@
 				54E77ECD15B5D3530031116B /* btn-takepic-48x37-active@2x.png in Resources */,
 				54E77ECE15B5D3530031116B /* btn-takepic-48x37.png in Resources */,
 				54E77ECF15B5D3530031116B /* btn-takepic-48x37@2x.png in Resources */,
+				C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */,
+				C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3559,6 +3579,8 @@
 				5B6D138F15B26F1400F37A11 /* TestViewController.m in Sources */,
 				54E77EC915B5D3530031116B /* AROverlayViewController.m in Sources */,
 				54E77ED015B5D3530031116B /* CaptureSessionManager.m in Sources */,
+				C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */,
+				C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3619,7 +3641,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
@@ -3699,7 +3721,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
@@ -3718,7 +3740,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
@@ -3858,7 +3880,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
@@ -3940,8 +3962,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "7FBDF4F3-2C5F-485C-9C17-92B066CBC17E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7FBDF4F3-2C5F-485C-9C17-92B066CBC17E";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				SDKROOT = iphoneos;
 			};
 			name = Dev;
@@ -4022,7 +4044,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};
@@ -4104,7 +4126,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4658C758-1893-47A1-AE5C-EB656C448EBD";
 				SDKROOT = iphoneos;
 			};
@@ -4184,7 +4206,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				SDKROOT = iphoneos;
 			};

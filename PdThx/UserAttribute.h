@@ -10,10 +10,12 @@
 
 @interface UserAttribute : NSObject<NSCopying> {
 @private
+    NSString* attributeId;
     NSString* attributeName;
     NSString* attributeValue;
 }
 
+@property(nonatomic, retain) NSString* attributeId;
 @property(nonatomic, retain) NSString* attributeName;
 @property(nonatomic, retain) NSString* attributeValue;
 

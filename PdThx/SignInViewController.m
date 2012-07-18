@@ -60,6 +60,7 @@
     
     [loginFBButton release];
     [loginFBButton release];
+    [forgotPassword release];
     [super dealloc];
 }
 
@@ -113,6 +114,8 @@
 {
     [loginFBButton release];
     loginFBButton = nil;
+    [forgotPassword release];
+    forgotPassword = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -261,7 +264,7 @@
         SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
         [controller setNavigationTitle: @"Security Question"];
         [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
-        controller.user = [user copy];
+        controller.currUser = [user copy];
         [controller setSecurityQuestionChallengeDelegate: self];
         
         [self presentModalViewController:controller animated:YES];
@@ -285,6 +288,19 @@
     [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Checking password"];
 	
     [self signInUser];
+}
+
+- (IBAction)forgotPasswordClicked:(id)sender {
+    ForgotPasswordViewController* controller = [[ForgotPasswordViewController alloc] init];
+    [controller setTitle:@"Forgot Password"];
+    [controller setHeaderText:@"To change your password, you must input your security question answer and then put in a new password"];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [navBar release];
+    [controller release];
 }
 
 /*
@@ -322,6 +338,12 @@
     [controller setFacebookSignInCompleteDelegate: self];
     
     [self.navigationController presentModalViewController:controller animated:YES];
+    
+    if ( ![fBook isSessionValid] )
+        [faceBookSignInHelper signInWithFacebook:self];
+    else {
+        [fBook requestWithGraphPath:@"me" andDelegate:self];
+    }
     
     [controller release];
 }
