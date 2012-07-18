@@ -15,12 +15,16 @@
     NSString* label;
     NSInteger sortOrder;
     NSString* attributeId;
+    NSString* itemType;
+    NSInteger points;
 }
 
 @property(nonatomic) NSInteger itemId;
 @property(nonatomic, retain) NSString* label;
 @property(nonatomic, retain) NSString* attributeId;
 @property(nonatomic) NSInteger sortOrder;
+@property(nonatomic, retain) NSString* itemType;
+@property(nonatomic) NSInteger points;
 
 -(ProfileItem *) initWithDictionary : (NSDictionary *) dictionary;
 

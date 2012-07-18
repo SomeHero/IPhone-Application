@@ -236,8 +236,7 @@
         myCell = [nib objectAtIndex:0];
         [myCell setDetailInfoButtonClicked: self];
     }
-    
-    
+
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
     [myCell.contactImage.layer setCornerRadius:4.0];
@@ -319,6 +318,8 @@
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             }
         } else {
+            
+            myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
             myCell.contactDetail.text = contact.phoneNumber;
             if ( contact.imgData )
@@ -358,6 +359,7 @@
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             }
         } else {
+            myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
             myCell.contactDetail.text = contact.phoneNumber;
             
@@ -595,6 +597,7 @@
 -(void)infoButtonClicked: (NSString*) merchantId;
 {
     OrganizationDetailViewController* controller = [[OrganizationDetailViewController alloc] init];
+    [controller setMerchantId:merchantId];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     

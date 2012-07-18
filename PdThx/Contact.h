@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Contact : NSObject {	
+@interface Contact : NSObject {
+	NSString* userId;
     NSString *name;
     NSString *firstName;
     NSString *lastName;
@@ -22,6 +23,7 @@
     NSString* preferredAccountId;
 }
 
+@property(nonatomic, retain) NSString* userId;
 @property(nonatomic, retain) NSString* name;
 @property(nonatomic, retain) NSString* phoneNumber;
 @property(nonatomic, retain) NSString *emailAddress;

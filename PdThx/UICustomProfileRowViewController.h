@@ -11,9 +11,9 @@
 @interface UICustomProfileRowViewController : UITableViewCell
 {
     IBOutlet UILabel* lblAttributeName;
-    IBOutlet UITextField* txtAttributeValue;
+    IBOutlet UIView* txtAttributeValue;
 }
 @property(nonatomic, retain) UILabel* lblAttributeName;
-@property(nonatomic, retain) UITextField* txtAttributeValue;
+@property(nonatomic, retain) UIView* txtAttributeValue;
 
 @end

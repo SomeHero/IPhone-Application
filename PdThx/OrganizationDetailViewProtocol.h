@@ -10,4 +10,6 @@
 
 @protocol OrganizationDetailViewProtocol <NSObject>
 
+-(void)organizationWasSelected:(NSString*)
+
 @end
