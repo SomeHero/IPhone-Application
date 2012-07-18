@@ -230,29 +230,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-<<<<<<< HEAD
-						<string key="label">validateMeCode:</string>
-						<reference key="source" ref="991394095"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">20</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">meCodeChange:</string>
-=======
 						<string key="label">meCodeChanged:</string>
->>>>>>> upstream/development
 						<reference key="source" ref="235724161"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">18</int>
 					</object>
-<<<<<<< HEAD
-					<int key="connectionID">17</int>
-=======
 					<int key="connectionID">13</int>
->>>>>>> upstream/development
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -332,11 +315,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-<<<<<<< HEAD
-			<int key="maxID">20</int>
-=======
 			<int key="maxID">13</int>
->>>>>>> upstream/development
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -345,29 +324,15 @@
 					<string key="superclassName">UIModalBaseViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="btnSubmitClicked">id</string>
-<<<<<<< HEAD
-						<string key="meCodeChange:">id</string>
-						<string key="validateMeCode:">id</string>
-=======
 						<string key="meCodeChanged:">id</string>
->>>>>>> upstream/development
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="btnSubmitClicked">
 							<string key="name">btnSubmitClicked</string>
 							<string key="candidateClassName">id</string>
 						</object>
-<<<<<<< HEAD
-						<object class="IBActionInfo" key="meCodeChange:">
-							<string key="name">meCodeChange:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="validateMeCode:">
-							<string key="name">validateMeCode:</string>
-=======
 						<object class="IBActionInfo" key="meCodeChanged:">
 							<string key="name">meCodeChanged:</string>
->>>>>>> upstream/development
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
