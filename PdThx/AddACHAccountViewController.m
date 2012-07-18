@@ -218,6 +218,8 @@
     }
     else {
         [self.navigationController dismissModalViewControllerAnimated: YES];
+        [self.navigationController popViewControllerAnimated:YES];
+        //[self dismissModalViewControllerAnimated:YES];
     }
 
 }
