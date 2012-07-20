@@ -29,6 +29,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     profileSections = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).myApplication.profileSections;
+    
+    UIBarButtonItem *saveButton =  [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonSystemItemAction target:self action:@selector(saveClicked)];
+    
+    attributeValues = [[NSMutableArray alloc] init];
+    
+    self.navigationItem.rightBarButtonItem= saveButton;
+    [saveButton release];
 }
 
 - (void)viewDidUnload
@@ -43,7 +50,14 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
+-(void)saveClicked {
+    for(int i; i < [attributeValues count]; i++)
+    {
+        UserAttribute* attribute = [attributeValues objectAtIndex:i];
+        
+        
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -60,12 +74,24 @@
 }
 - (CGFloat) tableView: (UITableView *) tableView heightForRowAtIndexPath: (NSIndexPath *) indexPath
 {
+    
     if(indexPath.section == 0)
     {
         if(indexPath.row == 0)
             return 90;
         else 
-            return 45;
+        {
+            ProfileItem* profileItem = [[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row - 1];
+            
+            if([profileItem.itemType isEqualToString: @"LongText"])
+                return 120;
+        }
+    } else {
+        
+        ProfileItem* profileItem = [[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row];
+        
+        if([profileItem.itemType isEqualToString: @"LongText"])
+            return 120;
     }
     
     return 45;
@@ -80,11 +106,9 @@
         if(indexPath.row == 0)
         {
             UICustomProfileHeaderViewController *cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
-            if (cell == nil){
-                NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileHeaderViewController" owner:self options:nil];
+            NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UICustomProfileHeaderViewController" owner:self options:nil];
                 cell = [nib objectAtIndex:0];
-                
-            }
+
             
             
             [cell.btnUserImage.layer setCornerRadius:6.0];
@@ -108,60 +132,8 @@
             }
             ProfileItem* profileItem = [[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row - 1];
             
-            cell.lblAttributeName.text = [profileItem label];
-
-            if([[profileItem itemType] isEqualToString: @"ShortText"])
-            {
-                
-                UITextField* txtField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
-                
-                for(int i = 0; i < [user.userAttributes count]; i++)
-                {
-                    UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
-                    bool found = false;
-                    if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
-                    {
-                        txtField.text = userAttribute.attributeValue;
-                        found = YES;
-                    }
-                    if(!found) {
-                        txtField.text = [NSString stringWithFormat:@"Add +%@", profileItem.points];
-                    }
-                    [cell.txtAttributeValue addSubview:txtField];
-                      
-                }
-                [txtField release];
-                
-            } else if([[profileItem itemType] isEqualToString: @"ImageCapture"])
-            {
-                //Label
-                UILabel* lbl = [[UILabel alloc] init];
-                lbl.text = @"Take Picture";
-                
-                [cell.txtAttributeValue addSubview:lbl];
-                
-            } else if([[profileItem itemType] isEqualToString: @"LongText"]) {
-                
-                UITextView* txtView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height*3)];
-                
-                [cell.txtAttributeValue addSubview:txtView];
-                
-                [txtView release];
-            }
-            else if([[profileItem itemType] isEqualToString: @"Switch"])
-            {
-                UISwitch* switchItem = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
-                
-                
-                
-                [cell.txtAttributeValue addSubview:switchItem];
-                
-                [switchItem release];
-            }
             
-            
-            
-            return cell;
+            return [self renderCell:cell withProfileItem: profileItem];
             
         }
     }
@@ -174,69 +146,112 @@
         
         ProfileItem* profileItem = [[[profileSections objectAtIndex:indexPath.section] profileItems] objectAtIndex:indexPath.row];
         
-        cell.lblAttributeName.text = [profileItem label];
-        
-        
-        if([[profileItem itemType] isEqualToString: @"ShortText"])
-        {
-            UITextField* txtField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
-            
-            for(int i = 0; i < [user.userAttributes count]; i++)
-            {
-                UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
-                bool found = NO;
-                
-                if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
-                {
-                    txtField.text = userAttribute.attributeValue;
-                    found = YES;
-                }
-                if(!found) {
-                    txtField.text = [NSString stringWithFormat:@"Add +%@", profileItem.points];
-                }
-                
-                [cell.txtAttributeValue addSubview:txtField];
-                
-
-            }
-            
-            [txtField release];
-            
-        } else if([[profileItem itemType] isEqualToString: @"ImageCapture"])
-        {
-            //Label
-            UILabel* lbl = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 120, 30)];
-            lbl.text = @"take picture";
-            
-            [cell.txtAttributeValue addSubview:lbl];
-            
-            [lbl release];
-            
-        } else if([[profileItem itemType] isEqualToString: @"LongText"]) {
-            
-            UITextView* txtView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height*3)];
-        
-            [cell.txtAttributeValue addSubview:txtView];
-            
-            [txtView release];
-        }
-        else if([[profileItem itemType] isEqualToString: @"Switch"])
-        {
-            UISwitch* switchItem = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
-            
-            
-            
-            [cell.txtAttributeValue addSubview:switchItem];
-            
-            [switchItem release];
-            
-        }
-        
-        
-        return cell;
+        return [self renderCell:cell withProfileItem: profileItem];
     }
 }
+-(UITableViewCell*)renderCell: (UICustomProfileRowViewController*) cell withProfileItem:(ProfileItem*) profileItem
+{
+    cell.lblAttributeName.text = [profileItem label];
+    
+    
+    if([[profileItem itemType] isEqualToString: @"ShortText"])
+    {
+        UITextField* txtField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
+        txtField.delegate = self;
+        txtField.tag = profileItem.itemId;
+        
+        bool found = NO;
+        for(int i = 0; i < [user.userAttributes count]; i++)
+        {
+            UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+            
+            if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
+            {
+                txtField.text = userAttribute.attributeValue;
+                found = YES;
+            }
+        }
+        
+        if(!found) {
+            txtField.text = [NSString stringWithFormat:@"Add +%d", profileItem.points];
+            txtField.clearsOnBeginEditing = YES;
+        }
+        
+        [cell.txtAttributeValue addSubview:txtField];
 
+    } 
+    else if([[profileItem itemType] isEqualToString: @"ImageCapture"])
+    {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0, 0, 150, 30);
+        [btn setTitle:@"take picture" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(captureImage:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [btn setBackgroundColor: [UIColor clearColor]];
+        [btn setTitleColor: [UIColor blueColor] forState:UIControlStateNormal];
+        
+        [cell.txtAttributeValue addSubview:btn];
+        
+    } else if([[profileItem itemType] isEqualToString: @"SocialAccount"])
+    {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0, 0, 150, 30);
+        [btn setTitle:@"link account" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(linkAccount:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [btn setBackgroundColor: [UIColor clearColor]];
+        [btn setTitleColor: [UIColor blueColor] forState:UIControlStateNormal];
+        
+        [cell.txtAttributeValue addSubview:btn];
+        
+    } 
+    else if([[profileItem itemType] isEqualToString: @"Picker"])
+    {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0, 0, 150, 30);
+        [btn setTitle:@"select" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(linkAccount:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [btn setBackgroundColor: [UIColor clearColor]];
+        [btn setTitleColor: [UIColor blueColor] forState:UIControlStateNormal];
+        
+        [cell.txtAttributeValue addSubview:btn];
+        
+    }
+    else if([[profileItem itemType] isEqualToString: @"LongText"]) {
+        
+        UITextView* txtView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height*3)];
+        
+        [cell.txtAttributeValue addSubview:txtView];
+        
+        [txtView release];
+    }
+    else if([[profileItem itemType] isEqualToString: @"Switch"])
+    {
+        UISwitch* switchItem = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
+        
+        
+        
+        [cell.txtAttributeValue addSubview:switchItem];
+        
+        [switchItem release];
+        
+    }
+    
+    
+    return cell;
+
+}
+-(void)captureImage:(id)sender; {
+    ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
+    [controller setTitle: @"Choose Picture"];
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [navBar release];
+    [controller release];
+}
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
@@ -293,6 +308,26 @@
         [controller release];
     }
 }
+#pragma mark UITextFieldDelegate methods
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    UserAttribute* updatedAttribute = [[UserAttribute alloc] init];
+    updatedAttribute.attributeId = [NSString stringWithFormat: @"%d", textField.tag];
+    updatedAttribute.attributeValue = textField.text;
+    
+    [textField resignFirstResponder];
+    
+    return YES;
+}
 
-
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if(textField.tag == 1)
+    {
+        [textField setText: @"$0.00"];
+        
+        return NO;
+    } 
+    
+    return YES;
+} 
 @end

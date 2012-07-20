@@ -15,6 +15,7 @@
 @synthesize preferredName;
 @synthesize imageUrl;
 @synthesize limit;
+@synthesize instantLimit;
 @synthesize userUri;
 @synthesize securityQuestion;
 @synthesize securityQuestionId;
@@ -39,6 +40,8 @@
         imageUrl = [[NSString alloc] init];
         totalMoneySent = [[NSDecimalNumber alloc] init];
         totalMoneyReceived = [[NSDecimalNumber alloc] init];
+        limit = 0;
+        instantLimit = 0;
         hasACHAccount = false;
         hasSecurityPin = false;
         preferredPaymentAccountId = [[NSString alloc] init];
@@ -70,6 +73,7 @@
         preferredPaymentAccountId = [[dictionary valueForKey: @"preferredPaymentAccountId"] copy];
         preferredReceiveAccountId = [[dictionary valueForKey: @"preferredReceiveAccountId"] copy];
         limit = [[dictionary objectForKey: @"upperLimit"] copy];
+        instantLimit = [[dictionary objectForKey: @"instantLimit"] copy];
         hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
         
         if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0) {

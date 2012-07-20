@@ -72,7 +72,12 @@
 {
     [super viewDidAppear:YES];
     
-    UIImage *bgImage = [UIImage imageNamed:@"nav-selector-allcontacts-52x30.png"];
+    NSString* contactSelectImage = [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) getSelectedContactListImage];
+    
+    if([contactSelectImage isEqualToString: @"nav-selector-cause-52x30.png"])
+        contactSelectImage = @"nav-selector-allcontacts-52x30.png";
+    
+    UIImage *bgImage = [UIImage imageNamed:contactSelectImage];
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [settingsBtn setImage:bgImage forState:UIControlStateNormal];
     settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
@@ -396,6 +401,7 @@
 }
 -(void) showContextSelect:(id)sender forEvent:(UIEvent*)event
 {
+    [txtSearchBox resignFirstResponder];
     
     ContactTypeSelectViewController *tableViewController = [[ContactTypeSelectViewController alloc] init];
     [tableViewController setContactSelectWasSelected: self];
@@ -584,26 +590,74 @@
 -(void)contactWasSelected:(NSInteger)contactType {
     
     [popoverController dismissPopoverAnimatd:YES];
+    
     switch (contactType) {
         case 1:
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"AllContacts"];
+            
             allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
             break;
         case 2:
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"PhoneContacts"];
+            
             allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).phoneContacts;
             break;
         case 3:
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"FacebookContacts"];
+            
             allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).faceBookContacts;
+            
+            for(int i = 0; i < [allResults count]; i++)
+            {
+                    
+            
+            }
             break;
         case 4:
-            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).nonProfits;
+        {
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"NonProfits"];
+            
+            DoGoodViewController* dvc = [[DoGoodViewController alloc] init];
+            [[self navigationController] pushViewController:dvc animated:NO];
+            [dvc release];
+            
+            SendDonationViewController *gvc = [[SendDonationViewController alloc]init];
+            [[self navigationController] pushViewController:gvc animated:NO];
+            
+            [gvc pressedChooseRecipientButton:self];
+            [gvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectAtIndex:1];
+            [allViewControllers removeObjectAtIndex:0];
+            
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            
+            [allViewControllers release];
+             
             break;
+        }
         case 5:
+             [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"Organizations"];
             allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).organizations;
             break;
         default:
                 allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
             break;
     }
+    
+    NSString* contactSelectImage = [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) getSelectedContactListImage];
+ 
+    UIImage *bgImage = [UIImage imageNamed:contactSelectImage];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+    [settingsBtn addTarget:self action:@selector(showContextSelect:forEvent:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+    
+    self.navigationItem.rightBarButtonItem = settingsButtons;
+    [settingsButtons release];
     
     filteredResults = [[NSMutableArray alloc] init];
     for ( int i = 0 ; i < 28 ; i ++ )

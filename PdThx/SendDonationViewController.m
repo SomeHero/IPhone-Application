@@ -243,6 +243,7 @@
 - (IBAction)pressedAmountButton:(id)sender 
 {
     AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    [newView setTitle: @"Donation Amount"];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.amountChosenDelegate = self;

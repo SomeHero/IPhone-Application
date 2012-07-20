@@ -244,8 +244,7 @@
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">18</int>
 					</object>
-					<int key="connectionID">17</int>
-
+					<int key="connectionID">13</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -335,8 +334,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="btnSubmitClicked">id</string>
 						<string key="meCodeChange:">id</string>
-						<string key="validateMeCode:">id</string>
-					</dictionary>
+						<string key="validateMeCode:">id</string>					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="btnSubmitClicked">
 							<string key="name">btnSubmitClicked</string>

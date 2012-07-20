@@ -33,7 +33,6 @@
     Facebook * fBook;
     NSString * deviceToken;
     PhoneNumberFormatting *phoneNumberFormatter;
-    NSMutableArray *tempArray;
     NSArray * permissions;
     UIAlertView * notifAlert;
     IBOutlet UITabBarController *welcomeTabBarController;
@@ -47,6 +46,9 @@
     CustomAlertViewController *customAlert;
     UINavigationController* setupFlowController;
     Application* myApplication;
+    
+    MerchantServices* merchantServices;
+    NSString* selectedContactList;
     
     NSMutableArray *contactsArray;
     NSMutableArray* phoneContacts;
@@ -63,7 +65,6 @@
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) Facebook * fBook;
 @property (nonatomic, retain) NSString * deviceToken;@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
-@property (nonatomic, retain) NSMutableArray *tempArray;
 @property (nonatomic, retain) NSArray * permissions;
 @property (nonatomic, retain) UIAlertView * notifAlert;
 @property (nonatomic, assign) bool areFacebookContactsLoaded;
@@ -92,6 +93,8 @@
 
 @property(nonatomic, retain) NSString * fbAppId;
 
+@property(nonatomic, retain) NSString* selectedContactList;
+
 -(void)signOut;
 -(void)forgetMe;
 -(void)switchToSendMoneyController;
@@ -110,6 +113,8 @@
 
 - (void)dismissProgressHUD;
 - (void)dismissAlertView;
+
+-(NSString*)getSelectedContactListImage;
 
 -(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withLeftButtonImageString:(NSString*)leftButtonImageString withLeftButtonSelectedImageString:(NSString*)leftButtonSelectedImageString withLeftButtonTitle:(NSString*)leftButtonTitle withLeftButtonTitleColor:(UIColor*)leftButtonTextColor withRightButtonOption:(int)rightButtonOption withRightButtonImageString:(NSString*)rightButtonImageString withRightButtonSelectedImageString:(NSString*)rightButtonSelectedImageString withRightButtonTitle:(NSString*)rightButtonTitle withRightButtonTitleColor:(UIColor*)rightButtonTextColor withDelegate:(id)alertDelegate;
 

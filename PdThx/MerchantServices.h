@@ -24,8 +24,9 @@
 
 @property(retain) id merchantServicesCompleteProtocol;
 
--(void)getMerchants;
+-(void)getNonProfits;
 -(void)getNonProfitDetail:(NSString*) merchantId;
+-(void)getOrganizations;
 
 
 @end
