@@ -15,8 +15,9 @@
 #import "UserService.h"
 #import "PdThxAppDelegate.h"
 #import "PaystreamMessage.h"
+#import "TakeCheckPictureProtocol.h"
 
-@interface EnablePaymentsViewController : UISetupUserBaseViewController<UITextFieldDelegate>
+@interface EnablePaymentsViewController : UISetupUserBaseViewController<UITextFieldDelegate,TakeCheckPictureProtocol>
 {
     IBOutlet UIView *navBar;
     IBOutlet UILabel* lblOutstandingHeader;

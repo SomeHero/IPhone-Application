@@ -1,7 +1,10 @@
 #import <UIKit/UIKit.h>
 #import "CaptureSessionManager.h"
+#import "TakeCheckPictureProtocol.h"
 
-@interface AROverlayViewController : UIViewController {
+@interface AROverlayViewController : UIViewController <TakeCheckPictureProtocol> 
+{
+    id<TakeCheckPictureProtocol> pictureDelegate;
 }
 
 @property (retain) CaptureSessionManager *captureManager;
@@ -11,5 +14,6 @@
 @property (nonatomic, retain) UIButton *dismissButton;
 @property (nonatomic, retain) UIImageView *helpIndicator;
 
+@property (assign) id pictureDelegate;
 
 @end

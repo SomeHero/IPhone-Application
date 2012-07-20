@@ -12,6 +12,7 @@
 @synthesize helpButton;
 @synthesize dismissButton;
 @synthesize helpIndicator;
+@synthesize pictureDelegate;
 
 - (void)viewDidLoad {
     
@@ -68,7 +69,7 @@
         [alert release];
     } else {
         // TODO: IMPLEMENT FINISHED SUCCESSFULLY POPOVER
-        
+        [pictureDelegate checkImageDidReturn:image];
         // TODO: CALL IMAGE ADDED DELEGATE
     }
 }
@@ -84,6 +85,7 @@
     [dismissButton release];
     [helpButton release];
     [scanningLabel release];
+    [pictureDelegate release];
     [super dealloc];
 }
 

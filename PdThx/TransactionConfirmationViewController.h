@@ -10,7 +10,7 @@
 #import "TransactionConfirmationProtocol.h"
 #import "PdThxAppDelegate.h"
 
-@interface TransactionConfirmationViewController : UIViewController {
+@interface TransactionConfirmationViewController : UIViewController <FBDialogDelegate> {
     IBOutlet UILabel* lblConfirmationHeader;
     NSString* confirmationText;
     IBOutlet UIButton* btnFacebookShare;

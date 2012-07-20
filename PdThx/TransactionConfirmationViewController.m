@@ -89,8 +89,35 @@
     [transactionConfirmationDelegate onContinueClicked];
 }
 -(IBAction) btnFacebookShare:(id) sender {
-
+    Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+    
+    NSMutableDictionary* params = [NSMutableDictionary
+                                   dictionaryWithObjectsAndKeys:
+                                   @"Share on Facebook",  @"user_message_prompt",
+                                   @"http://www.crunchbase.com/assets/images/resized/0019/7057/197057v2-max-250x250.png", @"link",
+                                   @"PaidThx", @"name",
+                                   @"The FREE Social Payment Network", @"caption",
+                                   @"With PaidThx, sending money to anyone is simple and doesn't cost you a penny.", @"description",
+                                   nil];
+    
+    [fBook dialog:@"feed" andParams:params andDelegate:self];
 }
+
+- (void)dialogDidComplete:(FBDialog *)dialog
+{
+    PdThxAppDelegate *appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
+    
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Your message has been posted on your wall"];
+    btnFacebookShare.enabled = NO;
+}
+
+- (void) dialogDidNotComplete:(FBDialog *)dialog
+{
+    PdThxAppDelegate *appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
+    
+    [appDelegate showSuccessWithStatus:@"Failed" withDetailedStatus:@"Your message was not posted on your wall."];
+}
+
 -(IBAction) btnTwitterShare:(id) sender {
     
 }
