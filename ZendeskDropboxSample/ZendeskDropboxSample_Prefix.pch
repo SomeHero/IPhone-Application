@@ -1,8 +1,0 @@
-//
-// Prefix header for all source files of the 'ZendeskDropboxSample' target in the 'ZendeskDropboxSample' project
-//
-
-#ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
-#endif
