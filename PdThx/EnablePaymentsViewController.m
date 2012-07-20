@@ -7,7 +7,7 @@
 //
 
 #import "EnablePaymentsViewController.h"
-
+#import "TakeCheckPictureProtocol.h"
 
 @implementation EnablePaymentsViewController
 
@@ -20,6 +20,11 @@
         // Custom initialization
     }
     return self;
+}
+
+-(void)checkImageDidReturn:(UIImage *)image
+{
+    // Image Returned, deal with it.
 }
 
 - (void)viewDidLoad

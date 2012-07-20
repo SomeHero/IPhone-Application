@@ -686,6 +686,7 @@
 		54550A9315B742430077EA37 /* btn-blue-298x45-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-blue-298x45-active@2x.png"; sourceTree = "<group>"; };
 		54550A9415B742430077EA37 /* btn-blue-298x45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-blue-298x45.png"; sourceTree = "<group>"; };
 		54550A9515B742430077EA37 /* btn-blue-298x45@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-blue-298x45@2x.png"; sourceTree = "<group>"; };
+		54550A9A15B923220077EA37 /* TakeCheckPictureProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TakeCheckPictureProtocol.h; sourceTree = "<group>"; };
 		54764F5615810DFC008187B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		54805846159A03BE00ED591C /* loadingFailed62x62.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingFailed62x62.png; sourceTree = "<group>"; };
 		54805847159A03BE00ED591C /* loadingFailed62x62@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingFailed62x62@2x.png"; sourceTree = "<group>"; };
@@ -2711,6 +2712,7 @@
 				5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */,
 				5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */,
 				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
+				54550A9A15B923220077EA37 /* TakeCheckPictureProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
