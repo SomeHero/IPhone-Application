@@ -7,14 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NonProfitDetail.h"
 
 @protocol MerchantServicesCompleteProtocol;
 
 @protocol MerchantServicesCompleteProtocol <NSObject>
 
--(void)getMerchantsDidComplete: (NSMutableArray*) merchants;
--(void)getMerchantsDidFail: (NSString*) errorMessage;
-
+-(void)getOrganizationsDidComplete: (NSMutableArray*) merchants;
+-(void)getOrganizationsDidFail: (NSString*) errorMessage;
+-(void)getNonProfitsDidComplete: (NSMutableArray*) merchants;
+-(void)getNonProfitsDidFail: (NSString*) errorMessage;
+-(void)getNonProfitDetailDidComplete: (NonProfitDetail*) nonProfitDetail;
+-(void)getNonProfitDetailDidFail: (NSString*) errorMessage;
 
 @end
 

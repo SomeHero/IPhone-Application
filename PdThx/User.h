@@ -32,6 +32,7 @@
     bool hasACHAccount;
     bool hasSecurityPin;
     NSDecimalNumber *limit;
+    NSDecimalNumber* instantLimit;
     NSString* userUri;
     NSString* securityQuestion;
     int securityQuestionId;
@@ -61,6 +62,7 @@
 @property(nonatomic) bool hasACHAccount;
 @property(nonatomic) bool hasSecurityPin;
 @property(nonatomic, retain) NSDecimalNumber* limit;
+@property(nonatomic, retain) NSDecimalNumber* instantLimit;
 @property(nonatomic, retain) NSString* userUri;
 @property(nonatomic, retain) NSString* securityQuestion;
 @property int securityQuestionId;

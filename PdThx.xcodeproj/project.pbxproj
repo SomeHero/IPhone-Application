@@ -282,6 +282,11 @@
 		5B357CF415B28D74000CD5FC /* icon-settings-signout-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357CF215B28D74000CD5FC /* icon-settings-signout-40x40.png */; };
 		5B357CF515B28D74000CD5FC /* icon-settings-signout-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357CF315B28D74000CD5FC /* icon-settings-signout-40x40@2x.png */; };
 		5B357CFB15B456F1000CD5FC /* HBCustomTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */; };
+		5B357D0415B59987000CD5FC /* NonProfitDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B357D0315B59987000CD5FC /* NonProfitDetail.m */; };
+		5B357D0D15B73E6F000CD5FC /* field-cause-298x48-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357D0915B73E6F000CD5FC /* field-cause-298x48-active.png */; };
+		5B357D0E15B73E6F000CD5FC /* field-cause-298x48-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357D0A15B73E6F000CD5FC /* field-cause-298x48-active@2x.png */; };
+		5B357D0F15B73E6F000CD5FC /* field-cause-298x48.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357D0B15B73E6F000CD5FC /* field-cause-298x48.png */; };
+		5B357D1015B73E6F000CD5FC /* field-cause-298x48@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B357D0C15B73E6F000CD5FC /* field-cause-298x48@2x.png */; };
 		5B3A5D47159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */; };
 		5B3A5D48159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3A5D46159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib */; };
 		5B3A5D53159A208F0028D3F6 /* ALUnlockPatternView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A5D51159A208F0028D3F6 /* ALUnlockPatternView.m */; };
@@ -935,6 +940,13 @@
 		5B357CEC15B28D68000CD5FC /* icon-settings-phones-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-phones-40x40@2x.png"; sourceTree = "<group>"; };
 		5B357CF215B28D74000CD5FC /* icon-settings-signout-40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signout-40x40.png"; sourceTree = "<group>"; };
 		5B357CF315B28D74000CD5FC /* icon-settings-signout-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-settings-signout-40x40@2x.png"; sourceTree = "<group>"; };
+		5B357D0115B5277F000CD5FC /* OrganizationDetailViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrganizationDetailViewProtocol.h; sourceTree = "<group>"; };
+		5B357D0215B59987000CD5FC /* NonProfitDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonProfitDetail.h; sourceTree = "<group>"; };
+		5B357D0315B59987000CD5FC /* NonProfitDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonProfitDetail.m; sourceTree = "<group>"; };
+		5B357D0915B73E6F000CD5FC /* field-cause-298x48-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-cause-298x48-active.png"; sourceTree = "<group>"; };
+		5B357D0A15B73E6F000CD5FC /* field-cause-298x48-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-cause-298x48-active@2x.png"; sourceTree = "<group>"; };
+		5B357D0B15B73E6F000CD5FC /* field-cause-298x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-cause-298x48.png"; sourceTree = "<group>"; };
+		5B357D0C15B73E6F000CD5FC /* field-cause-298x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "field-cause-298x48@2x.png"; sourceTree = "<group>"; };
 		5B3A5D44159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPinSwipeController.h; sourceTree = "<group>"; };
 		5B3A5D45159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPinSwipeController.m; sourceTree = "<group>"; };
 		5B3A5D46159A1FEC0028D3F6 /* CustomSecurityPinSwipeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSecurityPinSwipeController.xib; sourceTree = "<group>"; };
@@ -2207,6 +2219,10 @@
 		5B11966315AEF2FE003F8D53 /* Donate Images */ = {
 			isa = PBXGroup;
 			children = (
+				5B357D0915B73E6F000CD5FC /* field-cause-298x48-active.png */,
+				5B357D0A15B73E6F000CD5FC /* field-cause-298x48-active@2x.png */,
+				5B357D0B15B73E6F000CD5FC /* field-cause-298x48.png */,
+				5B357D0C15B73E6F000CD5FC /* field-cause-298x48@2x.png */,
 				5B11966415AEF30B003F8D53 /* BTN-cause-298x58-active.png */,
 				5B11966515AEF30B003F8D53 /* BTN-cause-298x58-active@2x.png */,
 				5B11966615AEF30B003F8D53 /* BTN-cause-298x58.png */,
@@ -2712,6 +2728,7 @@
 				5B6D131515AFA6E800F37A11 /* DetailInfoButtonClicked.h */,
 				5B6D131E15AFCF1300F37A11 /* CauseSelectDidCompleteProtocol.h */,
 				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
+				5B357D0115B5277F000CD5FC /* OrganizationDetailViewProtocol.h */,
 				54550A9A15B923220077EA37 /* TakeCheckPictureProtocol.h */,
 			);
 			name = Protocols;
@@ -2748,6 +2765,8 @@
 				5B8B45C415A9125600822B67 /* ProfileSection.m */,
 				5B11963B15ADFFD1003F8D53 /* Merchant.h */,
 				5B11963C15ADFFD1003F8D53 /* Merchant.m */,
+				5B357D0215B59987000CD5FC /* NonProfitDetail.h */,
+				5B357D0315B59987000CD5FC /* NonProfitDetail.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -3429,6 +3448,10 @@
 				54550A9715B742430077EA37 /* btn-blue-298x45-active@2x.png in Resources */,
 				54550A9815B742430077EA37 /* btn-blue-298x45.png in Resources */,
 				54550A9915B742430077EA37 /* btn-blue-298x45@2x.png in Resources */,
+				5B357D0D15B73E6F000CD5FC /* field-cause-298x48-active.png in Resources */,
+				5B357D0E15B73E6F000CD5FC /* field-cause-298x48-active@2x.png in Resources */,
+				5B357D0F15B73E6F000CD5FC /* field-cause-298x48.png in Resources */,
+				5B357D1015B73E6F000CD5FC /* field-cause-298x48@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3607,6 +3630,7 @@
 				54E77ED015B5D3530031116B /* CaptureSessionManager.m in Sources */,
 				C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */,
 				C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */,
+				5B357D0415B59987000CD5FC /* NonProfitDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3685,7 +3709,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -3786,7 +3810,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -3815,7 +3839,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -3927,7 +3951,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4009,7 +4033,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4018,8 +4042,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6771C41F-A589-4BEB-8730-864C7721563A";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -4090,7 +4114,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4171,7 +4195,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4251,7 +4275,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",

@@ -95,6 +95,8 @@
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     NSLog(@"Send Money Failed");
+    
+    [getPayStreamCompleteDelegate getPayStreamDidFail];
 }
 
 

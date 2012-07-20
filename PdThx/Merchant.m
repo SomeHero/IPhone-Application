@@ -13,6 +13,7 @@
 @synthesize merchantId;
 @synthesize name;
 @synthesize imageUrl;
+@synthesize preferredReceiveAccountId;
 
 -(id)init {
 self = [super init];

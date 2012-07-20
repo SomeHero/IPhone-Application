@@ -132,7 +132,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     else
         lblPayPoints.text = user.userName;
     
-    lblScore.text = @"80";
+    lblScore.text = [NSString stringWithFormat: @"%d", [user.instantLimit intValue]];
     lblIncreaseScore.text = @"+ Link your Facebook Account";
     lblPaystreamCount.text = [NSString stringWithFormat: @"%d", user.numberOfPaystreamUpdates];
     

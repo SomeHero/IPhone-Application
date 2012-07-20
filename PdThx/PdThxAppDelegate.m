@@ -28,7 +28,7 @@
 
 @synthesize window=_window;
 @synthesize welcomeTabBarController, newUserFlowTabController, tabBarController;
-@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, tempArray, contactsArray, notifAlert, areFacebookContactsLoaded;
+@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, contactsArray, notifAlert, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert, setupFlowController;
 @synthesize myApplication;
 @synthesize phoneContacts;
@@ -37,6 +37,7 @@
 @synthesize organizations;
 @synthesize fbAppId;
 @synthesize mainAreaTabBarController;
+@synthesize selectedContactList;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -211,11 +212,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    selectedContactList = @"AllContacts";
+    
     // Override point for customization after application launch.
     permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
     [mainAreaTabBarController setDelegate:self];
     
     Environment *myEnvironment = [Environment sharedInstance];
+    
+    merchantServices = [[MerchantServices alloc] init];
+    [merchantServices setMerchantServicesCompleteProtocol: self];
     
     ApplicationService* applicationService = [[ApplicationService alloc] init];
     [applicationService setApplicationSettingsDidComplete: self];
@@ -253,8 +259,6 @@
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
-    tempArray = [[NSMutableArray alloc] init];
-    
     contactsArray = [[NSMutableArray alloc] init];
     contactsArray =  [self sortContacts: contactsArray];
     
@@ -275,6 +279,7 @@
     
     [self loadAllContacts];
     [self loadNonProfits];
+    [self loadOrganizations];
     
     [self.window makeKeyAndVisible];
     
@@ -504,13 +509,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void)loadAllContacts
 {
-    [tempArray removeAllObjects];
+    NSMutableArray* tempArray = [[NSMutableArray alloc] init];
     
     Contact * contact;
     
-    if ( [fBook isSessionValid] ){
-        friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
-    }
+    //if ( [fBook isSessionValid] ){
+        //friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
+    //}
     
     // get the address book
     ABAddressBookRef addressBook = ABAddressBookCreate();
@@ -592,14 +597,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     NSMutableArray* tempPhoneContacts = [self sortContacts: tempArray];
     
-    [contactsArray removeAllObjects];
     [phoneContacts removeAllObjects];
     
     for(int i = 0; i <[tempPhoneContacts count]; i++)
     {
-        [contactsArray addObject:[tempPhoneContacts objectAtIndex:i]];
         [phoneContacts addObject:[tempPhoneContacts objectAtIndex:i]];
     }
+    
+    [self mergeAllContacts: phoneContacts];
 
     NSDictionary* dict = [NSDictionary dictionaryWithObject:
                           contactsArray forKey:@"contacts"];
@@ -607,18 +612,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
     
     NSLog(@"Contacts Ready.");
+    
+    [tempArray release];
 }
 -(void) loadNonProfits
 {
-    MerchantServices* merchantServices = [[MerchantServices alloc] init];
-    [merchantServices setMerchantServicesCompleteProtocol:self];
-    
-    [merchantServices getMerchants];
+    [merchantServices getNonProfits];
+}
+-(void) loadOrganizations
+{
+    [merchantServices getOrganizations];
     
 }
--(void)getMerchantsDidComplete: (NSMutableArray*) merchants {
-    
-    [nonProfits removeAllObjects];
+
+-(void)getOrganizationsDidComplete: (NSMutableArray*) merchants {
     [organizations removeAllObjects];
     
     NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
@@ -628,6 +635,40 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         Merchant* merchant = [merchants objectAtIndex:i];
         
         Contact* contact = [[Contact alloc] init];
+        contact.userId = merchant.merchantId;
+        contact.name = merchant.name;
+        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
+        contact.recipientId =  merchant.merchantId;
+        
+        [tempOrganizations addObject:contact];
+    }
+    
+    
+    tempOrganizations =  [self sortContacts:tempOrganizations];
+    
+    for(int i = 0; i <[tempOrganizations count]; i++)
+    {
+        [organizations addObject:[tempOrganizations objectAtIndex:i]];
+    }
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          organizations forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
+}
+-(void)getOrganizationsDidFail: (NSString*) errorMessage {
+    NSLog( @"Failed to get merchants, error %@" , errorMessage );
+}
+-(void)getNonProfitsDidComplete: (NSMutableArray*) merchants {
+    [nonProfits removeAllObjects];
+
+    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
+    
+    for(int i=0; i < [merchants count]; i++)
+    {
+        Merchant* merchant = [merchants objectAtIndex:i];
+        
+        Contact* contact = [[Contact alloc] init];
+        contact.userId = merchant.merchantId;
         contact.name = merchant.name;
         contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
         contact.recipientId =  merchant.merchantId;
@@ -641,20 +682,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     for(int i = 0; i <[tempOrganizations count]; i++)
     {
         [nonProfits addObject:[tempOrganizations objectAtIndex:i]];
-        [organizations addObject:[tempOrganizations objectAtIndex:i]];
     }
     
     NSDictionary* dict = [NSDictionary dictionaryWithObject:
-                          contactsArray forKey:@"contacts"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
-    
+                          nonProfits forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshNonProfitList" object:self userInfo:dict];
 }
--(void)getMerchantsDidFail: (NSString*) errorMessage {
-        NSLog( @"Failed to get merchants, error %@" , errorMessage );
+-(void)getNonProfitsDidFail: (NSString*) errorMessage {
+    NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
+    NSMutableArray* tempArray = [[NSMutableArray alloc] init];
     NSArray *friendArray = [result objectForKey:@"data"];
     NSArray *splitName;
     Contact *friend;
@@ -689,25 +729,63 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         }
     }
     */ 
-    
+   // [contactsArray removeAllObjects];
     [faceBookContacts removeAllObjects];
-    [contactsArray removeAllObjects];
     
     for(int i = 0; i <[faceBookFriends count]; i++)
     {
-        [contactsArray addObject:[faceBookFriends objectAtIndex:i]];
         [faceBookContacts addObject:[faceBookFriends objectAtIndex:i]];
     }
     
-    NSLog(@"Facebook contacts loaded...");
+    [self mergeAllContacts: faceBookContacts];
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          contactsArray forKey:@"contacts"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
+    
+    NSLog(@"Facebook Contacts Added.");
+    
+    [tempArray release];
 }
+-(void)mergeAllContacts:(NSMutableArray*)arrayOfContacts
+{
+    NSMutableArray* tempArray = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < 28; i++)
+    {
+        NSMutableArray* subTempArray = [arrayOfContacts objectAtIndex:i];
+        
+        for(int j = 0; j < [subTempArray count]; j++)
+        {
+            Contact* contact = [subTempArray objectAtIndex:j];
+            
+            [tempArray addObject:contact];
+        }
+    }
+    for(int i = 0; i < 28; i++)
+    {
+        NSMutableArray* subTempArray = [contactsArray objectAtIndex:i];
+        
+        for(int j = 0; j < [subTempArray count]; j++)
+        {
+            Contact* contact = [subTempArray objectAtIndex:j];
+            
+            [tempArray addObject:contact];
+        }
+    }
+    
+    contactsArray = [self sortContacts:tempArray];
+    
+    [tempArray release];
 
+}
 -(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts 
 {
-    NSMutableArray* results = [[[NSMutableArray alloc] init] retain];
+    NSMutableArray* results = [[NSMutableArray alloc] init];
     
-    for ( int i = 0 ; i < 28 ; i ++ )
-        [results addObject:[[[NSMutableArray alloc] init] retain]];
+    for ( int i = 0 ; i < 28 ; i ++)
+        [results addObject:[[NSMutableArray alloc] init]];
     
     NSMutableArray* tmpArray = [[arrayOfContacts sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     
@@ -764,6 +842,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [prefs setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
     [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
     [prefs synchronize];
+    
 }
 
 - (void)fbDidNotLogin:(BOOL)cancelled {
@@ -1090,5 +1169,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 -(void)getApplicationSettingsDidFail: (NSString*) errorMessage
 {
     NSLog( @"Failed to get application settings, error %@" , errorMessage );
+}
+-(NSString*)getSelectedContactListImage {
+    if([selectedContactList isEqualToString: @"AllContacts"])
+        return @"nav-selector-allcontacts-52x30.png";
+    if([selectedContactList isEqualToString: @"PhoneContacts"])
+       return @"nav-selector-phonecontacts-52x30.png";
+    if([selectedContactList isEqualToString: @"FacebookContacts"])
+        return @"nav-selector-fbcontacts-52x30.png";
+    if([selectedContactList isEqualToString: @"NonProfits"])
+        return @"nav-selector-cause-52x30.png";
+    if([selectedContactList isEqualToString: @"Organizations"])
+        return @"nav-selector-public-52x30.png";
+    
+    return @"nav-selector-allcontacts-52x30.png";
 }
 @end

@@ -261,6 +261,7 @@
 - (IBAction)pressedChooseRecipientButton:(id)sender 
 {
     ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
+    [newView setTitle:@"Send To"];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.contactSelectChosenDelegate = self;
@@ -269,6 +270,7 @@
 - (IBAction)pressedAmountButton:(id)sender 
 {
     AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    [newView setTitle:@"Send Amount"];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.amountChosenDelegate = self;

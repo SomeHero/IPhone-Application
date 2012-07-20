@@ -14,6 +14,8 @@
 #import "SBJsonParser.h"
 #import "Merchant.h"
 #import "MerchantServicesCompleteProtocol.h"
+#import "NonProfitDetail.h"
+
 @interface MerchantServices : NSObject
 {
     ASIHTTPRequest* requestObj;
@@ -22,7 +24,9 @@
 
 @property(retain) id merchantServicesCompleteProtocol;
 
--(void)getMerchants;
+-(void)getNonProfits;
+-(void)getNonProfitDetail:(NSString*) merchantId;
+-(void)getOrganizations;
 
 
 @end
