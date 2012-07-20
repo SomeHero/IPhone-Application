@@ -7,7 +7,8 @@
 //
 
 #import "PhoneListViewController.h"
-
+#import "UIProfileTableViewCell.h"
+#import "VerifyPhoneNumberViewController.h"
 @interface PhoneListViewController ()
 
 @end
@@ -84,7 +85,7 @@
     // Return the number of rows in the section.
     if([phones count] > 0)
     {
-        if(section ==0)
+        if(section == 0)
             return [phones count];
         else {
             return 1;
@@ -98,11 +99,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil){
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+}
+
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (cell == nil) {
+//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+//    }
     
     if([phones count] == 0)
         cell.textLabel.text = @"Add Mobile Number";
@@ -111,9 +118,9 @@
         if(indexPath.section == 1)
             cell.textLabel.text = @"Add Mobile Number";
         else {
-            cell.textLabel.text = [[phones objectAtIndex: indexPath.row] uri];
-            cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
-            //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
+            cell.lblHeading.text = [[phones objectAtIndex: indexPath.row] uri];
+            cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+            cell.lblDescription.text = @"Verified";//[[phones objectAtIndex: indexPath.row] verified];
         }
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -162,21 +169,54 @@
  */
 
 #pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
-    [controller setTitle: @"Add Mobile #"];
-    [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
-    [controller setAddPayPointComplete:self];
-    
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-    
-    [self.navigationController presentModalViewController:navBar animated:YES];
-    
-    [navBar release];
-    [controller release];
+    switch(indexPath.section) {
+        case 0:
+        {
+            
+            VerifyPhoneNumberViewController *controller = [[VerifyPhoneNumberViewController alloc] init];
+            controller.phoneNumber = [[phones objectAtIndex:indexPath.row]uri]; 
+          
+            [controller setTitle: @"Phone #"];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            break;
+        }
+        case 1:
+        {
+            
+            AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
+            [controller setTitle: @"Add Mobile #"];
+            [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+            [controller setAddPayPointComplete:self];
+            
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+            
+            [self.navigationController presentModalViewController:navBar animated:YES];
+            
+            [navBar release];
+            [controller release];
+
+            break;
+        }
+
+    }
 }
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
+//    [controller setTitle: @"Add Mobile #"];
+//    [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+//    [controller setAddPayPointComplete:self];
+//    
+//    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+//    
+//    [self.navigationController presentModalViewController:navBar animated:YES];
+//    
+//    [navBar release];
+//    [controller release];
+//}
 -(void)addPayPointsDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
