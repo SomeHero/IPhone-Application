@@ -7,7 +7,8 @@
 //
 
 #import "EmailAccountListViewController.h"
-
+#import "VerifyEmailViewController.h"
+#import "UIProfileTableViewCell.h"
 @interface EmailAccountListViewController ()
 
 @end
@@ -100,11 +101,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
+
     
     if([emailAddresses count] == 0)
         cell.textLabel.text = @"Add Email Address";
@@ -113,7 +115,9 @@
         if(indexPath.section == 1)
             cell.textLabel.text = @"Add Email Address";
         else {
-            cell.textLabel.text = [[emailAddresses objectAtIndex: indexPath.row] uri];
+            			
+            cell.lblHeading.text = [[emailAddresses objectAtIndex: indexPath.row] uri];
+            cell.lblDescription.text =@"Verified";//some other field here.
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
             //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
         }
@@ -122,6 +126,7 @@
     
     return cell;
 }
+
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -164,20 +169,54 @@
  */
 
 #pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
-    [controller setTitle: @"Add Email"];
-    [controller setHeaderText: @"To add a new email address to your PaidThx account, enter it below."];[controller setAddPayPointComplete:self];
-    
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-    
-    [self.navigationController presentModalViewController:navBar animated:YES];
-    
-    [navBar release];
-    [controller release];
+    switch(indexPath.section) {
+        case 0:
+        {
+            
+            VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
+            controller.emailAddress = [[emailAddresses objectAtIndex:indexPath.row]uri]; 
+            
+            [controller setTitle: @"Phone #"];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            break;
+        }
+        case 1:
+        {
+            
+            AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
+            [controller setTitle: @"Add Mobile #"];
+            [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+            [controller setAddPayPointComplete:self];
+            
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+            
+            [self.navigationController presentModalViewController:navBar animated:YES];
+            
+            [navBar release];
+            [controller release];
+            
+            break;
+        }
+            
+    }
 }
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
+//    [controller setTitle: @"Add Email"];
+//    [controller setHeaderText: @"To add a new email address to your PaidThx account, enter it below."];[controller setAddPayPointComplete:self];
+//    
+//    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+//    
+//    [self.navigationController presentModalViewController:navBar animated:YES];
+//    
+//    [navBar release];
+//    [controller release];
+//}
 -(void)addPayPointsDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
