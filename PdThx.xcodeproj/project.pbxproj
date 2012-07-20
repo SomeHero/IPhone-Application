@@ -592,7 +592,13 @@
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
 		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
+		D57F91EE15B84E0F007A4C3C /* EnterVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */; };
+		D57F91EF15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D57F91ED15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib */; };
+		D58078BE15B725300037ADA0 /* VerifyPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D58078BC15B725300037ADA0 /* VerifyPhoneNumberViewController.m */; };
+		D58078BF15B725300037ADA0 /* VerifyPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58078BD15B725300037ADA0 /* VerifyPhoneNumberViewController.xib */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
+		D58B42A115B9C29400C9AB93 /* VerifyEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D58B429F15B9C29400C9AB93 /* VerifyEmailViewController.m */; };
+		D58B42A215B9C29400C9AB93 /* VerifyEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58B42A015B9C29400C9AB93 /* VerifyEmailViewController.xib */; };
 		D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */; };
 		D5FC51D515924F2F00C2302E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
@@ -1368,9 +1374,18 @@
 		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
 		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
 		C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPinCodeViewController.xib; sourceTree = "<group>"; };
+		D57F91EB15B84E0E007A4C3C /* EnterVerificationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterVerificationCodeViewController.h; sourceTree = "<group>"; };
+		D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterVerificationCodeViewController.m; sourceTree = "<group>"; };
+		D57F91ED15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterVerificationCodeViewController.xib; sourceTree = "<group>"; };
+		D58078BB15B725300037ADA0 /* VerifyPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyPhoneNumberViewController.h; sourceTree = "<group>"; };
+		D58078BC15B725300037ADA0 /* VerifyPhoneNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyPhoneNumberViewController.m; sourceTree = "<group>"; };
+		D58078BD15B725300037ADA0 /* VerifyPhoneNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyPhoneNumberViewController.xib; sourceTree = "<group>"; };
 		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
 		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
 		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
+		D58B429E15B9C29400C9AB93 /* VerifyEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyEmailViewController.h; sourceTree = "<group>"; };
+		D58B429F15B9C29400C9AB93 /* VerifyEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyEmailViewController.m; sourceTree = "<group>"; };
+		D58B42A015B9C29400C9AB93 /* VerifyEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyEmailViewController.xib; sourceTree = "<group>"; };
 		D5FC51D0159247A000C2302E /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
 		D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		D5FC51D415924F2E00C2302E /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -2592,6 +2607,9 @@
 				5B0A227A15A0BB2B00BDA5F8 /* AddEmailAddressViewController.h */,
 				5B0A227B15A0BB2B00BDA5F8 /* AddEmailAddressViewController.m */,
 				5B0A227C15A0BB2B00BDA5F8 /* AddEmailAddressViewController.xib */,
+				D58B429E15B9C29400C9AB93 /* VerifyEmailViewController.h */,
+				D58B429F15B9C29400C9AB93 /* VerifyEmailViewController.m */,
+				D58B42A015B9C29400C9AB93 /* VerifyEmailViewController.xib */,
 			);
 			name = EmailAccounts;
 			sourceTree = "<group>";
@@ -2612,6 +2630,12 @@
 				5B0A227515A0BAD200BDA5F8 /* AddPhoneViewController.h */,
 				5B0A227615A0BAD200BDA5F8 /* AddPhoneViewController.m */,
 				5B0A227715A0BAD200BDA5F8 /* AddPhoneViewController.xib */,
+				D58078BB15B725300037ADA0 /* VerifyPhoneNumberViewController.h */,
+				D58078BC15B725300037ADA0 /* VerifyPhoneNumberViewController.m */,
+				D58078BD15B725300037ADA0 /* VerifyPhoneNumberViewController.xib */,
+				D57F91EB15B84E0E007A4C3C /* EnterVerificationCodeViewController.h */,
+				D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */,
+				D57F91ED15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib */,
 			);
 			name = Phones;
 			sourceTree = "<group>";
@@ -2619,8 +2643,8 @@
 		5B8BDE4F159D495E00E01753 /* MeCodes */ = {
 			isa = PBXGroup;
 			children = (
-				540025B81598B3F500332A10 /* MeCodeSetupViewController.m */,
 				540025B91598B3F500332A10 /* MeCodeSetupViewController.h */,
+				540025B81598B3F500332A10 /* MeCodeSetupViewController.m */,
 				5B8BDE53159D49B800E01753 /* MeCodeListViewController.h */,
 				5B8BDE54159D49B800E01753 /* MeCodeListViewController.m */,
 				5B8BDE55159D49B800E01753 /* MeCodeListViewController.xib */,
@@ -3444,6 +3468,9 @@
 				54E77ECF15B5D3530031116B /* btn-takepic-48x37@2x.png in Resources */,
 				C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */,
 				C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */,
+				D58078BF15B725300037ADA0 /* VerifyPhoneNumberViewController.xib in Resources */,
+				D57F91EF15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib in Resources */,
+				D58B42A215B9C29400C9AB93 /* VerifyEmailViewController.xib in Resources */,
 				54550A9615B742430077EA37 /* btn-blue-298x45-active.png in Resources */,
 				54550A9715B742430077EA37 /* btn-blue-298x45-active@2x.png in Resources */,
 				54550A9815B742430077EA37 /* btn-blue-298x45.png in Resources */,
@@ -3630,6 +3657,9 @@
 				54E77ED015B5D3530031116B /* CaptureSessionManager.m in Sources */,
 				C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */,
 				C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */,
+				D58078BE15B725300037ADA0 /* VerifyPhoneNumberViewController.m in Sources */,
+				D57F91EE15B84E0F007A4C3C /* EnterVerificationCodeViewController.m in Sources */,
+				D58B42A115B9C29400C9AB93 /* VerifyEmailViewController.m in Sources */,
 				5B357D0415B59987000CD5FC /* NonProfitDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
