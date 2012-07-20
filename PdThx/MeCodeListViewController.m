@@ -7,7 +7,7 @@
 //
 
 #import "MeCodeListViewController.h"
-
+#import "UIProfileTableViewCell.h"
 @implementation MeCodeListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -91,13 +91,17 @@
     }
 }
 
+
+
+    
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     
     if([meCodes count] == 0)
@@ -107,7 +111,9 @@
         if(indexPath.section == 1)
             cell.textLabel.text = @"Add MeCode";
         else {
-            cell.textLabel.text = [[meCodes objectAtIndex: indexPath.row] uri];
+            
+            cell.lblHeading.text = [[meCodes objectAtIndex: indexPath.row] uri];
+            cell.lblDescription.text = @"Pending";//some other field will go here.
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
             //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
         }

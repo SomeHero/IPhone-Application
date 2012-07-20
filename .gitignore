@@ -18,3 +18,5 @@ PdThx.xcodeproj/xcuserdata/PaidThx.xcuserdatad/xcschemes/xcschememanagement.plis
 PdThx.xcodeproj/project.xcworkspace/xcuserdata/PaidThx.xcuserdatad/WorkspaceSettings.xcsettings
 .DS_Store
 PdThx.xcodeproj/xcuserdata/PaidThx.xcuserdatad/xcschemes/PdThx.xcscheme
+
+*.orig

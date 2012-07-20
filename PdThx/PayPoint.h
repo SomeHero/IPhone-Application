@@ -15,12 +15,13 @@
     NSString* userId;
     NSString* payPointType;
     NSString* uri;
+    NSString* verified;
 }
 
 @property(nonatomic, retain) NSString* payPointId;
 @property(nonatomic, retain) NSString* userId;
 @property(nonatomic, retain) NSString* payPointType;
 @property(nonatomic, retain) NSString* uri;
-
+@property(nonatomic, retain) NSString* verified;
 -(PayPoint *) initWithDictionary : (NSDictionary *) dictionary;
 @end
