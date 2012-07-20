@@ -85,23 +85,22 @@
         else {
             [setupFlowController pushViewController:controller animated:YES];
         }
-       
+        
     }
     else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) || (currentReminderTab < 2 && user.lastName == (id)[NSNull null])) {
-
+        
         currentReminderTab = 2;  
         
         PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
         
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
-            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
             [setupFlowController pushViewController:controller animated:YES];
         }
-
+        
     }
     else if (currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0)  && (user.outstandingPayments.count > 0))
     {
@@ -112,8 +111,7 @@
         controller.message = [user.outstandingPayments objectAtIndex:0];
         
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
-            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
@@ -136,14 +134,17 @@
         AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
         controller.newUserFlow = true;
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
-            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
             
         }
         else {
             [setupFlowController pushViewController:controller animated:YES];
         }
-
+        //currentReminderTab = 3;
+        //[self.newUserFlowTabController setSelectedIndex:3];
+        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
+        // Keep Progress Bar on top
+        
         
         [controller release];
         
@@ -158,18 +159,14 @@
             
             [prefs synchronize];
             
-            NSLog(@"Modal view controller of mainArea: %@", mainAreaTabBarController.modalViewController);
-            NSLog(@"MainAreaTabBar: %@", mainAreaTabBarController);
-            NSLog(@"SetupFlow: %@", setupFlowController);
-            
-            [setupFlowController dismissModalViewControllerAnimated:YES];
+            [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
             
             [setupFlowController release];
             setupFlowController = nil;
+            
         }
     }
 }
-
 -(void)endUserSetupFlow
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -183,10 +180,11 @@
         
         [prefs synchronize];
         
-        [setupFlowController dismissModalViewControllerAnimated:YES];
+        [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
         
         [setupFlowController release];
         setupFlowController = nil;
+        
     }
 }
 

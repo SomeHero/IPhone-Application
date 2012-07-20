@@ -241,6 +241,17 @@
                     
                     break;
                 }
+                case 1: 
+                {
+                    TwitterRushViewController* controller =
+                    [[TwitterRushViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                    [controller release];
+                    
+                    break;
+                }
                 case 2:
                 {
                     PhoneListViewController* controller = [[PhoneListViewController alloc] init];
