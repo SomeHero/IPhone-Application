@@ -27,9 +27,9 @@
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize welcomeTabBarController, newUserFlowTabController;
+@synthesize welcomeTabBarController, newUserFlowTabController, tabBarController;
 @synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, contactsArray, notifAlert, areFacebookContactsLoaded;
-@synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert;
+@synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert, setupFlowController;
 @synthesize myApplication;
 @synthesize phoneContacts;
 @synthesize faceBookContacts;
@@ -94,7 +94,8 @@
         PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
         
         if(setupFlowController == nil) {
-                        setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
+            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
             
         }
         else {
@@ -111,7 +112,8 @@
         controller.message = [user.outstandingPayments objectAtIndex:0];
         
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
+            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
             
         }
         else {
@@ -134,16 +136,13 @@
         AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
         controller.newUserFlow = true;
         if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
+            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
+            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
             
         }
         else {
             [setupFlowController pushViewController:controller animated:YES];
         }
-        //currentReminderTab = 3;
-        //[self.newUserFlowTabController setSelectedIndex:3];
-        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        // Keep Progress Bar on top
 
         
         [controller release];
@@ -159,14 +158,18 @@
             
             [prefs synchronize];
             
-            [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
- 
+            NSLog(@"Modal view controller of mainArea: %@", mainAreaTabBarController.modalViewController);
+            NSLog(@"MainAreaTabBar: %@", mainAreaTabBarController);
+            NSLog(@"SetupFlow: %@", setupFlowController);
+            
+            [setupFlowController dismissModalViewControllerAnimated:YES];
+            
             [setupFlowController release];
             setupFlowController = nil;
-            
         }
     }
 }
+
 -(void)endUserSetupFlow
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -180,13 +183,13 @@
         
         [prefs synchronize];
         
-        [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
+        [setupFlowController dismissModalViewControllerAnimated:YES];
         
         [setupFlowController release];
         setupFlowController = nil;
-        
     }
 }
+
 -(void)backToWelcomeTabbedArea
 {
     [mainAreaTabBarController.view removeFromSuperview];
@@ -521,7 +524,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
     int index = 0;
     for (int i = 1; i < nPeople; i++) {
-        NSLog(@"%@", @"Started Next Person");
         
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
@@ -529,7 +531,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
         firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
-        NSLog(@"%@", firstName);
         
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
         CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
@@ -551,12 +552,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
         lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
-        NSLog(@"%@", lastName);
         
         NSString* emailAddress = [NSString stringWithFormat:@"%@", (NSString*)emailAddr];
         emailAddress = [emailAddress stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
         
-        NSLog(@"%@", emailAddress);
         
         NSString *contactFirstLast = @"";
         
@@ -568,7 +567,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         contactFirstLast = [contactFirstLast stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
         
-        NSLog(@"%@", contactFirstLast);
         
         // Handles Multiple Phone Numbers for One Contact...
         if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){
@@ -580,12 +578,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 contact.name = contactFirstLast;
                 contact.firstName = (NSString*)firstName;
                 contact.lastName = (NSString*)lastName;
-                NSLog(@"Phone Number: %@", phoneNumber);
                 contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
                 contact.recipientUri = [contact.phoneNumber copy];
                 
                 if ( tempImgData != nil ) {
-                    NSLog(@"Loading image for %@", contactFirstLast);
                     contact.imgData = tempImgData;
                 }
                 
@@ -872,6 +868,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 - (void)fbSessionInvalidated {
     
 }
+
 - (void)dealloc
 {
     [_window release];

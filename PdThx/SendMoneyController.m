@@ -29,6 +29,7 @@
 
 @implementation SendMoneyController
 @synthesize tabBar;
+@synthesize dummyCommentPlaceholder;
 
 @synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
@@ -72,6 +73,7 @@
     [btnSendMoney release];
     [contactButtonBGImage release];
     [amountButtonBGImage release];
+    [dummyCommentPlaceholder release];
     [super dealloc];
 }
 
@@ -91,6 +93,12 @@
 
 -(void)changedCommentBox:(NSNotification*)notification
 {
+    if ( [txtComments.text length] > 0 ) {
+        dummyCommentPlaceholder.placeholder = @"";
+    } else {
+        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.t";
+    }
+    
     if ( [txtComments.text length] <= 140 ){
         characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
     } else {
@@ -106,6 +114,11 @@
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
+    if ( txtComments.text.length == 0 )
+        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+    else {
+        dummyCommentPlaceholder.placeholder = @"";
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -215,6 +228,7 @@
     recipient = nil;
     [recipientUri release];
     recipientUri = nil;
+    [self setDummyCommentPlaceholder:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;
@@ -393,8 +407,17 @@
     amountButtonBGImage.highlighted = NO;
     
     TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
-    controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+        controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
+    else
+        controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    
+    
+    [controller setContinueButtonText:@"Send Another Payment"];
+    
     [controller setTransactionConfirmationDelegate: self];
+    
     
     [self dismissModalViewControllerAnimated:YES];
     [self presentModalViewController:controller animated:YES];
@@ -425,8 +448,9 @@
     
     [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
     
-    [self tabBarClicked:1];
+    [self tabBarClicked:1]; // Option: REFRESH PAYSTREAM
 }
+
 -(void)onContinueClicked {
     txtAmount.text = @"0.00";
     
@@ -569,7 +593,6 @@
     }
     if( buttonIndex == 4 )
     {
-        
         //Switch to the groups tab
         DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];

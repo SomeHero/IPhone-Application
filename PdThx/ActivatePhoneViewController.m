@@ -59,6 +59,7 @@
 }
 
 - (void)dealloc {
+    [activateButton release];
     [remindMeLaterButton release];
     [registrationKey release];
     [super dealloc];
