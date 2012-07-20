@@ -334,6 +334,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [sections addObject: transactionDate];
             [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey: transactionDate];
         }
+        
     }
     
     for(Transaction* item in array)
@@ -393,6 +394,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     if ( !item.imgData && item.transactionImageUri != (id)[NSNull null] )
     {
+        
         if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO) {
             [self startIconDownload:item forIndexPath:indexPath];
         } 
