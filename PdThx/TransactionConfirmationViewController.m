@@ -13,6 +13,8 @@
 
 @synthesize confirmationText;
 @synthesize transactionConfirmationDelegate;
+@synthesize btnContinue;
+@synthesize continueButtonText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,8 +52,15 @@
         //Handle Error Here
     }
 }
--(void)viewDidAppear:(BOOL)animated {
+
+-(void)viewWillAppear:(BOOL)animated {
     lblConfirmationHeader.text = confirmationText;
+    [btnContinue setTitle:continueButtonText forState:UIControlStateNormal
+    ];
+    [btnContinue setTitle:continueButtonText forState:UIControlStateSelected
+     ];
+    [btnContinue setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btnContinue setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 }
 
 - (void)viewDidUnload

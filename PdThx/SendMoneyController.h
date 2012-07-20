@@ -79,6 +79,8 @@
 @property(nonatomic, retain) UITextField *characterCountLabel;
 @property (nonatomic, retain) HBTabBarManager *tabBar;
 
+@property (retain, nonatomic) IBOutlet UITextField *dummyCommentPlaceholder;
+
 
 /*              Button Actions              */
 /*  --------------------------------------- */

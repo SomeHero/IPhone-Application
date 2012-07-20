@@ -76,6 +76,7 @@
 @property (nonatomic, retain) ProgressHudInnnerViewController *myProgHudInnerView;
 @property (nonatomic, retain) CustomAlertViewController *customAlert;
 
+@property (nonatomic, retain) UINavigationController* setupFlowController;
 
 @property(nonatomic, retain) UINavigationController * mainAreaTabBarController;
 @property (nonatomic, assign) int animationTimer;

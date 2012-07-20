@@ -23,6 +23,8 @@
 
 @property(nonatomic, retain) NSString* confirmationText;
 @property(nonatomic, retain) id transactionConfirmationDelegate;
+@property(nonatomic, retain) UIButton* btnContinue;
+@property(nonatomic, retain) NSString* continueButtonText;
 
 -(IBAction) btnHomeClicked:(id) sender;
 -(IBAction) btnContinueClicked: (id) sender;
