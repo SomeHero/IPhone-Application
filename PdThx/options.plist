@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Section 2</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Increase your spending limit</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-profile-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-profile-40x40.png</string>
+			<key>Label</key>
+			<string>Edit Profile</string>
+		</dict>
+	</array>
+	<key>Section 4</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Add or manage linked bank accounts</string>
+			<key>HighlightedImage</key>
+			<string>icont-setting-accounts-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-accounts-40x40.png</string>
+			<key>Label</key>
+			<string>Bank Accounts</string>
+		</dict>
+	</array>
+	<key>Section 5</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Add or manage linked email accounts</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-email-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-email-40x40.png</string>
+			<key>Label</key>
+			<string>Email Accounts</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Add or manage linked social network accounts</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-social-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-social-40x40.png</string>
+			<key>Label</key>
+			<string>Social Networks</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Add or manage linked phone numbers</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-phones-40x40.png</string>
+			<key>Image</key>
+			<string>icon-settings-phones-40x40.png</string>
+			<key>Label</key>
+			<string>Phones</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Add or manage linked MeCodes</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-mecode-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-mecode-40x40.png</string>
+			<key>Label</key>
+			<string>ME Codes</string>
+		</dict>
+	</array>
+	<key>Section 6</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>How and when we update you</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-preferences-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-preferences-40x40.png</string>
+			<key>Label</key>
+			<string>Notifications</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>How and when you share activity</string>
+			<key>HighlightedImge</key>
+			<string>icon-settings-sharing-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-sharing-40x40.png</string>
+			<key>Label</key>
+			<string>Sharing</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Change your password or security options</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-security-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-security-40x40.png</string>
+			<key>Label</key>
+			<string>Security &amp; Privacy</string>
+		</dict>
+	</array>
+	<key>Section 7</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Issues? Contact us or view FAQs</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-help-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-help-40x40.png</string>
+			<key>Label</key>
+			<string>Help</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Ideas or comments? Let us know!</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-feedback-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-feedback-40x40.png</string>
+			<key>Label</key>
+			<string>Feedback</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>If you like us, tell the world</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-rate-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-rate-40x40.png</string>
+			<key>Label</key>
+			<string>Rate PaidThx</string>
+		</dict>
+	</array>
+	<key>Section 8</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Terms of Service, Security &amp; Privacy</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-legal-40x40.png</string>
+			<key>Image</key>
+			<string>icon-settings-legal-40x40.png</string>
+			<key>Label</key>
+			<string>User Agreement</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Log out of PaidThx</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-signout-40x40.png</string>
+			<key>Image</key>
+			<string>icon-settings-signout-40x40.png</string>
+			<key>Label</key>
+			<string>Sign Out</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>When I Send Money</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Push Notification</string>
+			<key>ConfigurationKey</key>
+			<string>Notification_SendMoney_PushNotification</string>
+		</dict>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Notification_SendMoney_EmailAddress</string>
+			<key>Description</key>
+			<string>Email Message</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Text Message</string>
+			<key>ConfigurationKey</key>
+			<string>Notification_SendMoney_TextMessage</string>
+		</dict>
+	</array>
+	<key>When I Receive Money</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Email Message</string>
+			<key>ConfigurationKey</key>
+			<string>Notification_ReceiveMoney_EmailMessage</string>
+		</dict>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Notification_ReceiveMoney_TextMessage</string>
+			<key>Description</key>
+			<string>Text Message</string>
+		</dict>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Notification_ReceiveMoney_PushNotification</string>
+			<key>Description</key>
+			<string>Push Notification</string>
+		</dict>
+	</array>
+	<key>When I Request Money</key>
+	<array>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Notification_RequestMoney_EmailMessage</string>
+			<key>Description</key>
+			<string>Email Message</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Push Notification</string>
+			<key>ConfigurationKey</key>
+			<string>Notification_RequestMoney_PushNotification</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Text Message</string>
+			<key>ConfigurationKey</key>
+			<string>Notification_ReceiveRequest_TextMessage</string>
+		</dict>
+	</array>
+	<key>When I Receive a Request</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Push Notification</string>
+			<key>ConfigurationKey</key>
+			<string>Notification_ReceiveRequest_PushNotification</string>
+		</dict>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Notification_ReceiveRequest_TextMessage</string>
+			<key>Description</key>
+			<string>Text Message</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Email Message</string>
+			<key>ConfigurationKey</key>
+			<string>Notification_ReceiveRequest_EmailAddress</string>
+		</dict>
+	</array>
+</dict>
+</plist>

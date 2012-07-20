@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>When I Send Money</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Twitter</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_SendMoney_Twitter</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Facebook</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_SendMoney_Facebook</string>
+		</dict>
+	</array>
+	<key>When I Receive Money</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Twitter</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_ReceiveMoney_Twitter</string>
+		</dict>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Sharing_ReceiveMoney_Facebook</string>
+			<key>Description</key>
+			<string>Facebook</string>
+		</dict>
+	</array>
+	<key>When I Request Money</key>
+	<array>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Sharing_RequestMoney_Facebook</string>
+			<key>Description</key>
+			<string>Facebook</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Twitter</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_RequestMoney_Twitter</string>
+		</dict>
+	</array>
+	<key>When I Receive a Request</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Twitter</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_ReceiveRequest_Twitter</string>
+		</dict>
+		<dict>
+			<key>ConfigurationKey</key>
+			<string>Sharing_ReceiveRequest_Facebook</string>
+			<key>Description</key>
+			<string>Facebook</string>
+		</dict>
+	</array>
+</dict>
+</plist>

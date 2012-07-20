@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Section 1</key>
+	<array>
+		<dict>
+			<key>Label</key>
+			<string>Change Password</string>
+			<key>Image</key>
+			<string></string>
+			<key>HighlightedImage</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>HighlightedImage</key>
+			<string></string>
+			<key>Image</key>
+			<string></string>
+			<key>Label</key>
+			<string>Change Security Pin</string>
+		</dict>
+		<dict>
+			<key>Image</key>
+			<string></string>
+			<key>Label</key>
+			<string>Forgot Security Pin</string>
+			<key>HighlightedImage</key>
+			<string></string>
+		</dict>
+	</array>
+</dict>
+</plist>
