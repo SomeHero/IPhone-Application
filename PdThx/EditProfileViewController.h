@@ -16,10 +16,12 @@
 #import "ChoosePictureViewController.h"
 #import "UserAttribute.h"
 
-@interface EditProfileViewController : UISetupUserBaseViewController<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate>
+@interface EditProfileViewController : UISetupUserBaseViewController<UITextFieldDelegate, UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate>
 {
     IBOutlet UITableView* profileTable;
     NSMutableArray* profileSections;
+    
+    NSMutableArray* attributeValues;
 }
 
 @end

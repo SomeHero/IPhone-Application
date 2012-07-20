@@ -14,6 +14,8 @@
 
 @implementation OrganizationDetailViewController
 
+@synthesize merchantId;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,9 +28,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    merchantServices = [[MerchantServices alloc] init];
+    [merchantServices setMerchantServicesCompleteProtocol: self];
+    
+    [merchantImage.layer setCornerRadius:5.0];
+    [merchantImage.layer setMasksToBounds:YES];
+    [merchantImage.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [merchantImage.layer setBorderWidth:0.7];
+    
+    merchantName.lineBreakMode = UILineBreakModeWordWrap;
+    merchantName.numberOfLines = 0;
+    
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [merchantServices getNonProfitDetail:merchantId];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -40,4 +56,15 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+-(void)getNonProfitDetailDidComplete: (NonProfitDetail*) nonProfitDetail {
+    merchantName.text = nonProfitDetail.name;
+    merchantTagLine.text = nonProfitDetail.tagLine;
+    [merchantImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:nonProfitDetail.imageUrl]]] forState:UIControlStateNormal];
+    merchantDescription.text = nonProfitDetail.description;
+    btnSuggestedAmounted.titleLabel.text = [NSString stringWithFormat:@"Donate %$%0.2f (suggested)", [nonProfitDetail.suggestedAmount doubleValue]];
+}
+-(void)getNonProfitDetailDidFail: (NSString*) errorMessage {
+    
+}
+
 @end

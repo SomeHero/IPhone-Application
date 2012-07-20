@@ -243,6 +243,7 @@
 - (IBAction)pressedAmountButton:(id)sender 
 {
     AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    [newView setTitle: @"Donation Amount"];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.amountChosenDelegate = self;
@@ -285,7 +286,7 @@
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your donation of $%0.2f to %@.", [amount doubleValue], recipient.name]];
             
             [self presentModalViewController:controller animated:YES];
         } else {

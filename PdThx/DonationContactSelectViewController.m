@@ -36,7 +36,7 @@
         // Custom initialization
         fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
         
-        allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).organizations;
+        allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).nonProfits;
         
         filteredResults = [[NSMutableArray alloc] init];
         for ( int i = 0 ; i < 28 ; i ++ )
@@ -62,7 +62,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    txtSearchBox.frame =  CGRectMake(txtSearchBox.frame.origin.x, txtSearchBox.frame.origin.y, txtSearchBox.frame.size.width, 40);
+    //txtSearchBox.frame =  CGRectMake(txtSearchBox.frame.origin.x, txtSearchBox.frame.origin.y, txtSearchBox.frame.size.width, 40);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
@@ -91,6 +91,8 @@
 
 -(void) showContextSelect:(id)sender forEvent:(UIEvent*)event
 {
+    [txtSearchBox resignFirstResponder];
+    
     ContactTypeSelectViewController *tableViewController = [[ContactTypeSelectViewController alloc] init];
     
     tableViewController.view.frame = CGRectMake(0,0, 220, 216);
@@ -236,8 +238,7 @@
         myCell = [nib objectAtIndex:0];
         [myCell setDetailInfoButtonClicked: self];
     }
-    
-    
+
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
     [myCell.contactImage.layer setCornerRadius:4.0];
@@ -319,6 +320,8 @@
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             }
         } else {
+            
+            myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
             myCell.contactDetail.text = contact.phoneNumber;
             if ( contact.imgData )
@@ -358,6 +361,7 @@
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             }
         } else {
+            myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
             myCell.contactDetail.text = contact.phoneNumber;
             
@@ -595,6 +599,7 @@
 -(void)infoButtonClicked: (NSString*) merchantId;
 {
     OrganizationDetailViewController* controller = [[OrganizationDetailViewController alloc] init];
+    [controller setMerchantId:merchantId];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     
@@ -609,22 +614,33 @@
     [popoverController dismissPopoverAnimatd:YES];
     switch (contactType) {
         case 1:
-            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
-            break;
         case 2:
-            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).phoneContacts;
-            break;
         case 3:
-            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).faceBookContacts;
+        case 5:
+        {
+            
+            SendMoneyController *gvc = [[SendMoneyController alloc]init];
+            [[self navigationController] pushViewController:gvc animated:NO];
+            
+            [gvc pressedChooseRecipientButton:self];
+            [gvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectAtIndex:2];
+            [allViewControllers removeObjectAtIndex:1];
+            [allViewControllers removeObjectAtIndex:0];
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            
+            [allViewControllers release];
+            
             break;
+        }
         case 4:
             allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).nonProfits;
             break;
-        case 5:
-            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).organizations;
-            break;
         default:
-            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).nonProfits;
             break;
     }
     
@@ -637,4 +653,78 @@
     [popoverController release];
     popoverController = nil;
 }
+- (void)tabBarClicked:(NSUInteger)buttonIndex
+{
+    if( buttonIndex == 0 )
+    {
+        //Switch to the groups tab
+        HomeViewController *gvc = [[HomeViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 1 )
+    {
+        //Switch to the groups tab
+        PayStreamViewController *gvc = [[PayStreamViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 2 )
+    {
+        //Switch to the groups tab
+        SendMoneyController *gvc = [[SendMoneyController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        
+        [gvc pressedChooseRecipientButton:self];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 3 )
+    {
+        // Already the current view controller
+        /*
+         //Switch to the groups tab
+         HomeViewController *gvc = [[HomeViewController alloc]init];
+         [[self navigationController] pushViewController:gvc animated:NO];
+         [gvc release];
+         
+         //Remove the view controller this is coming from, from the navigation controller stack
+         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+         [allViewControllers removeObjectIdenticalTo:self];
+         [[self navigationController] setViewControllers:allViewControllers animated:NO];
+         [allViewControllers release];
+         */
+    }
+    if( buttonIndex == 4 )
+    {
+        //Switch to the groups tab
+        DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+}
+
 @end

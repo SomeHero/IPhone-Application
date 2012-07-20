@@ -6,6 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "HomeViewController.h"
+#import "PayStreamViewController.h"
+#import "SendMoneyController.h"
+#import "RequestMoneyController.h"
+#import "DoGoodViewController.h"
+
 #import <UIKit/UIKit.h>
 #import "Facebook.h"
 #import "PhoneNumberFormatting.h"

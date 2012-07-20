@@ -17,6 +17,7 @@
 @synthesize contactName, contactDetail, contactImage;
 @synthesize imgData;
 @synthesize detailInfoButtonClicked;
+@synthesize merchantId;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -43,6 +44,7 @@
     [contactImage release];
     [contactDetail release];
     [contactName release];
+    
     [super dealloc];
 }
 
@@ -50,7 +52,7 @@
 {
     UIButton* buttonClicked = (UIButton*)sender;
     
-    [detailInfoButtonClicked infoButtonClicked: @"James"];
+    [detailInfoButtonClicked infoButtonClicked: merchantId];
     
 }
 

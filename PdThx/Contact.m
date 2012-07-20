@@ -10,6 +10,7 @@
 
 @implementation Contact
 
+@synthesize userId;
 @synthesize name, phoneNumber, emailAddress, facebookID, imgData, firstName, lastName;
 @synthesize recipientUri;
 @synthesize recipientId;

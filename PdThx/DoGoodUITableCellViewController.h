@@ -16,6 +16,9 @@
     IBOutlet UILabel *contactName;
     IBOutlet UILabel *contactDetail;
     IBOutlet UIView *overLayView;
+    
+    NSString* merchantId;
+    
     id<DetailInfoButtonClicked> detailInfoButtonClicked;
 }
 
@@ -25,6 +28,7 @@
 @property (nonatomic, retain) UILabel *contactName;
 @property (nonatomic, retain) UILabel *contactDetail;
 @property (nonatomic, retain) UIImage *imgData;
+@property (nonatomic, retain) NSString* merchantId;
 
 -(IBAction)btnInfoClicked:(id)sender;
 

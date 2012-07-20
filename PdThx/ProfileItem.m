@@ -14,6 +14,8 @@
 @synthesize label;
 @synthesize sortOrder;
 @synthesize attributeId;
+@synthesize itemType;
+@synthesize points;
 
 -(id)init {
     self = [super init];
@@ -33,6 +35,8 @@
         label = [[dictionary valueForKey: @"Label"] copy];
         attributeId = [[dictionary valueForKey: @"UserAttributeId"] copy];
         sortOrder = [[dictionary valueForKey: @"SortOrder"] intValue];
+        itemType = [[dictionary valueForKey:@"ItemType"] copy];
+        points = [[dictionary valueForKey:@"Points"] intValue];
     }
     
     return self;
@@ -47,6 +51,8 @@
     another.label = label;
     another.attributeId = attributeId;
     another.sortOrder = sortOrder;
+    another.itemType = itemType;
+    another.points = points;
 
     return another;
 }

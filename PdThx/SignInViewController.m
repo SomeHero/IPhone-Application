@@ -333,6 +333,8 @@
 }
 
 - (IBAction)signInWithFacebookClicked:(id)sender {
+            PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     FaceBookSignInOverlayViewController* controller =
     [[FaceBookSignInOverlayViewController alloc] init];
     [controller setFacebookSignInCompleteDelegate: self];
@@ -343,6 +345,7 @@
         [faceBookSignInHelper signInWithFacebook:self];
     else {
         [fBook requestWithGraphPath:@"me" andDelegate:self];
+        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
     }
     
     [controller release];

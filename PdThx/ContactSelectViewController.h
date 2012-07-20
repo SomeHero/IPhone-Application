@@ -16,6 +16,9 @@
 #import "TSPopoverController.h"
 #import "TSActionSheet.h"
 #import "TestViewController.h"
+#import "DoGoodViewController.h"
+#import "DonationContactSelectViewController.h"
+#import "SendDonationViewController.h"
 
 
 @interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate>
