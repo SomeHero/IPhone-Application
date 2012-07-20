@@ -83,6 +83,11 @@
 @property(nonatomic, retain) UIImageView *amountButtonBGImage;
 
 @property(nonatomic, retain) UIButton *attachPictureButton;
+
+
+@property (nonatomic, retain) IBOutlet UITextField *dummyCommentPlaceholder;
+
+
 /*              Button Actions              */
 /*  --------------------------------------- */
 - (IBAction)pressedChooseRecipientButton:(id)sender;

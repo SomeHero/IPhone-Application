@@ -149,6 +149,9 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if ( [txtSearchBox isFirstResponder] )
+        NSLog(@"Table view scrolled, getting rid of keyboard.");
+    
     [txtSearchBox resignFirstResponder];
 }
 

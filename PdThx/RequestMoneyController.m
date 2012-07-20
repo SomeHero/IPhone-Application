@@ -34,6 +34,7 @@
 @end
 
 @implementation RequestMoneyController
+@synthesize dummyCommentPlaceholder;
 @synthesize tabBar;
 
 @synthesize recipientUri, attachPictureButton;
@@ -45,6 +46,7 @@
 @synthesize contactDetail, lm;
 @synthesize amount, chooseAmountButton, characterCountLabel;
 @synthesize contactButtonBGImage, amountButtonBGImage;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,6 +87,7 @@
     [attachPictureButton release];
     [characterCountLabel release];
     [characterCountLabel release];
+    [dummyCommentPlaceholder release];
     [super dealloc];
 }
 
@@ -103,6 +106,11 @@
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
+    if ( txtComments.text.length == 0 )
+        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+    else {
+        dummyCommentPlaceholder.placeholder = @"";
+    }
 }
 - (void)viewDidLoad
 {
@@ -187,6 +195,12 @@
 
 -(void)changedCommentBox:(NSNotification*)notification
 {
+    if ( [txtComments.text length] > 0 ) {
+        dummyCommentPlaceholder.placeholder = @"";
+    } else {
+        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+    }
+    
     if ( [txtComments.text length] <= 140 ){
         characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
     } else {
@@ -219,6 +233,7 @@
     characterCountLabel = nil;
     [recipient release];
     recipient = nil;
+    [self setDummyCommentPlaceholder:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -445,14 +460,20 @@
     //do nothing
 }
 -(void)requestMoneyDidComplete {
-    
     [self.mainScrollView scrollsToTop];
     
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     
     TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
-    controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+        controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
+    else
+        controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    
+    
+    [controller setContinueButtonText:@"Send Another Request"];
     [controller setTransactionConfirmationDelegate: self];
     
     [self presentModalViewController:controller animated:YES];

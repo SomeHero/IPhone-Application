@@ -175,9 +175,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [controller release];
 }
 -(IBAction) btnPaystreamClicked: (id) sender {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    [appDelegate switchToPaystreamController];
+    [self tabBarClicked:1];
 }
 
 -(IBAction) btnIncreaseScoreClicked: (id) sender {
