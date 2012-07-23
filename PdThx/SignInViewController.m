@@ -362,7 +362,23 @@
 
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
 {
-    NSLog ( @"Error occurred -> %@" , [error description] );
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSLog ( @"Error occurred2 -> %@" , [error description] );
+    
+    NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
+    [def removeObjectForKey:@"FBAccessTokenKey"];
+    [def removeObjectForKey:@"FBExpirationDateKey"];
+    [def synchronize];
+    
+    if ( ![fBook isSessionValid] ){
+        NSLog(@"Facebook Session is NOT Valid, Signing in...");
+        [faceBookSignInHelper setCancelledDelegate:self];
+        [faceBookSignInHelper signInWithFacebook:self];
+    } else {
+        NSLog(@"Facebook Session is Valid, Getting info...");
+        [fBook requestWithGraphPath:@"me" andDelegate:self];
+        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+    }
 }
 
 -(void)securityQuestionAnsweredCorrect {
