@@ -333,6 +333,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{5, 282}, {298, 50}}</string>
 										<reference key="NSSuperview" ref="620361931"/>
+										<reference key="NSNextKeyView"/>
 										<reference key="IBUIBackgroundColor" ref="627672576"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -458,7 +459,7 @@
 										</object>
 									</object>
 								</object>
-								<string key="NSFrame">{{6, 11}, {308, 347}}</string>
+								<string key="NSFrame">{{6, 9.5}, {308, 347}}</string>
 								<reference key="NSSuperview" ref="931325739"/>
 								<reference key="NSNextKeyView" ref="58855539"/>
 								<object class="NSColor" key="IBUIBackgroundColor">

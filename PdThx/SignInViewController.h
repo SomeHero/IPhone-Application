@@ -21,7 +21,7 @@
 #import "FaceBookSignInOverlayViewController.h"
 #import "ForgotPasswordViewController.h"
 
-@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBRequestDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate>
+@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBSessionDelegate, FBRequestDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate>
 {
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
