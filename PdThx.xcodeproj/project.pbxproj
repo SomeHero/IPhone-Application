@@ -543,6 +543,7 @@
 		5BED071815B9E89400D4110A /* twitter_load.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BED070415B9E89400D4110A /* twitter_load.png */; };
 		5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BED071F15B9ED8C00D4110A /* TwitterRushViewController.m */; };
 		5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BED072115B9EDC800D4110A /* TwitterRushViewController.xib */; };
+		5BED074415BBB8D400D4110A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BED074315BBB8D400D4110A /* Twitter.framework */; };
 		5BF07AE6159784190020EA2F /* btn-pinswipe-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */; };
 		5BF07AE7159784190020EA2F /* btn-pinswipe-70x70@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */; };
 		5BF07AE8159784190020EA2F /* btn-pinswipe-pressed-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE2159784190020EA2F /* btn-pinswipe-pressed-70x70.png */; };
@@ -1372,6 +1373,7 @@
 		5BED071E15B9ED8C00D4110A /* TwitterRushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterRushViewController.h; sourceTree = "<group>"; };
 		5BED071F15B9ED8C00D4110A /* TwitterRushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterRushViewController.m; sourceTree = "<group>"; };
 		5BED072115B9EDC800D4110A /* TwitterRushViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterRushViewController.xib; sourceTree = "<group>"; };
+		5BED074315BBB8D400D4110A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-70x70.png"; sourceTree = "<group>"; };
 		5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-70x70@2x.png"; sourceTree = "<group>"; };
 		5BF07AE2159784190020EA2F /* btn-pinswipe-pressed-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-pressed-70x70.png"; sourceTree = "<group>"; };
@@ -1476,6 +1478,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BED074415BBB8D400D4110A /* Twitter.framework in Frameworks */,
 				5B69E17114B0BC81003A0F66 /* libxml2.dylib in Frameworks */,
 				54E77ED915B5D7020031116B /* CoreMedia.framework in Frameworks */,
 				54E77ED715B5D6A10031116B /* ImageIO.framework in Frameworks */,
@@ -2351,6 +2354,7 @@
 		5B69DF7C14AE6067003A0F66 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5BED074315BBB8D400D4110A /* Twitter.framework */,
 				5BED06C915B9E89400D4110A /* Twitter+OAuth */,
 				54E77ED815B5D7020031116B /* CoreMedia.framework */,
 				54E77ED615B5D6A10031116B /* ImageIO.framework */,
@@ -4270,9 +4274,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				"HEADER_SEARCH_PATHS[arch=*]" = (
-					"$(SDKROOT)/usr/include/libxml2",
-				);
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -4439,9 +4441,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				"HEADER_SEARCH_PATHS[arch=*]" = (
-					"$(SDKROOT)/usr/include/libxml2",
-				);
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (

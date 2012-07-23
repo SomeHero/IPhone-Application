@@ -42,6 +42,7 @@ typedef enum _MGTwitterRequestType {
 	MGTwitterBlockEnableRequest, // enable block for the specified user
 	MGTwitterBlockDisableRequest, // disable block for the specified user
     MGTwitterImageRequest, // requesting an image
+    MGTwitterFriendsRequest,  //get users friends
 #if YAJL_AVAILABLE
 	MGTwitterSearchRequest, // performing a search
 	MGTwitterSearchCurrentTrendsRequest, // getting the current trends
