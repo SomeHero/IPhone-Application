@@ -11,6 +11,7 @@
 #import "AccountListViewController.h"
 #import "MeCodeSetupViewController.h"
 #import "ChangePasswordViewController.h"
+#import "UserService.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400
@@ -241,6 +242,27 @@
                     
                     break;
                 }
+                case 1:
+                {
+                    Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+                    
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    
+                    if ([defaults objectForKey:@"FBAccessTokenKey"] 
+                        && [defaults objectForKey:@"FBExpirationDateKey"]) {
+                        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+                        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+                    }
+                    
+                    if ( [fBook isSessionValid] )
+                    {
+                        [fBook requestWithGraphPath:@"me" andDelegate:self];
+                    }
+                    else {
+                        [fBook authorize:((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).permissions];
+                    }
+                    break;
+                }
                 case 2:
                 {
                     PhoneListViewController* controller = [[PhoneListViewController alloc] init];
@@ -379,6 +401,30 @@
     }
     
 }
+
+-(void)linkFbAccountDidSucceed
+{
+    // Reload Contacts, Somehow.
+}
+
+
+
+-(void) request:(FBRequest *)request didLoad:(id)result
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [userService linkFacebookAccount:user.userId withFacebookId:[result objectForKey:@"id"] withAuthToken:[NSString stringWithFormat:[prefs  objectForKey:@"FBAccessTokenKey"]]];
+    
+    [prefs release];
+    
+    NSLog(@"Facebook Account Being Linked.");
+}
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog(@"Error linking facebook account.");
+}
+
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
     switch (result)

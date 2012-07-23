@@ -350,7 +350,8 @@
      */
 }
 
--(void)signOut {
+-(void)signOut 
+{
     NSLog(@"You Logged Out");
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];

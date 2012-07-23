@@ -827,6 +827,7 @@
 		54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutPageViewController.xib; sourceTree = "<group>"; };
 		54CACC7015879BBD00631B84 /* WLCM-BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WLCM-BG.png"; sourceTree = "<group>"; };
 		54CACC831587C6F000631B84 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkWithFacebookProtocol.h; sourceTree = "<group>"; };
 		54D3A7D0159D353900364483 /* ProgressHudInnnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHudInnnerViewController.h; sourceTree = "<group>"; };
 		54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHudInnnerViewController.m; sourceTree = "<group>"; };
 		54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressHudInnnerViewController.xib; sourceTree = "<group>"; };
@@ -2730,6 +2731,7 @@
 				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
 				5B357D0115B5277F000CD5FC /* OrganizationDetailViewProtocol.h */,
 				54550A9A15B923220077EA37 /* TakeCheckPictureProtocol.h */,
+				54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
