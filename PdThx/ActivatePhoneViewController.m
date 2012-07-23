@@ -108,10 +108,10 @@
 			break;
 		case MessageComposeResultSent:
             NSLog(@"Text Message Sent!");
-            
+            /*
             PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
             [appDelegate showSuccessWithStatus:@"Message Sent" withDetailedStatus:@"Thank you"];
-            
+            */
             [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 			break;
 		default:

@@ -57,7 +57,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    [self startUserSetupFlow];
+    //[self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
@@ -148,8 +148,7 @@
         
         [controller release];
         
-    } 
-    else {
+    } else {
         currentReminderTab = 5;
         
         if(setupFlowController != nil) {
@@ -348,7 +347,8 @@
      */
 }
 
--(void)signOut {
+-(void)signOut 
+{
     NSLog(@"You Logged Out");
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
