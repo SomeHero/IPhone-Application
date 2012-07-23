@@ -26,7 +26,7 @@
 	[tweetTextField resignFirstResponder];
 	
 	//Twitter Integration Code Goes Here
-    [_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:100];
+    [_engine getFriends:@"thejamesrhodes"];
 }
 
 #pragma mark ViewController Lifecycle
@@ -48,9 +48,20 @@
         }  
     }    
 }
+- (void)miscInfoReceived:(NSArray *)miscInfo forRequest:(NSString *)connectionIdentifier {
+    NSLog(@"Got Results");
+}
 - (void)statusesReceived:(NSArray *)userInfo forRequest:(NSString *)identifier
 {
     [userInfo count];
+    
+    for(int i=0; i < [userInfo count]; i++)
+    {
+        NSMutableDictionary* dict = [userInfo objectAtIndex:i];
+        NSMutableDictionary* user = [dict objectForKey: @"user"];
+        
+        NSLog(@"%@", [user valueForKey: @"name"]);
+    }
 }
 - (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)identifier
 {
@@ -94,6 +105,4 @@
 - (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {
 	NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
 }
-
-
 @end

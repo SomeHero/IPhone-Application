@@ -3,6 +3,7 @@
 //  TwitterRush
 
 #import <UIKit/UIKit.h>
+#import <Twitter/Twitter.h>
 #import "SA_OAuthTwitterController.h"
 
 @class SA_OAuthTwitterEngine;
