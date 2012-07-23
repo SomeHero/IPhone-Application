@@ -194,6 +194,8 @@
 		54CACC6F15879A5B00631B84 /* AboutPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */; };
 		54CACC7115879BBE00631B84 /* WLCM-BG.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CACC7015879BBD00631B84 /* WLCM-BG.png */; };
 		54CACC841587C6F000631B84 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54CACC831587C6F000631B84 /* MediaPlayer.framework */; };
+		54D23F8E15BDCA6E0037719A /* HomeViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D23F8C15BDCA6E0037719A /* HomeViewControllerV2.m */; };
+		54D23F8F15BDCA6E0037719A /* HomeViewControllerV2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D23F8D15BDCA6E0037719A /* HomeViewControllerV2.xib */; };
 		54D3A7D3159D353900364483 /* ProgressHudInnnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */; };
 		54D3A7D4159D353900364483 /* ProgressHudInnnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */; };
 		54D3A7E9159D61CA00364483 /* icon-iphone-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7E8159D61C900364483 /* icon-iphone-57x57.png */; };
@@ -856,6 +858,10 @@
 		54CACC7015879BBD00631B84 /* WLCM-BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WLCM-BG.png"; sourceTree = "<group>"; };
 		54CACC831587C6F000631B84 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkWithFacebookProtocol.h; sourceTree = "<group>"; };
+		54D23F8B15BDCA6E0037719A /* HomeViewControllerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewControllerV2.h; sourceTree = "<group>"; };
+		54D23F8C15BDCA6E0037719A /* HomeViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewControllerV2.m; sourceTree = "<group>"; };
+		54D23F8D15BDCA6E0037719A /* HomeViewControllerV2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewControllerV2.xib; sourceTree = "<group>"; };
+		54D23F9015BDCC660037719A /* FBHelperReturnProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBHelperReturnProtocol.h; sourceTree = "<group>"; };
 		54D3A7D0159D353900364483 /* ProgressHudInnnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHudInnnerViewController.h; sourceTree = "<group>"; };
 		54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHudInnnerViewController.m; sourceTree = "<group>"; };
 		54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressHudInnnerViewController.xib; sourceTree = "<group>"; };
@@ -1797,8 +1803,8 @@
 		5480586B159A3C1D00ED591C /* Home View */ = {
 			isa = PBXGroup;
 			children = (
-				5480586C159A3C7000ED591C /* HomeViewController.h */,
-				5480586D159A3C7000ED591C /* HomeViewController.m */,
+				54D23F8A15BDCA480037719A /* V2 */,
+				54D23F8915BDCA410037719A /* V1 */,
 			);
 			name = "Home View";
 			sourceTree = "<group>";
@@ -2208,6 +2214,25 @@
 				54CACC6715879A3000631B84 /* WelcomeScreenViewController.m */,
 			);
 			name = "Welcome Page";
+			sourceTree = "<group>";
+		};
+		54D23F8915BDCA410037719A /* V1 */ = {
+			isa = PBXGroup;
+			children = (
+				5480586C159A3C7000ED591C /* HomeViewController.h */,
+				5480586D159A3C7000ED591C /* HomeViewController.m */,
+			);
+			name = V1;
+			sourceTree = "<group>";
+		};
+		54D23F8A15BDCA480037719A /* V2 */ = {
+			isa = PBXGroup;
+			children = (
+				54D23F8B15BDCA6E0037719A /* HomeViewControllerV2.h */,
+				54D23F8C15BDCA6E0037719A /* HomeViewControllerV2.m */,
+				54D23F8D15BDCA6E0037719A /* HomeViewControllerV2.xib */,
+			);
+			name = V2;
 			sourceTree = "<group>";
 		};
 		54D3A7C8159D33BC00364483 /* App Icon and Loading Screen */ = {
@@ -2841,6 +2866,7 @@
 				5B357D0115B5277F000CD5FC /* OrganizationDetailViewProtocol.h */,
 				54550A9A15B923220077EA37 /* TakeCheckPictureProtocol.h */,
 				54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */,
+				54D23F9015BDCC660037719A /* FBHelperReturnProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -3664,6 +3690,7 @@
 				5BED070615B9E89400D4110A /* jQueryInjectLandscape.txt in Resources */,
 				5BED071815B9E89400D4110A /* twitter_load.png in Resources */,
 				5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */,
+				54D23F8F15BDCA6E0037719A /* HomeViewControllerV2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3863,6 +3890,7 @@
 				5BED071615B9E89400D4110A /* SA_OAuthTwitterController.m in Sources */,
 				5BED071715B9E89400D4110A /* SA_OAuthTwitterEngine.m in Sources */,
 				5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */,
+				54D23F8E15BDCA6E0037719A /* HomeViewControllerV2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
