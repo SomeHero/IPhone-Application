@@ -7,10 +7,12 @@
 //
 
 #import "FacebookSignIn.h"
+#import "FBHelperReturnProtocol.h"
 
 
 @implementation FacebookSignIn
 
+@synthesize cancelledDelegate;
 
 - (id) init 
 {
@@ -36,6 +38,11 @@
     [defaults synchronize];
     
     [self requestUserFBInfo];
+}
+
+- (void)fbDidNotLogin:(BOOL)cancelled
+{
+    [cancelledDelegate fbSignInCancelled];
 }
 
 - (void)signInWithFacebook:(id)sender {
@@ -81,6 +88,7 @@
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
 {
     NSLog ( @"Error occurred -> %@" , [error description] );
+    [cancelledDelegate fbSignInCancelled];
 }
 
 @end

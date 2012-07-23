@@ -183,6 +183,11 @@
     }
 }
 
+-(void)fbSignInCancelled
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Cancelled" withDetailedStatus:@"Facebook Sign In Cancelled"];
+}
 
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber isNewUser:(BOOL)isNewUser {
@@ -206,8 +211,9 @@
     
     [self.navigationController dismissModalViewControllerAnimated:NO];
     
-    [self showAlertView:@"Facebook Sign In Failed" withMessage:[NSString stringWithFormat:@"%@. Check your username, password, and data connection.",reason]];
-
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Error!" withDetailedStatus:@"Facebook Login Failed"];
+    
 }
 
 
@@ -339,6 +345,7 @@
     
     if ( ![fBook isSessionValid] ){
         NSLog(@"Facebook Session is NOT Valid, Signing in...");
+        [faceBookSignInHelper setCancelledDelegate:self];
         [faceBookSignInHelper signInWithFacebook:self];
     } else {
         NSLog(@"Facebook Session is Valid, Getting info...");
