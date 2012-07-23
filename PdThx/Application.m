@@ -13,6 +13,7 @@
 @synthesize apiKey;
 @synthesize applicationId;
 @synthesize profileSections;
+@synthesize applicationSettings;
 
 -(id)init {
     self = [super init];
@@ -40,6 +41,18 @@
         {
             [profileSections addObject: [[[ProfileSection alloc] initWithDictionary: [tempProfileSectionsArray objectAtIndex:(NSUInteger) i]] autorelease]];
         }
+        
+        
+        NSArray *tempApplicationSettingsArray = [[dictionary valueForKey:@"ConfigurationVariables"] copy];
+        
+        applicationSettings = [[NSMutableDictionary alloc] init];
+        
+        for(int i = 0; i <[tempApplicationSettingsArray count]; i++)
+        {
+            ApplicationConfiguration* item = [[[ApplicationConfiguration alloc] initWithDictionary: [tempApplicationSettingsArray objectAtIndex:(NSUInteger) i]] autorelease];
+            
+            [applicationSettings setValue:item forKey: [item ConfigurationKey]];
+        }
     }
     
     return self;
@@ -53,6 +66,7 @@
     another.apiKey = apiKey;
     another.applicationId = applicationId;
     another.profileSections = [profileSections copy];
+    another.applicationSettings = [applicationSettings copy];
     
     return another;
 }
