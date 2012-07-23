@@ -333,7 +333,7 @@
 }
 
 - (IBAction)signInWithFacebookClicked:(id)sender {
-            PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     FaceBookSignInOverlayViewController* controller =
     [[FaceBookSignInOverlayViewController alloc] init];
@@ -341,9 +341,11 @@
     
     [self.navigationController presentModalViewController:controller animated:YES];
     
-    if ( ![fBook isSessionValid] )
+    if ( ![fBook isSessionValid] ){
+        NSLog(@"Facebook Session is NOT Valid, Signing in...");
         [faceBookSignInHelper signInWithFacebook:self];
-    else {
+    } else {
+        NSLog(@"Facebook Session is Valid, Getting info...");
         [fBook requestWithGraphPath:@"me" andDelegate:self];
         [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
     }
@@ -353,6 +355,7 @@
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
+    NSLog(@"Request Did Load from Facebook...");
     [service validateUser:result];
 }
 

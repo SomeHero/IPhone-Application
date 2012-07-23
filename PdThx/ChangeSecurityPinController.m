@@ -20,6 +20,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize securityPinSwipeDelegate;
 @synthesize tag;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

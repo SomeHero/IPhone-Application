@@ -14,6 +14,7 @@
 #import "PersonalizeUserCompleteProtocol.h"
 #import "ChangePasswordCompleteProtocol.h"
 #import "ForgotPasswordCompleteProtocol.h"
+#import "LinkWithFacebookProtocol.h"
 
 @interface UserService : NSObject {
     ASIHTTPRequest *requestObj;
@@ -23,6 +24,7 @@
     id<ChangePasswordCompleteProtocol> changePasswordCompleteDelegate;
     id<ForgotPasswordCompleteProtocol>
         forgotPasswordCompleteDelegate;
+    id<LinkWithFacebookProtocol> linkFbAccountDelegate;
 }
 
 @property(retain) id userInformationCompleteDelegate;
@@ -30,13 +32,17 @@
 @property(nonatomic, retain) id personalizeUserCompleteDelegate;
 @property(nonatomic, retain) id changePasswordCompleteDelegate;
 @property(nonatomic, retain) id forgotPasswordCompleteDelegate;
+@property(nonatomic, retain) id linkFbAccountDelegate;
 
 -(void) getUserInformation:(NSString*) userId;
 -(void) setupSecurityPin:(NSString*) userId WithPin: (NSString*) securityPin;
 -(void) changeSecurityPin: (NSString*) userId WithOld:(NSString*) oldSecurityPin AndNew:(NSString*) newSecurityPin;
 -(void) personalizeUser:(NSString*) userId WithFirstName: (NSString*) firstName withLastName :(NSString*) lastName withImage: (NSString*) imageUrl;
 -(void) changePasswordFor: (NSString*) userId WithOld:(NSString*) oldPassword AndNew: (NSString*) newPassword;
+
 -(void) forgotPasswordFor: (NSString*) emailAddress;
+
+-(void)linkFacebookAccount:(NSString*)userId withFacebookId:(NSString*)facebookId withAuthToken:(NSString*)token;
 
 @end
             
