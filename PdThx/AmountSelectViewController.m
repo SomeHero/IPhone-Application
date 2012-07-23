@@ -184,12 +184,33 @@
 
 - (IBAction)pressedGoButton:(id)sender
 {
-    double amount = [amountDisplayLabel.text doubleValue];
-    [amountChosenDelegate didSelectAmount: amount];
+    [amountDisplayLabel resignFirstResponder];
     
-    [self.navigationController popViewControllerAnimated:YES]; 
+    double upperLimit = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).getUpperLimit;
+    
+    double amount = [amountDisplayLabel.text doubleValue];
+    
+    if(amount > upperLimit) {
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showAlertWithResult:false withTitle:@"Amount Exceeds the Upper Limit" withSubtitle: @"" withDetailText: [NSString stringWithFormat: @"The amount you entered exceeds the upper limit of $%0.2f.  Please reduce the amount to continue.", upperLimit]  withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+
+    }
+    else {
+    
+        [amountChosenDelegate didSelectAmount: amount];
+    
+        [self.navigationController popViewControllerAnimated:YES]; 
+    }
 }
 
+-(void)didSelectButtonWithIndex:(int)index
+{
+    // Dismiss, error uploading image alert view clicked.
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate dismissAlertView];
+    [amountDisplayLabel becomeFirstResponder];
+
+}
 - (IBAction)pressedQuickAmount0:(id)sender {
     [amountChosenDelegate didSelectAmount:1.0];
     

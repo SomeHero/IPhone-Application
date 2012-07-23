@@ -57,7 +57,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    //[self startUserSetupFlow];
+    [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
@@ -1181,5 +1181,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         return @"nav-selector-public-52x30.png";
     
     return @"nav-selector-allcontacts-52x30.png";
+}
+-(double)getUpperLimit {
+    
+    double upperLimit = 5000.0;
+    
+    NSLog(@"%@", [NSString stringWithFormat: @"%@", [[myApplication applicationSettings] objectForKey:@"UpperLimit"]]);
+    @try {
+        upperLimit = (double)[[[myApplication applicationSettings] objectForKey:@"UpperLimit"] doubleValue];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",[NSString stringWithFormat:@"%@",exception]); 
+    }
+    @finally {
+    }
+
+    return upperLimit;
 }
 @end
