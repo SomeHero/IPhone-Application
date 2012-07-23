@@ -25,6 +25,7 @@
 #import "TOSViewController.h"
 #import "ZendeskDropboxSampleViewController.h"
 #import "LinkWithFacebookProtocol.h"
+#import "TwitterRushViewController.h"
 
 @interface ProfileController : UISetupUserBaseViewController   
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, MFMailComposeViewControllerDelegate,LinkWithFacebookProtocol, FBRequestDelegate> {

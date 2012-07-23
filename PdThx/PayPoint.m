@@ -14,6 +14,7 @@
 @synthesize payPointType;
 @synthesize uri;
 @synthesize userId;
+@synthesize verified;
 
 -(id)init {
     self = [super init];
@@ -23,9 +24,8 @@
         payPointType = [[NSString alloc] init];
         uri = [[NSString alloc] init];
         userId = [[NSString alloc] init];
-        
-        
-    }
+        verified = [[NSString alloc] init];
+            }
     
     return self;
 }
@@ -37,6 +37,7 @@
         payPointType = [[dictionary valueForKey:@"Type"] copy];
         uri = [[dictionary valueForKey:@"Uri"] copy];
         userId = [[dictionary valueForKey:@"UserId"] copy];
+        verified = [[dictionary valueForKey:@"verified"]copy];
     }
     
     return self;
@@ -51,6 +52,7 @@
     another.payPointType = payPointType;
     another.uri = uri;
     another.userId = userId;
+    another.verified = verified;
     
     return another;
 }

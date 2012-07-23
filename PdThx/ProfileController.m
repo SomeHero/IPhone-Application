@@ -242,7 +242,8 @@
                     
                     break;
                 }
-                case 1:
+/*
+case 1:
                 {
                     Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
                     
@@ -261,6 +262,18 @@
                     else {
                         [fBook authorize:((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).permissions];
                     }
+                    break;
+                }
+*/
+                case 1: 
+                {
+                    TwitterRushViewController* controller =
+                    [[TwitterRushViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                    [controller release];
+                    
                     break;
                 }
                 case 2:

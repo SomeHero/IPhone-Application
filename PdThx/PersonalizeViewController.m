@@ -127,7 +127,7 @@
 }
 -(void) personalizeUserDidFail:(NSString*) response {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Check data connection"];
+    //[appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Check data connection"];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(IBAction) bgTouched:(id) sender {

@@ -30,28 +30,24 @@
 
 -(void)fbDidLogin
 {
-    NSLog(@"Got here.");
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:@"FBAccessTokenKey"] 
-        && [defaults objectForKey:@"FBExpirationDateKey"]) {
-        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-        ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-        ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook.accessToken = [defaults objectForKey:@"FBExpirationDateKey"];
-    }
+    [defaults setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
+    [defaults setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
+    [defaults synchronize];
     
     [self requestUserFBInfo];
 }
 
-
 - (void)signInWithFacebook:(id)sender {
+    PdThxAppDelegate* appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
+    
     userInfoDelegate = sender;
     
     NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", @"publish_stream", nil];
     
-    fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
-    fBook.sessionDelegate = self;
+    fBook = appDelegate.fBook;
+    
+    [fBook setSessionDelegate:self];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:@"FBAccessTokenKey"] 
@@ -75,4 +71,16 @@
     [fBook requestWithGraphPath:@"me" andDelegate:userInfoDelegate];
     [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
 }
+
+
+-(void) request:(FBRequest *)request didLoad:(id)result
+{
+    [service validateUser:result];
+}
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog ( @"Error occurred -> %@" , [error description] );
+}
+
 @end

@@ -184,7 +184,7 @@
         NSLog(@"Registering with SecurityQuestionId and Answer: %d -- %@", questionId, questionAnswer);
 
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showWithStatus:@"Linking Account" withDetailedStatus:@"Securing information"];
+        //[appDelegate showWithStatus:@"Linking Account" withDetailedStatus:@"Securing information"];
         
         [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNickname:@"" withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
     }
@@ -248,7 +248,7 @@
 -(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Question Created" withDetailedStatus:@"Added security question"];
+    //[appDelegate showSuccessWithStatus:@"Question Created" withDetailedStatus:@"Added security question"];
     
     [self createACHAccount:securityPin withSecurityQuestionId:questionId withSecurityQuestionAnswer:questionAnswer];
 }
