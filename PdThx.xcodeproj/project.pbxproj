@@ -3961,7 +3961,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -3981,7 +3981,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4043,7 +4043,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -4061,7 +4061,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
@@ -4084,7 +4084,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4116,7 +4116,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4207,7 +4207,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -4230,7 +4230,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4291,7 +4291,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
@@ -4315,7 +4315,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4375,7 +4375,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
@@ -4398,7 +4398,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4460,7 +4460,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4658C758-1893-47A1-AE5C-EB656C448EBD";
@@ -4482,7 +4482,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
@@ -4543,7 +4543,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
@@ -4564,7 +4564,7 @@
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PdThx/PdThx-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PdThx/facebook-ios-sdk\"",
