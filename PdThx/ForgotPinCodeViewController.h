@@ -8,7 +8,7 @@
 
 #import "UIModalBaseViewController.h"
 
-@interface ForgotPinCodeViewController : UIModalBaseViewController
+@interface ForgotPinCodeViewController : UIModalBaseViewController <ALUnlockPatternViewDelegate>
 {
     IBOutlet UIView* viewPinLock;
     id<CustomSecurityPinSwipeProtocol> securityPinSwipeDelegate;

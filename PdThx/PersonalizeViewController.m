@@ -120,18 +120,18 @@
     if(user.imageUrl != (id)[NSNull null])
         imageUrl = user.imageUrl;
     
-    //[appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
+    [appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
     [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: imageUrl];
 }
 -(void) personalizeUserDidComplete {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    //[appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
+    [appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(void) personalizeUserDidFail:(NSString*) response {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    //[appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Check data connection"];
+    [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Check data connection"];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(IBAction) bgTouched:(id) sender {
@@ -153,11 +153,11 @@
 -(IBAction) chooseImageClicked:(id) sender {
     ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
     [controller setChooseMemberImageDelegate: self];
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    UINavigationController *naviBar=[[UINavigationController alloc]initWithRootViewController:controller];
     [controller setTitle: @"Select Picture"];
     
-    [self presentModalViewController:navBar animated:YES];
-    [navBar release];
+    [self presentModalViewController:naviBar animated:YES];
+    [naviBar release];
     [controller release];
 }
 -(void)chooseMemberImageDidComplete: (NSString*) imageUrl 

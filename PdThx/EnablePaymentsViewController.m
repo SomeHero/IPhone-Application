@@ -39,7 +39,7 @@
     [self setTitle: @"Enable Payments"];
     
 
-    NSError *error;
+    //NSError *error;
     //if(![[GANTracker sharedTracker] trackPageview:@"PersonalizeViewController"
     //                                   withError:&error]){
     //Handle Error Here
