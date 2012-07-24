@@ -38,6 +38,7 @@
 
     SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
     [setupNavBar setActiveState:@"Personalize" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:NO whereEnableComplete:NO];
+
     [navBar addSubview:setupNavBar];
     
     [self setTitle: @"Personalize"];
@@ -105,6 +106,9 @@
     [lastNameField release];
     [saveContinueButton release];
     [userService release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 - (IBAction)pressedSaveContinue:(id)sender 
@@ -180,5 +184,6 @@
     return NO; // We do not want UITextField to insert line-breaks.
     
 }
+
 
 @end

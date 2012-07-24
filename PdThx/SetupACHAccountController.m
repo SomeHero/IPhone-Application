@@ -48,6 +48,8 @@
     [validationHelper release];
 
     [skipButton release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 
@@ -78,6 +80,9 @@
     
     userSetupACHAccountService = [[UserSetupACHAccount alloc] init];
     [userSetupACHAccountService setUserACHSetupCompleteDelegate: self];
+
+    
+    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"SetUpACHAccountController"
                                         withError:&error]){
@@ -379,4 +384,7 @@
     [txtAccountNumber resignFirstResponder];
     [txtConfirmAccountNumber resignFirstResponder];
 }
+
+
+
 @end

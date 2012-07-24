@@ -551,6 +551,10 @@
     [tvSubview release];
     [phoneNumberFormatter release];
     [fbIconsDownloading release];
+    
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 

@@ -33,6 +33,7 @@
     securityQuestionService = [[SecurityQuestionService alloc] init];
     [securityQuestionService setSecurityQuestionAnsweredDelegate: self];
     
+
 }
 -(void)viewDidAppear:(BOOL)animated {
    lblSecurityQuestion.text = currUser.securityQuestion;
@@ -66,10 +67,11 @@
     [securityQuestionChallengeDelegate securityQuestionAnsweredInCorrect:errorMessage];
 }
 
-
-
 - (void)dealloc {
     [btnUnlockAccount release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 @end

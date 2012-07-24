@@ -50,13 +50,13 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{11, 98}, {275, 59}}</string>
 										<reference key="NSSuperview" ref="1009854616"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="747781378"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Give to a Cause</string>
 										<object class="NSColor" key="IBUIHighlightedTitleColor" id="858995549">
 											<int key="NSColorSpace">3</int>
@@ -86,12 +86,12 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{13, 263}, {273, 57}}</string>
 										<reference key="NSSuperview" ref="1009854616"/>
+										<reference key="NSWindow"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">0</int>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Accept a Pledge</string>
 										<reference key="IBUIHighlightedTitleColor" ref="858995549"/>
 										<reference key="IBUINormalTitleColor" ref="858995549"/>
@@ -108,6 +108,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{11, 9}, {275, 95}}</string>
 										<reference key="NSSuperview" ref="1009854616"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="64808575"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -141,6 +142,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{13, 168}, {273, 95}}</string>
 										<reference key="NSSuperview" ref="1009854616"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="132349018"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -163,6 +165,7 @@
 								</array>
 								<string key="NSFrame">{{6, 9.5}, {308, 347}}</string>
 								<reference key="NSSuperview" ref="723202640"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="451772697"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -177,6 +180,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1009854616"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -189,6 +193,7 @@
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="723202640"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -334,7 +339,70 @@
 			<nil key="sourceID"/>
 			<int key="maxID">34</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">DoGoodViewController</string>
+					<string key="superclassName">UIBaseViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="btnAcceptPledgeClicked:">id</string>
+						<string key="btnDonateClicked:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="btnAcceptPledgeClicked:">
+							<string key="name">btnAcceptPledgeClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="btnDonateClicked:">
+							<string key="name">btnDonateClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">viewPanel</string>
+						<string key="NS.object.0">UIView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">viewPanel</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">viewPanel</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/DoGoodViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TPKeyboardAvoidingScrollView</string>
+					<string key="superclassName">UIScrollView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TPKeyboardAvoidingScrollView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIBaseViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">mainScrollView</string>
+						<string key="NS.object.0">TPKeyboardAvoidingScrollView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">mainScrollView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">mainScrollView</string>
+							<string key="candidateClassName">TPKeyboardAvoidingScrollView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UIBaseViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
