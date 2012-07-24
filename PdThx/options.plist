@@ -126,16 +126,6 @@
 			<key>Label</key>
 			<string>Feedback</string>
 		</dict>
-		<dict>
-			<key>Description</key>
-			<string>If you like us, tell the world</string>
-			<key>HighlightedImage</key>
-			<string>icon-settings-rate-40x40-active.png</string>
-			<key>Image</key>
-			<string>icon-settings-rate-40x40.png</string>
-			<key>Label</key>
-			<string>Rate PaidThx</string>
-		</dict>
 	</array>
 	<key>Section 8</key>
 	<array>

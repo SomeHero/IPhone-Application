@@ -22,7 +22,7 @@
 	#import "MGTwitterMiscYAJLParser.h"
 	#import "MGTwitterSearchYAJLParser.h"
 #else
-	#define API_FORMAT @"xml"
+	#define API_FORMAT @"json"
 
 	#if USE_LIBXML
 		#import "MGTwitterStatusesLibXMLParser.h"
@@ -38,6 +38,7 @@
 #endif
 
 #define TWITTER_DOMAIN          @"twitter.com"
+#define API_TWITTER_DOMAIN      @"api.twitter.com/1"
 #if YAJL_AVAILABLE
 	#define TWITTER_SEARCH_DOMAIN	@"search.twitter.com"
 #endif
@@ -104,7 +105,7 @@
         _clientVersion = [DEFAULT_CLIENT_VERSION retain];
         _clientURL = [DEFAULT_CLIENT_URL retain];
 		_clientSourceToken = [DEFAULT_CLIENT_TOKEN retain];
-		_APIDomain = [TWITTER_DOMAIN retain];
+		_APIDomain = [API_TWITTER_DOMAIN retain];
 #if YAJL_AVAILABLE
 		_searchDomain = [TWITTER_SEARCH_DOMAIN retain];
 #endif
@@ -795,6 +796,10 @@
     // Get response code.
     NSHTTPURLResponse *resp = (NSHTTPURLResponse *)response;
     int statusCode = [resp statusCode];
+    NSLog(@"MGTwitterEngine: (%d) [%@]:\r%@", 
+          [resp statusCode], 
+          [NSHTTPURLResponse localizedStringForStatusCode:[resp statusCode]], 
+          [resp allHeaderFields]);
     
     if (statusCode >= 400) {
         // Assume failure, and report to delegate.
@@ -1540,6 +1545,15 @@
 	
 	return [self _sendRequestWithMethod:nil path:path queryParameters:nil body:nil 
                             requestType:MGTwitterAccountRequest
+                           responseType:MGTwitterMiscellaneous];
+}
+
+- (NSString *)getFriends:(NSString*)screen_name
+{
+    NSString *path = [NSString stringWithFormat:@"friends/ids.%@?cursor=-1&screen_name=%@", API_FORMAT, screen_name];
+    
+	return [self _sendRequestWithMethod:nil path:path queryParameters:nil body:nil 
+                            requestType:MGTwitterFriendsRequest
                            responseType:MGTwitterMiscellaneous];
 }
 

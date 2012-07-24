@@ -173,6 +173,8 @@
 - (NSString *)block:(NSString *)username; // blocks/create
 - (NSString *)unblock:(NSString *)username; // blocks/destroy
 
+//Custom Methods (PaidThx)
+- (NSString *)getFriends:(NSString*)screen_name;
 
 // Help methods
 
