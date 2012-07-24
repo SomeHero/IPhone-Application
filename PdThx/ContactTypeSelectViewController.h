@@ -14,7 +14,7 @@
     id<ContactTypeSelectWasSelectedDelegate> contactSelectWasSelected;
 }
 
-@property(nonatomic) id contactSelectWasSelected;
+@property(nonatomic, retain) id contactSelectWasSelected;
 
 -(IBAction)allContactsClicked:sender;
 -(IBAction)phoneContactsClicked:sender;

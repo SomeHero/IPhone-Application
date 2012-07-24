@@ -13,5 +13,6 @@
 @protocol SetPreferredAccountProtocol <NSObject>
 
 -(void)setPreferredAccountDidComplete;
+-(void)setPreferredAccountDidFail:(NSString*)responseMsg;
 
 @end

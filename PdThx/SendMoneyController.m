@@ -99,7 +99,7 @@
     if ( [txtComments.text length] > 0 ) {
         dummyCommentPlaceholder.placeholder = @"";
     } else {
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.t";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     }
     
     if ( [txtComments.text length] <= 140 ){
@@ -118,7 +118,7 @@
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     if ( txtComments.text.length == 0 )
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     else {
         dummyCommentPlaceholder.placeholder = @"";
     }

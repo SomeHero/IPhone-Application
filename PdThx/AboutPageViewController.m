@@ -27,6 +27,11 @@
     return self;
 }
 
+-(void)loadView
+{
+    [super loadView];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -37,10 +42,10 @@
     [viewPanel.layer setMasksToBounds:YES];
     [[viewPanel layer] setCornerRadius: 8.0];
     
-    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
-    
+
     [self setTitle:@"About"];
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"AboutPageViewController"

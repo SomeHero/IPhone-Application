@@ -42,11 +42,11 @@
 - (void)imageUpload:(NSData *)imageData filename:(NSString *)filename{
 
     Environment *myEnvironment = [Environment sharedInstance];
-    User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    User* tmpUser = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/upload_member_image?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, user.userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/upload_member_image?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, tmpUser.userId, myEnvironment.pdthxAPIKey]] autorelease];  
     
-    [user release];
+    [tmpUser release];
     
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:urlToSend];
     // Upload a file on disk
@@ -81,8 +81,8 @@
     }
 }
 - (void)requestFailed:(ASIHTTPRequest *)request {
-    
-    NSString *receivedString = [request responseString];
+    // Parse this responseString for better error handling
+    //NSString *receivedString = [request responseString];
     
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
