@@ -320,7 +320,7 @@
 		5B692C5314D4777D00E6E663 /* SendMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692C5114D4777D00E6E663 /* SendMoneyController.m */; };
 		5B692C5414D4777D00E6E663 /* SendMoneyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B692C5214D4777D00E6E663 /* SendMoneyController.xib */; };
 		5B692CBB14D5E9E100E6E663 /* RequestMoneyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B692CB914D5E9DE00E6E663 /* RequestMoneyController.m */; };
-		5B69DF7E14AE6067003A0F66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69DF7D14AE6067003A0F66 /* UIKit.framework */; };
+		5B69DF7E14AE6067003A0F66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69DF7D14AE6067003A0F66 /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		5B69DF8014AE6067003A0F66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69DF7F14AE6067003A0F66 /* Foundation.framework */; };
 		5B69DF8214AE6067003A0F66 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B69DF8114AE6067003A0F66 /* CoreGraphics.framework */; };
 		5B69DF8814AE6067003A0F66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B69DF8614AE6067003A0F66 /* InfoPlist.strings */; };
@@ -512,6 +512,7 @@
 		5BD27BEE154B92FB00CAFC12 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD27BED154B92FB00CAFC12 /* UserService.m */; };
 		5BD3DE25159E03AF00F698D5 /* SetupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3DE23159E03AF00F698D5 /* SetupFlowViewController.m */; };
 		5BD3DE26159E03AF00F698D5 /* SetupFlowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */; };
+		5BDDADC515BDE5A5007B733E /* ApplicationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -545,7 +546,7 @@
 		5BED071815B9E89400D4110A /* twitter_load.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BED070415B9E89400D4110A /* twitter_load.png */; };
 		5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BED071F15B9ED8C00D4110A /* TwitterRushViewController.m */; };
 		5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BED072115B9EDC800D4110A /* TwitterRushViewController.xib */; };
-		5BED074415BBB8D400D4110A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BED074315BBB8D400D4110A /* Twitter.framework */; };
+		5BED074415BBB8D400D4110A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BED074315BBB8D400D4110A /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5BF07AE6159784190020EA2F /* btn-pinswipe-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */; };
 		5BF07AE7159784190020EA2F /* btn-pinswipe-70x70@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */; };
 		5BF07AE8159784190020EA2F /* btn-pinswipe-pressed-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE2159784190020EA2F /* btn-pinswipe-pressed-70x70.png */; };
@@ -1306,6 +1307,8 @@
 		5BD3DE22159E03AF00F698D5 /* SetupFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupFlowViewController.h; sourceTree = "<group>"; };
 		5BD3DE23159E03AF00F698D5 /* SetupFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupFlowViewController.m; sourceTree = "<group>"; };
 		5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupFlowViewController.xib; sourceTree = "<group>"; };
+		5BDDADC315BDE5A5007B733E /* ApplicationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationConfiguration.h; sourceTree = "<group>"; };
+		5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationConfiguration.m; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -2910,6 +2913,8 @@
 				5B11963C15ADFFD1003F8D53 /* Merchant.m */,
 				5B357D0215B59987000CD5FC /* NonProfitDetail.h */,
 				5B357D0315B59987000CD5FC /* NonProfitDetail.m */,
+				5BDDADC315BDE5A5007B733E /* ApplicationConfiguration.h */,
+				5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -3897,6 +3902,7 @@
 				5BED071715B9E89400D4110A /* SA_OAuthTwitterEngine.m in Sources */,
 				5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */,
 				54D23F8E15BDCA6E0037719A /* HomeViewControllerV2.m in Sources */,
+				5BDDADC515BDE5A5007B733E /* ApplicationConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
