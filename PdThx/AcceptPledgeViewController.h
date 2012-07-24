@@ -31,7 +31,7 @@
 #import "RequestMoneyController.h"
 #import "DoGoodViewController.h"
 
-@interface AcceptPledgeViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, CauseSelectDidCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol> 
+@interface AcceptPledgeViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, CauseSelectDidCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol, UINavigationControllerDelegate> 
 {
     
     IBOutlet UIView *viewPanel;
@@ -77,8 +77,6 @@
     
     IBOutlet UIButton *attachPictureButton;
     IBOutlet UITextField *characterCountLabel;
-    
-    
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
@@ -100,6 +98,7 @@
 @property(nonatomic, retain) UIImageView *contactButtonBGImage;
 @property(nonatomic, retain) UIImageView *amountButtonBGImage;
 
+@property (retain, nonatomic) IBOutlet UITextField *dummyPlaceholder;
 @property(nonatomic, retain) UIButton *attachPictureButton;
 /*              Button Actions              */
 /*  --------------------------------------- */

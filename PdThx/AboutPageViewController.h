@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @interface AboutPageViewController : UIViewController
 {
     IBOutlet UIView *viewPanel;

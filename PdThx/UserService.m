@@ -15,7 +15,7 @@
 
 @implementation UserService
 
-@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate;
+@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
 
 -(id)init {
@@ -121,7 +121,7 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        // NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
         
         [linkFbAccountDelegate linkFbAccountDidFail];
         

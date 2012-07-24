@@ -110,7 +110,7 @@
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     if ( txtComments.text.length == 0 )
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     else {
         dummyCommentPlaceholder.placeholder = @"";
     }
@@ -201,7 +201,7 @@
     if ( [txtComments.text length] > 0 ) {
         dummyCommentPlaceholder.placeholder = @"";
     } else {
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     }
     
     if ( [txtComments.text length] <= 140 ){
@@ -277,7 +277,6 @@
         UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.delegate = self;
-        imagePicker.allowsImageEditing = NO;
         [self presentModalViewController:imagePicker animated:YES];
     }
 }
@@ -294,7 +293,6 @@
 {
     [self dismissModalViewControllerAnimated:YES];
     
-    UIAlertView *alert;
     if ( error ){
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
@@ -356,7 +354,7 @@
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"0.00"];
         [txtComments setText: @""];
-        [recipient setText:@""];
+        recipient = nil;
         [[self mainScrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
         
