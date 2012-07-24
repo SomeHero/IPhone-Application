@@ -59,8 +59,8 @@
 
 - (void)dealloc
 {
-        [tabBar release];
-/*  ------------------------------------------------------ */
+    [tabBar release];
+    /*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
     [viewPanel release];
@@ -88,6 +88,9 @@
     [characterCountLabel release];
     [characterCountLabel release];
     [dummyCommentPlaceholder release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 
@@ -425,7 +428,11 @@
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+            
+            if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipient.name]];
+            else
+                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
             
             [self presentModalViewController:controller animated:YES];
         } else {
@@ -629,6 +636,8 @@
         [allViewControllers release];
     }
 }
+
+
 
 
 @end
