@@ -114,6 +114,65 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     
     NSLog(@"Send Money Failed");
 }
+
+-(void) determineRecipient:(NSArray*) recipientUris
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSString *rootUrl = [NSString stringWithFormat:@"PaystreamMessages/multiple_uris"];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl]] autorelease];  
+    
+    NSDictionary *recipientData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                   recipientUris, @"recipientUris",
+                                   nil];
+    
+    NSString *newJSON = [recipientData JSONRepresentation];
+    
+    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
+    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];  
+    [request setRequestMethod: @"POST"];	
+    
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(determineRecipientComplete:)];
+    [request setDidFailSelector:@selector(determineRecipientDidFail:)];
+    
+    [request startAsynchronous];
+    
+    [recipientData release];
+}
+
+-(void) determineRecipientComplete: (ASIHTTPRequest*) request
+{
+    if (request.responseStatusCode == 204)
+    {
+        [determineRecipientCompleteDelegate determineRecipientDidComplete:nil];
+    }
+    else if (request.responseStatusCode == 200)
+    {
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSArray *jsonArray = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        
+        [determineRecipientCompleteDelegate determineRecipientDidComplete:jsonArray];        
+    }
+    else
+    {
+        [determineRecipientCompleteDelegate determineRecipientDidFail:[request responseStatusMessage]];
+    }
+}
+
+-(void) determineRecipientDidFail: (ASIHTTPRequest*) request
+{
+    [determineRecipientCompleteDelegate determineRecipientDidFail:[request responseStatusMessage]];
+}
+
 - (void)dealloc
 {
     [requestObj release];
