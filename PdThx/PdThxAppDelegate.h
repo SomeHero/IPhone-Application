@@ -35,7 +35,7 @@
     PhoneNumberFormatting *phoneNumberFormatter;
     NSArray * permissions;
     UIAlertView * notifAlert;
-    IBOutlet UITabBarController *welcomeTabBarController;
+    UINavigationController *welcomeTabBarController;
     IBOutlet UITabBarController *newUserFlowTabController;
     FBRequest *friendRequest;
     FBRequest *infoRequest;
@@ -64,11 +64,11 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) Facebook * fBook;
-@property (nonatomic, retain) NSString * deviceToken;@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
+@property (nonatomic, retain) NSString * deviceToken;
+@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, retain) NSArray * permissions;
 @property (nonatomic, retain) UIAlertView * notifAlert;
 @property (nonatomic, assign) bool areFacebookContactsLoaded;
-@property (nonatomic, retain) UITabBarController *welcomeTabBarController;
 @property (nonatomic, retain) UITabBarController *newUserFlowTabController;
 @property (nonatomic, retain) FBRequest *friendRequest;
 @property (nonatomic, retain) FBRequest *infoRequest;
@@ -79,6 +79,7 @@
 
 @property (nonatomic, retain) UINavigationController* setupFlowController;
 
+@property (nonatomic, retain) UINavigationController *welcomeTabBarController;
 @property(nonatomic, retain) UINavigationController * mainAreaTabBarController;
 @property (nonatomic, assign) int animationTimer;
 

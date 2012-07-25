@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SignedOutTabBarManager.h"
 
-@interface AboutPageViewController : UIViewController
+@interface AboutPageViewController : UIViewController <SignedOutTabBarDelegate>
 {
     IBOutlet UIView *viewPanel;
     
 }
 
 @property (nonatomic, retain) UIView *viewPanel;
+@property (nonatomic, retain) SignedOutTabBarManager *tabBar;
 
 @end

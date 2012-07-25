@@ -5,7 +5,9 @@
 //  Created by Justin Cheng on 6/7/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+#import "WelcomeScreenViewController.h"
+#import "SignInViewController.h"
+#import "CreateAccountViewController.h"
 #import "AboutPageViewController.h"
 #import "PdThxAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
@@ -17,6 +19,7 @@
 @implementation AboutPageViewController
 
 @synthesize viewPanel;
+@synthesize tabBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,15 +30,13 @@
     return self;
 }
 
--(void)loadView
-{
-    [super loadView];
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:3];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:1.5];
@@ -87,7 +88,6 @@
     
     titleView.text = title;
     [titleView sizeToFit];
-    
 }
 
     
@@ -96,4 +96,67 @@
     viewPanel = nil;
     [super viewDidUnload];
 }
+
+
+
+- (void)tabBarClicked:(NSUInteger)buttonIndex
+{
+    if( buttonIndex == 0 )
+    {
+        //This is the home tab already so don't do anything
+        WelcomeScreenViewController *gvc = [[WelcomeScreenViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 1 )
+    {
+        //Switch to the groups tab
+        SignInViewController *gvc = [[SignInViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 2 )
+    {
+        
+        //Switch to the groups tab
+        CreateAccountViewController *gvc = [[CreateAccountViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigationcontroller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+        
+    }
+    if( buttonIndex == 3 )
+    {
+        /*
+        //Switch to the groups tab
+        AboutPageViewController *gvc = [[AboutPageViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigationcontroller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+         */
+    }
+}
+
 @end

@@ -171,7 +171,6 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{60, 319}, {238, 35}}</string>
 										<reference key="NSSuperview" ref="764254352"/>
-										<reference key="NSNextKeyView"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">2</int>
@@ -209,7 +208,7 @@
 										<double key="IBUIContentEdgeInsets.bottom">0.0</double>
 										<double key="IBUIContentEdgeInsets.left">0.0</double>
 										<double key="IBUIContentEdgeInsets.right">0.0</double>
-										<string key="IBUINormalTitle">Sign in with facebook</string>
+										<string key="IBUINormalTitle">Sign in with Facebook</string>
 										<reference key="IBUIHighlightedTitleColor" ref="192805854"/>
 										<reference key="IBUINormalTitleColor" ref="192805854"/>
 										<reference key="IBUINormalTitleShadowColor" ref="732897521"/>

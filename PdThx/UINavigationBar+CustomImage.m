@@ -16,5 +16,11 @@
     [self sendSubviewToBack:img];
 }
 
+-(void)switchToCustomTopNavigation
+{
+    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavigationBarLogo-320x44.png"]];
+    [self addSubview:img];
+    [self sendSubviewToBack:img];
+}
 
 @end
