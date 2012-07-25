@@ -226,6 +226,10 @@
 		54D2400A15C02EBC0037719A /* tab-signon-30x30-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D23FFE15C02EBC0037719A /* tab-signon-30x30-active@2x.png */; };
 		54D2400B15C02EBC0037719A /* tab-signon-30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D23FFF15C02EBC0037719A /* tab-signon-30x30.png */; };
 		54D2400C15C02EBC0037719A /* tab-signon-30x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2400015C02EBC0037719A /* tab-signon-30x30@2x.png */; };
+		54D2401015C03B7D0037719A /* bg-notifications-14x14.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2400E15C03B7D0037719A /* bg-notifications-14x14.png */; };
+		54D2401115C03B7D0037719A /* bg-notifications-14x14@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2400F15C03B7D0037719A /* bg-notifications-14x14@2x.png */; };
+		54D2401415C040340037719A /* bg-notifications-9-14x14.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2401215C040340037719A /* bg-notifications-9-14x14.png */; };
+		54D2401515C040340037719A /* bg-notifications-9-14x14@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2401315C040340037719A /* bg-notifications-9-14x14@2x.png */; };
 		54D3A7D3159D353900364483 /* ProgressHudInnnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */; };
 		54D3A7D4159D353900364483 /* ProgressHudInnnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */; };
 		54D3A7E9159D61CA00364483 /* icon-iphone-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7E8159D61C900364483 /* icon-iphone-57x57.png */; };
@@ -927,6 +931,10 @@
 		54D23FFE15C02EBC0037719A /* tab-signon-30x30-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-signon-30x30-active@2x.png"; sourceTree = "<group>"; };
 		54D23FFF15C02EBC0037719A /* tab-signon-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-signon-30x30.png"; sourceTree = "<group>"; };
 		54D2400015C02EBC0037719A /* tab-signon-30x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-signon-30x30@2x.png"; sourceTree = "<group>"; };
+		54D2400E15C03B7D0037719A /* bg-notifications-14x14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-notifications-14x14.png"; sourceTree = "<group>"; };
+		54D2400F15C03B7D0037719A /* bg-notifications-14x14@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-notifications-14x14@2x.png"; sourceTree = "<group>"; };
+		54D2401215C040340037719A /* bg-notifications-9-14x14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-notifications-9-14x14.png"; sourceTree = "<group>"; };
+		54D2401315C040340037719A /* bg-notifications-9-14x14@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-notifications-9-14x14@2x.png"; sourceTree = "<group>"; };
 		54D3A7D0159D353900364483 /* ProgressHudInnnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHudInnnerViewController.h; sourceTree = "<group>"; };
 		54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHudInnnerViewController.m; sourceTree = "<group>"; };
 		54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressHudInnnerViewController.xib; sourceTree = "<group>"; };
@@ -1595,6 +1603,7 @@
 		540E634E15AFDE650089A5F5 /* Custom Tab bar */ = {
 			isa = PBXGroup;
 			children = (
+				54D2400D15C03B6F0037719A /* Notification Images */,
 				540E635015AFDE890089A5F5 /* HBCustomTabBar.h */,
 				540E635115AFDE890089A5F5 /* HBCustomTabBar.m */,
 				544FAFD315B1387200BB7241 /* HBCustomTabBar.xib */,
@@ -2376,6 +2385,17 @@
 				54D23FEE15BFBF500037719A /* WelcomeNavigationBar-320x44@2x.png */,
 			);
 			name = "Welcome BG";
+			sourceTree = "<group>";
+		};
+		54D2400D15C03B6F0037719A /* Notification Images */ = {
+			isa = PBXGroup;
+			children = (
+				54D2400E15C03B7D0037719A /* bg-notifications-14x14.png */,
+				54D2400F15C03B7D0037719A /* bg-notifications-14x14@2x.png */,
+				54D2401215C040340037719A /* bg-notifications-9-14x14.png */,
+				54D2401315C040340037719A /* bg-notifications-9-14x14@2x.png */,
+			);
+			name = "Notification Images";
 			sourceTree = "<group>";
 		};
 		54D3A7C8159D33BC00364483 /* App Icon and Loading Screen */ = {
@@ -3865,6 +3885,10 @@
 				54D2400A15C02EBC0037719A /* tab-signon-30x30-active@2x.png in Resources */,
 				54D2400B15C02EBC0037719A /* tab-signon-30x30.png in Resources */,
 				54D2400C15C02EBC0037719A /* tab-signon-30x30@2x.png in Resources */,
+				54D2401015C03B7D0037719A /* bg-notifications-14x14.png in Resources */,
+				54D2401115C03B7D0037719A /* bg-notifications-14x14@2x.png in Resources */,
+				54D2401415C040340037719A /* bg-notifications-9-14x14.png in Resources */,
+				54D2401515C040340037719A /* bg-notifications-9-14x14@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

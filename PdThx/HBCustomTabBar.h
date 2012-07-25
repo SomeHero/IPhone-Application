@@ -34,6 +34,9 @@
     IBOutlet UIImageView *centerTabSelectedOverlay;
     IBOutlet UIImageView *fourthTabSelectedOverlay;
     IBOutlet UIImageView *fifthTabSelectedOverlay;
+    
+    IBOutlet UIImageView *paystreamCountImage;
+    IBOutlet UILabel *paystreamCountLabel;
 }
 
 @property (nonatomic, retain) UIImageView *firstTabImage;
@@ -60,5 +63,8 @@
 @property (nonatomic, retain) UIImageView *centerTabSelectedOverlay;
 @property (nonatomic, retain) UIImageView *fourthTabSelectedOverlay;
 @property (nonatomic, retain) UIImageView *fifthTabSelectedOverlay;
+
+@property (nonatomic, retain) UILabel *paystreamCountLabel;
+@property (nonatomic, retain) UIImageView *paystreamCountImage;
 
 @end

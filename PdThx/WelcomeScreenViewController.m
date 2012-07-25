@@ -88,25 +88,14 @@
     [super dealloc];
 }
 
-- (IBAction)newToPaidThxButtonAction:(id)sender {
-    
-    CreateAccountViewController *ViewC = [[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle:nil];
-    [self.navigationController pushViewController:ViewC animated:YES];
-}
-
-- (IBAction)alreadyUsePaidThxButtonAction:(id)sender {
-    //SignInViewController *VC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-    //[self.navigationController pushViewController:VC animated:YES];
-}
-
 - (IBAction)firstTimeUserButtonPressed:(id)sender 
 {
-    [self.tabBarController setSelectedIndex:2];
+    [self tabBarClicked:2];
 }
 
 - (IBAction)currentUserButtonPressed:(id)sender
 {
-    [self.tabBarController setSelectedIndex:1];
+    [self tabBarClicked:1];
 }
 
 - (void)setTitle:(NSString *)title
