@@ -12,4 +12,5 @@
 
 -(void)drawRect:(CGRect)rect;
 
+-(void)switchToCustomTopNavigation;
 @end
