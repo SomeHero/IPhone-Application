@@ -54,8 +54,6 @@
     for(int i; i < [attributeValues count]; i++)
     {
         UserAttribute* attribute = [attributeValues objectAtIndex:i];
-        
-        
     }
 }
 

@@ -28,6 +28,7 @@
 @synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientId, chooseAmountButton, btnSendMoney;
 @synthesize contactButtonBGImage, amountButtonBGImage, characterCountLabel;
+@synthesize dummyPlaceholder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +38,23 @@
     }
     return self;
 }
+
+-(void)changedCommentBox:(NSNotification*)notification
+{
+    if ( [txtComments.text length] > 0 ) {
+        dummyPlaceholder.placeholder = @"";
+    } else {
+        dummyPlaceholder.placeholder = @"Enter a comment or message.";
+    }
+    
+    if ( [txtComments.text length] <= 140 ){
+        characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
+    } else {
+        txtComments.text = [txtComments.text substringToIndex:140];
+        characterCountLabel.placeholder = @"140/140";
+    }
+}
+
 - (void)dealloc
 {
     /*  ------------------------------------------------------ */
@@ -64,6 +82,8 @@
     [btnSendMoney release];
     [contactButtonBGImage release];
     [amountButtonBGImage release];
+    [dummyPlaceholder release];
+    [dummyPlaceholder release];
     [super dealloc];
 }
 
@@ -81,15 +101,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)changedCommentBox:(NSNotification*)notification
-{
-    if ( [txtComments.text length] <= 140 ){
-        characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
-    } else {
-        txtComments.text = [txtComments.text substringToIndex:140];
-        characterCountLabel.placeholder = @"140/140";
-    }
-}
+
 
 #pragma mark - View lifecycle
 -(void) viewDidAppear:(BOOL)animated{
@@ -201,6 +213,9 @@
     contactButtonBGImage = nil;
     [amountButtonBGImage release];
     amountButtonBGImage = nil;
+    [dummyPlaceholder release];
+    dummyPlaceholder = nil;
+    [self setDummyPlaceholder:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;

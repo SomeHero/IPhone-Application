@@ -12,15 +12,16 @@
 #import "ContactTypeSelectViewController.h"
 #import "TSPopoverController.h"
 #import "TSActionSheet.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @interface UIBaseViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 {
-    IBOutlet UIScrollView *mainScrollView;
+    IBOutlet TPKeyboardAvoidingScrollView *mainScrollView;
     NSObject *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
 }
 
-@property(nonatomic, retain) UIScrollView *mainScrollView;
+@property(nonatomic, retain) TPKeyboardAvoidingScrollView *mainScrollView;
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;

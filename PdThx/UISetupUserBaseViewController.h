@@ -10,17 +10,18 @@
 #import "PhoneNumberFormatting.h"
 #import "User.h"
 #import "UIBaseViewController.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @interface UISetupUserBaseViewController : UIBaseViewController <UITextFieldDelegate>
 {
-    IBOutlet UIScrollView *scrollView;
+    IBOutlet TPKeyboardAvoidingScrollView *scrollView;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
     UITextField *currentTextField;
     User* user;
 }
 
-@property(nonatomic, retain) UIScrollView *scrollView;
+@property(nonatomic, retain) TPKeyboardAvoidingScrollView *scrollView;
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;

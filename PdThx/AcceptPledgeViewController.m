@@ -30,6 +30,7 @@
 @end
 
 @implementation AcceptPledgeViewController
+@synthesize dummyPlaceholder;
 
 @synthesize recipientUri, attachPictureButton;
 @synthesize txtAmount, txtComments, btnSendRequest;
@@ -80,6 +81,8 @@
     [attachPictureButton release];
     [characterCountLabel release];
     [characterCountLabel release];
+    [dummyPlaceholder release];
+    [dummyPlaceholder release];
     [super dealloc];
 }
 
@@ -189,12 +192,19 @@
 
 -(void)changedCommentBox:(NSNotification*)notification
 {
+    if ( [txtComments.text length] > 0 ) {
+        dummyPlaceholder.placeholder = @"";
+    } else {
+        dummyPlaceholder.placeholder = @"Enter a comment or message.";
+    }
+    
     if ( [txtComments.text length] <= 140 ){
         characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
     } else {
         txtComments.text = [txtComments.text substringToIndex:140];
         characterCountLabel.placeholder = @"140/140";
     }
+    
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
@@ -218,6 +228,9 @@
     characterCountLabel = nil;
     [characterCountLabel release];
     characterCountLabel = nil;
+    [dummyPlaceholder release];
+    dummyPlaceholder = nil;
+    [self setDummyPlaceholder:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -264,10 +277,12 @@
         UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.delegate = self;
-        imagePicker.allowsImageEditing = NO;
+        [imagePicker setAllowsEditing:NO];
         [self presentModalViewController:imagePicker animated:YES];
     }
 }
+
+
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -281,7 +296,6 @@
 {
     [self dismissModalViewControllerAnimated:YES];
     
-    UIAlertView *alert;
     if ( error ){
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         

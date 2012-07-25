@@ -38,7 +38,8 @@
     
     [self setTitle: @"Enable Payments"];
     
-    NSError *error;
+
+    //NSError *error;
     //if(![[GANTracker sharedTracker] trackPageview:@"PersonalizeViewController"
     //                                   withError:&error]){
     //Handle Error Here
@@ -74,6 +75,14 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 
+}
+
+-(void)dealloc
+{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super dealloc];
 }
 
 -(IBAction)btnRemindMeLaterClicked:(id)sender {
@@ -124,4 +133,6 @@
 	[background release];
 	return [finalView autorelease];
 }
+
+
 @end

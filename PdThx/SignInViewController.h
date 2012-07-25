@@ -20,8 +20,9 @@
 #import "SecurityQuestionChallengeProtocol.h"
 #import "FaceBookSignInOverlayViewController.h"
 #import "ForgotPasswordViewController.h"
+#import "SignedOutTabBarManager.h"
 
-@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBSessionDelegate, FBRequestDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate, FBHelperReturnProtocol>
+@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBSessionDelegate, FBRequestDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate, FBHelperReturnProtocol, SignedOutTabBarDelegate>
 {
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
@@ -45,6 +46,9 @@
 @property(nonatomic, retain) UIAlertView * bankAlert;
 //@property(nonatomic, retain) SetupACHAccountController * setupACHAccountController;
 @property(nonatomic, assign) float animatedDistance;
+@property(nonatomic, assign) int numFailedFB;
+
+@property (nonatomic, retain) SignedOutTabBarManager *tabBar;
 
 -(IBAction) bgTouched:(id)sender;
 -(IBAction) btnSignInClicked:(id)sender;
