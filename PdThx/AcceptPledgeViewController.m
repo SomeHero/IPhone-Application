@@ -433,6 +433,8 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
     NSString* recipientLastName =[NSString stringWithString: @""];
@@ -448,7 +450,7 @@
 }
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)sendMoneyDidComplete {
     

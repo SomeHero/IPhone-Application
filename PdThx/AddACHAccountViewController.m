@@ -47,7 +47,6 @@
     accountService = [[UserSetupACHAccount alloc] init];
     [accountService setUserACHSetupCompleteDelegate: self];
 }
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -126,7 +125,7 @@
             [controller setNavigationTitle: @"Setup your Pin"];
             [controller setTag: 1];
         }
-        [self.parentViewController presentModalViewController:controller animated:YES];
+        [self.navigationController presentModalViewController:controller animated:YES];
     }
 }
 -(void)cancelClicked {
@@ -152,31 +151,36 @@
     else {
         if([sender tag] == 1)
         {
+            [self.navigationController dismissModalViewControllerAnimated:NO];
+            
             securityPin = pin;
         
             controller =[[[CustomSecurityPinSwipeController alloc] init] retain];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm your Pin"];
             [controller setHeaderText: [NSString stringWithFormat:@"Confirm your pin, by swiping it again below"]];
+            
             [controller setTag:2];    
-            [self presentModalViewController:controller animated:YES];
+            [self.navigationController presentModalViewController:controller animated:YES];
             
             [controller release];
         }
         else if([sender tag] == 2)
             
+            [self.navigationController dismissModalViewControllerAnimated:NO];
+        
             securityPin = pin;
         
             addSecurityQuestionController = [[[AddSecurityQuestionViewController alloc] init] retain];
         
-            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
+            UINavigationController *navigationBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
         
             [addSecurityQuestionController setSecurityQuestionEnteredDelegate:self];
             [addSecurityQuestionController setNavigationTitle: @"Add a Security Question"];
         
-            [self presentModalViewController:navBar animated:YES];
+            [self.navigationController presentModalViewController:navigationBar animated:YES];
         
-            [navBar release];
+            [navigationBar release];
         
     }
 }
@@ -192,9 +196,9 @@
     
     [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
     
-    if(!newUserFlow) {
-        [self.navigationController dismissModalViewControllerAnimated:YES];
-    }
+    //if(!newUserFlow) {
+        //[self.navigationController dismissModalViewControllerAnimated:YES];
+   // }
 
 
 }

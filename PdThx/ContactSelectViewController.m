@@ -415,7 +415,7 @@
     [popoverController setContactSelectWasSelected: self];
     popoverController.cornerRadius = 5;
     popoverController.titleText = @"Select Context";
-    popoverController.popoverBaseColor = [UIColor clearColor];
+    popoverController.popoverBaseColor = [UIColor whiteColor];
     popoverController.popoverGradient= YES;
     //popoverController.arrowPosition = TSPopoverArrowPositionHorizontal;
     [popoverController showPopoverWithTouch:event];

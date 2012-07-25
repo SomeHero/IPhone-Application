@@ -45,6 +45,8 @@
 }
 - (void)dealloc
 {
+    [super dealloc];
+    
     /*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
@@ -74,7 +76,6 @@
     [contactButtonBGImage release];
     [amountButtonBGImage release];
     [dummyCommentPlaceholder release];
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -329,6 +330,8 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
     NSString* recipientLastName =[NSString stringWithString: @""];
@@ -345,7 +348,7 @@
 
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 -(IBAction) bgTouched:(id) sender {
