@@ -26,6 +26,12 @@
     return self;
 }
 
+-(void)refreshTabBarNotification:(NSInteger)notifications
+{
+    // Set Paystream Notification Count
+    
+}
+
 - (void)configureTabBar:(UIViewController *)vc selectedIndex:(NSInteger)index
 {
     NSArray *topLevelObjects = [[NSBundle mainBundle]loadNibNamed:@"HBCustomTabBar" owner:self options:nil];
@@ -42,6 +48,19 @@
             [vc.view insertSubview:tabBar aboveSubview:topView];
             break;
         }
+    }
+    
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+    if ( [defs integerForKey:@"PaystreamNotificationCount"] > 9 )
+    {
+        [tabBar.paystreamCountImage setImage:[UIImage imageNamed:@"bg-notifications-9-14x14.png"]];
+        tabBar.paystreamCountLabel.text = @"";
+    } else if ( [defs integerForKey:@"PaystreamNotificationCount"] == 0 ) {
+        [tabBar.paystreamCountImage setImage:NULL];
+        tabBar.paystreamCountLabel.text = @"";
+    } else {
+        [tabBar.paystreamCountImage setImage:[UIImage imageNamed:@"bg-notifications-14x14.png"]];
+        tabBar.paystreamCountLabel.text = [NSString stringWithFormat:@"%d",[defs integerForKey:@"PaystreamNotificationCount"]];
     }
     
     if( index == 0 )
