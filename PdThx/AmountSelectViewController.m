@@ -113,10 +113,10 @@
              [[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0){
         
         BOOL firstDigit = YES;
-        for (int i = 0; i< [textField.text length]; i++) {
+        
+                for (int i = 0; i< [textField.text length]; i++) {
             
-            char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
-            
+          char digit = (char) [textField.text characterAtIndex: (NSUInteger)i];
             if(digit == '$')
                 continue;
             if(digit == '.')
@@ -124,11 +124,11 @@
             if(digit == '0' && firstDigit) {
                 firstDigit = NO;
                 continue;
-                
             }
             firstDigit = NO;
             [tempAmount appendString: [NSString stringWithFormat:@"%c", digit]];
         }
+   
         [tempAmount appendString: string];
         [tempAmount insertString: @"." atIndex: [tempAmount length] -2];
         if([tempAmount length] < 4)
@@ -140,6 +140,13 @@
         lblGo.alpha = 1.0;
         
         [goButton setEnabled:YES];
+        if([textField.text isEqualToString:@"0.00"])
+        {
+            [goButton setBackgroundImage: [UIImage imageNamed: @"btn-go-inactive-50x48.png"] forState:UIControlStateNormal];
+            lblGo.textColor = [UIColor colorWithRed:142 green:144 blue:151 alpha:1.0];
+            
+            [goButton setEnabled:NO];
+        }
     }
     
     return NO;
