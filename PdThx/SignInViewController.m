@@ -5,6 +5,9 @@
 //  Created by James Rhodes on 4/15/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 
+#import "WelcomeScreenViewController.h"
+#import "CreateAccountViewController.h"
+#import "AboutPageViewController.h"
 #import "SignInViewController.h"
 #import "CreateAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -33,6 +36,8 @@
 @synthesize txtEmailAddress, txtPassword, animatedDistance;
 @synthesize viewPanel, fBook, service, bankAlert;
 @synthesize numFailedFB;
+
+@synthesize tabBar;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,6 +88,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:1];
     
     faceBookSignInHelper = [[FacebookSignIn alloc] init];
     signInUserService = [[SignInUserService alloc] init];
@@ -397,6 +404,52 @@
 }
 -(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage {
         
+}
+
+
+- (void)tabBarClicked:(NSUInteger)buttonIndex
+{
+    if( buttonIndex == 0 )
+    {
+        //This is the home tab already so don't do anything
+        WelcomeScreenViewController *gvc = [[WelcomeScreenViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 2 )
+    {
+        
+        //Switch to the groups tab
+        CreateAccountViewController *gvc = [[CreateAccountViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigationcontroller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+        
+    }
+    if( buttonIndex == 3 )
+    {
+        //Switch to the groups tab
+        AboutPageViewController *gvc = [[AboutPageViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigationcontroller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
 }
 
 

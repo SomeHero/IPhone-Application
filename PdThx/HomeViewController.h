@@ -39,7 +39,6 @@
 
 @property (nonatomic, retain) HBTabBarManager *tabBar;
 
-
 -(IBAction) btnRequestMoneyClicked:(id) sender;
 -(IBAction) btnSendMoneyClicked:(id) sender;
 -(IBAction) btnProfileClicked:(id) sender;

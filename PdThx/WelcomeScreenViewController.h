@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SignedOutTabBarManager.h"
 
-@interface WelcomeScreenViewController : UIViewController
+@interface WelcomeScreenViewController : UIViewController <SignedOutTabBarDelegate>
 {
     IBOutlet UIView *viewPanel;
     
@@ -19,6 +20,8 @@
 @property (nonatomic, retain) UIView *viewPanel;
 @property (nonatomic, retain) UIButton *firstTimeUserButton;
 @property (nonatomic, retain) UIButton *currentUserButton;
+
+@property (nonatomic, retain) SignedOutTabBarManager *tabBar;
 
 
 - (IBAction)firstTimeUserButtonPressed:(id)sender;
