@@ -513,7 +513,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     Contact * contact;
     
     //if ( [fBook isSessionValid] ){
-        //friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
+    //friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
     //}
     
     // get the address book
@@ -521,7 +521,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    int index = 0;
     for (int i = 1; i < nPeople; i++) {
         
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
@@ -532,7 +531,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         
         CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-        CFStringRef emailAddr = ABRecordCopyValue(ref, kABPersonEmailProperty);
         
         UIImage * tempImgData = nil;
         
@@ -544,17 +542,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             }
         }
         
-        ABMultiValueRef multiPhones = ABRecordCopyValue(ref,kABPersonPhoneProperty);
+        ABMultiValueRef multiPhones = ABRecordCopyValue(ref, kABPersonPhoneProperty);
         
-    
+        ABMultiValueRef multiEmails = ABRecordCopyValue(ref, kABPersonEmailProperty);
+        
+        
         
         NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
-        lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
-        
-        
-        NSString* emailAddress = [NSString stringWithFormat:@"%@", (NSString*)emailAddr];
-        emailAddress = [emailAddress stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
-        
+        lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];        
         
         NSString *contactFirstLast = @"";
         
@@ -566,6 +561,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         contactFirstLast = [contactFirstLast stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
         
+        contact = [[Contact alloc] init];
+        contact.name = contactFirstLast;
+        contact.firstName = (NSString*)firstName;
+        contact.lastName = (NSString*)lastName;
+        if ( tempImgData != nil ) {
+            contact.imgData = tempImgData;
+        }
+        NSMutableArray* paypoints = [[NSMutableArray alloc] init];
         
         // Handles Multiple Phone Numbers for One Contact...
         if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){
@@ -573,26 +576,34 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
                 NSString *phoneNumber = (NSString *) phoneNumberRef;
                 
-                contact = [[Contact alloc] init];
-                contact.name = contactFirstLast;
-                contact.firstName = (NSString*)firstName;
-                contact.lastName = (NSString*)lastName;
-                contact.phoneNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
-                contact.recipientUri = [contact.phoneNumber copy];
+                NSString* formattedNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
                 
-                if ( tempImgData != nil ) {
-                    contact.imgData = tempImgData;
+                if (![paypoints containsObject:formattedNumber])
+                {
+                    [paypoints addObject: formattedNumber];
                 }
+                                
+            }
+            
+            for (CFIndex k = 0; k < ABMultiValueGetCount(multiEmails); ++k)
+            {
+                CFStringRef emailRef = ABMultiValueCopyValueAtIndex(multiEmails, k);
+                NSString *emailAddress = (NSString*) emailRef;
                 
-                
-                [tempArray addObject:contact];
-                
-                index++;
-                
-                [contact release];
+                if (![paypoints containsObject:emailAddress])
+                {
+                    [paypoints addObject:emailAddress];
+                }
             }
         }
+        
+        contact.paypoints = paypoints;
+        
+        [tempArray addObject:contact];
+        
+        [contact release];
     }
+    
     
     NSMutableArray* tempPhoneContacts = [self sortContacts: tempArray];
     
@@ -604,7 +615,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
     
     [self mergeAllContacts: phoneContacts];
-
+    
     NSDictionary* dict = [NSDictionary dictionaryWithObject:
                           contactsArray forKey:@"contacts"];
     
@@ -659,7 +670,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 }
 -(void)getNonProfitsDidComplete: (NSMutableArray*) merchants {
     [nonProfits removeAllObjects];
-
+    
     NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
     
     for(int i=0; i < [merchants count]; i++)
@@ -719,16 +730,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     NSMutableArray* faceBookFriends = [self sortContacts:tempArray];
     /*
-    [self sortContacts:tempArray];
-    for ( Contact*con in tempArray)
-    {
-        if ( con.facebookID != (id)[NSNull null] && [con.facebookID length] > 0 )
-        {
-            [faceBookFriends addObject:con];
-        }
-    }
-    */ 
-   // [contactsArray removeAllObjects];
+     [self sortContacts:tempArray];
+     for ( Contact*con in tempArray)
+     {
+     if ( con.facebookID != (id)[NSNull null] && [con.facebookID length] > 0 )
+     {
+     [faceBookFriends addObject:con];
+     }
+     }
+     */ 
+    // [contactsArray removeAllObjects];
     [faceBookContacts removeAllObjects];
     
     for(int i = 0; i <[faceBookFriends count]; i++)
@@ -777,7 +788,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     contactsArray = [self sortContacts:tempArray];
     
     [tempArray release];
-
+    
 }
 -(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts 
 {
@@ -804,7 +815,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         else if ( person.lastName.length > 0 )
             comparedString = person.lastName;
         else
-            comparedString = person.phoneNumber;
+            comparedString = person.paypoint;
         
         if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
         {
@@ -1173,7 +1184,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     if([selectedContactList isEqualToString: @"AllContacts"])
         return @"nav-selector-allcontacts-52x30.png";
     if([selectedContactList isEqualToString: @"PhoneContacts"])
-       return @"nav-selector-phonecontacts-52x30.png";
+        return @"nav-selector-phonecontacts-52x30.png";
     if([selectedContactList isEqualToString: @"FacebookContacts"])
         return @"nav-selector-fbcontacts-52x30.png";
     if([selectedContactList isEqualToString: @"NonProfits"])
@@ -1196,7 +1207,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
     @finally {
     }
-
+    
     return upperLimit;
 }
 @end

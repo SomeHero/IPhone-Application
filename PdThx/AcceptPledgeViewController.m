@@ -520,10 +520,8 @@
     
     if ( contact.facebookID.length > 0 ){
         causeDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        causeDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        causeDetail.text = contact.emailAddress;
+    } else if ( contact.paypoint ){
+        causeDetail.text = contact.paypoint;
     }else {
         causeDetail.text = @"No Info to Display";
     }
@@ -549,10 +547,8 @@
     
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        contactDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        contactDetail.text = contact.emailAddress;
+    } else if ( contact.paypoint ){
+        contactDetail.text = contact.paypoint;
     }else {
         contactDetail.text = @"No Info to Display";
     }

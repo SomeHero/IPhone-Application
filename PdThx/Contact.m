@@ -11,10 +11,11 @@
 @implementation Contact
 
 @synthesize userId;
-@synthesize name, phoneNumber, emailAddress, facebookID, imgData, firstName, lastName;
+@synthesize name, paypoint, facebookID, imgData, firstName, lastName;
 @synthesize recipientUri;
 @synthesize recipientId;
 @synthesize prefferedAccountId;
+@synthesize paypoints;
 
 -(NSComparisonResult)compare:(Contact*)otherContact {
     NSString * comparedProperty1 = ( self.lastName.length == 0 ? self.firstName : self.lastName );
@@ -41,11 +42,11 @@
     
     return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
 }
+
                 
 - (void)dealloc {
     [name release];
-    [phoneNumber release];
-    [emailAddress release];
+    [paypoint release];
     [facebookID release];
     [imgData release];
     [firstName release];
@@ -53,6 +54,7 @@
     [recipientUri release];
     [recipientId release];
     [preferredAccountId release];
+    [paypoints release];
     
     [super dealloc];
 }

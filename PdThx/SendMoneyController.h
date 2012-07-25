@@ -23,8 +23,9 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
 #import "HBTabBarManager.h"
+#import "DetermineRecipientCompleteProtocol.h"
 
-@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate> {
+@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, DetermineRecipientCompleteProtocol> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
