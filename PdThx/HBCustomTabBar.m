@@ -37,6 +37,8 @@ centerTabSelectedOverlay,
 fourthTabSelectedOverlay,
 fifthTabSelectedOverlay;
 
+@synthesize paystreamCountLabel, paystreamCountImage;
+
 - (id)init
 {
     self = [super init];
@@ -79,6 +81,8 @@ fifthTabSelectedOverlay;
     [fourthTabSelectedOverlay release];
     [fifthTabSelectedOverlay release];
     
+    [paystreamCountLabel release];
+    [paystreamCountImage release];
     [super dealloc];
 }
 

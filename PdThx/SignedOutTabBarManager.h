@@ -22,6 +22,7 @@
 
 - (id)initWithViewController:(UIViewController *)theVc topView:(UIView *)top delegate:(NSObject <SignedOutTabBarDelegate>*)theDelegate selectedIndex:(NSInteger)index;
 - (void)configureTabBar:(UIViewController *)vc selectedIndex:(NSInteger)index;
+
 //All methods for loading up the proper view controllers
 
 - (void)loadFirstTab:(id)selector;
