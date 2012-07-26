@@ -14,28 +14,23 @@
     NSString *name;
     NSString *firstName;
     NSString *lastName;
-    NSString *phoneNumber;
-    NSString *emailAddress;
     NSString *facebookID;
     UIImage *imgData;
-    NSString *recipientUri;
     NSString* recipientId;
     NSString* preferredAccountId;
+    NSMutableArray* paypoints;
 }
 
 @property(nonatomic, retain) NSString* userId;
 @property(nonatomic, retain) NSString* name;
-@property(nonatomic, retain) NSString* phoneNumber;
-@property(nonatomic, retain) NSString *emailAddress;
 @property(nonatomic, retain) NSString *facebookID;
 @property(nonatomic, retain) UIImage *imgData;
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *lastName;
-@property(nonatomic, retain) NSString *recipientUri;
 @property(nonatomic, retain) NSString* recipientId;
-
-//Nice one justin..
-@property(nonatomic, retain) NSString* prefferedAccountId;
+//Nice one justin.. you had preferred as preffered
+@property(nonatomic, retain) NSString* preferredAccountId;
+@property(nonatomic, retain) NSMutableArray* paypoints;
 
 -(NSComparisonResult)compare:(Contact*)otherContact;
 

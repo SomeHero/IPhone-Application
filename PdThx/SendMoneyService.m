@@ -15,6 +15,7 @@
 @implementation SendMoneyService
 
 @synthesize sendMoneyCompleteDelegate;
+@synthesize determineRecipientCompleteDelegate;
 
 -(id)init {
     self = [super init];
@@ -176,6 +177,8 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 - (void)dealloc
 {
     [requestObj release];
+    [determineRecipientCompleteDelegate release];
+    [sendMoneyCompleteDelegate release];
     
     [super dealloc];
 }

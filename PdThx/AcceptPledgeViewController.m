@@ -535,10 +535,8 @@
     
     if ( contact.facebookID.length > 0 ){
         causeDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        causeDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        causeDetail.text = contact.emailAddress;
+    } else if ( [contact.paypoints count] == 1 ){
+        causeDetail.text = [contact.paypoints objectAtIndex:0];
     }else {
         causeDetail.text = @"No Info to Display";
     }
@@ -564,15 +562,13 @@
     
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        contactDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        contactDetail.text = contact.emailAddress;
+    } else if ( [contact.paypoints count] == 1 ){
+        contactDetail.text = [contact.paypoints objectAtIndex:0];
     }else {
         contactDetail.text = @"No Info to Display";
     }
     
-    self.recipientUri = contact.recipientUri;
+    self.recipientUri = [contact.paypoints objectAtIndex:0];
     
 }
 

@@ -169,6 +169,72 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [[self navigationController] setViewControllers:allViewControllers animated:NO];
             break;
         }
+        case 3:
+        {
+            SendMoneyController* dvc = [[SendMoneyController alloc] init];
+            [[self navigationController] pushViewController:dvc animated:NO];
+            [dvc viewDidLoad]; // Force load of SendMoneyViewController
+            
+            Contact *hugo = [[Contact alloc] init];
+            [hugo.paypoints addObject:[NSString stringWithString:@"5712438777"]];
+            hugo.firstName = @"Hugo";
+            hugo.lastName = @"Camacho";
+            hugo.name = @"Hugo Camacho";
+            hugo.imgData = [UIImage imageNamed:@"Hugo.png"];
+            [dvc didChooseContact:hugo];
+            [dvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:self];
+            
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            break;
+        }
+        case 4:
+        {
+            SendMoneyController* dvc = [[SendMoneyController alloc] init];
+            [[self navigationController] pushViewController:dvc animated:NO];
+            [dvc viewDidLoad]; // Force load of SendMoneyViewController
+            
+            Contact *hugo = [[Contact alloc] init];
+            [hugo.paypoints addObject:[NSString stringWithString:@"8044323290"]];
+            hugo.firstName = @"Rob";
+            hugo.lastName = @"Kirchner";
+            hugo.name = @"Rob Kirchner";
+            hugo.imgData = [UIImage imageNamed:@"ALL.png"];
+            [dvc didChooseContact:hugo];
+            [dvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:self];
+            
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            break;
+        }
+        case 5:
+        {
+            SendMoneyController* dvc = [[SendMoneyController alloc] init];
+            [[self navigationController] pushViewController:dvc animated:NO];
+            [dvc viewDidLoad]; // Force load of SendMoneyViewController
+            
+            Contact *hugo = [[Contact alloc] init];
+            [hugo.paypoints addObject:[NSString stringWithString:@"acs@pdthx.me"]];
+            hugo.firstName = @"American";
+            hugo.lastName = @"Cancer Society";
+            hugo.name = @"American Cancer Society";
+            hugo.imgData = [UIImage imageNamed:@"org-acs.png"];
+            [dvc didChooseContact:hugo];
+            [dvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:self];
+            
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            break;
+        }
     }
     
 }
@@ -197,7 +263,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [btnProfile setImage: imgProfileActive forState:UIControlStateHighlighted];
     
     [quickSendView addSubview:[[[NSBundle mainBundle] loadNibNamed:@"QuickSendView" owner:self options:nil] objectAtIndex:0]];
-    [quickSendView setButtonDelegate:self];
     
     [self setTitle: @"Home"];
 }
@@ -276,22 +341,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(IBAction) btnSendFacebookClicked:(id)sender {
-}
-
--(IBAction) btnSendPhoneClicked:(id)sender {
-    
-}
-
--(IBAction) btnSendNonprofitClicked:(id)sender {
-    
-}
-
-- (IBAction)swipeUpQuickSend:(id)sender {
-    NSLog(@"Swiped up.");
+- (IBAction)swipeUpQuickSend:(id)sender 
+{
     if ( ! quickSendOpened ){
-        [UIView animateWithDuration:0.5 animations:^{
-            
+        [UIView animateWithDuration:0.4 animations:^{
             quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y-224, quickSendView.frame.size.width, quickSendView.frame.size.height+224);
         } completion:^(BOOL finished) {
             quickSendOpened = 1;
@@ -299,10 +352,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
 }
 
-- (IBAction)swipeDownQuickSend:(id)sender {
-    NSLog(@"Swiped down.");
+- (IBAction)swipeDownQuickSend:(id)sender 
+{
     if ( quickSendOpened ){
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
             
             quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y+224, quickSendView.frame.size.width, quickSendView.frame.size.height-224);
         } completion:^(BOOL finished) {

@@ -303,7 +303,14 @@
             }
         } else {
             myCell.contactName.text = contact.name;
-            myCell.contactDetail.text = contact.phoneNumber;
+            
+            if ([contact.paypoints count] == 1)
+            {
+                myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
+            }
+            else {
+                myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
+            }
             if ( contact.imgData )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             else
@@ -342,7 +349,14 @@
             }
         } else {
             myCell.contactName.text = contact.name;
-            myCell.contactDetail.text = contact.phoneNumber;
+            
+            if ([contact.paypoints count] == 1)
+            {
+                myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
+            }
+            else {
+                myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
+            }
             
             if ( contact.imgData != nil )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
@@ -371,14 +385,12 @@
             if ( retVal > 0 ){ // Always > 0 (handled by enabled/disabled)
                 if ( retVal == 1 ){
                     // Phone Number
-                    contact.name = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
-                    contact.phoneNumber = @"New Phone Recipient";
-                    contact.recipientUri = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    [contact.paypoints addObject: [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""]];
+                    contact.name = @"New Phone Recipient";
                 } else if ( retVal == 2 ){
                     // Email
-                    contact.name = txtSearchBox.text;
-                    contact.emailAddress = @"New Email Address";
-                    contact.recipientUri = txtSearchBox.text;
+                    [contact.paypoints addObject: txtSearchBox.text];
+                    contact.name = @"New Email Address";
                 }
             }
             [contactSelectChosenDelegate didChooseContact:contact];
@@ -397,7 +409,7 @@
     Contact* contact = [[[Contact alloc] init] autorelease];
     
     contact.name = [[txtSearchBox text] copy];
-    contact.recipientUri = [[txtSearchBox text] copy];
+    [contact.paypoints addObject:[[txtSearchBox text] copy]];
     
     [contactSelectChosenDelegate didChooseContact: contact];
     [self.navigationController popViewControllerAnimated:YES];
@@ -410,7 +422,7 @@
     [tableViewController setContactSelectWasSelected: self];
     
     tableViewController.view.frame = CGRectMake(0,0, 220, 216);
-   
+    
     popoverController = [[TSPopoverController alloc] initWithContentViewController:tableViewController];
     [popoverController setContactSelectWasSelected: self];
     popoverController.cornerRadius = 5;
@@ -565,14 +577,16 @@
         NSRange hasSimilarity;
         for ( NSMutableArray*arr3 in allResults ){
             for ( Contact*contact in arr3 ){
+                for (NSString* paypoint in contact.paypoints)
+                {
                 // Check first case normally
                 hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                if ( hasSimilarity.location == NSNotFound && contact.phoneNumber != NULL ){
-                    hasSimilarity = [[[contact.phoneNumber componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
+                if ( hasSimilarity.location == NSNotFound && paypoint != NULL ){
+                    hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
                 }
-                if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
-                    hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                }
+                /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
+                 hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                 }*/
                 // Add $me code implementation ** TODO: **
                 
                 if ( hasSimilarity.location != NSNotFound ){
@@ -584,6 +598,7 @@
                         NSLog(@"Exception: %@", e);
                     }
                     
+                }
                 }
             }
         }
@@ -612,8 +627,8 @@
             
             for(int i = 0; i < [allResults count]; i++)
             {
-                    
-            
+                
+                
             }
             break;
         case 4:
@@ -638,20 +653,20 @@
             [[self navigationController] setViewControllers:allViewControllers animated:NO];
             
             [allViewControllers release];
-             
+            
             break;
         }
         case 5:
-             [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"Organizations"];
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"Organizations"];
             allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).organizations;
             break;
         default:
-                allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+            allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
             break;
     }
     
     NSString* contactSelectImage = [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) getSelectedContactListImage];
- 
+    
     UIImage *bgImage = [UIImage imageNamed:contactSelectImage];
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [settingsBtn setImage:bgImage forState:UIControlStateNormal];

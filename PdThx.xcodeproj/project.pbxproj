@@ -234,6 +234,12 @@
 		54D2402715C1A1940037719A /* btn-handle-quicksend-308x25-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2402315C1A1940037719A /* btn-handle-quicksend-308x25-active@2x.png */; };
 		54D2402815C1A1940037719A /* btn-handle-quicksend-308x25.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2402415C1A1940037719A /* btn-handle-quicksend-308x25.png */; };
 		54D2402915C1A1940037719A /* btn-handle-quicksend-308x25@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2402515C1A1940037719A /* btn-handle-quicksend-308x25@2x.png */; };
+		54D2403315C1DCBC0037719A /* org_acs.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403215C1DCBC0037719A /* org_acs.png */; };
+		54D2403515C1DCC00037719A /* org_bsa.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403415C1DCC00037719A /* org_bsa.png */; };
+		54D2403A15C1DF6D0037719A /* ALL.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403615C1DF6D0037719A /* ALL.png */; };
+		54D2403B15C1DF6D0037719A /* Hugo.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403715C1DF6D0037719A /* Hugo.png */; };
+		54D2403C15C1DF6D0037719A /* jamesSebastian.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403815C1DF6D0037719A /* jamesSebastian.png */; };
+		54D2403D15C1DF6D0037719A /* thomas.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403915C1DF6D0037719A /* thomas.png */; };
 		54D3A7D3159D353900364483 /* ProgressHudInnnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */; };
 		54D3A7D4159D353900364483 /* ProgressHudInnnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */; };
 		54D3A7E9159D61CA00364483 /* icon-iphone-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7E8159D61C900364483 /* icon-iphone-57x57.png */; };
@@ -654,6 +660,8 @@
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
+		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
+		C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C334D27715BF248F00923348 /* SelectRecipientViewController.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
 		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
 		D57F91EE15B84E0F007A4C3C /* EnterVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */; };
@@ -945,6 +953,12 @@
 		54D2402315C1A1940037719A /* btn-handle-quicksend-308x25-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-handle-quicksend-308x25-active@2x.png"; sourceTree = "<group>"; };
 		54D2402415C1A1940037719A /* btn-handle-quicksend-308x25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-handle-quicksend-308x25.png"; sourceTree = "<group>"; };
 		54D2402515C1A1940037719A /* btn-handle-quicksend-308x25@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-handle-quicksend-308x25@2x.png"; sourceTree = "<group>"; };
+		54D2403215C1DCBC0037719A /* org_acs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = org_acs.png; sourceTree = "<group>"; };
+		54D2403415C1DCC00037719A /* org_bsa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = org_bsa.png; sourceTree = "<group>"; };
+		54D2403615C1DF6D0037719A /* ALL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ALL.png; sourceTree = "<group>"; };
+		54D2403715C1DF6D0037719A /* Hugo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hugo.png; sourceTree = "<group>"; };
+		54D2403815C1DF6D0037719A /* jamesSebastian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jamesSebastian.png; sourceTree = "<group>"; };
+		54D2403915C1DF6D0037719A /* thomas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thomas.png; sourceTree = "<group>"; };
 		54D3A7D0159D353900364483 /* ProgressHudInnnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHudInnnerViewController.h; sourceTree = "<group>"; };
 		54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHudInnnerViewController.m; sourceTree = "<group>"; };
 		54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressHudInnnerViewController.xib; sourceTree = "<group>"; };
@@ -1544,6 +1558,10 @@
 		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		C334D26F15BDE9DA00923348 /* DetermineRecipientCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetermineRecipientCompleteProtocol.h; sourceTree = "<group>"; };
+		C334D27515BF248D00923348 /* SelectRecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientViewController.h; sourceTree = "<group>"; };
+		C334D27615BF248E00923348 /* SelectRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientViewController.m; sourceTree = "<group>"; };
+		C334D27715BF248F00923348 /* SelectRecipientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientViewController.xib; sourceTree = "<group>"; };
+		C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectRecipientProtocol.h; sourceTree = "<group>"; };
 		C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordCompleteProtocol.h; sourceTree = "<group>"; };
 		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
 		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
@@ -1964,6 +1982,9 @@
 				54A139AA15826E8000668984 /* Contact Table View */,
 				54A139A215826B0900668984 /* AmountSelectViewController.h */,
 				54A139A315826B0900668984 /* AmountSelectViewController.m */,
+				C334D27515BF248D00923348 /* SelectRecipientViewController.h */,
+				C334D27615BF248E00923348 /* SelectRecipientViewController.m */,
+				C334D27715BF248F00923348 /* SelectRecipientViewController.xib */,
 			);
 			name = "Send/Request Money";
 			sourceTree = "<group>";
@@ -2332,6 +2353,7 @@
 		54D23FB715BE52360037719A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				54D2403115C1DCB00037719A /* Temporary Hard Coded Contacts */,
 				54D2402215C1A1940037719A /* btn-handle-quicksend-308x25-active.png */,
 				54D2402315C1A1940037719A /* btn-handle-quicksend-308x25-active@2x.png */,
 				54D2402415C1A1940037719A /* btn-handle-quicksend-308x25.png */,
@@ -2420,6 +2442,19 @@
 				54D2402115C18DAA0037719A /* QuickSendButtonProtocol.h */,
 			);
 			name = "Quick Send View";
+			sourceTree = "<group>";
+		};
+		54D2403115C1DCB00037719A /* Temporary Hard Coded Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				54D2403615C1DF6D0037719A /* ALL.png */,
+				54D2403715C1DF6D0037719A /* Hugo.png */,
+				54D2403815C1DF6D0037719A /* jamesSebastian.png */,
+				54D2403915C1DF6D0037719A /* thomas.png */,
+				54D2403215C1DCBC0037719A /* org_acs.png */,
+				54D2403415C1DCC00037719A /* org_bsa.png */,
+			);
+			name = "Temporary Hard Coded Contacts";
 			sourceTree = "<group>";
 		};
 		54D3A7C8159D33BC00364483 /* App Icon and Loading Screen */ = {
@@ -3056,6 +3091,7 @@
 				54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */,
 				54D23F9015BDCC660037719A /* FBHelperReturnProtocol.h */,
 				C334D26F15BDE9DA00923348 /* DetermineRecipientCompleteProtocol.h */,
+				C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -3882,6 +3918,7 @@
 				5BED071815B9E89400D4110A /* twitter_load.png in Resources */,
 				5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */,
 				54D23F8F15BDCA6E0037719A /* HomeViewControllerV2.xib in Resources */,
+				C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */,
 				54D23FC315BE52410037719A /* bg-home-new-308x64.png in Resources */,
 				54D23FC415BE52410037719A /* bg-home-new-308x64@2x.png in Resources */,
 				54D23FC715BE52410037719A /* btn-home-fb-63x63.png in Resources */,
@@ -3916,6 +3953,12 @@
 				54D2402715C1A1940037719A /* btn-handle-quicksend-308x25-active@2x.png in Resources */,
 				54D2402815C1A1940037719A /* btn-handle-quicksend-308x25.png in Resources */,
 				54D2402915C1A1940037719A /* btn-handle-quicksend-308x25@2x.png in Resources */,
+				54D2403315C1DCBC0037719A /* org_acs.png in Resources */,
+				54D2403515C1DCC00037719A /* org_bsa.png in Resources */,
+				54D2403A15C1DF6D0037719A /* ALL.png in Resources */,
+				54D2403B15C1DF6D0037719A /* Hugo.png in Resources */,
+				54D2403C15C1DF6D0037719A /* jamesSebastian.png in Resources */,
+				54D2403D15C1DF6D0037719A /* thomas.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4117,6 +4160,7 @@
 				5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */,
 				54D23F8E15BDCA6E0037719A /* HomeViewControllerV2.m in Sources */,
 				5BDDADC515BDE5A5007B733E /* ApplicationConfiguration.m in Sources */,
+				C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */,
 				54D23FD415BEF12B0037719A /* TPKeyboardAvoidingScrollView.m in Sources */,
 				54D23FE515BF8C080037719A /* SignedOutTabBar.m in Sources */,
 				54D23FEB15BF93970037719A /* SignedOutTabBarManager.m in Sources */,

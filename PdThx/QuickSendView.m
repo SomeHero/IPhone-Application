@@ -7,6 +7,8 @@
 //
 
 #import "QuickSendView.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @implementation QuickSendView
 
@@ -21,6 +23,7 @@
 @synthesize qs9button, qs9bottomlabel, qs9toplabel;
 @synthesize buttonDelegate;
 
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -31,14 +34,59 @@
     return self;
 }
 
-/*
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    // Quick Send Images
+    [self.qs1button.layer setCornerRadius:14.0];
+    [self.qs1button.layer setMasksToBounds:YES];
+    [self.qs1button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs1button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs2button.layer setCornerRadius:14.0];
+    [self.qs2button.layer setMasksToBounds:YES];
+    [self.qs2button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs2button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs3button.layer setCornerRadius:14.0];
+    [self.qs3button.layer setMasksToBounds:YES];
+    [self.qs3button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs3button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs4button.layer setCornerRadius:14.0];
+    [self.qs4button.layer setMasksToBounds:YES];
+    [self.qs4button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs4button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs5button.layer setCornerRadius:14.0];
+    [self.qs5button.layer setMasksToBounds:YES];
+    [self.qs5button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs5button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs6button.layer setCornerRadius:14.0];
+    [self.qs6button.layer setMasksToBounds:YES];
+    [self.qs6button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs6button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs7button.layer setCornerRadius:14.0];
+    [self.qs7button.layer setMasksToBounds:YES];
+    [self.qs7button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs7button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs8button.layer setCornerRadius:14.0];
+    [self.qs8button.layer setMasksToBounds:YES];
+    [self.qs8button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs8button.layer setBorderWidth:0.7]; // 28 24 20
+    
+    [self.qs9button.layer setCornerRadius:14.0];
+    [self.qs9button.layer setMasksToBounds:YES];
+    [self.qs9button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
+    [self.qs9button.layer setBorderWidth:0.7]; // 28 24 20
 }
-*/
+
 
 - (void)dealloc {
     [qs1button release];
