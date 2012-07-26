@@ -538,7 +538,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    for (int i = 1; i < nPeople; i++) {
+    for (int i = 0; i < nPeople; i++) {
         
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);

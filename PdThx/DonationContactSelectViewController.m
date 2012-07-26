@@ -323,14 +323,7 @@
             
             myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
-            
-            if ([contact.paypoints count] == 1)
-            {
-                myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
-            }
-            else {
-                myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
-            }
+            myCell.contactDetail.text = @"";
             
             if ( contact.imgData )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
@@ -371,13 +364,7 @@
         } else {
             myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
-            if ([contact.paypoints count] == 1)
-            {
-                myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
-            }
-            else {
-                myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
-            }
+            myCell.contactDetail.text = @"";
             
             if ( contact.imgData != nil )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];

@@ -285,6 +285,7 @@
 
 
 -(IBAction) btnSendMoneyClicked:(id)sender {
+    [txtComments resignFirstResponder];
     [self sendMoney];
 }
 -(void) sendMoney {
