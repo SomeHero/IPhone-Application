@@ -117,7 +117,11 @@
         else {
             			
             cell.lblHeading.text = [[emailAddresses objectAtIndex: indexPath.row] uri];
-            cell.lblDescription.text =@"Verified";//some other field here.
+            if([[emailAddresses objectAtIndex:indexPath.row] verified])
+                cell.lblDescription.text =@"Verified";
+            else
+                cell.lblDescription.text = @"Pending Verification";
+            
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
             //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
         }

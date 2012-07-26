@@ -120,7 +120,13 @@
         else {
             cell.lblHeading.text = [[phones objectAtIndex: indexPath.row] uri];
             cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
-            cell.lblDescription.text = @"Verified";//[[phones objectAtIndex: indexPath.row] verified];
+            if([[phones objectAtIndex: indexPath.row] verified])
+            {
+                cell.lblDescription.text = @"Verified";
+            }
+            else {
+                cell.lblDescription.text = @"Pending Verification";
+            }
         }
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

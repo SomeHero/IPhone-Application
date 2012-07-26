@@ -89,6 +89,8 @@
     [characterCountLabel release];
     [characterCountLabel release];
     [dummyCommentPlaceholder release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,7 +109,7 @@
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     if ( txtComments.text.length == 0 )
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     else {
         dummyCommentPlaceholder.placeholder = @"";
     }
@@ -198,7 +200,7 @@
     if ( [txtComments.text length] > 0 ) {
         dummyCommentPlaceholder.placeholder = @"";
     } else {
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     }
     
     if ( [txtComments.text length] <= 140 ){
@@ -274,7 +276,6 @@
         UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.delegate = self;
-        imagePicker.allowsImageEditing = NO;
         [self presentModalViewController:imagePicker animated:YES];
     }
 }
@@ -291,7 +292,6 @@
 {
     [self dismissModalViewControllerAnimated:YES];
     
-    UIAlertView *alert;
     if ( error ){
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
@@ -354,7 +354,7 @@
         //[txtRecipientUri setText: @""];
         [txtAmount setText: @"0.00"];
         [txtComments setText: @""];
-        [recipient setText:@""];
+        recipient = nil;
         [[self mainScrollView] setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
         [self showAlertView:@"Request Sent!" withMessage: message];
         
@@ -426,7 +426,11 @@
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+            
+            if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipient.name]];
+            else
+                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
             
             [self presentModalViewController:controller animated:YES];
         } else {
@@ -632,6 +636,8 @@
         [allViewControllers release];
     }
 }
+
+
 
 
 @end

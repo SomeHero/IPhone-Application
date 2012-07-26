@@ -14,6 +14,8 @@
 
 @implementation OrganizationDetailViewController
 
+@synthesize detailInfoButtonClicked;
+
 @synthesize merchantId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

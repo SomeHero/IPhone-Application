@@ -32,6 +32,7 @@
 
 @synthesize txtEmailAddress, txtPassword, animatedDistance;
 @synthesize viewPanel, fBook, service, bankAlert;
+@synthesize numFailedFB;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,6 +62,8 @@
     [loginFBButton release];
     [loginFBButton release];
     [forgotPassword release];
+    
+    
     [super dealloc];
 }
 
@@ -78,7 +81,6 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
@@ -92,7 +94,6 @@
     [[viewPanel layer] setBorderWidth:1.5];
     [[viewPanel layer] setCornerRadius: 8.0];
     
-    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"SignInViewController"
                                         withError:&error]){
@@ -102,6 +103,7 @@
     PdThxAppDelegate * appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
     fBook = appDelegate.fBook;
     
+    numFailedFB = 0;
 }
 
 -(void)viewDidAppear:(BOOL)animated 
@@ -185,8 +187,15 @@
 
 -(void)fbSignInCancelled
 {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Cancelled" withDetailedStatus:@"Facebook Sign In Cancelled"];
+    numFailedFB++;
+    if (numFailedFB == 3) {
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Facebook Error" withDetailedStatus:@"Check Connection"];
+        numFailedFB = 0;
+    } else {
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showErrorWithStatus:@"Cancelled" withDetailedStatus:@"Facebook Sign In Cancelled"];
+    }
 }
 
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */

@@ -265,6 +265,9 @@
         
     [super dealloc];
     
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [navBarTitle release];
     [headerText release];
     [securityPin release];

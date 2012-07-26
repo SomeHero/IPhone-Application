@@ -24,7 +24,7 @@
         payPointType = [[NSString alloc] init];
         uri = [[NSString alloc] init];
         userId = [[NSString alloc] init];
-        verified = [[NSString alloc] init];
+        verified = false;
             }
     
     return self;
@@ -37,7 +37,7 @@
         payPointType = [[dictionary valueForKey:@"Type"] copy];
         uri = [[dictionary valueForKey:@"Uri"] copy];
         userId = [[dictionary valueForKey:@"UserId"] copy];
-        verified = [[dictionary valueForKey:@"verified"]copy];
+        verified = [[dictionary valueForKey:@"verified"] boolValue];
     }
     
     return self;

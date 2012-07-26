@@ -45,6 +45,7 @@
 @property(nonatomic, retain) UIAlertView * bankAlert;
 //@property(nonatomic, retain) SetupACHAccountController * setupACHAccountController;
 @property(nonatomic, assign) float animatedDistance;
+@property(nonatomic, assign) int numFailedFB;
 
 -(IBAction) bgTouched:(id)sender;
 -(IBAction) btnSignInClicked:(id)sender;

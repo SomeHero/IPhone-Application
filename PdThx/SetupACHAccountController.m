@@ -48,6 +48,8 @@
     [validationHelper release];
 
     [skipButton release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 
@@ -78,6 +80,9 @@
     
     userSetupACHAccountService = [[UserSetupACHAccount alloc] init];
     [userSetupACHAccountService setUserACHSetupCompleteDelegate: self];
+
+    
+    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"SetUpACHAccountController"
                                         withError:&error]){
@@ -184,7 +189,7 @@
         NSLog(@"Registering with SecurityQuestionId and Answer: %d -- %@", questionId, questionAnswer);
 
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        //[appDelegate showWithStatus:@"Linking Account" withDetailedStatus:@"Securing information"];
+        [appDelegate showWithStatus:@"Linking Account" withDetailedStatus:@"Securing information"];
         
         [userSetupACHAccountService setupACHAccount:accountNumber forUser:userId withNickname:@"" withNameOnAccount:nameOnAccount withRoutingNumber:routingNumber ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer:questionAnswer];
     }
@@ -248,7 +253,7 @@
 -(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    //[appDelegate showSuccessWithStatus:@"Question Created" withDetailedStatus:@"Added security question"];
+    [appDelegate showSuccessWithStatus:@"Question Created" withDetailedStatus:@"Added security question"];
     
     [self createACHAccount:securityPin withSecurityQuestionId:questionId withSecurityQuestionAnswer:questionAnswer];
 }
@@ -379,4 +384,7 @@
     [txtAccountNumber resignFirstResponder];
     [txtConfirmAccountNumber resignFirstResponder];
 }
+
+
+
 @end
