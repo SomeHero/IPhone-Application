@@ -13,6 +13,7 @@
 #import "PdThxAppDelegate.h"
 
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
 #import "WelcomeScreenViewController.h"
 #import "SignInViewController.h"
 #import "AboutPageViewController.h"
@@ -169,7 +170,7 @@
     [self setTitle:@"Register"];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
 
@@ -276,16 +277,22 @@
 }
 - (IBAction)signInWithFacebookClicked:(id)sender 
 {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Please Wait" withDetailedStatus:@"Facebook Loading"];
     [faceBookSignInHelper signInWithFacebook: self];
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Please Wait" withDetailedStatus:@"Creating Account"];
     [service validateUser:result];
 }
 
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
 {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Facebook Signup Failed"];
     NSLog ( @"Error occurred -> %@" , [error description] );
 }
 
@@ -337,7 +344,9 @@
     
     userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
-        
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Getting user info"];
     [userService getUserInformation: userId];
 }
 

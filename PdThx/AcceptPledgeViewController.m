@@ -18,6 +18,7 @@
 #import "ContactSelectViewController.h"
 #import "AmountSelectViewController.h"
 #import "CustomSecurityPinSwipeController.h"
+#import "HomeViewControllerV2.h"
 
 #define kOFFSET_FOR_KEYBOARD 100.0
 #define tableHeight = 30;
@@ -115,7 +116,7 @@
     
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     
@@ -534,8 +535,8 @@
     
     if ( contact.facebookID.length > 0 ){
         causeDetail.text = @"Facebook Friend";
-    } else if ( contact.paypoint ){
-        causeDetail.text = contact.paypoint;
+    } else if ( [contact.paypoints count] == 1 ){
+        causeDetail.text = [contact.paypoints objectAtIndex:0];
     }else {
         causeDetail.text = @"No Info to Display";
     }
@@ -561,13 +562,13 @@
     
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ( contact.paypoint ){
-        contactDetail.text = contact.paypoint;
+    } else if ( [contact.paypoints count] == 1 ){
+        contactDetail.text = [contact.paypoints objectAtIndex:0];
     }else {
         contactDetail.text = @"No Info to Display";
     }
     
-    self.recipientUri = contact.recipientUri;
+    self.recipientUri = [contact.paypoints objectAtIndex:0];
     
 }
 
@@ -581,7 +582,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         

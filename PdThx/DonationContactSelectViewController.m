@@ -238,7 +238,7 @@
         myCell = [nib objectAtIndex:0];
         [myCell setDetailInfoButtonClicked: self];
     }
-
+    
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
     [myCell.contactImage.layer setCornerRadius:4.0];
@@ -294,7 +294,7 @@
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
             
-            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
+            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend", contact.facebookID];
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
@@ -323,7 +323,15 @@
             
             myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
-            myCell.contactDetail.text = contact.paypoint;
+            
+            if ([contact.paypoints count] == 1)
+            {
+                myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
+            }
+            else {
+                myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
+            }
+            
             if ( contact.imgData )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             else
@@ -335,7 +343,7 @@
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
             
-            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
+            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend", contact.facebookID];
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
@@ -363,7 +371,13 @@
         } else {
             myCell.merchantId = contact.userId;
             myCell.contactName.text = contact.name;
-            myCell.contactDetail.text = contact.paypoint;
+            if ([contact.paypoints count] == 1)
+            {
+                myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
+            }
+            else {
+                myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
+            }
             
             if ( contact.imgData != nil )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
@@ -392,14 +406,12 @@
             if ( retVal > 0 ){ // Always > 0 (handled by enabled/disabled)
                 if ( retVal == 1 ){
                     // Phone Number
-                    contact.name = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
-                    contact.paypoint = @"New Phone Recipient";
-                    contact.recipientUri = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    [contact.paypoints addObject:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""]];
+                    contact.name = @"New Phone Recipient";
                 } else if ( retVal == 2 ){
                     // Email
-                    contact.name = txtSearchBox.text;
-                    contact.paypoint = @"New Email Address";
-                    contact.recipientUri = txtSearchBox.text;
+                    [contact.paypoints addObject:txtSearchBox.text];
+                    contact.name = @"New Email Address";
                 }
             }
             [causeSelectDidComplete didChooseCause: contact];
@@ -418,7 +430,7 @@
     Contact* contact = [[[Contact alloc] init] autorelease];
     
     contact.name = [[txtSearchBox text] copy];
-    contact.recipientUri = [[txtSearchBox text] copy];
+    [contact.paypoints addObject: [[txtSearchBox text] copy]];
     
     [causeSelectDidComplete didChooseCause: contact];
     [self.navigationController popViewControllerAnimated:YES];
@@ -573,26 +585,29 @@
         NSRange hasSimilarity;
         for ( NSMutableArray*arr3 in allResults ){
             for ( Contact*contact in arr3 ){
-                hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                
-                if ( hasSimilarity.location == NSNotFound && contact.paypoint != NULL && [contact.paypoint length] > 0 ){
-                    hasSimilarity = [[[contact.paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
-                }
-                /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL && [contact.emailAddress length] > 0 ){
-                    hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                }*/
-                // Add $me code implementation ** TODO: **
-                
-                
-                if ( hasSimilarity.location != NSNotFound ){
-                    @try {
-                        [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
-                        foundFiltered = YES;
-                    }
-                    @catch (NSException* e) {
-                        NSLog(@"Exception: %@", e);
-                    }
+                for (NSString* paypoint in contact.paypoints)
+                {
+                    hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
                     
+                    if ( hasSimilarity.location == NSNotFound && paypoint != NULL && [paypoint length] > 0 ){
+                        hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
+                    }
+                    /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL && [contact.emailAddress length] > 0 ){
+                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                     }*/
+                    // Add $me code implementation ** TODO: **
+                    
+                    
+                    if ( hasSimilarity.location != NSNotFound ){
+                        @try {
+                            [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
+                            foundFiltered = YES;
+                        }
+                        @catch (NSException* e) {
+                            NSLog(@"Exception: %@", e);
+                        }
+                        
+                    }
                 }
             }
         }
@@ -662,7 +677,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         

@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
 #import "PayStreamViewController.h"
 #import "SendMoneyController.h"
 #import "RequestMoneyController.h"
@@ -71,7 +72,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Do any additional setup after loading the view from its nib.
     //setup internal viewpanel
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     [transactionsTableView setRowHeight:90];
@@ -661,6 +662,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [outgoingView setParent: self];
     [detailView addSubview: outgoingView.view];
     
+    
+    
     [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
     [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
     [detailView setOpened:YES animated:YES];
@@ -912,7 +915,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         
