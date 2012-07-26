@@ -8,6 +8,8 @@
 
 #import "PdThxAppDelegate.h"
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
+
 #import "PayStreamViewController.h"
 #import "SendMoneyController.h"
 #import "RequestMoneyController.h"
@@ -131,7 +133,7 @@
     
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     
@@ -476,7 +478,7 @@
     
     BOOL isValid = YES;
     
-    if(isValid && ([recipient.paypoints count] == 0 && recipient.paypoint == nil))
+    if(isValid && [recipient.paypoints count] == 0)
     {
         [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
         
@@ -498,7 +500,6 @@
         {
             if ([recipient.paypoints count] == 1)
             {
-                recipientUri = [recipient.paypoints objectAtIndex:0];
                 
                 CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
                 [controller setSecurityPinSwipeDelegate: self];
@@ -627,14 +628,20 @@
     
     contactHead.text = contact.name;
     
+    
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ( contact.paypoint ){
-        contactDetail.text = contact.paypoint;
+    } else if ( [contact.paypoints count] == 1 ){
+        contactDetail.text = [contact.paypoints objectAtIndex:0];
     } else if ([contact.paypoints count]) {
         contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
     } else {
         contactDetail.text = @"No Info to Display";
+    }
+    
+    if ([contact.paypoints count] == 1)
+    {
+        recipientUri = [contact.paypoints objectAtIndex:0];
     }
     
 }
@@ -650,7 +657,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         
