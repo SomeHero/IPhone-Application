@@ -396,6 +396,7 @@
 }
 
 -(IBAction) btnSendRequestClicked:(id)sender {
+    [txtComments resignFirstResponder];
     
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
