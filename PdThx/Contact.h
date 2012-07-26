@@ -33,6 +33,8 @@
 @property(nonatomic, retain) NSString *lastName;
 @property(nonatomic, retain) NSString *recipientUri;
 @property(nonatomic, retain) NSString* recipientId;
+
+//Nice one justin..
 @property(nonatomic, retain) NSString* prefferedAccountId;
 
 -(NSComparisonResult)compare:(Contact*)otherContact;

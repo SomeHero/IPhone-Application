@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
 #import "PayStreamViewController.h"
 #import "SendMoneyController.h"
 #import "RequestMoneyController.h"
@@ -41,7 +42,7 @@
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [viewPanel.layer setMasksToBounds:YES];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     NSError *error;
@@ -93,7 +94,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         

@@ -71,8 +71,6 @@
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-    [self setTitle:@"Details"];
-    
     self.navigationItem.rightBarButtonItem = settingsButtons;
     [settingsButtons release];
     NSError *error;
@@ -116,6 +114,8 @@
 - (void)pullableView:(PullableView *)pView startedAnimation:(float)animationDuration withDirection:(BOOL)directionBoolean {
     
 }
+
+
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
@@ -136,7 +136,6 @@
     
     titleView.text = title;
     [titleView sizeToFit];
-    
 }
 
 

@@ -7,6 +7,8 @@
 //
 #import "PdThxAppDelegate.h"
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
+
 #import "PayStreamViewController.h"
 #import "SendMoneyController.h"
 #import "RequestMoneyController.h"
@@ -43,6 +45,7 @@
     }
     return self;
 }
+
 - (void)dealloc
 {
     /*  ------------------------------------------------------ */
@@ -141,7 +144,7 @@
     
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     contactButtonBGImage.highlighted = NO;
@@ -155,7 +158,6 @@
         [lm startUpdatingLocation];
     }
     
-    
     /*         Button Visiblity Handling        */
     /*  --------------------------------------- */
     chooseRecipientButton.backgroundColor = [UIColor clearColor];
@@ -164,7 +166,6 @@
     [recipientImageButton.layer setMasksToBounds:YES];
     [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
     [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
-    
     
     
     /*          Services/ViewController Initialization         */
@@ -190,6 +191,7 @@
     [txtAmount setDelegate:self];
     txtAmount.text = @"0.00";
     
+    NSLog(@"Inside view did load, resetting recipient object/labels");
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     NSError *error;
@@ -473,6 +475,7 @@
 }
 -(void)didChooseContact:(Contact *)contact
 {
+    NSLog(@"Returned with Contact from ContactSelectVC");
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
@@ -545,7 +548,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         

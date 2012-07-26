@@ -294,7 +294,7 @@
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
             
-            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
+            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend", contact.facebookID];
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
@@ -335,7 +335,7 @@
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
             
-            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook User#%@", contact.facebookID];
+            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend", contact.facebookID];
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
@@ -662,7 +662,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         
