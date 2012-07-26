@@ -306,6 +306,9 @@
 
 
 -(IBAction) btnSignInClicked:(id) sender {
+    [txtEmailAddress resignFirstResponder];
+    [txtPassword resignFirstResponder];
+    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Checking password"];
 	
