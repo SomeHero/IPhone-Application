@@ -14,6 +14,7 @@
 
 @implementation SelectRecipientViewController
 @synthesize selectRecipientPicker, recipientUriOutputs, recipientUris;
+@synthesize selectRecipientDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [selectRecipientPicker setDelegate:self];
+    [selectRecipientPicker setDataSource:self];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -36,6 +39,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [selectRecipientPicker reloadAllComponents];
+    [super viewWillAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

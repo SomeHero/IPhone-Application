@@ -20,6 +20,7 @@
 @property (retain, nonatomic) IBOutlet UIPickerView *selectRecipientPicker;
 @property (retain, nonatomic) NSArray* recipientUris;
 @property (retain, nonatomic) NSArray* recipientUriOutputs;
+@property (retain) id<SelectRecipientProtocol> selectRecipientDelegate;
 
 - (IBAction)btnSelectRecipientClicked:(id)sender;
 

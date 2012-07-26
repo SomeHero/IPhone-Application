@@ -19,6 +19,7 @@
 }
 
 @property(retain) id sendMoneyCompleteDelegate;
+@property(retain) id determineRecipientCompleteDelegate;
 
 -(void) sendMoney:(NSString *)theAmount toRecipient:(NSString*)recipientId withRecipientUri:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
 fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount withFromLatitude:(double)latitude

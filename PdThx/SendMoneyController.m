@@ -315,7 +315,6 @@
         
         if([user.preferredPaymentAccountId length] > 0)
         {
-<<<<<<< HEAD
             if ([recipient.paypoints count] == 1)
             {
                 recipientUri = [recipient.paypoints objectAtIndex:0];
@@ -323,7 +322,11 @@
                 CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
                 [controller setSecurityPinSwipeDelegate: self];
                 [controller setNavigationTitle: @"Confirm"];
-                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+                
+                if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+                else
+                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
                 
                 [self presentModalViewController:controller animated:YES];
             }
@@ -331,20 +334,10 @@
                 
                 PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
                 [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@"Talking with the server to retrive valid recipients.."];
+                [sendMoneyService setDetermineRecipientCompleteDelegate:self];
                 [sendMoneyService determineRecipient:recipient.paypoints];
             }
-=======
-            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-            [controller setSecurityPinSwipeDelegate: self];
-            [controller setNavigationTitle: @"Confirm"];
             
-            if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
-                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-            else
-                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
-            
-            [self presentModalViewController:controller animated:YES];
->>>>>>> upstream/development
         } else {
             AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
             controller.newUserFlow = false;
@@ -384,14 +377,17 @@
 
 -(void) determineRecipientDidComplete: (NSArray*) recipients
 {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
     SelectRecipientViewController* controller= [[SelectRecipientViewController alloc] init];
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-    [controller setNavigationTitle:@"Select Recipient"];
+    [controller setSelectRecipientDelegate:self];
     
     if (recipients == nil)
     {	
         controller.recipientUris = recipient.paypoints;
         controller.recipientUriOutputs = recipient.paypoints;
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
         [self presentModalViewController:navBar animated:YES];
     }
     else {
@@ -409,6 +405,7 @@
             
             controller.recipientUris = recipientUris;
             controller.recipientUriOutputs = recipientStrings;
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             [self presentModalViewController: navBar animated:YES];
         }
         else
@@ -428,7 +425,26 @@
 
 -(void) determineRecipientDidFail: (NSString*) message
 {
-    [self showAlertView:@"Finding matching recipient uris failed. Please pick one." withMessage:message];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Finding matching recipient uris failed. Please pick one." withDetailedStatus:message];
+}
+
+-(void) selectRecipient:(NSString *)uri;
+{
+    self.recipientUri = uri;
+    
+    [self dismissModalViewControllerAnimated:NO];
+    
+    CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    [controller setNavigationTitle: @"Confirm"];
+    
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+    else
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+    
+    [self presentModalViewController:controller animated:YES];
 }
 
 

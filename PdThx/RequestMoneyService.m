@@ -169,6 +169,8 @@
 - (void)dealloc
 {
     [requestObj release];
+    [determineRecipientCompleteDelegate release];
+    [requestMoneyCompleteDelegate release];
     
     [super dealloc];
 }
