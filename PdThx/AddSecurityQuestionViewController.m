@@ -80,6 +80,9 @@
     [navigationTitle release];
     [headerText release];
     
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 - (IBAction)showQuestionPicker:(id)sender {

@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequest.h"
 #import "SendMoneyCompleteProtocol.h"
+#import "DetermineRecipientCompleteProtocol.h"
 
 
 @interface SendMoneyService : NSObject {
     ASIHTTPRequest* requestObj;
     id<SendMoneyCompleteProtocol> sendMoneyCompleteDelegate;
+    id<DetermineRecipientCompleteProtocol> determineRecipientCompleteDelegate;
 }
 
 @property(retain) id sendMoneyCompleteDelegate;

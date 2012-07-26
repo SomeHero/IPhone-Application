@@ -13,8 +13,9 @@
 #import "UserService.h"
 #import <MessageUI/MessageUI.h>
 #import "FacebookSignIn.h"
+#import "SignedOutTabBarManager.h"
 
-@interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate> {
+@interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate,SignedOutTabBarDelegate> {
     IBOutlet UIButton *btnCreateAccount;
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
@@ -42,6 +43,7 @@
 @property(retain) id achSetupCompleteDelegate;
 @property(nonatomic, assign) float animatedDistance;
 
+@property (nonatomic, retain) SignedOutTabBarManager *tabBar;
 
 -(IBAction) bgTouched:(id) sender;
 - (IBAction)signInWithFacebookClicked:(id)sender;

@@ -107,6 +107,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [userService getUserInformation:userId];
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    lblUserName.text = @"";
+    lblScore.text = @"";
+    lblPayPoints.text = @"";
+    lblPaystreamCount.text = @"";
+}
+
 -(void)userInformationDidComplete:(User*) user 
 {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];

@@ -34,6 +34,7 @@
     service.fbSignInCompleteDelegate = self;
     
 }
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

@@ -11,6 +11,7 @@
 #import <AddressBook/AddressBook.h>
 #import "ProfileController.h"
 #import "PdThxAppDelegate.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @implementation UIBaseViewController
 
@@ -28,6 +29,7 @@ CGSize scrollViewOriginalSize;
 // Call this method somewhere in your view controller setup code.
 - (void)registerForKeyboardNotifications
 {
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardDidShowNotification object:nil];
@@ -35,8 +37,18 @@ CGSize scrollViewOriginalSize;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
-
+     */
 }
+
+
+/*
+- (void) keyboardWillHide:(NSNotification *)notification {
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    mainScrollView.contentInset = contentInsets;
+    mainScrollView.scrollIndicatorInsets = contentInsets;
+} 
+
 
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
@@ -66,6 +78,7 @@ CGSize scrollViewOriginalSize;
     }
 }
 
+
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
@@ -74,9 +87,12 @@ CGSize scrollViewOriginalSize;
     mainScrollView.scrollIndicatorInsets = contentInsets;
 }
 
+*/
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     currTextField = textField;
+    [mainScrollView adjustOffsetToIdealIfNeeded];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -86,7 +102,7 @@ CGSize scrollViewOriginalSize;
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
-    
+    [mainScrollView adjustOffsetToIdealIfNeeded];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -103,6 +119,8 @@ CGSize scrollViewOriginalSize;
 {
     [mainScrollView release];
     //[phoneNumberFormatter release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super dealloc];
 }

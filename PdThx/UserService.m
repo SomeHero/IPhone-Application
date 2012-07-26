@@ -15,7 +15,7 @@
 
 @implementation UserService
 
-@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate;
+@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
 
 -(id)init {
@@ -44,7 +44,7 @@
 -(void) getUserInformationComplete:(ASIHTTPRequest *)request
 {
     if ( [request responseStatusCode] == 200 ){
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+        //NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
         
         NSString *theJSON = [request responseString];
         
@@ -73,6 +73,70 @@
     [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
     
 }
+
+-(void)linkFacebookAccount:(NSString*)userId withFacebookId:(NSString*)facebookId withAuthToken:(NSString*)token
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/link_to_account", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    
+    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              apiKey, @"ApiKey",
+                              token, @"AuthToken",
+                              facebookId, @"FacebookId",
+                              nil];
+    
+    NSString* newJSON = [userData JSONRepresentation];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(linkFbAccountSuccess:)];
+    [requestObj setDidFailSelector:@selector(linkFbAccountFailed:)];
+    [requestObj startAsynchronous];
+}
+
+-(void) linkFbAccountSuccess: (ASIHTTPRequest *)request {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 200 || [request responseStatusCode ] == 201 ) {
+        NSLog(@"Linking facebook account success!");
+        
+        [linkFbAccountDelegate linkFbAccountDidSucceed];
+        
+    } else
+    {
+        NSLog(@"%@", [request responseStatusMessage]);
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        // NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        
+        [linkFbAccountDelegate linkFbAccountDidFail];
+        
+        NSLog(@"Linking FB Account Error Code %d", [request responseStatusCode]);
+    }
+}
+-(void) linkFbAccountFailed:(ASIHTTPRequest *)request
+{
+    NSString* message = [NSString stringWithFormat: @"Unable to change security pin.  Unhandled Exception"];
+    
+    [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
+    
+    NSLog(@"Security Pin Failed with Exception");
+}
+
 
 -(void) setupSecurityPin:(NSString*) userId WithPin: (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -104,7 +168,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               oldSecurityPin, @"currentSecurityPin",

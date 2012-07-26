@@ -169,12 +169,12 @@
         
             addSecurityQuestionController = [[[AddSecurityQuestionViewController alloc] init] retain];
         
-            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
+            UINavigationController *naviBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
         
             [addSecurityQuestionController setSecurityQuestionEnteredDelegate:self];
             [addSecurityQuestionController setNavigationTitle: @"Add a Security Question"];
         
-            [self presentModalViewController:navBar animated:YES];
+            [self presentModalViewController:naviBar animated:YES];
         
             [navBar release];
         
@@ -260,6 +260,9 @@
 -(void)delete:(id)sender {
         
     [super dealloc];
+    
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [navBarTitle release];
     [headerText release];

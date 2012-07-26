@@ -50,8 +50,6 @@
 
 -(IBAction)btnInfoClicked:(id)sender
 {
-    UIButton* buttonClicked = (UIButton*)sender;
-    
     [detailInfoButtonClicked infoButtonClicked: merchantId];
     
 }

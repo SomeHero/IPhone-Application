@@ -38,6 +38,7 @@
 
     SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
     [setupNavBar setActiveState:@"Personalize" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:NO whereEnableComplete:NO];
+
     [navBar addSubview:setupNavBar];
     
     [self setTitle: @"Personalize"];
@@ -105,6 +106,9 @@
     [lastNameField release];
     [saveContinueButton release];
     [userService release];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super dealloc];
 }
 - (IBAction)pressedSaveContinue:(id)sender 
@@ -116,13 +120,13 @@
     if(user.imageUrl != (id)[NSNull null])
         imageUrl = user.imageUrl;
     
-    //[appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
+    [appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
     [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: imageUrl];
 }
 -(void) personalizeUserDidComplete {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    //[appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
+    [appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }
 -(void) personalizeUserDidFail:(NSString*) response {
@@ -149,11 +153,11 @@
 -(IBAction) chooseImageClicked:(id) sender {
     ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
     [controller setChooseMemberImageDelegate: self];
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    UINavigationController *naviBar=[[UINavigationController alloc]initWithRootViewController:controller];
     [controller setTitle: @"Select Picture"];
     
-    [self presentModalViewController:navBar animated:YES];
-    [navBar release];
+    [self presentModalViewController:naviBar animated:YES];
+    [naviBar release];
     [controller release];
 }
 -(void)chooseMemberImageDidComplete: (NSString*) imageUrl 
@@ -180,5 +184,6 @@
     return NO; // We do not want UITextField to insert line-breaks.
     
 }
+
 
 @end

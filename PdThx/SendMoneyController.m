@@ -53,6 +53,9 @@
     [sendMoneyService release];
     [lm release];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    
     /*  ------------------------------------------------------ */
     /*                Image/TextField Releases                 */
     /*  ------------------------------------------------------ */
@@ -96,7 +99,7 @@
     if ( [txtComments.text length] > 0 ) {
         dummyCommentPlaceholder.placeholder = @"";
     } else {
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.t";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     }
     
     if ( [txtComments.text length] <= 140 ){
@@ -115,7 +118,7 @@
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     if ( txtComments.text.length == 0 )
-        dummyCommentPlaceholder.placeholder = @"For what? Enter comments, tags, etc.";
+        dummyCommentPlaceholder.placeholder = @"Enter a comment or message.";
     else {
         dummyCommentPlaceholder.placeholder = @"";
     }
@@ -196,6 +199,7 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changedCommentBox:) name:@"UITextViewTextDidChangeNotification" object:nil];
+    
     
     tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:2];
 }
@@ -313,7 +317,11 @@
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+            
+            if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+            else
+                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
             
             [self presentModalViewController:controller animated:YES];
         } else {
@@ -606,6 +614,8 @@
         
     }
 }
+
+
 
 @end
 

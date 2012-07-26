@@ -38,7 +38,7 @@ typedef NSUInteger TSPopoverArrowPosition;
     id<ContactTypeSelectWasSelectedDelegate> contactSelectWasSelected;
 }
 
-@property(nonatomic) id contactSelectWasSelected;
+@property(nonatomic, retain) id contactSelectWasSelected;
 
 @property (strong, nonatomic) UIViewController *contentViewController;
 @property (strong, nonatomic) UIView *contentView;

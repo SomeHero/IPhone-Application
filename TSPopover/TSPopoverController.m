@@ -207,7 +207,7 @@
      ];
 
 }
--(void)contactWasSelected:(NSString*)contactType {
+-(void)contactWasSelected:(NSInteger)contactType {
     [self dismissPopoverAnimatd:YES];
     
     [contactSelectWasSelected contactWasSelected:contactType];

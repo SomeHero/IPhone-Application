@@ -11,6 +11,7 @@
 #import "AccountListViewController.h"
 #import "MeCodeSetupViewController.h"
 #import "ChangePasswordViewController.h"
+#import "UserService.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400
@@ -125,11 +126,11 @@
     return [profileSection count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tblView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
 
-    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UIProfileTableViewCell *cell = [tblView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil){
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
@@ -236,6 +237,40 @@
                 {
                     EmailAccountListViewController* controller = [[EmailAccountListViewController alloc] init];
                     [self.navigationController pushViewController:controller animated:YES]; 
+                    
+                    [controller release];
+                    
+                    break;
+                }
+/*
+case 1:
+                {
+                    Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+                    
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    
+                    if ([defaults objectForKey:@"FBAccessTokenKey"] 
+                        && [defaults objectForKey:@"FBExpirationDateKey"]) {
+                        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+                        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+                    }
+                    
+                    if ( [fBook isSessionValid] )
+                    {
+                        [fBook requestWithGraphPath:@"me" andDelegate:self];
+                    }
+                    else {
+                        [fBook authorize:((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).permissions];
+                    }
+                    break;
+                }
+*/
+                case 1: 
+                {
+                    TwitterRushViewController* controller =
+                    [[TwitterRushViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
                     
                     [controller release];
                     
@@ -379,6 +414,30 @@
     }
     
 }
+
+-(void)linkFbAccountDidSucceed
+{
+    // Reload Contacts, Somehow.
+}
+
+
+
+-(void) request:(FBRequest *)request didLoad:(id)result
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [userService linkFacebookAccount:user.userId withFacebookId:[result objectForKey:@"id"] withAuthToken:[NSString stringWithFormat:[prefs  objectForKey:@"FBAccessTokenKey"]]];
+    
+    [prefs release];
+    
+    NSLog(@"Facebook Account Being Linked.");
+}
+
+-(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+{
+    NSLog(@"Error linking facebook account.");
+}
+
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
     switch (result)

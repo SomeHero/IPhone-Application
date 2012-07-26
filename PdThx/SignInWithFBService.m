@@ -42,7 +42,6 @@
     
     [prefs synchronize];
     
-    
     NSString * newJSON = [userData JSONRepresentation];
     
     requestObj= [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  

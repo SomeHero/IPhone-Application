@@ -10,10 +10,11 @@
 #import "PhoneNumberFormatting.h"
 #import "User.h"
 #import "PdThxAppDelegate.h"
+#import "TPKeyboardAvoidingScrollView.h"
 
 @interface UIModalBaseViewController : UIViewController<UITextFieldDelegate, UITextViewDelegate>
 {
-    IBOutlet UIScrollView *mainScrollView;
+    IBOutlet TPKeyboardAvoidingScrollView *mainScrollView;
     IBOutlet UINavigationItem *navigationItem;
     IBOutlet UILabel* lblHeader;
     NSObject *currTextField;
@@ -23,7 +24,7 @@
     User* user;
 }
 
-@property(nonatomic, retain) UIScrollView *mainScrollView;
+@property(nonatomic, retain) TPKeyboardAvoidingScrollView *mainScrollView;
 @property(nonatomic, retain) NSString* navigationTitle;
 @property(nonatomic, retain) NSString* headerText;
 

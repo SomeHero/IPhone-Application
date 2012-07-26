@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface AboutPageViewController : UIViewController
+#import "SignedOutTabBarManager.h"
+
+@interface AboutPageViewController : UIViewController <SignedOutTabBarDelegate>
 {
     IBOutlet UIView *viewPanel;
 
@@ -20,5 +22,6 @@
 - (IBAction)linkToMobileWeb:(id)sender;
 @property (nonatomic, retain) UIView *viewPanel;
 @property (retain, nonatomic) IBOutlet UIWebView *videoView;
+@property (nonatomic, retain) SignedOutTabBarManager *tabBar;
 
 @end
