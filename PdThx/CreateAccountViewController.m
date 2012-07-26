@@ -277,6 +277,10 @@
 }
 - (IBAction)signInWithFacebookClicked:(id)sender 
 {
+    
+    [txtEmailAddress resignFirstResponder];
+    [txtPassword resignFirstResponder];
+    [txtConfirmPassword resignFirstResponder];
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Please Wait" withDetailedStatus:@"Facebook Loading"];
     [faceBookSignInHelper signInWithFacebook: self];
@@ -298,6 +302,10 @@
 
 -(IBAction) btnCreateAccountClicked:(id) sender {
     
+    
+    [txtEmailAddress resignFirstResponder];
+    [txtPassword resignFirstResponder];
+    [txtConfirmPassword resignFirstResponder];
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Signing up" withDetailedStatus:@"Checking connection"];
     

@@ -358,6 +358,9 @@
 }
 
 - (IBAction)signInWithFacebookClicked:(id)sender {
+    
+    [txtEmailAddress resignFirstResponder];
+    [txtPassword resignFirstResponder];
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
