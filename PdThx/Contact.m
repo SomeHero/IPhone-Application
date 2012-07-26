@@ -14,7 +14,7 @@
 @synthesize name, paypoint, facebookID, imgData, firstName, lastName;
 @synthesize recipientUri;
 @synthesize recipientId;
-@synthesize prefferedAccountId;
+@synthesize preferredAccountId;
 @synthesize paypoints;
 
 -(NSComparisonResult)compare:(Contact*)otherContact {

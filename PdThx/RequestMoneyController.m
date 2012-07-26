@@ -395,7 +395,7 @@
             for (NSUInteger i = 0; i < [recipients count]; i++)
             {
                 NSDictionary* uriInfo = (NSDictionary*)[recipients objectAtIndex:i];
-                [recipientUris addObject: [uriInfo objectForKey:@"userUri"]];
+                [recipientUris addObject: [NSString stringWithFormat:@"%@", [uriInfo objectForKey:@"userUri"]]];
                 [recipientStrings addObject: [NSString stringWithFormat:@"%@: %@ %@", [uriInfo objectForKey:@"userUri"], [uriInfo objectForKey:@"firstName"], [uriInfo objectForKey:@"lastName"]]];
             }
             
@@ -407,7 +407,7 @@
         else
         {
             NSDictionary* uriInfo = (NSDictionary*) [recipients objectAtIndex:0];
-            recipientUri = [uriInfo objectForKey:@"userUri"];
+            [self setRecipientUri: [NSString stringWithFormat:@"%@", [uriInfo valueForKey:@"userUri"]]];
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
@@ -427,7 +427,7 @@
 
 -(void) selectRecipient:(NSString *)uri;
 {
-    self.recipientUri = uri;
+    recipientUri = uri;
     
     [self dismissModalViewControllerAnimated:NO];
     
@@ -636,8 +636,6 @@
     } else {
         contactDetail.text = @"No Info to Display";
     }
-    
-    self.recipientUri = contact.recipientUri;
     
 }
 

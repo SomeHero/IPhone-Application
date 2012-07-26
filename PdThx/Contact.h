@@ -32,7 +32,7 @@
 @property(nonatomic, retain) NSString *lastName;
 @property(nonatomic, retain) NSString *recipientUri;
 @property(nonatomic, retain) NSString* recipientId;
-@property(nonatomic, retain) NSString* prefferedAccountId;
+@property(nonatomic, retain) NSString* preferredAccountId;
 @property(nonatomic, retain) NSMutableArray* paypoints;
 
 -(NSComparisonResult)compare:(Contact*)otherContact;

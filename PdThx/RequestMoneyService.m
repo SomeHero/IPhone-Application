@@ -13,7 +13,7 @@
 
 @implementation RequestMoneyService
 
-@synthesize requestMoneyCompleteDelegate;
+@synthesize requestMoneyCompleteDelegate, determineRecipientCompleteDelegate;
 
 -(id)init {
     self = [super init];
