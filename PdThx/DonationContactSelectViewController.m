@@ -624,6 +624,7 @@
         {
             
             SendMoneyController *gvc = [[SendMoneyController alloc]init];
+            [gvc viewDidLoad];
             [[self navigationController] pushViewController:gvc animated:NO];
             
             [gvc pressedChooseRecipientButton:self];

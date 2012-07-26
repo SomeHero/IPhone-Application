@@ -23,6 +23,8 @@
 #import "myProgressHud.h"
 #import "CustomAlertViewController.h"
 #import "HomeViewController.h"
+#import "WelcomeScreenViewController.h"
+#import "AboutPageViewController.h"
 
 @implementation PdThxAppDelegate
 
@@ -72,7 +74,6 @@
      */
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
-        
         currentReminderTab = 1;  
         
         ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
@@ -192,8 +193,15 @@
     [mainAreaTabBarController.view removeFromSuperview];
     
     [mainAreaTabBarController.navigationController popToRootViewControllerAnimated:NO];
+    
+    WelcomeScreenViewController *gvc = [[WelcomeScreenViewController alloc]init];
+    welcomeTabBarController = [[UINavigationController alloc] initWithRootViewController:gvc];
+    [gvc release];
+    
     [self.window addSubview:self.welcomeTabBarController.view];
-    [self.welcomeTabBarController setSelectedIndex:1];
+    
+    // TODO: Set tab bar tab to 0/1
+    
     [self.window bringSubviewToFront:self.welcomeTabBarController.view];
     
     // Keep Progress Bar & Alert Views on top
@@ -213,6 +221,7 @@
     
     // Override point for customization after application launch.
     permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
+    
     [mainAreaTabBarController setDelegate:self];
     
     Environment *myEnvironment = [Environment sharedInstance];
@@ -234,8 +243,12 @@
     [hvc release];
     
     [self.welcomeTabBarController setDelegate:self];
+    
+    WelcomeScreenViewController *gvc = [[WelcomeScreenViewController alloc]init];
+    welcomeTabBarController = [[UINavigationController alloc] initWithRootViewController:gvc];
+    [gvc release];
+    
     [self.window addSubview:self.welcomeTabBarController.view];
-    [self.welcomeTabBarController setSelectedIndex:0];
     [self.window bringSubviewToFront:welcomeTabBarController.view];
     
     
@@ -485,12 +498,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSLog ( @"%@" , jsonString );
         
         // Load Paystream Detail View
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:([UIApplication sharedApplication].applicationIconBadgeNumber+1)];
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[defaults integerForKey:@"PaystreamNotificationCount"]];
     }
 }
-
-
-
 
 -(void)didSelectButtonWithIndex:(int)index
 {

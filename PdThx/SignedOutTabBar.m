@@ -6,38 +6,32 @@
 //  Copyright 2011 Webpreneur LLC. All rights reserved.
 //
 
-#import "HBCustomTabBar.h"
+#import "SignedOutTabBar.h"
+#import "PdThxAppDelegate.h"
 
 
-@implementation HBCustomTabBar
+@implementation SignedOutTabBar
 
 @synthesize firstTabButton,
-            secondTabButton,
-            centerTabButton,
-            fourthTabButton,
-            fifthTabButton;
+secondTabButton,
+thirdTabButton,
+fourthTabButton;
 
 @synthesize firstTabImage,
-            secondTabImage,
-            centerTabImage,
-            fourthTabImage,
-            fifthTabImage;
+secondTabImage,
+thirdTabImage,
+fourthTabImage;
 
 
 @synthesize firstTabLabel,
 secondTabLabel,
-centerTabLabel,
-fourthTabLabel,
-fifthTabLabel;
-
+thirdTabLabel,
+fourthTabLabel;
 
 @synthesize firstTabSelectedOverlay,
 secondTabSelectedOverlay,
-centerTabSelectedOverlay,
-fourthTabSelectedOverlay,
-fifthTabSelectedOverlay;
-
-@synthesize paystreamCountLabel, paystreamCountImage;
+thirdTabSelectedOverlay,
+fourthTabSelectedOverlay;
 
 - (id)init
 {
@@ -45,7 +39,7 @@ fifthTabSelectedOverlay;
     if( self )
     {
         self.backgroundColor = [UIColor clearColor];
-        self.frame = CGRectMake(0, 360, 320, 59);
+        self.frame = CGRectMake(0, 364, 320, 52);
         self.opaque = NO;
     }
     return self;
@@ -55,34 +49,28 @@ fifthTabSelectedOverlay;
 {
     [firstTabImage release];
     [secondTabImage release];
-    [centerTabImage release];
+    [thirdTabImage release];
     [fourthTabImage release];
-    [fifthTabImage release];
     
     
     [firstTabButton release];
     [secondTabButton release];
-    [centerTabButton release];
+    [thirdTabButton release];
     [fourthTabButton release];
-    [fifthTabButton release];
-
+    
     
     
     [firstTabLabel release];
     [secondTabLabel release];
-    [centerTabLabel release];
+    [thirdTabLabel release];
     [fourthTabLabel release];
-    [fifthTabLabel release];
     
     
     [firstTabSelectedOverlay release];
     [secondTabSelectedOverlay release];
-    [centerTabSelectedOverlay release];
+    [thirdTabSelectedOverlay release];
     [fourthTabSelectedOverlay release];
-    [fifthTabSelectedOverlay release];
     
-    [paystreamCountLabel release];
-    [paystreamCountImage release];
     [super dealloc];
 }
 

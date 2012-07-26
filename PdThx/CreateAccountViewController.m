@@ -12,6 +12,11 @@
 #import "AddACHAccountViewController.h"
 #import "PdThxAppDelegate.h"
 
+#import "HomeViewController.h"
+#import "WelcomeScreenViewController.h"
+#import "SignInViewController.h"
+#import "AboutPageViewController.h"
+
 #define kScreenWidth  320
 #define kScreenHeight  400
 
@@ -31,6 +36,8 @@
 @synthesize btnCreateAccount, viewPanel;
 @synthesize achSetupCompleteDelegate, animatedDistance;
 
+@synthesize tabBar;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +50,7 @@
 
 - (void)dealloc
 {
+    [tabBar release];
     [txtEmailAddress release];
     [txtPassword release];
     [txtConfirmPassword release];
@@ -145,6 +153,8 @@
 {
     [super viewDidLoad];
     
+    tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:2];
+    
     faceBookSignInHelper = [[FacebookSignIn alloc] init];
     registerUserService = [[RegisterUserService alloc] init];
     [registerUserService setUserRegistrationCompleteDelegate: self];
@@ -176,6 +186,7 @@
 
 - (void)viewDidUnload
 {
+    self.tabBar = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -359,6 +370,66 @@
 }
 -(void)achSetupDidComplete {
     [achSetupCompleteDelegate achSetupDidComplete];
+}
+
+
+
+- (void)tabBarClicked:(NSUInteger)buttonIndex
+{
+    if( buttonIndex == 0 )
+    {
+        //This is the home tab already so don't do anything
+        WelcomeScreenViewController *gvc = [[WelcomeScreenViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 1 )
+    {
+        //Switch to the groups tab
+        SignInViewController *gvc = [[SignInViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigation controller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
+    if( buttonIndex == 2 )
+    {
+        /*
+        //Switch to the groups tab
+        CreateAccountViewController *gvc = [[CreateAccountViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigationcontroller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+        */
+    }
+    if( buttonIndex == 3 )
+    {
+        //Switch to the groups tab
+        AboutPageViewController *gvc = [[AboutPageViewController alloc]init];
+        [[self navigationController] pushViewController:gvc animated:NO];
+        [gvc release];
+        
+        //Remove the view controller this is coming from, from the navigationcontroller stack
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+    }
 }
 
 
