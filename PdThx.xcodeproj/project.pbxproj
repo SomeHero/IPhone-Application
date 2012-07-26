@@ -650,6 +650,8 @@
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
+		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
+		C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C334D27715BF248F00923348 /* SelectRecipientViewController.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
 		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
 		D57F91EE15B84E0F007A4C3C /* EnterVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */; };
@@ -1534,6 +1536,10 @@
 		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		C334D26F15BDE9DA00923348 /* DetermineRecipientCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetermineRecipientCompleteProtocol.h; sourceTree = "<group>"; };
+		C334D27515BF248D00923348 /* SelectRecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientViewController.h; sourceTree = "<group>"; };
+		C334D27615BF248E00923348 /* SelectRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientViewController.m; sourceTree = "<group>"; };
+		C334D27715BF248F00923348 /* SelectRecipientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientViewController.xib; sourceTree = "<group>"; };
+		C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectRecipientProtocol.h; sourceTree = "<group>"; };
 		C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordCompleteProtocol.h; sourceTree = "<group>"; };
 		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
 		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
@@ -1954,6 +1960,9 @@
 				54A139AA15826E8000668984 /* Contact Table View */,
 				54A139A215826B0900668984 /* AmountSelectViewController.h */,
 				54A139A315826B0900668984 /* AmountSelectViewController.m */,
+				C334D27515BF248D00923348 /* SelectRecipientViewController.h */,
+				C334D27615BF248E00923348 /* SelectRecipientViewController.m */,
+				C334D27715BF248F00923348 /* SelectRecipientViewController.xib */,
 			);
 			name = "Send/Request Money";
 			sourceTree = "<group>";
@@ -3032,6 +3041,7 @@
 				54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */,
 				54D23F9015BDCC660037719A /* FBHelperReturnProtocol.h */,
 				C334D26F15BDE9DA00923348 /* DetermineRecipientCompleteProtocol.h */,
+				C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -3858,6 +3868,7 @@
 				5BED071815B9E89400D4110A /* twitter_load.png in Resources */,
 				5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */,
 				54D23F8F15BDCA6E0037719A /* HomeViewControllerV2.xib in Resources */,
+				C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */,
 				54D23FC315BE52410037719A /* bg-home-new-308x64.png in Resources */,
 				54D23FC415BE52410037719A /* bg-home-new-308x64@2x.png in Resources */,
 				54D23FC515BE52410037719A /* bg-home-quick-289x14.png in Resources */,
@@ -4090,6 +4101,7 @@
 				5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */,
 				54D23F8E15BDCA6E0037719A /* HomeViewControllerV2.m in Sources */,
 				5BDDADC515BDE5A5007B733E /* ApplicationConfiguration.m in Sources */,
+				C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */,
 				54D23FD415BEF12B0037719A /* TPKeyboardAvoidingScrollView.m in Sources */,
 				54D23FE515BF8C080037719A /* SignedOutTabBar.m in Sources */,
 				54D23FEB15BF93970037719A /* SignedOutTabBarManager.m in Sources */,

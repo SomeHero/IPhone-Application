@@ -22,6 +22,7 @@
 #import "ContactSelectViewController.h"
 #import "AmountSelectViewController.h"
 #import "CustomSecurityPinSwipeController.h"
+#import "SelectRecipientViewController.h"
 
 #define kOFFSET_FOR_KEYBOARD 100.0
 #define tableHeight = 30;
@@ -370,6 +371,78 @@
     NSLog(@"Request Money Failed");
 }
 
+-(void) determineRecipientDidComplete: (NSArray*) recipients
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    SelectRecipientViewController* controller= [[SelectRecipientViewController alloc] init];
+    [controller setSelectRecipientDelegate:self];
+    
+    if (recipients == nil)
+    {	
+        controller.recipientUris = recipient.paypoints;
+        controller.recipientUriOutputs = recipient.paypoints;
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        [self presentModalViewController:navBar animated:YES];
+    }
+    else {
+        if ([recipients count] != 1)
+        {
+            NSMutableArray* recipientUris = [[NSMutableArray alloc] init];
+            NSMutableArray* recipientStrings = [[NSMutableArray alloc] init];
+            
+            for (NSUInteger i = 0; i < [recipients count]; i++)
+            {
+                NSDictionary* uriInfo = (NSDictionary*)[recipients objectAtIndex:i];
+                [recipientUris addObject: [NSString stringWithFormat:@"%@", [uriInfo objectForKey:@"userUri"]]];
+                [recipientStrings addObject: [NSString stringWithFormat:@"%@: %@ %@", [uriInfo objectForKey:@"userUri"], [uriInfo objectForKey:@"firstName"], [uriInfo objectForKey:@"lastName"]]];
+            }
+            
+            controller.recipientUris = recipientUris;
+            controller.recipientUriOutputs = recipientStrings;
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+            [self presentModalViewController: navBar animated:YES];
+        }
+        else
+        {
+            NSDictionary* uriInfo = (NSDictionary*) [recipients objectAtIndex:0];
+            [self setRecipientUri: [NSString stringWithFormat:@"%@", [uriInfo valueForKey:@"userUri"]]];
+            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+            [controller setSecurityPinSwipeDelegate: self];
+            [controller setNavigationTitle: @"Confirm"];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+            
+            [self presentModalViewController:controller animated:YES];            
+        }
+        
+    }
+}
+
+-(void) determineRecipientDidFail: (NSString*) message
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Finding matching recipient uris failed. Please pick one." withDetailedStatus:message];
+}
+
+-(void) selectRecipient:(NSString *)uri;
+{
+    recipientUri = uri;
+    
+    [self dismissModalViewControllerAnimated:NO];
+    
+    CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    [controller setNavigationTitle: @"Confirm"];
+    
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+    else
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+    
+    [self presentModalViewController:controller animated:YES];
+}
+
 
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
     if([recipientUriToTest length]  == 0)
@@ -403,7 +476,7 @@
     
     BOOL isValid = YES;
     
-    if(isValid && ![self isValidRecipientUri:recipientUri])
+    if(isValid && ([recipient.paypoints count] == 0 && recipient.paypoint == nil))
     {
         [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
         
@@ -423,25 +496,36 @@
         
         if([user.preferredPaymentAccountId length] > 0)
         {
-            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-            [controller setSecurityPinSwipeDelegate: self];
-            [controller setNavigationTitle: @"Confirm"];
+            if ([recipient.paypoints count] == 1)
+            {
+                recipientUri = [recipient.paypoints objectAtIndex:0];
+                
+                CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+                [controller setSecurityPinSwipeDelegate: self];
+                [controller setNavigationTitle: @"Confirm"];
+                
+                if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+                else
+                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+                
+                [self presentModalViewController:controller animated:YES];
+            }
+            else {
+                
+                PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+                [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@"Talking with the server to retrive valid recipients.."];
+                [requestMoneyService setDetermineRecipientCompleteDelegate:self];
+                [requestMoneyService determineRecipient:recipient.paypoints];
+            }
             
-            if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
-                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipient.name]];
-            else
-                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your request of $%0.2f from %@.", [amount doubleValue], recipientUri]];
-            
-            [self presentModalViewController:controller animated:YES];
         } else {
             AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
             controller.newUserFlow = false;
-            
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             
             [controller setNavBarTitle: @"Enable Payment"];
-            [controller setHeaderText: @"To complete requesting money, complete your account by adding a bank account"];
-            
+            [controller setHeaderText: @"To complete sending money, complete your account by adding a bank account"];
             [self presentModalViewController: navBar animated:YES];
         }
     }
@@ -545,15 +629,13 @@
     
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        contactDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        contactDetail.text = contact.emailAddress;
-    }else {
+    } else if ( contact.paypoint ){
+        contactDetail.text = contact.paypoint;
+    } else if ([contact.paypoints count]) {
+        contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
+    } else {
         contactDetail.text = @"No Info to Display";
     }
-    
-    self.recipientUri = contact.recipientUri;
     
 }
 
