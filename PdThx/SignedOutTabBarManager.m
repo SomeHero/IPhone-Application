@@ -29,6 +29,8 @@
     return self;
 }
 
+
+
 - (void)configureTabBar:(UIViewController *)vc selectedIndex:(NSInteger)index
 {
     NSArray *topLevelObjects = [[NSBundle mainBundle]loadNibNamed:@"SignedOutTabBar" owner:self options:nil];

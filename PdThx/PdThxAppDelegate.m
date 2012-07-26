@@ -74,7 +74,6 @@
      */
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
-        
         currentReminderTab = 1;  
         
         ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
@@ -506,12 +505,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSLog ( @"%@" , jsonString );
         
         // Load Paystream Detail View
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:([UIApplication sharedApplication].applicationIconBadgeNumber+1)];
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[defaults integerForKey:@"PaystreamNotificationCount"]];
     }
 }
-
-
-
 
 -(void)didSelectButtonWithIndex:(int)index
 {

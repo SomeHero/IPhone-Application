@@ -24,6 +24,8 @@
 - (void)configureTabBar:(UIViewController *)vc selectedIndex:(NSInteger)index;
 //All methods for loading up the proper view controllers
 
+-(void)setTabBarNotificationCount:(NSInteger)notifications;
+
 - (void)loadFirstTab:(id)selector;
 - (void)loadSecondTab:(id)selector;
 - (void)loadCenterTab:(id)selector;
