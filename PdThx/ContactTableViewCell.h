@@ -11,13 +11,13 @@
 @interface ContactTableViewCell : UITableViewCell
 {
     IBOutlet UIButton *contactImage;
-    IBOutlet UILabel *contactName;
+    IBOutlet UIWebView *contactNameWebView;
     IBOutlet UILabel *contactDetail;
     IBOutlet UIView *overLayView;
 }
 
 @property (nonatomic, retain) UIButton *contactImage;
-@property (nonatomic, retain) UILabel *contactName;
+@property (nonatomic, retain) UIWebView *contactNameWebView;
 @property (nonatomic, retain) UILabel *contactDetail;
 @property (nonatomic, retain) UIImage *imgData;
 

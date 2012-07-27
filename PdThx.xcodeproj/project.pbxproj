@@ -240,6 +240,10 @@
 		54D2403B15C1DF6D0037719A /* Hugo.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403715C1DF6D0037719A /* Hugo.png */; };
 		54D2403C15C1DF6D0037719A /* jamesSebastian.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403815C1DF6D0037719A /* jamesSebastian.png */; };
 		54D2403D15C1DF6D0037719A /* thomas.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403915C1DF6D0037719A /* thomas.png */; };
+		54D2404215C2D69A0037719A /* bg-instantlimit-124x45.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403E15C2D6990037719A /* bg-instantlimit-124x45.png */; };
+		54D2404315C2D69A0037719A /* bg-instantlimit-124x45@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2403F15C2D6990037719A /* bg-instantlimit-124x45@2x.png */; };
+		54D2404415C2D69A0037719A /* txt-yourinstantlimit-121x10.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2404015C2D6990037719A /* txt-yourinstantlimit-121x10.png */; };
+		54D2404515C2D69A0037719A /* txt-yourinstantlimit-121x10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D2404115C2D69A0037719A /* txt-yourinstantlimit-121x10@2x.png */; };
 		54D3A7D3159D353900364483 /* ProgressHudInnnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */; };
 		54D3A7D4159D353900364483 /* ProgressHudInnnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */; };
 		54D3A7E9159D61CA00364483 /* icon-iphone-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D3A7E8159D61C900364483 /* icon-iphone-57x57.png */; };
@@ -959,6 +963,10 @@
 		54D2403715C1DF6D0037719A /* Hugo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hugo.png; sourceTree = "<group>"; };
 		54D2403815C1DF6D0037719A /* jamesSebastian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jamesSebastian.png; sourceTree = "<group>"; };
 		54D2403915C1DF6D0037719A /* thomas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thomas.png; sourceTree = "<group>"; };
+		54D2403E15C2D6990037719A /* bg-instantlimit-124x45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-instantlimit-124x45.png"; sourceTree = "<group>"; };
+		54D2403F15C2D6990037719A /* bg-instantlimit-124x45@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-instantlimit-124x45@2x.png"; sourceTree = "<group>"; };
+		54D2404015C2D6990037719A /* txt-yourinstantlimit-121x10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "txt-yourinstantlimit-121x10.png"; sourceTree = "<group>"; };
+		54D2404115C2D69A0037719A /* txt-yourinstantlimit-121x10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "txt-yourinstantlimit-121x10@2x.png"; sourceTree = "<group>"; };
 		54D3A7D0159D353900364483 /* ProgressHudInnnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHudInnnerViewController.h; sourceTree = "<group>"; };
 		54D3A7D1159D353900364483 /* ProgressHudInnnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHudInnnerViewController.m; sourceTree = "<group>"; };
 		54D3A7D2159D353900364483 /* ProgressHudInnnerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressHudInnnerViewController.xib; sourceTree = "<group>"; };
@@ -2354,6 +2362,10 @@
 			isa = PBXGroup;
 			children = (
 				54D2403115C1DCB00037719A /* Temporary Hard Coded Contacts */,
+				54D2403E15C2D6990037719A /* bg-instantlimit-124x45.png */,
+				54D2403F15C2D6990037719A /* bg-instantlimit-124x45@2x.png */,
+				54D2404015C2D6990037719A /* txt-yourinstantlimit-121x10.png */,
+				54D2404115C2D69A0037719A /* txt-yourinstantlimit-121x10@2x.png */,
 				54D2402215C1A1940037719A /* btn-handle-quicksend-308x25-active.png */,
 				54D2402315C1A1940037719A /* btn-handle-quicksend-308x25-active@2x.png */,
 				54D2402415C1A1940037719A /* btn-handle-quicksend-308x25.png */,
@@ -3959,6 +3971,10 @@
 				54D2403B15C1DF6D0037719A /* Hugo.png in Resources */,
 				54D2403C15C1DF6D0037719A /* jamesSebastian.png in Resources */,
 				54D2403D15C1DF6D0037719A /* thomas.png in Resources */,
+				54D2404215C2D69A0037719A /* bg-instantlimit-124x45.png in Resources */,
+				54D2404315C2D69A0037719A /* bg-instantlimit-124x45@2x.png in Resources */,
+				54D2404415C2D69A0037719A /* txt-yourinstantlimit-121x10.png in Resources */,
+				54D2404515C2D69A0037719A /* txt-yourinstantlimit-121x10@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
