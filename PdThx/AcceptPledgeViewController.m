@@ -534,9 +534,10 @@
     
     if ( contact.facebookID.length > 0 ){
         causeDetail.text = @"Facebook Friend";
-    } else if ( contact.paypoint ){
+    } else if ( [contact.paypoints count] == 1 ) {
         causeDetail.text = contact.paypoint;
-    }else {
+    }
+    else {
         causeDetail.text = @"No Info to Display";
     }
     

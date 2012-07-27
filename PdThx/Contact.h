@@ -14,7 +14,6 @@
     NSString *name;
     NSString *firstName;
     NSString *lastName;
-    NSString *paypoint;
     NSString *facebookID;
     UIImage *imgData;
     NSString *recipientUri;
@@ -25,7 +24,6 @@
 
 @property(nonatomic, retain) NSString* userId;
 @property(nonatomic, retain) NSString* name;
-@property(nonatomic, retain) NSString* paypoint;
 @property(nonatomic, retain) NSString *facebookID;
 @property(nonatomic, retain) UIImage *imgData;
 @property(nonatomic, retain) NSString *firstName;
