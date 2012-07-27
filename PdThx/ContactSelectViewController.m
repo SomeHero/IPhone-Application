@@ -238,7 +238,7 @@
                 [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", @"No matches found"] baseURL:nil];
                 myCell.contactNameWebView.opaque = NO;
                 myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
-                 //[NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
+                //[NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
                 myCell.contactDetail.text = @"Continue typing or check entry";
                 myCell.userInteractionEnabled = NO;
                 
@@ -628,28 +628,40 @@
         NSRange hasSimilarity;
         for ( NSMutableArray*arr3 in allResults ){
             for ( Contact*contact in arr3 ){
+                hasSimilarity.location = NSNotFound;
                 for (NSString* paypoint in contact.paypoints)
                 {
-                // Check first case normally
-                hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                if ( hasSimilarity.location == NSNotFound && paypoint != NULL ){
-                    hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
-                }
-                /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
-                 hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                 }*/
-                // Add $me code implementation ** TODO: **
-                
-                if ( hasSimilarity.location != NSNotFound ){
-                    @try {
-                        [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
-                        foundFiltered = YES;
-                    }
-                    @catch (NSException* e) {
-                        NSLog(@"Exception: %@", e);
-                    }
+                    if ( hasSimilarity.location != NSNotFound )
+                        break;
                     
-                }
+                    // Check first case normally
+                    hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                    if ( hasSimilarity.location == NSNotFound && paypoint != NULL ){
+                        hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
+                    }
+                    /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
+                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                     }*/
+                    // Add $me code implementation ** TODO: **
+                    
+                    if ( hasSimilarity.location != NSNotFound ){
+                        @try 
+                        {
+                            if ( contact.lastName != (id)[NSNull null] && contact.lastName.length > 0 ){
+                                [[filteredResults objectAtIndex:((int)toupper([contact.lastName characterAtIndex:0]))-64] addObject:contact];
+                            } else if ( contact.firstName != (id)[NSNull null] && contact.firstName.length > 0 ) {
+                                [[filteredResults objectAtIndex:((int)toupper([contact.firstName characterAtIndex:0]))-64] addObject:contact];
+                            } else {
+                                [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
+                            }
+                            
+                            foundFiltered = YES;
+                        }
+                        @catch (NSException* e) {
+                            NSLog(@"Exception: %@", e);
+                        }
+                        
+                    }
                 }
             }
         }

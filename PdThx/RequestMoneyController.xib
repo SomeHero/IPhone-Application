@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1181</string>
@@ -138,7 +138,7 @@
 										<string key="NSFrame">{{5, 16}, {298, 58}}</string>
 										<reference key="NSSuperview" ref="620361931"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="961828259"/>
+										<reference key="NSNextKeyView" ref="484349109"/>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<object class="NSCustomResource" key="IBUIImage">
@@ -156,7 +156,7 @@
 										<string key="NSFrame">{{5, 16}, {57, 57}}</string>
 										<reference key="NSSuperview" ref="620361931"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="484349109"/>
+										<reference key="NSNextKeyView" ref="684263445"/>
 										<reference key="IBUIBackgroundColor" ref="627672576"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -290,7 +290,7 @@
 										<string key="NSFrame">{{5, 16}, {298, 58}}</string>
 										<reference key="NSSuperview" ref="620361931"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="684263445"/>
+										<reference key="NSNextKeyView" ref="961828259"/>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
@@ -1109,7 +1109,7 @@
 					</object>
 				</object>
 			</object>
-		</object>		
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
