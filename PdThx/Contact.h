@@ -16,7 +16,6 @@
     NSString *lastName;
     NSString *facebookID;
     UIImage *imgData;
-    NSString *recipientUri;
     NSString* recipientId;
     NSString* preferredAccountId;
     NSMutableArray* paypoints;
@@ -28,8 +27,8 @@
 @property(nonatomic, retain) UIImage *imgData;
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *lastName;
-@property(nonatomic, retain) NSString *recipientUri;
 @property(nonatomic, retain) NSString* recipientId;
+//Nice one justin.. you had preferred as preffered
 @property(nonatomic, retain) NSString* preferredAccountId;
 @property(nonatomic, retain) NSMutableArray* paypoints;
 
