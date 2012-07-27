@@ -235,6 +235,72 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [[self navigationController] setViewControllers:allViewControllers animated:NO];
             break;
         }
+        case 6:
+        {
+            SendMoneyController* dvc = [[SendMoneyController alloc] init];
+            [[self navigationController] pushViewController:dvc animated:NO];
+            [dvc viewDidLoad]; // Force load of SendMoneyViewController
+            
+            Contact *hugo = [[Contact alloc] init];
+            [hugo.paypoints addObject:[NSString stringWithString:@"8043170066"]];
+            hugo.firstName = @"Thomas";
+            hugo.lastName = @"Eide";
+            hugo.name = @"Thomas Eide";
+            hugo.imgData = [UIImage imageNamed:@"thomas.png"];
+            [dvc didChooseContact:hugo];
+            [dvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:self];
+            
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            break;
+        }
+        case 7:
+        {
+            SendMoneyController* dvc = [[SendMoneyController alloc] init];
+            [[self navigationController] pushViewController:dvc animated:NO];
+            [dvc viewDidLoad]; // Force load of SendMoneyViewController
+            
+            Contact *hugo = [[Contact alloc] init];
+            [hugo.paypoints addObject:[NSString stringWithString:@"8043879693"]];
+            hugo.firstName = @"James";
+            hugo.lastName = @"Rhodes";
+            hugo.name = @"James Rhodes";
+            hugo.imgData = [UIImage imageNamed:@"jamesSebastian.png"];
+            [dvc didChooseContact:hugo];
+            [dvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:self];
+            
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            break;
+        }
+        case 8:
+        {
+            SendMoneyController* dvc = [[SendMoneyController alloc] init];
+            [[self navigationController] pushViewController:dvc animated:NO];
+            [dvc viewDidLoad]; // Force load of SendMoneyViewController
+            
+            Contact *hugo = [[Contact alloc] init];
+            [hugo.paypoints addObject:[NSString stringWithString:@"$BSA2012"]];
+            hugo.firstName = @"Boy Scouts";
+            hugo.lastName = @"of America";
+            hugo.name = @"Boy Scouts of America";
+            hugo.imgData = [UIImage imageNamed:@"org_bsa.png"];
+            [dvc didChooseContact:hugo];
+            [dvc release];
+            
+            //Remove the view controller this is coming from, from the navigation controller stack
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:self];
+            
+            [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            break;
+        }
     }
     
 }

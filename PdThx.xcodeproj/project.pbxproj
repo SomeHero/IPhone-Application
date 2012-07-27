@@ -2340,6 +2340,7 @@
 		54D23F8915BDCA410037719A /* V1 */ = {
 			isa = PBXGroup;
 			children = (
+				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
 				5480586C159A3C7000ED591C /* HomeViewController.h */,
 				5480586D159A3C7000ED591C /* HomeViewController.m */,
 			);
@@ -3204,7 +3205,6 @@
 				541EE60C158A710B00131B0E /* Welcome Signed Out Flow */,
 				5BD278FA153E7F0300CAFC12 /* Dialogs */,
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
-				5BD27909154116C200CAFC12 /* HomeViewController.xib */,
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
 				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
 				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
