@@ -662,6 +662,8 @@
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
 		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
 		C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C334D27715BF248F00923348 /* SelectRecipientViewController.xib */; };
+		C38999E215C2EEED00D98387 /* SelectRecipientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C38999E115C2EEED00D98387 /* SelectRecipientCell.m */; };
+		C38999E415C2EF3B00D98387 /* SelectRecipientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
 		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
 		D57F91EE15B84E0F007A4C3C /* EnterVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */; };
@@ -1562,6 +1564,9 @@
 		C334D27615BF248E00923348 /* SelectRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientViewController.m; sourceTree = "<group>"; };
 		C334D27715BF248F00923348 /* SelectRecipientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientViewController.xib; sourceTree = "<group>"; };
 		C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectRecipientProtocol.h; sourceTree = "<group>"; };
+		C38999E015C2EEEC00D98387 /* SelectRecipientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientCell.h; sourceTree = "<group>"; };
+		C38999E115C2EEED00D98387 /* SelectRecipientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientCell.m; sourceTree = "<group>"; };
+		C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientCell.xib; sourceTree = "<group>"; };
 		C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordCompleteProtocol.h; sourceTree = "<group>"; };
 		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
 		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
@@ -1974,6 +1979,7 @@
 		54A139A815826C2200668984 /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				C38999DB15C2EE4600D98387 /* Select Recipient */,
 				5B5D08F21590048D00E90A1A /* TransactionConfirmationViewController.h */,
 				5B5D08F31590048D00E90A1A /* TransactionConfirmationViewController.m */,
 				5B5D08F41590048D00E90A1A /* TransactionConfirmationViewController.xib */,
@@ -1982,9 +1988,6 @@
 				54A139AA15826E8000668984 /* Contact Table View */,
 				54A139A215826B0900668984 /* AmountSelectViewController.h */,
 				54A139A315826B0900668984 /* AmountSelectViewController.m */,
-				C334D27515BF248D00923348 /* SelectRecipientViewController.h */,
-				C334D27615BF248E00923348 /* SelectRecipientViewController.m */,
-				C334D27715BF248F00923348 /* SelectRecipientViewController.xib */,
 			);
 			name = "Send/Request Money";
 			sourceTree = "<group>";
@@ -3428,6 +3431,19 @@
 			name = "Bank Account Management";
 			sourceTree = "<group>";
 		};
+		C38999DB15C2EE4600D98387 /* Select Recipient */ = {
+			isa = PBXGroup;
+			children = (
+				C334D27515BF248D00923348 /* SelectRecipientViewController.h */,
+				C334D27615BF248E00923348 /* SelectRecipientViewController.m */,
+				C334D27715BF248F00923348 /* SelectRecipientViewController.xib */,
+				C38999E015C2EEEC00D98387 /* SelectRecipientCell.h */,
+				C38999E115C2EEED00D98387 /* SelectRecipientCell.m */,
+				C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */,
+			);
+			name = "Select Recipient";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3959,6 +3975,7 @@
 				54D2403B15C1DF6D0037719A /* Hugo.png in Resources */,
 				54D2403C15C1DF6D0037719A /* jamesSebastian.png in Resources */,
 				54D2403D15C1DF6D0037719A /* thomas.png in Resources */,
+				C38999E415C2EF3B00D98387 /* SelectRecipientCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4165,6 +4182,7 @@
 				54D23FE515BF8C080037719A /* SignedOutTabBar.m in Sources */,
 				54D23FEB15BF93970037719A /* SignedOutTabBarManager.m in Sources */,
 				54D2402015C0B8730037719A /* QuickSendView.m in Sources */,
+				C38999E215C2EEED00D98387 /* SelectRecipientCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
