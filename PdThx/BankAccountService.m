@@ -190,7 +190,7 @@
     [requestObj setRequestMethod: @"POST"];	
     
     [requestObj setDelegate: self];
-    [requestObj setDidFinishSelector:@selector(setPreferedAccountDidComplete:)];
+    [requestObj setDidFinishSelector:@selector(setPreferredAccountDidComplete:)];
     [requestObj setDidFailSelector:@selector(setPreferredAccountDidFail:)];
     [requestObj startAsynchronous];
 }
@@ -244,5 +244,55 @@
     
     [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
 }
-
+-(void)verifyBankAccount:(NSString*)accountId forUserId: (NSString*)userId withFirstAmount:(double)firstAmount withSecondAmount:(double)secondAmount
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/verify_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    
+    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 //deviceId, @"deviceId",
+                                 accountId, @"PaymentAccountId",
+                                 nil];
+    
+    NSString *newJSON = [paymentData JSONRepresentation]; 
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];	
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(verifyBankAccountDidComplete:)];
+    [requestObj setDidFailSelector:@selector(verifyBankAccountDidFail:)];
+    [requestObj startAsynchronous];
+}
+-(void) verifyBankAccountDidComplete:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 200 ) {
+        
+        [preferredAccountDelegate setPreferredAccountDidComplete];
+        
+    }
+    else {
+        
+        NSLog(@"Error Verifying Bank Account");
+        
+        [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+        
+    }
+    
+    
+}
+-(void) verifyBankAccountDidFail:(ASIHTTPRequest *)request
+{
+    NSLog(@"Error Verifying Bank Account");
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+}
 @end

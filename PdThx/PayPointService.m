@@ -12,7 +12,7 @@
 
 @synthesize getPayPointsDelegate;
 @synthesize addPayPointCompleteDelegate;
-
+@synthesize payPointVerificationCompleteDelegate;
 
 -(void) getPayPoints:(NSString*) userId
 {
@@ -188,6 +188,116 @@
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     [addPayPointCompleteDelegate addPayPointsDidFail: [request responseString]];
+    
+}
+-(void) resendEmailVerificationLink:(NSString*)payPointId forUserId:(NSString*) userId
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PayPoints/resend_email_verification_link?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
+    
+    [rootUrl release];
+    [apiKey release];
+    
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          payPointId, @"UserPayPointId",
+                          nil];
+    
+    NSString *newJSON = [data JSONRepresentation]; 
+    
+    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
+    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setRequestMethod: @"POST"];	
+    
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(resendVerificationLinkCompleted:)];
+    [request setDidFailSelector:@selector(resendVerificationLinkFailed:)];
+    
+    [request startAsynchronous];
+}
+-(void) resendVerificationLinkCompleted:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 202) {
+        
+        [payPointVerificationCompleteDelegate payPointWasVerifiedComplete];
+        
+    }
+    else {
+        
+        NSLog(@"Error Answered Security Questions");
+        
+        [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
+        
+    }
+    
+    
+}
+-(void) resendVerificationLinkCompletedFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"Error Answering Security Questions");
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
+    
+}
+-(void) resendMobileVerificationCode:(NSString*)payPointId forUserId:(NSString*) userId {
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PayPoints/resend_mobile_verification_code?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
+    
+    [rootUrl release];
+    [apiKey release];
+    
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          payPointId, @"UserPayPointId",
+                          nil];
+    
+    NSString *newJSON = [data JSONRepresentation]; 
+    
+    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
+    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
+    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    [request appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setRequestMethod: @"POST"];	
+    
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(resendMobileVerificationCodeCompleted:)];
+    [request setDidFailSelector:@selector(resendMobileVerificationCodeFailed:)];
+    
+    [request startAsynchronous];
+}
+-(void) resendMobileVerificationCodeCompleted:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 200) {
+        
+        [payPointVerificationCompleteDelegate payPointWasVerifiedComplete];
+        
+    }
+    else {
+        
+        NSLog(@"Error Answered Security Questions");
+        
+        [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
+    }
+}
+-(void) resendMobileVerificationCodeFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"Error Answering Security Questions");
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
     
 }
 @end

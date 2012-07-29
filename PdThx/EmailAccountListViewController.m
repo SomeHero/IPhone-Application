@@ -122,7 +122,7 @@
             else
                 cell.lblDescription.text = @"Pending Verification";
             
-            cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+            cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-email-40x40.png"];
             //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
         }
     }
@@ -179,10 +179,12 @@
         case 0:
         {
             
-            VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
-            controller.emailAddress = [[emailAddresses objectAtIndex:indexPath.row]uri]; 
+            PayPoint* payPoint = [emailAddresses objectAtIndex:indexPath.row];
             
-            [controller setTitle: @"Phone #"];
+            VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
+            controller.payPoint = payPoint;
+            
+            [controller setTitle: @"Verify"];
             
             [self.navigationController pushViewController:controller animated:YES];
             break;

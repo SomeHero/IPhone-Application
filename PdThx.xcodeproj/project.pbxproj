@@ -547,6 +547,25 @@
 		5BD3DE25159E03AF00F698D5 /* SetupFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD3DE23159E03AF00F698D5 /* SetupFlowViewController.m */; };
 		5BD3DE26159E03AF00F698D5 /* SetupFlowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */; };
 		5BDDADC515BDE5A5007B733E /* ApplicationConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */; };
+		5BDDAE0B15C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE0915C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m */; };
+		5BDDAE1615C37F33007B733E /* VerifyACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1415C37F30007B733E /* VerifyACHAccountViewController.m */; };
+		5BDDAE1715C37F33007B733E /* VerifyACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1515C37F31007B733E /* VerifyACHAccountViewController.xib */; };
+		5BDDAE2515C39428007B733E /* smallButtonGray240x78_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1915C39428007B733E /* smallButtonGray240x78_a.png */; };
+		5BDDAE2615C39428007B733E /* smallButtonGray240x78.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1A15C39428007B733E /* smallButtonGray240x78.png */; };
+		5BDDAE2715C39428007B733E /* smallButtonGray240x78@2x_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1B15C39428007B733E /* smallButtonGray240x78@2x_a.png */; };
+		5BDDAE2815C39428007B733E /* smallButtonGray240x78@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1C15C39428007B733E /* smallButtonGray240x78@2x.png */; };
+		5BDDAE2915C39428007B733E /* smallButtonGreen240x78_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1D15C39428007B733E /* smallButtonGreen240x78_a.png */; };
+		5BDDAE2A15C39428007B733E /* smallButtonGreen240x78.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1E15C39428007B733E /* smallButtonGreen240x78.png */; };
+		5BDDAE2B15C39428007B733E /* smallButtonGreen240x78@2x_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE1F15C39428007B733E /* smallButtonGreen240x78@2x_a.png */; };
+		5BDDAE2C15C39428007B733E /* smallButtonGreen240x78@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE2015C39428007B733E /* smallButtonGreen240x78@2x.png */; };
+		5BDDAE2D15C39428007B733E /* smallButtonRed240x78_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE2115C39428007B733E /* smallButtonRed240x78_a.png */; };
+		5BDDAE2E15C39428007B733E /* smallButtonRed240x78.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE2215C39428007B733E /* smallButtonRed240x78.png */; };
+		5BDDAE2F15C39428007B733E /* smallButtonRed240x78@2x_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE2315C39428007B733E /* smallButtonRed240x78@2x_a.png */; };
+		5BDDAE3015C39428007B733E /* smallButtonRed240x78@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE2415C39428007B733E /* smallButtonRed240x78@2x.png */; };
+		5BDDAE3515C395E2007B733E /* buttonTallStandardActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE3115C395E1007B733E /* buttonTallStandardActive.png */; };
+		5BDDAE3615C395E2007B733E /* buttonTallStandardNA.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE3215C395E1007B733E /* buttonTallStandardNA.png */; };
+		5BDDAE3715C395E2007B733E /* buttonTallStandardActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE3315C395E1007B733E /* buttonTallStandardActive@2x.png */; };
+		5BDDAE3815C395E2007B733E /* buttonTallStandardNA@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE3415C395E1007B733E /* buttonTallStandardNA@2x.png */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -650,6 +669,8 @@
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
+		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
+		C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C334D27715BF248F00923348 /* SelectRecipientViewController.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
 		C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */; };
 		D57F91EE15B84E0F007A4C3C /* EnterVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */; };
@@ -1380,6 +1401,29 @@
 		5BD3DE24159E03AF00F698D5 /* SetupFlowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupFlowViewController.xib; sourceTree = "<group>"; };
 		5BDDADC315BDE5A5007B733E /* ApplicationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationConfiguration.h; sourceTree = "<group>"; };
 		5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationConfiguration.m; sourceTree = "<group>"; };
+		5BDDAE0815C1C7D1007B733E /* SelectAccountModalViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAccountModalViewControllerViewController.h; sourceTree = "<group>"; };
+		5BDDAE0915C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAccountModalViewControllerViewController.m; sourceTree = "<group>"; };
+		5BDDAE1115C2FD05007B733E /* ModalSelectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModalSelectProtocol.h; sourceTree = "<group>"; };
+		5BDDAE1215C36EF2007B733E /* PayPointVerificationCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayPointVerificationCompleteProtocol.h; sourceTree = "<group>"; };
+		5BDDAE1315C37F2F007B733E /* VerifyACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyACHAccountViewController.h; sourceTree = "<group>"; };
+		5BDDAE1415C37F30007B733E /* VerifyACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyACHAccountViewController.m; sourceTree = "<group>"; };
+		5BDDAE1515C37F31007B733E /* VerifyACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyACHAccountViewController.xib; sourceTree = "<group>"; };
+		5BDDAE1915C39428007B733E /* smallButtonGray240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGray240x78_a.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78_a.png"; sourceTree = "<group>"; };
+		5BDDAE1A15C39428007B733E /* smallButtonGray240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGray240x78.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78.png"; sourceTree = "<group>"; };
+		5BDDAE1B15C39428007B733E /* smallButtonGray240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGray240x78@2x_a.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78@2x_a.png"; sourceTree = "<group>"; };
+		5BDDAE1C15C39428007B733E /* smallButtonGray240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGray240x78@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78@2x.png"; sourceTree = "<group>"; };
+		5BDDAE1D15C39428007B733E /* smallButtonGreen240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGreen240x78_a.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78_a.png"; sourceTree = "<group>"; };
+		5BDDAE1E15C39428007B733E /* smallButtonGreen240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGreen240x78.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78.png"; sourceTree = "<group>"; };
+		5BDDAE1F15C39428007B733E /* smallButtonGreen240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGreen240x78@2x_a.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78@2x_a.png"; sourceTree = "<group>"; };
+		5BDDAE2015C39428007B733E /* smallButtonGreen240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGreen240x78@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78@2x.png"; sourceTree = "<group>"; };
+		5BDDAE2115C39428007B733E /* smallButtonRed240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonRed240x78_a.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78_a.png"; sourceTree = "<group>"; };
+		5BDDAE2215C39428007B733E /* smallButtonRed240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonRed240x78.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78.png"; sourceTree = "<group>"; };
+		5BDDAE2315C39428007B733E /* smallButtonRed240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonRed240x78@2x_a.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78@2x_a.png"; sourceTree = "<group>"; };
+		5BDDAE2415C39428007B733E /* smallButtonRed240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonRed240x78@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78@2x.png"; sourceTree = "<group>"; };
+		5BDDAE3115C395E1007B733E /* buttonTallStandardActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonTallStandardActive.png; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardActive.png"; sourceTree = "<group>"; };
+		5BDDAE3215C395E1007B733E /* buttonTallStandardNA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonTallStandardNA.png; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardNA.png"; sourceTree = "<group>"; };
+		5BDDAE3315C395E1007B733E /* buttonTallStandardActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "buttonTallStandardActive@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardActive@2x.png"; sourceTree = "<group>"; };
+		5BDDAE3415C395E1007B733E /* buttonTallStandardNA@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "buttonTallStandardNA@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardNA@2x.png"; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -1534,6 +1578,10 @@
 		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		C334D26F15BDE9DA00923348 /* DetermineRecipientCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetermineRecipientCompleteProtocol.h; sourceTree = "<group>"; };
+		C334D27515BF248D00923348 /* SelectRecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientViewController.h; sourceTree = "<group>"; };
+		C334D27615BF248E00923348 /* SelectRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientViewController.m; sourceTree = "<group>"; };
+		C334D27715BF248F00923348 /* SelectRecipientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientViewController.xib; sourceTree = "<group>"; };
+		C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectRecipientProtocol.h; sourceTree = "<group>"; };
 		C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordCompleteProtocol.h; sourceTree = "<group>"; };
 		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
 		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
@@ -1954,6 +2002,9 @@
 				54A139AA15826E8000668984 /* Contact Table View */,
 				54A139A215826B0900668984 /* AmountSelectViewController.h */,
 				54A139A315826B0900668984 /* AmountSelectViewController.m */,
+				C334D27515BF248D00923348 /* SelectRecipientViewController.h */,
+				C334D27615BF248E00923348 /* SelectRecipientViewController.m */,
+				C334D27715BF248F00923348 /* SelectRecipientViewController.xib */,
 			);
 			name = "Send/Request Money";
 			sourceTree = "<group>";
@@ -2620,6 +2671,7 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5BDDAE1815C39417007B733E /* Buttons */,
 				5B6D136615B262E800F37A11 /* Contact Type Select Images */,
 				540E635815AFE4AB0089A5F5 /* Custom Tab Bar Images */,
 				5B11966315AEF2FE003F8D53 /* Donate Images */,
@@ -3032,6 +3084,9 @@
 				54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */,
 				54D23F9015BDCC660037719A /* FBHelperReturnProtocol.h */,
 				C334D26F15BDE9DA00923348 /* DetermineRecipientCompleteProtocol.h */,
+				C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */,
+				5BDDAE1115C2FD05007B733E /* ModalSelectProtocol.h */,
+				5BDDAE1215C36EF2007B733E /* PayPointVerificationCompleteProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -3184,6 +3239,38 @@
 				5B11963815ADFC6A003F8D53 /* MerchantServices.m */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		5BDDAE0715C1C746007B733E /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				5BDDAE0815C1C7D1007B733E /* SelectAccountModalViewControllerViewController.h */,
+				5BDDAE0915C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m */,
+			);
+			name = Modals;
+			sourceTree = "<group>";
+		};
+		5BDDAE1815C39417007B733E /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				5BDDAE3115C395E1007B733E /* buttonTallStandardActive.png */,
+				5BDDAE3215C395E1007B733E /* buttonTallStandardNA.png */,
+				5BDDAE3315C395E1007B733E /* buttonTallStandardActive@2x.png */,
+				5BDDAE3415C395E1007B733E /* buttonTallStandardNA@2x.png */,
+				5BDDAE1915C39428007B733E /* smallButtonGray240x78_a.png */,
+				5BDDAE1A15C39428007B733E /* smallButtonGray240x78.png */,
+				5BDDAE1B15C39428007B733E /* smallButtonGray240x78@2x_a.png */,
+				5BDDAE1C15C39428007B733E /* smallButtonGray240x78@2x.png */,
+				5BDDAE1D15C39428007B733E /* smallButtonGreen240x78_a.png */,
+				5BDDAE1E15C39428007B733E /* smallButtonGreen240x78.png */,
+				5BDDAE1F15C39428007B733E /* smallButtonGreen240x78@2x_a.png */,
+				5BDDAE2015C39428007B733E /* smallButtonGreen240x78@2x.png */,
+				5BDDAE2115C39428007B733E /* smallButtonRed240x78_a.png */,
+				5BDDAE2215C39428007B733E /* smallButtonRed240x78.png */,
+				5BDDAE2315C39428007B733E /* smallButtonRed240x78@2x_a.png */,
+				5BDDAE2415C39428007B733E /* smallButtonRed240x78@2x.png */,
+			);
+			name = Buttons;
 			sourceTree = "<group>";
 		};
 		5BE6F79E14E75C5E00599EF2 /* DataObjects */ = {
@@ -3349,6 +3436,7 @@
 		5BF3EE1D159143D90011BAD8 /* Bank Account Management */ = {
 			isa = PBXGroup;
 			children = (
+				5BDDAE0715C1C746007B733E /* Modals */,
 				5BF3EE1E159144170011BAD8 /* AccountListViewController.h */,
 				5BF3EE1F159144170011BAD8 /* AccountListViewController.m */,
 				5BF3EE20159144170011BAD8 /* AccountListViewController.xib */,
@@ -3364,6 +3452,9 @@
 				5BE06BF21599064900CB630F /* EditACHAccountViewController.h */,
 				5BE06BF31599064900CB630F /* EditACHAccountViewController.m */,
 				5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */,
+				5BDDAE1315C37F2F007B733E /* VerifyACHAccountViewController.h */,
+				5BDDAE1415C37F30007B733E /* VerifyACHAccountViewController.m */,
+				5BDDAE1515C37F31007B733E /* VerifyACHAccountViewController.xib */,
 			);
 			name = "Bank Account Management";
 			sourceTree = "<group>";
@@ -3858,6 +3949,7 @@
 				5BED071815B9E89400D4110A /* twitter_load.png in Resources */,
 				5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */,
 				54D23F8F15BDCA6E0037719A /* HomeViewControllerV2.xib in Resources */,
+				C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */,
 				54D23FC315BE52410037719A /* bg-home-new-308x64.png in Resources */,
 				54D23FC415BE52410037719A /* bg-home-new-308x64@2x.png in Resources */,
 				54D23FC515BE52410037719A /* bg-home-quick-289x14.png in Resources */,
@@ -3889,6 +3981,23 @@
 				54D2401115C03B7D0037719A /* bg-notifications-14x14@2x.png in Resources */,
 				54D2401415C040340037719A /* bg-notifications-9-14x14.png in Resources */,
 				54D2401515C040340037719A /* bg-notifications-9-14x14@2x.png in Resources */,
+				5BDDAE1715C37F33007B733E /* VerifyACHAccountViewController.xib in Resources */,
+				5BDDAE2515C39428007B733E /* smallButtonGray240x78_a.png in Resources */,
+				5BDDAE2615C39428007B733E /* smallButtonGray240x78.png in Resources */,
+				5BDDAE2715C39428007B733E /* smallButtonGray240x78@2x_a.png in Resources */,
+				5BDDAE2815C39428007B733E /* smallButtonGray240x78@2x.png in Resources */,
+				5BDDAE2915C39428007B733E /* smallButtonGreen240x78_a.png in Resources */,
+				5BDDAE2A15C39428007B733E /* smallButtonGreen240x78.png in Resources */,
+				5BDDAE2B15C39428007B733E /* smallButtonGreen240x78@2x_a.png in Resources */,
+				5BDDAE2C15C39428007B733E /* smallButtonGreen240x78@2x.png in Resources */,
+				5BDDAE2D15C39428007B733E /* smallButtonRed240x78_a.png in Resources */,
+				5BDDAE2E15C39428007B733E /* smallButtonRed240x78.png in Resources */,
+				5BDDAE2F15C39428007B733E /* smallButtonRed240x78@2x_a.png in Resources */,
+				5BDDAE3015C39428007B733E /* smallButtonRed240x78@2x.png in Resources */,
+				5BDDAE3515C395E2007B733E /* buttonTallStandardActive.png in Resources */,
+				5BDDAE3615C395E2007B733E /* buttonTallStandardNA.png in Resources */,
+				5BDDAE3715C395E2007B733E /* buttonTallStandardActive@2x.png in Resources */,
+				5BDDAE3815C395E2007B733E /* buttonTallStandardNA@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4090,9 +4199,12 @@
 				5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */,
 				54D23F8E15BDCA6E0037719A /* HomeViewControllerV2.m in Sources */,
 				5BDDADC515BDE5A5007B733E /* ApplicationConfiguration.m in Sources */,
+				C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */,
 				54D23FD415BEF12B0037719A /* TPKeyboardAvoidingScrollView.m in Sources */,
 				54D23FE515BF8C080037719A /* SignedOutTabBar.m in Sources */,
 				54D23FEB15BF93970037719A /* SignedOutTabBarManager.m in Sources */,
+				5BDDAE0B15C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m in Sources */,
+				5BDDAE1615C37F33007B733E /* VerifyACHAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

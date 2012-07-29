@@ -303,7 +303,7 @@
             }
         } else {
             myCell.contactName.text = contact.name;
-            myCell.contactDetail.text = contact.phoneNumber;
+            myCell.contactDetail.text = contact.paypoint;
             if ( contact.imgData )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             else
@@ -342,7 +342,7 @@
             }
         } else {
             myCell.contactName.text = contact.name;
-            myCell.contactDetail.text = contact.phoneNumber;
+            myCell.contactDetail.text = contact.paypoint;
             
             if ( contact.imgData != nil )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
@@ -372,12 +372,12 @@
                 if ( retVal == 1 ){
                     // Phone Number
                     contact.name = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
-                    contact.phoneNumber = @"New Phone Recipient";
+                    contact.paypoint = @"New Phone Recipient";
                     contact.recipientUri = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                 } else if ( retVal == 2 ){
                     // Email
                     contact.name = txtSearchBox.text;
-                    contact.emailAddress = @"New Email Address";
+                    contact.paypoint = @"New Email Address";
                     contact.recipientUri = txtSearchBox.text;
                 }
             }
@@ -567,12 +567,12 @@
             for ( Contact*contact in arr3 ){
                 // Check first case normally
                 hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                if ( hasSimilarity.location == NSNotFound && contact.phoneNumber != NULL ){
-                    hasSimilarity = [[[contact.phoneNumber componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
+                if ( hasSimilarity.location == NSNotFound && contact.paypoint != NULL ){
+                    hasSimilarity = [[[contact.paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
                 }
-                if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
+                /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                }
+                }*/
                 // Add $me code implementation ** TODO: **
                 
                 if ( hasSimilarity.location != NSNotFound ){

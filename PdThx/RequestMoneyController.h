@@ -24,8 +24,10 @@
 #import "TransactionConfirmationViewController.h"
 #import "AddACHAccountViewController.h"
 #import "CustomAlertViewProtocol.h"
+#import "DetermineRecipientCompleteProtocol.h"
+#import "SelectRecipientProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol, UINavigationControllerDelegate> 
+@interface RequestMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol, UINavigationControllerDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol> 
 {
     
     IBOutlet UIView *viewPanel;

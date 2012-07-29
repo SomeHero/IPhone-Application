@@ -119,7 +119,7 @@
             cell.textLabel.text = @"Add Mobile Number";
         else {
             cell.lblHeading.text = [[phones objectAtIndex: indexPath.row] uri];
-            cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+            cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-phones-40x40.png"];
             if([[phones objectAtIndex: indexPath.row] verified])
             {
                 cell.lblDescription.text = @"Verified";
@@ -180,11 +180,12 @@
     switch(indexPath.section) {
         case 0:
         {
-            
+            PayPoint* payPoint = [phones objectAtIndex:indexPath.row];
+                                  
             VerifyPhoneNumberViewController *controller = [[VerifyPhoneNumberViewController alloc] init];
-            controller.phoneNumber = [[phones objectAtIndex:indexPath.row]uri]; 
-          
-            [controller setTitle: @"Phone #"];
+            controller.payPoint = payPoint;
+                                  
+            [controller setTitle: @"Verify"];
             
             [self.navigationController pushViewController:controller animated:YES];
             break;

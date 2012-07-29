@@ -458,10 +458,8 @@
     
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        contactDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        contactDetail.text = contact.emailAddress;
+    } else if ( contact.paypoint ){
+        contactDetail.text = contact.paypoint;
     }else {
         contactDetail.text = @"No Info to Display";
     }

@@ -12,6 +12,7 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "UISetupUserBaseViewController.h"
+#import "VerifyACHAccountViewController.h"
 
 @interface EditACHAccountViewController : UISetupUserBaseViewController {
     IBOutlet UIView* mainView;

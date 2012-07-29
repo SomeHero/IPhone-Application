@@ -120,7 +120,7 @@
             else {
                 cell.lblDescription.text = @"Pending Verification";
             }
-            cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+            cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-mecode-40x40.png"];
             //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
         }
     }

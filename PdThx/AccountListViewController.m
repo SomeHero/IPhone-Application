@@ -112,11 +112,11 @@
 {
     // Return the number of rows in the section.
     if(section == 2)
-        return 2;
+        return 1;
     else if(section == 1)
         return 1;
     else {
-        return [user.bankAccounts count];
+        return [user.bankAccounts count] + 1;
     }
 }
 
@@ -124,25 +124,69 @@
 {
     static NSString *CellIdentifier = @"Cell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil){
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     
-    if(indexPath.section == 2)
+    if(indexPath.section == 2) {
+        bool found = false;
+        
+        for(int i = 0; i < [user.bankAccounts count]; i++)
+        {
+            BankAccount* bankAccount = [user.bankAccounts objectAtIndex:i];
+            
+            if([user.preferredReceiveAccountId isEqualToString:bankAccount.bankAccountId])
+            {
+                cell.textLabel.text = bankAccount.nickName;
+                cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+                
+                found = YES;
+            }
+        }
+        
+        if(!found)
+        {
+            cell.textLabel.text = @"No Preferred Account Setup";
+            cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+        }
+    }
+    if(indexPath.section == 1){ 
+        bool found = false;
+        
+        for(int i = 0; i < [user.bankAccounts count]; i++)
+        {
+            BankAccount* bankAccount = [user.bankAccounts objectAtIndex:i];
+            
+            if([user.preferredPaymentAccountId isEqualToString:bankAccount.bankAccountId])
+            {
+                cell.textLabel.text = bankAccount.nickName;
+                cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+                found = YES;
+            }
+        }
+        if(!found)
+        {
+            cell.textLabel.text = @"No Preferred Account Setup";
+            cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+        }
+    }
+    if(indexPath.section == 0)
     {
-        if(indexPath.row == 1)
-            cell.textLabel.text = @"Preferred Send Account";
-        else
-            cell.textLabel.text = @"Preferred Receive Account";
+        if(indexPath.row >= [user.bankAccounts count])
+        {
+            cell.textLabel.text = @"Add Account";
+        }
+        else {
+            BankAccount* bankAccount = [user.bankAccounts objectAtIndex:indexPath.row];
+            
+            cell.lblHeading.text = bankAccount.nickName;
+            cell.lblDescription.text = bankAccount.status;
+            cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+        }
     }
-    else if(indexPath.section == 1)
-        cell.textLabel.text = @"Add Account";
-    else {
-        cell.textLabel.text = [[user.bankAccounts objectAtIndex: indexPath.row] nickName];
-    cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
-    //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
-    }
+
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
@@ -152,12 +196,38 @@
 {
     return YES;
 }
-/*
  -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
- NSString *optionSection = [sections objectAtIndex:section];
- return optionSection;
- }*/
-
+     if(section == 0)
+         return @"Linked Accounts";
+     if(section == 1)
+         return @"Sending Account";
+     if(section == 2)
+         return @"Receiving Account";
+     
+     return @"";
+ }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
+    if (sectionTitle == nil) {
+        return nil;
+    }
+    
+    // Create label with section title
+    UILabel *label = [[[UILabel alloc] init] autorelease];
+    label.frame = CGRectMake(20, 6, 300, 30);
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    
+    label.font = [UIFont boldSystemFontOfSize:12];
+    label.text = sectionTitle;
+    
+    // Create header view and add label as a subview
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [view autorelease];
+    [view addSubview:label];
+    
+    return view;
+}
 /*
  // Override to support editing the table view.
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -193,76 +263,70 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0)  {
-        EditACHAccountViewController* controller = [[EditACHAccountViewController alloc] init];
-        controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];
+        if(indexPath.row >= [user.bankAccounts count])
+        {
+            AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];   
+        } else {
+            EditACHAccountViewController* controller = [[EditACHAccountViewController alloc] init];
+            controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];
         
-        [self.navigationController pushViewController:controller animated:YES];
-        [controller release];
+            [self.navigationController pushViewController:controller animated:YES];
+            [controller release];
+        }
     } else if(indexPath.section == 1){
-        AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
+        selectModal = [[[SelectAccountModalViewControllerViewController alloc] initWithFrame:self.view.bounds] autorelease];
+        [selectModal setOptionSelectDelegate: self];
+        selectModal.bankAccounts = user.bankAccounts;
+        selectModal.selectedAccount =user.preferredPaymentAccountId;
+        selectModal.accountType = @"Send";
         
-        [self.navigationController pushViewController:controller animated:YES];
-        [controller release];
-    } else {
-        myPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
-        myPickerView.delegate = self;
-        myPickerView.showsSelectionIndicator = YES;
-
-        [self.view addSubview:myPickerView];
+        [self.view addSubview:selectModal];
+        [selectModal show];
+    } else  if(indexPath.section == 2){
+        selectModal = [[[SelectAccountModalViewControllerViewController alloc] initWithFrame:self.view.bounds] autorelease];
         
-        [myPickerView reloadAllComponents];
+        [selectModal setOptionSelectDelegate: self];
+        selectModal.bankAccounts = user.bankAccounts;
+        selectModal.selectedAccount =user.preferredReceiveAccountId;
+        selectModal.accountType = @"Receive";
+        
+        [self.view addSubview:selectModal];
+        [selectModal show];
     }
 }
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    
-    [bankAccountService setPreferredReceiveAccount:[[user.bankAccounts objectAtIndex:row] bankAccountId] forUserId:user.userId];
-}
-
-// tell the picker how many rows are available for a given component
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    return [user.bankAccounts count];
-}
-
-// tell the picker how many components it will have
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-// tell the picker the title for a given component
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *title;
-    title = [@"" stringByAppendingFormat:@"%@", [[user.bankAccounts objectAtIndex:row] nickName]];
-
-    return title;
-}
-
-// tell the picker the width of each row for a given component
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    int sectionWidth = 300;
-    
-    return sectionWidth;
-}
--(void)setPreferredAccountDidComplete {
-    
-    [myPickerView removeFromSuperview];
-}
--(void)setPreferredAccountDidFail:(NSString*)errorMessage {
-    
-    [myPickerView removeFromSuperview];
-}
-
--(void) userSecurityPinDidComplete {
-    //[spinner stopAnimating];
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account updated"];
-}
-
 -(void) userSecurityPinDidFail: (NSString*) message {
     //[spinner stopAnimating];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid security pin"];
 }
+-(void) optionDidSelect:(NSString*) optionId {
+    
+    selectedOption = optionId;
+    
+    if([selectModal.accountType isEqualToString: @"Send"]) {
+        [bankAccountService setPreferredSendAccount:optionId forUserId:user.userId];
+    }
+    else {
+        [bankAccountService setPreferredReceiveAccount:optionId forUserId:user.userId];
+    }
+}
 
+-(void)setPreferredAccountDidComplete {
+    [selectModal hide];
+    
+    if([selectModal.accountType isEqualToString: @"Send"]) {
+        user.preferredPaymentAccountId = selectedOption;
+    }
+    else {
+        user.preferredReceiveAccountId = selectedOption;
+    }
+    [userAccountsTableView reloadData];
+}
+-(void)setPreferredAccountDidFail:(NSString*)responseMsg {
+    NSLog(@"Failed");
+}
 @end

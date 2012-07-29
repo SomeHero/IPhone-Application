@@ -37,6 +37,11 @@
     mainScrollView.contentSize = CGSizeMake(320, 600);
     [self.view addSubview: mainScrollView];
     
+    UIBarButtonItem *verifyButton =  [[UIBarButtonItem alloc] initWithTitle:@"Verify" style:UIBarButtonSystemItemAction target:self action:@selector(verifyClicked)];
+    
+    self.navigationItem.rightBarButtonItem = verifyButton;
+    [verifyButton release];
+    
     bankAccountService = [[BankAccountService alloc] init];
     [bankAccountService setDeleteBankAccountDelegate: self];
     [bankAccountService setUpdateBankAccountDelegate: self];
@@ -97,5 +102,16 @@
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];
     [txtAccountNumber resignFirstResponder];
+}
+-(void)verifyClicked {
+    VerifyACHAccountViewController* controller = [[VerifyACHAccountViewController    alloc] init];
+    [controller setTitle: @"Verify Account"];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [navBar release];
+    [controller release];
 }
 @end

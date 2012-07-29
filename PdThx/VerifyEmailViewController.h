@@ -13,14 +13,17 @@
 #import "PayPointService.h"
 #import "GetPayPointProtocol.h"
 #import "AddPayPointCompleteProtocol.h"
-@interface VerifyEmailViewController :UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>{
+#import "PayPointService.h"
+
+@interface VerifyEmailViewController :UISetupUserBaseViewController{
+    
     IBOutlet UILabel *txtEmailAddress;
-    NSMutableArray * emailAddresses;
-    NSString * emailAddress;
+    PayPoint* payPoint;
+    PayPointService* payPointService;
 }
--(IBAction)btnVerify;
+
 -(IBAction)btnResendCodes;
 
-@property (retain, nonatomic) NSString *emailAddress;
+@property (retain, nonatomic) PayPoint* payPoint;
 
 @end
