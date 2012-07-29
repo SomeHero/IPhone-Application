@@ -43,6 +43,7 @@
 						<string key="NSFrame">{{0, 363}, {320, 53}}</string>
 						<reference key="NSSuperview" ref="118568943"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -162,7 +163,7 @@
 							<object class="IBUILabel" id="850645487">
 								<reference key="NSNextResponder" ref="191373211"/>
 								<int key="NSvFlags">256</int>
-								<string key="NSFrame">{{87, 109}, {222, 21}}</string>
+								<string key="NSFrame">{{87, 99}, {222, 39}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="597515116"/>
@@ -172,12 +173,13 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Nestor Apparicio sent you $40.00</string>
+								<string key="IBUIText">Nestor Apparicio sent you $40.00 for being awesome</string>
 								<reference key="IBUITextColor" ref="1038935688"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">7</float>
-								<int key="IBUILineBreakMode">1</int>
+								<int key="IBUINumberOfLines">2</int>
+								<int key="IBUILineBreakMode">0</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<string key="name">Helvetica-Bold</string>
 									<string key="family">Helvetica</string>
@@ -189,11 +191,12 @@
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
 								</object>
+								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 							<object class="IBUILabel" id="597515116">
 								<reference key="NSNextResponder" ref="191373211"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{87, 127}, {214, 21}}</string>
+								<string key="NSFrame">{{87, 131}, {214, 21}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="832065520"/>
@@ -444,11 +447,11 @@
 							<reference ref="313197498"/>
 							<reference ref="307686819"/>
 							<reference ref="627599106"/>
-							<reference ref="850645487"/>
 							<reference ref="597515116"/>
 							<reference ref="832065520"/>
 							<reference ref="168644411"/>
 							<reference ref="469650436"/>
+							<reference ref="850645487"/>
 						</array>
 						<reference key="parent" ref="118568943"/>
 					</object>
