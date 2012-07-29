@@ -342,6 +342,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         NSString* transactionMonth = [transactionDate substringToIndex:2];
         NSString* transactionYear = [transactionDate substringFromIndex:6];
         
+        NSLog(@"days between dates: TODAY %@ and Transaction %@ -- %d", todaysDateString, transactionDate, [self daysBetweenDate:todaysDate andDate:item.createDate] );
+        
         itemComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:item.createDate];
         
         if ( [transactionYear isEqualToString:todayYear] )
@@ -367,7 +369,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                         [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Today"];
                         [[transactionsDict objectForKey:@"Today"] addObject:item];
                     }
-                } else if ( [self daysBetweenDates:calendar withDate:item.createDate andDate:todaysDate] == 1 ) {
+                } else if ( [self daysBetweenDate:todaysDate andDate:item.createDate] == 1 ) {
                     found = NO;
                     
                     
@@ -403,7 +405,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                         [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"This Week"];
                         [[transactionsDict objectForKey:@"This Week"] addObject:item];
                     }
-                } else if ( [item.createDate compare:firstDayOfWeek] == NSOrderedAscending && [self daysBetweenDates:calendar withDate:firstDayOfWeek andDate:item.createDate] <= 7 ) {
+                } else if ( [item.createDate compare:firstDayOfWeek] == NSOrderedAscending && [self daysBetweenDate:firstDayOfWeek andDate:item.createDate] <= 7 ) {
                     found = NO;
                     
                     
@@ -1164,10 +1166,22 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
 }
 
-- (int)daysBetweenDates:(NSCalendar*)cal withDate:(NSDate *)dt1 andDate:(NSDate *)dt2 {
-    NSUInteger unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit;
-    NSDateComponents *components = [cal components:unitFlags fromDate:dt1 toDate:dt2 options:0];
-    return [components day];
+- (int)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
+{
+    NSDate *fromDate;
+    NSDate *toDate;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&fromDate
+                 interval:NULL forDate:fromDateTime];
+    [calendar rangeOfUnit:NSDayCalendarUnit startDate:&toDate
+                 interval:NULL forDate:toDateTime];
+    
+    NSDateComponents *difference = [calendar components:NSDayCalendarUnit
+                                               fromDate:fromDate toDate:toDate options:0];
+    
+    return abs([difference day]);
 }
 
 
