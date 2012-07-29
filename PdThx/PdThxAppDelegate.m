@@ -60,7 +60,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    //[self startUserSetupFlow];
+    [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow

@@ -308,42 +308,192 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 -(void)buildTransactionDictionary:(NSMutableArray*) array
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyy"];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDate *todaysDate = [NSDate date];
     
-    bool found;
+    NSDateComponents* comps = [calendar components:NSYearForWeekOfYearCalendarUnit |NSYearCalendarUnit|NSMonthCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit fromDate:todaysDate];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    
+    [comps setWeekday:1];
+    
+    NSDate *firstDayOfWeek = [calendar dateFromComponents:comps];
+    if ( [comps weekOfMonth] > 0 ) {
+        [comps setWeekOfMonth:[comps weekOfMonth]-1];
+    }
+    
+    NSString* todaysDateString = [dateFormatter stringFromDate:todaysDate];
+    NSString* todayMonth = [todaysDateString substringToIndex:2];
+    NSString* todayYear = [todaysDateString substringFromIndex:6];
+    
+    
+    
     transactionsDict = [[NSMutableDictionary alloc] init];
     sections = [[NSMutableArray alloc] init];
     
-    for(Transaction* item in array)
-    {
-        NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
-        
-        found = NO;
-        
-        for(int i = 0; i <[sections count]; i++)
-        {
-            NSString * myDate = [sections objectAtIndex:(NSUInteger) i];
-            
-            if ([myDate isEqualToString:transactionDate])
-            {
-                found = YES;
-            }
-        }
-        
-        if(!found) {
-            [sections addObject: transactionDate];
-            [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey: transactionDate];
-        }
-        
-    }
+    int found;
+    
+    NSDateComponents* itemComponents;
     
     for(Transaction* item in array)
     {
         
         NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
+        NSString* transactionMonth = [transactionDate substringToIndex:2];
+        NSString* transactionYear = [transactionDate substringFromIndex:6];
         
-        [[transactionsDict objectForKey:transactionDate] addObject:item];
+        itemComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:item.createDate];
+        
+        if ( [transactionYear isEqualToString:todayYear] )
+        {
+            if ( [transactionMonth isEqualToString:todayMonth] )
+            {
+                if ( [[dateFormatter stringFromDate:todaysDate] isEqualToString:transactionDate] )
+                {
+                    found = NO;
+                    
+                    
+                    for(int i = 0; i <[sections count]; i++)
+                    {
+                        if ( [[sections objectAtIndex:i] isEqualToString:@"Today"] )
+                        {
+                            found = YES;
+                            [[transactionsDict objectForKey:@"Today"] addObject:item];
+                        }
+                    }
+                    
+                    if ( !found ){
+                        [sections addObject:@"Today"];
+                        [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Today"];
+                        [[transactionsDict objectForKey:@"Today"] addObject:item];
+                    }
+                } else if ( [self daysBetweenDates:calendar withDate:item.createDate andDate:todaysDate] == 1 ) {
+                    found = NO;
+                    
+                    
+                    for(int i = 0; i <[sections count]; i++)
+                    {
+                        if ( [[sections objectAtIndex:i] isEqualToString:@"Yesterday"] )
+                        {
+                            found = YES;
+                            [[transactionsDict objectForKey:@"Yesterday"] addObject:item];
+                        }
+                    }
+                    
+                    if ( !found ){
+                        [sections addObject:@"Yesterday"];
+                        [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Yesterday"];
+                        [[transactionsDict objectForKey:@"Yesterday"] addObject:item];
+                    }
+                } else if ( [item.createDate compare:todaysDate] == NSOrderedAscending && [item.createDate compare:firstDayOfWeek] == NSOrderedDescending ) {
+                    found = NO;
+                    
+                    
+                    for(int i = 0; i <[sections count]; i++)
+                    {
+                        if ( [[sections objectAtIndex:i] isEqualToString:@"This Week"] )
+                        {
+                            found = YES;
+                            [[transactionsDict objectForKey:@"This Week"] addObject:item];
+                        }
+                    }
+                    
+                    if ( !found ){
+                        [sections addObject:@"This Week"];
+                        [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"This Week"];
+                        [[transactionsDict objectForKey:@"This Week"] addObject:item];
+                    }
+                } else if ( [item.createDate compare:firstDayOfWeek] == NSOrderedAscending && [self daysBetweenDates:calendar withDate:firstDayOfWeek andDate:item.createDate] <= 7 ) {
+                    found = NO;
+                    
+                    
+                    for(int i = 0; i <[sections count]; i++)
+                    {
+                        if ( [[sections objectAtIndex:i] isEqualToString:@"Last Week"] )
+                        {
+                            found = YES;
+                            [[transactionsDict objectForKey:@"Last Week"] addObject:item];
+                        }
+                    }
+                    
+                    if ( !found ){
+                        [sections addObject:@"Last Week"];
+                        [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Last Week"];
+                        [[transactionsDict objectForKey:@"Last Week"] addObject:item];
+                    }
+                } else {
+                    found = NO;
+                    
+                    
+                    for(int i = 0; i <[sections count]; i++)
+                    {
+                        if ( [[sections objectAtIndex:i] isEqualToString:@"This Month"] )
+                        {
+                            found = YES;
+                            [[transactionsDict objectForKey:@"This Month"] addObject:item];
+                        }
+                    }
+                    
+                    if ( !found ){
+                        [sections addObject:@"This Month"];
+                        [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"This Month"];
+                        [[transactionsDict objectForKey:@"This Month"] addObject:item];
+                    }
+                }
+            } else if ( [itemComponents month] == ( [todayMonth intValue] == 1 ? 12 : [todayMonth intValue]-1 ) ) {
+                found = NO;
+                
+                
+                for(int i = 0; i <[sections count]; i++)
+                {
+                    if ( [[sections objectAtIndex:i] isEqualToString:@"Last Month"] )
+                    {
+                        found = YES;
+                        [[transactionsDict objectForKey:@"Last Month"] addObject:item];
+                    }
+                }
+                
+                if ( !found ){
+                    [sections addObject:@"Last Month"];
+                    [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Last Month"];
+                    [[transactionsDict objectForKey:@"Last Month"] addObject:item];
+                }
+            } else {
+                found = NO;
+                
+                for(int i = 0; i <[sections count]; i++)
+                {
+                    if ( [[sections objectAtIndex:i] isEqualToString:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]] )
+                    {
+                        found = YES;
+                        [[transactionsDict objectForKey:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]] addObject:item];
+                    }
+                }
+                
+                if ( !found ){
+                    [sections addObject:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]];
+                    [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]];
+                    [[transactionsDict objectForKey:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]] addObject:item];
+                }
+            }
+        } else {
+            found = NO;
+            
+            for(int i = 0; i <[sections count]; i++)
+            {
+                if ( [[sections objectAtIndex:i] isEqualToString:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]] )
+                {
+                    found = YES;
+                    [[transactionsDict objectForKey:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]] addObject:item];
+                }
+            }
+            
+            if ( !found ){
+                [sections addObject:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]];
+                [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]];
+                [[transactionsDict objectForKey:[NSString stringWithFormat:@"%@ %@", [[dateFormatter monthSymbols] objectAtIndex:([transactionMonth intValue]-1)], transactionYear]] addObject:item];
+            }
+        }
     }
     
     [dateFormatter release];
@@ -365,6 +515,38 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     // Return the number of rows in the section.
     return [[transactionsDict objectForKey:[sections objectAtIndex:(NSUInteger) section]] count];
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    // create the parent view that will hold header Label
+    UIView* customView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,25)] autorelease];
+    
+    // create the imageView with the image in it
+    UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-pattern-320x320"]] autorelease];
+    imageView.frame = CGRectMake(0,0,320,25);
+    
+    // create the label objects
+    UILabel *headerLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
+    headerLabel.frame = CGRectMake(0,0,320,25);
+    headerLabel.text =  [sections objectAtIndex:section];
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.textAlignment =  UITextAlignmentCenter;
+        
+    [customView addSubview:imageView];
+    [customView addSubview:headerLabel];
+    
+    return customView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if ( [[transactionsDict  objectForKey:[sections objectAtIndex:section]] count] )
+        return 25.0;
+    else
+        return 0.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -635,9 +817,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{    
+    PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    PaystreamMessage* item = [transactions objectAtIndex:(int)indexPath.row];
     /*
     
     if([item.messageType isEqualToString: @"Payment"])
@@ -980,6 +1162,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [[self navigationController] setViewControllers:allViewControllers animated:NO];
         [allViewControllers release];
     }
+}
+
+- (int)daysBetweenDates:(NSCalendar*)cal withDate:(NSDate *)dt1 andDate:(NSDate *)dt2 {
+    NSUInteger unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSDateComponents *components = [cal components:unitFlags fromDate:dt1 toDate:dt2 options:0];
+    return [components day];
 }
 
 

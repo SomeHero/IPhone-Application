@@ -43,7 +43,6 @@
 						<string key="NSFrame">{{0, 363}, {320, 53}}</string>
 						<reference key="NSSuperview" ref="118568943"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -163,7 +162,7 @@
 							<object class="IBUILabel" id="850645487">
 								<reference key="NSNextResponder" ref="191373211"/>
 								<int key="NSvFlags">256</int>
-								<string key="NSFrame">{{87, 109}, {213, 21}}</string>
+								<string key="NSFrame">{{87, 109}, {222, 21}}</string>
 								<reference key="NSSuperview" ref="191373211"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="597515116"/>
@@ -177,9 +176,8 @@
 								<reference key="IBUITextColor" ref="1038935688"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<float key="IBUIMinimumFontSize">10</float>
-								<int key="IBUINumberOfLines">0</int>
-								<int key="IBUILineBreakMode">0</int>
+								<float key="IBUIMinimumFontSize">7</float>
+								<int key="IBUILineBreakMode">1</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<string key="name">Helvetica-Bold</string>
 									<string key="family">Helvetica</string>
@@ -579,17 +577,25 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">TPKeyboardAvoidingScrollView</string>
+					<string key="superclassName">UIScrollView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TPKeyboardAvoidingScrollView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">UIBaseViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">mainScrollView</string>
-						<string key="NS.object.0">UIScrollView</string>
+						<string key="NS.object.0">TPKeyboardAvoidingScrollView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<string key="NS.key.0">mainScrollView</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
 							<string key="name">mainScrollView</string>
-							<string key="candidateClassName">UIScrollView</string>
+							<string key="candidateClassName">TPKeyboardAvoidingScrollView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -602,13 +608,13 @@
 					<string key="superclassName">UIBaseViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">scrollView</string>
-						<string key="NS.object.0">UIScrollView</string>
+						<string key="NS.object.0">TPKeyboardAvoidingScrollView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<string key="NS.key.0">scrollView</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
 							<string key="name">scrollView</string>
-							<string key="candidateClassName">UIScrollView</string>
+							<string key="candidateClassName">TPKeyboardAvoidingScrollView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
