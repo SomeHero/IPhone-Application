@@ -286,7 +286,7 @@
     areFacebookContactsLoaded = NO;
     currentReminderTab = 0;
     
-    [self loadAllContacts];
+    [self loadPhoneContacts];
     [self loadNonProfits];
     [self loadOrganizations];
     
@@ -348,7 +348,7 @@
     
     [self mergeAllContacts:faceBookContacts];
     
-    [self loadAllContacts];
+    [self loadPhoneContacts];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -391,8 +391,18 @@
     areFacebookContactsLoaded = NO;
     currentReminderTab = 0;
     
+    for (NSMutableArray* array in faceBookContacts)
+    {
+        [array removeAllObjects];
+    }
+    
+    for (NSMutableArray* array in contactsArray)
+    {
+        [array removeAllObjects];
+    }
+    
     // Reload all Contacts (without Facebook permissions)
-    [self loadAllContacts];
+    [self loadPhoneContacts];
     
     [prefs synchronize];
     
@@ -523,7 +533,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     } 
 }
 
--(void)loadAllContacts
+-(void)loadPhoneContacts
 {
     NSMutableArray* tempArray = [[NSMutableArray alloc] init];
     
