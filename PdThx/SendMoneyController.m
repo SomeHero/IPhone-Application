@@ -335,7 +335,7 @@
             else{
                 
                 PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-                [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@"Talking with the server to retrive valid recipients.."];
+                [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@""];
                 [sendMoneyService setDetermineRecipientCompleteDelegate:self];
                 [sendMoneyService determineRecipient:recipient.paypoints];
             }
@@ -389,7 +389,7 @@
     {	
         controller.noMatchFound = YES;
         controller.recipients = recipient.paypoints;
-        controller.txtHeader.text = [NSString stringWithFormat:@"%@ hasn't joined PaidThx yet. How would you like to invite them?", recipient.name];
+        [controller.txtHeader setText:[NSString stringWithFormat:@"%@ hasn't joined PaidThx yet. How would you like to invite them?", recipient.name]];
         UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
         [self presentModalViewController:navBar animated:YES];
     }
@@ -397,7 +397,7 @@
         if ([recipients count] != 1)
         {           
             controller.noMatchFound = NO;
-            controller.txtHeader.text = @"We found multiple PaidThx members associated with the contact you selected. Please choose your recipient below:";
+            [controller.txtHeader setText: @"We found multiple PaidThx members associated with the contact you selected. Please choose your recipient below:"];
             controller.recipients = recipients;            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             [self presentModalViewController: navBar animated:YES];
         }
