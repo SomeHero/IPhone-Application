@@ -9,19 +9,20 @@
 #import "UIModalBaseViewController.h"
 #import "SelectRecipientProtocol.h"
 
-@interface SelectRecipientViewController : UIModalBaseViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface SelectRecipientViewController : UIModalBaseViewController <UITableViewDelegate, UITableViewDataSource>
 {
-    IBOutlet UIPickerView *selectRecipientPicker;
-    NSArray* recipientUriOutputs;
-    NSArray* recipientUris;
-    NSUInteger chosenRecipient;
+    IBOutlet UILabel *txtHeader;
+    IBOutlet UITableView *selectRecipientTable;
+    NSArray* recipients;
     id<SelectRecipientProtocol> selectRecipientDelegate;
+    BOOL noMatchFound;
 }
-@property (retain, nonatomic) IBOutlet UIPickerView *selectRecipientPicker;
-@property (retain, nonatomic) NSArray* recipientUris;
-@property (retain, nonatomic) NSArray* recipientUriOutputs;
-@property (retain) id<SelectRecipientProtocol> selectRecipientDelegate;
 
-- (IBAction)btnSelectRecipientClicked:(id)sender;
+@property (retain, nonatomic) IBOutlet UILabel *txtHeader;
+@property (retain, nonatomic) IBOutlet UITableView* selectRecipientTable;
+@property (retain, nonatomic) NSArray* recipients;
+@property (retain) id<SelectRecipientProtocol> selectRecipientDelegate;
+@property (assign, nonatomic) BOOL noMatchFound;
+
 
 @end
