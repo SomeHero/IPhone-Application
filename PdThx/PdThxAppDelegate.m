@@ -60,7 +60,7 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    //[self startUserSetupFlow];
+    [self startUserSetupFlow];
 }
 
 -(void)startUserSetupFlow
@@ -825,12 +825,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
     for (Contact*person in tmpArray) {
-        if(person.name.length > 0)
-            comparedString = person.name;
+        if ( person.lastName.length > 0 )
+            comparedString = person.lastName;
         else if ( person.firstName.length > 0 )
             comparedString = person.firstName;
-        else if ( person.lastName.length > 0 )
-            comparedString = person.lastName;
+        else if(person.name.length > 0)
+            comparedString = person.name;
         else
             comparedString = [person.paypoints objectAtIndex:0];
         

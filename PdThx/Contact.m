@@ -34,11 +34,9 @@
     
     if ( [comparedProperty1 caseInsensitiveCompare:comparedProperty2] == NSOrderedSame )
         return [self compareMore:otherContact];
-    else {
+    else
         return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
-    }
 }
-
 
 -(NSComparisonResult)compareMore:(Contact*)otherContact {
     NSString *comparedProperty1 = self.firstName;

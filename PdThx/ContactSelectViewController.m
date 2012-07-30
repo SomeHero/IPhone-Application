@@ -235,9 +235,13 @@
             if ( entryType == 0 ) {
                 // Could not find contact by that name, so put the
                 // "keep typing" screen
-                myCell.contactName.text = [NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
+                [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", @"No matches found"] baseURL:nil];
+                myCell.contactNameWebView.opaque = NO;
+                myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                //[NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
                 myCell.contactDetail.text = @"Continue typing or check entry";
                 myCell.userInteractionEnabled = NO;
+                
                 
                 if (indexPath.row%2 == 0)  {
                     myCell.backgroundView = imageView;
@@ -249,14 +253,19 @@
             } else if ( entryType == 1 ) {
                 // Valid phone number entered... show a new contact with that information
                 // entered in the search box.
-                myCell.contactName.text = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""]] baseURL:nil];
+                myCell.contactNameWebView.opaque = NO;
+                myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
                 myCell.contactDetail.text = @"New Phone Recipient";
                 return myCell;
             } else if ( entryType == 2 ) {
                 // Valid email address entered, show a new contact box with that information
                 // entered as the contaction information
-                myCell.contactName.text = txtSearchBox.text;
+                [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", txtSearchBox.text] baseURL:nil];
+                myCell.contactNameWebView.opaque = NO;
+                myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
                 myCell.contactDetail.text = @"New Email Recipient";
+                
                 
                 if (indexPath.row%2 == 0)  {
                     myCell.backgroundView = imageView;
@@ -274,7 +283,17 @@
         }
         
         if ( contact.facebookID.length > 0 ){
-            myCell.contactName.text = contact.name;
+            if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                }
+            }
             
             myCell.contactDetail.text = @"Facebook Friend";
             
@@ -289,6 +308,7 @@
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
                 
+                
                 if (indexPath.row%2 == 0)  {
                     myCell.backgroundView = imageView;
                 } else {
@@ -302,7 +322,17 @@
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             }
         } else {
-            myCell.contactName.text = contact.name;
+            if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                }
+            }
             
             if ([contact.paypoints count] == 1)
             {
@@ -320,7 +350,17 @@
         Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         
         if ( contact.facebookID.length > 0 ){
-            myCell.contactName.text = contact.name;
+            if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                }
+            }
             
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend", contact.facebookID];
             
@@ -335,6 +375,7 @@
                 // if a download is deferred or in progress, return a placeholder image
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
                 
+                
                 if (indexPath.row%2 == 0)  {
                     myCell.backgroundView = imageView;
                 } else {
@@ -348,7 +389,17 @@
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             }
         } else {
-            myCell.contactName.text = contact.name;
+            if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
+                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
+                    myCell.contactNameWebView.opaque = NO;
+                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                }
+            }
             
             if ([contact.paypoints count] == 1)
             {
@@ -577,28 +628,40 @@
         NSRange hasSimilarity;
         for ( NSMutableArray*arr3 in allResults ){
             for ( Contact*contact in arr3 ){
+                hasSimilarity.location = NSNotFound;
                 for (NSString* paypoint in contact.paypoints)
                 {
-                // Check first case normally
-                hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                if ( hasSimilarity.location == NSNotFound && paypoint != NULL ){
-                    hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
-                }
-                /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
-                 hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                 }*/
-                // Add $me code implementation ** TODO: **
-                
-                if ( hasSimilarity.location != NSNotFound ){
-                    @try {
-                        [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
-                        foundFiltered = YES;
-                    }
-                    @catch (NSException* e) {
-                        NSLog(@"Exception: %@", e);
-                    }
+                    if ( hasSimilarity.location != NSNotFound )
+                        break;
                     
-                }
+                    // Check first case normally
+                    hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                    if ( hasSimilarity.location == NSNotFound && paypoint != NULL ){
+                        hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
+                    }
+                    /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
+                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                     }*/
+                    // Add $me code implementation ** TODO: **
+                    
+                    if ( hasSimilarity.location != NSNotFound ){
+                        @try 
+                        {
+                            if ( contact.lastName != (id)[NSNull null] && contact.lastName.length > 0 ){
+                                [[filteredResults objectAtIndex:((int)toupper([contact.lastName characterAtIndex:0]))-64] addObject:contact];
+                            } else if ( contact.firstName != (id)[NSNull null] && contact.firstName.length > 0 ) {
+                                [[filteredResults objectAtIndex:((int)toupper([contact.firstName characterAtIndex:0]))-64] addObject:contact];
+                            } else {
+                                [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
+                            }
+                            
+                            foundFiltered = YES;
+                        }
+                        @catch (NSException* e) {
+                            NSLog(@"Exception: %@", e);
+                        }
+                        
+                    }
                 }
             }
         }
