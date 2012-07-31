@@ -113,6 +113,9 @@
 }
 - (IBAction)pressedSaveContinue:(id)sender 
 {
+    
+    [firstNameField resignFirstResponder];
+    [lastNameField resignFirstResponder];
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     NSString* imageUrl = [NSString stringWithString: @""];
