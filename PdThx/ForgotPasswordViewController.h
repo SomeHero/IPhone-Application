@@ -10,7 +10,7 @@
 #import "UIModalBaseViewController.h"
 #import "UserService.h"
 
-@interface ForgotPasswordViewController : UIModalBaseViewController <UITextFieldDelegate, ForgotPasswordCompleteProtocol>
+@interface ForgotPasswordViewController : UIModalBaseViewController <UITextFieldDelegate, ForgotPasswordCompleteProtocol, UIAlertViewDelegate, CustomAlertViewProtocol>
 {
     IBOutlet UIButton* btnSubmitForgotPassword;
     IBOutlet UITextField* txtEmailAddress;
