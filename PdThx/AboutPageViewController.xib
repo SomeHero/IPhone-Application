@@ -403,7 +403,6 @@
 						<int key="objectID">80</int>
 						<reference key="object" ref="480418840"/>
 						<int key="objectID">67</int>
-						<reference key="object" ref="627641457"/>
 						<reference key="parent" ref="556894152"/>
 					</object>
 				</array>
@@ -430,7 +429,6 @@
 			<nil key="sourceID"/>
 			<int key="maxID">85</int>
 		</object>
-<<<<<<< HEAD
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
