@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
+		<int key="IBDocument.SystemTarget">1296</int>
 		<string key="IBDocument.SystemVersion">11D50</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.32</string>
@@ -135,8 +135,8 @@
 									</object>
 									<object class="IBUITextView" id="945810956">
 										<reference key="NSNextResponder" ref="556894152"/>
-										<int key="NSvFlags">269</int>
-										<string key="NSFrame">{{3, 280}, {182, 37}}</string>
+										<int key="NSvFlags">261</int>
+										<string key="NSFrame">{{3, 278}, {182, 37}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="480418840"/>
@@ -186,10 +186,11 @@
 									</object>
 									<object class="IBUIButton" id="549258468">
 										<reference key="NSNextResponder" ref="556894152"/>
-										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{-12, 306}, {281, 37}}</string>
+										<int key="NSvFlags">260</int>
+										<string key="NSFrame">{{-5, 311}, {281, 37}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -223,7 +224,7 @@
 									<object class="IBUIWebView" id="480418840">
 										<reference key="NSNextResponder" ref="556894152"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{15, 141}, {270, 140}}</string>
+										<string key="NSFrame">{{18, 141}, {270, 140}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="549258468"/>
@@ -361,13 +362,13 @@
 						<int key="objectID">52</int>
 						<reference key="object" ref="556894152"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="945810956"/>
 							<reference ref="446122440"/>
 							<reference ref="1027708549"/>
 							<reference ref="835945136"/>
 							<reference ref="414851389"/>
-							<reference ref="549258468"/>
 							<reference ref="480418840"/>
+							<reference ref="945810956"/>
+							<reference ref="549258468"/>
 						</array>
 						<reference key="parent" ref="196810479"/>
 					</object>
@@ -474,6 +475,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
