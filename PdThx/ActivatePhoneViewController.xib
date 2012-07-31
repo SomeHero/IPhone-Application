@@ -44,6 +44,7 @@
 						<string key="NSFrame">{{0, 363}, {320, 53}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -90,7 +91,7 @@
 							<object class="IBUITextView" id="221739084">
 								<reference key="NSNextResponder" ref="632655049"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{5, 23}, {298, 77}}</string>
+								<string key="NSFrame">{{5, 20}, {298, 77}}</string>
 								<reference key="NSSuperview" ref="632655049"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="771939890"/>
@@ -98,6 +99,8 @@
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+								<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
 								<bool key="IBUIEditable">NO</bool>
 								<string key="IBUIText">Click the button to send a text to PaidThx. This text will verify your phone and allow you to send and accept payments with your phone number.</string>
 								<object class="NSColor" key="IBUITextColor">
@@ -338,11 +341,11 @@
 						<reference key="object" ref="632655049"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="697147858"/>
-							<reference ref="221739084"/>
 							<reference ref="876117939"/>
 							<reference ref="1018897139"/>
 							<reference ref="578881357"/>
 							<reference ref="771939890"/>
+							<reference ref="221739084"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>

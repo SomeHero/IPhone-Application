@@ -18,7 +18,8 @@
 @synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
 
--(id)init {
+-(id)init 
+{
     self = [super init];
     
     return self;
@@ -284,7 +285,7 @@
     
     NSString* message = [NSString stringWithFormat: [request responseString]];
     
-    [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
+    [personalizeUserCompleteDelegate personalizeUserDidFail: message];
     
     NSLog(@"Security Pin Failed with Exception");
 }
@@ -383,7 +384,7 @@
         
     } else
     {
-        NSLog(@"%@", [request responseStatusMessage]);
+        NSLog(@"%@", [request responseString]);
         
         NSString *theJSON = [request responseString];
         
@@ -394,9 +395,10 @@
         
         NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
         
-        [forgotPasswordCompleteDelegate forgotPasswordDidFail:message];
+        [forgotPasswordCompleteDelegate forgotPasswordDidFail:[request responseStatusMessage]];
         
         NSLog(@"Password Change Failed, Error Code %d", [request responseStatusCode]);
+        NSLog(@"Error: %@", [request error]);
     }
 }
 
