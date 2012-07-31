@@ -437,11 +437,11 @@
                 if ( retVal == 1 ){
                     // Phone Number
                     [contact.paypoints addObject: [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""]];
-                    contact.name = @"New Phone Recipient";
+                    contact.name = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                 } else if ( retVal == 2 ){
                     // Email
                     [contact.paypoints addObject: txtSearchBox.text];
-                    contact.name = @"New Email Address";
+                    contact.name = txtSearchBox.text;
                 }
             }
             [contactSelectChosenDelegate didChooseContact:contact];

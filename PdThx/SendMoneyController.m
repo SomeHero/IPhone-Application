@@ -353,9 +353,9 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    NSString* recipientImageUri = [NSString stringWithString: @""];
-    NSString* recipientFirstName = [NSString stringWithString: @""];
-    NSString* recipientLastName =[NSString stringWithString: @""];
+    NSString* recipientImageUri = @"";
+    NSString* recipientFirstName = @"";
+    NSString* recipientLastName = @"";
     
     if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
@@ -504,6 +504,7 @@
     [controller setContinueButtonText:@"Send Another Payment"];
     
     [controller setTransactionConfirmationDelegate: self];
+    [controller setTitle:@"Payment Sent"];
     
     
     [self dismissModalViewControllerAnimated:YES];
@@ -572,10 +573,13 @@
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
     } else if ( [contact.paypoints count] == 1 ){
-        contactDetail.text = [contact.paypoints objectAtIndex:0];
+        if ( [[contact.paypoints objectAtIndex:0] isEqualToString:contact.name] )
+            contactDetail.text = @"";
+        else
+            [contact.paypoints objectAtIndex:0];
     } else if ([contact.paypoints count] ) {
         contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
-    }else {
+    } else {
         contactDetail.text = @"No Info to Display";
     }
     

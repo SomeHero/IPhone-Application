@@ -81,7 +81,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     }
     else {
         
-        NSString* message = [NSString stringWithString: @"Unable to send money"];
+        NSString* message = @"Unable to send money";
         
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
@@ -99,7 +99,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 }
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = [NSString stringWithString: @"Unable to send money"];
+    NSString* message = @"Unable to send money";
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     

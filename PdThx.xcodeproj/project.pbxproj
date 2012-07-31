@@ -3501,7 +3501,7 @@
 		5B69DF7014AE6067003A0F66 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = 5B69DF7314AE6067003A0F66 /* Build configuration list for PBXProject "PdThx" */;
 			compatibilityVersion = "Xcode 3.2";
