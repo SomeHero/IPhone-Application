@@ -19,6 +19,7 @@
 @implementation AboutPageViewController
 
 @synthesize viewPanel;
+@synthesize videoView;
 @synthesize tabBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,6 +35,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSString *htmlString = @"<html><head>\
+    <meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = 270\"/></head>\
+    <body style=\"background:#F00;margin-top:0px;margin-left:0px\">\
+    <div><object width=\"270\" height=\"140\">\
+    <param name=\"movie\" value=\"http://www.youtube.com/v/-bFf3yi7cNM?version=3&amp;hl=en_US&amp;rel=0\"></param>\
+    <param name=\"wmode\" value=\"transparent\"></param>\
+    <embed src=\"http://www.youtube.com/v/-bFf3yi7cNM?version=3&amp;hl=en_US&amp;rel=0\"\
+    type=\"application/x-shockwave-flash\" wmode=\"transparent\" width=\"270\" height=\"140\"></embed>\
+    </object></div></body></html>";
+    
+    
+    [videoView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://www.your-url.com"]];
     // Do any additional setup after loading the view from its nib.
     
     tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:3];
@@ -65,6 +78,9 @@
 
 - (void)dealloc {
     [viewPanel release];
+    [toMobileWeb release];
+    [videoView release];
+
     [super dealloc];
 }
     
@@ -90,11 +106,22 @@
     titleView.text = title;
     [titleView sizeToFit];
 }
+-(IBAction)linkToMobileWeb:(id)sender
+{
+        NSURL *url = [NSURL URLWithString:@"http://www.paidthx.com/mobile"];
+    [[UIApplication sharedApplication] openURL:url];
+}
 
-    
+
+
 - (void)viewDidUnload {
     [viewPanel release];
     viewPanel = nil;
+    [toMobileWeb release];
+    toMobileWeb = nil;
+    [videoView release];
+    videoView = nil;
+
     [super viewDidUnload];
 }
 
