@@ -7,6 +7,8 @@
 //
 #import "PdThxAppDelegate.h"
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
+
 #import "PayStreamViewController.h"
 #import "SendMoneyController.h"
 #import "RequestMoneyController.h"
@@ -20,6 +22,7 @@
 #import "SendMoneyService.h"
 #import "ContactSelectViewController.h"
 #import "AmountSelectViewController.h"
+#import "SelectRecipientViewController.h"
 
 #define tableHeight2 = 30;
 
@@ -43,6 +46,7 @@
     }
     return self;
 }
+
 - (void)dealloc
 {
     /*  ------------------------------------------------------ */
@@ -106,7 +110,7 @@
         characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
     } else {
         txtComments.text = [txtComments.text substringToIndex:140];
-        characterCountLabel.placeholder = @"140/140";
+        characterCountLabel.placeholder = @"0/140";
     }
 }
 
@@ -141,7 +145,7 @@
     
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     contactButtonBGImage.highlighted = NO;
@@ -155,7 +159,6 @@
         [lm startUpdatingLocation];
     }
     
-    
     /*         Button Visiblity Handling        */
     /*  --------------------------------------- */
     chooseRecipientButton.backgroundColor = [UIColor clearColor];
@@ -164,7 +167,6 @@
     [recipientImageButton.layer setMasksToBounds:YES];
     [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
     [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
-    
     
     
     /*          Services/ViewController Initialization         */
@@ -190,6 +192,7 @@
     [txtAmount setDelegate:self];
     txtAmount.text = @"0.00";
     
+    NSLog(@"Inside view did load, resetting recipient object/labels");
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     NSError *error;
@@ -282,6 +285,7 @@
 
 
 -(IBAction) btnSendMoneyClicked:(id)sender {
+    [txtComments resignFirstResponder];
     [self sendMoney];
 }
 -(void) sendMoney {
@@ -294,7 +298,7 @@
     
     BOOL isValid = YES;
     
-    if(isValid && ![self isValidRecipientUri:recipientUri])
+    if(isValid && [recipient.paypoints count] == 0)
     {
         [self showAlertView:@"Invalid Recipient!" withMessage: @"You specified an invalid recipient.  Please try again."];
         
@@ -314,16 +318,28 @@
         
         if([user.preferredPaymentAccountId length] > 0)
         {
-            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-            [controller setSecurityPinSwipeDelegate: self];
-            [controller setNavigationTitle: @"Confirm"];
+            if ([recipient.paypoints count] == 1)
+            {
+                
+                CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+                [controller setSecurityPinSwipeDelegate: self];
+                [controller setNavigationTitle: @"Confirm"];
+                
+                if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+                else
+                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+                
+                [self presentModalViewController:controller animated:YES];
+            }
+            else{
+                
+                PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+                [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@""];
+                [sendMoneyService setDetermineRecipientCompleteDelegate:self];
+                [sendMoneyService determineRecipient:recipient.paypoints];
+            }
             
-            if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
-                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-            else
-                [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
-            
-            [self presentModalViewController:controller animated:YES];
         } else {
             AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
             controller.newUserFlow = false;
@@ -359,6 +375,69 @@
 -(IBAction) bgTouched:(id) sender {
     [txtAmount resignFirstResponder];
     [txtComments resignFirstResponder];
+}
+
+-(void) determineRecipientDidComplete: (NSArray*) recipients
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    SelectRecipientViewController* controller= [[SelectRecipientViewController alloc] init];
+    [controller setSelectRecipientDelegate:self];
+    
+    if (recipients == nil)
+    {	
+        controller.noMatchFound = YES;
+        controller.recipients = recipient.paypoints;
+        [controller.txtHeader setText:[NSString stringWithFormat:@"%@ hasn't joined PaidThx yet. How would you like to invite them?", recipient.name]];
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        [self presentModalViewController:navBar animated:YES];
+    }
+    else {
+        if ([recipients count] != 1)
+        {           
+            controller.noMatchFound = NO;
+            [controller.txtHeader setText: @"We found multiple PaidThx members associated with the contact you selected. Please choose your recipient below:"];
+            controller.recipients = recipients;            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+            [self presentModalViewController: navBar animated:YES];
+        }
+        else
+        {
+            NSDictionary* uriInfo = (NSDictionary*) [recipients objectAtIndex:0];
+            [self setRecipientUri: [NSString stringWithFormat:@"%@", [uriInfo valueForKey:@"userUri"]]];
+            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+            [controller setSecurityPinSwipeDelegate: self];
+            [controller setNavigationTitle: @"Confirm"];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+            
+            [self presentModalViewController:controller animated:YES];            
+        }
+        
+    }
+}
+
+-(void) determineRecipientDidFail: (NSString*) message
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Finding matching recipient uris failed. Please pick one." withDetailedStatus:message];
+}
+
+-(void) selectRecipient:(NSString *)uri;
+{
+    self.recipientUri = uri;
+    
+    [self dismissModalViewControllerAnimated:NO];
+    
+    CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    [controller setNavigationTitle: @"Confirm"];
+    
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+    else
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+    
+    [self presentModalViewController:controller animated:YES];
 }
 
 
@@ -473,6 +552,7 @@
 }
 -(void)didChooseContact:(Contact *)contact
 {
+    NSLog(@"Returned with Contact from ContactSelectVC");
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
@@ -491,15 +571,18 @@
     
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ( contact.phoneNumber ){
-        contactDetail.text = contact.phoneNumber;
-    } else if ( contact.emailAddress.length > 0 ){
-        contactDetail.text = contact.emailAddress;
+    } else if ( [contact.paypoints count] == 1 ){
+        contactDetail.text = [contact.paypoints objectAtIndex:0];
+    } else if ([contact.paypoints count] ) {
+        contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
     }else {
         contactDetail.text = @"No Info to Display";
     }
     
-    self.recipientUri = contact.recipientUri;
+    if ([contact.paypoints count] == 1)
+    {
+        recipientUri = [contact.paypoints objectAtIndex:0];
+    }
     
 }
 
@@ -545,7 +628,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         
@@ -574,16 +657,16 @@
     {
         // Already the current view controller
         /*
-        //Switch to the groups tab
-        SendMoneyController *gvc = [[SendMoneyController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
+         //Switch to the groups tab
+         SendMoneyController *gvc = [[SendMoneyController alloc]init];
+         [[self navigationController] pushViewController:gvc animated:NO];
+         [gvc release];
+         
+         //Remove the view controller this is coming from, from the navigation controller stack
+         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+         [allViewControllers removeObjectIdenticalTo:self];
+         [[self navigationController] setViewControllers:allViewControllers animated:NO];
+         [allViewControllers release];
          */
     }
     if( buttonIndex == 3 )

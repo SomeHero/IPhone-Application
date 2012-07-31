@@ -52,7 +52,8 @@
     tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:3];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0];
+    
     [viewPanel.layer setMasksToBounds:YES];
     [[viewPanel layer] setCornerRadius: 8.0];
     

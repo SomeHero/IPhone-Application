@@ -50,7 +50,7 @@
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [viewPanel.layer setMasksToBounds:YES];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"WelcomeScreenViewController"
@@ -88,25 +88,14 @@
     [super dealloc];
 }
 
-- (IBAction)newToPaidThxButtonAction:(id)sender {
-    
-    CreateAccountViewController *ViewC = [[CreateAccountViewController alloc] initWithNibName:@"CreateAccountViewController" bundle:nil];
-    [self.navigationController pushViewController:ViewC animated:YES];
-}
-
-- (IBAction)alreadyUsePaidThxButtonAction:(id)sender {
-    //SignInViewController *VC = [[SignInViewController alloc] initWithNibName:@"SignInViewController" bundle:nil];
-    //[self.navigationController pushViewController:VC animated:YES];
-}
-
 - (IBAction)firstTimeUserButtonPressed:(id)sender 
 {
-    [self.tabBarController setSelectedIndex:2];
+    [self tabBarClicked:2];
 }
 
 - (IBAction)currentUserButtonPressed:(id)sender
 {
-    [self.tabBarController setSelectedIndex:1];
+    [self tabBarClicked:1];
 }
 
 - (void)setTitle:(NSString *)title

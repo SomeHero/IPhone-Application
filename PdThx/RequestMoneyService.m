@@ -13,7 +13,7 @@
 
 @implementation RequestMoneyService
 
-@synthesize requestMoneyCompleteDelegate;
+@synthesize requestMoneyCompleteDelegate, determineRecipientCompleteDelegate;
 
 -(id)init {
     self = [super init];
@@ -169,6 +169,8 @@
 - (void)dealloc
 {
     [requestObj release];
+    [determineRecipientCompleteDelegate release];
+    [requestMoneyCompleteDelegate release];
     
     [super dealloc];
 }

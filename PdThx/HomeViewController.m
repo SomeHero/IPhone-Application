@@ -73,7 +73,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [userService setUserInformationCompleteDelegate: self];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     [btnUserImage.layer setCornerRadius:6.0];

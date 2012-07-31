@@ -105,7 +105,6 @@
         questionId = [[defaults objectForKey:@"securityQuestionId"] integerValue];
         [questionPicker selectedRowInComponent:questionId];
     }
-    
 }
 /*      Setting up Picker View      */
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
@@ -130,6 +129,8 @@
 }
 
 - (IBAction)doSubmit:(id)sender {
+    [answerField resignFirstResponder];
+    
     if ( [answerField.text length] > 0 ){
         if(questionId == 0) {
             questionId = [[[securityQuestions objectAtIndex:0] objectForKey: @"Id"] intValue];

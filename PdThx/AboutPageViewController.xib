@@ -51,7 +51,6 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{24, 33}, {261, 60}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="414851389"/>
 										<object class="NSColor" key="IBUIBackgroundColor" id="59550679">
 											<int key="NSColorSpace">3</int>
@@ -88,7 +87,6 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{3, 9}, {251, 35}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="446122440"/>
 										<reference key="IBUIBackgroundColor" ref="59550679"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -162,6 +160,8 @@
 										<reference key="NSNextKeyView" ref="945810956"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
+
+										<reference key="IBUIBackgroundColor" ref="59550679"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -238,9 +238,8 @@
 										<bool key="IBUIDetectsPhoneNumbers">YES</bool>
 									</object>
 								</array>
-								<string key="NSFrame">{{6, 5}, {308, 357}}</string>
+								<string key="NSFrame">{{6, 4}, {308, 357}}</string>
 								<reference key="NSSuperview" ref="196810479"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="835945136"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -254,7 +253,6 @@
 						</array>
 						<string key="NSFrameSize">{320, 367}</string>
 						<reference key="NSSuperview" ref="201912044"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="556894152"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -265,7 +263,6 @@
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="196810479"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -405,6 +402,8 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">80</int>
 						<reference key="object" ref="480418840"/>
+						<int key="objectID">67</int>
+						<reference key="object" ref="627641457"/>
 						<reference key="parent" ref="556894152"/>
 					</object>
 				</array>
@@ -431,6 +430,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">85</int>
 		</object>
+<<<<<<< HEAD
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">

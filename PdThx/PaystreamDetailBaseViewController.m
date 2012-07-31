@@ -240,18 +240,63 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             }
         }
     }
-    if([messageDetail.messageType isEqualToString: @"Payment"]) {
-        if([messageDetail.direction isEqualToString: @"Out"]) { 
-            navBar.topItem.title = @"$ Send";
-        } else {
-            navBar.topItem.title = @"$ Received";
-        }
+    /*
+     [super setTitle:title];
+     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
+     if (!titleView) {
+     titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+     titleView.backgroundColor = [UIColor clearColor];
+     titleView.font = [UIFont boldSystemFontOfSize:20.0];
+     titleView.shadowColor = [UIColor colorWithWhite:100.0 alpha:0.5];
+     titleView.shadowOffset = CGSizeMake(0.0,1.5);
+     
+     //52.0 54.0 61.0 is the grey he wanted
+     titleView.textColor = [UIColor colorWithRed:52.0/255.0 green:54.0/255.0 blue:61.0/255.0 alpha:1.0];
+     
+     self.navigationItem.titleView = titleView;
+     [titleView release];
+     }
+     
+     titleView.text = title;
+     [titleView sizeToFit];
+     */
+    UILabel *titleView = (UILabel *)navBar.topItem.titleView;
+    
+    if ( !titleView ){
+        titleView = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleView.backgroundColor = [UIColor clearColor];
+        titleView.font = [UIFont boldSystemFontOfSize:20.0];
+        titleView.shadowColor = [UIColor colorWithWhite:100.0 alpha:0.5];
+        titleView.shadowOffset = CGSizeMake(0.0,1.5);
+        
+        //52.0 54.0 61.0 is the grey he wanted
+        titleView.textColor = [UIColor colorWithRed:52.0/255.0 green:54.0/255.0 blue:61.0/255.0 alpha:1.0];
+        
+        navBar.topItem.titleView = titleView;
+        titleView.text = @"";
     }
-    else {
+    
+    if([messageDetail.messageType isEqualToString: @"Payment"]) {
+        if([messageDetail.direction isEqualToString: @"Out"]) {                titleView.text = @"Money Sent";
+                
+            [titleView sizeToFit];
+            [titleView release];
+        } else {            
+            titleView.text = @"Money Received";
+            [titleView sizeToFit];
+            [titleView release];
+        }
+    } else {
         if([messageDetail.direction isEqualToString: @"Out"]) { 
-            navBar.topItem.title = @"Request Sent";
+            titleView.text = @"Request Sent";
+            
+            [titleView sizeToFit];
+            [titleView release];
         } else {
-            navBar.topItem.title = @"Request Received";
+            titleView.text = @"Request Received";
+            
+            [titleView sizeToFit];
+            [titleView release];
         }
     }
     

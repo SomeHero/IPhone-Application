@@ -102,7 +102,7 @@
 -(void)switchToSendMoneyController;
 -(void)switchToRequestMoneyController;
 -(void)switchToPaystreamController;
--(void)loadAllContacts;
+-(void)loadPhoneContacts;
 
 -(void)switchToMainAreaTabbedView;
 -(void)backToWelcomeTabbedArea;

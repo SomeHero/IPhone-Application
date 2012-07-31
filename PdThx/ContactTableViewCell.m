@@ -10,8 +10,8 @@
 
 @implementation ContactTableViewCell
 
-@synthesize contactName, contactDetail, contactImage;
-@synthesize imgData;
+@synthesize contactDetail, contactImage;
+@synthesize imgData, contactNameWebView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -36,7 +36,7 @@
     [contactImage release];
     [contactImage release];
     [contactDetail release];
-    [contactName release];
+    [contactNameWebView release];
     [super dealloc];
 }
 @end

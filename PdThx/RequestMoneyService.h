@@ -18,10 +18,14 @@
 }
 
 @property(retain) id requestMoneyCompleteDelegate;
+@property(retain) id determineRecipientCompleteDelegate;
 
 -(void) requestMoney:(NSString *)theAmount toRecipient:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
           fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount
     withFromLatitude:(double) latitude
    withFromLongitude: (double) longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri;
+
+-(void) determineRecipient:(NSArray*) recipientUris;
+
 
 @end

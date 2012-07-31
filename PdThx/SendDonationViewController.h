@@ -23,7 +23,11 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "AddACHAccountViewController.h"
 #import "PaystreamService.h"
+
+
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
+
 #import "PayStreamViewController.h"
 #import "SendMoneyController.h"
 #import "RequestMoneyController.h"
