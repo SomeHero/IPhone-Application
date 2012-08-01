@@ -53,6 +53,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 -(IBAction)btnSubmitClicked:(id)sender {
+    [txtSecurityQuestionAnswer resignFirstResponder];
     [securityQuestionService validateSecurityAnswer: txtSecurityQuestionAnswer.text forUserId:currUser.userId];
 }
 

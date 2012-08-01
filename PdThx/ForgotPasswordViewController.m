@@ -90,6 +90,7 @@
 
     userService = [[UserService alloc] init];
     [userService setForgotPasswordCompleteDelegate:self];
+    [txtEmailAddress resignFirstResponder];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Sending email.." withDetailedStatus:@""];
@@ -115,14 +116,23 @@
 
 -(void) forgotPasswordDidComplete
 {
+    txtEmailAddress.text = @"";
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Forgot Password" withDetailedStatus:@"Email has been sent."];
+    [appDelegate dismissProgressHUD];
+    [appDelegate showSimpleAlertView:YES withTitle:@"Email sent!" withSubtitle:@"Email successfully sent" withDetailedText:@"Check your email for a link to our website, and fill in the information to reset your password!" withButtonText:@"OK" withDelegate:self];
 }
 
 -(void) forgotPasswordDidFail:(NSString *)message
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:message];
+}
+
+-(void) didSelectButtonWithIndex:(int)index
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissAlertView];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)dealloc {
