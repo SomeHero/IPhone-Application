@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
+		<string key="IBDocument.SystemVersion">11D50</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1181</string>
@@ -43,6 +43,8 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 363}, {320, 53}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -59,6 +61,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{14, 4}, {273, 30}}</string>
 								<reference key="NSSuperview" ref="632655049"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="697147858"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -88,12 +91,17 @@
 							<object class="IBUITextView" id="221739084">
 								<reference key="NSNextResponder" ref="632655049"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{5, 23}, {298, 77}}</string>
+								<string key="NSFrame">{{5, 20}, {298, 77}}</string>
 								<reference key="NSSuperview" ref="632655049"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="771939890"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<bool key="IBUIScrollEnabled">NO</bool>
+								<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+								<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
 								<string key="IBUIText">Click the button to send a text to PaidThx. This text will verify your phone and allow you to send and accept payments with your phone number.</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
@@ -120,6 +128,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 123}, {250, 120}}</string>
 								<reference key="NSSuperview" ref="632655049"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="876117939"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -133,6 +142,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{5, 261}, {298, 60}}</string>
 								<reference key="NSSuperview" ref="632655049"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1018897139"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -173,6 +183,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{168, 318}, {135, 37}}</string>
 								<reference key="NSSuperview" ref="632655049"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="578881357"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -192,6 +203,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{177, 319}, {117, 35}}</string>
 								<reference key="NSSuperview" ref="632655049"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="18555607"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -210,6 +222,7 @@
 						</array>
 						<string key="NSFrame">{{6, 5}, {308, 355}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="221739084"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -224,6 +237,7 @@
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="632655049"/>
 				<reference key="IBUIBackgroundColor" ref="366462976"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -327,11 +341,11 @@
 						<reference key="object" ref="632655049"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="697147858"/>
-							<reference ref="221739084"/>
 							<reference ref="876117939"/>
 							<reference ref="1018897139"/>
 							<reference ref="578881357"/>
 							<reference ref="771939890"/>
+							<reference ref="221739084"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -393,7 +407,102 @@
 			<nil key="sourceID"/>
 			<int key="maxID">38</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">ActivatePhoneViewController</string>
+					<string key="superclassName">UISetupUserBaseViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="pressedActivate:">id</string>
+						<string key="pressedRemindMeLater:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="pressedActivate:">
+							<string key="name">pressedActivate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pressedRemindMeLater:">
+							<string key="name">pressedRemindMeLater:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="activateButton">UIButton</string>
+						<string key="navBar">UIView</string>
+						<string key="remindMeLaterButton">UIButton</string>
+						<string key="viewPanel">UIView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="activateButton">
+							<string key="name">activateButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="navBar">
+							<string key="name">navBar</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="remindMeLaterButton">
+							<string key="name">remindMeLaterButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="viewPanel">
+							<string key="name">viewPanel</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ActivatePhoneViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TPKeyboardAvoidingScrollView</string>
+					<string key="superclassName">UIScrollView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TPKeyboardAvoidingScrollView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UIBaseViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">mainScrollView</string>
+						<string key="NS.object.0">TPKeyboardAvoidingScrollView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">mainScrollView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">mainScrollView</string>
+							<string key="candidateClassName">TPKeyboardAvoidingScrollView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UIBaseViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">UISetupUserBaseViewController</string>
+					<string key="superclassName">UIBaseViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">scrollView</string>
+						<string key="NS.object.0">TPKeyboardAvoidingScrollView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">scrollView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">scrollView</string>
+							<string key="candidateClassName">TPKeyboardAvoidingScrollView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/UISetupUserBaseViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

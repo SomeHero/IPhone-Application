@@ -7,14 +7,15 @@
 //
 
 #import "SelectRecipientViewController.h"
+#import "SelectRecipientCell.h"
 
 @interface SelectRecipientViewController ()
 
 @end
 
 @implementation SelectRecipientViewController
-@synthesize selectRecipientPicker, recipientUriOutputs, recipientUris;
-@synthesize selectRecipientDelegate;
+@synthesize selectRecipientTable, recipients, noMatchFound;
+@synthesize selectRecipientDelegate, txtHeader;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,14 +29,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [selectRecipientPicker setDelegate:self];
-    [selectRecipientPicker setDataSource:self];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
-    [self setSelectRecipientPicker:nil];
+    [selectRecipientTable release];
+    selectRecipientTable = nil;
+    [txtHeader release];
+    txtHeader = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -43,7 +46,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    [selectRecipientPicker reloadAllComponents];
+    [selectRecipientTable reloadData];
     [super viewWillAppear:animated];
 }
 
@@ -52,36 +55,65 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-/*      Setting up Picker View      */
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (noMatchFound)
+    {
+        [selectRecipientDelegate selectRecipient: [recipients objectAtIndex:indexPath.row]];
+    }
+    else {
+        NSDictionary* dic = [recipients objectAtIndex:indexPath.row];
+        [selectRecipientDelegate selectRecipient:[NSString stringWithFormat:@"%@", [dic objectForKey:@"userUri"]]];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SelectRecipientCell* cell = (SelectRecipientCell*) [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SelectRecipientCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    
+    if (noMatchFound)
+    {
+        NSString* uri = [recipients objectAtIndex:indexPath.row];
+        
+        cell.contactName.text = uri;
+    }
+    else {
+        NSDictionary* dic = [recipients objectAtIndex:indexPath.row];
+        
+        cell.contactName.text = [NSString stringWithFormat:@"%@ %@", [dic objectForKey:@"firstName"], [dic objectForKey:@"lastName"]];
+        cell.contactDetail.text = [dic objectForKey:@"userUri"];
+        //[cell.imgRecipient setBackgroundImage: [dic objectForKey:@"picture"] forState:UIControlStateNormal]; 
+    }
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [recipients count];
+}
+
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
-    return [recipientUris count];
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
 }
-
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [recipientUriOutputs objectAtIndex:row];
-}
-
-- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    chosenRecipient = row;
-    //NSString* question = [NSString stringWithString:[[securityQuestions objectAtIndex:row] objectForKey: @"Question"]];
-    //currentQuestion.text = question;
-    
-    //questionPicker.hidden = YES;
-}
-
 
 - (void)dealloc {
-    [selectRecipientPicker release];
-    [recipientUris release];
-    [recipientUriOutputs release];
+    [selectRecipientTable release];
+    [recipients release];
+    [txtHeader release];
     [super dealloc];
 }
-- (IBAction)btnSelectRecipientClicked:(id)sender {
-    [selectRecipientDelegate selectRecipient:[recipientUris objectAtIndex:chosenRecipient]];
-}
+
 @end

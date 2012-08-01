@@ -37,16 +37,13 @@
     mainScrollView.contentSize = CGSizeMake(320, 600);
     [self.view addSubview: mainScrollView];
     
-    UIBarButtonItem *verifyButton =  [[UIBarButtonItem alloc] initWithTitle:@"Verify" style:UIBarButtonSystemItemAction target:self action:@selector(verifyClicked)];
-    
-    self.navigationItem.rightBarButtonItem = verifyButton;
-    [verifyButton release];
-    
     bankAccountService = [[BankAccountService alloc] init];
     [bankAccountService setDeleteBankAccountDelegate: self];
     [bankAccountService setUpdateBankAccountDelegate: self];
 }
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
     txtNickName.text = bankAccount.nickName;
     txtNameOnAccount.text = bankAccount.nameOnAccount;
     txtAccountNumber.text = [NSString stringWithFormat: @"********%@", bankAccount.accountNumber];
@@ -56,6 +53,14 @@
         [ctrlAccountType setSelectedSegmentIndex: 1];
     else {
         [ctrlAccountType setSelectedSegmentIndex: 0];
+    }
+    
+    if([bankAccount.status isEqualToString: @"Pending Activation"])
+    {
+        [self.view addSubview: ctrlVerifyView];
+    }
+    else {
+        [self.view addSubview: ctrlUpdateView];
     }
 }
 - (void)viewDidUnload
@@ -69,6 +74,25 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+-(BOOL)textFieldShouldReturn:(UITextField*)textField;
+{
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [textField resignFirstResponder];
+        [nextResponder becomeFirstResponder];
+    } else {
+        // Not found, so remove keyboard.
+        [textField resignFirstResponder];
+        
+        [self btnSaveChangesClicked:self];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+}
+
 -(IBAction)btnSaveChangesClicked :(id)sender {
     NSString* accountType = @"Checking";
     
@@ -103,7 +127,7 @@
     [txtRoutingNumber resignFirstResponder];
     [txtAccountNumber resignFirstResponder];
 }
--(void)verifyClicked {
+-(IBAction)btnVerifyClicked:(id)sender {
     VerifyACHAccountViewController* controller = [[VerifyACHAccountViewController    alloc] init];
     [controller setTitle: @"Verify Account"];
     

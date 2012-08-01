@@ -69,14 +69,6 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
-    [bankAccountService getUserAccounts: user.userId];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -327,6 +319,8 @@
             NewACHAccountViewController* controller = [[NewACHAccountViewController alloc] init];
             
             [controller setTitle: @"Add Bank Account"];
+            [controller setAchSetupDidComplete:self];
+            
             //[controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
 
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
@@ -394,5 +388,18 @@
 }
 -(void)setPreferredAccountDidFail:(NSString*)responseMsg {
     NSLog(@"Failed");
+}
+-(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
+
+    [self.navigationController dismissModalViewControllerAnimated: NO];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
+    [bankAccountService getUserAccounts: user.userId];
+    
+}
+-(void)userACHSetupDidFail:(NSString*) message {PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
 @end

@@ -102,7 +102,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
--(BOOL)textFieldShouldReturn:(UITextField*)textField;
+-(BOOL)	textFieldShouldReturn:(UITextField*)textField;
 {
     NSInteger nextTag = textField.tag + 1;
     // Try to find next responder
@@ -216,6 +216,12 @@
 }
 
 -(IBAction) btnSetupACHAccountClicked:(id) sender {
+    
+    [txtAccountNumber resignFirstResponder];
+    [txtConfirmAccountNumber resignFirstResponder];
+    [txtNameOnAccount resignFirstResponder];
+    [txtRoutingNumber resignFirstResponder];
+    
     controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Setup your Pin"];
