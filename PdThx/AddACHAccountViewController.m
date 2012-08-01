@@ -146,7 +146,10 @@
  		PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
         
-        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
+        
+        NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5]];
+        
+        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
     else {
         if([sender tag] == 1)
@@ -194,7 +197,9 @@
     if([ctrlAccountType selectedSegmentIndex] == 1)
         accountType = @"Savings";
     
-    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
+    NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5]];
+    
+    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
     
     //if(!newUserFlow) {
         //[self.navigationController dismissModalViewControllerAnimated:YES];
@@ -260,6 +265,12 @@
     [txtConfirmAccountNumber resignFirstResponder];
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];
+}
+-(IBAction)btnRemindMeLaterClicked:(id)sender;
+{
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
 }
 -(void)delete:(id)sender {
         

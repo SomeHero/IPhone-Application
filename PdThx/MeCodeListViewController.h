@@ -14,8 +14,9 @@
 #import "GetPayPointProtocol.h"
 #import "User.h"
 #import "AddPayPointCompleteProtocol.h"
+#import "MeCodeDetailViewController.h"
 
-@interface MeCodeListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
+@interface MeCodeListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, DeletePayPointDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView* payPointTable;
     

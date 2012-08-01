@@ -9,6 +9,7 @@
 #import "AccountListViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SetupACHAccountController.h"
+#import "NewACHAccountViewController.h"
 
 @implementation AccountListViewController
 
@@ -122,13 +123,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CustomTableViewCellIdentifier = @"CustomTableViewCell";
+    static NSString *CellIdentifier = @"CellIdentifier";
 
-    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil){
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
     
     if(indexPath.section == 2) {
         bool found = false;
@@ -139,17 +136,39 @@
             
             if([user.preferredReceiveAccountId isEqualToString:bankAccount.bankAccountId])
             {
+                UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CustomTableViewCellIdentifier];
+                if (cell == nil){
+                    NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+                    cell = [nib objectAtIndex:0];
+                }
+                
+                cell.lblHeading.text = @"";
+                cell.lblDescription.text = @"";
+                cell.ctrlImage.image = nil;
                 cell.textLabel.text = bankAccount.nickName;
                 cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
                 
                 found = YES;
+                
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                return cell;
             }
         }
         
         if(!found)
         {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            }
+            
             cell.textLabel.text = @"No Preferred Account Setup";
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
         }
     }
     if(indexPath.section == 1){ 
@@ -161,35 +180,75 @@
             
             if([user.preferredPaymentAccountId isEqualToString:bankAccount.bankAccountId])
             {
+                UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CustomTableViewCellIdentifier];
+                if (cell == nil){
+                    NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+                    cell = [nib objectAtIndex:0];
+                }
+                
+                cell.lblHeading.text = @"";
+                cell.lblDescription.text = @"";
+                cell.ctrlImage.image = nil;
                 cell.textLabel.text = bankAccount.nickName;
                 cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
                 found = YES;
+                
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                return cell;
             }
         }
         if(!found)
         {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            }
+            
             cell.textLabel.text = @"No Preferred Account Setup";
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
         }
     }
     if(indexPath.section == 0)
     {
         if(indexPath.row >= [user.bankAccounts count])
         {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            }
+            
             cell.textLabel.text = @"Add Account";
+            cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+            return cell;
         }
         else {
             BankAccount* bankAccount = [user.bankAccounts objectAtIndex:indexPath.row];
             
+            UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CustomTableViewCellIdentifier];
+            if (cell == nil){
+                NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+                cell = [nib objectAtIndex:0];
+            }
+            
             cell.lblHeading.text = bankAccount.nickName;
             cell.lblDescription.text = bankAccount.status;
             cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+            cell.textLabel.text = @"";
+            cell.imageView.image = nil;
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
         }
     }
-
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -265,10 +324,17 @@
     if(indexPath.section == 0)  {
         if(indexPath.row >= [user.bankAccounts count])
         {
-            AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
+            NewACHAccountViewController* controller = [[NewACHAccountViewController alloc] init];
             
-            [self.navigationController pushViewController:controller animated:YES];
-            [controller release];   
+            [controller setTitle: @"Add Bank Account"];
+            //[controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+            
+            [self.navigationController presentModalViewController:navBar animated:YES];
+            
+            [navBar release];
+            [controller release];
         } else {
             EditACHAccountViewController* controller = [[EditACHAccountViewController alloc] init];
             controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];

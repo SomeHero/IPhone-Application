@@ -14,6 +14,7 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "UIAccountTableCell.h"
+#import "NewACHAccountViewController.h"
 #import "AddACHAccountViewController.h"
 #import "EditACHAccountViewController.h"
 #import "UISetupUserBaseViewController.h"

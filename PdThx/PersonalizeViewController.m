@@ -41,6 +41,8 @@
 
     [navBar addSubview:setupNavBar];
     
+    [self.navigationItem setLeftBarButtonItem:[[[UIBarButtonItem alloc] initWithCustomView:[[UIView new] autorelease]] autorelease]];
+    
     [self setTitle: @"Personalize"];
     firstNameField.delegate = self;
     lastNameField.delegate = self;

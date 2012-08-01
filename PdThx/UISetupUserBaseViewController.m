@@ -141,7 +141,7 @@ CGSize scrollViewOriginalSize;
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-   self.navigationItem.backBarButtonItem =  [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil] autorelease];
+    [self.navigationItem setHidesBackButton:YES];
     
     [super viewDidLoad];
 }

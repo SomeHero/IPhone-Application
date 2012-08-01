@@ -13,6 +13,7 @@
 @synthesize getPayPointsDelegate;
 @synthesize addPayPointCompleteDelegate;
 @synthesize payPointVerificationCompleteDelegate;
+@synthesize deletePayPointCompleteDelegate;
 
 -(void) getPayPoints:(NSString*) userId
 {
@@ -103,34 +104,34 @@
     
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(deletePayPointCompleted:)];
-    [requestObj setDidFailSelector:@selector(deletePayPointsFailed:)];
+    [requestObj setDidFailSelector:@selector(deletePayPointFailed:)];
     [requestObj startAsynchronous];
 }
--(void) deletePayPointsCompleted:(ASIHTTPRequest *)request
+-(void) deletePayPointCompleted:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 200 ) {
         
+        [deletePayPointCompleteDelegate  deletePayPointCompleted];
         
     }
     else {
         
         NSLog(@"Error Answered Security Questions");
         
-        
-        
+        [deletePayPointCompleteDelegate deletePayPointFailed: [request responseString]];
     }
     
     
 }
--(void) deletePayPointsFailed:(ASIHTTPRequest *)request
+-(void) deletePayPointFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Error Answering Security Questions");
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    
+   [deletePayPointCompleteDelegate deletePayPointFailed: [request responseString]];
 }
 -(void) addPayPoint:(NSString *) uri ofType: (NSString*) type forUserId: (NSString*) userId
 {

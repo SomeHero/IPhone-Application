@@ -96,37 +96,47 @@
     
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    
-    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
-    
+    static NSString *CellIdentifier = @"CellIdentifier";
+
     if([meCodes count] == 0)
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        }
+
         cell.textLabel.text = @"Add MeCode";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
+    }
     else
     {
-        if(indexPath.section == 1)
+        if(indexPath.section == 1) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            }
+
             cell.textLabel.text = @"Add MeCode";
-        else {
+            cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
-            cell.lblHeading.text = [[meCodes objectAtIndex: indexPath.row] uri];
-            if([[meCodes objectAtIndex: indexPath.row] verified])
-            {
-                cell.lblDescription.text = @"Verified";
+            return cell;
+        }
+        else {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
             }
-            else {
-                cell.lblDescription.text = @"Pending Verification";
-            }
+            
+            cell.textLabel.text = [[meCodes objectAtIndex: indexPath.row] uri];
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-mecode-40x40.png"];
-            //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
         }
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -173,17 +183,33 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AddMeCodeViewController* controller = [[[AddMeCodeViewController alloc] init] retain];
-    [controller setTitle: @"Add $MeCode"];
-    [controller setHeaderText: @"To claim your MeCode, enter the MeCode below.  All MeCodes must begin with a $ and be at least 3 AlphaNumeric characters long."];
-    [controller setAddPayPointComplete:self];
-    
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-    
-    [self.navigationController presentModalViewController:navBar animated:YES];
-    
-    [navBar release];
-    [controller release];
+    if([indexPath section] == 1 || [meCodes count] == 0)
+    {
+        AddMeCodeViewController* controller = [[[AddMeCodeViewController alloc] init] retain];
+        [controller setTitle: @"Add $MeCode"];
+        [controller setHeaderText: @"To claim your MeCode, enter the MeCode below.  All MeCodes must begin with a $ and be at least 3 AlphaNumeric characters long."];
+        [controller setAddPayPointComplete:self];
+        
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self.navigationController presentModalViewController:navBar animated:YES];
+        
+        [navBar release];
+        [controller release];
+        
+    } else {
+        
+        PayPoint* payPoint = [meCodes objectAtIndex:indexPath.row];
+        
+        MeCodeDetailViewController *controller = [[MeCodeDetailViewController alloc] init];
+        controller.payPoint = payPoint;
+        [controller setDeletePayPointComplete:self];
+        
+        [controller setTitle: @"MeCode"];
+        
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }
 }
 -(void)addPayPointsDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
@@ -191,6 +217,14 @@
     [payPointService getPayPoints:user.userId];
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
+    
+}
+-(void)deletePayPointCompleted {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [payPointService getPayPoints: user.userId];
+}
+-(void)deletePayPointFailed: (NSString*) errorMessage {
     
 }
 

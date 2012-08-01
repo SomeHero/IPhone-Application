@@ -20,6 +20,7 @@
     if (self) {
         // Custom initialization
         currentReminderTab = 0;
+        
     }
     return self;
 }

@@ -23,7 +23,6 @@
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
-    IBOutlet UITextField* txtNickname;
     IBOutlet UITextField* txtNameOnAccount;
     IBOutlet UITextField* txtRoutingNumber;
     IBOutlet UITextField* txtAccountNumber;
@@ -44,6 +43,7 @@
 @property(nonatomic, retain) NSString* headerText;
 @property(nonatomic) BOOL newUserFlow;
 
+-(IBAction)btnRemindMeLaterClicked:(id)sender;
 -(IBAction) btnCreateAccountClicked:(id)sender;
 -(IBAction) bgClicked:(id)sender;
 

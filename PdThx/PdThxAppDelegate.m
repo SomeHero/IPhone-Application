@@ -23,6 +23,7 @@
 #import "myProgressHud.h"
 #import "CustomAlertViewController.h"
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
 #import "WelcomeScreenViewController.h"
 #import "AboutPageViewController.h"
 
@@ -74,7 +75,7 @@
      */
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
-        currentReminderTab = 1;  
+        currentReminderTab = 1;
         
         ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
         
@@ -82,11 +83,9 @@
             setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
             [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
             
-        }
-        else {
+        } else {
             [setupFlowController pushViewController:controller animated:YES];
         }
-        
     }
     else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) || (currentReminderTab < 2 && user.lastName == (id)[NSNull null])) {
         
@@ -159,16 +158,8 @@
             
             [prefs synchronize];
             
-            @try {
-                [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
-                
-            }
-            @catch (NSException *exception) {
-                
-            }
-            @finally {
-                
-            }
+            [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
+            
             [setupFlowController release];
             setupFlowController = nil;
             
@@ -246,7 +237,7 @@
     
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_v1.png"]];
     
-    HomeViewController *hvc = [[HomeViewController alloc]init];
+    HomeViewControllerV2 *hvc = [[HomeViewControllerV2 alloc]init];
     mainAreaTabBarController = [[UINavigationController alloc] initWithRootViewController:hvc];
     [hvc release];
     
@@ -547,7 +538,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    for (int i = 1; i < nPeople; i++) {
+    for (int i = 0; i < nPeople; i++) {
         
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
@@ -745,7 +736,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         friend.lastName = [splitName objectAtIndex:([splitName count]-1)];
         
         friend.imgData = NULL;
-        friend.recipientUri = [NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]];
+        [friend.paypoints addObject:[NSString stringWithFormat: @"fb_%@", [dict objectForKey:@"id"]]];
         
         [tempArray addObject:friend];
         
@@ -834,14 +825,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
     for (Contact*person in tmpArray) {
-        if(person.name.length > 0)
-            comparedString = person.name;
+        if ( person.lastName.length > 0 )
+            comparedString = person.lastName;
         else if ( person.firstName.length > 0 )
             comparedString = person.firstName;
-        else if ( person.lastName.length > 0 )
-            comparedString = person.lastName;
+        else if(person.name.length > 0)
+            comparedString = person.name;
         else
-            comparedString = person.paypoint;
+            comparedString = [person.paypoints objectAtIndex:0];
         
         if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
         {
@@ -1199,13 +1190,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
                      }];
 }
+
 -(void)getApplicationSettingsDidComplete:(Application*)application {
     myApplication = [application copy];
 }
+
 -(void)getApplicationSettingsDidFail: (NSString*) errorMessage
 {
     NSLog( @"Failed to get application settings, error %@" , errorMessage );
 }
+
 -(NSString*)getSelectedContactListImage {
     if([selectedContactList isEqualToString: @"AllContacts"])
         return @"nav-selector-allcontacts-52x30.png";
@@ -1220,6 +1214,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     return @"nav-selector-allcontacts-52x30.png";
 }
+
 -(double)getUpperLimit {
     
     double upperLimit = 5000.0;

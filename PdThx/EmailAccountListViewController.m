@@ -100,22 +100,42 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
+    static NSString *CustomTableViewCellIdentifier = @"CustomTableViewCell";
+    static NSString *CellIdentifier = @"CellIdentifier";
 
-    
-    if([emailAddresses count] == 0)
+    if([emailAddresses count] == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        }
+        
         cell.textLabel.text = @"Add Email Address";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
+    }
     else 
     {
-        if(indexPath.section == 1)
+        if(indexPath.section == 1) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            }
+            
             cell.textLabel.text = @"Add Email Address";
+            cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;   
+        }
         else {
-            			
+            		
+            UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CustomTableViewCellIdentifier];
+            if (cell == nil) {
+                NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+                cell = [nib objectAtIndex:0];
+            }
+            
             cell.lblHeading.text = [[emailAddresses objectAtIndex: indexPath.row] uri];
             if([[emailAddresses objectAtIndex:indexPath.row] verified])
                 cell.lblDescription.text =@"Verified";
@@ -124,11 +144,11 @@
             
             cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-email-40x40.png"];
             //cell.imageView.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
         }
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
 }
 
 
@@ -181,20 +201,33 @@
             
             PayPoint* payPoint = [emailAddresses objectAtIndex:indexPath.row];
             
-            VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
-            controller.payPoint = payPoint;
-            
-            [controller setTitle: @"Verify"];
-            
-            [self.navigationController pushViewController:controller animated:YES];
+            if([payPoint verified])
+            {
+                EmailAccountDetailViewController *controller = [[EmailAccountDetailViewController alloc] init];
+                controller.payPoint = payPoint;
+                [controller setDeletePayPointComplete: self];
+                
+                [controller setTitle: @"Email Account"];
+                
+                [self.navigationController pushViewController:controller animated:YES];
+                
+            }
+            else {
+                VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
+                controller.payPoint = payPoint;
+                
+                [controller setTitle: @"Verify"];
+                
+                [self.navigationController pushViewController:controller animated:YES];
+            }
             break;
         }
         case 1:
         {
             
             AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
-            [controller setTitle: @"Add Mobile #"];
-            [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+            [controller setTitle: @"Add Email"];
+            [controller setHeaderText: @"To add an email address# to your PaidThx account, enter the email address below."];
             [controller setAddPayPointComplete:self];
             
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
@@ -229,6 +262,14 @@
     [payPointService getPayPoints: user.userId];
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
+    
+}
+-(void)deletePayPointCompleted {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [payPointService getPayPoints: user.userId];
+}
+-(void)deletePayPointFailed: (NSString*) errorMessage {
     
 }
 

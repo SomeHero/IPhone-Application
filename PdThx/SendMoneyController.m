@@ -7,6 +7,8 @@
 //
 #import "PdThxAppDelegate.h"
 #import "HomeViewController.h"
+#import "HomeViewControllerV2.h"
+
 #import "PayStreamViewController.h"
 #import "SendMoneyController.h"
 #import "RequestMoneyController.h"
@@ -44,6 +46,7 @@
     }
     return self;
 }
+
 - (void)dealloc
 {
     [super dealloc];
@@ -143,7 +146,7 @@
     
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     
     contactButtonBGImage.highlighted = NO;
@@ -157,7 +160,6 @@
         [lm startUpdatingLocation];
     }
     
-    
     /*         Button Visiblity Handling        */
     /*  --------------------------------------- */
     chooseRecipientButton.backgroundColor = [UIColor clearColor];
@@ -166,7 +168,6 @@
     [recipientImageButton.layer setMasksToBounds:YES];
     [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
     [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
-    
     
     
     /*          Services/ViewController Initialization         */
@@ -192,6 +193,7 @@
     [txtAmount setDelegate:self];
     txtAmount.text = @"0.00";
     
+    NSLog(@"Inside view did load, resetting recipient object/labels");
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     NSError *error;
@@ -284,6 +286,7 @@
 
 
 -(IBAction) btnSendMoneyClicked:(id)sender {
+    [txtComments resignFirstResponder];
     [self sendMoney];
 }
 -(void) sendMoney {
@@ -318,7 +321,6 @@
         {
             if ([recipient.paypoints count] == 1)
             {
-                recipientUri = [recipient.paypoints objectAtIndex:0];
                 
                 CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
                 [controller setSecurityPinSwipeDelegate: self];
@@ -331,7 +333,7 @@
                 
                 [self presentModalViewController:controller animated:YES];
             }
-            else {
+            else{
                 
                 PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
                 [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@"Talking with the server to retrive valid recipients.."];
@@ -562,6 +564,7 @@
 }
 -(void)didChooseContact:(Contact *)contact
 {
+    NSLog(@"Returned with Contact from ContactSelectVC");
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
@@ -580,12 +583,17 @@
     
     if ( contact.facebookID.length > 0 ){
         contactDetail.text = @"Facebook Friend";
-    } else if ([contact.paypoints count]) {
+    } else if ( [contact.paypoints count] == 1 ){
+        contactDetail.text = [contact.paypoints objectAtIndex:0];
+    } else if ([contact.paypoints count] ) {
         contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
-    } else if ( contact.paypoint ){
-        contactDetail.text = contact.paypoint;
     }else {
         contactDetail.text = @"No Info to Display";
+    }
+    
+    if ([contact.paypoints count] == 1)
+    {
+        recipientUri = [contact.paypoints objectAtIndex:0];
     }
     
 }
@@ -632,7 +640,7 @@
     if( buttonIndex == 0 )
     {
         //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
+        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
         [[self navigationController] pushViewController:gvc animated:NO];
         [gvc release];
         

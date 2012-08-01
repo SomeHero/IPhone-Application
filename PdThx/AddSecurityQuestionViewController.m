@@ -105,7 +105,6 @@
         questionId = [[defaults objectForKey:@"securityQuestionId"] integerValue];
         [questionPicker selectedRowInComponent:questionId];
     }
-    
 }
 /*      Setting up Picker View      */
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView

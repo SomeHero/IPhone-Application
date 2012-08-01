@@ -50,7 +50,7 @@
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [viewPanel.layer setMasksToBounds:YES];
-    [[viewPanel layer] setBorderWidth:1.5];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setCornerRadius: 8.0];
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"WelcomeScreenViewController"

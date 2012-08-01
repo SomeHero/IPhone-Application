@@ -37,7 +37,7 @@
         payPointType = [[dictionary valueForKey:@"Type"] copy];
         uri = [[dictionary valueForKey:@"Uri"] copy];
         userId = [[dictionary valueForKey:@"UserId"] copy];
-        verified = [[dictionary valueForKey:@"verified"] boolValue];
+        verified = [[dictionary objectForKey:@"Verified"] boolValue];
     }
     
     return self;

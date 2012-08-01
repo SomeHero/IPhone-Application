@@ -11,11 +11,22 @@
 @implementation Contact
 
 @synthesize userId;
-@synthesize name, paypoint, facebookID, imgData, firstName, lastName;
-@synthesize recipientUri;
+@synthesize name, facebookID, imgData, firstName, lastName;
 @synthesize recipientId;
 @synthesize preferredAccountId;
 @synthesize paypoints;
+
+-(id) init
+{
+    [super init];
+    
+    if (self)
+    {
+        paypoints = [[NSMutableArray alloc] init];
+    }
+    
+    return self;
+}
 
 -(NSComparisonResult)compare:(Contact*)otherContact {
     NSString * comparedProperty1 = ( self.lastName.length == 0 ? self.firstName : self.lastName );
@@ -23,11 +34,9 @@
     
     if ( [comparedProperty1 caseInsensitiveCompare:comparedProperty2] == NSOrderedSame )
         return [self compareMore:otherContact];
-    else {
+    else
         return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
-    }
 }
-
 
 -(NSComparisonResult)compareMore:(Contact*)otherContact {
     NSString *comparedProperty1 = self.firstName;
@@ -46,12 +55,10 @@
                 
 - (void)dealloc {
     [name release];
-    [paypoint release];
     [facebookID release];
     [imgData release];
     [firstName release];
     [lastName release];
-    [recipientUri release];
     [recipientId release];
     [preferredAccountId release];
     [paypoints release];

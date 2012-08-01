@@ -33,8 +33,8 @@
     [super viewDidLoad];
    
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
-    txtPhoneNumber.text = payPoint.uri;
+
+    txtPhoneNumber.text = [phoneNumberFormatter stringToFormattedPhoneNumber: payPoint.uri];
     
     payPointService = [[PayPointService alloc] init];
    
