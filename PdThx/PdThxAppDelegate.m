@@ -360,6 +360,23 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    
+    for (NSMutableArray *array in contactsArray)
+    {
+        [array removeAllObjects];
+    }
+    
+    for (NSMutableArray *array in faceBookContacts)
+    {
+        [array removeAllObjects];
+    }
+    
+    for (NSMutableArray *array in phoneContacts)
+    {
+        [array removeAllObjects];
+    }
+    
+    
     /*
      Called when the application is about to terminate.
      Save data if appropriate.
@@ -609,7 +626,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                 {
                     [paypoints addObject: formattedNumber];
                 }
-                                
+                
             }
             
             for (CFIndex k = 0; k < ABMultiValueGetCount(multiEmails); ++k)
@@ -1069,6 +1086,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          [myProgHudOverlay.view removeFromSuperview];
                          
                      }];
+}
+
+-(void) showSimpleAlertView:(bool)status withTitle:(NSString*)headerText withSubtitle:(NSString*)subTitle withDetailedText:(NSString*)detailText withButtonText:(NSString*)buttonText withDelegate:(id)delegate
+{
+    [self showAlertWithResult:status withTitle:headerText withSubtitle:subTitle withDetailText:detailText withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:buttonText withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"im useless" withRightButtonTitleColor:[UIColor whiteColor] withDelegate:delegate];
 }
 
 -(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withLeftButtonImageString:(NSString*)leftButtonImageString withLeftButtonSelectedImageString:(NSString*)leftButtonSelectedImageString withLeftButtonTitle:(NSString*)leftButtonTitle withLeftButtonTitleColor:(UIColor*)leftButtonTextColor withRightButtonOption:(int)rightButtonOption withRightButtonImageString:(NSString*)rightButtonImageString withRightButtonSelectedImageString:(NSString*)rightButtonSelectedImageString withRightButtonTitle:(NSString*)rightButtonTitle withRightButtonTitleColor:(UIColor*)rightButtonTextColor withDelegate:(id)alertDelegate

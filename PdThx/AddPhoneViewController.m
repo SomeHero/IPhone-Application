@@ -51,7 +51,8 @@
     // The only cases we need to handle are: Phone Number and Email
     NSString * numOnly = [[txtPhoneNumber.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
     NSRange numOnly2 = [[[txtPhoneNumber.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]  options:NSCaseInsensitiveSearch];
-    
+    if([txtPhoneNumber.text length] < 1)
+        return 0;
     if ( [txtPhoneNumber.text isEqualToString:numOnly] || numOnly2.location == NSNotFound ) {
         // Is only Numbers, I think?
         if ( [numOnly characterAtIndex:0] == '1' || [numOnly characterAtIndex:0] == '0' )
@@ -75,7 +76,7 @@
 -(IBAction)btnSubmitClicked
 {
     int retVal = [self isValidFormattedPayPoint];
-    if ( retVal != 1)
+    if(retVal == 0)
     {
         
         [txtPhoneNumber resignFirstResponder];
@@ -84,7 +85,17 @@
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
         // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-        [appDelegate showAlertWithResult:false withTitle:@"Invalid PhoneNumber Format" withSubtitle:@"Error Setting Phone Number" withDetailText:@"Phone Number Incorrect Format" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+        [appDelegate showAlertWithResult:false withTitle:@"Invalid Phone Number Format" withSubtitle:@"" withDetailText:@"Please Enter a Phone Number" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+    }
+    else if(retVal != 1)
+    {
+        [txtPhoneNumber resignFirstResponder];
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+        // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+        // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+        // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+        [appDelegate showAlertWithResult:false withTitle:@"Invalid Phone Number Format" withSubtitle:@"Error Setting Phone Number" withDetailText:@"Phone Number Incorrect Format" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
     }
     else{
     [payPointService addPayPoint:txtPhoneNumber.text ofType:@"Phone" forUserId:user.userId];
