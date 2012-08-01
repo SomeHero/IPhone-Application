@@ -47,6 +47,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -171,16 +172,18 @@
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([emailAddresses count] > 0 ){
     switch(indexPath.section) {
         case 0:
         {
             
             VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
             controller.emailAddress = [[emailAddresses objectAtIndex:indexPath.row]uri]; 
+                        
+            [self.navigationController pushViewController:controller animated:YES];
             
             [controller setTitle: @"Phone #"];
-            
-            [self.navigationController pushViewController:controller animated:YES];
+
             break;
         }
         case 1:
@@ -202,8 +205,22 @@
         }
             
     }
-}
+    }
+    else{
+        AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
+        [controller setTitle: @"Add Mobile #"];
+        [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+        [controller setAddPayPointComplete:self];
+        
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self.navigationController presentModalViewController:navBar animated:YES];
+        
+        [navBar release];
+        [controller release];
+    }
 
+}
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
