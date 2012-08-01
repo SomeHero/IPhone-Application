@@ -105,12 +105,7 @@
         cell = [nib objectAtIndex:0];
 }
 
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-//    }5
-    
+
     if([phones count] == 0)
         cell.textLabel.text = @"Add Mobile Number";
     else 
@@ -171,6 +166,7 @@
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([phones count] > 0){
     switch(indexPath.section) {
         case 0:
         {
@@ -200,9 +196,25 @@
 
             break;
         }
+    }
+    }
+    else
+    {
+        AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
+        [controller setTitle: @"Add Mobile #"];
+        [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+        [controller setAddPayPointComplete:self];
+        
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self.navigationController presentModalViewController:navBar animated:YES];
+        
+        [navBar release];
+        [controller release];
+    }
 
     }
-}
+
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
