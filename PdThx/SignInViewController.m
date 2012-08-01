@@ -320,6 +320,7 @@
     [controller setTitle:@"Forgot Password"];
     [controller setHeaderText:@"To change your password, you must input your security question answer and then put in a new password"];
     
+    
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     
     [self.navigationController presentModalViewController:navBar animated:YES];
