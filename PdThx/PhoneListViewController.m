@@ -110,6 +110,7 @@
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         }
         cell.textLabel.text = @"Add Mobile Number";
+        cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
@@ -196,49 +197,45 @@
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch(indexPath.section) {
-        case 0:
+    if([indexPath section] == 1 || [phones count] == 0)
+    {
+        AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
+        [controller setTitle: @"Add Mobile #"];
+        [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+        [controller setAddPayPointComplete:self];
+        
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self.navigationController presentModalViewController:navBar animated:YES];
+        
+        [navBar release];
+        [controller release];
+    }
+    else {
+        PayPoint* payPoint = [phones objectAtIndex:indexPath.row];
+        
+        if([payPoint verified])
         {
-            PayPoint* payPoint = [phones objectAtIndex:indexPath.row];
-              
-            if([payPoint verified])
-            {
-                PhoneDetailViewController *controller = [[PhoneDetailViewController alloc] init];
-                controller.payPoint = payPoint;
-                [controller setDeletePayPointComplete:self];
-                
-                [controller setTitle: @"Phone #"];
-                    
-                [self.navigationController pushViewController:controller animated:YES];
-            }
-            else 
-            {
-                VerifyPhoneNumberViewController *controller = [[VerifyPhoneNumberViewController alloc] init];
-                controller.payPoint = payPoint;
-                    
-                [controller setTitle: @"Verify"];
-                    
-                [self.navigationController pushViewController:controller animated:YES];
-            }
-
-            break;
-        }
-        case 1:
-        {
+            PhoneDetailViewController *controller = [[PhoneDetailViewController alloc] init];
+            controller.payPoint = payPoint;
+            [controller setDeletePayPointComplete:self];
             
-            AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
-            [controller setTitle: @"Add Mobile #"];
-            [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
-            [controller setAddPayPointComplete:self];
+            [controller setTitle: @"Phone #"];
             
-            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+            [self.navigationController pushViewController:controller animated:YES];
             
-            [self.navigationController presentModalViewController:navBar animated:YES];
-            
-            [navBar release];
             [controller release];
-
-            break;
+        }
+        else 
+        {
+            VerifyPhoneNumberViewController *controller = [[VerifyPhoneNumberViewController alloc] init];
+            controller.payPoint = payPoint;
+            
+            [controller setTitle: @"Verify"];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+            [controller release];
         }
 
     }

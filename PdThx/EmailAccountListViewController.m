@@ -111,6 +111,7 @@
         }
         
         cell.textLabel.text = @"Add Email Address";
+        cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
@@ -196,51 +197,47 @@
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch(indexPath.section) {
-        case 0:
+
+    if([indexPath section] == 1 || [emailAddresses count] == 0)
+    {
+        AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
+        [controller setTitle: @"Add Email"];
+        [controller setHeaderText: @"To add an email address# to your PaidThx account, enter the email address below."];
+        [controller setAddPayPointComplete:self];
+        
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self.navigationController presentModalViewController:navBar animated:YES];
+        
+        [navBar release];
+        [controller release];   
+    }
+    else {
+        PayPoint* payPoint = [emailAddresses objectAtIndex:indexPath.row];
+        
+        if([payPoint verified])
         {
+            EmailAccountDetailViewController *controller = [[EmailAccountDetailViewController alloc] init];
+            controller.payPoint = payPoint;
+            [controller setDeletePayPointComplete: self];
             
-            PayPoint* payPoint = [emailAddresses objectAtIndex:indexPath.row];
+            [controller setTitle: @"Email Account"];
             
-            if([payPoint verified])
-            {
-                EmailAccountDetailViewController *controller = [[EmailAccountDetailViewController alloc] init];
-                controller.payPoint = payPoint;
-                [controller setDeletePayPointComplete: self];
-                
-                [controller setTitle: @"Email Account"];
-                
-                [self.navigationController pushViewController:controller animated:YES];
-                
-            }
-            else {
-                VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
-                controller.payPoint = payPoint;
-                
-                [controller setTitle: @"Verify"];
-                
-                [self.navigationController pushViewController:controller animated:YES];
-            }
-            break;
-        }
-        case 1:
-        {
+            [self.navigationController pushViewController:controller animated:YES];
             
-            AddEmailAddressViewController* controller = [[AddEmailAddressViewController alloc] init];
-            [controller setTitle: @"Add Email"];
-            [controller setHeaderText: @"To add an email address# to your PaidThx account, enter the email address below."];
-            [controller setAddPayPointComplete:self];
-            
-            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-            
-            [self.navigationController presentModalViewController:navBar animated:YES];
-            
-            [navBar release];
             [controller release];
             
-            break;
         }
+        else {
+            VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
+            controller.payPoint = payPoint;
             
+            [controller setTitle: @"Verify"];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+            [controller release];
+        }
     }
 }
 

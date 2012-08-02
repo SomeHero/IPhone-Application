@@ -106,6 +106,7 @@
         }
 
         cell.textLabel.text = @"Add MeCode";
+        cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
