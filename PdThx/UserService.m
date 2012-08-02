@@ -81,7 +81,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/link_to_account", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/link_facebook", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey, @"ApiKey",
@@ -106,7 +106,7 @@
 -(void) linkFbAccountSuccess: (ASIHTTPRequest *)request {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    if([request responseStatusCode] == 200 || [request responseStatusCode ] == 201 ) {
+    if([request responseStatusCode] == 200) {
         NSLog(@"Linking facebook account success!");
         
         [linkFbAccountDelegate linkFbAccountDidSucceed];

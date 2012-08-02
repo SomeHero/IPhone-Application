@@ -27,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-
+    
 }
 
 - (void)viewDidUnload
@@ -88,14 +88,14 @@
     }
     else
     {
-
-    userService = [[UserService alloc] init];
-    [userService setForgotPasswordCompleteDelegate:self];
-    [txtEmailAddress resignFirstResponder];
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Sending email.." withDetailedStatus:@""];
-    [userService forgotPasswordFor: txtEmailAddress.text];
+        
+        userService = [[UserService alloc] init];
+        [userService setForgotPasswordCompleteDelegate:self];
+        [txtEmailAddress resignFirstResponder];
+        
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Sending email.." withDetailedStatus:@""];
+        [userService forgotPasswordFor: txtEmailAddress.text];
     }
 }
 -(void)didSelectButtonWithIndex:(int)index
@@ -127,13 +127,6 @@
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:message];
-}
-
--(void) didSelectButtonWithIndex:(int)index
-{
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate dismissAlertView];
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)dealloc {
