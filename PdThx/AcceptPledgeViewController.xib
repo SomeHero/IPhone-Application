@@ -543,7 +543,6 @@
 										<string key="NSFrame">{{5, 313}, {298, 50}}</string>
 										<reference key="NSSuperview" ref="322205955"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<reference key="IBUIBackgroundColor" ref="847563286"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -692,14 +691,6 @@
 						<reference key="destination" ref="667363442"/>
 					</object>
 					<int key="connectionID">29</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">recipientImageButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="735643353"/>
-					</object>
-					<int key="connectionID">30</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">

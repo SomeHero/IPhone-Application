@@ -41,7 +41,9 @@
     [bankAccountService setDeleteBankAccountDelegate: self];
     [bankAccountService setUpdateBankAccountDelegate: self];
 }
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
     txtNickName.text = bankAccount.nickName;
     txtNameOnAccount.text = bankAccount.nameOnAccount;
     txtAccountNumber.text = [NSString stringWithFormat: @"********%@", bankAccount.accountNumber];
@@ -51,6 +53,14 @@
         [ctrlAccountType setSelectedSegmentIndex: 1];
     else {
         [ctrlAccountType setSelectedSegmentIndex: 0];
+    }
+    
+    if([bankAccount.status isEqualToString: @"Pending Activation"])
+    {
+        [self.view addSubview: ctrlVerifyView];
+    }
+    else {
+        [self.view addSubview: ctrlUpdateView];
     }
 }
 - (void)viewDidUnload
@@ -116,5 +126,16 @@
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];
     [txtAccountNumber resignFirstResponder];
+}
+-(IBAction)btnVerifyClicked:(id)sender {
+    VerifyACHAccountViewController* controller = [[VerifyACHAccountViewController    alloc] init];
+    [controller setTitle: @"Verify Account"];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [navBar release];
+    [controller release];
 }
 @end

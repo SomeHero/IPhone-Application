@@ -1280,7 +1280,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     NSLog(@"%@", [NSString stringWithFormat: @"%@", [[myApplication applicationSettings] objectForKey:@"UpperLimit"]]);
     @try {
-        upperLimit = (double)[[[myApplication applicationSettings] objectForKey:@"UpperLimit"] doubleValue];
+        upperLimit = (double)[[[[myApplication applicationSettings] objectForKey:@"UpperLimit"] ConfigurationValue] doubleValue];
     }
     @catch (NSException *exception) {
         NSLog(@"%@",[NSString stringWithFormat:@"%@",exception]); 

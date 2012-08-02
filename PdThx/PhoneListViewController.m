@@ -30,6 +30,8 @@
     // Do any additional setup after loading the view from its nib.
     [self setTitle: @"Phones"];
     
+    phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
+    
     payPointService = [[PayPointService alloc] init];
     [payPointService setGetPayPointsDelegate:self];
     
@@ -98,34 +100,58 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil){
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-}
-
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-//    }5
+    static NSString *CustomTableViewCellIdentifier = @"CustomTableViewCell";
+    static NSString *CellIdentifier = @"CellIdentifier";
     
     if([phones count] == 0)
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        }
         cell.textLabel.text = @"Add Mobile Number";
+        cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
+    }
     else 
     {
-        if(indexPath.section == 1)
+        if(indexPath.section == 1) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            }
+        
             cell.textLabel.text = @"Add Mobile Number";
+            cell.imageView.image = [UIImage imageNamed: @"img-plus-40x40.png"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
+        }
         else {
-            cell.lblHeading.text = [[phones objectAtIndex: indexPath.row] uri];
-            cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
-            cell.lblDescription.text = @"Verified";//[[phones objectAtIndex: indexPath.row] verified];
+            UIProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CustomTableViewCellIdentifier];
+            if (cell == nil){
+                NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+                cell = [nib objectAtIndex:0];
+            }
+            cell.lblHeading.text = [phoneNumberFormatter stringToFormattedPhoneNumber: [[phones objectAtIndex: indexPath.row] uri]];
+            
+            cell.ctrlImage.image =  [UIImage  imageNamed: @"icon-settings-phones-40x40.png"];
+            if([[phones objectAtIndex: indexPath.row] verified])
+            {
+                cell.lblDescription.text = @"Verified";
+            }
+            else {
+                cell.lblDescription.text = @"Pending Verification";
+            }
+            
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
         }
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
+
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -171,34 +197,45 @@
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *) tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch(indexPath.section) {
-        case 0:
+    if([indexPath section] == 1 || [phones count] == 0)
+    {
+        AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
+        [controller setTitle: @"Add Mobile #"];
+        [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
+        [controller setAddPayPointComplete:self];
+        
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self.navigationController presentModalViewController:navBar animated:YES];
+        
+        [navBar release];
+        [controller release];
+    }
+    else {
+        PayPoint* payPoint = [phones objectAtIndex:indexPath.row];
+        
+        if([payPoint verified])
         {
+            PhoneDetailViewController *controller = [[PhoneDetailViewController alloc] init];
+            controller.payPoint = payPoint;
+            [controller setDeletePayPointComplete:self];
             
-            VerifyPhoneNumberViewController *controller = [[VerifyPhoneNumberViewController alloc] init];
-            controller.phoneNumber = [[phones objectAtIndex:indexPath.row]uri]; 
-          
             [controller setTitle: @"Phone #"];
             
             [self.navigationController pushViewController:controller animated:YES];
-            break;
-        }
-        case 1:
-        {
             
-            AddPhoneViewController* controller = [[AddPhoneViewController alloc] init];
-            [controller setTitle: @"Add Mobile #"];
-            [controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
-            [controller setAddPayPointComplete:self];
-            
-            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-            
-            [self.navigationController presentModalViewController:navBar animated:YES];
-            
-            [navBar release];
             [controller release];
-
-            break;
+        }
+        else 
+        {
+            VerifyPhoneNumberViewController *controller = [[VerifyPhoneNumberViewController alloc] init];
+            controller.payPoint = payPoint;
+            
+            [controller setTitle: @"Verify"];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+            [controller release];
         }
 
     }
@@ -225,6 +262,13 @@
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     
 }
-
+-(void)deletePayPointCompleted {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [payPointService getPayPoints: user.userId];
+}
+-(void)deletePayPointFailed: (NSString*) errorMessage {
+    
+}
 
 @end

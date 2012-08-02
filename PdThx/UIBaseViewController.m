@@ -165,7 +165,7 @@ CGSize scrollViewOriginalSize;
 {
     [super viewWillAppear:animated];
     
-    if([self.navigationController.viewControllers objectAtIndex:0] != self)
+    if([self.navigationController.viewControllers objectAtIndex:0] != self  && [self.navigationItem hidesBackButton] == YES)
     {
         UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
         UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
