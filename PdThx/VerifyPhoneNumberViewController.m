@@ -17,8 +17,7 @@
 @end
 @implementation VerifyPhoneNumberViewController
 
-@synthesize phoneNumber;
-
+@synthesize payPoint;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,11 +32,11 @@
 {
     [super viewDidLoad];
    
-     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+
+    txtPhoneNumber.text = [phoneNumberFormatter stringToFormattedPhoneNumber: payPoint.uri];
     
-    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'Phone'"];
-    phones = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];  
-    txtPhoneNumber.text = phoneNumber; //((PayPoint*)[phones objectAtIndex:0]).uri;
+    payPointService = [[PayPointService alloc] init];
    
     // Do any additional setup after loading the view from its nib.
 }
@@ -58,7 +57,9 @@
 -(IBAction)btnVerify
 {
     EnterVerificationCodeViewController* controller = [[EnterVerificationCodeViewController alloc] init];
-    controller.phoneNumber = phoneNumber;
+    
+    controller.phoneNumber = payPoint.uri;
+    
     [self.navigationController pushViewController:controller animated:YES]; 
     [controller setTitle : @"Verify"];
 //    [[PhoneNumberTxt setText:[phones objectAtIndex: indexPath.row] uri] ];
@@ -66,7 +67,7 @@
 }
 -(IBAction)btnResendCodes
 {
-    //Service to resend codes
+    [payPointService resendMobileVerificationCode:payPoint.payPointId forUserId:user.userId];
 }
 - (void)dealloc {
     [txtPhoneNumber release];

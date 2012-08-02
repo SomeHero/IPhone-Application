@@ -16,6 +16,7 @@
 @synthesize accountNumber;
 @synthesize routingNumber;
 @synthesize accountType;
+@synthesize status;
 
 -(id)init {
     self = [super init];
@@ -43,6 +44,7 @@
         routingNumber = [[dictionary valueForKey:@"RoutingNumber"] copy];
         accountType = [[dictionary valueForKey:@"AccountType"] copy];
         nameOnAccount = [[dictionary objectForKey:@"NameOnAccount"] copy];
+        status = [[dictionary valueForKey: @"Status"] copy];
     }
     
     return self;
@@ -59,6 +61,7 @@
     another.routingNumber = routingNumber;
     another.accountType = accountType;
     another.nameOnAccount = nameOnAccount;
+    another.status = status;
     
     return another;
 }

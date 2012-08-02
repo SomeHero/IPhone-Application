@@ -13,8 +13,11 @@
 #import "PayPointService.h"
 #import "GetPayPointProtocol.h"
 #import "AddPayPointCompleteProtocol.h"
+#import "PhoneDetailViewController.h"
+#import "PhoneNumberFormatting.h"
+#import "DeletePayPointDelegate.h"
 
-@interface PhoneListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>
+@interface PhoneListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, DeletePayPointDelegate, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>
 {
     IBOutlet UITableView* payPointTable;
     

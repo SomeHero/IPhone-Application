@@ -12,6 +12,7 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "UISetupUserBaseViewController.h"
+#import "VerifyACHAccountViewController.h"
 
 @interface EditACHAccountViewController : UISetupUserBaseViewController {
     IBOutlet UIView* mainView;
@@ -20,6 +21,8 @@
     IBOutlet UITextField* txtRoutingNumber;
     IBOutlet UITextField* txtAccountNumber;
     IBOutlet UISegmentedControl* ctrlAccountType;
+    IBOutlet UIView* ctrlVerifyView;
+    IBOutlet UIView* ctrlUpdateView;
     BankAccount* bankAccount;
     BankAccountService* bankAccountService;
     
@@ -30,5 +33,6 @@
 -(IBAction)btnSaveChangesClicked :(id)sender;
 -(IBAction)btnDeleteAccountClicked:(id)sender;
 -(IBAction) bgTouched:(id) sender;
+-(IBAction)btnVerifyClicked:(id)sender;
 
 @end
