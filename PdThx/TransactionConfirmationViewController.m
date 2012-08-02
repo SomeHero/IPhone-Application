@@ -46,6 +46,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
+    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"TransactionConfirmationViewController"
                                         withError:&error]){
