@@ -743,11 +743,11 @@
 							<reference ref="233120752"/>
 							<reference ref="1019719200"/>
 							<reference ref="773238810"/>
-							<reference ref="553159145"/>
 							<reference ref="433797034"/>
 							<reference ref="976002338"/>
 							<reference ref="964916469"/>
 							<reference ref="450050854"/>
+							<reference ref="553159145"/>
 						</object>
 						<reference key="parent" ref="344606816"/>
 						<string key="objectName">View</string>
@@ -844,6 +844,7 @@
 					<string>60.IBPluginDependency</string>
 					<string>60.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>61.IBPluginDependency</string>
+					<string>61.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>63.IBPluginDependency</string>
 					<string>64.IBPluginDependency</string>
 					<string>70.IBPluginDependency</string>
@@ -873,6 +874,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
