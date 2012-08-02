@@ -178,6 +178,7 @@ CGSize scrollViewOriginalSize;
         self.navigationItem.leftBarButtonItem = settingsButtons; 
     }
 }
+
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
