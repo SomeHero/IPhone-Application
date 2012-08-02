@@ -568,12 +568,8 @@
 		5BDDAE4715C77407007B733E /* EmailAccountDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE4515C77406007B733E /* EmailAccountDetailViewController.xib */; };
 		5BDDAE4C15C8D2A8007B733E /* MeCodeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE4A15C8D2A1007B733E /* MeCodeDetailViewController.m */; };
 		5BDDAE4D15C8D2A8007B733E /* MeCodeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE4B15C8D2A4007B733E /* MeCodeDetailViewController.xib */; };
-		5BDDAE5015C8D848007B733E /* img-plus-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE4E15C8D848007B733E /* img-plus-40x40.png */; };
-		5BDDAE5115C8D848007B733E /* img-plus-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE4F15C8D848007B733E /* img-plus-40x40@2x.png */; };
 		5BDDAE5515C8DAF8007B733E /* NewACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE5315C8DAF6007B733E /* NewACHAccountViewController.m */; };
 		5BDDAE5615C8DAF8007B733E /* NewACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE5415C8DAF7007B733E /* NewACHAccountViewController.xib */; };
-		5BDDAE6315C9BE85007B733E /* VerifyACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE6015C9BE84007B733E /* VerifyACHAccountViewController.xib */; };
-		5BDDAE6415C9BE85007B733E /* VerifyACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE6115C9BE84007B733E /* VerifyACHAccountViewController.m */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -687,6 +683,26 @@
 		D57F91EF15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D57F91ED15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib */; };
 		D58078BE15B725300037ADA0 /* VerifyPhoneNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D58078BC15B725300037ADA0 /* VerifyPhoneNumberViewController.m */; };
 		D58078BF15B725300037ADA0 /* VerifyPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58078BD15B725300037ADA0 /* VerifyPhoneNumberViewController.xib */; };
+		D58249E715CACF0A009BD579 /* VerifyACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D58249E515CACF0A009BD579 /* VerifyACHAccountViewController.m */; };
+		D58249E815CACF0A009BD579 /* VerifyACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58249E615CACF0A009BD579 /* VerifyACHAccountViewController.xib */; };
+		D58249F615CAD1B6009BD579 /* smallButtonGray240x78_a.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249EA15CAD1B6009BD579 /* smallButtonGray240x78_a.png */; };
+		D58249F715CAD1B6009BD579 /* smallButtonGray240x78.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249EB15CAD1B6009BD579 /* smallButtonGray240x78.png */; };
+		D58249F815CAD1B6009BD579 /* smallButtonGray240x78@2x_a.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249EC15CAD1B6009BD579 /* smallButtonGray240x78@2x_a.png */; };
+		D58249F915CAD1B6009BD579 /* smallButtonGray240x78@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249ED15CAD1B6009BD579 /* smallButtonGray240x78@2x.png */; };
+		D58249FA15CAD1B6009BD579 /* smallButtonGreen240x78_a.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249EE15CAD1B6009BD579 /* smallButtonGreen240x78_a.png */; };
+		D58249FB15CAD1B6009BD579 /* smallButtonGreen240x78.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249EF15CAD1B6009BD579 /* smallButtonGreen240x78.png */; };
+		D58249FC15CAD1B6009BD579 /* smallButtonGreen240x78@2x_a.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249F015CAD1B6009BD579 /* smallButtonGreen240x78@2x_a.png */; };
+		D58249FD15CAD1B6009BD579 /* smallButtonGreen240x78@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249F115CAD1B6009BD579 /* smallButtonGreen240x78@2x.png */; };
+		D58249FE15CAD1B6009BD579 /* smallButtonRed240x78_a.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249F215CAD1B6009BD579 /* smallButtonRed240x78_a.png */; };
+		D58249FF15CAD1B6009BD579 /* smallButtonRed240x78.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249F315CAD1B6009BD579 /* smallButtonRed240x78.png */; };
+		D5824A0015CAD1B6009BD579 /* smallButtonRed240x78@2x_a.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249F415CAD1B6009BD579 /* smallButtonRed240x78@2x_a.png */; };
+		D5824A0115CAD1B6009BD579 /* smallButtonRed240x78@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D58249F515CAD1B6009BD579 /* smallButtonRed240x78@2x.png */; };
+		D5824A0415CAD71B009BD579 /* buttonTallStandardActive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0215CAD71B009BD579 /* buttonTallStandardActive@2x.png */; };
+		D5824A0515CAD71B009BD579 /* buttonTallStandardNA@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0315CAD71B009BD579 /* buttonTallStandardNA@2x.png */; };
+		D5824A0815CAD743009BD579 /* img-plus-40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0615CAD743009BD579 /* img-plus-40x40.png */; };
+		D5824A0915CAD743009BD579 /* img-plus-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0715CAD743009BD579 /* img-plus-40x40@2x.png */; };
+		D5824A0C15CADCCF009BD579 /* buttonTallStandardActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0A15CADCCE009BD579 /* buttonTallStandardActive.png */; };
+		D5824A0D15CADCCF009BD579 /* buttonTallStandardNA.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0B15CADCCE009BD579 /* buttonTallStandardNA.png */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
 		D58B42A115B9C29400C9AB93 /* VerifyEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D58B429F15B9C29400C9AB93 /* VerifyEmailViewController.m */; };
 		D58B42A215B9C29400C9AB93 /* VerifyEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58B42A015B9C29400C9AB93 /* VerifyEmailViewController.xib */; };
@@ -1431,22 +1447,6 @@
 		5BDDAE0915C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAccountModalViewControllerViewController.m; sourceTree = "<group>"; };
 		5BDDAE1115C2FD05007B733E /* ModalSelectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModalSelectProtocol.h; sourceTree = "<group>"; };
 		5BDDAE1215C36EF2007B733E /* PayPointVerificationCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayPointVerificationCompleteProtocol.h; sourceTree = "<group>"; };
-		5BDDAE1915C39428007B733E /* smallButtonGray240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGray240x78_a.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78_a.png"; sourceTree = "<group>"; };
-		5BDDAE1A15C39428007B733E /* smallButtonGray240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGray240x78.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78.png"; sourceTree = "<group>"; };
-		5BDDAE1B15C39428007B733E /* smallButtonGray240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGray240x78@2x_a.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78@2x_a.png"; sourceTree = "<group>"; };
-		5BDDAE1C15C39428007B733E /* smallButtonGray240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGray240x78@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGray240x78@2x.png"; sourceTree = "<group>"; };
-		5BDDAE1D15C39428007B733E /* smallButtonGreen240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGreen240x78_a.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78_a.png"; sourceTree = "<group>"; };
-		5BDDAE1E15C39428007B733E /* smallButtonGreen240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonGreen240x78.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78.png"; sourceTree = "<group>"; };
-		5BDDAE1F15C39428007B733E /* smallButtonGreen240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGreen240x78@2x_a.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78@2x_a.png"; sourceTree = "<group>"; };
-		5BDDAE2015C39428007B733E /* smallButtonGreen240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonGreen240x78@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonGreen240x78@2x.png"; sourceTree = "<group>"; };
-		5BDDAE2115C39428007B733E /* smallButtonRed240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonRed240x78_a.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78_a.png"; sourceTree = "<group>"; };
-		5BDDAE2215C39428007B733E /* smallButtonRed240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallButtonRed240x78.png; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78.png"; sourceTree = "<group>"; };
-		5BDDAE2315C39428007B733E /* smallButtonRed240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonRed240x78@2x_a.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78@2x_a.png"; sourceTree = "<group>"; };
-		5BDDAE2415C39428007B733E /* smallButtonRed240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallButtonRed240x78@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27/smallButtonRed240x78@2x.png"; sourceTree = "<group>"; };
-		5BDDAE3115C395E1007B733E /* buttonTallStandardActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonTallStandardActive.png; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardActive.png"; sourceTree = "<group>"; };
-		5BDDAE3215C395E1007B733E /* buttonTallStandardNA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonTallStandardNA.png; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardNA.png"; sourceTree = "<group>"; };
-		5BDDAE3315C395E1007B733E /* buttonTallStandardActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "buttonTallStandardActive@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardActive@2x.png"; sourceTree = "<group>"; };
-		5BDDAE3415C395E1007B733E /* buttonTallStandardNA@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "buttonTallStandardNA@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-27 (1)/buttonTallStandardNA@2x.png"; sourceTree = "<group>"; };
 		5BDDAE3E15C76286007B733E /* PhoneDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneDetailViewController.h; sourceTree = "<group>"; };
 		5BDDAE3F15C76288007B733E /* PhoneDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneDetailViewController.m; sourceTree = "<group>"; };
 		5BDDAE4015C76289007B733E /* PhoneDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhoneDetailViewController.xib; sourceTree = "<group>"; };
@@ -1457,14 +1457,9 @@
 		5BDDAE4915C8D29C007B733E /* MeCodeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeDetailViewController.h; sourceTree = "<group>"; };
 		5BDDAE4A15C8D2A1007B733E /* MeCodeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeDetailViewController.m; sourceTree = "<group>"; };
 		5BDDAE4B15C8D2A4007B733E /* MeCodeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeDetailViewController.xib; sourceTree = "<group>"; };
-		5BDDAE4E15C8D848007B733E /* img-plus-40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img-plus-40x40.png"; path = "../../../../../Downloads/documents-export-2012-07-31 (1)/img-plus-40x40.png"; sourceTree = "<group>"; };
-		5BDDAE4F15C8D848007B733E /* img-plus-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "img-plus-40x40@2x.png"; path = "../../../../../Downloads/documents-export-2012-07-31 (1)/img-plus-40x40@2x.png"; sourceTree = "<group>"; };
 		5BDDAE5215C8DAF4007B733E /* NewACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewACHAccountViewController.h; sourceTree = "<group>"; };
 		5BDDAE5315C8DAF6007B733E /* NewACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewACHAccountViewController.m; sourceTree = "<group>"; };
 		5BDDAE5415C8DAF7007B733E /* NewACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewACHAccountViewController.xib; sourceTree = "<group>"; };
-		5BDDAE6015C9BE84007B733E /* VerifyACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VerifyACHAccountViewController.xib; path = ../../../../VerifyACHAccountViewController.xib; sourceTree = "<group>"; };
-		5BDDAE6115C9BE84007B733E /* VerifyACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VerifyACHAccountViewController.m; path = ../../../../VerifyACHAccountViewController.m; sourceTree = "<group>"; };
-		5BDDAE6215C9BE84007B733E /* VerifyACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VerifyACHAccountViewController.h; path = ../../../../VerifyACHAccountViewController.h; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -1636,6 +1631,27 @@
 		D58078BB15B725300037ADA0 /* VerifyPhoneNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyPhoneNumberViewController.h; sourceTree = "<group>"; };
 		D58078BC15B725300037ADA0 /* VerifyPhoneNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyPhoneNumberViewController.m; sourceTree = "<group>"; };
 		D58078BD15B725300037ADA0 /* VerifyPhoneNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyPhoneNumberViewController.xib; sourceTree = "<group>"; };
+		D58249E415CACF0A009BD579 /* VerifyACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyACHAccountViewController.h; sourceTree = "<group>"; };
+		D58249E515CACF0A009BD579 /* VerifyACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyACHAccountViewController.m; sourceTree = "<group>"; };
+		D58249E615CACF0A009BD579 /* VerifyACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyACHAccountViewController.xib; sourceTree = "<group>"; };
+		D58249EA15CAD1B6009BD579 /* smallButtonGray240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallButtonGray240x78_a.png; sourceTree = "<group>"; };
+		D58249EB15CAD1B6009BD579 /* smallButtonGray240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallButtonGray240x78.png; sourceTree = "<group>"; };
+		D58249EC15CAD1B6009BD579 /* smallButtonGray240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallButtonGray240x78@2x_a.png"; sourceTree = "<group>"; };
+		D58249ED15CAD1B6009BD579 /* smallButtonGray240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallButtonGray240x78@2x.png"; sourceTree = "<group>"; };
+		D58249EE15CAD1B6009BD579 /* smallButtonGreen240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallButtonGreen240x78_a.png; sourceTree = "<group>"; };
+		D58249EF15CAD1B6009BD579 /* smallButtonGreen240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallButtonGreen240x78.png; sourceTree = "<group>"; };
+		D58249F015CAD1B6009BD579 /* smallButtonGreen240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallButtonGreen240x78@2x_a.png"; sourceTree = "<group>"; };
+		D58249F115CAD1B6009BD579 /* smallButtonGreen240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallButtonGreen240x78@2x.png"; sourceTree = "<group>"; };
+		D58249F215CAD1B6009BD579 /* smallButtonRed240x78_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallButtonRed240x78_a.png; sourceTree = "<group>"; };
+		D58249F315CAD1B6009BD579 /* smallButtonRed240x78.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallButtonRed240x78.png; sourceTree = "<group>"; };
+		D58249F415CAD1B6009BD579 /* smallButtonRed240x78@2x_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallButtonRed240x78@2x_a.png"; sourceTree = "<group>"; };
+		D58249F515CAD1B6009BD579 /* smallButtonRed240x78@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallButtonRed240x78@2x.png"; sourceTree = "<group>"; };
+		D5824A0215CAD71B009BD579 /* buttonTallStandardActive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonTallStandardActive@2x.png"; sourceTree = "<group>"; };
+		D5824A0315CAD71B009BD579 /* buttonTallStandardNA@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonTallStandardNA@2x.png"; sourceTree = "<group>"; };
+		D5824A0615CAD743009BD579 /* img-plus-40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-plus-40x40.png"; sourceTree = "<group>"; };
+		D5824A0715CAD743009BD579 /* img-plus-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-plus-40x40@2x.png"; sourceTree = "<group>"; };
+		D5824A0A15CADCCE009BD579 /* buttonTallStandardActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonTallStandardActive.png; sourceTree = "<group>"; };
+		D5824A0B15CADCCE009BD579 /* buttonTallStandardNA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonTallStandardNA.png; sourceTree = "<group>"; };
 		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
 		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
 		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
@@ -3337,24 +3353,24 @@
 		5BDDAE1815C39417007B733E /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				5BDDAE4E15C8D848007B733E /* img-plus-40x40.png */,
-				5BDDAE4F15C8D848007B733E /* img-plus-40x40@2x.png */,
-				5BDDAE3115C395E1007B733E /* buttonTallStandardActive.png */,
-				5BDDAE3215C395E1007B733E /* buttonTallStandardNA.png */,
-				5BDDAE3315C395E1007B733E /* buttonTallStandardActive@2x.png */,
-				5BDDAE3415C395E1007B733E /* buttonTallStandardNA@2x.png */,
-				5BDDAE1915C39428007B733E /* smallButtonGray240x78_a.png */,
-				5BDDAE1A15C39428007B733E /* smallButtonGray240x78.png */,
-				5BDDAE1B15C39428007B733E /* smallButtonGray240x78@2x_a.png */,
-				5BDDAE1C15C39428007B733E /* smallButtonGray240x78@2x.png */,
-				5BDDAE1D15C39428007B733E /* smallButtonGreen240x78_a.png */,
-				5BDDAE1E15C39428007B733E /* smallButtonGreen240x78.png */,
-				5BDDAE1F15C39428007B733E /* smallButtonGreen240x78@2x_a.png */,
-				5BDDAE2015C39428007B733E /* smallButtonGreen240x78@2x.png */,
-				5BDDAE2115C39428007B733E /* smallButtonRed240x78_a.png */,
-				5BDDAE2215C39428007B733E /* smallButtonRed240x78.png */,
-				5BDDAE2315C39428007B733E /* smallButtonRed240x78@2x_a.png */,
-				5BDDAE2415C39428007B733E /* smallButtonRed240x78@2x.png */,
+				D58249EA15CAD1B6009BD579 /* smallButtonGray240x78_a.png */,
+				D58249EB15CAD1B6009BD579 /* smallButtonGray240x78.png */,
+				D58249EC15CAD1B6009BD579 /* smallButtonGray240x78@2x_a.png */,
+				D58249ED15CAD1B6009BD579 /* smallButtonGray240x78@2x.png */,
+				D58249EE15CAD1B6009BD579 /* smallButtonGreen240x78_a.png */,
+				D58249EF15CAD1B6009BD579 /* smallButtonGreen240x78.png */,
+				D58249F015CAD1B6009BD579 /* smallButtonGreen240x78@2x_a.png */,
+				D58249F115CAD1B6009BD579 /* smallButtonGreen240x78@2x.png */,
+				D58249F215CAD1B6009BD579 /* smallButtonRed240x78_a.png */,
+				D58249F315CAD1B6009BD579 /* smallButtonRed240x78.png */,
+				D58249F415CAD1B6009BD579 /* smallButtonRed240x78@2x_a.png */,
+				D58249F515CAD1B6009BD579 /* smallButtonRed240x78@2x.png */,
+				D5824A0215CAD71B009BD579 /* buttonTallStandardActive@2x.png */,
+				D5824A0315CAD71B009BD579 /* buttonTallStandardNA@2x.png */,
+				D5824A0615CAD743009BD579 /* img-plus-40x40.png */,
+				D5824A0715CAD743009BD579 /* img-plus-40x40@2x.png */,
+				D5824A0A15CADCCE009BD579 /* buttonTallStandardActive.png */,
+				D5824A0B15CADCCE009BD579 /* buttonTallStandardNA.png */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -3522,9 +3538,9 @@
 		5BF3EE1D159143D90011BAD8 /* Bank Account Management */ = {
 			isa = PBXGroup;
 			children = (
-				5BDDAE6015C9BE84007B733E /* VerifyACHAccountViewController.xib */,
-				5BDDAE6115C9BE84007B733E /* VerifyACHAccountViewController.m */,
-				5BDDAE6215C9BE84007B733E /* VerifyACHAccountViewController.h */,
+				D58249E415CACF0A009BD579 /* VerifyACHAccountViewController.h */,
+				D58249E515CACF0A009BD579 /* VerifyACHAccountViewController.m */,
+				D58249E615CACF0A009BD579 /* VerifyACHAccountViewController.xib */,
 				5BDDAE0715C1C746007B733E /* Modals */,
 				5BF3EE1E159144170011BAD8 /* AccountListViewController.h */,
 				5BF3EE1F159144170011BAD8 /* AccountListViewController.m */,
@@ -4100,10 +4116,26 @@
 				5BDDAE4215C7628C007B733E /* PhoneDetailViewController.xib in Resources */,
 				5BDDAE4715C77407007B733E /* EmailAccountDetailViewController.xib in Resources */,
 				5BDDAE4D15C8D2A8007B733E /* MeCodeDetailViewController.xib in Resources */,
-				5BDDAE5015C8D848007B733E /* img-plus-40x40.png in Resources */,
-				5BDDAE5115C8D848007B733E /* img-plus-40x40@2x.png in Resources */,
 				5BDDAE5615C8DAF8007B733E /* NewACHAccountViewController.xib in Resources */,
-				5BDDAE6315C9BE85007B733E /* VerifyACHAccountViewController.xib in Resources */,
+				D58249E815CACF0A009BD579 /* VerifyACHAccountViewController.xib in Resources */,
+				D58249F615CAD1B6009BD579 /* smallButtonGray240x78_a.png in Resources */,
+				D58249F715CAD1B6009BD579 /* smallButtonGray240x78.png in Resources */,
+				D58249F815CAD1B6009BD579 /* smallButtonGray240x78@2x_a.png in Resources */,
+				D58249F915CAD1B6009BD579 /* smallButtonGray240x78@2x.png in Resources */,
+				D58249FA15CAD1B6009BD579 /* smallButtonGreen240x78_a.png in Resources */,
+				D58249FB15CAD1B6009BD579 /* smallButtonGreen240x78.png in Resources */,
+				D58249FC15CAD1B6009BD579 /* smallButtonGreen240x78@2x_a.png in Resources */,
+				D58249FD15CAD1B6009BD579 /* smallButtonGreen240x78@2x.png in Resources */,
+				D58249FE15CAD1B6009BD579 /* smallButtonRed240x78_a.png in Resources */,
+				D58249FF15CAD1B6009BD579 /* smallButtonRed240x78.png in Resources */,
+				D5824A0015CAD1B6009BD579 /* smallButtonRed240x78@2x_a.png in Resources */,
+				D5824A0115CAD1B6009BD579 /* smallButtonRed240x78@2x.png in Resources */,
+				D5824A0415CAD71B009BD579 /* buttonTallStandardActive@2x.png in Resources */,
+				D5824A0515CAD71B009BD579 /* buttonTallStandardNA@2x.png in Resources */,
+				D5824A0815CAD743009BD579 /* img-plus-40x40.png in Resources */,
+				D5824A0915CAD743009BD579 /* img-plus-40x40@2x.png in Resources */,
+				D5824A0C15CADCCF009BD579 /* buttonTallStandardActive.png in Resources */,
+				D5824A0D15CADCCF009BD579 /* buttonTallStandardNA.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4316,7 +4348,7 @@
 				5BDDAE4615C77407007B733E /* EmailAccountDetailViewController.m in Sources */,
 				5BDDAE4C15C8D2A8007B733E /* MeCodeDetailViewController.m in Sources */,
 				5BDDAE5515C8DAF8007B733E /* NewACHAccountViewController.m in Sources */,
-				5BDDAE6415C9BE85007B733E /* VerifyACHAccountViewController.m in Sources */,
+				D58249E715CACF0A009BD579 /* VerifyACHAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4719,7 +4751,6 @@
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
@@ -4743,6 +4774,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
