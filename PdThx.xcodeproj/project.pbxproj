@@ -675,6 +675,8 @@
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
 		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
 		C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C334D27715BF248F00923348 /* SelectRecipientViewController.xib */; };
+		C384CE9B15CAE514000BADCD /* SocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C384CE9915CAE514000BADCD /* SocialNetworksViewController.m */; };
+		C384CE9C15CAE514000BADCD /* SocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */; };
 		C38999E215C2EEED00D98387 /* SelectRecipientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C38999E115C2EEED00D98387 /* SelectRecipientCell.m */; };
 		C38999E415C2EF3B00D98387 /* SelectRecipientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
@@ -1618,6 +1620,9 @@
 		C334D27615BF248E00923348 /* SelectRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientViewController.m; sourceTree = "<group>"; };
 		C334D27715BF248F00923348 /* SelectRecipientViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientViewController.xib; sourceTree = "<group>"; };
 		C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectRecipientProtocol.h; sourceTree = "<group>"; };
+		C384CE9815CAE514000BADCD /* SocialNetworksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialNetworksViewController.h; sourceTree = "<group>"; };
+		C384CE9915CAE514000BADCD /* SocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialNetworksViewController.m; sourceTree = "<group>"; };
+		C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialNetworksViewController.xib; sourceTree = "<group>"; };
 		C38999E015C2EEEC00D98387 /* SelectRecipientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientCell.h; sourceTree = "<group>"; };
 		C38999E115C2EEED00D98387 /* SelectRecipientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientCell.m; sourceTree = "<group>"; };
 		C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientCell.xib; sourceTree = "<group>"; };
@@ -3038,6 +3043,9 @@
 				5BED072115B9EDC800D4110A /* TwitterRushViewController.xib */,
 				5BED071E15B9ED8C00D4110A /* TwitterRushViewController.h */,
 				5BED071F15B9ED8C00D4110A /* TwitterRushViewController.m */,
+				C384CE9815CAE514000BADCD /* SocialNetworksViewController.h */,
+				C384CE9915CAE514000BADCD /* SocialNetworksViewController.m */,
+				C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */,
 			);
 			name = SocialNetworks;
 			sourceTree = "<group>";
@@ -4113,6 +4121,7 @@
 				54D2404315C2D69A0037719A /* bg-instantlimit-124x45@2x.png in Resources */,
 				54D2404415C2D69A0037719A /* txt-yourinstantlimit-121x10.png in Resources */,
 				54D2404515C2D69A0037719A /* txt-yourinstantlimit-121x10@2x.png in Resources */,
+				C384CE9C15CAE514000BADCD /* SocialNetworksViewController.xib in Resources */,
 				5BDDAE4215C7628C007B733E /* PhoneDetailViewController.xib in Resources */,
 				5BDDAE4715C77407007B733E /* EmailAccountDetailViewController.xib in Resources */,
 				5BDDAE4D15C8D2A8007B733E /* MeCodeDetailViewController.xib in Resources */,
@@ -4344,6 +4353,7 @@
 				5BDDAE0B15C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m in Sources */,
 				54D2402015C0B8730037719A /* QuickSendView.m in Sources */,
 				C38999E215C2EEED00D98387 /* SelectRecipientCell.m in Sources */,
+				C384CE9B15CAE514000BADCD /* SocialNetworksViewController.m in Sources */,
 				5BDDAE4115C7628C007B733E /* PhoneDetailViewController.m in Sources */,
 				5BDDAE4615C77407007B733E /* EmailAccountDetailViewController.m in Sources */,
 				5BDDAE4C15C8D2A8007B733E /* MeCodeDetailViewController.m in Sources */,
@@ -4437,7 +4447,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4540,7 +4550,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4572,7 +4582,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4686,7 +4696,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4770,8 +4780,8 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6771C41F-A589-4BEB-8730-864C7721563A";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = NO;
@@ -4854,7 +4864,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4938,7 +4948,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -5020,7 +5030,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

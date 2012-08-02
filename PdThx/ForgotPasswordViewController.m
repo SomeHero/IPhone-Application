@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
     
-
+    
 }
 
 - (void)viewDidUnload
@@ -87,14 +87,14 @@
     }
     else
     {
-
-    userService = [[UserService alloc] init];
-    [userService setForgotPasswordCompleteDelegate:self];
-    [txtEmailAddress resignFirstResponder];
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Sending email.." withDetailedStatus:@""];
-    [userService forgotPasswordFor: txtEmailAddress.text];
+        
+        userService = [[UserService alloc] init];
+        [userService setForgotPasswordCompleteDelegate:self];
+        [txtEmailAddress resignFirstResponder];
+        
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Sending email.." withDetailedStatus:@""];
+        [userService forgotPasswordFor: txtEmailAddress.text];
     }
 }
 -(void)didSelectButtonWithIndex:(int)index
@@ -127,8 +127,6 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:message];
 }
-
-
 
 - (void)dealloc {
     [btnSubmitForgotPassword release];
