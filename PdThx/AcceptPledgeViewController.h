@@ -71,6 +71,7 @@
     double latitude;
     double longitude;
     
+    IBOutlet UIButton *contactImage;
     IBOutlet UIImageView* causeButtonBGImage;
     IBOutlet UIImageView *contactButtonBGImage;
     IBOutlet UIImageView *amountButtonBGImage;
@@ -97,6 +98,7 @@
 
 @property(nonatomic, retain) UIImageView *contactButtonBGImage;
 @property(nonatomic, retain) UIImageView *amountButtonBGImage;
+@property(nonatomic, retain) UIButton *contactImage;
 
 @property (retain, nonatomic) IBOutlet UITextField *dummyPlaceholder;
 @property(nonatomic, retain) UIButton *attachPictureButton;

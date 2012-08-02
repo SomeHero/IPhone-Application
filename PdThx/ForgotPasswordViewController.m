@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
     
-
+    
 }
 
 - (void)viewDidUnload
@@ -60,13 +60,12 @@
 }
 
 
-
-- (IBAction)submitForgotPasswordClicked:(id)sender {
+- (IBAction)submitForgotPasswordClicked:(id)sender
+{
     int retVal = [self isValidFormattedPayPoint];
     [txtEmailAddress resignFirstResponder];
     if(retVal == 0)
     {
-        
         [txtEmailAddress resignFirstResponder];
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
@@ -87,14 +86,14 @@
     }
     else
     {
-
-    userService = [[UserService alloc] init];
-    [userService setForgotPasswordCompleteDelegate:self];
-    [txtEmailAddress resignFirstResponder];
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Sending email.." withDetailedStatus:@""];
-    [userService forgotPasswordFor: txtEmailAddress.text];
+        
+        userService = [[UserService alloc] init];
+        [userService setForgotPasswordCompleteDelegate:self];
+        [txtEmailAddress resignFirstResponder];
+        
+        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Sending email.." withDetailedStatus:@""];
+        [userService forgotPasswordFor: txtEmailAddress.text];
     }
 }
 -(void)didSelectButtonWithIndex:(int)index
@@ -127,8 +126,6 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:message];
 }
-
-
 
 - (void)dealloc {
     [btnSubmitForgotPassword release];

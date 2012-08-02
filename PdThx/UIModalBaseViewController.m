@@ -168,6 +168,34 @@ CGSize scrollViewOriginalSize;
 
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if( self.navigationItem.leftBarButtonItem != nil )
+    {
+        UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
+        UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+        settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+        [settingsBtn addTarget:self action:@selector(pressedNavigationBackButton) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+        
+        
+        self.navigationItem.hidesBackButton = YES;
+        
+        self.navigationItem.leftBarButtonItem = settingsButtons;
+    }
+}
+
+-(void)pressedNavigationBackButton
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
