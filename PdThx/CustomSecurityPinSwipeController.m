@@ -35,7 +35,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)unlockPatternView:(ALUnlockPatternView *)patternView selectedCode:(NSString *)code{
     securityPin = [NSString stringWithString:[code copy]];
-    [self dismissModalViewControllerAnimated:YES];
+
+    [securityPinSwipeDelegate swipeDidComplete:self withPin:securityPin];
 
 }
 - (void)dealloc
@@ -55,16 +56,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
-}
--(void)viewDidDisappear:(BOOL)animated {
-    if(didCancel)
-    {
-        [securityPinSwipeDelegate swipeDidCancel:self];
-        didCancel = false;
-    }
-    else {
-        [securityPinSwipeDelegate swipeDidComplete:self withPin:securityPin];
-    }
 }
 #pragma mark - View lifecycle
 
@@ -119,9 +110,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [cancelButton release];
 }
 -(void)cancelClicked {
-    didCancel = true;
-    
-    [self dismissModalViewControllerAnimated:YES];
+    [securityPinSwipeDelegate swipeDidCancel:self];
 }
 - (void)viewDidUnload
 {

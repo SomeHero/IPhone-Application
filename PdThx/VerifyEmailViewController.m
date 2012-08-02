@@ -17,7 +17,9 @@
 @end
 
 @implementation VerifyEmailViewController
-@synthesize emailAddress;
+
+@synthesize payPoint;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,18 +32,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'Phone'"];
-    emailAddresses = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];  
-    txtEmailAddress.text = emailAddress;
-    // Do any additional setup after loading the view from its nib.
+    payPointService = [[PayPointService alloc] init];
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+
+    txtEmailAddress.text = payPoint.uri;
 }
 
 - (void)viewDidUnload
 {
     [txtEmailAddress release];
     txtEmailAddress = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -54,7 +56,7 @@
 -(IBAction)btnVerify
 {
     EnterVerificationCodeViewController* controller = [[EnterVerificationCodeViewController alloc] init];
-    controller.phoneNumber = emailAddress;
+    controller.phoneNumber = payPoint.uri;
     [self.navigationController pushViewController:controller animated:YES]; 
     [controller setTitle : @"Verify"];
    
@@ -62,7 +64,7 @@
 }
 -(IBAction)btnResendCodes
 {
-    //Service to resend codes
+    [payPointService resendEmailVerificationLink:payPoint.payPointId forUserId:user.userId];
 }
 - (void)dealloc {
     [txtEmailAddress release];

@@ -17,6 +17,7 @@
     NSString* accountNumber;
     NSString* nameOnAccount;
     NSString* accountType;
+    NSString* status;
 }
 
 @property(nonatomic, retain) NSString* nickName;
@@ -25,6 +26,7 @@
 @property(nonatomic, retain) NSString* accountNumber;
 @property(nonatomic, retain) NSString* nameOnAccount;
 @property(nonatomic, retain) NSString* accountType;
+@property(nonatomic, retain) NSString* status;
 
 -(BankAccount *) initWithDictionary : (NSDictionary *) dictionary;
 

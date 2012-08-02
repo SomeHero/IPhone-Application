@@ -31,6 +31,8 @@
     // Do any additional setup after loading the view from its nib.
     payPointService = [[PayPointService alloc] init];
     [payPointService setAddPayPointCompleteDelegate:self];
+    
+    [txtPhoneNumber becomeFirstResponder];
 }
 
 - (void)viewDidUnload
