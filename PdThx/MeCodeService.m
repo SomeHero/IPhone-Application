@@ -73,7 +73,7 @@
     NSLog(@"MeCode Creation failed with Exception");
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSString* response = [NSString stringWithString: @"Unable to create MeCode Try again."];
+    NSString* response = @"Unable to create MeCode Try again.";
     
     [MeCodeCreateCompleteDelegate meCodeCreateDidFail: response];
     
