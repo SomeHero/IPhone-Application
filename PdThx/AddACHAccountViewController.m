@@ -47,7 +47,6 @@
     accountService = [[UserSetupACHAccount alloc] init];
     [accountService setUserACHSetupCompleteDelegate: self];
 }
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -126,7 +125,7 @@
             [controller setNavigationTitle: @"Setup your Pin"];
             [controller setTag: 1];
         }
-        [self.parentViewController presentModalViewController:controller animated:YES];
+        [self.navigationController presentModalViewController:controller animated:YES];
     }
 }
 -(void)cancelClicked {
@@ -164,36 +163,44 @@
  		PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
         
-        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
+        
+        NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5]];
+        
+        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
     else {
         if([sender tag] == 1)
         {
+            [self.navigationController dismissModalViewControllerAnimated:NO];
+            
             securityPin = pin;
         
             controller =[[[CustomSecurityPinSwipeController alloc] init] retain];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm your Pin"];
             [controller setHeaderText: [NSString stringWithFormat:@"Confirm your pin, by swiping it again below"]];
+            
             [controller setTag:2];    
-            [self presentModalViewController:controller animated:YES];
+            [self.navigationController presentModalViewController:controller animated:YES];
             
             [controller release];
         }
         else if([sender tag] == 2)
             
+            [self.navigationController dismissModalViewControllerAnimated:NO];
+        
             securityPin = pin;
         
             addSecurityQuestionController = [[[AddSecurityQuestionViewController alloc] init] retain];
         
-            UINavigationController *naviBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
+            UINavigationController *navigationBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
         
             [addSecurityQuestionController setSecurityQuestionEnteredDelegate:self];
             [addSecurityQuestionController setNavigationTitle: @"Add a Security Question"];
         
-            [self presentModalViewController:naviBar animated:YES];
+            [self.navigationController presentModalViewController:navigationBar animated:YES];
         
-            [navBar release];
+            [navigationBar release];
         
     }
 }
@@ -207,11 +214,13 @@
     if([ctrlAccountType selectedSegmentIndex] == 1)
         accountType = @"Savings";
     
-    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
+    NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5]];
     
-    if(!newUserFlow) {
-        [self.navigationController dismissModalViewControllerAnimated:YES];
-    }
+    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
+    
+    //if(!newUserFlow) {
+        //[self.navigationController dismissModalViewControllerAnimated:YES];
+   // }
 
 
 }
@@ -273,6 +282,12 @@
     [txtConfirmAccountNumber resignFirstResponder];
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];
+}
+-(IBAction)btnRemindMeLaterClicked:(id)sender;
+{
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
 }
 -(void)delete:(id)sender {
         

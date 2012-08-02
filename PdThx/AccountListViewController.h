@@ -14,11 +14,16 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "UIAccountTableCell.h"
+#import "NewACHAccountViewController.h"
 #import "AddACHAccountViewController.h"
 #import "EditACHAccountViewController.h"
 #import "UISetupUserBaseViewController.h"
+#import "UAModalPanel.h"
+#import "SelectAccountModalViewControllerViewController.h"
+#import "ModalSelectProtocol.h"
+#import "UIProfileTableViewCell.h"
 
-@interface AccountListViewController : UISetupUserBaseViewController<BankAccountRequestProtocol, SetPreferredAccountProtocol, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate>{
+@interface AccountListViewController : UISetupUserBaseViewController<BankAccountRequestProtocol, UserACHSetupCompleteProtocol, SetPreferredAccountProtocol, ModalSelectProtocol, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate>{
     IBOutlet UIScrollView* scrollview;
     IBOutlet UIPickerView *senderAccountPickerView;
     IBOutlet UIPickerView *receiveAccountPickerView;
@@ -28,6 +33,8 @@
     NSMutableArray *arrayColors;
     BankAccountService *bankAccountService;
     UIPickerView *myPickerView;
+    SelectAccountModalViewControllerViewController* selectModal;
+    NSString* selectedOption;
 }
 
 

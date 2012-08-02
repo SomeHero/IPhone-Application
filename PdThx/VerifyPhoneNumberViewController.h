@@ -13,15 +13,17 @@
 #import "PayPointService.h"
 #import "GetPayPointProtocol.h"
 #import "AddPayPointCompleteProtocol.h"
-@interface VerifyPhoneNumberViewController :UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>{
 
+@interface VerifyPhoneNumberViewController :UISetupUserBaseViewController
+{
     IBOutlet UILabel *txtPhoneNumber;
-    NSMutableArray* phones;
-    NSString* phoneNumber;
+    PayPoint* payPoint;
+    PayPointService* payPointService;
 }
 -(IBAction)btnVerify;
 -(IBAction)btnResendCodes;
 
-@property (retain, nonatomic) NSString* phoneNumber;
+@property (retain, nonatomic) PayPoint* payPoint;
+
 @end
 	
