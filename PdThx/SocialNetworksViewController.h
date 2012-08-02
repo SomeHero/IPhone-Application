@@ -7,7 +7,16 @@
 //
 
 #import "UIModalBaseViewController.h"
+#import "UserService.h"
+#import "Facebook.h"
+#import "LinkWithFacebookProtocol.h"
 
-@interface SocialNetworksViewController : UIModalBaseViewController
+
+@interface SocialNetworksViewController : UIModalBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol>
+{
+    UserService *userService;
+}
+
+@property (assign, nonatomic) int numFailedFB;
 
 @end

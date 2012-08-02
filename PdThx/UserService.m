@@ -84,9 +84,9 @@
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/link_facebook", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
-                              apiKey, @"ApiKey",
-                              token, @"AuthToken",
-                              facebookId, @"FacebookId",
+                              apiKey, @"apiKey",
+                              token, @"oAuthToken",
+                              facebookId, @"accountId",
                               nil];
     
     NSString* newJSON = [userData JSONRepresentation];
