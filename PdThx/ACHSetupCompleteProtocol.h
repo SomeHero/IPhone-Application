@@ -17,5 +17,6 @@
 @protocol ACHSetupCompleteProtocol <NSObject>
 
 -(void)achSetupDidComplete;
+-(void)achSetupDidFail:(NSString*) error;
 
 @end

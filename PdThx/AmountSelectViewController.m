@@ -173,14 +173,16 @@
 }
 
 - (void)dealloc {
+    
+    [super dealloc];
+    
     [amountDisplayLabel release];
     [goButton release];
     [quickAmount0 release];
     [quickAmount1 release];
     [quickAmount2 release];
     [quickAmount3 release];
-    
-    [super dealloc];
+
 }
 
 - (IBAction)amountChanged:(id)sender 

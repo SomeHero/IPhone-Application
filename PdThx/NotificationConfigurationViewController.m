@@ -44,7 +44,7 @@
     [dic release];
     
     NSArray *array = [[notificationOptions allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    
+
     self.sections = array;
     
     sections = array;

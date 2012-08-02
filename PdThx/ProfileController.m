@@ -52,7 +52,7 @@
 {
     self.title = @"Settings";
     [tableView setRowHeight: 60];
-
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"options" ofType:@"plist"];
     
     NSDictionary *dic = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -96,8 +96,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
 }
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -144,8 +144,9 @@
     cell.lblDescription.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Description"];
     cell.ctrlImage.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
     cell.ctrlImage.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+   
     return cell;
 }
 

@@ -62,8 +62,9 @@
 
 - (void)dealloc
 {
+    [super dealloc];
     [tabBar release];
-    /*  ------------------------------------------------------ */
+/*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
     [viewPanel release];
@@ -93,8 +94,6 @@
     [dummyCommentPlaceholder release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -341,6 +340,7 @@
 
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
+
     NSString *theJSON = [request responseString];
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
@@ -527,6 +527,8 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
     NSString* recipientImageUri = [NSString stringWithString: @""];
     NSString* recipientFirstName = [NSString stringWithString: @""];
     NSString* recipientLastName =[NSString stringWithString: @""];
@@ -543,7 +545,7 @@
 }
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)requestMoneyDidComplete {
     [self.mainScrollView scrollsToTop];
