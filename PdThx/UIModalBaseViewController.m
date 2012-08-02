@@ -157,9 +157,9 @@ CGSize scrollViewOriginalSize;
     if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
-    
-    UIBarButtonItem *cancelButton =  [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemAction target:self action:@selector(cancelClicked)];
-    
+
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"BTN-Nav-Cancel-68x30.png"] style:nil target:nil action:@selector(cancelClicked)];
+
     self.navigationItem.leftBarButtonItem= cancelButton;
     [cancelButton release];
     
