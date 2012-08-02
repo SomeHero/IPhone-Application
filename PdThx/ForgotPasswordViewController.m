@@ -128,12 +128,7 @@
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:message];
 }
 
-//-(void) didSelectButtonWithIndex:(int)index
-//{
-    //PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    //[appDelegate dismissAlertView];
-    //[self dismissModalViewControllerAnimated:YES];
-//}
+
 
 - (void)dealloc {
     [btnSubmitForgotPassword release];
