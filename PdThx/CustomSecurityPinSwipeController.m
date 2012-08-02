@@ -114,6 +114,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [settingsBtn setImage:bgImage forState:UIControlStateNormal];
     settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+    
     [settingsBtn addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];

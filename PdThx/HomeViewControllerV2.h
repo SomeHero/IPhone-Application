@@ -17,6 +17,10 @@
 #import "QuickSendView.h"
 #import "QuickSendButtonProtocol.h"
 
+
+#import <QuartzCore/QuartzCore.h>
+#import <CoreText/CoreText.h>
+
 @interface HomeViewControllerV2 : UIBaseViewController< UserInformationCompleteProtocol, HBTabBarDelegate, QuickSendButtonProtocol>
 {
     IBOutlet UIView *viewPanel;
@@ -43,6 +47,7 @@
 @property(nonatomic, retain) QuickSendView *quickSendView;
 
 @property (nonatomic, retain) HBTabBarManager *tabBar;
+@property (nonatomic, retain) CATextLayer* limitTextLayer;
 
 @property (assign) int quickSendOpened;
 

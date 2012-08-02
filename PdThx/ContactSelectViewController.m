@@ -235,9 +235,8 @@
             if ( entryType == 0 ) {
                 // Could not find contact by that name, so put the
                 // "keep typing" screen
-                [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", @"No matches found"] baseURL:nil];
-                myCell.contactNameWebView.opaque = NO;
-                myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                myCell.contactNameField.text = @"No matches found";
+                
                 //[NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
                 myCell.contactDetail.text = @"Continue typing or check entry";
                 myCell.userInteractionEnabled = NO;
@@ -253,17 +252,13 @@
             } else if ( entryType == 1 ) {
                 // Valid phone number entered... show a new contact with that information
                 // entered in the search box.
-                [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""]] baseURL:nil];
-                myCell.contactNameWebView.opaque = NO;
-                myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                myCell.contactNameField.text = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                 myCell.contactDetail.text = @"New Phone Recipient";
                 return myCell;
             } else if ( entryType == 2 ) {
                 // Valid email address entered, show a new contact box with that information
                 // entered as the contaction information
-                [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", txtSearchBox.text] baseURL:nil];
-                myCell.contactNameWebView.opaque = NO;
-                myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                myCell.contactNameField.text = txtSearchBox.text;
                 myCell.contactDetail.text = @"New Email Recipient";
                 
                 
@@ -284,14 +279,11 @@
         
         if ( contact.facebookID.length > 0 ){
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
-                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
+                {
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
                 }
             }
             
@@ -323,14 +315,11 @@
             }
         } else {
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
-                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
+                {
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
                 }
             }
             
@@ -351,18 +340,15 @@
         
         if ( contact.facebookID.length > 0 ){
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
-                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
+                {
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
                 }
             }
             
-            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend", contact.facebookID];
+            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend"];
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
@@ -390,14 +376,11 @@
             }
         } else {
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
-                if ( contact.firstName.length > 0 && contact.lastName.length > 0 ){
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\">%@ <b>%@</b></body></html>", contact.firstName, contact.lastName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
+                {
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    [myCell.contactNameWebView loadHTMLString:[NSString stringWithFormat:@"<html><head></head><body style=\"background-color: transparent;\"><font face=\"Helvetica\"><b>%@</b></body></html>", contact.firstName] baseURL:nil];
-                    myCell.contactNameWebView.opaque = NO;
-                    myCell.contactNameWebView.backgroundColor = [UIColor clearColor];
+                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
                 }
             }
             

@@ -577,9 +577,13 @@
         contactDetail.text = @"Facebook Friend";
     } else if ( [contact.paypoints count] == 1 ){
         if ( [[contact.paypoints objectAtIndex:0] isEqualToString:contact.name] )
+        {
             contactDetail.text = @"";
+        }
         else
-            [contact.paypoints objectAtIndex:0];
+        {
+            contactDetail.text = [contact.paypoints objectAtIndex:0];
+        }
     } else if ([contact.paypoints count] ) {
         contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
     } else {
