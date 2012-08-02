@@ -40,6 +40,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 - (void)dealloc
 {
+    [navigationBar release];
     [super dealloc];
     
     [viewPinLock release];
@@ -97,6 +98,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         b.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     }
     
+    if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+        [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+
+    
     [self.viewPinLock addSubview:custom];
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"CustomSecurityPinSwipeController"
@@ -107,17 +114,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     //[self.view addSubview: header];
     //[self.view addSubview:body];
 }
--(void)viewDidAppear:(BOOL)animated {
-    
-    NSLog(@"%@", headerText);
-    
+
+-(void)viewDidAppear:(BOOL)animated
+{    
     lblHeader.text = headerText;
     
-    UIBarButtonItem *cancelButton =  [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemAction target:self action:@selector(cancelClicked)];
+    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Cancel-68x30.png"];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+    [settingsBtn addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.leftBarButtonItem= cancelButton;
-    [cancelButton release];
+    UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+    self.navigationItem.hidesBackButton = YES;
+    
+    self.navigationItem.leftBarButtonItem = cancelButtonItem;
 }
+
 -(void)cancelClicked {
     didCancel = true;
     
@@ -125,6 +138,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 - (void)viewDidUnload
 {
+    [navigationBar release];
+    navigationBar = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -157,6 +172,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     titleView.text = title;
     [titleView sizeToFit];
 }
+
+
 
 
 @end

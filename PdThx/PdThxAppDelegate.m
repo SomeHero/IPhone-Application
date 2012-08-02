@@ -26,6 +26,8 @@
 #import "HomeViewControllerV2.h"
 #import "WelcomeScreenViewController.h"
 #import "AboutPageViewController.h"
+#import "Reachability.h"
+
 
 @implementation PdThxAppDelegate
 
@@ -214,8 +216,46 @@
     }
 }
 
+- (void) updateInterfaceWithReachability: (Reachability*) curReach
+{
+    NetworkStatus netStatus = [curReach currentReachabilityStatus];
+    
+    //summaryLabel.hidden = (netStatus != ReachableViaWWAN);
+    if ( netStatus == NotReachable )
+    {
+        [self showSimpleAlertView:NO withTitle:@"No data connection" withSubtitle:@"Unable to communicate with PaidThx" withDetailedText:@"There doesn't seem to be a data connection on your phone. Please check your data connection, or connect to a WiFi network for a better experience." withButtonText:@"Continue" withDelegate:self];
+    }
+}
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    [self dismissAlertView];
+}
+
+
+//Called by Reachability whenever status changes.
+- (void) reachabilityChanged: (NSNotification* )note
+{
+	Reachability* curReach = [note object];
+	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+	[self updateInterfaceWithReachability: curReach];
+}
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
+    // method "reachabilityChanged" will be called.
+    
+    //[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
+    
+    //Change the host name here to change the server your monitoring
+	//hostReach = [[Reachability reachabilityWithHostName: @"www.google.com"] retain];
+	//[hostReach startNotifier];
+	//[self updateInterfaceWithReachability: hostReach];
+    
+    
     selectedContactList = @"AllContacts";
     
     // Override point for customization after application launch.
@@ -536,19 +576,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
 }
 
--(void)didSelectButtonWithIndex:(int)index
-{
-    [self dismissAlertView];
-    if ( index == 0 ){
-        NSLog(@"User wants more details for notification");
-        
-        
-        // TODO: Load Paystream
-    } else if ( index == 1 ){
-        NSLog(@"User chose to dismiss iOS Push Notification.");
-        // Dismiss iOS Push Notification
-    } 
-}
 
 -(void)loadPhoneContacts
 {
