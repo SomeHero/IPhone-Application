@@ -7,6 +7,7 @@
 //
 
 #import "SelectAccountModalViewControllerViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SelectAccountModalViewControllerViewController ()
 
@@ -18,18 +19,45 @@
 @synthesize selectedAccount;
 @synthesize accountType;
 @synthesize optionSelectDelegate;
+@synthesize headerText;
+@synthesize descriptionText;
 
 - (id)initWithFrame:(CGRect)frame{
 	if ((self = [super initWithFrame:frame])) {
 		
+        [self setInnerMargin: 0.0f];
+        
+        self.cornerRadius = 8.0f;
+        [self setBorderWidth: 2.0f];
+        [self setBorderColor: [UIColor colorWithRed:51/255.0 green:153/255.0 blue:51/255.0 alpha:1.0]];
+        
+        
         UITableView *tv = [[[UITableView alloc] initWithFrame:CGRectZero] autorelease];
 		[tv setDataSource:self];
         [tv setDelegate: self];
-        [tv setBackgroundColor: [UIColor clearColor]];
+        [tv setBackgroundColor: [UIColor whiteColor]];
+        
+        [tv.layer setMasksToBounds:YES];
+        [tv.layer setCornerRadius:self.cornerRadius];
+        
+        [tv setRowHeight: 75];
         
         v = tv;
+        
+        [v.layer setMasksToBounds:YES];
+        
         [self.contentView addSubview:v];
-
+        [self.contentContainer bringSubviewToFront:self.roundedRect];
+        [self.roundedRect setBackgroundColor:[UIColor clearColor]];
+        [self.roundedRect setUserInteractionEnabled:NO];
+        
+        self.contentContainer.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.contentContainer.layer.shadowOpacity = 0.5;
+        //self.contentContainer.layer.shadowRadius = 1;
+        self.contentContainer.layer.shadowOffset = CGSizeMake(0, 8.0f);
+        
+        [self.contentView setClipsToBounds:YES];
+        [self.contentContainer bringSubviewToFront: self.closeButton];
 	}	
 	return self;
 }
@@ -67,15 +95,16 @@
     }
     
     BankAccount* bankAccount = [bankAccounts objectAtIndex: indexPath.row];
-    [cell.textLabel setFont: [UIFont systemFontOfSize: 14.0]];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    [cell.textLabel setFont: [UIFont boldSystemFontOfSize: 16]];
+    cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:54/255.0 blue:62/255.0 alpha:1];
     cell.textLabel.text = [bankAccount nickName];
+    cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
     
     if([bankAccount.bankAccountId isEqualToString:selectedAccount]) {
-        cell.imageView.image =  [UIImage  imageNamed: @"im-setup-check-15x15@2x.png"];
+        cell.accessoryView.frame = CGRectMake(cell.accessoryView.frame.origin.x - 40, cell.accessoryView.frame.origin.y, cell.accessoryView.frame.size.width, cell.accessoryView.frame.size.height);
+        
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loadingPassed62x62.png"]] autorelease];
     }
-    
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -84,31 +113,58 @@
 {
     return YES;
 }
-/*-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-
+/*
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Select Your Receiving Account";
+}
+*/
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 90.0;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-    if (sectionTitle == nil) {
-        return nil;
-    }
-    
+
     // Create label with section title
-    UILabel *label = [[[UILabel alloc] init] autorelease];
-    label.frame = CGRectMake(20, 6, 300, 30);
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
+    UILabel *topLabel = [[[UILabel alloc] init] autorelease];
+    topLabel.frame = CGRectMake(0, 0, 280, 26);
+
+    topLabel.textColor = [UIColor blackColor];
+    topLabel.backgroundColor = [UIColor clearColor];
+    topLabel.font = [UIFont boldSystemFontOfSize:15];
+    topLabel.text = headerText;
     
-    label.font = [UIFont boldSystemFontOfSize:12];
-    label.text = sectionTitle;
+
+    UITextView *descriptionTextView = [[[UITextView alloc] init] autorelease];
+    descriptionTextView.frame = CGRectMake(0, 18, 280, 46);
+    descriptionTextView.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
+    descriptionTextView.textAlignment = UITextAlignmentLeft;
+    
+    descriptionTextView.textColor = [UIColor blackColor];
+    descriptionTextView.backgroundColor = [UIColor clearColor];
+    descriptionTextView.font = [UIFont systemFontOfSize: 14];
+    descriptionTextView.text = descriptionText;
+
     
     // Create header view and add label as a subview
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(20, 12, 280, 82)];
+    [headerView autorelease];
+    [headerView addSubview:topLabel];
+    
+    [headerView addSubview:descriptionTextView];
+    [headerView setAutoresizesSubviews:YES];
+
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 90)];
     [view autorelease];
-    [view addSubview:label];
+    [view addSubview:headerView];
+    [view setBackgroundColor: [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0]];  
+    
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 88, 320, 2)];
+    [bottomBorder setBackgroundColor: [UIColor colorWithRed:51/255.0 green:153/255.0 blue:51/255.0 alpha:1.0]];
+    
+    [view addSubview: bottomBorder];
     
     return view;
-}*/
+}
 /*
  // Override to support editing the table view.
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

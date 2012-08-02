@@ -342,6 +342,8 @@
         selectModal.bankAccounts = user.bankAccounts;
         selectModal.selectedAccount =user.preferredPaymentAccountId;
         selectModal.accountType = @"Send";
+        selectModal.headerText = @"Select Your Sending Account";
+        selectModal.descriptionText = @"All payments you send will be withdrawn from this bank account.";
         
         [self.view addSubview:selectModal];
         [selectModal show];
@@ -352,6 +354,8 @@
         selectModal.bankAccounts = user.bankAccounts;
         selectModal.selectedAccount =user.preferredReceiveAccountId;
         selectModal.accountType = @"Receive";
+        selectModal.headerText = @"Select Your Receiving Account";
+        selectModal.descriptionText = @"All received payments will be deposited into this bank account.";
         
         [self.view addSubview:selectModal];
         [selectModal show];
