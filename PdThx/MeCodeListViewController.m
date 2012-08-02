@@ -188,7 +188,7 @@
     {
         AddMeCodeViewController* controller = [[[AddMeCodeViewController alloc] init] retain];
         [controller setTitle: @"Add $MeCode"];
-        [controller setHeaderText: @"To claim your MeCode, enter the MeCode below.  All MeCodes must begin with a $ and be at least 3 AlphaNumeric characters long."];
+        [controller setHeaderText: @"Create your MeCode, must contain at least 3 AlphaNumeric characters long."];
         [controller setAddPayPointComplete:self];
         
         UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
