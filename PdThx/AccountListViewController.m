@@ -321,12 +321,14 @@
             [controller setTitle: @"Add Bank Account"];
             [controller setAchSetupDidComplete:self];
             
+            
             //[controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
 
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+     
             
+            //[self.navigationItem setRightBarButtonItem:(UIBarButtonItem *) animated:YES];
             [self.navigationController presentModalViewController:navBar animated:YES];
-            
             [navBar release];
             [controller release];
         } else {
