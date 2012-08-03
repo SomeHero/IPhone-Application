@@ -126,7 +126,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Label</string>
+								<string key="IBUIText"/>
 								<reference key="IBUITextColor" ref="231809654"/>
 								<reference key="IBUIHighlightedColor" ref="527158490"/>
 								<int key="IBUIBaselineAdjustment">0</int>
@@ -266,8 +266,6 @@
 						<string key="contactDetail">UILabel</string>
 						<string key="contactImage">UIButton</string>
 						<string key="contactNameField">UILabel</string>
-						<string key="contactNameWebView">UIWebView</string>
-						<string key="overLayView">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="contactDetail">
@@ -281,14 +279,6 @@
 						<object class="IBToOneOutletInfo" key="contactNameField">
 							<string key="name">contactNameField</string>
 							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="contactNameWebView">
-							<string key="name">contactNameWebView</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="overLayView">
-							<string key="name">overLayView</string>
-							<string key="candidateClassName">UIView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
