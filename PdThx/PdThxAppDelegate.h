@@ -29,7 +29,9 @@
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate, UINavigationControllerDelegate> {
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate, UINavigationControllerDelegate,
+    CustomAlertViewProtocol> {
+    
     Facebook * fBook;
     NSString * deviceToken;
     PhoneNumberFormatting *phoneNumberFormatter;

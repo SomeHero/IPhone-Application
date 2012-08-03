@@ -12,6 +12,7 @@
 #import "MeCodeSetupViewController.h"
 #import "ChangePasswordViewController.h"
 #import "UserService.h"
+#import "SocialNetworksViewController.h"
 
 #define kScreenWidth  320
 #define kScreenHeight  400
@@ -268,8 +269,8 @@ case 1:
 */
                 case 1: 
                 {
-                    TwitterRushViewController* controller =
-                    [[TwitterRushViewController alloc] init];
+                    SocialNetworksViewController* controller =
+                    [[SocialNetworksViewController alloc] init];
                     
                     [self.navigationController pushViewController:controller animated:YES];
                     

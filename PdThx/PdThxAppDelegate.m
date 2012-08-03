@@ -214,8 +214,26 @@
     }
 }
 
+-(void)didSelectButtonWithIndex:(int)index
+{
+    [self dismissAlertView];
+}
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
+    // method "reachabilityChanged" will be called.
+    
+    //[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
+    
+    //Change the host name here to change the server your monitoring
+	//hostReach = [[Reachability reachabilityWithHostName: @"www.google.com"] retain];
+	//[hostReach startNotifier];
+	//[self updateInterfaceWithReachability: hostReach];
+    
+    
     selectedContactList = @"AllContacts";
     
     // Override point for customization after application launch.
@@ -536,19 +554,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
 }
 
--(void)didSelectButtonWithIndex:(int)index
-{
-    [self dismissAlertView];
-    if ( index == 0 ){
-        NSLog(@"User wants more details for notification");
-        
-        
-        // TODO: Load Paystream
-    } else if ( index == 1 ){
-        NSLog(@"User chose to dismiss iOS Push Notification.");
-        // Dismiss iOS Push Notification
-    } 
-}
 
 -(void)loadPhoneContacts
 {
