@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    txtHeader.text = headerText;
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -113,6 +114,7 @@
     [selectRecipientTable release];
     [recipients release];
     [txtHeader release];
+    [selectRecipientDelegate release];
     [super dealloc];
 }
 
