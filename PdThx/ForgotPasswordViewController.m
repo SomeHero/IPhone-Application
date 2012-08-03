@@ -60,13 +60,12 @@
 }
 
 
-
-- (IBAction)submitForgotPasswordClicked:(id)sender {
+- (IBAction)submitForgotPasswordClicked:(id)sender
+{
     int retVal = [self isValidFormattedPayPoint];
     [txtEmailAddress resignFirstResponder];
     if(retVal == 0)
     {
-        
         [txtEmailAddress resignFirstResponder];
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:

@@ -528,10 +528,10 @@
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
-    
-    NSString* recipientImageUri = [NSString stringWithString: @""];
-    NSString* recipientFirstName = [NSString stringWithString: @""];
-    NSString* recipientLastName =[NSString stringWithString: @""];
+
+    NSString* recipientImageUri = @"";
+    NSString* recipientFirstName = @"";
+    NSString* recipientLastName = @"";
     
     if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
@@ -563,6 +563,7 @@
     
     [controller setContinueButtonText:@"Send Another Request"];
     [controller setTransactionConfirmationDelegate: self];
+    [controller setTitle:@"Request Sent"];
     
     [self presentModalViewController:controller animated:YES];
      recipientUri = @"";

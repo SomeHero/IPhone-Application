@@ -16,7 +16,9 @@
 
 #import "PdThxAppDelegate.h"
 #import "PhoneNumberFormatting.h"
+
 #import <QuartzCore/QuartzCore.h>
+#import <CoreText/CoreText.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor \
 colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -31,6 +33,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize viewPanel;
 @synthesize btnSendPhone, btnSendFacebook, btnSendNonprofit, tabBar;
 @synthesize quickSendOpened;
+@synthesize limitTextLayer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -176,7 +179,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [dvc viewDidLoad]; // Force load of SendMoneyViewController
             
             Contact *hugo = [[Contact alloc] init];
-            [hugo.paypoints addObject:[NSString stringWithString:@"5712438777"]];
+            [hugo.paypoints addObject:@"5712438777"];
             hugo.firstName = @"Hugo";
             hugo.lastName = @"Camacho";
             hugo.name = @"Hugo Camacho";
@@ -380,13 +383,52 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     else
         lblPayPoints.text = user.userName;
     
-    lblScore.text = [NSString stringWithFormat: @"$%d", [user.instantLimit intValue]];
+    //lblScore.text = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"$%d",[user.instantLimit intValue]] attributes:nil];
+    if ( !limitTextLayer )
+    {
+        limitTextLayer = [[CATextLayer alloc] init];
+        //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
+        limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
+        limitTextLayer.wrapped = NO;
+        CALayer *layer = lblScore.layer; //self is a view controller contained by a navigation controller
+        limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
+        limitTextLayer.alignmentMode = kCAAlignmentCenter;
+        limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
+        [layer addSublayer:limitTextLayer];
+    }
+    
+    NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
+    
+    /* Create the attributes (for the attributed string) */
+    
+    CTFontRef amountFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 35.0, NULL);
+    CTFontRef dayFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 10.0, NULL);
+    
+   
+    NSDictionary *amountAttributes = [NSDictionary dictionaryWithObject:
+            (id)amountFontRef forKey:(id)kCTFontAttributeName];
+    
+    NSDictionary *dayAttributes = [NSDictionary dictionaryWithObject:
+                                      (id)dayFontRef forKey:(id)kCTFontAttributeName];
+    
+    /* Create the attributed string (text + attributes) */
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:labelString attributes:amountAttributes];
+    
+    [attrStr addAttributes:dayAttributes range:NSMakeRange([labelString rangeOfString:@"/"].location, 4)];
+    
+    CFRelease(amountFontRef);
+    CFRelease(dayFontRef);
+    
+    /* Set the attributes string in the text layer :) */
+    limitTextLayer.string = attrStr;
+    [attrStr release];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
     [numberFormatter release];
 }
+
 
 -(void)userInformationDidFail:(NSString*) message {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
