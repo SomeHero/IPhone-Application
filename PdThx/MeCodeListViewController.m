@@ -32,7 +32,7 @@
     
     meCodes = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
     
-    
+    newPayPointAdded = false;
 }
 -(void)viewDidAppear:(BOOL)animated {
     
@@ -59,6 +59,26 @@
     meCodes = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
     
     [payPointTable reloadData];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    if(newPayPointAdded)
+    {
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPoint!" withSubtitle:@"You can start receiving funds with this MeCode." withDetailText:@"You are all set to receive funds at this MeCode." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        
+        newPayPointAdded = false;
+    }
+}
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ) {
+        // Dismiss, error uploading image alert view clicked.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+        
+    }
 }
 -(void)getPayPointsDidFail: (NSString*) errorMessage {
     
@@ -216,6 +236,8 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [payPointService getPayPoints:user.userId];
+    
+    newPayPointAdded = true;
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     

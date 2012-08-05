@@ -209,7 +209,7 @@
 }
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated: YES];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtAccountNickname resignFirstResponder];

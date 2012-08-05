@@ -329,7 +329,6 @@
 
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
 }

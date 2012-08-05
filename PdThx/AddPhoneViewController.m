@@ -92,6 +92,7 @@
     else if(retVal != 1)
     {
         [txtPhoneNumber resignFirstResponder];
+        
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
@@ -100,7 +101,12 @@
         [appDelegate showAlertWithResult:false withTitle:@"Invalid Phone Number Format" withSubtitle:@"Error Setting Phone Number" withDetailText:@"Phone Number Incorrect Format" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
     }
     else{
-    [payPointService addPayPoint:txtPhoneNumber.text ofType:@"Phone" forUserId:user.userId];
+        [txtPhoneNumber resignFirstResponder];
+        
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus: @"Linking Mobile #" withDetailedStatus: @"Adding New PayPoint"];
+        
+        [payPointService addPayPoint:txtPhoneNumber.text ofType:@"Phone" forUserId:user.userId];
     }
 }
 -(void)didSelectButtonWithIndex:(int)index
@@ -121,9 +127,17 @@
 }
 
 -(void)addPayPointsDidComplete {
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+   
     [addPayPointComplete addPayPointsDidComplete];
+    
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
     [addPayPointComplete addPayPointsDidFail:errorMessage];
 }
 @end

@@ -151,14 +151,14 @@
 {
     cell.lblAttributeName.text = [profileItem label];
     
-    
+
     if([[profileItem itemType] isEqualToString: @"ShortText"])
     {
-        UITextField* txtField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
+        UITextField* txtField = [[UITextField alloc] initWithFrame:CGRectMake(0, cell.txtAttributeValue.frame.size.height/2 - 8, cell.txtAttributeValue.frame.size.width, 30)];
         txtField.delegate = self;
         txtField.tag = profileItem.itemId;
+        txtField.font = [UIFont systemFontOfSize:14];
         
-        bool found = NO;
         for(int i = 0; i < [user.userAttributes count]; i++)
         {
             UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
@@ -166,14 +166,9 @@
             if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
             {
                 txtField.text = userAttribute.attributeValue;
-                found = YES;
             }
         }
-        
-        if(!found) {
-            txtField.text = [NSString stringWithFormat:@"Add +%d", profileItem.points];
-            txtField.clearsOnBeginEditing = YES;
-        }
+    
         
         [cell.txtAttributeValue addSubview:txtField];
 
@@ -181,7 +176,8 @@
     else if([[profileItem itemType] isEqualToString: @"ImageCapture"])
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 150, 30);
+        btn.frame = CGRectMake(0, 2, 150, cell.frame.size.height - 6);
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitle:@"take picture" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(captureImage:) forControlEvents:UIControlEventTouchUpInside];
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -193,7 +189,8 @@
     } else if([[profileItem itemType] isEqualToString: @"SocialAccount"])
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 150, 30);
+        btn.frame = CGRectMake(0, 2, 150, cell.frame.size.height - 6);
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitle:@"link account" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(linkAccount:) forControlEvents:UIControlEventTouchUpInside];
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -206,7 +203,8 @@
     else if([[profileItem itemType] isEqualToString: @"Picker"])
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 150, 30);
+        btn.frame = CGRectMake(0, 2, 150, cell.frame.size.height - 6);
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitle:@"select" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(linkAccount:) forControlEvents:UIControlEventTouchUpInside];
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -218,8 +216,10 @@
     }
     else if([[profileItem itemType] isEqualToString: @"LongText"]) {
         
-        UITextView* txtView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height*3)];
+        UITextView* txtView = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, cell.txtAttributeValue.frame.size.width - 5, cell.frame.size.height  - 20)];
         
+        cell.txtAttributeValue.frame = CGRectMake(cell.txtAttributeValue.frame.origin.x, cell.txtAttributeValue.frame.origin.y, cell.txtAttributeValue.frame.size.width,
+                                                   cell.frame.size.height);
         [cell.txtAttributeValue addSubview:txtView];
         
         [txtView release];

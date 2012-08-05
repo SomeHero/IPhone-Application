@@ -13,13 +13,20 @@
 
 @interface SelectAccountModalViewControllerViewController: UAModalPanel<UITableViewDataSource, UITableViewDelegate> 
 {
-    UIView			*v;
+    UIView *v;
 	NSMutableArray* bankAccounts;
     NSString* selectedAccount;
     NSString* accountType;
     
+    NSString* headerText;
+    NSString* descriptionText; 
+    
     id<ModalSelectProtocol> optionSelectDelegate;
 }
+
+
+@property(nonatomic, retain) NSString* headerText;
+@property(nonatomic, retain) NSString* descriptionText;
 
 @property(nonatomic, retain) id optionSelectDelegate;
 

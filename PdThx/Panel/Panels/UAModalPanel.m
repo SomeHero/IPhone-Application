@@ -53,7 +53,7 @@
 		
 		[self setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.5]]; // Fixed value, the bacground mask.
 				
-		[self.contentView setBackgroundColor:[UIColor clearColor]];
+		//[self.contentView setBackgroundColor:[UIColor clearColor]];
 		self.delegate = nil;
 	
 		self.tag = (arc4random() % 32768);

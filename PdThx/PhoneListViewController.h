@@ -23,6 +23,8 @@
     
     PayPointService* payPointService;
     NSMutableArray* phones;
+    
+    bool newPayPointAdded;
 }
 
 @end
