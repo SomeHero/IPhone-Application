@@ -58,7 +58,8 @@
         //Handle Error Here
     }
 }   
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
@@ -79,6 +80,8 @@
     else {
         [userImageButton setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
     }
+        
+    self.navigationItem.leftBarButtonItem = nil;   
 }
 - (void)viewDidUnload
 {

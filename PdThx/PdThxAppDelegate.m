@@ -68,11 +68,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     bool isNewUser = [prefs boolForKey: @"isNewUser"];
-    
-    /*          
-     TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
-     ASK THEM TO ADD IT NOW
-     */
+
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
         currentReminderTab = 1;

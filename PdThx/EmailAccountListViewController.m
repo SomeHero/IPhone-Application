@@ -36,6 +36,8 @@
     payPointService = [[PayPointService alloc] init];
     [payPointService setGetPayPointsDelegate:self];
     
+    newPayPointAdded = false;
+    
     [self setTitle: @"Email Accounts"];
     
 }
@@ -67,6 +69,32 @@
     emailAddresses = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
     
     [payPointTable reloadData];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    if(newPayPointAdded)
+    {
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPont!" withSubtitle:@"You need to complete verification to start sending and receiving money using this email address." withDetailText:@"We sent an email to this email address.  To verify this PayPoint, click the link in this email" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        
+        newPayPointAdded = false;
+    }
+}
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ) {
+        // Dismiss, error uploading image alert view clicked.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+    } else {
+        // Successfully saved image, just go back to personalize screen and load the image.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+        
+        // TODO: There needs to be a protocol here to load the image as being on top.
+    }
 }
 -(void)getPayPointsDidFail: (NSString*) errorMessage {
     
@@ -255,6 +283,8 @@
 //    [controller release];
 //}
 -(void)addPayPointsDidComplete {
+    newPayPointAdded = true;
+    
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [payPointService getPayPoints: user.userId];

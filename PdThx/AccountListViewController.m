@@ -86,6 +86,7 @@
 -(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
+    
     user.bankAccounts = bankAccounts;
     [userAccountsTableView reloadData];
     
@@ -94,7 +95,7 @@
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
         // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-        [appDelegate showAlertWithResult:true withTitle:@"New ACH Account Linked!" withSubtitle:@"You can now receive money with PaidThx" withDetailText:@"To begin sending money from this account, you will need to complete verification.  We've sent you an email with steps to complete verification." withLeftButtonOption:0 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:1 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        [appDelegate showAlertWithResult:true withTitle:@"New ACH Account Linked!" withSubtitle:@"You can now receive money with PaidThx" withDetailText:@"To begin sending money from this account, you will need to complete verification.  We've sent you an email with steps to complete verification." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
         
         newAccountAdded = false;
     }
@@ -348,12 +349,14 @@
             [controller setTitle: @"Add Bank Account"];
             [controller setAchSetupDidComplete:self];
             
+            
             //[controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
 
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+     
             
+            //[self.navigationItem setRightBarButtonItem:(UIBarButtonItem *) animated:YES];
             [self.navigationController presentModalViewController:navBar animated:YES];
-            
             [navBar release];
             [controller release];
         } else {

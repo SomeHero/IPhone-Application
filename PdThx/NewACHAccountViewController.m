@@ -7,6 +7,7 @@
 //
 
 #import "NewACHAccountViewController.h"
+#import "ACHHelpView.h"
 
 @interface NewACHAccountViewController ()
 
@@ -36,6 +37,21 @@
     accountService = [[UserSetupACHAccount alloc] init];
     [accountService setUserACHSetupCompleteDelegate: self];
     validationHelper = [[ValidationHelper alloc] init];
+    
+    UIImage *helpImage = [UIImage imageNamed:@"nav-help-60x30.png"];
+    UIBarButtonItem *helpButton = [[UIBarButtonItem alloc] initWithTitle:@"Help"
+                                                                   style:UIBarButtonSystemItemDone target:nil action:@selector(needsHelp)];
+    [helpButton setImage:helpImage]; 
+    self.navigationItem.rightBarButtonItem = helpButton;
+    
+
+}
+
+-(void)needsHelp
+{
+    NSArray * nibArray = [[NSBundle mainBundle] loadNibNamed:@"NewAccountHelpViewController" owner:self options:nil];
+    
+    [self.view addSubview:[nibArray objectAtIndex:0]];
     
 }
 
@@ -193,7 +209,7 @@
 }
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated: YES];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtAccountNickname resignFirstResponder];

@@ -23,6 +23,8 @@
     PayPointService* payPointService;
     
     NSMutableArray* meCodes;
+    
+    bool newPayPointAdded;
 }
 
 @end

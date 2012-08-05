@@ -28,6 +28,7 @@
     [super viewDidLoad];
     
     bankAccountService = [[BankAccountService alloc] init];
+    
 }
 
 - (void)viewDidUnload

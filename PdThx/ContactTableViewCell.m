@@ -12,6 +12,7 @@
 
 @synthesize contactDetail, contactImage;
 @synthesize imgData, contactNameField;
+@synthesize contactNameLayer;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

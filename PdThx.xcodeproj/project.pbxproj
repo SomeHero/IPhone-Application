@@ -568,9 +568,9 @@
 		5BDDAE4D15C8D2A8007B733E /* MeCodeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE4B15C8D2A4007B733E /* MeCodeDetailViewController.xib */; };
 		5BDDAE5515C8DAF8007B733E /* NewACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE5315C8DAF6007B733E /* NewACHAccountViewController.m */; };
 		5BDDAE5615C8DAF8007B733E /* NewACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE5415C8DAF7007B733E /* NewACHAccountViewController.xib */; };
-		5BDDAE7515CAF5AD007B733E /* VerifyACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE7315CAF5AC007B733E /* VerifyACHAccountViewController.m */; };
-		5BDDAE7615CAF5AD007B733E /* VerifyACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE7415CAF5AD007B733E /* VerifyACHAccountViewController.xib */; };
-		5BDDAE7E15CB21B9007B733E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE7D15CB21B9007B733E /* Reachability.m */; };
+		5BDDAE8A15CCDD4F007B733E /* VerifyACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE8815CCDD4E007B733E /* VerifyACHAccountViewController.m */; };
+		5BDDAE8B15CCDD4F007B733E /* VerifyACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE8915CCDD4E007B733E /* VerifyACHAccountViewController.xib */; };
+		5BDDAE8E15CCDDCB007B733E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE8D15CCDDCA007B733E /* Reachability.m */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -705,6 +705,9 @@
 		D5824A0C15CADCCF009BD579 /* buttonTallStandardActive.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0A15CADCCE009BD579 /* buttonTallStandardActive.png */; };
 		D5824A0D15CADCCF009BD579 /* buttonTallStandardNA.png in Resources */ = {isa = PBXBuildFile; fileRef = D5824A0B15CADCCE009BD579 /* buttonTallStandardNA.png */; };
 		D587EDEC157FC60600ABE854 /* MeCodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = D587EDEB157FC60500ABE854 /* MeCodeService.m */; };
+		D58B392115CC1FA400DAB591 /* NewAccountHelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58B391F15CC1FA400DAB591 /* NewAccountHelpViewController.xib */; };
+		D58B392615CC29D300DAB591 /* img-samplecheck-270x116.png in Resources */ = {isa = PBXBuildFile; fileRef = D58B392515CC29D300DAB591 /* img-samplecheck-270x116.png */; };
+		D58B392915CC5A2C00DAB591 /* ACHHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = D58B392815CC5A2B00DAB591 /* ACHHelpView.m */; };
 		D58B42A115B9C29400C9AB93 /* VerifyEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D58B429F15B9C29400C9AB93 /* VerifyEmailViewController.m */; };
 		D58B42A215B9C29400C9AB93 /* VerifyEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D58B42A015B9C29400C9AB93 /* VerifyEmailViewController.xib */; };
 		D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FC51D2159247B000C2302E /* libGoogleAnalytics.a */; };
@@ -824,6 +827,7 @@
 		54805875159B759300ED591C /* bg-setup-progress-320x53@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-setup-progress-320x53@2x.png"; sourceTree = "<group>"; };
 		54805876159B759300ED591C /* im-setup-check-15x15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "im-setup-check-15x15.png"; sourceTree = "<group>"; };
 		5485B50F15CAF33C00B59591 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		5485B51615CC1D3400B59591 /* PaidThx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PaidThx.entitlements; sourceTree = "<group>"; };
 		549D5EE7157E4E5B00B4EEBF /* ACHAccountReminderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACHAccountReminderProtocol.h; sourceTree = "<group>"; };
 		549FD44C1589039E00809EAA /* formBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = formBox.png; sourceTree = "<group>"; };
 		549FD44D1589039E00809EAA /* formBoxActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = formBoxActive.png; sourceTree = "<group>"; };
@@ -1460,11 +1464,11 @@
 		5BDDAE5215C8DAF4007B733E /* NewACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewACHAccountViewController.h; sourceTree = "<group>"; };
 		5BDDAE5315C8DAF6007B733E /* NewACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewACHAccountViewController.m; sourceTree = "<group>"; };
 		5BDDAE5415C8DAF7007B733E /* NewACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewACHAccountViewController.xib; sourceTree = "<group>"; };
-		5BDDAE7215CAF5AC007B733E /* VerifyACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VerifyACHAccountViewController.h; path = ../../../../VerifyACHAccountViewController.h; sourceTree = "<group>"; };
-		5BDDAE7315CAF5AC007B733E /* VerifyACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VerifyACHAccountViewController.m; path = ../../../../VerifyACHAccountViewController.m; sourceTree = "<group>"; };
-		5BDDAE7415CAF5AD007B733E /* VerifyACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VerifyACHAccountViewController.xib; path = ../../../../VerifyACHAccountViewController.xib; sourceTree = "<group>"; };
-		5BDDAE7C15CB21B9007B733E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ../../../../AsiHttpRequest/Reachability.h; sourceTree = "<group>"; };
-		5BDDAE7D15CB21B9007B733E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../../../../AsiHttpRequest/Reachability.m; sourceTree = "<group>"; };
+		5BDDAE8715CCDD4D007B733E /* VerifyACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyACHAccountViewController.h; sourceTree = "<group>"; };
+		5BDDAE8815CCDD4E007B733E /* VerifyACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyACHAccountViewController.m; sourceTree = "<group>"; };
+		5BDDAE8915CCDD4E007B733E /* VerifyACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyACHAccountViewController.xib; sourceTree = "<group>"; };
+		5BDDAE8C15CCDDCA007B733E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		5BDDAE8D15CCDDCA007B733E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -1660,6 +1664,10 @@
 		D587EDEA157FC60500ABE854 /* MeCodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeService.h; sourceTree = "<group>"; };
 		D587EDEB157FC60500ABE854 /* MeCodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeService.m; sourceTree = "<group>"; };
 		D587EDED157FC72300ABE854 /* MeCodeCreateCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeCodeCreateCompleteProtocol.h; sourceTree = "<group>"; };
+		D58B391F15CC1FA400DAB591 /* NewAccountHelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAccountHelpViewController.xib; sourceTree = "<group>"; };
+		D58B392515CC29D300DAB591 /* img-samplecheck-270x116.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-samplecheck-270x116.png"; sourceTree = "<group>"; };
+		D58B392715CC5A2B00DAB591 /* ACHHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACHHelpView.h; sourceTree = "<group>"; };
+		D58B392815CC5A2B00DAB591 /* ACHHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACHHelpView.m; sourceTree = "<group>"; };
 		D58B429E15B9C29400C9AB93 /* VerifyEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyEmailViewController.h; sourceTree = "<group>"; };
 		D58B429F15B9C29400C9AB93 /* VerifyEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyEmailViewController.m; sourceTree = "<group>"; };
 		D58B42A015B9C29400C9AB93 /* VerifyEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyEmailViewController.xib; sourceTree = "<group>"; };
@@ -1816,6 +1824,9 @@
 		541EE601158A70C400131B0E /* New User Creation */ = {
 			isa = PBXGroup;
 			children = (
+				5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */,
+				5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */,
+				54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */,
 				541EE602158A70EC00131B0E /* ActivatePhoneViewController.h */,
 				541EE603158A70EC00131B0E /* ActivatePhoneViewController.m */,
 				541EE607158A70FA00131B0E /* PersonalizeViewController.h */,
@@ -2722,6 +2733,7 @@
 		5B69DF8314AE6067003A0F66 /* PdThx */ = {
 			isa = PBXGroup;
 			children = (
+				5485B51615CC1D3400B59591 /* PaidThx.entitlements */,
 				5BEBF01C14B2282A00379109 /* Localizable.strings */,
 				5BD27BD21547BF4700CAFC12 /* Resources */,
 				5B6D138915B26D3200F37A11 /* iPad */,
@@ -2777,6 +2789,7 @@
 		5B69DFE714AFAE8D003A0F66 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D58B392515CC29D300DAB591 /* img-samplecheck-270x116.png */,
 				5BDDAE1815C39417007B733E /* Buttons */,
 				5B6D136615B262E800F37A11 /* Contact Type Select Images */,
 				540E635815AFE4AB0089A5F5 /* Custom Tab Bar Images */,
@@ -2811,8 +2824,8 @@
 		5B69E14E14B0BB06003A0F66 /* ASIHttpRequest */ = {
 			isa = PBXGroup;
 			children = (
-				5BDDAE7C15CB21B9007B733E /* Reachability.h */,
-				5BDDAE7D15CB21B9007B733E /* Reachability.m */,
+				5BDDAE8C15CCDDCA007B733E /* Reachability.h */,
+				5BDDAE8D15CCDDCA007B733E /* Reachability.m */,
 				5B69E14F14B0BBCD003A0F66 /* ASIAuthenticationDialog.h */,
 				5B69E15014B0BBCD003A0F66 /* ASIAuthenticationDialog.m */,
 				5B69E15114B0BBCD003A0F66 /* ASICacheDelegate.h */,
@@ -3365,6 +3378,9 @@
 			children = (
 				5BDDAE0815C1C7D1007B733E /* SelectAccountModalViewControllerViewController.h */,
 				5BDDAE0915C1C7D1007B733E /* SelectAccountModalViewControllerViewController.m */,
+				D58B391F15CC1FA400DAB591 /* NewAccountHelpViewController.xib */,
+				D58B392715CC5A2B00DAB591 /* ACHHelpView.h */,
+				D58B392815CC5A2B00DAB591 /* ACHHelpView.m */,
 			);
 			name = Modals;
 			sourceTree = "<group>";
@@ -3557,16 +3573,13 @@
 		5BF3EE1D159143D90011BAD8 /* Bank Account Management */ = {
 			isa = PBXGroup;
 			children = (
-				5BDDAE7215CAF5AC007B733E /* VerifyACHAccountViewController.h */,
-				5BDDAE7315CAF5AC007B733E /* VerifyACHAccountViewController.m */,
-				5BDDAE7415CAF5AD007B733E /* VerifyACHAccountViewController.xib */,
+				5BDDAE8715CCDD4D007B733E /* VerifyACHAccountViewController.h */,
+				5BDDAE8815CCDD4E007B733E /* VerifyACHAccountViewController.m */,
+				5BDDAE8915CCDD4E007B733E /* VerifyACHAccountViewController.xib */,
 				5BDDAE0715C1C746007B733E /* Modals */,
 				5BF3EE1E159144170011BAD8 /* AccountListViewController.h */,
 				5BF3EE1F159144170011BAD8 /* AccountListViewController.m */,
 				5BF3EE20159144170011BAD8 /* AccountListViewController.xib */,
-				5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */,
-				5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */,
-				54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */,
 				5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */,
 				5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */,
 				5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */,
@@ -4153,7 +4166,9 @@
 				D5824A0915CAD743009BD579 /* img-plus-40x40@2x.png in Resources */,
 				D5824A0C15CADCCF009BD579 /* buttonTallStandardActive.png in Resources */,
 				D5824A0D15CADCCF009BD579 /* buttonTallStandardNA.png in Resources */,
-				5BDDAE7615CAF5AD007B733E /* VerifyACHAccountViewController.xib in Resources */,
+				D58B392115CC1FA400DAB591 /* NewAccountHelpViewController.xib in Resources */,
+				D58B392615CC29D300DAB591 /* img-samplecheck-270x116.png in Resources */,
+				5BDDAE8B15CCDD4F007B733E /* VerifyACHAccountViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4366,8 +4381,9 @@
 				5BDDAE4615C77407007B733E /* EmailAccountDetailViewController.m in Sources */,
 				5BDDAE4C15C8D2A8007B733E /* MeCodeDetailViewController.m in Sources */,
 				5BDDAE5515C8DAF8007B733E /* NewACHAccountViewController.m in Sources */,
-				5BDDAE7515CAF5AD007B733E /* VerifyACHAccountViewController.m in Sources */,
-				5BDDAE7E15CB21B9007B733E /* Reachability.m in Sources */,
+				D58B392915CC5A2C00DAB591 /* ACHHelpView.m in Sources */,
+				5BDDAE8A15CCDD4F007B733E /* VerifyACHAccountViewController.m in Sources */,
+				5BDDAE8E15CCDDCB007B733E /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4438,6 +4454,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
@@ -4458,7 +4475,7 @@
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -4540,6 +4557,7 @@
 			buildSettings = {
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
@@ -4561,7 +4579,7 @@
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -4573,6 +4591,7 @@
 			buildSettings = {
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
@@ -4593,7 +4612,7 @@
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4685,7 +4704,7 @@
 			buildSettings = {
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
@@ -4707,7 +4726,7 @@
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -4769,7 +4788,7 @@
 			buildSettings = {
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
@@ -4789,9 +4808,9 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6771C41F-A589-4BEB-8730-864C7721563A";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = NO;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4854,7 +4873,7 @@
 			buildSettings = {
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
@@ -4875,7 +4894,7 @@
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4938,6 +4957,7 @@
 			buildSettings = {
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
@@ -4959,7 +4979,7 @@
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -5021,6 +5041,7 @@
 			buildSettings = {
 				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = PdThx/PaidThx.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
@@ -5041,7 +5062,7 @@
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;

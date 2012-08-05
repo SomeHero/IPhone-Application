@@ -72,7 +72,7 @@
 - (IBAction)pressedRemindMeLater:(id)sender
 {
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) endUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
     
 }
 
