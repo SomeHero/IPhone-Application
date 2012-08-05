@@ -34,7 +34,6 @@
         //Handle Error Here
     }
     
-    // Do any additional setup after loading the view from its nib.
 }
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {

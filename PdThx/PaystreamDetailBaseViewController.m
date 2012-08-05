@@ -379,7 +379,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated: YES];
 }
 -(void)btnRejectRequestClicked {
     [paystreamServices rejectRequest: messageDetail.messageId];

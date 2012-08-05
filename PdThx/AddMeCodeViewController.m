@@ -58,6 +58,13 @@
         [appDelegate showAlertWithResult:false withTitle:@"Invalid MeCode" withSubtitle:@"Error Creating MeCode" withDetailText:@"MeCode isn't sufficient length or has invalid characters" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
     }
     else {
+        
+        [txtMeCode resignFirstResponder];
+        
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+    
+        
         [payPointService addPayPoint:txtMeCode.text ofType:@"MeCode" forUserId: user.userId];
     }
     

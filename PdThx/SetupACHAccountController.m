@@ -62,7 +62,11 @@
 }
 
 #pragma mark - View lifecycle
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.leftBarButtonItem =nil;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -266,7 +270,7 @@
 
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated: YES];
 }
 -(IBAction) btnRemindMeLaterClicked:(id)sender {
     /*

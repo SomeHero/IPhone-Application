@@ -26,16 +26,11 @@
 #import "ApplicationSettingsCompleteProtocol.h"
 #import "Merchant.h"
 #import "MerchantServices.h"
-#import "Reachability.h"
 
 @class PdThxViewController;
 
 @interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate, UINavigationControllerDelegate,
     CustomAlertViewProtocol> {
-    
-    
-    Reachability* hostReach;
-    
     
     Facebook * fBook;
     NSString * deviceToken;
