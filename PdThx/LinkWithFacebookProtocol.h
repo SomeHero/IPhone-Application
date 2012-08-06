@@ -13,6 +13,6 @@
 @protocol LinkWithFacebookProtocol <NSObject>
 
 -(void)linkFbAccountDidSucceed;
--(void)linkFbAccountDidFail;
+-(void)linkFbAccountDidFail: (NSString*) message;
 
 @end

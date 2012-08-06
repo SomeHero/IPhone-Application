@@ -10,9 +10,10 @@
 #import "UserService.h"
 #import "Facebook.h"
 #import "LinkWithFacebookProtocol.h"
+#import "CustomAlertViewProtocol.h"
 
 
-@interface SocialNetworksViewController : UISetupUserBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol, UITableViewDataSource, UITableViewDelegate>
+@interface SocialNetworksViewController : UISetupUserBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol, UITableViewDataSource, UITableViewDelegate, CustomAlertViewProtocol>
 {
     UserService *userService;
     IBOutlet UITableView* tableView;

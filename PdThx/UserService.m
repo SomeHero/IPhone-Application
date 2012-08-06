@@ -124,18 +124,18 @@
         
         // NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
         
-        [linkFbAccountDelegate linkFbAccountDidFail];
+        [linkFbAccountDelegate linkFbAccountDidFail: @"Failed to Link Facebook"];
         
         NSLog(@"Linking FB Account Error Code %d", [request responseStatusCode]);
     }
 }
 -(void) linkFbAccountFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = [NSString stringWithFormat: @"Unable to change security pin.  Unhandled Exception"];
+    NSString* message = [NSString stringWithFormat: @"Unable to change link Facebook.  Unhandled Exception"];
     
-    [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
+    [linkFbAccountDelegate linkFbAccountDidFail: message];
     
-    NSLog(@"Security Pin Failed with Exception");
+    NSLog(@"Facebook linking Failed with Exception");
 }
 
 
