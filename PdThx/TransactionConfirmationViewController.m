@@ -60,7 +60,8 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     lblConfirmationHeader.text = confirmationText;
     [btnContinue setTitle:continueButtonText forState:UIControlStateNormal
     ];
