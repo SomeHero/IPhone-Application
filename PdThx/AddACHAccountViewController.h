@@ -19,7 +19,7 @@
 #import "UISetupUserBaseViewController.h"
 #import "SetupNavigationView.h"
 
-@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol>
+@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
