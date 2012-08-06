@@ -321,7 +321,6 @@
         {
             if ([recipient.paypoints count] == 1)
             {
-                
                 CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
                 [controller setSecurityPinSwipeDelegate: self];
                 [controller setNavigationTitle: @"Confirm"];
@@ -360,7 +359,7 @@
     NSString* recipientFirstName = @"";
     NSString* recipientLastName = @"";
     
-    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+    if([[recipientUri substringToIndex:3] isEqualToString:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
         recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
@@ -515,9 +514,9 @@
     recipientUri = @"";
 }
 
--(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
-    
-    if(lockedOut) {
+-(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {\
+    if(lockedOut)
+    {
         [self dismissModalViewControllerAnimated: YES];
         
         [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
@@ -556,7 +555,6 @@
 }
 -(void)didChooseContact:(Contact *)contact
 {
-    NSLog(@"Returned with Contact from ContactSelectVC");
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
@@ -594,6 +592,8 @@
     {
         recipientUri = [contact.paypoints objectAtIndex:0];
     }
+    
+    NSLog(@"Returned with Contact Recipient ID: %@", recipientUri);
     
 }
 
