@@ -164,7 +164,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     // Return the number of rows in the section.
     if ( isFiltered == YES ){
         if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
@@ -172,6 +171,10 @@
         else
             return [[filteredResults objectAtIndex:section] count];
     } else {
+        NSLog(@"Returning %d rows for section %c", [[allResults objectAtIndex:section] count],(char)(section+64));
+        if ([[allResults objectAtIndex:section] count] > 0 )
+            NSLog(@"First object of %c is: %@", (char)(section+64), ((Contact*)[[allResults objectAtIndex:section] objectAtIndex:0]).name );
+        
         return [[allResults objectAtIndex:section] count];
     }
 }
@@ -243,6 +246,8 @@ limitTextLayer.string = attrStr;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Trying to load cell for indexPath: sec[%d] row[%d] aka %c", indexPath.section, indexPath.row, (char)(indexPath.section+64));
+    
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [imageView setContentMode:UIViewContentModeScaleToFill];
