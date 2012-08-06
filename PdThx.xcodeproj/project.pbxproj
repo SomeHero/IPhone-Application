@@ -536,7 +536,6 @@
 		5BB145C1158B989600EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5BB145E5158C284500EA652A /* FacebookSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB145E4158C284500EA652A /* FacebookSignIn.m */; };
 		5BBE183314DECC94002A3618 /* SendMoneyRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE183214DECC93002A3618 /* SendMoneyRequest.m */; };
-		5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BBE183414DF2D13002A3618 /* Entitlements.plist */; };
 		5BC2DB47159B494A00BB961D /* SecurityQuestionChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DB45159B494900BB961D /* SecurityQuestionChallengeViewController.m */; };
 		5BC2DB48159B494A00BB961D /* SecurityQuestionChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BC2DB46159B494900BB961D /* SecurityQuestionChallengeViewController.xib */; };
 		5BC2DB4E159B962400BB961D /* SecurityQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2DB4D159B961800BB961D /* SecurityQuestionService.m */; };
@@ -685,6 +684,8 @@
 		C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C334D27715BF248F00923348 /* SelectRecipientViewController.xib */; };
 		C384CE9B15CAE514000BADCD /* SocialNetworksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C384CE9915CAE514000BADCD /* SocialNetworksViewController.m */; };
 		C384CE9C15CAE514000BADCD /* SocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */; };
+		C384CEA315CAF868000BADCD /* opSocialNetworks.plist in Resources */ = {isa = PBXBuildFile; fileRef = C384CEA215CAF867000BADCD /* opSocialNetworks.plist */; };
+		C384CEAD15CB16A6000BADCD /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C384CEAC15CB16A6000BADCD /* Entitlements.plist */; };
 		C38999E215C2EEED00D98387 /* SelectRecipientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C38999E115C2EEED00D98387 /* SelectRecipientCell.m */; };
 		C38999E415C2EF3B00D98387 /* SelectRecipientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
@@ -1410,7 +1411,6 @@
 		5BB145E4158C284500EA652A /* FacebookSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookSignIn.m; sourceTree = "<group>"; };
 		5BBE183114DECC91002A3618 /* SendMoneyRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyRequest.h; sourceTree = "<group>"; };
 		5BBE183214DECC93002A3618 /* SendMoneyRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyRequest.m; sourceTree = "<group>"; };
-		5BBE183414DF2D13002A3618 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetPreferredAccountProtocol.h; sourceTree = "<group>"; };
 		5BC2DB44159B494900BB961D /* SecurityQuestionChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionChallengeViewController.h; sourceTree = "<group>"; };
 		5BC2DB45159B494900BB961D /* SecurityQuestionChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityQuestionChallengeViewController.m; sourceTree = "<group>"; };
@@ -1649,6 +1649,8 @@
 		C384CE9815CAE514000BADCD /* SocialNetworksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialNetworksViewController.h; sourceTree = "<group>"; };
 		C384CE9915CAE514000BADCD /* SocialNetworksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialNetworksViewController.m; sourceTree = "<group>"; };
 		C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialNetworksViewController.xib; sourceTree = "<group>"; };
+		C384CEA215CAF867000BADCD /* opSocialNetworks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = opSocialNetworks.plist; sourceTree = "<group>"; };
+		C384CEAC15CB16A6000BADCD /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		C38999E015C2EEEC00D98387 /* SelectRecipientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientCell.h; sourceTree = "<group>"; };
 		C38999E115C2EEED00D98387 /* SelectRecipientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientCell.m; sourceTree = "<group>"; };
 		C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientCell.xib; sourceTree = "<group>"; };
@@ -1656,6 +1658,7 @@
 		C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPinCodeViewController.h; sourceTree = "<group>"; };
 		C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPinCodeViewController.m; sourceTree = "<group>"; };
 		C3916E5615ACBFCE00888048 /* ForgotPinCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPinCodeViewController.xib; sourceTree = "<group>"; };
+		C3A0458415CC1CCC00B50009 /* PaidThx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PaidThx.entitlements; sourceTree = "<group>"; };
 		D57F91EB15B84E0E007A4C3C /* EnterVerificationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterVerificationCodeViewController.h; sourceTree = "<group>"; };
 		D57F91EC15B84E0E007A4C3C /* EnterVerificationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterVerificationCodeViewController.m; sourceTree = "<group>"; };
 		D57F91ED15B84E0F007A4C3C /* EnterVerificationCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterVerificationCodeViewController.xib; sourceTree = "<group>"; };
@@ -2754,7 +2757,7 @@
 		5B69DF8314AE6067003A0F66 /* PdThx */ = {
 			isa = PBXGroup;
 			children = (
-				5485B51615CC1D3400B59591 /* PaidThx.entitlements */,
+				C3A0458415CC1CCC00B50009 /* PaidThx.entitlements */,
 				5BEBF01C14B2282A00379109 /* Localizable.strings */,
 				5BD27BD21547BF4700CAFC12 /* Resources */,
 				5B6D138915B26D3200F37A11 /* iPad */,
@@ -2777,9 +2780,9 @@
 				5B69DF8514AE6067003A0F66 /* PdThx-Info.plist */,
 				541EE58E15890A6800131B0E /* options.plist */,
 				5B69DF8614AE6067003A0F66 /* InfoPlist.strings */,
+				C384CEAC15CB16A6000BADCD /* Entitlements.plist */,
 				5B69DF8914AE6067003A0F66 /* PdThx-Prefix.pch */,
 				5B69DF8A14AE6067003A0F66 /* main.m */,
-				5BBE183414DF2D13002A3618 /* Entitlements.plist */,
 				5BE6F7A214E9D87A00599EF2 /* Environments.plist */,
 				5B8B45B515A7D48200822B67 /* notifications.plist */,
 				5B8B45B715A7E82300822B67 /* sharing.plist */,
@@ -3096,6 +3099,7 @@
 				C384CE9815CAE514000BADCD /* SocialNetworksViewController.h */,
 				C384CE9915CAE514000BADCD /* SocialNetworksViewController.m */,
 				C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */,
+				C384CEA215CAF867000BADCD /* opSocialNetworks.plist */,
 			);
 			name = SocialNetworks;
 			sourceTree = "<group>";
@@ -3734,7 +3738,6 @@
 				5B69E14D14AFB2FA003A0F66 /* sel@2x.png in Resources */,
 				5BEBF01A14B2281900379108 /* ProfileController.xib in Resources */,
 				5B692C5414D4777D00E6E663 /* SendMoneyController.xib in Resources */,
-				5BBE183514DF2D16002A3618 /* Entitlements.plist in Resources */,
 				5BE6F7A314E9D87A00599EF2 /* Environments.plist in Resources */,
 				5BE6F7B315010F8700599EF2 /* paidthx-icon.png in Resources */,
 				5B88680E1527F4EB00EA24A4 /* send_money_off.png in Resources */,
@@ -4205,6 +4208,8 @@
 				D5824A0915CAD743009BD579 /* img-plus-40x40@2x.png in Resources */,
 				D5824A0C15CADCCF009BD579 /* buttonTallStandardActive.png in Resources */,
 				D5824A0D15CADCCF009BD579 /* buttonTallStandardNA.png in Resources */,
+				C384CEA315CAF868000BADCD /* opSocialNetworks.plist in Resources */,
+				C384CEAD15CB16A6000BADCD /* Entitlements.plist in Resources */,
 				D58B392115CC1FA400DAB591 /* NewAccountHelpViewController.xib in Resources */,
 				D58B392615CC29D300DAB591 /* img-samplecheck-270x116.png in Resources */,
 				5BDDAE8B15CCDD4F007B733E /* VerifyACHAccountViewController.xib in Resources */,

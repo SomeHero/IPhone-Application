@@ -391,7 +391,7 @@
     {	
         controller.noMatchFound = YES;
         controller.recipients = recipient.paypoints;
-        [controller.txtHeader setText:[NSString stringWithFormat:@"%@ hasn't joined PaidThx yet. How would you like to invite them?", recipient.name]];
+        controller.headerText = [NSString stringWithFormat:@"%@ hasn't joined PaidThx yet. How would you like to invite them?", recipient.name];
         UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
         [self presentModalViewController:navBar animated:YES];
     }
@@ -399,7 +399,7 @@
         if ([recipients count] != 1)
         {           
             controller.noMatchFound = NO;
-            [controller.txtHeader setText: @"We found multiple PaidThx members associated with the contact you selected. Please choose your recipient below:"];
+            controller.headerText = @"We found multiple PaidThx members associated with the contact you selected. Please choose your recipient below:";
             controller.recipients = recipients;            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             [self presentModalViewController: navBar animated:YES];
         }

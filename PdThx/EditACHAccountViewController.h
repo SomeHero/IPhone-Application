@@ -14,7 +14,7 @@
 #import "UISetupUserBaseViewController.h"
 #import "VerifyACHAccountViewController.h"
 
-@interface EditACHAccountViewController : UISetupUserBaseViewController {
+@interface EditACHAccountViewController : UISetupUserBaseViewController <UITextFieldDelegate> {
     IBOutlet UIView* mainView;
     IBOutlet UITextField* txtNickName;
     IBOutlet UITextField* txtNameOnAccount;
