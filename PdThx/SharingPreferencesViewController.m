@@ -80,7 +80,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
     
-    label.font = [UIFont boldSystemFontOfSize:16];
+    label.font = [UIFont boldSystemFontOfSize:12];
     label.text = sectionTitle;
     
     // Create header view and add label as a subview
