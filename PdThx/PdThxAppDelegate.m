@@ -26,8 +26,6 @@
 #import "HomeViewControllerV2.h"
 #import "WelcomeScreenViewController.h"
 #import "AboutPageViewController.h"
-#import "Reachability.h"
-
 
 @implementation PdThxAppDelegate
 
@@ -70,11 +68,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     bool isNewUser = [prefs boolForKey: @"isNewUser"];
-    
-    /*          
-     TODO: IF USER DOES NOT HAVE SECURITY PIN OR BANK ACCOUNT
-     ASK THEM TO ADD IT NOW
-     */
+
     if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
     {
         currentReminderTab = 1;
@@ -216,29 +210,9 @@
     }
 }
 
-- (void) updateInterfaceWithReachability: (Reachability*) curReach
-{
-    NetworkStatus netStatus = [curReach currentReachabilityStatus];
-    
-    //summaryLabel.hidden = (netStatus != ReachableViaWWAN);
-    if ( netStatus == NotReachable )
-    {
-        [self showSimpleAlertView:NO withTitle:@"No data connection" withSubtitle:@"Unable to communicate with PaidThx" withDetailedText:@"There doesn't seem to be a data connection on your phone. Please check your data connection, or connect to a WiFi network for a better experience." withButtonText:@"Continue" withDelegate:self];
-    }
-}
-
 -(void)didSelectButtonWithIndex:(int)index
 {
     [self dismissAlertView];
-}
-
-
-//Called by Reachability whenever status changes.
-- (void) reachabilityChanged: (NSNotification* )note
-{
-	Reachability* curReach = [note object];
-	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
-	[self updateInterfaceWithReachability: curReach];
 }
 
 

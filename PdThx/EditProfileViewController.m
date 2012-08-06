@@ -30,12 +30,9 @@
     // Do any additional setup after loading the view from its nib.
     profileSections = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).myApplication.profileSections;
     
-    UIBarButtonItem *saveButton =  [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonSystemItemAction target:self action:@selector(saveClicked)];
-    
     attributeValues = [[NSMutableArray alloc] init];
+    userAttributeService = [[UserAttributeService alloc] init];
     
-    self.navigationItem.rightBarButtonItem= saveButton;
-    [saveButton release];
 }
 
 - (void)viewDidUnload
@@ -50,11 +47,24 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)saveClicked {
-    for(int i; i < [attributeValues count]; i++)
-    {
-        UserAttribute* attribute = [attributeValues objectAtIndex:i];
-    }
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    UserAttribute* updatedAttribute = [[UserAttribute alloc] init];
+    updatedAttribute.attributeId = ((UIProfileTextField*)textField).attributeId;
+    updatedAttribute.attributeValue = textField.text;
+    
+    [userAttributeService updateUserAttribute:updatedAttribute.attributeId withValue:updatedAttribute.attributeValue forUser:user.userId];
+    
+    [updatedAttribute     release];
+}
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    UserAttribute* updatedAttribute = [[UserAttribute alloc] init];
+    updatedAttribute.attributeId = ((UIProfileTextView*)textView).attributeId;
+    updatedAttribute.attributeValue = textView.text;
+    
+    [userAttributeService updateUserAttribute:updatedAttribute.attributeId withValue:updatedAttribute.attributeValue forUser:user.userId];
+    
+    [updatedAttribute     release];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -151,14 +161,14 @@
 {
     cell.lblAttributeName.text = [profileItem label];
     
-    
+
     if([[profileItem itemType] isEqualToString: @"ShortText"])
     {
-        UITextField* txtField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
+        UIProfileTextField* txtField = [[UIProfileTextField alloc] initWithFrame:CGRectMake(0, cell.txtAttributeValue.frame.size.height/2 - 8, cell.txtAttributeValue.frame.size.width, 30)];
         txtField.delegate = self;
-        txtField.tag = profileItem.itemId;
+        txtField.attributeId= profileItem.attributeId;
+        txtField.font = [UIFont systemFontOfSize:14];
         
-        bool found = NO;
         for(int i = 0; i < [user.userAttributes count]; i++)
         {
             UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
@@ -166,14 +176,9 @@
             if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
             {
                 txtField.text = userAttribute.attributeValue;
-                found = YES;
             }
         }
-        
-        if(!found) {
-            txtField.text = [NSString stringWithFormat:@"Add +%d", profileItem.points];
-            txtField.clearsOnBeginEditing = YES;
-        }
+    
         
         [cell.txtAttributeValue addSubview:txtField];
 
@@ -181,7 +186,8 @@
     else if([[profileItem itemType] isEqualToString: @"ImageCapture"])
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 150, 30);
+        btn.frame = CGRectMake(0, 2, 150, cell.frame.size.height - 6);
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitle:@"take picture" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(captureImage:) forControlEvents:UIControlEventTouchUpInside];
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -193,7 +199,8 @@
     } else if([[profileItem itemType] isEqualToString: @"SocialAccount"])
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 150, 30);
+        btn.frame = CGRectMake(0, 2, 150, cell.frame.size.height - 6);
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitle:@"link account" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(linkAccount:) forControlEvents:UIControlEventTouchUpInside];
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -206,9 +213,10 @@
     else if([[profileItem itemType] isEqualToString: @"Picker"])
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 150, 30);
+        btn.frame = CGRectMake(0, 2, 150, cell.frame.size.height - 6);
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitle:@"select" forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(linkAccount:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(selectOption:) forControlEvents:UIControlEventTouchUpInside];
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [btn setBackgroundColor: [UIColor clearColor]];
         [btn setTitleColor: [UIColor blueColor] forState:UIControlStateNormal];
@@ -218,15 +226,30 @@
     }
     else if([[profileItem itemType] isEqualToString: @"LongText"]) {
         
-        UITextView* txtView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height*3)];
+        UIProfileTextView* txtView = [[UIProfileTextView alloc] initWithFrame:CGRectMake(0, 10, cell.txtAttributeValue.frame.size.width - 5, 100)];
+        [txtView setBackgroundColor: [UIColor clearColor]];
+        txtView.attributeId= profileItem.attributeId;
+        [txtView setDelegate: self];
+       
+        for(int i = 0; i < [user.userAttributes count]; i++)
+        {
+            UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+            
+            if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
+            {
+                txtView.text = userAttribute.attributeValue;
+            }
+        }
         
+        cell.txtAttributeValue.frame = CGRectMake(cell.txtAttributeValue.frame.origin.x, cell.txtAttributeValue.frame.origin.y, cell.txtAttributeValue.frame.size.width,
+                                                   100);
         [cell.txtAttributeValue addSubview:txtView];
         
         [txtView release];
     }
     else if([[profileItem itemType] isEqualToString: @"Switch"])
     {
-        UISwitch* switchItem = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
+        UISwitch* switchItem = [[UISwitch alloc] initWithFrame:CGRectMake(0, cell.txtAttributeValue.frame.size.height/2- 12, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
         
         
         
@@ -240,25 +263,80 @@
     return cell;
 
 }
--(void)captureImage:(id)sender; {
-    ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
-    [controller setTitle: @"Choose Picture"];
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+-(void) selectOption: (id)sender {
+    selectModalViewController = [[[SelectModalViewController alloc] initWithFrame:self.view.bounds] autorelease];
     
-    [self.navigationController presentModalViewController:navBar animated:YES];
+    NSMutableArray* options = [[NSMutableArray alloc] init];
+    [options addObject: @"James"];
+    [options addObject: @"Ryan"];
+    [options addObject: @"Thomas"];
+    [options addObject: @"Rob"];
+    [options addObject: @"Hugo"];
     
-    [navBar release];
-    [controller release];
+    [selectModalViewController setOptionSelectDelegate: self];
+    selectModalViewController.optionItems= options;
+    selectModalViewController.selectedOptionItem = @"James";
+    selectModalViewController.accountType = @"Option";
+    selectModalViewController.headerText = @"Select Your Option";
+    selectModalViewController.descriptionText = @"This is a test.";
+    
+    [self.view addSubview:selectModalViewController];
+    [selectModalViewController show];
+    
+}
+- (IBAction) captureImage: (id) sender {
+    NSLog(@"snap");
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        NSLog(@"is camera ok");
+        UIActionSheet *photoSourceSheet = [[UIActionSheet alloc] initWithTitle:@"Select Picture"
+                                                                      delegate:self 
+                                                             cancelButtonTitle:@"cancel" 
+                                                        destructiveButtonTitle:nil
+                                                             otherButtonTitles:@"Take new photo", @"Choose existing photo", nil, nil];
+        
+        [photoSourceSheet showInView:self.view];
+        [photoSourceSheet release];
+    }
+    else {
+        NSLog(@"No camera");
+        UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentModalViewController:picker animated:YES];
+    }
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
-/*
- -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
- NSString *optionSection = [sections objectAtIndex:section];
- return optionSection;
- }*/
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    return  [[profileSections objectAtIndex: section] sectionHeader];
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
+    if (sectionTitle == nil) {
+        return nil;
+    }
+    
+    // Create label with section title
+    UILabel *label = [[[UILabel alloc] init] autorelease];
+    label.frame = CGRectMake(20, 6, 300, 30);
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    
+    label.font = [UIFont boldSystemFontOfSize:12];
+    label.text = sectionTitle;
+    
+    // Create header view and add label as a subview
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [view autorelease];
+    [view addSubview:label];
+    
+    return view;
+}
 
 /*
  // Override to support editing the table view.
@@ -328,4 +406,16 @@
     
     return YES;
 } 
+-(void) optionDidSelect:(NSString*) optionId {
+    
+    //selectedOption = optionId;
+    
+    //if([selectModal.accountType isEqualToString: @"Send"]) {
+    //    [bankAccountService setPreferredSendAccount:optionId forUserId:user.userId];
+    //}
+    //else {
+     //   [bankAccountService setPreferredReceiveAccount:optionId forUserId:user.userId];
+    //}
+    [selectModalViewController hide];
+}
 @end

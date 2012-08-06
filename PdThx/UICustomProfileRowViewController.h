@@ -12,8 +12,10 @@
 {
     IBOutlet UILabel* lblAttributeName;
     IBOutlet UIView* txtAttributeValue;
+    NSString* userAttributeId;
 }
 @property(nonatomic, retain) UILabel* lblAttributeName;
 @property(nonatomic, retain) UIView* txtAttributeValue;
+@property(nonatomic, retain) NSString* userAttributeId;
 
 @end

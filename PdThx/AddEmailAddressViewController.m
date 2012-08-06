@@ -101,6 +101,11 @@
     }
        else
        {
+           [txtEmailAddress resignFirstResponder];
+           
+           PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+           [appDelegate showWithStatus: @"Linking Email Address" withDetailedStatus: @"Adding New PayPoint"];
+           
     [payPointService addPayPoint:txtEmailAddress.text ofType:@"EmailAddress" forUserId:user.userId];
        }
 }
@@ -121,9 +126,16 @@
     }
 }
 -(void)addPayPointsDidComplete {
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
     [addPayPointComplete addPayPointsDidComplete];
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
     [addPayPointComplete addPayPointsDidFail:errorMessage];
 }
 @end

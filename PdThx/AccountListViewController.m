@@ -86,9 +86,37 @@
 -(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
+    
     user.bankAccounts = bankAccounts;
     [userAccountsTableView reloadData];
+    
+    if(newAccountAdded) {
+        // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+        // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+        // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+        // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+        [appDelegate showAlertWithResult:true withTitle:@"New ACH Account Linked!" withSubtitle:@"You can now receive money with PaidThx" withDetailText:@"To begin sending money from this account, you will need to complete verification.  We've sent you an email with steps to complete verification." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        
+        newAccountAdded = false;
+    }
 }
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ) {
+        // Dismiss, error uploading image alert view clicked.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+    } else {
+        // Successfully saved image, just go back to personalize screen and load the image.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+        
+        // TODO: There needs to be a protocol here to load the image as being on top.
+    }
+}
+
 -(void)getUserAccountsDidFail:(NSString*)errorMessage {
     NSLog(@"%@", errorMessage);
 }
@@ -321,12 +349,14 @@
             [controller setTitle: @"Add Bank Account"];
             [controller setAchSetupDidComplete:self];
             
+            
             //[controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
 
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+     
             
+            //[self.navigationItem setRightBarButtonItem:(UIBarButtonItem *) animated:YES];
             [self.navigationController presentModalViewController:navBar animated:YES];
-            
             [navBar release];
             [controller release];
         } else {
@@ -342,6 +372,8 @@
         selectModal.bankAccounts = user.bankAccounts;
         selectModal.selectedAccount =user.preferredPaymentAccountId;
         selectModal.accountType = @"Send";
+        selectModal.headerText = @"Select Your Sending Account";
+        selectModal.descriptionText = @"All payments you send will be withdrawn from this bank account.";
         
         [self.view addSubview:selectModal];
         [selectModal show];
@@ -352,6 +384,8 @@
         selectModal.bankAccounts = user.bankAccounts;
         selectModal.selectedAccount =user.preferredReceiveAccountId;
         selectModal.accountType = @"Receive";
+        selectModal.headerText = @"Select Your Receiving Account";
+        selectModal.descriptionText = @"All received payments will be deposited into this bank account.";
         
         [self.view addSubview:selectModal];
         [selectModal show];
@@ -393,6 +427,8 @@
 
     [self.navigationController dismissModalViewControllerAnimated: NO];
     [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    newAccountAdded = true;
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];

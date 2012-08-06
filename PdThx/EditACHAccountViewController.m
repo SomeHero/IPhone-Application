@@ -110,12 +110,19 @@
     [bankAccountService deleteBankAccount: bankAccount.bankAccountId forUserId:user.userId];
 }
 -(void)deleteBankAccountDidComplete {
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)deleteBankAccountDidFail:(NSString*)errorMessage {
     
 }
 -(void)updateBankAccountDidComplete {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)updateBankAccountDidFail:(NSString*)errorMessage {
