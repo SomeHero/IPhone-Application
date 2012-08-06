@@ -66,6 +66,37 @@
     phones = [[user.payPoints filteredArrayUsingPredicate:  predicate] copy];
     
     [payPointTable reloadData];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    if(newPayPointAdded)
+    {
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPoint!" withSubtitle:@"You need to complete verification to start sending and receiving money using this mobile #." withDetailText:@"We sent an text to this mobile # with a verification code.  To verify this PayPoint, click verify below and enter the verification code." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Verify" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        
+        newPayPointAdded = false;
+    }
+}
+-(void)didSelectButtonWithIndex:(int)index
+{
+    if ( index == 0 ) {
+        // Dismiss, error uploading image alert view clicked.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+        
+        VerifyPhoneNumberViewController* controller = [[VerifyPhoneNumberViewController alloc] init];
+        //[controller.payPoint = payPoint];
+        
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        // Successfully saved image, just go back to personalize screen and load the image.
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate dismissAlertView];
+        
+        // TODO: There needs to be a protocol here to load the image as being on top.
+    }
 }
 -(void)getPayPointsDidFail: (NSString*) errorMessage {
     
@@ -258,6 +289,8 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [payPointService getPayPoints: user.userId];
+    
+    newPayPointAdded = true;
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface ContactTableViewCell : UITableViewCell
 {
     IBOutlet UIButton *contactImage;
     IBOutlet UILabel *contactNameField;
+    CATextLayer* contactNameLayer;
     IBOutlet UILabel *contactDetail;
 }
 
@@ -19,6 +21,6 @@
 @property (nonatomic, retain) UILabel *contactNameField;
 @property (nonatomic, retain) UILabel *contactDetail;
 @property (nonatomic, retain) UIImage *imgData;
-
+@property (nonatomic, retain) CATextLayer *contactNameLayer;
 
 @end

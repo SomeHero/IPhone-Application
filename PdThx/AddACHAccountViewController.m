@@ -47,6 +47,12 @@
     accountService = [[UserSetupACHAccount alloc] init];
     [accountService setUserACHSetupCompleteDelegate: self];
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.leftBarButtonItem = nil;
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -254,7 +260,7 @@
 }
 -(void)swipeDidCancel: (id)sender
 {
-    //do nothing
+    [self.navigationController dismissModalViewControllerAnimated: YES];
 }
 - (void)setTitle:(NSString *)title
 {

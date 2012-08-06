@@ -23,5 +23,7 @@
     PayPointService* payPointService;
     NSArray* emailAddresses;
     
+    bool newPayPointAdded;
+    
 }
 @end

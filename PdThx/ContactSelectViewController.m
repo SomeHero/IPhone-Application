@@ -16,6 +16,8 @@
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 
+#import <CoreText/CoreText.h>
+
 @interface ContactSelectViewController ()
 
 - (void)startIconDownload:(Contact*)contact forIndexPath:(NSIndexPath *)indexPath;
@@ -202,6 +204,42 @@
     
     return 0;
 }
+/*
+if ( !limitTextLayer )
+{
+    limitTextLayer = [[CATextLayer alloc] init];
+    //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
+    limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
+    limitTextLayer.wrapped = NO;
+    CALayer *layer = lblScore.layer; //self is a view controller contained by a navigation controller
+    limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
+    limitTextLayer.alignmentMode = kCAAlignmentCenter;
+    limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
+    [layer addSublayer:limitTextLayer];
+}
+
+NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
+
+CTFontRef unboldedFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica", 19.0, NULL);
+CTFontRef boldedFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 19.0, NULL);
+
+
+NSDictionary *unboldedAttributes = [NSDictionary dictionaryWithObject:
+                                  (id)unboldedFontRef forKey:(id)kCTFontAttributeName];
+
+NSDictionary *boldedAttributes = [NSDictionary dictionaryWithObject:
+                               (id)boldedFontRef forKey:(id)kCTFontAttributeName];
+
+NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:labelString attributes:amountAttributes];
+
+[attrStr addAttributes:dayAttributes range:NSMakeRange([labelString rangeOfString:@" "].location, ([labelString length]-1-[labelString rangeOfString:@" "].location))];
+
+CFRelease(amountFontRef);
+CFRelease(dayFontRef);
+
+limitTextLayer.string = attrStr;
+[attrStr release];
+*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -221,11 +259,36 @@
     }
     
     
+    if ( ! myCell.contactNameLayer )
+    {
+        myCell.contactNameLayer = [[CATextLayer alloc] init];
+        //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
+        myCell.contactNameLayer.backgroundColor = [UIColor clearColor].CGColor;
+        myCell.contactNameLayer.wrapped = NO;
+        CALayer *layer = myCell.contactNameField.layer; //self is a view controller contained by a navigation controller
+        myCell.contactNameLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
+        myCell.contactNameLayer.alignmentMode = kCAAlignmentLeft;
+        myCell.contactNameLayer.contentsScale = [[UIScreen mainScreen] scale];
+        [layer addSublayer:myCell.contactNameLayer];
+    }
+    
     //Wipe out old information in Cell
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
     [myCell.contactImage.layer setCornerRadius:4.0];
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
+    
+    NSString* contactLabel;
+    NSRange boldRange;
+    
+    CTFontRef boldedFont = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 19.0, NULL);
+    CTFontRef unboldedFont = CTFontCreateWithName((CFStringRef)@"Helvetica", 19.0, NULL);
+    
+    NSDictionary *boldedAttributes = [NSDictionary dictionaryWithObject:
+                                      (id)boldedFont forKey:(id)kCTFontAttributeName];
+    
+    NSDictionary *unboldedAttributes = [NSDictionary dictionaryWithObject:
+                                   (id)unboldedFont forKey:(id)kCTFontAttributeName];
     
     Contact *contact;
     if ( isFiltered == YES ) {
@@ -235,7 +298,8 @@
             if ( entryType == 0 ) {
                 // Could not find contact by that name, so put the
                 // "keep typing" screen
-                myCell.contactNameField.text = @"No matches found";
+                contactLabel = @"No matches found";
+                boldRange = NSMakeRange(0, [contactLabel length]);
                 
                 //[NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
                 myCell.contactDetail.text = @"Continue typing or check entry";
@@ -248,17 +312,48 @@
                     myCell.backgroundView = altImageView;
                 }
                 
+                /* Create the attributed string (text + attributes) */
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:contactLabel attributes:unboldedAttributes];
+                
+                [attrStr addAttributes:boldedAttributes range:boldRange];
+                
+                CFRelease(boldedFont);
+                CFRelease(unboldedFont);
+                
+                /* Set the attributes string in the text layer :) */
+                myCell.contactNameLayer.string = attrStr;
+                [attrStr release];
+                
                 return myCell;
             } else if ( entryType == 1 ) {
                 // Valid phone number entered... show a new contact with that information
                 // entered in the search box.
-                myCell.contactNameField.text = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                contactLabel = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                boldRange = NSMakeRange(0, [contactLabel length]);
+                
                 myCell.contactDetail.text = @"New Phone Recipient";
+                
+                /* Create the attributed string (text + attributes) */
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:contactLabel attributes:unboldedAttributes];
+                
+                [attrStr addAttributes:boldedAttributes range:boldRange];
+                
+                CFRelease(boldedFont);
+                CFRelease(unboldedFont);
+                
+                /* Set the attributes string in the text layer :) */
+                myCell.contactNameLayer.string = attrStr;
+                [attrStr release];
+                
                 return myCell;
             } else if ( entryType == 2 ) {
                 // Valid email address entered, show a new contact box with that information
                 // entered as the contaction information
-                myCell.contactNameField.text = txtSearchBox.text;
+                
+                contactLabel = txtSearchBox.text;
+                boldRange = NSMakeRange(0, [contactLabel length]);
+                
+                
                 myCell.contactDetail.text = @"New Email Recipient";
                 
                 
@@ -267,6 +362,18 @@
                 } else {
                     myCell.backgroundView = altImageView;
                 }
+                
+                /* Create the attributed string (text + attributes) */
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:contactLabel attributes:unboldedAttributes];
+                
+                [attrStr addAttributes:boldedAttributes range:boldRange];
+                
+                CFRelease(boldedFont);
+                CFRelease(unboldedFont);
+                
+                /* Set the attributes string in the text layer :) */
+                myCell.contactNameLayer.string = attrStr;
+                [attrStr release];
                 
                 return myCell;
             } else if ( entryType == 3 ) {
@@ -281,9 +388,12 @@
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
                 {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    contactLabel = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    boldRange = [contactLabel rangeOfString:contact.lastName];
+                    
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
+                    contactLabel = [NSString stringWithFormat:@"%@",contact.firstName];
+                    boldRange = NSMakeRange(0, [contactLabel length]);
                 }
             }
             
@@ -307,6 +417,18 @@
                     myCell.backgroundView = altImageView;
                 }
                 
+                /* Create the attributed string (text + attributes) */
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:contactLabel attributes:unboldedAttributes];
+                
+                [attrStr addAttributes:boldedAttributes range:boldRange];
+                
+                CFRelease(boldedFont);
+                CFRelease(unboldedFont);
+                
+                /* Set the attributes string in the text layer :) */
+                myCell.contactNameLayer.string = attrStr;
+                [attrStr release];
+                
                 return myCell;
             }
             else
@@ -317,9 +439,11 @@
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
                 {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    contactLabel = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    boldRange = [contactLabel rangeOfString:contact.lastName];
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
+                    contactLabel = [NSString stringWithFormat:@"%@",contact.firstName];
+                    boldRange = NSMakeRange(0, [contactLabel length]);
                 }
             }
             
@@ -342,9 +466,12 @@
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
                 {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    contactLabel = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    boldRange = [contactLabel rangeOfString:contact.lastName];
+                    
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
+                    contactLabel = [NSString stringWithFormat:@"%@",contact.firstName];
+                    boldRange = NSMakeRange(0, [contactLabel length]);
                 }
             }
             
@@ -368,6 +495,18 @@
                     myCell.backgroundView = altImageView;
                 }
                 
+                /* Create the attributed string (text + attributes) */
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:contactLabel attributes:unboldedAttributes];
+                
+                [attrStr addAttributes:boldedAttributes range:boldRange];
+                
+                CFRelease(boldedFont);
+                CFRelease(unboldedFont);
+                
+                /* Set the attributes string in the text layer :) */
+                myCell.contactNameLayer.string = attrStr;
+                [attrStr release];
+                
                 return myCell;
             }
             else
@@ -378,9 +517,11 @@
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
                 {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    contactLabel = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];
+                    boldRange = [contactLabel rangeOfString:contact.lastName];
                 } else if ( contact.lastName.length == 0 && contact.firstName.length > 0 ) {
-                    myCell.contactNameField.text = [NSString stringWithFormat:@"%@",contact.firstName];
+                    contactLabel = [NSString stringWithFormat:@"%@",contact.firstName];
+                    boldRange = NSMakeRange(0, [contactLabel length]);
                 }
             }
             
@@ -404,6 +545,18 @@
     } else {
         myCell.backgroundView = altImageView;
     }
+    
+    /* Create the attributed string (text + attributes) */
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:contactLabel attributes:unboldedAttributes];
+    
+    [attrStr addAttributes:boldedAttributes range:boldRange];
+    
+    CFRelease(boldedFont);
+    CFRelease(unboldedFont);
+    
+    /* Set the attributes string in the text layer :) */
+    myCell.contactNameLayer.string = attrStr;
+    [attrStr release];
     
     return myCell;
 }

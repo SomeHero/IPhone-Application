@@ -15,13 +15,21 @@
 #import "ProfileSection.h"
 #import "ChoosePictureViewController.h"
 #import "UserAttribute.h"
+#import "UserAttributeService.h"
+#import "UIProfileTextField.h"
+#import "UIProfileTextView.h"
+#import "SelectModalViewController.h"
+#import "ModalSelectProtocol.h"
 
-@interface EditProfileViewController : UISetupUserBaseViewController<UITextFieldDelegate, UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate>
+@interface EditProfileViewController : UISetupUserBaseViewController<UITextFieldDelegate, UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, ModalSelectProtocol>
 {
     IBOutlet UITableView* profileTable;
     NSMutableArray* profileSections;
     
     NSMutableArray* attributeValues;
+    SelectModalViewController* selectModalViewController;
+    
+    UserAttributeService* userAttributeService;
 }
 
 @end
