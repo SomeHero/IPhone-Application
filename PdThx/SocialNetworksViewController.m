@@ -115,29 +115,34 @@
             {
                 case 0:
                 {
+                    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
-                    [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
-                    
-                    Facebook* fBook = appDelegate.fBook;
-                    FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
-                    
-                    if ( ![fBook isSessionValid] ){
-                        NSLog(@"Facebook Session is NOT Valid, Signing in...");
-                        [faceBookSignInHelper setCancelledDelegate:appDelegate];
-                        [faceBookSignInHelper signInWithFacebook:self];
-                    } else {
-                        NSLog(@"Facebook Session is Valid, Getting info...");
-                        [fBook requestWithGraphPath:@"me" andDelegate:self];
-                        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
-                    }                }
-            }
-            break;
-        }
-        case 1:
-        {
-            switch (indexPath.row) 
-            {
-                case 0:
+                    if ([prefs objectForKey:@"FBAccessTokenKey"] != nil)
+                    {
+                        [appDelegate showSimpleAlertView:YES withTitle:@"Already linked!" withSubtitle:@"" withDetailedText:@"You've already signed in with Facebook, unable to link!" withButtonText:@"OK" withDelegate:self];
+                    }
+                    else {
+                        
+                        [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
+                        
+                        Facebook* fBook = appDelegate.fBook;
+                        FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
+                        
+                        
+                        if ( ![fBook isSessionValid] ){
+                            NSLog(@"Facebook Session is NOT Valid, Signing in...");
+                            [faceBookSignInHelper setCancelledDelegate:appDelegate];
+                            [faceBookSignInHelper signInWithFacebook:self];
+                        } else {
+                            NSLog(@"Facebook Session is Valid, Getting info...");
+                            
+                            //[fBook requestWithGraphPath:@"me" andDelegate:self];
+                            //[fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+                        }
+                    }
+                    break;
+                }
+                case 1:
                 {
                     //Twitter
                     TwitterRushViewController* controller =
@@ -146,6 +151,7 @@
                     [self.navigationController pushViewController:controller animated:YES];
                     
                     [controller release];
+                    break;
                 }
             }
             break;
@@ -153,33 +159,10 @@
     }
 }
 
-
-- (IBAction)btnLinkFacebookClicked:(id)sender {
+-(void) didSelectButtonWithIndex:(int)index
+{
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
-    [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
-    
-    Facebook* fBook = appDelegate.fBook;
-    FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
-    
-    if ( ![fBook isSessionValid] ){
-        NSLog(@"Facebook Session is NOT Valid, Signing in...");
-        [faceBookSignInHelper setCancelledDelegate:appDelegate];
-        [faceBookSignInHelper signInWithFacebook:self];
-    } else {
-        NSLog(@"Facebook Session is Valid, Getting info...");
-        [fBook requestWithGraphPath:@"me" andDelegate:self];
-        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
-    }
-    
-}
-- (IBAction)btnLinkTwitterClicked:(id)sender {
-    TwitterRushViewController* controller =
-    [[TwitterRushViewController alloc] init];
-    
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    [controller release];
-    
+    [appDelegate dismissAlertView];
 }
 
 -(void)fbSignInCancelled
@@ -234,6 +217,20 @@
         [fBook requestWithGraphPath:@"me" andDelegate:self];
         [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
     }
+}
+
+-(void) linkFbAccountDidSucceed {
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
+    [appDelegate.fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+    [appDelegate dismissProgressHUD];
+    [appDelegate showSimpleAlertView:YES withTitle:@"Success!" withSubtitle:@"Facebook account successfully linked." withDetailedText:@"Facebook account has been linked, you can now send/request money from Facebook contacts and sign in with Facebook from the welcome page." withButtonText:@"OK" withDelegate:self];
+}
+
+-(void) linkFbAccountDidFail:(NSString *)message {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
+    [appDelegate dismissProgressHUD];
+    [appDelegate showSimpleAlertView:NO withTitle:@"Failed!" withSubtitle:@"Facebook account linking failed." withDetailedText:[NSString stringWithFormat:@"Unable to link Facebook account: %@", message] withButtonText:@"OK" withDelegate:self];
 }
 
 

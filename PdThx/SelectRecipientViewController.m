@@ -84,6 +84,20 @@
         NSString* uri = [recipients objectAtIndex:indexPath.row];
         
         cell.contactName.text = uri;
+        
+        if ([self isValidFormattedPayPoint:uri] == 1)
+        {
+            cell.contactDetail.text = @"Phone Number";
+        }
+        else if ([self isValidFormattedPayPoint:uri] == 2)
+        {
+            cell.contactDetail.text = @"Email Address";
+            [cell.imgRecipient setBackgroundImage:[UIImage imageNamed:@"email-30x30.png"] forState:UIControlStateNormal];
+        }
+        else {
+            cell.contactDetail.text = @"Facebook";
+            [cell.imgRecipient setBackgroundImage:[UIImage imageNamed:@"facebook-30x30.png"] forState:UIControlStateNormal];
+        }
     }
     else {
         NSDictionary* dic = [recipients objectAtIndex:indexPath.row];
@@ -147,6 +161,7 @@
     [recipients release];
     [txtHeader release];
     [selectRecipientDelegate release];
+    [headerText release];
     [super dealloc];
 }
 
