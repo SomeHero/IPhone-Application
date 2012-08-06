@@ -117,7 +117,7 @@
                 {
                     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
-                    if ([prefs objectForKey:@"FBAccessTokenKey"] != nil)
+                    if ([prefs objectForKey:@"facebookId"] != nil)
                     {
                         [appDelegate showSimpleAlertView:YES withTitle:@"Already linked!" withSubtitle:@"" withDetailedText:@"You've already signed in with Facebook, unable to link!" withButtonText:@"OK" withDelegate:self];
                     }

@@ -684,14 +684,16 @@
 		C384CE9C15CAE514000BADCD /* SocialNetworksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */; };
 		C384CEA315CAF868000BADCD /* opSocialNetworks.plist in Resources */ = {isa = PBXBuildFile; fileRef = C384CEA215CAF867000BADCD /* opSocialNetworks.plist */; };
 		C384CEAD15CB16A6000BADCD /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C384CEAC15CB16A6000BADCD /* Entitlements.plist */; };
-		C385D81A15D00E30000CA34C /* email-30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D81615D00E30000CA34C /* email-30x30.png */; };
-		C385D81B15D00E30000CA34C /* email-30x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D81715D00E30000CA34C /* email-30x30@2x.png */; };
-		C385D81C15D00E30000CA34C /* facebook-30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D81815D00E30000CA34C /* facebook-30x30.png */; };
-		C385D81D15D00E30000CA34C /* facebook-30x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D81915D00E30000CA34C /* facebook-30x30@2x.png */; };
 		C385D82315D00E45000CA34C /* socialFacebookIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D81F15D00E45000CA34C /* socialFacebookIcon.png */; };
 		C385D82415D00E45000CA34C /* socialFacebookIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D82015D00E45000CA34C /* socialFacebookIcon@2x.png */; };
 		C385D82515D00E45000CA34C /* socialTwitterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D82115D00E45000CA34C /* socialTwitterIcon.png */; };
 		C385D82615D00E45000CA34C /* socialTwitterIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D82215D00E45000CA34C /* socialTwitterIcon@2x.png */; };
+		C385D83215D02A5F000CA34C /* AUI-contact-phoneIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D82C15D02A5F000CA34C /* AUI-contact-phoneIcon40x40.png */; };
+		C385D83315D02A5F000CA34C /* AUI-contact-phoneIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D82D15D02A5F000CA34C /* AUI-contact-phoneIcon40x40@2x.png */; };
+		C385D83415D02A5F000CA34C /* AUI-contactsFacebook40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D82E15D02A5F000CA34C /* AUI-contactsFacebook40x40.png */; };
+		C385D83515D02A5F000CA34C /* AUI-contactsFacebook40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D82F15D02A5F000CA34C /* AUI-contactsFacebook40x40@2x.png */; };
+		C385D83615D02A5F000CA34C /* AUI-contactsMail40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D83015D02A5F000CA34C /* AUI-contactsMail40x40.png */; };
+		C385D83715D02A5F000CA34C /* AUI-contactsMail40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C385D83115D02A5F000CA34C /* AUI-contactsMail40x40@2x.png */; };
 		C38999E215C2EEED00D98387 /* SelectRecipientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C38999E115C2EEED00D98387 /* SelectRecipientCell.m */; };
 		C38999E415C2EF3B00D98387 /* SelectRecipientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */; };
 		C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3916E5515ACBFCD00888048 /* ForgotPinCodeViewController.m */; };
@@ -1654,14 +1656,16 @@
 		C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialNetworksViewController.xib; sourceTree = "<group>"; };
 		C384CEA215CAF867000BADCD /* opSocialNetworks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = opSocialNetworks.plist; sourceTree = "<group>"; };
 		C384CEAC15CB16A6000BADCD /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
-		C385D81615D00E30000CA34C /* email-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "email-30x30.png"; sourceTree = "<group>"; };
-		C385D81715D00E30000CA34C /* email-30x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "email-30x30@2x.png"; sourceTree = "<group>"; };
-		C385D81815D00E30000CA34C /* facebook-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-30x30.png"; sourceTree = "<group>"; };
-		C385D81915D00E30000CA34C /* facebook-30x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-30x30@2x.png"; sourceTree = "<group>"; };
 		C385D81F15D00E45000CA34C /* socialFacebookIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = socialFacebookIcon.png; sourceTree = "<group>"; };
 		C385D82015D00E45000CA34C /* socialFacebookIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "socialFacebookIcon@2x.png"; sourceTree = "<group>"; };
 		C385D82115D00E45000CA34C /* socialTwitterIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = socialTwitterIcon.png; sourceTree = "<group>"; };
 		C385D82215D00E45000CA34C /* socialTwitterIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "socialTwitterIcon@2x.png"; sourceTree = "<group>"; };
+		C385D82C15D02A5F000CA34C /* AUI-contact-phoneIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUI-contact-phoneIcon40x40.png"; sourceTree = "<group>"; };
+		C385D82D15D02A5F000CA34C /* AUI-contact-phoneIcon40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUI-contact-phoneIcon40x40@2x.png"; sourceTree = "<group>"; };
+		C385D82E15D02A5F000CA34C /* AUI-contactsFacebook40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUI-contactsFacebook40x40.png"; sourceTree = "<group>"; };
+		C385D82F15D02A5F000CA34C /* AUI-contactsFacebook40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUI-contactsFacebook40x40@2x.png"; sourceTree = "<group>"; };
+		C385D83015D02A5F000CA34C /* AUI-contactsMail40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUI-contactsMail40x40.png"; sourceTree = "<group>"; };
+		C385D83115D02A5F000CA34C /* AUI-contactsMail40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUI-contactsMail40x40@2x.png"; sourceTree = "<group>"; };
 		C38999E015C2EEEC00D98387 /* SelectRecipientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientCell.h; sourceTree = "<group>"; };
 		C38999E115C2EEED00D98387 /* SelectRecipientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientCell.m; sourceTree = "<group>"; };
 		C38999E315C2EF3A00D98387 /* SelectRecipientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRecipientCell.xib; sourceTree = "<group>"; };
@@ -1946,10 +1950,12 @@
 		5427662D157FEE0D00D33AC1 /* Send Money Images */ = {
 			isa = PBXGroup;
 			children = (
-				C385D81615D00E30000CA34C /* email-30x30.png */,
-				C385D81715D00E30000CA34C /* email-30x30@2x.png */,
-				C385D81815D00E30000CA34C /* facebook-30x30.png */,
-				C385D81915D00E30000CA34C /* facebook-30x30@2x.png */,
+				C385D82C15D02A5F000CA34C /* AUI-contact-phoneIcon40x40.png */,
+				C385D82D15D02A5F000CA34C /* AUI-contact-phoneIcon40x40@2x.png */,
+				C385D82E15D02A5F000CA34C /* AUI-contactsFacebook40x40.png */,
+				C385D82F15D02A5F000CA34C /* AUI-contactsFacebook40x40@2x.png */,
+				C385D83015D02A5F000CA34C /* AUI-contactsMail40x40.png */,
+				C385D83115D02A5F000CA34C /* AUI-contactsMail40x40@2x.png */,
 				5B5D08F8159006A600E90A1A /* BTNImDone@2x.png */,
 				5B5D08F9159006A600E90A1A /* BTNImDoneActive@2x.png */,
 				5B5D08FA159006A600E90A1A /* BTNsendAnother@2x.png */,
@@ -4230,14 +4236,16 @@
 				D58B392115CC1FA400DAB591 /* NewAccountHelpViewController.xib in Resources */,
 				D58B392615CC29D300DAB591 /* img-samplecheck-270x116.png in Resources */,
 				5BDDAE8B15CCDD4F007B733E /* VerifyACHAccountViewController.xib in Resources */,
-				C385D81A15D00E30000CA34C /* email-30x30.png in Resources */,
-				C385D81B15D00E30000CA34C /* email-30x30@2x.png in Resources */,
-				C385D81C15D00E30000CA34C /* facebook-30x30.png in Resources */,
-				C385D81D15D00E30000CA34C /* facebook-30x30@2x.png in Resources */,
 				C385D82315D00E45000CA34C /* socialFacebookIcon.png in Resources */,
 				C385D82415D00E45000CA34C /* socialFacebookIcon@2x.png in Resources */,
 				C385D82515D00E45000CA34C /* socialTwitterIcon.png in Resources */,
 				C385D82615D00E45000CA34C /* socialTwitterIcon@2x.png in Resources */,
+				C385D83215D02A5F000CA34C /* AUI-contact-phoneIcon40x40.png in Resources */,
+				C385D83315D02A5F000CA34C /* AUI-contact-phoneIcon40x40@2x.png in Resources */,
+				C385D83415D02A5F000CA34C /* AUI-contactsFacebook40x40.png in Resources */,
+				C385D83515D02A5F000CA34C /* AUI-contactsFacebook40x40@2x.png in Resources */,
+				C385D83615D02A5F000CA34C /* AUI-contactsMail40x40.png in Resources */,
+				C385D83715D02A5F000CA34C /* AUI-contactsMail40x40@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

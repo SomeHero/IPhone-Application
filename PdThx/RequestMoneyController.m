@@ -64,7 +64,7 @@
 {
     [super dealloc];
     [tabBar release];
-/*  ------------------------------------------------------ */
+    /*  ------------------------------------------------------ */
     /*                View/Services Releases                   */
     /*  ------------------------------------------------------ */
     [viewPanel release];
@@ -340,7 +340,7 @@
 
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
-
+    
     NSString *theJSON = [request responseString];
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
@@ -401,12 +401,7 @@
         {
             NSDictionary* uriInfo = (NSDictionary*) [recipients objectAtIndex:0];
             [self setRecipientUri: [NSString stringWithFormat:@"%@", [uriInfo valueForKey:@"userUri"]]];
-            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-            [controller setSecurityPinSwipeDelegate: self];
-            [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
-            
-            [self presentModalViewController:controller animated:YES];            
+            [self startSecurityPin];
         }
         
     }
@@ -424,16 +419,7 @@
     
     [self dismissModalViewControllerAnimated:NO];
     
-    CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-    [controller setSecurityPinSwipeDelegate: self];
-    [controller setNavigationTitle: @"Confirm"];
-    
-    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
-        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-    else
-        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
-    
-    [self presentModalViewController:controller animated:YES];
+    [self startSecurityPin];
 }
 
 
@@ -494,16 +480,7 @@
             if ([recipient.paypoints count] == 1)
             {
                 
-                CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-                [controller setSecurityPinSwipeDelegate: self];
-                [controller setNavigationTitle: @"Confirm"];
-                
-                if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
-                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-                else
-                    [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
-                
-                [self presentModalViewController:controller animated:YES];
+                [self startSecurityPin];
             }
             else {
                 
@@ -525,10 +502,35 @@
     }
     
 }
+
+-(void) startSecurityPin
+{
+    CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    [controller setNavigationTitle: @"Confirm"];
+    
+    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+    {
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+    }
+    else
+    {
+        if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
+        {
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+        }
+        else {
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+        }
+    }
+    
+    [self presentModalViewController:controller animated:YES];   
+}
+
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
-
+    
     NSString* recipientImageUri = @"";
     NSString* recipientFirstName = @"";
     NSString* recipientLastName = @"";
@@ -556,9 +558,19 @@
     TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
     
     if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
+    {
         controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
+    }
     else
-        controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+    {
+        if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
+        {
+            controller.confirmationText = [NSString stringWithFormat: @"Success! Your request of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
+        }
+        else {
+            controller.confirmationText = [NSString stringWithFormat: @"Success! Your request of $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
+        }
+    }
     
     
     [controller setContinueButtonText:@"Send Another Request"];
@@ -566,7 +578,7 @@
     [controller setTitle:@"Request Sent"];
     
     [self presentModalViewController:controller animated:YES];
-     recipientUri = @"";
+    recipientUri = @"";
 }
 
 -(void)requestMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
@@ -693,17 +705,17 @@
     {
         // Already the current view controller
         /*
-        //Switch to the groups tab
-        HomeViewController *gvc = [[HomeViewController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-        */
+         //Switch to the groups tab
+         HomeViewController *gvc = [[HomeViewController alloc]init];
+         [[self navigationController] pushViewController:gvc animated:NO];
+         [gvc release];
+         
+         //Remove the view controller this is coming from, from the navigation controller stack
+         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+         [allViewControllers removeObjectIdenticalTo:self];
+         [[self navigationController] setViewControllers:allViewControllers animated:NO];
+         [allViewControllers release];
+         */
     }
     if( buttonIndex == 4 )
     {

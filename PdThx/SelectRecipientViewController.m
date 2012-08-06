@@ -88,15 +88,16 @@
         if ([self isValidFormattedPayPoint:uri] == 1)
         {
             cell.contactDetail.text = @"Phone Number";
+            [cell.imgRecipient setBackgroundImage:[UIImage imageNamed:@"AUI-contact-phoneIcon40x40"] forState:UIControlStateNormal];
         }
         else if ([self isValidFormattedPayPoint:uri] == 2)
         {
             cell.contactDetail.text = @"Email Address";
-            [cell.imgRecipient setBackgroundImage:[UIImage imageNamed:@"email-30x30.png"] forState:UIControlStateNormal];
+            [cell.imgRecipient setBackgroundImage:[UIImage imageNamed:@"AUI-contactsMail40x40.png"] forState:UIControlStateNormal];
         }
         else {
             cell.contactDetail.text = @"Facebook";
-            [cell.imgRecipient setBackgroundImage:[UIImage imageNamed:@"facebook-30x30.png"] forState:UIControlStateNormal];
+            [cell.imgRecipient setBackgroundImage:[UIImage imageNamed:@"contactsFacebook40x40.png"] forState:UIControlStateNormal];
         }
     }
     else {
