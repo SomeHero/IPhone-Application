@@ -17,6 +17,7 @@
     NSString* attributeId;
     NSString* itemType;
     NSInteger points;
+    NSMutableArray* options;
 }
 
 @property(nonatomic) NSInteger itemId;
@@ -25,6 +26,7 @@
 @property(nonatomic) NSInteger sortOrder;
 @property(nonatomic, retain) NSString* itemType;
 @property(nonatomic) NSInteger points;
+@property(nonatomic, retain) NSMutableArray* options;
 
 -(ProfileItem *) initWithDictionary : (NSDictionary *) dictionary;
 

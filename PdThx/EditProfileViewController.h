@@ -20,6 +20,7 @@
 #import "UIProfileTextView.h"
 #import "SelectModalViewController.h"
 #import "ModalSelectProtocol.h"
+#import "UIProfileOptionSelectButton.h"
 
 @interface EditProfileViewController : UISetupUserBaseViewController<UITextFieldDelegate, UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, ModalSelectProtocol>
 {
@@ -28,6 +29,7 @@
     
     NSMutableArray* attributeValues;
     SelectModalViewController* selectModalViewController;
+    NSString* optionSelectAttributeId;
     
     UserAttributeService* userAttributeService;
 }

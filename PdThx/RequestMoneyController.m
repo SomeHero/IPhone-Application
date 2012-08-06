@@ -527,7 +527,6 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
 
     NSString* recipientImageUri = @"";
     NSString* recipientFirstName = @"";
@@ -553,7 +552,7 @@
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     
-    TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
+    TransactionConfirmationViewController*  controller = [[TransactionConfirmationViewController alloc] init];
     
     if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
         controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
@@ -565,8 +564,12 @@
     [controller setTransactionConfirmationDelegate: self];
     [controller setTitle:@"Request Sent"];
     
+    [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];
-     recipientUri = @"";
+    
+    recipientUri = @"";
+    
+    //[controller release];
 }
 
 -(void)requestMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {

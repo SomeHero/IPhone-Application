@@ -576,6 +576,7 @@
 		5BDDAE9715CF7A55007B733E /* UIProfileTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9615CF7A4F007B733E /* UIProfileTextView.m */; };
 		5BDDAE9B15CF7D14007B733E /* SelectModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9A15CF7D14007B733E /* SelectModalViewController.m */; };
 		5BDDAE9E15CF7E56007B733E /* ProfileOptionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */; };
+		5BDDAEA415D0153E007B733E /* UIProfileOptionSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEA315D01537007B733E /* UIProfileOptionSelectButton.m */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -1484,6 +1485,8 @@
 		5BDDAE9A15CF7D14007B733E /* SelectModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectModalViewController.m; sourceTree = "<group>"; };
 		5BDDAE9C15CF7E54007B733E /* ProfileOptionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileOptionItem.h; sourceTree = "<group>"; };
 		5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileOptionItem.m; sourceTree = "<group>"; };
+		5BDDAEA215D0152F007B733E /* UIProfileOptionSelectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIProfileOptionSelectButton.h; sourceTree = "<group>"; };
+		5BDDAEA315D01537007B733E /* UIProfileOptionSelectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIProfileOptionSelectButton.m; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -3003,6 +3006,8 @@
 				5BDDAE9315CF6C2D007B733E /* UIProfileTextField.m */,
 				5BDDAE9515CF7A47007B733E /* UIProfileTextView.h */,
 				5BDDAE9615CF7A4F007B733E /* UIProfileTextView.m */,
+				5BDDAEA215D0152F007B733E /* UIProfileOptionSelectButton.h */,
+				5BDDAEA315D01537007B733E /* UIProfileOptionSelectButton.m */,
 			);
 			name = EditProfile;
 			sourceTree = "<group>";
@@ -4422,6 +4427,7 @@
 				5BDDAE9715CF7A55007B733E /* UIProfileTextView.m in Sources */,
 				5BDDAE9B15CF7D14007B733E /* SelectModalViewController.m in Sources */,
 				5BDDAE9E15CF7E56007B733E /* ProfileOptionItem.m in Sources */,
+				5BDDAEA415D0153E007B733E /* UIProfileOptionSelectButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4846,8 +4852,8 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "6771C41F-A589-4BEB-8730-864C7721563A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6771C41F-A589-4BEB-8730-864C7721563A";
+				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = NO;

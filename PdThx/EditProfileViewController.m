@@ -55,6 +55,16 @@
     
     [userAttributeService updateUserAttribute:updatedAttribute.attributeId withValue:updatedAttribute.attributeValue forUser:user.userId];
     
+    for(int i = 0; i < [user.userAttributes count]; i++)
+    {
+        UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+        
+        if([updatedAttribute.attributeId isEqualToString:userAttribute.attributeId])
+        {
+            userAttribute.attributeValue = updatedAttribute.attributeValue;
+        }
+    }
+    
     [updatedAttribute     release];
 }
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -64,7 +74,17 @@
     
     [userAttributeService updateUserAttribute:updatedAttribute.attributeId withValue:updatedAttribute.attributeValue forUser:user.userId];
     
-    [updatedAttribute     release];
+    for(int i = 0; i < [user.userAttributes count]; i++)
+    {
+        UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+        
+        if([updatedAttribute.attributeId isEqualToString:userAttribute.attributeId])
+        {
+            userAttribute.attributeValue = updatedAttribute.attributeValue;
+        }
+    }
+    
+    [updatedAttribute release];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -212,7 +232,7 @@
     } 
     else if([[profileItem itemType] isEqualToString: @"Picker"])
     {
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIProfileOptionSelectButton *btn = [UIProfileOptionSelectButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0, 2, 150, cell.frame.size.height - 6);
         btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitle:@"select" forState:UIControlStateNormal];
@@ -220,6 +240,21 @@
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [btn setBackgroundColor: [UIColor clearColor]];
         [btn setTitleColor: [UIColor blueColor] forState:UIControlStateNormal];
+        [btn setOptions: profileItem.options];
+        [btn setOptionSelectAttributeId: profileItem.attributeId];
+        
+        
+        for(int i = 0; i < [user.userAttributes count]; i++)
+        {
+            UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+            
+            if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
+            {
+                btn.selectedOption = userAttribute.attributeValue;
+                [btn setTitle:userAttribute.attributeValue forState:UIControlStateNormal];
+            }
+        }
+        
         
         [cell.txtAttributeValue addSubview:btn];
         
@@ -266,16 +301,12 @@
 -(void) selectOption: (id)sender {
     selectModalViewController = [[[SelectModalViewController alloc] initWithFrame:self.view.bounds] autorelease];
     
-    NSMutableArray* options = [[NSMutableArray alloc] init];
-    [options addObject: @"James"];
-    [options addObject: @"Ryan"];
-    [options addObject: @"Thomas"];
-    [options addObject: @"Rob"];
-    [options addObject: @"Hugo"];
+    optionSelectAttributeId = ((UIProfileOptionSelectButton*)sender).optionSelectAttributeId; 
+    NSMutableArray* options = ((UIProfileOptionSelectButton*)sender).options;
     
     [selectModalViewController setOptionSelectDelegate: self];
     selectModalViewController.optionItems= options;
-    selectModalViewController.selectedOptionItem = @"James";
+    selectModalViewController.selectedOptionItem = ((UIProfileOptionSelectButton*)sender).selectedOption;
     selectModalViewController.accountType = @"Option";
     selectModalViewController.headerText = @"Select Your Option";
     selectModalViewController.descriptionText = @"This is a test.";
@@ -408,14 +439,34 @@
 } 
 -(void) optionDidSelect:(NSString*) optionId {
     
-    //selectedOption = optionId;
-    
     //if([selectModal.accountType isEqualToString: @"Send"]) {
     //    [bankAccountService setPreferredSendAccount:optionId forUserId:user.userId];
     //}
     //else {
      //   [bankAccountService setPreferredReceiveAccount:optionId forUserId:user.userId];
     //}
+    UserAttribute* updatedAttribute = [[UserAttribute alloc] init];
+    updatedAttribute.attributeId = optionSelectAttributeId;
+    updatedAttribute.attributeValue = optionId;
+    
+    [userAttributeService updateUserAttribute:updatedAttribute.attributeId withValue:updatedAttribute.attributeValue forUser:user.userId];
+    
+
+    for(int i = 0; i < [user.userAttributes count]; i++)
+    {
+        UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+        
+        if([optionSelectAttributeId isEqualToString:userAttribute.attributeId])
+        {
+            userAttribute.attributeValue = optionId;
+        }
+    }
+    
+    optionSelectAttributeId = @"";
+    
+    [updatedAttribute release];
     [selectModalViewController hide];
+    
+    [profileTable reloadData];
 }
 @end
