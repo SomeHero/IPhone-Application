@@ -1,29 +1,29 @@
 //
-//  SelectAccountModalViewControllerViewController.m
+//  SelectModalViewController.m
 //  PdThx
 //
-//  Created by James Rhodes on 7/26/12.
+//  Created by James Rhodes on 8/6/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SelectAccountModalViewControllerViewController.h"
+#import "SelectModalViewController.h"
 
-@interface SelectAccountModalViewControllerViewController ()
+@interface SelectModalViewController ()
 
 @end
 
-@implementation SelectAccountModalViewControllerViewController
+@implementation SelectModalViewController
 
-@synthesize bankAccounts;
-@synthesize selectedAccount;
+@synthesize optionItems;
+@synthesize selectedOptionItem;
 @synthesize accountType;
 @synthesize optionSelectDelegate;
 @synthesize headerText;
 @synthesize descriptionText;
 
 - (id)initWithFrame:(CGRect)frame{
-	if ((self = [super initWithFrame:frame])) {
-		
+    if ((self = [super initWithFrame:frame])) {
+        
         [self setInnerMargin: 0.0f];
         
         self.cornerRadius = 8.0f;
@@ -32,7 +32,7 @@
         
         
         UITableView *tv = [[[UITableView alloc] initWithFrame:CGRectZero] autorelease];
-		[tv setDataSource:self];
+        [tv setDataSource:self];
         [tv setDelegate: self];
         [tv setBackgroundColor: [UIColor whiteColor]];
         
@@ -57,8 +57,8 @@
         
         [self.contentView setClipsToBounds:YES];
         [self.contentContainer bringSubviewToFront: self.closeButton];
-	}	
-	return self;
+    }	
+    return self;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -67,9 +67,9 @@
 }
 
 - (void)layoutSubviews {
-	[super layoutSubviews];
-	
-	[v setFrame:self.contentView.bounds];
+    [super layoutSubviews];
+    
+    [v setFrame:self.contentView.bounds];
 }
 #pragma mark - Table view data source
 
@@ -81,7 +81,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [bankAccounts count];
+    return [optionItems count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,13 +93,14 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    BankAccount* bankAccount = [bankAccounts objectAtIndex: indexPath.row];
+    NSString* optionItem = [optionItems objectAtIndex: indexPath.row];
     [cell.textLabel setFont: [UIFont boldSystemFontOfSize: 16]];
     cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:54/255.0 blue:62/255.0 alpha:1];
-    cell.textLabel.text = [bankAccount nickName];
+    cell.textLabel.text = optionItem;
     cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
     
-    if([bankAccount.bankAccountId isEqualToString:selectedAccount]) {
+    if([optionItem isEqualToString:selectedOptionItem])
+    {
         cell.accessoryView.frame = CGRectMake(cell.accessoryView.frame.origin.x - 40, cell.accessoryView.frame.origin.y, cell.accessoryView.frame.size.width, cell.accessoryView.frame.size.height);
         
         cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loadingPassed62x62.png"]] autorelease];
@@ -113,25 +114,25 @@
     return YES;
 }
 /*
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Select Your Receiving Account";
-}
-*/
+ -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+ return @"Select Your Receiving Account";
+ }
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 90.0;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-
+    
     // Create label with section title
     UILabel *topLabel = [[[UILabel alloc] init] autorelease];
     topLabel.frame = CGRectMake(0, 0, 280, 26);
-
+    
     topLabel.textColor = [UIColor blackColor];
     topLabel.backgroundColor = [UIColor clearColor];
     topLabel.font = [UIFont boldSystemFontOfSize:15];
     topLabel.text = headerText;
     
-
+    
     UITextView *descriptionTextView = [[[UITextView alloc] init] autorelease];
     descriptionTextView.frame = CGRectMake(0, 18, 280, 46);
     descriptionTextView.contentInset = UIEdgeInsetsMake(-4,-8,0,0);
@@ -141,7 +142,7 @@
     descriptionTextView.backgroundColor = [UIColor clearColor];
     descriptionTextView.font = [UIFont systemFontOfSize: 14];
     descriptionTextView.text = descriptionText;
-
+    
     
     // Create header view and add label as a subview
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(20, 12, 280, 82)];
@@ -150,7 +151,7 @@
     
     [headerView addSubview:descriptionTextView];
     [headerView setAutoresizesSubviews:YES];
-
+    
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 90)];
     [view autorelease];
@@ -198,8 +199,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BankAccount* bankAccount = [bankAccounts objectAtIndex: [indexPath row]];
-    [optionSelectDelegate optionDidSelect:bankAccount.bankAccountId];
+   [optionSelectDelegate optionDidSelect: [optionItems objectAtIndex: [indexPath row]]];
     
 }
 -(void)dealloc {
