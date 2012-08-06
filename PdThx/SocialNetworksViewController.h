@@ -12,11 +12,14 @@
 #import "LinkWithFacebookProtocol.h"
 
 
-@interface SocialNetworksViewController : UIModalBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol>
+@interface SocialNetworksViewController : UISetupUserBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol, UITableViewDataSource, UITableViewDelegate>
 {
     UserService *userService;
+    IBOutlet UITableView* tableView;
 }
 
 @property (assign, nonatomic) int numFailedFB;
+@property(nonatomic, retain) NSDictionary *profileOptions;
+@property(nonatomic, retain) NSArray *sections;
 
 @end

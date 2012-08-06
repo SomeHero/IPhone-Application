@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Section 0</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>Link Facebook Account</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-social-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-social-40x40-active.png</string>
+			<key>Label</key>
+			<string>Link Facebook</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Link Twitter Account</string>
+			<key>HighlightedImage</key>
+			<string>icon-settings-social-40x40-active.png</string>
+			<key>Image</key>
+			<string>icon-settings-social-40x40-active.png</string>
+			<key>Label</key>
+			<string>Link Twitter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

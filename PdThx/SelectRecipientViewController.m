@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    txtHeader.text = headerText;
+    
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -109,10 +111,42 @@
     return 60;
 }
 
+-(int)isValidFormattedPayPoint: (NSString*) paypoint {
+    // Do handling for entry of text field where entry does not match
+    // any contacts in the user's contact list.
+    
+    // The only cases we need to handle are: Phone Number and Email
+    NSString * numOnly = [[paypoint componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    NSRange numOnly2 = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]  options:NSCaseInsensitiveSearch];
+    if([paypoint length] < 1)
+        return 0;
+    if ( [paypoint isEqualToString:numOnly] || numOnly2.location == NSNotFound ) {
+        // Is only Numbers, I think?
+        if ( [numOnly characterAtIndex:0] == '1' || [numOnly characterAtIndex:0] == '0' )
+            numOnly = [numOnly substringFromIndex:1]; // Do not include country codes
+        if ( [numOnly length] == 10 )
+            return 1;
+    } else {
+        if ( [paypoint	 rangeOfString:@"@"].location != NSNotFound && [paypoint rangeOfString:@"."].location != NSNotFound ){
+            // Contains both @ and a period. Now check if there's atleast:
+            // SOMETHING before the @
+            // SOMETHING after the @ before the .
+            // SOMETHING after the .
+            if ( [paypoint rangeOfString:@"@"].location != 0 
+                && [paypoint rangeOfString:@"."].location != ([paypoint rangeOfString:@"@"].location + 1) && [paypoint length] != [paypoint rangeOfString:@"."].location+1 )
+                return 2;
+        }
+    }
+    
+    return 0;
+}
+
+
 - (void)dealloc {
     [selectRecipientTable release];
     [recipients release];
     [txtHeader release];
+    [selectRecipientDelegate release];
     [super dealloc];
 }
 
