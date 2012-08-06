@@ -741,11 +741,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">lblScore</string>
+						<string key="label">lblRemainingLimit</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="666849312"/>
+					</object>
+					<int key="connectionID">140</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lblDailyLimit</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="163274291"/>
 					</object>
-					<int key="connectionID">82</int>
+					<int key="connectionID">141</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1046,7 +1054,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">139</int>
+			<int key="maxID">141</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1134,7 +1142,9 @@
 						<string key="btnSendNonprofit">UIButton</string>
 						<string key="btnSendPhone">UIButton</string>
 						<string key="btnUserImage">UIButton</string>
+						<string key="lblDailyLimit">UILabel</string>
 						<string key="lblPayPoints">UILabel</string>
+						<string key="lblRemainingLimit">UILabel</string>
 						<string key="lblScore">UILabel</string>
 						<string key="lblUserName">UILabel</string>
 						<string key="quickSendView">QuickSendView</string>
@@ -1165,8 +1175,16 @@
 							<string key="name">btnUserImage</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="lblDailyLimit">
+							<string key="name">lblDailyLimit</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="lblPayPoints">
 							<string key="name">lblPayPoints</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lblRemainingLimit">
+							<string key="name">lblRemainingLimit</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="lblScore">

@@ -528,7 +528,7 @@
     recipientUri = @"";
 }
 
--(void)sendMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
+-(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
     
     if(lockedOut) {
         [self dismissModalViewControllerAnimated: YES];

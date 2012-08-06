@@ -164,7 +164,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     // Return the number of rows in the section.
     if ( isFiltered == YES ){
         if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
@@ -172,6 +171,12 @@
         else
             return [[filteredResults objectAtIndex:section] count];
     } else {
+        NSLog(@"Returning %d rows for section [%d] aka %c", [[allResults objectAtIndex:section] count],section, (char)(section+64));
+        if ([[allResults objectAtIndex:section] count] > 0 ){
+            NSLog(@"First object of %c is: %@", (char)(section+64), ((Contact*)[[allResults objectAtIndex:section] objectAtIndex:0]).name );
+            NSLog(@"First name of object: %@", ((Contact*)[[allResults objectAtIndex:section] objectAtIndex:0]).firstName);
+        }
+        
         return [[allResults objectAtIndex:section] count];
     }
 }
@@ -243,6 +248,8 @@ limitTextLayer.string = attrStr;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Trying to load cell for indexPath: sec[%d] row[%d] aka %c", indexPath.section, indexPath.row, (char)(indexPath.section+64));
+    
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [imageView setContentMode:UIViewContentModeScaleToFill];
@@ -258,7 +265,6 @@ limitTextLayer.string = attrStr;
         myCell = [nib objectAtIndex:0];
     }
     
-    
     if ( ! myCell.contactNameLayer )
     {
         myCell.contactNameLayer = [[CATextLayer alloc] init];
@@ -269,7 +275,11 @@ limitTextLayer.string = attrStr;
         myCell.contactNameLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
         myCell.contactNameLayer.alignmentMode = kCAAlignmentLeft;
         myCell.contactNameLayer.contentsScale = [[UIScreen mainScreen] scale];
+        
         [layer addSublayer:myCell.contactNameLayer];
+    } else if ( myCell.contactNameLayer && ![myCell.contactNameLayer superlayer])
+    {
+        [myCell.contactNameField.layer addSublayer:myCell.contactNameLayer];
     }
     
     //Wipe out old information in Cell
@@ -278,8 +288,12 @@ limitTextLayer.string = attrStr;
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
     
+    myCell.contactNameField.text = @"";
+    
     NSString* contactLabel;
     NSRange boldRange;
+    
+    contactLabel = @"";
     
     CTFontRef boldedFont = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 19.0, NULL);
     CTFontRef unboldedFont = CTFontCreateWithName((CFStringRef)@"Helvetica", 19.0, NULL);
@@ -291,8 +305,11 @@ limitTextLayer.string = attrStr;
                                    (id)unboldedFont forKey:(id)kCTFontAttributeName];
     
     Contact *contact;
-    if ( isFiltered == YES ) {
-        if ( foundFiltered == NO ){ // Only Show it once (section0)
+    if ( isFiltered == YES )
+    {
+        if ( foundFiltered == NO )
+        {
+            // Only Show it once (section0)
             int entryType = [self isValidFormattedPayPoint];
             [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
             if ( entryType == 0 ) {
@@ -384,6 +401,40 @@ limitTextLayer.string = attrStr;
             contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         }
         
+        if ( contact.recipientId > 0 )
+        {
+            // This is an organization...
+            if ( [myCell.contactNameLayer superlayer] )
+                [myCell.contactNameLayer removeFromSuperlayer];
+            
+            myCell.contactNameField.text = contact.name;
+            myCell.contactDetail.text = @"";
+            
+            if (!contact.imgData)
+            {
+                if (tvSubview.dragging == NO && tvSubview.decelerating == NO)
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
+                
+                // if a download is deferred or in progress, return a placeholder image
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
+            }
+            else
+            {
+                [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+            }
+            
+            return myCell;
+        }
         if ( contact.facebookID.length > 0 ){
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
@@ -462,7 +513,45 @@ limitTextLayer.string = attrStr;
     } else {
         Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         
-        if ( contact.facebookID.length > 0 ){
+        if ( contact.recipientId > 0 )
+        {
+            // This is an organization...
+            
+            // This is an organization...
+            if ( [myCell.contactNameLayer superlayer] )
+                [myCell.contactNameLayer removeFromSuperlayer];
+            
+            myCell.contactNameField.text = contact.name;
+            myCell.contactDetail.text = @"";
+            
+            if (!contact.imgData)
+            {
+                if (tvSubview.dragging == NO && tvSubview.decelerating == NO)
+                {
+                    [self startIconDownload:contact forIndexPath:indexPath];
+                }
+                
+                // if a download is deferred or in progress, return a placeholder image
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                
+                
+                if (indexPath.row%2 == 0)  {
+                    myCell.backgroundView = imageView;
+                } else {
+                    myCell.backgroundView = altImageView;
+                }
+                
+            }
+            else
+            {
+                [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+            }
+            
+            return myCell;
+        }
+        
+        if ( contact.facebookID.length > 0 )
+        {
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
                 {
@@ -514,7 +603,15 @@ limitTextLayer.string = attrStr;
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             }
         } else {
-            if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
+            if ( contact.firstName == (id)[NSNull null] && contact.lastName == (id)[NSNull null] &&
+                contact.name != (id)[NSNull null] && contact.name.length > 0 )
+            {
+                //Organization Probably? We have no "type" of contact... bad idea.
+                contactLabel = contact.name;
+                boldRange = NSMakeRange(0, [contactLabel length]);
+            }
+            if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] )
+            {
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
                 {
                     contactLabel = [NSString stringWithFormat:@"%@ %@",contact.firstName, contact.lastName];

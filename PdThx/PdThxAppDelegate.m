@@ -601,7 +601,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         if( [firstName length] > 0 || [lastName length] > 0 ){
             contactFirstLast = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
         } else {
-            contactFirstLast = @"Unlabeled Contact";
+            continue; //Contact is an organization or non-labeled contact
         }
         
         contactFirstLast = [contactFirstLast stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
@@ -613,6 +613,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         if ( tempImgData != nil ) {
             contact.imgData = tempImgData;
         }
+        
         NSMutableArray* paypoints = [[NSMutableArray alloc] init];
         
         // Handles Multiple Phone Numbers for One Contact...
@@ -691,6 +692,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         Contact* contact = [[Contact alloc] init];
         contact.userId = merchant.merchantId;
+        contact.firstName = @"";
+        contact.lastName = @"";
         contact.name = merchant.name;
         contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
         contact.recipientId =  merchant.merchantId;
