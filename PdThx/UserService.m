@@ -238,7 +238,9 @@
                               lastName, @"LastName",
                               imageUrl, @"ImageUrl",
                               nil];
-    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setValue:firstName forKey:@"firstName"];
+    [prefs setValue:lastName forKey:@"lastName"];
     NSString* newJSON = [userData JSONRepresentation];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
