@@ -23,6 +23,7 @@
 @property (retain, nonatomic) NSArray* recipients;
 @property (retain) id<SelectRecipientProtocol> selectRecipientDelegate;
 @property (assign, nonatomic) BOOL noMatchFound;
+@property (retain, nonatomic) NSString* headerText;
 
 
 @end

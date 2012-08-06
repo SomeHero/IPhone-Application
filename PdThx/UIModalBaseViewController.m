@@ -120,6 +120,7 @@ CGSize scrollViewOriginalSize;
 {
     [mainScrollView release];
     [phoneNumberFormatter release];
+    [headerText release];
     
     [super dealloc];
 }
