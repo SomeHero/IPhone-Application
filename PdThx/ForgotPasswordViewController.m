@@ -154,9 +154,9 @@
     } else {
         if ( [txtEmailAddress.text rangeOfString:@"@"].location != NSNotFound && [txtEmailAddress.text rangeOfString:@"."].location != NSNotFound ){
             // Contains both @ and a period. Now check if there's atleast:
-            // SOMETHING before the @
-            // SOMETHING after the @ before the .
-            // SOMETHING after the .
+            // [SOMETHING] before the @
+            // [SOMETHING] after the @ before the .
+            // [SOMETHING?] after the .
             if ( [txtEmailAddress.text rangeOfString:@"@"].location != 0 
                 && [txtEmailAddress.text rangeOfString:@"."].location != ([txtEmailAddress.text rangeOfString:@"@"].location + 1) && [txtEmailAddress.text length] != [txtEmailAddress.text rangeOfString:@"."].location+1 )
                 return 2;

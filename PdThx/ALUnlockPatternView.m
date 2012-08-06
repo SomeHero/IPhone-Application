@@ -57,7 +57,7 @@
     _radius=minSide*_radiusPercentage/100;
     UIButton *btn=(UIButton *)[self viewWithTag:index];
     float distance=[self distanceBetweenTwoPoints:btn.center point2:point];
-    if (distance<=_radius*2)
+    if (distance<=_radius*4)
         return YES;
     else
         return NO;
@@ -150,6 +150,7 @@
     if ([_delegate respondsToSelector:@selector(unlockPatternView:didSelectCellAtIndex:andpartialCode:)])
         [_delegate unlockPatternView:self didSelectCellAtIndex:_lastCellSelected andpartialCode:_code];
 }
+
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     if (_touchStopped)
         return;
@@ -265,7 +266,8 @@
 
 #pragma mark -
 #pragma mark Public Methods
--(BOOL) isCellSelected:(int) cellNumber{
+-(BOOL) isCellSelected:(int) cellNumber
+{
     char cell=[_matrixValues characterAtIndex:cellNumber-1];
     if (cell == '0')
         return NO;
