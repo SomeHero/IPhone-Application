@@ -342,7 +342,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         NSString* transactionMonth = [transactionDate substringToIndex:2];
         NSString* transactionYear = [transactionDate substringFromIndex:6];
         
-        NSLog(@"days between dates: TODAY %@ and Transaction %@ -- %d", todaysDateString, transactionDate, [self daysBetweenDate:todaysDate andDate:item.createDate] );
+        // NSLog(@"days between dates: TODAY %@ and Transaction %@ -- %d", todaysDateString, transactionDate, [self daysBetweenDate:todaysDate andDate:item.createDate] );
         
         itemComponents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:item.createDate];
         
@@ -526,11 +526,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     // create the imageView with the image in it
     /*
-    UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-pattern-320x320"]] autorelease];
+    UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-section-320x25.png"]] autorelease];
     imageView.frame = CGRectMake(0,0,320,25);
     */
-    
-    [customView setBackgroundColor:[UIColor grayColor]];
+    customView.backgroundColor = [UIColor colorWithRed:109/255.0 green:110/255.0 blue:114/255.0 alpha:1.0];
+
     
     // create the label objects
     UILabel *headerLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
