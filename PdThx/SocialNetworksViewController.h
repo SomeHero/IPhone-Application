@@ -10,13 +10,17 @@
 #import "UserService.h"
 #import "Facebook.h"
 #import "LinkWithFacebookProtocol.h"
+#import "CustomAlertViewProtocol.h"
 
 
-@interface SocialNetworksViewController : UIModalBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol>
+@interface SocialNetworksViewController : UISetupUserBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol, UITableViewDataSource, UITableViewDelegate, CustomAlertViewProtocol>
 {
     UserService *userService;
+    IBOutlet UITableView* tableView;
 }
 
 @property (assign, nonatomic) int numFailedFB;
+@property(nonatomic, retain) NSDictionary *profileOptions;
+@property(nonatomic, retain) NSArray *sections;
 
 @end

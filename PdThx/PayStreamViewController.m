@@ -525,8 +525,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     UIView* customView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,25)] autorelease];
     
     // create the imageView with the image in it
+    /*
     UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-pattern-320x320"]] autorelease];
     imageView.frame = CGRectMake(0,0,320,25);
+    */
+    
+    [customView setBackgroundColor:[UIColor grayColor]];
     
     // create the label objects
     UILabel *headerLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
@@ -536,8 +540,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     headerLabel.text =  [sections objectAtIndex:section];
     headerLabel.textColor = [UIColor whiteColor];
     headerLabel.textAlignment =  UITextAlignmentCenter;
-        
-    [customView addSubview:imageView];
+    
+    //[customView addSubview:imageView];
     [customView addSubview:headerLabel];
     
     return customView;

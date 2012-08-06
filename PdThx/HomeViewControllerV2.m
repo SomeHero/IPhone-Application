@@ -34,6 +34,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize btnSendPhone, btnSendFacebook, btnSendNonprofit, tabBar;
 @synthesize quickSendOpened;
 @synthesize limitTextLayer;
+@synthesize lblDailyLimit;
+@synthesize lblRemainingLimit;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,6 +59,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [userService release];
     
     [quickSendView release];
+    [lblRemainingLimit release];
     [super dealloc];
 }
 
@@ -354,7 +357,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super viewWillAppear:animated];
     
     lblUserName.text = @"";
-    lblScore.text = @"";
+    lblDailyLimit.text = @"";
+    lblRemainingLimit.text = @"";
     lblPayPoints.text = @"";
 }
 
@@ -390,7 +394,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
         limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
         limitTextLayer.wrapped = NO;
-        CALayer *layer = lblScore.layer; //self is a view controller contained by a navigation controller
+        CALayer *layer = lblDailyLimit.layer; //self is a view controller contained by a navigation controller
         limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
         limitTextLayer.alignmentMode = kCAAlignmentCenter;
         limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
@@ -398,6 +402,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     
     NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
+    
+    lblRemainingLimit.text = @"$99";
     
     /* Create the attributes (for the attributed string) */
     
@@ -438,6 +444,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     self.tabBar = nil;
     [self setQuickSendView:nil];
+    [lblRemainingLimit release];
+    lblRemainingLimit = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

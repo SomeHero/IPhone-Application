@@ -9,13 +9,14 @@
 #import "SocialNetworksViewController.h"
 #import "TwitterRushViewController.h"
 #import "FacebookSignIn.h"
+#import "UIProfileTableViewCell.h"
 
 @interface SocialNetworksViewController ()
 
 @end
 
 @implementation SocialNetworksViewController
-@synthesize numFailedFB;
+@synthesize numFailedFB, profileOptions, sections;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,8 +29,29 @@
 
 - (void)viewDidLoad
 {
+    [tableView setDelegate:self];
+    [tableView setDataSource:self];
+    self.title = @"Settings";
+    [tableView setRowHeight: 60];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"opSocialNetworks" ofType:@"plist"];
+    
+    NSDictionary *dic = [[NSDictionary alloc] initWithContentsOfFile:path];
+    
+    self.profileOptions = dic;
+    [dic release];
+    
+    NSArray *array = [[profileOptions allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    
+    self.sections = array;
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    //self.clearsSelectionOnViewWillAppear = NO;
+    NSError *error;
+    if(![[GANTracker sharedTracker] trackPageview:@"ProfileController"
+                                        withError:&error]){
+        //Handle Error Here
+    }
 }
 
 - (void)viewDidUnload
@@ -38,32 +60,109 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-- (IBAction)btnLinkFacebookClicked:(id)sender {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
-    [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
+
+#pragma mark - Table View Data Source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return [sections count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    NSString *optionSection = [sections objectAtIndex:section];
     
-    Facebook* fBook = appDelegate.fBook;
-    FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
+    NSArray *profileSection = [profileOptions objectForKey:optionSection];
     
-    if ( ![fBook isSessionValid] ){
-        NSLog(@"Facebook Session is NOT Valid, Signing in...");
-        [faceBookSignInHelper setCancelledDelegate:appDelegate];
-        [faceBookSignInHelper signInWithFacebook:self];
-    } else {
-        NSLog(@"Facebook Session is Valid, Getting info...");
-        [fBook requestWithGraphPath:@"me" andDelegate:self];
-        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+    return [profileSection count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tblView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    
+    UIProfileTableViewCell *cell = [tblView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil){
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIProfileTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
     }
     
+    NSString *optionSection = [sections objectAtIndex:[indexPath section]];
+    
+    NSArray *profileSection = [profileOptions objectForKey:optionSection];
+    
+    cell.lblHeading.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Label"];
+    cell.lblDescription.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Description"];
+    cell.ctrlImage.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
+    cell.ctrlImage.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
+    
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    return cell;
 }
-- (IBAction)btnLinkTwitterClicked:(id)sender {
-    TwitterRushViewController* controller =
-    [[TwitterRushViewController alloc] init];
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    [controller release];
-    
+    switch(indexPath.section) {
+        case 0:
+        {
+            switch (indexPath.row) 
+            {
+                case 0:
+                {
+                    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
+                    if ([prefs objectForKey:@"facebookId"] != nil)
+                    {
+                        [appDelegate showSimpleAlertView:YES withTitle:@"Already linked!" withSubtitle:@"" withDetailedText:@"You've already signed in with Facebook, unable to link!" withButtonText:@"OK" withDelegate:self];
+                    }
+                    else {
+                        
+                        [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
+                        
+                        Facebook* fBook = appDelegate.fBook;
+                        FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
+                        
+                        
+                        if ( ![fBook isSessionValid] ){
+                            NSLog(@"Facebook Session is NOT Valid, Signing in...");
+                            [faceBookSignInHelper setCancelledDelegate:appDelegate];
+                            [faceBookSignInHelper signInWithFacebook:self];
+                        } else {
+                            NSLog(@"Facebook Session is Valid, Getting info...");
+                            
+                            //[fBook requestWithGraphPath:@"me" andDelegate:self];
+                            //[fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+                        }
+                    }
+                    break;
+                }
+                case 1:
+                {
+                    //Twitter
+                    TwitterRushViewController* controller =
+                    [[TwitterRushViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:controller animated:YES];
+                    
+                    [controller release];
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
+
+-(void) didSelectButtonWithIndex:(int)index
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
+    [appDelegate dismissAlertView];
 }
 
 -(void)fbSignInCancelled
@@ -118,6 +217,20 @@
         [fBook requestWithGraphPath:@"me" andDelegate:self];
         [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
     }
+}
+
+-(void) linkFbAccountDidSucceed {
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
+    [appDelegate.fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+    [appDelegate dismissProgressHUD];
+    [appDelegate showSimpleAlertView:YES withTitle:@"Success!" withSubtitle:@"Facebook account successfully linked." withDetailedText:@"Facebook account has been linked, you can now send/request money from Facebook contacts and sign in with Facebook from the welcome page." withButtonText:@"OK" withDelegate:self];
+}
+
+-(void) linkFbAccountDidFail:(NSString *)message {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
+    [appDelegate dismissProgressHUD];
+    [appDelegate showSimpleAlertView:NO withTitle:@"Failed!" withSubtitle:@"Facebook account linking failed." withDetailedText:[NSString stringWithFormat:@"Unable to link Facebook account: %@", message] withButtonText:@"OK" withDelegate:self];
 }
 
 
