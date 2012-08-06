@@ -32,7 +32,9 @@
     IBOutlet UIButton *btnUserImage;
     IBOutlet UILabel *lblUserName;
     IBOutlet UILabel* lblPayPoints;
-    IBOutlet UILabel* lblScore;
+    IBOutlet UILabel* lblDailyLimit;
+    IBOutlet UILabel *lblRemainingLimit;
+    
     
     UserService *userService;
     IBOutlet QuickSendView *quickSendView;
@@ -42,6 +44,9 @@
 @property(nonatomic, retain) UIButton *btnSendPhone;
 @property(nonatomic, retain) UIButton *btnSendFacebook;
 @property(nonatomic, retain) UIButton *btnSendNonprofit;
+
+@property (nonatomic, retain) UILabel *lblDailyLimit;
+@property (nonatomic, retain) UILabel *lblRemainingLimit;
 
 @property(nonatomic, retain) UILabel *lblUserName;
 @property(nonatomic, retain) QuickSendView *quickSendView;

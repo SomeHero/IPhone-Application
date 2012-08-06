@@ -692,6 +692,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         
         Contact* contact = [[Contact alloc] init];
         contact.userId = merchant.merchantId;
+        contact.firstName = @"";
+        contact.lastName = @"";
         contact.name = merchant.name;
         contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
         contact.recipientId =  merchant.merchantId;
