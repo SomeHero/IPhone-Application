@@ -33,6 +33,13 @@
     mainScrollView.contentSize = CGSizeMake(320, 640);
     [mainView addSubview:mainScrollView];
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    if ([prefs objectForKey:@"firstName"] != nil && [prefs objectForKey:@"lastName"] != nil)
+    {
+        txtNameOnAccount.text = [NSString stringWithFormat:@"%@ %@", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastName"]];
+    }
+    
     SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
     [setupNavBar setActiveState:@"Enable" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:YES whereEnableComplete:NO];
     [navBar addSubview:setupNavBar];
