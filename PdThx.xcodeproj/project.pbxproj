@@ -571,6 +571,11 @@
 		5BDDAE8A15CCDD4F007B733E /* VerifyACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE8815CCDD4E007B733E /* VerifyACHAccountViewController.m */; };
 		5BDDAE8B15CCDD4F007B733E /* VerifyACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAE8915CCDD4E007B733E /* VerifyACHAccountViewController.xib */; };
 		5BDDAE8E15CCDDCB007B733E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE8D15CCDDCA007B733E /* Reachability.m */; };
+		5BDDAE9115CF64C6007B733E /* UserAttributeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9015CF64C4007B733E /* UserAttributeService.m */; };
+		5BDDAE9415CF6C39007B733E /* UIProfileTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9315CF6C2D007B733E /* UIProfileTextField.m */; };
+		5BDDAE9715CF7A55007B733E /* UIProfileTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9615CF7A4F007B733E /* UIProfileTextView.m */; };
+		5BDDAE9B15CF7D14007B733E /* SelectModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9A15CF7D14007B733E /* SelectModalViewController.m */; };
+		5BDDAE9E15CF7E56007B733E /* ProfileOptionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -1469,6 +1474,16 @@
 		5BDDAE8915CCDD4E007B733E /* VerifyACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyACHAccountViewController.xib; sourceTree = "<group>"; };
 		5BDDAE8C15CCDDCA007B733E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5BDDAE8D15CCDDCA007B733E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		5BDDAE8F15CF64C3007B733E /* UserAttributeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAttributeService.h; sourceTree = "<group>"; };
+		5BDDAE9015CF64C4007B733E /* UserAttributeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAttributeService.m; sourceTree = "<group>"; };
+		5BDDAE9215CF6C29007B733E /* UIProfileTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIProfileTextField.h; sourceTree = "<group>"; };
+		5BDDAE9315CF6C2D007B733E /* UIProfileTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIProfileTextField.m; sourceTree = "<group>"; };
+		5BDDAE9515CF7A47007B733E /* UIProfileTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIProfileTextView.h; sourceTree = "<group>"; };
+		5BDDAE9615CF7A4F007B733E /* UIProfileTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIProfileTextView.m; sourceTree = "<group>"; };
+		5BDDAE9915CF7D14007B733E /* SelectModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectModalViewController.h; sourceTree = "<group>"; };
+		5BDDAE9A15CF7D14007B733E /* SelectModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectModalViewController.m; sourceTree = "<group>"; };
+		5BDDAE9C15CF7E54007B733E /* ProfileOptionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileOptionItem.h; sourceTree = "<group>"; };
+		5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileOptionItem.m; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -2974,6 +2989,7 @@
 		5B8B457415A61EFB00822B67 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
+				5BDDAE9815CF7CC8007B733E /* Modals */,
 				5B8B457A15A61F8400822B67 /* EditProfileViewController.h */,
 				5B8B457B15A61F8400822B67 /* EditProfileViewController.m */,
 				5B8B457C15A61F8400822B67 /* EditProfileViewController.xib */,
@@ -2983,6 +2999,10 @@
 				5B8B458E15A6230F00822B67 /* UICustomProfileHeaderViewController.h */,
 				5B8B458F15A6231000822B67 /* UICustomProfileHeaderViewController.m */,
 				5B8B459015A6231000822B67 /* UICustomProfileHeaderViewController.xib */,
+				5BDDAE9215CF6C29007B733E /* UIProfileTextField.h */,
+				5BDDAE9315CF6C2D007B733E /* UIProfileTextField.m */,
+				5BDDAE9515CF7A47007B733E /* UIProfileTextView.h */,
+				5BDDAE9615CF7A4F007B733E /* UIProfileTextView.m */,
 			);
 			name = EditProfile;
 			sourceTree = "<group>";
@@ -3259,6 +3279,8 @@
 				5B357D0315B59987000CD5FC /* NonProfitDetail.m */,
 				5BDDADC315BDE5A5007B733E /* ApplicationConfiguration.h */,
 				5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */,
+				5BDDAE9C15CF7E54007B733E /* ProfileOptionItem.h */,
+				5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -3369,6 +3391,8 @@
 				5B8B45BA15A8EFA800822B67 /* ApplicationService.m */,
 				5B11963715ADFC6A003F8D53 /* MerchantServices.h */,
 				5B11963815ADFC6A003F8D53 /* MerchantServices.m */,
+				5BDDAE8F15CF64C3007B733E /* UserAttributeService.h */,
+				5BDDAE9015CF64C4007B733E /* UserAttributeService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -3408,6 +3432,15 @@
 				D5824A0B15CADCCE009BD579 /* buttonTallStandardNA.png */,
 			);
 			name = Buttons;
+			sourceTree = "<group>";
+		};
+		5BDDAE9815CF7CC8007B733E /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				5BDDAE9915CF7D14007B733E /* SelectModalViewController.h */,
+				5BDDAE9A15CF7D14007B733E /* SelectModalViewController.m */,
+			);
+			name = Modals;
 			sourceTree = "<group>";
 		};
 		5BE6F79E14E75C5E00599EF2 /* DataObjects */ = {
@@ -4384,6 +4417,11 @@
 				D58B392915CC5A2C00DAB591 /* ACHHelpView.m in Sources */,
 				5BDDAE8A15CCDD4F007B733E /* VerifyACHAccountViewController.m in Sources */,
 				5BDDAE8E15CCDDCB007B733E /* Reachability.m in Sources */,
+				5BDDAE9115CF64C6007B733E /* UserAttributeService.m in Sources */,
+				5BDDAE9415CF6C39007B733E /* UIProfileTextField.m in Sources */,
+				5BDDAE9715CF7A55007B733E /* UIProfileTextView.m in Sources */,
+				5BDDAE9B15CF7D14007B733E /* SelectModalViewController.m in Sources */,
+				5BDDAE9E15CF7E56007B733E /* ProfileOptionItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

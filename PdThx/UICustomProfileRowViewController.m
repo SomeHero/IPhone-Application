@@ -12,6 +12,7 @@
 
 @synthesize lblAttributeName;
 @synthesize txtAttributeValue;
+@synthesize userAttributeId;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -32,6 +33,7 @@
 - (void)dealloc {
     [lblAttributeName release];
     [txtAttributeValue release];
+    [userAttributeId release];
     
     [super dealloc];
 }
