@@ -136,8 +136,7 @@
                         } else {
                             NSLog(@"Facebook Session is Valid, Getting info...");
                             
-                            //[fBook requestWithGraphPath:@"me" andDelegate:self];
-                            //[fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+                            [fBook requestWithGraphPath:@"me" andDelegate:self];
                         }
                     }
                     break;
