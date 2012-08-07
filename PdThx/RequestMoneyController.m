@@ -529,8 +529,7 @@
 
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-    
+
     NSString* recipientImageUri = @"";
     NSString* recipientFirstName = @"";
     NSString* recipientLastName = @"";
@@ -555,7 +554,7 @@
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     
-    TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
+    TransactionConfirmationViewController*  controller = [[TransactionConfirmationViewController alloc] init];
     
     if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
     {
@@ -577,6 +576,7 @@
     [controller setTransactionConfirmationDelegate: self];
     [controller setTitle:@"Request Sent"];
     
+    [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];
     recipientUri = @"";
 }

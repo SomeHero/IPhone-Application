@@ -16,6 +16,7 @@
 @synthesize attributeId;
 @synthesize itemType;
 @synthesize points;
+@synthesize options;
 
 -(id)init {
     self = [super init];
@@ -37,6 +38,15 @@
         sortOrder = [[dictionary valueForKey: @"SortOrder"] intValue];
         itemType = [[dictionary valueForKey:@"ItemType"] copy];
         points = [[dictionary valueForKey:@"Points"] intValue];
+        
+        NSArray *tempOptions = [[dictionary valueForKey:@"SelectOptions"] copy];
+        
+        options = [[NSMutableArray alloc] init];
+        
+        for(int i = 0; i <[tempOptions count]; i++)
+        {
+            [options addObject: [[tempOptions objectAtIndex:(NSUInteger) i] autorelease]];
+        }
     }
     
     return self;

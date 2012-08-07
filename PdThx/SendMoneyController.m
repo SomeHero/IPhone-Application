@@ -370,13 +370,11 @@
 
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-    
     NSString* recipientImageUri = @"";
     NSString* recipientFirstName = @"";
     NSString* recipientLastName = @"";
     
-    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+    if([[recipientUri substringToIndex:3] isEqualToString:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
         recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
@@ -498,7 +496,7 @@
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     
-    TransactionConfirmationViewController*  controller = [[[TransactionConfirmationViewController alloc] init] retain];
+    TransactionConfirmationViewController*  controller = [[TransactionConfirmationViewController alloc] init];
     
     if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
     {
@@ -518,19 +516,20 @@
     
     
     [controller setContinueButtonText:@"Send Another Payment"];
-    
     [controller setTransactionConfirmationDelegate: self];
     [controller setTitle:@"Payment Sent"];
     
-    
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];
+    
     recipientUri = @"";
+    
+    //[controller release];
 }
 
--(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
-    
-    if(lockedOut) {
+-(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {\
+    if(lockedOut)
+    {
         [self dismissModalViewControllerAnimated: YES];
         
         [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
@@ -569,7 +568,6 @@
 }
 -(void)didChooseContact:(Contact *)contact
 {
-    NSLog(@"Returned with Contact from ContactSelectVC");
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
@@ -607,6 +605,8 @@
     {
         recipientUri = [contact.paypoints objectAtIndex:0];
     }
+    
+    NSLog(@"Returned with Contact Recipient ID: %@", recipientUri);
     
 }
 
