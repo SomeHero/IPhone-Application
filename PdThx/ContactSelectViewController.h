@@ -19,9 +19,11 @@
 #import "DoGoodViewController.h"
 #import "DonationContactSelectViewController.h"
 #import "SendDonationViewController.h"
+#import "SetContactAndAmountProtocol.h"
+#import "SetContactProtocol.h"
 
-
-@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate>
+@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate,
+    SetContactProtocol, SetContactAndAmountProtocol>
 {
     IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
@@ -31,6 +33,8 @@
     NSMutableArray * allResults;
     NSMutableArray * filteredResults;
     NSMutableDictionary *fbIconsDownloading;
+    id<SetContactProtocol> didSetContact;
+    id<SetContactAndAmountProtocol> didSetContactAndAmount;
     id<ContactSelectChosenProtocol> contactSelectChosenDelegate;
     IBOutlet UITextField *txtSearchBox;
     bool isFiltered;
@@ -42,8 +46,9 @@
 @property (nonatomic, retain) NSMutableArray * allResults;
 @property (nonatomic, retain) NSMutableArray * filteredResults;
 @property (nonatomic, retain) Facebook * fBook;
-@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, retain) NSMutableDictionary *fbIconsDownloading;
+@property(assign) id didSetContact;
+@property(assign) id didSetContactAndAmount;
 @property (assign) id contactSelectChosenDelegate;
 @property (nonatomic, retain) UITextField *txtSearchBox;
 @property (nonatomic, assign) bool isFiltered;

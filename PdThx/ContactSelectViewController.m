@@ -29,6 +29,8 @@
 @synthesize searchBar, tvSubview, fBook, allResults;
 @synthesize fbIconsDownloading,contactSelectChosenDelegate;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
+@synthesize didSetContactAndAmount;
+@synthesize didSetContact;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -263,6 +265,7 @@ limitTextLayer.string = attrStr;
     if ( myCell == nil ){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ContactTableViewCell" owner:self options:nil];
         myCell = [nib objectAtIndex:0];
+        [myCell setDetailInfoButtonClicked: self];
     }
     
     if ( ! myCell.contactNameLayer )
@@ -409,6 +412,13 @@ limitTextLayer.string = attrStr;
             
             myCell.contactNameField.text = contact.name;
             myCell.contactDetail.text = @"";
+        
+            [myCell.btnInfo setContact:contact];
+            if(!contact.showDetailIcon)
+                [myCell.btnInfo setHidden:YES];
+            else {
+                [myCell.btnInfo setHidden:NO];
+            }
             
             if (!contact.imgData)
             {
@@ -449,6 +459,12 @@ limitTextLayer.string = attrStr;
             }
             
             myCell.contactDetail.text = @"Facebook Friend";
+            [myCell.btnInfo setContact:contact];
+            if(!contact.showDetailIcon)
+                [myCell.btnInfo setHidden:YES];
+            else {
+                [myCell.btnInfo setHidden:NO];
+            }
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
@@ -505,6 +521,13 @@ limitTextLayer.string = attrStr;
             else {
                 myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
             }
+            [myCell.btnInfo setContact:contact];
+            if(!contact.showDetailIcon)
+                [myCell.btnInfo setHidden:YES];
+            else {
+                [myCell.btnInfo setHidden:NO];
+            }
+            
             if ( contact.imgData )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             else
@@ -516,14 +539,19 @@ limitTextLayer.string = attrStr;
         if ( contact.recipientId > 0 )
         {
             // This is an organization...
-            
-            // This is an organization...
             if ( [myCell.contactNameLayer superlayer] )
                 [myCell.contactNameLayer removeFromSuperlayer];
             
             myCell.contactNameField.text = contact.name;
             myCell.contactDetail.text = @"";
+            myCell.merchantId = contact.userId;
+            [myCell.btnInfo setContact:contact];
             
+            if(!contact.showDetailIcon)
+                [myCell.btnInfo setHidden:YES];
+            else {
+                [myCell.btnInfo setHidden:NO];
+            }
             if (!contact.imgData)
             {
                 if (tvSubview.dragging == NO && tvSubview.decelerating == NO)
@@ -566,6 +594,12 @@ limitTextLayer.string = attrStr;
             
             myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend"];
             
+            [myCell.btnInfo setContact:contact];
+            if(!contact.showDetailIcon)
+                [myCell.btnInfo setHidden:YES];
+            else {
+                [myCell.btnInfo setHidden:NO];
+            }
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)
             {
@@ -621,7 +655,12 @@ limitTextLayer.string = attrStr;
                     boldRange = NSMakeRange(0, [contactLabel length]);
                 }
             }
-            
+            [myCell.btnInfo setContact:contact];
+            if(!contact.showDetailIcon)
+                [myCell.btnInfo setHidden:YES];
+            else {
+                [myCell.btnInfo setHidden:NO];
+            }
             if ([contact.paypoints count] == 1)
             {
                 myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
@@ -981,5 +1020,28 @@ limitTextLayer.string = attrStr;
     
     [popoverController release];
     popoverController = nil;
+}
+-(void)infoButtonClicked: (Contact*) contact;
+{
+    OrganizationDetailViewController* controller = [[OrganizationDetailViewController alloc] init];
+    [controller setContact: contact];
+    [controller setDidSetContactAndAmount: self];
+    [controller setDidSetContact: self];
+    [controller setTitle: @"Info"];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+
+    [self.navigationController presentModalViewController:navBar animated:YES];
+    
+    [controller release];
+    [navBar release];
+}
+-(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend
+{
+    [didSetContactAndAmount didSetContactAndAmount:contact amount:amountToSend];
+}
+-(void)didSetContact: (Contact*)contact
+{
+    [didSetContact didSetContact:contact];
 }
 @end

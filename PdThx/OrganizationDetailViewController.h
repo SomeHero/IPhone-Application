@@ -12,23 +12,33 @@
 #import "UIModalBaseViewController.h"
 #import "NonProfitDetail.h"
 #import "MerchantServices.h"
+#import "SetContactAndAmountProtocol.h"
+#import "UICustomSetContactAndAmountButton.h"
+#import "SetContactProtocol.h"
+#import "UICustomSetContactButton.h"
 
 @interface OrganizationDetailViewController : UIModalBaseViewController
 {
+    Contact* contact;
     IBOutlet UILabel* merchantName;
     IBOutlet UIButton* merchantImage;
     IBOutlet UILabel* merchantTagLine;
     IBOutlet UITextView* merchantDescription;
-    IBOutlet UIButton* btnSuggestedAmounted;
-    IBOutlet UIButton* btnOtherAmount;
+    IBOutlet UICustomSetContactAndAmountButton* btnSuggestedAmounted;
+    IBOutlet UICustomSetContactButton* btnOtherAmount;
     
     NSString* merchantId;
     MerchantServices* merchantServices;
     
+    id<SetContactAndAmountProtocol> didSetContactAndAmount;
+    id<SetContactProtocol> didSetContact;
     id<DetailInfoButtonClicked> detailInfoButtonClicked;
 }
 
-@property(nonatomic, retain) id detailInfoButtonClicked;
-@property(nonatomic, retain) NSString* merchantId;
+@property(assign) id didSetContactAndAmount;
+@property(assign) id detailInfoButtonClicked;
+@property(assign) id didSetContact;
+
+@property(nonatomic, retain) Contact* contact;
 
 @end

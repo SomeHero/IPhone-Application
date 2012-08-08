@@ -1,20 +1,16 @@
 //
-//  UIProfileOptionSelectButton.m
+//  UICustomDetailButton.m
 //  PdThx
 //
-//  Created by James Rhodes on 8/6/12.
+//  Created by James Rhodes on 8/7/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIProfileOptionSelectButton.h"
+#import "UICustomDetailButton.h"
 
-@implementation UIProfileOptionSelectButton
-
-@synthesize options;
-@synthesize selectedOption;
-@synthesize optionSelectAttributeId;
-@synthesize selectOptionHeader;
-@synthesize selectOptionDescription;
+@implementation UICustomDetailButton
+@synthesize merchant;
+@synthesize contact;
 
 - (id)initWithFrame:(CGRect)frame
 {

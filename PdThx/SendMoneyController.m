@@ -270,9 +270,13 @@
 {
     ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
     [newView setTitle:@"Send To"];
+    [newView setDidSetContactAndAmount: self];
+    [newView setDidSetContact: self];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.contactSelectChosenDelegate = self;
+    
+    [newView release];
 }
 
 - (IBAction)pressedAmountButton:(id)sender 
@@ -282,6 +286,8 @@
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.amountChosenDelegate = self;
+    
+    [newView release];
 }
 
 
@@ -645,8 +651,30 @@
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
-
-
+-(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend
+{
+    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [self didChooseContact:contact];
+    [self didSelectAmount:amountToSend];
+}
+-(void)didSetContact: (Contact*)contact
+{
+    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [self didChooseContact:contact];
+    
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    [newView setTitle:@"Send Amount"];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+    
+    [newView release];
+    
+}
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {
     if( buttonIndex == 0 )

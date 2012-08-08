@@ -242,7 +242,8 @@
         [btn setTitleColor: [UIColor blueColor] forState:UIControlStateNormal];
         [btn setOptions: profileItem.options];
         [btn setOptionSelectAttributeId: profileItem.attributeId];
-        
+        [btn setSelectOptionHeader:profileItem.selectOptionHeader];
+        [btn setSelectOptionDescription:profileItem.selectOptionDescription];
         
         for(int i = 0; i < [user.userAttributes count]; i++)
         {
@@ -307,9 +308,8 @@
     [selectModalViewController setOptionSelectDelegate: self];
     selectModalViewController.optionItems= options;
     selectModalViewController.selectedOptionItem = ((UIProfileOptionSelectButton*)sender).selectedOption;
-    selectModalViewController.accountType = @"Option";
-    selectModalViewController.headerText = @"Select Your Option";
-    selectModalViewController.descriptionText = @"This is a test.";
+    selectModalViewController.headerText = ((UIProfileOptionSelectButton*)sender).selectOptionHeader;
+    selectModalViewController.descriptionText = ((UIProfileOptionSelectButton*)sender).selectOptionDescription;
     
     [self.view addSubview:selectModalViewController];
     [selectModalViewController show];

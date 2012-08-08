@@ -578,6 +578,11 @@
 		5BDDAE9B15CF7D14007B733E /* SelectModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9A15CF7D14007B733E /* SelectModalViewController.m */; };
 		5BDDAE9E15CF7E56007B733E /* ProfileOptionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */; };
 		5BDDAEA415D0153E007B733E /* UIProfileOptionSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEA315D01537007B733E /* UIProfileOptionSelectButton.m */; };
+		5BDDAEAF15D0AA8B007B733E /* MerchantListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEAE15D0AA8B007B733E /* MerchantListing.m */; };
+		5BDDAEB315D0AAA2007B733E /* MerchantOffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEB215D0AAA0007B733E /* MerchantOffer.m */; };
+		5BDDAEB915D16FCA007B733E /* UICustomDetailButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEB815D16FC7007B733E /* UICustomDetailButton.m */; };
+		5BDDAEBD15D1EEBF007B733E /* UICustomSetContactAndAmountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEBC15D1EEB0007B733E /* UICustomSetContactAndAmountButton.m */; };
+		5BDDAEC115D21B18007B733E /* UICustomSetContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC015D21AFE007B733E /* UICustomSetContactButton.m */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -1500,6 +1505,18 @@
 		5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileOptionItem.m; sourceTree = "<group>"; };
 		5BDDAEA215D0152F007B733E /* UIProfileOptionSelectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIProfileOptionSelectButton.h; sourceTree = "<group>"; };
 		5BDDAEA315D01537007B733E /* UIProfileOptionSelectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIProfileOptionSelectButton.m; sourceTree = "<group>"; };
+		5BDDAEAD15D0AA8B007B733E /* MerchantListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantListing.h; sourceTree = "<group>"; };
+		5BDDAEAE15D0AA8B007B733E /* MerchantListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantListing.m; sourceTree = "<group>"; };
+		5BDDAEB115D0AA9F007B733E /* MerchantOffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantOffer.h; sourceTree = "<group>"; };
+		5BDDAEB215D0AAA0007B733E /* MerchantOffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantOffer.m; sourceTree = "<group>"; };
+		5BDDAEB715D16FC4007B733E /* UICustomDetailButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomDetailButton.h; sourceTree = "<group>"; };
+		5BDDAEB815D16FC7007B733E /* UICustomDetailButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomDetailButton.m; sourceTree = "<group>"; };
+		5BDDAEBA15D1EB4D007B733E /* SetContactAndAmountProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetContactAndAmountProtocol.h; sourceTree = "<group>"; };
+		5BDDAEBB15D1EEA5007B733E /* UICustomSetContactAndAmountButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSetContactAndAmountButton.h; sourceTree = "<group>"; };
+		5BDDAEBC15D1EEB0007B733E /* UICustomSetContactAndAmountButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSetContactAndAmountButton.m; sourceTree = "<group>"; };
+		5BDDAEBE15D218C9007B733E /* SetContactProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetContactProtocol.h; sourceTree = "<group>"; };
+		5BDDAEBF15D21AF6007B733E /* UICustomSetContactButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSetContactButton.h; sourceTree = "<group>"; };
+		5BDDAEC015D21AFE007B733E /* UICustomSetContactButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSetContactButton.m; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -2162,6 +2179,8 @@
 				54B5F288156FCEC700D970A3 /* ContactSelectViewController.m */,
 				54B5F284156FCA5500D970A3 /* ContactTableViewCell.h */,
 				54B5F285156FCA5700D970A3 /* ContactTableViewCell.m */,
+				5BDDAEB715D16FC4007B733E /* UICustomDetailButton.h */,
+				5BDDAEB815D16FC7007B733E /* UICustomDetailButton.m */,
 			);
 			name = "Contact Table View";
 			sourceTree = "<group>";
@@ -2280,6 +2299,10 @@
 				5B6D131015AFA64900F37A11 /* OrganizationDetailViewController.h */,
 				5B6D131115AFA64A00F37A11 /* OrganizationDetailViewController.m */,
 				5B6D131215AFA64A00F37A11 /* OrganizationDetailViewController.xib */,
+				5BDDAEBB15D1EEA5007B733E /* UICustomSetContactAndAmountButton.h */,
+				5BDDAEBC15D1EEB0007B733E /* UICustomSetContactAndAmountButton.m */,
+				5BDDAEBF15D21AF6007B733E /* UICustomSetContactButton.h */,
+				5BDDAEC015D21AFE007B733E /* UICustomSetContactButton.m */,
 			);
 			name = "Do Good View";
 			sourceTree = "<group>";
@@ -3280,6 +3303,8 @@
 				5BDDAE1115C2FD05007B733E /* ModalSelectProtocol.h */,
 				5BDDAE1215C36EF2007B733E /* PayPointVerificationCompleteProtocol.h */,
 				5BDDAE4815C77F32007B733E /* DeletePayPointDelegate.h */,
+				5BDDAEBA15D1EB4D007B733E /* SetContactAndAmountProtocol.h */,
+				5BDDAEBE15D218C9007B733E /* SetContactProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -3321,6 +3346,10 @@
 				5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */,
 				5BDDAE9C15CF7E54007B733E /* ProfileOptionItem.h */,
 				5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */,
+				5BDDAEAD15D0AA8B007B733E /* MerchantListing.h */,
+				5BDDAEAE15D0AA8B007B733E /* MerchantListing.m */,
+				5BDDAEB115D0AA9F007B733E /* MerchantOffer.h */,
+				5BDDAEB215D0AAA0007B733E /* MerchantOffer.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -4480,6 +4509,11 @@
 				5BDDAE9B15CF7D14007B733E /* SelectModalViewController.m in Sources */,
 				5BDDAE9E15CF7E56007B733E /* ProfileOptionItem.m in Sources */,
 				5BDDAEA415D0153E007B733E /* UIProfileOptionSelectButton.m in Sources */,
+				5BDDAEAF15D0AA8B007B733E /* MerchantListing.m in Sources */,
+				5BDDAEB315D0AAA2007B733E /* MerchantOffer.m in Sources */,
+				5BDDAEB915D16FCA007B733E /* UICustomDetailButton.m in Sources */,
+				5BDDAEBD15D1EEBF007B733E /* UICustomSetContactAndAmountButton.m in Sources */,
+				5BDDAEC115D21B18007B733E /* UICustomSetContactButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
