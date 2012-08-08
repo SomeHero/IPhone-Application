@@ -15,6 +15,7 @@
 #import "Facebook.h"
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
+#import "SocialNetworksViewController.h"
 
 #import <CoreText/CoreText.h>
 
@@ -113,7 +114,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
 /*
  TABLE VIEW SETUP AND HANDLING
  */
@@ -122,7 +122,30 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
+    // Return the number of sections
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    
+    if ([appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && [prefs objectForKey:@"facebookId"] == nil)
+    {
+        NSInteger count = 0;
+        for (NSArray* array in allResults)
+        {
+            for (int i = 0; i < [array count]; i++)
+            {
+                count++;
+            }
+        }
+        
+        if (count == 0)
+        {
+            [appDelegate showTwoButtonAlertView:NO withTitle:@"Facebook not linked!" withSubtitle:@"No Facebook Contacts" withDetailedText:@"Facebook account isn't linked, so you have no Facebook contacts to show! To link your Facebook, click OK." withButton1Text:@"OK" withButton2Text:@"Cancel" withDelegate:self];
+        }
+        
+    }
+    
+    
     if ( isFiltered && !foundFiltered )
         return 1;
     else
@@ -212,41 +235,41 @@
     return 0;
 }
 /*
-if ( !limitTextLayer )
-{
-    limitTextLayer = [[CATextLayer alloc] init];
-    //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
-    limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
-    limitTextLayer.wrapped = NO;
-    CALayer *layer = lblScore.layer; //self is a view controller contained by a navigation controller
-    limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
-    limitTextLayer.alignmentMode = kCAAlignmentCenter;
-    limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
-    [layer addSublayer:limitTextLayer];
-}
-
-NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
-
-CTFontRef unboldedFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica", 19.0, NULL);
-CTFontRef boldedFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 19.0, NULL);
-
-
-NSDictionary *unboldedAttributes = [NSDictionary dictionaryWithObject:
-                                  (id)unboldedFontRef forKey:(id)kCTFontAttributeName];
-
-NSDictionary *boldedAttributes = [NSDictionary dictionaryWithObject:
-                               (id)boldedFontRef forKey:(id)kCTFontAttributeName];
-
-NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:labelString attributes:amountAttributes];
-
-[attrStr addAttributes:dayAttributes range:NSMakeRange([labelString rangeOfString:@" "].location, ([labelString length]-1-[labelString rangeOfString:@" "].location))];
-
-CFRelease(amountFontRef);
-CFRelease(dayFontRef);
-
-limitTextLayer.string = attrStr;
-[attrStr release];
-*/
+ if ( !limitTextLayer )
+ {
+ limitTextLayer = [[CATextLayer alloc] init];
+ //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
+ limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
+ limitTextLayer.wrapped = NO;
+ CALayer *layer = lblScore.layer; //self is a view controller contained by a navigation controller
+ limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
+ limitTextLayer.alignmentMode = kCAAlignmentCenter;
+ limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
+ [layer addSublayer:limitTextLayer];
+ }
+ 
+ NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
+ 
+ CTFontRef unboldedFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica", 19.0, NULL);
+ CTFontRef boldedFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 19.0, NULL);
+ 
+ 
+ NSDictionary *unboldedAttributes = [NSDictionary dictionaryWithObject:
+ (id)unboldedFontRef forKey:(id)kCTFontAttributeName];
+ 
+ NSDictionary *boldedAttributes = [NSDictionary dictionaryWithObject:
+ (id)boldedFontRef forKey:(id)kCTFontAttributeName];
+ 
+ NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:labelString attributes:amountAttributes];
+ 
+ [attrStr addAttributes:dayAttributes range:NSMakeRange([labelString rangeOfString:@" "].location, ([labelString length]-1-[labelString rangeOfString:@" "].location))];
+ 
+ CFRelease(amountFontRef);
+ CFRelease(dayFontRef);
+ 
+ limitTextLayer.string = attrStr;
+ [attrStr release];
+ */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -305,7 +328,7 @@ limitTextLayer.string = attrStr;
                                       (id)boldedFont forKey:(id)kCTFontAttributeName];
     
     NSDictionary *unboldedAttributes = [NSDictionary dictionaryWithObject:
-                                   (id)unboldedFont forKey:(id)kCTFontAttributeName];
+                                        (id)unboldedFont forKey:(id)kCTFontAttributeName];
     
     Contact *contact;
     if ( isFiltered == YES )
@@ -960,11 +983,6 @@ limitTextLayer.string = attrStr;
             
             allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).faceBookContacts;
             
-            for(int i = 0; i < [allResults count]; i++)
-            {
-                
-                
-            }
             break;
         case 4:
         {
@@ -1044,4 +1062,35 @@ limitTextLayer.string = attrStr;
 {
     [didSetContact didSetContact:contact];
 }
+
+-(void) didSelectButtonWithIndex:(int)index
+{
+    PdThxAppDelegate *appDelegate = (PdThxAppDelegate*) [[UIApplication sharedApplication] delegate];
+    
+    switch(index)
+    {
+        case 0:
+        {
+            [appDelegate dismissAlertView];
+            SocialNetworksViewController* controller =
+            [[SocialNetworksViewController alloc] init];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+            
+            [controller release];
+            break;
+        }
+        case 1:
+        {
+            [appDelegate dismissAlertView];
+            break;
+        }
+        default:
+        {
+            [appDelegate dismissAlertView];
+            break;
+        }
+    }
+}
+
 @end

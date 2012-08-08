@@ -21,9 +21,10 @@
 #import "SendDonationViewController.h"
 #import "SetContactAndAmountProtocol.h"
 #import "SetContactProtocol.h"
+#import "CustomAlertViewProtocol.h"
 
-@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate,
-    SetContactProtocol, SetContactAndAmountProtocol>
+
+@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate, CustomAlertViewProtocol, SetContactProtocol, SetContactAndAmountProtocol>
 {
     IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
