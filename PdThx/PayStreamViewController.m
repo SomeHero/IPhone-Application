@@ -236,6 +236,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
+    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     

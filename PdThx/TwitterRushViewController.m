@@ -4,6 +4,8 @@
 
 #import "TwitterRushViewController.h"
 #import "SA_OAuthTwitterEngine.h"
+#import "ASIHTTPRequest.h"
+#import "SBJsonParser.h"
 
 /* Define the constants below with the Twitter 
    Key and Secret for your application. Create
@@ -26,31 +28,97 @@
 	[tweetTextField resignFirstResponder];
 	
 	//Twitter Integration Code Goes Here
-    [_engine getFriends:@"thejamesrhodes"];
+    NSURL *urlToSend = [[NSURL alloc] initWithString:@"https://api.twitter.com/1/friends/ids.json?screen_name=cjpaidthx"];
+    
+    ASIHTTPRequest *requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj setRequestMethod: @"GET"];
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(didGetFriends:)];
+    [requestObj setDidFailSelector:@selector(getFriendsDidFail:)];
+    [requestObj startAsynchronous];
 }
+
+
+
+-(void) didGetFriends: (ASIHTTPRequest*) request
+{
+    NSString *theJSON = [request responseString];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    if([request responseStatusCode] == 200 )
+    {
+        NSLog(@"JSON Response: %@", jsonDictionary);
+        //NSLog(@"Got friends: %@", [jsonDictionary valueForKey:@"ids"] );
+        NSString* friendsToHttp = @"";
+        
+        for ( NSString*friendId in [jsonDictionary objectForKey:@"ids"] )
+        {
+            friendsToHttp = [NSString stringWithFormat:@"%@%@,", friendsToHttp, friendId];
+        }
+        
+        friendsToHttp = [friendsToHttp substringToIndex:friendsToHttp.length-2]; // Should remove final extra comma.
+        
+        // Get all friends information
+        NSURL *urlToSend = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"https://api.twitter.com/1/users/lookup.json?screen_name=%@&include_entities=true",friendsToHttp]];
+        
+        ASIHTTPRequest *requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+        [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+        [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+        [requestObj setRequestMethod: @"GET"];
+        
+        [requestObj setDelegate: self];
+        [requestObj setDidFinishSelector:@selector(didGetAllFriendInfo:)];
+        [requestObj setDidFailSelector:@selector(didFailGettingAllFriendInfo:)];
+        [requestObj startAsynchronous];
+    }
+    else
+    {
+        NSLog(@"Getting friends failed...");
+        NSLog(@"Error: %@", [request error]);
+    }
+}
+
+-(void) getFriendsDidFail: (ASIHTTPRequest*) request
+{
+    NSLog(@"Getting friends failed...");
+    NSLog(@"Error: %@", [request error]);
+}
+
+
 
 #pragma mark ViewController Lifecycle
 
-- (void)viewDidAppear: (BOOL)animated {
-	
+- (void)viewDidAppear: (BOOL)animated
+{
 	// Twitter Initialization / Login Code Goes Here
-    if(!_engine){  
-        _engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];  
-        _engine.consumerKey    = kOAuthConsumerKey;  
-        _engine.consumerSecret = kOAuthConsumerSecret;  
+    if(!_engine)
+    {
+        _engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
+        _engine.consumerKey    = kOAuthConsumerKey;
+        _engine.consumerSecret = kOAuthConsumerSecret;
     }  	
     
-    if(![_engine isAuthorized]){  
+    if(![_engine isAuthorized])
+    {
         UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_engine delegate:self];  
         
         if (controller){  
             [self presentModalViewController: controller animated: YES];  
         }  
-    }    
+    }
 }
+
 - (void)miscInfoReceived:(NSArray *)miscInfo forRequest:(NSString *)connectionIdentifier {
     NSLog(@"Got Results");
 }
+
 - (void)statusesReceived:(NSArray *)userInfo forRequest:(NSString *)identifier
 {
     [userInfo count];
@@ -63,17 +131,19 @@
         NSLog(@"%@", [user valueForKey: @"name"]);
     }
 }
+
 - (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)identifier
 {
     [userInfo count];
 }
-	   
+
 - (void)viewDidUnload {	
 	[tweetTextField release];
 	tweetTextField = nil;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 

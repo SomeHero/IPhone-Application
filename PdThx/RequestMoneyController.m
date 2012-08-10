@@ -415,7 +415,7 @@
 
 -(void) selectRecipient:(NSString *)uri;
 {
-    recipientUri = uri;
+    [self setRecipientUri:uri];
     
     [self dismissModalViewControllerAnimated:NO];
     
@@ -534,7 +534,7 @@
     NSString* recipientFirstName = @"";
     NSString* recipientLastName = @"";
     
-    if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
+    if([[recipientUri substringToIndex:3] isEqualToString:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];
         recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];

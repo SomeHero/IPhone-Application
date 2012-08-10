@@ -11,6 +11,8 @@
 		540025A91598A55C00332A10 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540025A81598A55C00332A10 /* ChangePasswordViewController.xib */; };
 		540025BA1598B3F500332A10 /* MeCodeSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 540025B81598B3F500332A10 /* MeCodeSetupViewController.m */; };
 		540025BC1598B3FC00332A10 /* MeCodeSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */; };
+		5400AD6715D187C60080350D /* bg-inout-308x53.png in Resources */ = {isa = PBXBuildFile; fileRef = 5400AD6515D187C60080350D /* bg-inout-308x53.png */; };
+		5400AD6815D187C60080350D /* bg-inout-308x53@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5400AD6615D187C60080350D /* bg-inout-308x53@2x.png */; };
 		540E635515AFDE890089A5F5 /* HBCustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E635115AFDE890089A5F5 /* HBCustomTabBar.m */; };
 		540E635715AFDE890089A5F5 /* HBTabBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E635415AFDE890089A5F5 /* HBTabBarManager.m */; };
 		54196D9B156695B9009F29C5 /* button_quick_link_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 54196D9A156695B9009F29C5 /* button_quick_link_request.png */; };
@@ -751,13 +753,13 @@
 		540025B81598B3F500332A10 /* MeCodeSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCodeSetupViewController.m; sourceTree = "<group>"; };
 		540025B91598B3F500332A10 /* MeCodeSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCodeSetupViewController.h; sourceTree = "<group>"; };
 		540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeCodeSetupViewController.xib; sourceTree = "<group>"; };
+		5400AD6515D187C60080350D /* bg-inout-308x53.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-inout-308x53.png"; sourceTree = "<group>"; };
+		5400AD6615D187C60080350D /* bg-inout-308x53@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-inout-308x53@2x.png"; sourceTree = "<group>"; };
 		540E635015AFDE890089A5F5 /* HBCustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBCustomTabBar.h; sourceTree = "<group>"; };
 		540E635115AFDE890089A5F5 /* HBCustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBCustomTabBar.m; sourceTree = "<group>"; };
 		540E635315AFDE890089A5F5 /* HBTabBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBTabBarManager.h; sourceTree = "<group>"; };
 		540E635415AFDE890089A5F5 /* HBTabBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBTabBarManager.m; sourceTree = "<group>"; };
 		54196D9A156695B9009F29C5 /* button_quick_link_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_quick_link_request.png; sourceTree = "<group>"; };
-		541E080B15C9A91D00A58563 /* bg-inout-308x53.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-inout-308x53.png"; sourceTree = "<group>"; };
-		541E080C15C9A91D00A58563 /* bg-inout-308x53@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-inout-308x53@2x.png"; sourceTree = "<group>"; };
 		541EE5821589092200131B0E /* TAB-DG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-DG.png"; sourceTree = "<group>"; };
 		541EE5841589092200131B0E /* TAB-HM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-HM.png"; sourceTree = "<group>"; };
 		541EE5851589092200131B0E /* TAB-PREF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TAB-PREF.png"; sourceTree = "<group>"; };
@@ -1725,8 +1727,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5485B51015CAF33D00B59591 /* CoreText.framework in Frameworks */,
 				5BED074415BBB8D400D4110A /* Twitter.framework in Frameworks */,
+				5485B51015CAF33D00B59591 /* CoreText.framework in Frameworks */,
 				5B69E17114B0BC81003A0F66 /* libxml2.dylib in Frameworks */,
 				54E77ED915B5D7020031116B /* CoreMedia.framework in Frameworks */,
 				54E77ED715B5D6A10031116B /* ImageIO.framework in Frameworks */,
@@ -2511,8 +2513,8 @@
 			isa = PBXGroup;
 			children = (
 				54D2403115C1DCB00037719A /* Temporary Hard Coded Contacts */,
-				541E080B15C9A91D00A58563 /* bg-inout-308x53.png */,
-				541E080C15C9A91D00A58563 /* bg-inout-308x53@2x.png */,
+				5400AD6515D187C60080350D /* bg-inout-308x53.png */,
+				5400AD6615D187C60080350D /* bg-inout-308x53@2x.png */,
 				54D2403E15C2D6990037719A /* bg-instantlimit-124x45.png */,
 				54D2403F15C2D6990037719A /* bg-instantlimit-124x45@2x.png */,
 				54D2404015C2D6990037719A /* txt-yourinstantlimit-121x10.png */,
@@ -4259,6 +4261,8 @@
 				C385D83715D02A5F000CA34C /* AUI-contactsMail40x40@2x.png in Resources */,
 				544E6D1D15D0368900B35005 /* bg-section-320x25.png in Resources */,
 				544E6D1E15D0368900B35005 /* bg-section-320x25@2x.png in Resources */,
+				5400AD6715D187C60080350D /* bg-inout-308x53.png in Resources */,
+				5400AD6815D187C60080350D /* bg-inout-308x53@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4569,7 +4573,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4673,7 +4677,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4706,7 +4710,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "12B12031-7643-4A86-8738-6364D9A3A71D";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4820,7 +4824,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4904,8 +4908,8 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = NO;
@@ -4988,7 +4992,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -5073,7 +5077,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D80521D5-5296-41CB-B4C7-6A4AAB6A0F35";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -5156,7 +5160,7 @@
 					"\"$(SRCROOT)/Twitter+OAuth/Libraries & Headers\"",
 				);
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "35B34EB2-C82E-4EF8-9E79-340978163528";
+				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70F6AF10-F46A-4BE1-AA8A-005DFA6D7651";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
