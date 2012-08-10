@@ -287,6 +287,7 @@
     
     phoneContacts = [[NSMutableArray alloc] init];
     phoneContacts = [self sortContacts:phoneContacts];
+    phoneContactsSize = 0;
     
     faceBookContacts = [[NSMutableArray alloc] init];
     faceBookContacts = [self sortContacts:faceBookContacts];
@@ -359,9 +360,10 @@
     {
         [array removeAllObjects];
     }
+    // I think this is why we keep getting duplicate facebook contacts. We're merging in facebook contacts without first clearing contactArray.
+    //[self mergeAllContacts:faceBookContacts];
     
-    [self mergeAllContacts:faceBookContacts];
-    
+    if (phoneContactsSize != ABAddressBookGetPersonCount(ABAddressBookCreate()))
     [self loadPhoneContacts];
 }
 
@@ -565,8 +567,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     ABAddressBookRef addressBook = ABAddressBookCreate();
     
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    for (int i = 0; i < nPeople; i++) {
+    //CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    phoneContactsSize = ABAddressBookGetPersonCount(addressBook);
+    
+    for (int i = 0; i < phoneContactsSize; i++) {
         
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);

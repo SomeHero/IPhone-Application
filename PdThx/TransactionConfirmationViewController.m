@@ -67,6 +67,7 @@
     ];
     [btnContinue setTitle:continueButtonText forState:UIControlStateSelected
      ];
+    
     [btnContinue setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnContinue setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 }
