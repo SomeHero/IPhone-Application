@@ -57,7 +57,6 @@
         
         User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
         
-        
         [userInformationCompleteDelegate userInformationDidComplete:user];
     } else {
         [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
@@ -169,7 +168,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_securitypin", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               oldSecurityPin, @"currentSecurityPin",
@@ -414,7 +413,48 @@
 }
 
 
+/*  Home Screen Update  */
 
+-(void) refreshHomeScreenInformation:(NSString*) userId
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/refresh_homepage", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj setRequestMethod: @"GET"];
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(refreshHomeScreenInformationComplete:)];
+    [requestObj setDidFailSelector:@selector(refreshHomeScreenInformationFailed:)];
+    [requestObj startAsynchronous];
+}
+
+-(void) refreshHomeScreenInformationComplete:(ASIHTTPRequest *)request
+{
+    if ( [request responseStatusCode] == 200 ){
+        //NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+        
+        NSString *theJSON = [request responseString];
+        
+        NSLog(@"Hi. %@", theJSON);
+    } else {
+        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    }
+    
+    
+}
+-(void) refreshHomeScreenInformationFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    NSLog(@"Refresh Homescreen Failed");
+    
+}
 
 - (void)dealloc
 {

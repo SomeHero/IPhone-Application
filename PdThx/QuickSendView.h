@@ -21,32 +21,16 @@
     IBOutlet UIButton *qs8button;
     IBOutlet UIButton *qs9button;
     
-    IBOutlet UILabel *qs1toplabel;
-    IBOutlet UILabel *qs1bottomlabel;
+    IBOutlet UITextView *qs1textView;
+    IBOutlet UITextView *qs2textView;
+    IBOutlet UITextView *qs3textView;
+    IBOutlet UITextView *qs4textView;
+    IBOutlet UITextView *qs5textView;
+    IBOutlet UITextView *qs6textView;
+    IBOutlet UITextView *qs7textView;
+    IBOutlet UITextView *qs8textView;
+    IBOutlet UITextView *qs9textView;
     
-    IBOutlet UILabel *qs2toplabel;
-    IBOutlet UILabel *qs2bottomlabel;
-    
-    IBOutlet UILabel *qs3toplabel;
-    IBOutlet UILabel *qs3bottomlabel;
-    
-    IBOutlet UILabel *qs4toplabel;
-    IBOutlet UILabel *qs4bottomlabel;
-    
-    IBOutlet UILabel *qs5toplabel;
-    IBOutlet UILabel *qs5bottomlabel;
-    
-    IBOutlet UILabel *qs6toplabel;
-    IBOutlet UILabel *qs6bottomlabel;
-    
-    IBOutlet UILabel *qs7toplabel;
-    IBOutlet UILabel *qs7bottomlabel;
-    
-    IBOutlet UILabel *qs8toplabel;
-    IBOutlet UILabel *qs8bottomlabel;
-    
-    IBOutlet UILabel *qs9toplabel;
-    IBOutlet UILabel *qs9bottomlabel;
     
     id<QuickSendButtonProtocol> buttonDelegate;
 }
@@ -61,24 +45,15 @@
 @property (nonatomic,retain) UIButton* qs8button;
 @property (nonatomic,retain) UIButton* qs9button;
 
-@property (nonatomic,retain) UILabel* qs1toplabel;
-@property (nonatomic,retain) UILabel* qs1bottomlabel;
-@property (nonatomic,retain) UILabel* qs2toplabel;
-@property (nonatomic,retain) UILabel* qs2bottomlabel;
-@property (nonatomic,retain) UILabel* qs3toplabel;
-@property (nonatomic,retain) UILabel* qs3bottomlabel;
-@property (nonatomic,retain) UILabel* qs4toplabel;
-@property (nonatomic,retain) UILabel* qs4bottomlabel;
-@property (nonatomic,retain) UILabel* qs5toplabel;
-@property (nonatomic,retain) UILabel* qs5bottomlabel;
-@property (nonatomic,retain) UILabel* qs6toplabel;
-@property (nonatomic,retain) UILabel* qs6bottomlabel;
-@property (nonatomic,retain) UILabel* qs7toplabel;
-@property (nonatomic,retain) UILabel* qs7bottomlabel;
-@property (nonatomic,retain) UILabel* qs8toplabel;
-@property (nonatomic,retain) UILabel* qs8bottomlabel;
-@property (nonatomic,retain) UILabel* qs9toplabel;
-@property (nonatomic,retain) UILabel* qs9bottomlabel;
+@property (nonatomic,retain) UITextView *qs1textView;
+@property (nonatomic,retain) UITextView *qs2textView;
+@property (nonatomic,retain) UITextView *qs3textView;
+@property (nonatomic,retain) UITextView *qs4textView;
+@property (nonatomic,retain) UITextView *qs5textView;
+@property (nonatomic,retain) UITextView *qs6textView;
+@property (nonatomic,retain) UITextView *qs7textView;
+@property (nonatomic,retain) UITextView *qs8textView;
+@property (nonatomic,retain) UITextView *qs9textView;
 
 @property (assign) id buttonDelegate;
 
