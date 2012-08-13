@@ -20,6 +20,7 @@
     IBOutlet UILabel *lblTransactionDirection;
     IBOutlet UIView *overlayView;
     IBOutlet UIImageView *stampView;
+    IBOutlet UIImageView *newColorStrip;
 }
 
 @property (nonatomic, retain) UIButton *transactionImageButton;
@@ -32,5 +33,6 @@
 @property (nonatomic, retain) UILabel *lblTransactionDirection;
 @property(nonatomic, retain) UIView *overlayView;
 @property(nonatomic, retain) UIImageView* stampView;
+@property(nonatomic, retain) UIImageView *newColorStrip;
 
 @end

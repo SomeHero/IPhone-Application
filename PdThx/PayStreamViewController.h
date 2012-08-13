@@ -20,7 +20,7 @@
 
 @class UITransactionTableViewCell;
 
-@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate, PullableViewDelegate, HBTabBarDelegate> {
+@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate, PullableViewDelegate, UpdateSeenMessagesProtocol, HBTabBarDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITableView *transactionsTableView;
     NSMutableData *responseData;
@@ -46,6 +46,11 @@
     NSString *textPull;
     NSString *textRelease;
     NSString *textLoading;
+    
+    PaystreamService* streamService;
+    
+    // Track seen paystream items
+    NSMutableArray* seenItems;
 }
 
 
@@ -54,6 +59,8 @@
 @property (nonatomic, retain) UILabel *refreshLabel;
 @property (nonatomic, retain) UIImageView *refreshArrow;
 @property (nonatomic, retain) UIActivityIndicatorView *refreshSpinner;
+@property (nonatomic, retain) NSMutableArray* seenItems;
+
 @property (nonatomic, copy) NSString *textPull;
 @property (nonatomic, copy) NSString *textRelease;
 @property (nonatomic, copy) NSString *textLoading;

@@ -119,4 +119,15 @@
     [super dealloc];
 }
 
+-(void)handleSwipeUp
+{
+    [buttonDelegate quicksendSwipedUp];
+}
+
+-(void)handleSwipeDown
+{
+    [buttonDelegate quicksendSwipedDown];
+}
+
+
 @end

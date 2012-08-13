@@ -36,6 +36,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize limitTextLayer;
 @synthesize lblDailyLimit;
 @synthesize lblRemainingLimit;
+@synthesize swipeUpQuicksend;
+@synthesize swipeDownQuicksend;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,6 +61,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [userService release];
     
     [quickSendView release];
+    [swipeDownQuicksend release];
+    [swipeUpQuicksend release];
     [lblRemainingLimit release];
     [super dealloc];
 }
@@ -70,6 +74,222 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     // Release any cached data, images, etc that aren't in use.
 }
+
+#pragma mark - View lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:0];
+    
+    // Do any additional setup after loading the view from its nib.
+    //setup internal viewpanel
+    userService = [[UserService alloc] init];
+    [userService setUserInformationCompleteDelegate: self];
+    
+    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
+    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
+    [[viewPanel layer] setBorderColor:[UIColor colorWithRed:166/255.0 green:168/255.0 blue:168/255.0 alpha:1.0].CGColor];
+    [[viewPanel layer] setCornerRadius: 8.0];
+    
+    [btnUserImage.layer setCornerRadius:6.0];
+    [btnUserImage.layer setMasksToBounds:YES];
+    
+    UIImage *imgProfileActive = [UIImage imageNamed: @"btn-profile-308x70-active.png"];
+    [btnProfile setImage: imgProfileActive forState:UIControlStateHighlighted];
+    
+    [quickSendView addSubview:[[[NSBundle mainBundle] loadNibNamed:@"QuickSendView" owner:self options:nil] objectAtIndex:0]];
+    
+    [quickSendView setButtonDelegate:self];
+    
+    swipeUpQuicksend = [[UISwipeGestureRecognizer alloc] initWithTarget:quickSendView action:@selector(handleSwipeUp)];
+    swipeDownQuicksend = [[UISwipeGestureRecognizer alloc] initWithTarget:quickSendView action:@selector(handleSwipeDown)];
+    
+    swipeUpQuicksend.numberOfTouchesRequired = 1;
+    swipeDownQuicksend.numberOfTouchesRequired = 1;
+    
+    swipeUpQuicksend.direction = UISwipeGestureRecognizerDirectionUp;
+    swipeDownQuicksend.direction = UISwipeGestureRecognizerDirectionDown;
+    
+    [quickSendView addGestureRecognizer:swipeUpQuicksend];
+    [quickSendView addGestureRecognizer:swipeDownQuicksend];
+    
+    
+    swipeUpQuicksend.delegate = self;
+    swipeDownQuicksend.delegate = self;
+    
+    [self setTitle: @"Home"];
+}
+
+
+- (void) quicksendSwipedUp
+{
+    if ( ! quickSendOpened ){
+        [UIView animateWithDuration:0.4 animations:^{
+            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y-224, quickSendView.frame.size.width, quickSendView.frame.size.height+224);
+        } completion:^(BOOL finished) {
+            quickSendOpened = 1;
+        }];
+    }
+}
+
+- (void) quicksendSwipedDown
+{
+    if ( quickSendOpened ){
+        [UIView animateWithDuration:0.4 animations:^{
+            
+            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y+224, quickSendView.frame.size.width, quickSendView.frame.size.height-224);
+        } completion:^(BOOL finished) {
+            quickSendOpened = 0;
+        }];
+    }
+}
+
+#pragma mark - View lifecycle
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString* userId = [prefs stringForKey:@"userId"];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Loading" withDetailedStatus:@"Getting profile"];
+    
+    [userService getUserInformation:userId];
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    lblUserName.text = @"";
+    lblDailyLimit.text = @"";
+    lblRemainingLimit.text = @"";
+    lblPayPoints.text = @"";
+}
+
+-(void)userInformationDidComplete:(User*) user 
+{
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
+    
+    if (user.securityQuestion != (id) [NSNull null] && user.securityQuestion.length > 0) {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setValue:user.securityQuestion forKey:@"securityQuestion"];
+        [prefs synchronize];
+    }
+    
+    if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
+        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
+    }else {
+        [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    }
+    
+    lblUserName.text = user.preferredName;
+    if ( [[user.userName substringToIndex:3] isEqualToString:@"fb_"] )
+        lblPayPoints.text = @"Facebook User";
+    else
+        lblPayPoints.text = user.userName;
+    
+    //lblScore.text = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"$%d",[user.instantLimit intValue]] attributes:nil];
+    if ( !limitTextLayer )
+    {
+        limitTextLayer = [[CATextLayer alloc] init];
+        //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
+        limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
+        limitTextLayer.wrapped = NO;
+        CALayer *layer = lblDailyLimit.layer; //self is a view controller contained by a navigation controller
+        limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
+        limitTextLayer.alignmentMode = kCAAlignmentCenter;
+        limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
+        [layer addSublayer:limitTextLayer];
+    }
+    
+    NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
+    
+    lblRemainingLimit.text = @"$99";
+    
+    /* Create the attributes (for the attributed string) */
+    
+    CTFontRef amountFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 35.0, NULL);
+    CTFontRef dayFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 10.0, NULL);
+    
+   
+    NSDictionary *amountAttributes = [NSDictionary dictionaryWithObject:
+            (id)amountFontRef forKey:(id)kCTFontAttributeName];
+    
+    NSDictionary *dayAttributes = [NSDictionary dictionaryWithObject:
+                                      (id)dayFontRef forKey:(id)kCTFontAttributeName];
+    
+    /* Create the attributed string (text + attributes) */
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:labelString attributes:amountAttributes];
+    
+    [attrStr addAttributes:dayAttributes range:NSMakeRange([labelString rangeOfString:@"/"].location, 4)];
+    
+    CFRelease(amountFontRef);
+    CFRelease(dayFontRef);
+    
+    /* Set the attributes string in the text layer :) */
+    limitTextLayer.string = attrStr;
+    [attrStr release];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    [numberFormatter release];
+}
+
+
+-(void)userInformationDidFail:(NSString*) message {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+}
+- (void)viewDidUnload
+{
+    self.tabBar = nil;
+    [self setQuickSendView:nil];
+    [lblRemainingLimit release];
+    lblRemainingLimit = nil;
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+
+-(IBAction) btnProfileClicked:(id) sender {
+    EditProfileViewController* controller = [[EditProfileViewController alloc] init];
+    [controller setTitle: @"Me"];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    [controller release];
+}
+-(IBAction) btnPaystreamClicked: (id) sender {
+    [self tabBarClicked:1];
+}
+
+-(IBAction) btnIncreaseScoreClicked: (id) sender {
+    IncreaseProfileViewController* controller = [[IncreaseProfileViewController alloc] init];
+    
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    //[controller setTitle: @"Add Your FaceBook Account"];
+    //[controller setHeaderText: @"Add another bank account by entering the account information below"];
+    
+    [self presentModalViewController:navBar animated:YES];
+    [navBar release];
+    [controller release];
+}
+
 
 
 - (IBAction)qs1pressed:(id)sender {
@@ -310,199 +530,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     
 }
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:0];
-    
-    // Do any additional setup after loading the view from its nib.
-    //setup internal viewpanel
-    userService = [[UserService alloc] init];
-    [userService setUserInformationCompleteDelegate: self];
-    
-    [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-    [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
-    [[viewPanel layer] setBorderColor:[UIColor colorWithRed:166/255.0 green:168/255.0 blue:168/255.0 alpha:1.0].CGColor];
-    [[viewPanel layer] setCornerRadius: 8.0];
-    
-    [btnUserImage.layer setCornerRadius:6.0];
-    [btnUserImage.layer setMasksToBounds:YES];
-    
-    UIImage *imgProfileActive = [UIImage imageNamed: @"btn-profile-308x70-active.png"];
-    [btnProfile setImage: imgProfileActive forState:UIControlStateHighlighted];
-    
-    [quickSendView addSubview:[[[NSBundle mainBundle] loadNibNamed:@"QuickSendView" owner:self options:nil] objectAtIndex:0]];
-    
-    [self setTitle: @"Home"];
-}
-
-#pragma mark - View lifecycle
--(void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString* userId = [prefs stringForKey:@"userId"];
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Loading" withDetailedStatus:@"Getting profile"];
-    
-    [userService getUserInformation:userId];
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    lblUserName.text = @"";
-    lblDailyLimit.text = @"";
-    lblRemainingLimit.text = @"";
-    lblPayPoints.text = @"";
-}
-
--(void)userInformationDidComplete:(User*) user 
-{
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-    
-    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
-    
-    if (user.securityQuestion != (id) [NSNull null] && user.securityQuestion.length > 0) {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        [prefs setValue:user.securityQuestion forKey:@"securityQuestion"];
-        [prefs synchronize];
-    }
-    
-    if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
-        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
-    }else {
-        [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
-    }
-    
-    lblUserName.text = user.preferredName;
-    if ( [[user.userName substringToIndex:3] isEqualToString:@"fb_"] )
-        lblPayPoints.text = @"Facebook User";
-    else
-        lblPayPoints.text = user.userName;
-    
-    //lblScore.text = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"$%d",[user.instantLimit intValue]] attributes:nil];
-    if ( !limitTextLayer )
-    {
-        limitTextLayer = [[CATextLayer alloc] init];
-        //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
-        limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
-        limitTextLayer.wrapped = NO;
-        CALayer *layer = lblDailyLimit.layer; //self is a view controller contained by a navigation controller
-        limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
-        limitTextLayer.alignmentMode = kCAAlignmentCenter;
-        limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
-        [layer addSublayer:limitTextLayer];
-    }
-    
-    NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
-    
-    lblRemainingLimit.text = @"$99";
-    
-    /* Create the attributes (for the attributed string) */
-    
-    CTFontRef amountFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 35.0, NULL);
-    CTFontRef dayFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 10.0, NULL);
-    
-   
-    NSDictionary *amountAttributes = [NSDictionary dictionaryWithObject:
-            (id)amountFontRef forKey:(id)kCTFontAttributeName];
-    
-    NSDictionary *dayAttributes = [NSDictionary dictionaryWithObject:
-                                      (id)dayFontRef forKey:(id)kCTFontAttributeName];
-    
-    /* Create the attributed string (text + attributes) */
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:labelString attributes:amountAttributes];
-    
-    [attrStr addAttributes:dayAttributes range:NSMakeRange([labelString rangeOfString:@"/"].location, 4)];
-    
-    CFRelease(amountFontRef);
-    CFRelease(dayFontRef);
-    
-    /* Set the attributes string in the text layer :) */
-    limitTextLayer.string = attrStr;
-    [attrStr release];
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate dismissProgressHUD];
-    
-    [numberFormatter release];
-}
 
 
--(void)userInformationDidFail:(NSString*) message {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate dismissProgressHUD];
-}
-- (void)viewDidUnload
-{
-    self.tabBar = nil;
-    [self setQuickSendView:nil];
-    [lblRemainingLimit release];
-    lblRemainingLimit = nil;
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
-- (IBAction)swipeUpQuickSend:(id)sender 
-{
-    if ( ! quickSendOpened ){
-        [UIView animateWithDuration:0.4 animations:^{
-            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y-224, quickSendView.frame.size.width, quickSendView.frame.size.height+224);
-        } completion:^(BOOL finished) {
-            quickSendOpened = 1;
-        }];
-    }
-}
-
-- (IBAction)swipeDownQuickSend:(id)sender 
-{
-    if ( quickSendOpened ){
-        [UIView animateWithDuration:0.4 animations:^{
-            
-            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y+224, quickSendView.frame.size.width, quickSendView.frame.size.height-224);
-        } completion:^(BOOL finished) {
-            quickSendOpened = 0;
-        }];
-    }
-}
-
--(IBAction) btnProfileClicked:(id) sender {
-    EditProfileViewController* controller = [[EditProfileViewController alloc] init];
-    [controller setTitle: @"Me"];
-    
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    [controller release];
-}
--(IBAction) btnPaystreamClicked: (id) sender {
-    [self tabBarClicked:1];
-}
-
--(IBAction) btnIncreaseScoreClicked: (id) sender {
-    IncreaseProfileViewController* controller = [[IncreaseProfileViewController alloc] init];
-    
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-    //[controller setTitle: @"Add Your FaceBook Account"];
-    //[controller setHeaderText: @"Add another bank account by entering the account information below"];
-    
-    [self presentModalViewController:navBar animated:YES];
-    [navBar release];
-    [controller release];
-}
 
 
 

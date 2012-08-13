@@ -20,6 +20,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize lblTransactionDirection;
 @synthesize overlayView;
 @synthesize stampView;
+@synthesize newColorStrip;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -51,6 +52,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [overlayView release];
     [stampView release];
     
+    [newColorStrip release];
     [super dealloc];
 }
 @end
