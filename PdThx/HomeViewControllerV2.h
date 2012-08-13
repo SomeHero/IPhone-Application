@@ -21,7 +21,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <CoreText/CoreText.h>
 
-@interface HomeViewControllerV2 : UIBaseViewController< UserInformationCompleteProtocol, HBTabBarDelegate, QuickSendButtonProtocol>
+@interface HomeViewControllerV2 : UIBaseViewController< UserInformationCompleteProtocol, HBTabBarDelegate, QuickSendButtonProtocol, UIGestureRecognizerDelegate>
 {
     IBOutlet UIView *viewPanel;
     IBOutlet UIButton *btnSendPhone;
@@ -35,6 +35,9 @@
     IBOutlet UILabel* lblDailyLimit;
     IBOutlet UILabel *lblRemainingLimit;
     
+    UISwipeGestureRecognizer *swipeUpQuicksend;
+    UISwipeGestureRecognizer *swipeDownQuicksend;
+
     
     UserService *userService;
     IBOutlet QuickSendView *quickSendView;
@@ -53,6 +56,9 @@
 
 @property (nonatomic, retain) HBTabBarManager *tabBar;
 @property (nonatomic, retain) CATextLayer* limitTextLayer;
+
+@property (nonatomic, retain) UISwipeGestureRecognizer *swipeUpQuicksend;
+@property (nonatomic, retain) UISwipeGestureRecognizer *swipeDownQuicksend;
 
 @property (assign) int quickSendOpened;
 

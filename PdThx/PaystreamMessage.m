@@ -24,6 +24,7 @@
 @synthesize senderName;
 @synthesize imgData;
 @synthesize transactionImageUri;
+@synthesize senderHasSeen, recipientHasSeen;
 
 -(id)init {
     self = [super init];
@@ -69,6 +70,8 @@
         recipientName = [[dictionary valueForKey:@"recipientName"] copy];
         senderName = [[dictionary valueForKey:@"senderName"] copy];
         transactionImageUri = [[dictionary valueForKey:@"transactionImageUri"] copy];
+        senderHasSeen = [[dictionary objectForKey:@"senderSeen"] boolValue];
+        recipientHasSeen = [[dictionary objectForKey:@"recipientSeen"] boolValue];
     }
     
     [format release];

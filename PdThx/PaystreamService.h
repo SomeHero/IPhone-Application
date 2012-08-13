@@ -13,14 +13,17 @@
 #import "CancelPaymentProtocol.h"
 #import "CancelPaymentRequestProtocol.h"
 #import "SendMoneyCompleteProtocol.h"
+#import "UpdateSeenMessagesProtocol.h"
 
-@interface PaystreamService : NSObject {
+@interface PaystreamService : NSObject
+{
     ASIHTTPRequest *requestObj;
     id<AcceptPaymentRequestProtocol> acceptPaymentRequestProtocol;
     id<RejectPaymentRequestProtocol> rejectPaymentRequestProtocol;
     id<CancelPaymentProtocol> cancelPaymentProtocol;
     id<CancelPaymentRequestProtocol> cancePaymentRequestProtocol;
     id<SendMoneyCompleteProtocol> sendMoneyCompleteDelegate;
+    id<UpdateSeenMessagesProtocol> updateSeenMessagesDelegate;
 }
 
 @property(retain) id sendMoneyCompleteDelegate;
@@ -28,6 +31,7 @@
 @property(retain) id rejectPaymentRequestProtocol;
 @property(retain) id cancePaymentRequestProtocol;
 @property(retain) id cancelPaymentProtocol;
+@property(retain) id updateSeenMessagesDelegate;
 
 -(void) acceptPledge:(NSString*)senderId onBehalfOfId:(NSString*) behalfOfId toRecipientUri:(NSString*) recipientUri withAmount: (NSString*) amount withComments:(NSString*) comments fromLatitude:(double) latitude fromLongitude: (double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName:(NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri withSecurityPin:(NSString*) securityPin;
 -(void) sendDonation:(NSString*)senderId toOrganizationId:(NSString*) organizationId  fromSenderAccount:(NSString*)senderAccountId withAmount: (NSString*) amount withComments:(NSString*) comments fromLatitude:(double) latitude fromLongitude: (double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName:(NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri withSecurityPin:(NSString*) securityPin;
@@ -37,5 +41,7 @@
 -(void) acceptRequest:(NSString*) messageId withUserId: (NSString*) userId fromPaymentAccount : (NSString*) paymentAccountId withSecurityPin : (NSString*) securityPin;
 -(void) rejectRequest:(NSString*) messageId;
 -(void) cancelRequest:(NSString*) messageId;
+
+-(void)updateSeenItems:(NSString*) userId withArray:(NSMutableArray*)seenItems;
 
 @end

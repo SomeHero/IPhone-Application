@@ -12,4 +12,7 @@
 
 -(void)clickedQuickSend:(int)buttonValue;
 
+-(void)quicksendSwipedUp;
+-(void)quicksendSwipedDown;
+
 @end
