@@ -16,5 +16,9 @@
 -(void)userInformationDidComplete:(User*)user;
 -(void)userInformationDidFail:(NSString*) message;
 
+
+-(void)userHomeScreenInformationDidComplete:(User*)user;
+-(void)userHomeScreenInformationDidFail:(NSString*) message;
+
 @end
 

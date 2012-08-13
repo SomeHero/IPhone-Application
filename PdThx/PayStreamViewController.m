@@ -889,7 +889,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         // Outgoing, user is sender.
         item.senderHasSeen = true;
         [transactionsTableView reloadData];
-    } else if ( [item.direction isEqualToString:@"In"] ){
+    } else if ( [item.direction isEqualToString:@"In"] ) {
         // Outgoing, user is sender.
         item.recipientHasSeen = true;
         [transactionsTableView reloadData];
