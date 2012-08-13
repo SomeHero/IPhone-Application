@@ -23,6 +23,8 @@
     NSString* senderName;
     NSString* transactionImageUri;
     UIImage * imgData;
+    bool senderHasSeen;
+    bool recipientHasSeen;
 }
 
 @property(nonatomic, retain) NSDecimalNumber* amount;
@@ -38,6 +40,9 @@
 @property(nonatomic, retain) NSString* transactionImageUri;
 @property(nonatomic, retain) NSString* senderName;
 @property (nonatomic, retain) UIImage * imgData;
+
+@property(nonatomic, assign) bool senderHasSeen;
+@property(nonatomic, assign) bool recipientHasSeen;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
 

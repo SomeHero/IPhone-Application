@@ -69,7 +69,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/accept_pledge?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/accept_pledge?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
@@ -353,6 +353,55 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     [cancePaymentRequestProtocol cancelPaymentRequestDidFail];
+}
+
+
+-(void)updateSeenItems:(NSString*) userId withArray:(NSMutableArray*)seenItems
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PaystreamMessages/update_messages_seen", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];
+    
+    NSLog(@"Sending to: %@", urlToSend);
+    
+    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 apiKey, @"apiKey",
+                                 userId, @"userId",
+                                 seenItems, @"messageIds",
+                                 nil];
+    
+    NSString *newJSON = [paymentData JSONRepresentation];
+    
+    NSLog(@"JSON Being Sent:%@",newJSON);
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];
+    
+    [requestObj setDelegate:self];
+    [requestObj setDidFinishSelector:@selector(updateSeenItemsComplete:)];
+    [requestObj setDidFailSelector:@selector(updateSeenItemsFailed:)];
+    [requestObj startAsynchronous];
+}
+
+-(void) updateSeenItemsComplete:(ASIHTTPRequest *)request
+{
+    NSLog(@"Saved paystream seen messages/payments");
+    
+    if ( [request responseStatusCode] == 200 )
+        [updateSeenMessagesDelegate paystreamUpdated:YES]; // SUCCEEDED
+    else
+        [self updateSeenItemsFailed:request];
+}
+-(void) updateSeenItemsFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"Failed updating seen paystream items with %@", [request responseStatusMessage]);
+    
+    // return delegate function
+    [updateSeenMessagesDelegate paystreamUpdated:NO]; // FAILED
 }
 
 @end

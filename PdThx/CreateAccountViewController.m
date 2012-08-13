@@ -216,7 +216,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)createAccount {
+- (void)createAccount
+{
     NSString* confirmPassword = [NSString stringWithString: @""];
     
     if([txtEmailAddress.text length] > 0)

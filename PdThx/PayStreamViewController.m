@@ -40,6 +40,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
 
+@synthesize seenItems;
+
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -66,6 +68,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     getPayStreamService = [[GetPayStreamService alloc] init];
     [getPayStreamService setGetPayStreamCompleteDelegate:self];
+    
+    streamService = [[PaystreamService alloc] init];
+    [streamService setUpdateSeenMessagesDelegate:self];
     
     filteredTransactions = [[NSMutableArray alloc] init];
     
@@ -193,6 +198,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [detailView.layer addSublayer:roundedLayer];
      */
     
+    /* Tracking Seen Paystream Items */
+    if ( seenItems == nil )
+        seenItems = [[NSMutableArray alloc] init];
+    else
+        [seenItems removeAllObjects];
+    
+    /*  Navigation Bar  */
     [self setTitle:@"Paystream"];
     
     // Show View
@@ -207,7 +219,30 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         //Handle Error Here
     }
 }
--(void)viewDidAppear:(BOOL)animated {
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    NSLog(@"Disappearing... seen items: %d", [seenItems count]);
+    
+    if ( [seenItems count] > 0 ){
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        NSString* userId = [prefs stringForKey:@"userId"];
+        
+        // Call message service to say that you read items in the array.
+        // Using json, construct a dictionary of dictionaries?
+        [streamService updateSeenItems:userId withArray:seenItems];
+    }
+}
+
+-(void)paystreamUpdated:(bool)success
+{
+    NSLog(@"%@ updating paystream messages as seen/viewed.", success ? @"Succeeded" : @"Failed");
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -217,9 +252,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
 
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
     [getPayStreamService getPayStream:userId];
 }
+
 -(void)getPayStreamDidFail
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -570,14 +607,33 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
     
+    
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
+    
     // Configure the cell...
-    if([item.direction isEqualToString:@"Out"]) {
-        //cell.transactionRecipient.text = [NSString stringWithFormat:@"row:%d sec%d",indexPath.row,indexPath.section];
+    if([item.direction isEqualToString:@"Out"])
+    {
+        // Current user sent this message/payment
+        if ( item.senderHasSeen == false ){
+            NSLog(@"User is sender, and hasn't seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
+            cell.newColorStrip.backgroundColor = [UIColor colorWithRed:61/255.0 green:147/255.0 blue:76/255.0 alpha:1.0];
+        } else {
+            NSLog(@"User is sender, and HAS seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
+            cell.newColorStrip.backgroundColor = [UIColor clearColor];
+        }
+            
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
-        //cell.transactionRecipient.text = [NSString stringWithFormat:@"row:%d sec%d",indexPath.row,indexPath.section];
+        if ( item.recipientHasSeen == false ){
+            NSLog(@"User is recipient, and hasn't seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
+            cell.newColorStrip.backgroundColor = [UIColor colorWithRed:19/255.0 green:109/255.0 blue:113/255.0 alpha:1.0];
+        } else {
+            NSLog(@"User is recipient, and HAS seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
+            cell.newColorStrip.backgroundColor = [UIColor clearColor];
+        }
+        //019)(109)(113)
+        
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
     
@@ -824,25 +880,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{    
+{
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    /*
-    
-    if([item.messageType isEqualToString: @"Payment"])
-    {
-        if([item.direction isEqualToString: @"In"])
-            detailView = [[PaystreamIncomingPaymentViewController alloc] init];
-        else
-           detailView = [[PaystreamOutgoingPaymentViewController alloc] init];
+    // Record the paystream item as being "seen".
+    [seenItems addObject:[NSString stringWithFormat:@"%@",item.messageId]];
+    if ( [item.direction isEqualToString:@"Out"] ){
+        // Outgoing, user is sender.
+        item.senderHasSeen = true;
+        [transactionsTableView reloadData];
+    } else if ( [item.direction isEqualToString:@"In"] ){
+        // Outgoing, user is sender.
+        item.recipientHasSeen = true;
+        [transactionsTableView reloadData];
     }
-    else {
-        if([item.direction isEqualToString: @"In"])
-                detailView = [[PaystreamIncomingRequestViewController alloc] init];
-        else
-            detailView = [[PaystreamOutgoingRequestViewController alloc] init];
-    }
-    */
     
     PaystreamDetailBaseViewController* outgoingView =  [[PaystreamOutgoingPaymentViewController alloc] init];
     
@@ -856,15 +907,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
     [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
     [detailView setOpened:YES animated:YES];
-
-    /*
-    // Navigation logic may go here. Create and push another view controller.
-    
-    // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:ctrlDetailView animated:YES];
-    ctrlDetailView.messageDetail = item;
-    */
 }
 
 -(IBAction)segmentedControlChanged {

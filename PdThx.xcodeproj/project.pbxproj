@@ -901,6 +901,7 @@
 		54A13A9B15865A5D00668984 /* BTN-Nav-Settings-35x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTN-Nav-Settings-35x30@2x.png"; sourceTree = "<group>"; };
 		54A13A9C15865A5D00668984 /* BTN-Nav-X-35x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTN-Nav-X-35x30.png"; sourceTree = "<group>"; };
 		54A13A9D15865A5D00668984 /* BTN-Nav-X-35x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTN-Nav-X-35x30@2x.png"; sourceTree = "<group>"; };
+		54B2F60415D5AC5D00487F75 /* UpdateSeenMessagesProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateSeenMessagesProtocol.h; sourceTree = "<group>"; };
 		54B4A82F15B3ADB4001F76D8 /* bg-tab-active-56x48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-tab-active-56x48.png"; sourceTree = "<group>"; };
 		54B4A83015B3ADB4001F76D8 /* bg-tab-active-56x48@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-tab-active-56x48@2x.png"; sourceTree = "<group>"; };
 		54B4A83515B3ADB4001F76D8 /* bg-tabnav-320x52.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-tabnav-320x52.png"; sourceTree = "<group>"; };
@@ -3254,6 +3255,7 @@
 				5B8147C11587B54000CE10AA /* AcceptPaymentRequestProtocol.h */,
 				5B8147C21587BAFF00CE10AA /* RejectPaymentRequestProtocol.h */,
 				5B8147C31587BC2100CE10AA /* CancelPaymentRequestProtocol.h */,
+				54B2F60415D5AC5D00487F75 /* UpdateSeenMessagesProtocol.h */,
 				5B8147C41587BC4C00CE10AA /* CancelPaymentProtocol.h */,
 				5B5D091015901ACE00E90A1A /* TransactionConfirmationProtocol.h */,
 				5BF3EE2915915C6C0011BAD8 /* BankAccountRequestProtocol.h */,
