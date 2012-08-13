@@ -28,16 +28,15 @@
     IBOutlet UIButton *btnSendFacebook;
     IBOutlet UIButton *btnSendNonprofit;
     IBOutlet UIButton *btnProfile;
-    IBOutlet UIButton *btnPaystream;
     IBOutlet UIButton *btnUserImage;
     IBOutlet UILabel *lblUserName;
     IBOutlet UILabel* lblPayPoints;
-    IBOutlet UILabel* lblDailyLimit;
-    IBOutlet UILabel *lblRemainingLimit;
+    
+    IBOutlet UILabel *incomingNotificationLabel;
+    IBOutlet UILabel *outgoingNotificationLabel;
     
     UISwipeGestureRecognizer *swipeUpQuicksend;
     UISwipeGestureRecognizer *swipeDownQuicksend;
-
     
     UserService *userService;
     IBOutlet QuickSendView *quickSendView;
@@ -55,10 +54,12 @@
 @property(nonatomic, retain) QuickSendView *quickSendView;
 
 @property (nonatomic, retain) HBTabBarManager *tabBar;
-@property (nonatomic, retain) CATextLayer* limitTextLayer;
 
 @property (nonatomic, retain) UISwipeGestureRecognizer *swipeUpQuicksend;
 @property (nonatomic, retain) UISwipeGestureRecognizer *swipeDownQuicksend;
+
+@property (nonatomic, retain) UILabel *incomingNotificationLabel;
+@property (nonatomic, retain) UILabel *outgoingNotificationLabel;
 
 @property (assign) int quickSendOpened;
 

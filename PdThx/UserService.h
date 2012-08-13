@@ -35,6 +35,9 @@
 @property(nonatomic, retain) id linkFbAccountDelegate;
 
 -(void) getUserInformation:(NSString*) userId;
+
+-(void) refreshHomeScreenInformation:(NSString*) userId;
+
 -(void) setupSecurityPin:(NSString*) userId WithPin: (NSString*) securityPin;
 -(void) changeSecurityPin: (NSString*) userId WithOld:(NSString*) oldSecurityPin AndNew:(NSString*) newSecurityPin;
 -(void) personalizeUser:(NSString*) userId WithFirstName: (NSString*) firstName withLastName :(NSString*) lastName withImage: (NSString*) imageUrl;

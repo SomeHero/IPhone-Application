@@ -31,13 +31,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize lblUserName;
 @synthesize quickSendView;
 @synthesize viewPanel;
-@synthesize btnSendPhone, btnSendFacebook, btnSendNonprofit, tabBar;
+@synthesize tabBar;
 @synthesize quickSendOpened;
-@synthesize limitTextLayer;
-@synthesize lblDailyLimit;
-@synthesize lblRemainingLimit;
 @synthesize swipeUpQuicksend;
 @synthesize swipeDownQuicksend;
+@synthesize incomingNotificationLabel, outgoingNotificationLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,7 +61,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [quickSendView release];
     [swipeDownQuicksend release];
     [swipeUpQuicksend release];
-    [lblRemainingLimit release];
+    [incomingNotificationLabel release];
+    [outgoingNotificationLabel release];
     [super dealloc];
 }
 
@@ -91,13 +90,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setBorderColor:[UIColor colorWithRed:166/255.0 green:168/255.0 blue:168/255.0 alpha:1.0].CGColor];
-    [[viewPanel layer] setCornerRadius: 8.0];
+    [[viewPanel layer] setCornerRadius: 6.0];
     
-    [btnUserImage.layer setCornerRadius:6.0];
+    [[quickSendView layer] setCornerRadius: 8.0];
+    
+    [btnUserImage.layer setCornerRadius:11.0];
     [btnUserImage.layer setMasksToBounds:YES];
     
     UIImage *imgProfileActive = [UIImage imageNamed: @"btn-profile-308x70-active.png"];
     [btnProfile setImage: imgProfileActive forState:UIControlStateHighlighted];
+    
     
     [quickSendView addSubview:[[[NSBundle mainBundle] loadNibNamed:@"QuickSendView" owner:self options:nil] objectAtIndex:0]];
     
@@ -127,7 +129,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     if ( ! quickSendOpened ){
         [UIView animateWithDuration:0.4 animations:^{
-            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y-224, quickSendView.frame.size.width, quickSendView.frame.size.height+224);
+            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y-219, quickSendView.frame.size.width, quickSendView.frame.size.height+219);
         } completion:^(BOOL finished) {
             quickSendOpened = 1;
         }];
@@ -139,7 +141,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if ( quickSendOpened ){
         [UIView animateWithDuration:0.4 animations:^{
             
-            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y+224, quickSendView.frame.size.width, quickSendView.frame.size.height-224);
+            quickSendView.frame = CGRectMake(quickSendView.frame.origin.x, quickSendView.frame.origin.y+219, quickSendView.frame.size.width, quickSendView.frame.size.height-219);
         } completion:^(BOOL finished) {
             quickSendOpened = 0;
         }];
@@ -153,10 +155,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString* userId = [prefs stringForKey:@"userId"];
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Loading" withDetailedStatus:@"Getting profile"];
+    [userService refreshHomeScreenInformation:userId];
     
-    [userService getUserInformation:userId];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -164,8 +164,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super viewWillAppear:animated];
     
     lblUserName.text = @"";
-    lblDailyLimit.text = @"";
-    lblRemainingLimit.text = @"";
     lblPayPoints.text = @"";
 }
 
@@ -194,48 +192,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     else
         lblPayPoints.text = user.userName;
     
-    //lblScore.text = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"$%d",[user.instantLimit intValue]] attributes:nil];
-    if ( !limitTextLayer )
-    {
-        limitTextLayer = [[CATextLayer alloc] init];
-        //_textLayer.font = [UIFont boldSystemFontOfSize:13].fontName; // not needed since `string` property will be an NSAttributedString
-        limitTextLayer.backgroundColor = [UIColor clearColor].CGColor;
-        limitTextLayer.wrapped = NO;
-        CALayer *layer = lblDailyLimit.layer; //self is a view controller contained by a navigation controller
-        limitTextLayer.frame = CGRectMake(0, 0, layer.frame.size.width, layer.frame.size.height);
-        limitTextLayer.alignmentMode = kCAAlignmentCenter;
-        limitTextLayer.contentsScale = [[UIScreen mainScreen] scale];
-        [layer addSublayer:limitTextLayer];
-    }
-    
-    NSString* labelString = [NSString stringWithFormat:@"$%d/day",[user.instantLimit intValue]];
-    
-    lblRemainingLimit.text = @"$99";
-    
-    /* Create the attributes (for the attributed string) */
-    
-    CTFontRef amountFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 35.0, NULL);
-    CTFontRef dayFontRef = CTFontCreateWithName((CFStringRef)@"Helvetica-Bold", 10.0, NULL);
-    
-   
-    NSDictionary *amountAttributes = [NSDictionary dictionaryWithObject:
-            (id)amountFontRef forKey:(id)kCTFontAttributeName];
-    
-    NSDictionary *dayAttributes = [NSDictionary dictionaryWithObject:
-                                      (id)dayFontRef forKey:(id)kCTFontAttributeName];
-    
-    /* Create the attributed string (text + attributes) */
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:labelString attributes:amountAttributes];
-    
-    [attrStr addAttributes:dayAttributes range:NSMakeRange([labelString rangeOfString:@"/"].location, 4)];
-    
-    CFRelease(amountFontRef);
-    CFRelease(dayFontRef);
-    
-    /* Set the attributes string in the text layer :) */
-    limitTextLayer.string = attrStr;
-    [attrStr release];
-    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
@@ -251,8 +207,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     self.tabBar = nil;
     [self setQuickSendView:nil];
-    [lblRemainingLimit release];
-    lblRemainingLimit = nil;
+    [incomingNotificationLabel release];
+    incomingNotificationLabel = nil;
+    [outgoingNotificationLabel release];
+    outgoingNotificationLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -292,39 +250,48 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 
 
-- (IBAction)qs1pressed:(id)sender {
+- (IBAction)qs1pressed:(id)sender
+{
     [self clickedQuickSend:1];
 }
 
-- (IBAction)qs2pressed:(id)sender {
+- (IBAction)qs2pressed:(id)sender
+{
     [self clickedQuickSend:2];
 }
 
-- (IBAction)qs3pressed:(id)sender {
+- (IBAction)qs3pressed:(id)sender
+{
     [self clickedQuickSend:3];
 }
 
-- (IBAction)qs4pressed:(id)sender {
+- (IBAction)qs4pressed:(id)sender
+{
     [self clickedQuickSend:4];
 }
 
-- (IBAction)qs5pressed:(id)sender {
+- (IBAction)qs5pressed:(id)sender
+{
     [self clickedQuickSend:5];
 }
 
-- (IBAction)qs6pressed:(id)sender {
+- (IBAction)qs6pressed:(id)sender
+{
     [self clickedQuickSend:6];
 }
 
-- (IBAction)qs7pressed:(id)sender {
+- (IBAction)qs7pressed:(id)sender
+{
     [self clickedQuickSend:7];
 }
 
-- (IBAction)qs8pressed:(id)sender {
+- (IBAction)qs8pressed:(id)sender
+{
     [self clickedQuickSend:8];
 }
 
-- (IBAction)qs9pressed:(id)sender {
+- (IBAction)qs9pressed:(id)sender
+{
     [self clickedQuickSend:9];
 }
 

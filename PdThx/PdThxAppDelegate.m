@@ -363,7 +363,6 @@
     // I think this is why we keep getting duplicate facebook contacts. We're merging in facebook contacts without first clearing contactArray.
     //[self mergeAllContacts:faceBookContacts];
     
-    if (phoneContactsSize != ABAddressBookGetPersonCount(ABAddressBookCreate()))
     [self loadPhoneContacts];
 }
 
