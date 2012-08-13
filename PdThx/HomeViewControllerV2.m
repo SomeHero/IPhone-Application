@@ -301,6 +301,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // REMEMBER: BUTTON INDEXES START AT 1 (number pad layout)
     // INDEX IN QUICK SEND ARRAY WILL BE BUTTONVALUE-1 (done above)
     
+    [quickSendContacts objectAtIndex:buttonValue];
+    
+    
+    /*
     switch (buttonValue)
     {
         case 0:
@@ -495,6 +499,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             break;
         }
     }
+     */
     
 }
 

@@ -40,12 +40,16 @@
     
     UserService *userService;
     IBOutlet QuickSendView *quickSendView;
+    NSMutableArray *quickSendContacts;
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UIButton *btnSendPhone;
 @property(nonatomic, retain) UIButton *btnSendFacebook;
 @property(nonatomic, retain) UIButton *btnSendNonprofit;
+
+
+@property(nonatomic, retain) NSMutableArray *quickSendContacts;
 
 @property (nonatomic, retain) UILabel *lblDailyLimit;
 @property (nonatomic, retain) UILabel *lblRemainingLimit;
