@@ -122,5 +122,82 @@
     [buttonDelegate quicksendSwipedDown];
 }
 
+-(void)reloadQuickSendContacts:(NSMutableArray *)contactArray
+{
+    [qs1button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs1textView.text = @"";
+    
+    [qs2button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs2textView.text = @"";
+    
+    [qs3button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs3textView.text = @"";
+    
+    [qs4button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs4textView.text = @"";
+    
+    [qs5button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs5textView.text = @"";
+    
+    [qs6button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs6textView.text = @"";
+    
+    [qs7button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs7textView.text = @"";
+    
+    [qs8button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs8textView.text = @"";
+    
+    [qs9button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    qs9textView.text = @"";
+    
+    /*      This cannot be made into a loop... I tried but I did not see an option.     */
+    /*  ------------------------------------------------------------------------------  */
+    
+    int count = [contactArray count];
+    
+    if ( count > 0 )
+    {
+        NSDictionary* contactDict;
+        
+        if ( count > 0 )
+        {
+            contactDict = [contactArray objectAtIndex:0];
+            [qs4button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
+            qs4textView.text = [contactDict valueForKey:@"userName"];
+        }
+        if ( count > 1 )
+        {
+            contactDict = [contactArray objectAtIndex:1];
+            [qs5button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
+            qs5textView.text = [contactDict valueForKey:@"userName"];
+        }
+        if ( count > 2 )
+        {
+            contactDict = [contactArray objectAtIndex:2];
+            [qs6button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
+            qs6textView.text = [contactDict valueForKey:@"userName"];
+        }
+        if ( count > 3 )
+        {
+            contactDict = [contactArray objectAtIndex:3];
+            [qs7button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
+            qs7textView.text = [contactDict valueForKey:@"userName"];
+        }
+        if ( count > 4 )
+        {
+            contactDict = [contactArray objectAtIndex:4];
+            [qs8button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
+            qs8textView.text = [contactDict valueForKey:@"userName"];
+        }
+        if ( count > 5 )
+        {
+            contactDict = [contactArray objectAtIndex:5];
+            [qs9button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
+            qs9textView.text = [contactDict valueForKey:@"userName"];
+        }
+    }
+}
+
 
 @end

@@ -67,6 +67,8 @@
 - (IBAction)qs8pressed:(id)sender;
 - (IBAction)qs9pressed:(id)sender;
 
+-(void)reloadQuickSendContacts:(NSMutableArray*)contactArray;
+
 
 
 

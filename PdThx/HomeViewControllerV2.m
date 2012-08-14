@@ -36,6 +36,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize swipeUpQuicksend;
 @synthesize swipeDownQuicksend;
 @synthesize incomingNotificationLabel, outgoingNotificationLabel;
+@synthesize quickSendContacts;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -117,11 +118,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [quickSendView addGestureRecognizer:swipeUpQuicksend];
     [quickSendView addGestureRecognizer:swipeDownQuicksend];
     
-    
     swipeUpQuicksend.delegate = self;
     swipeDownQuicksend.delegate = self;
     
     [self setTitle: @"Home"];
+    
+    // lblUserName.text =
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    lblUserName.text = appDelegate.user.preferredName;
+    if ( [appDelegate.user.payPoints count] > 0 )
+        lblPayPoints.text = appDelegate.user.userUri;
+    else
+        lblPayPoints.text = appDelegate.user.userName;
 }
 
 
@@ -162,9 +171,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+-(void)userHomeScreenInformationDidComplete:(NSMutableArray *)quickSendContactArray
+{
+    quickSendContacts = quickSendContactArray;
     
-    lblUserName.text = @"";
-    lblPayPoints.text = @"";
+    [quickSendView reloadQuickSendContacts:quickSendContacts];
+}
+
+-(void)userHomeScreenInformationDidFail:(NSString *)message
+{
+    NSLog(@"Loading homescreen&quicksendcontacts failed");
 }
 
 -(void)userInformationDidComplete:(User*) user 
@@ -301,10 +319,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // REMEMBER: BUTTON INDEXES START AT 1 (number pad layout)
     // INDEX IN QUICK SEND ARRAY WILL BE BUTTONVALUE-1 (done above)
     
-    [quickSendContacts objectAtIndex:buttonValue];
+    // [quickSendContacts objectAtIndex:buttonValue];
     
-    
-    /*
     switch (buttonValue)
     {
         case 0:
@@ -499,7 +515,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             break;
         }
     }
-     */
     
 }
 

@@ -283,6 +283,7 @@
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     
+    
     if(user.isLockedOut)
     {
         SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
