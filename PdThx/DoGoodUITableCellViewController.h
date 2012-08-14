@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "OrganizationDetailViewController.h"
+#import "UICustomDetailButton.h"
 
 @interface DoGoodUITableCellViewController : UITableViewCell
 {
     IBOutlet UIButton *contactImage;
-    IBOutlet UIButton* btnInfo;
+    IBOutlet UICustomDetailButton* btnInfo;
     IBOutlet UILabel *contactName;
     IBOutlet UILabel *contactDetail;
     IBOutlet UIView *overLayView;
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) UILabel *contactName;
 @property (nonatomic, retain) UILabel *contactDetail;
 @property (nonatomic, retain) UIImage *imgData;
+@property(nonatomic, retain) UICustomDetailButton* btnInfo;
 @property (nonatomic, retain) NSString* merchantId;
 
 -(IBAction)btnInfoClicked:(id)sender;

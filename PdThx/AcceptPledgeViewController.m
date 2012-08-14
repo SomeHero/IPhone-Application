@@ -479,6 +479,7 @@
     TransactionConfirmationViewController*  controller = [[TransactionConfirmationViewController alloc] init];
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your request for $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
     [controller setTransactionConfirmationDelegate: self];
+    [controller setContinueButtonText: @"Accept Another Pledge"];
     
     [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];

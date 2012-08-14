@@ -270,6 +270,9 @@
 -(void)userInformationDidComplete:(User*) user {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    //[appDelegate dismissProgressHUD];
+    
     NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];
     bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
     
@@ -277,8 +280,7 @@
         user.hasACHAccount = true;
     
     user.hasSecurityPin = setupSecurityPin;
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+
     [appDelegate showSuccessWithStatus:@"Complete!" withDetailedStatus:@""];
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
@@ -407,7 +409,7 @@
 }
 
 -(void)securityQuestionAnsweredCorrect {
-    [self dismissModalViewControllerAnimated: YES];
+    [self dismissModalViewControllerAnimated: NO];
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
 }

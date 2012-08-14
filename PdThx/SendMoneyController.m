@@ -72,7 +72,6 @@
     [txtComments release];
     [user release];
     [amount release];
-    [comments release];
     [recipientImageButton release];
     [chooseRecipientButton release];
     [contactHead release];
@@ -185,9 +184,6 @@
     recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
     
-    
-    comments = [[NSString alloc] initWithString: @""];
-    
     [self setTitle:@"Send $"];
     
     [txtAmount setDelegate:self];
@@ -270,9 +266,13 @@
 {
     ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
     [newView setTitle:@"Send To"];
+    [newView setDidSetContactAndAmount: self];
+    [newView setDidSetContact: self];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.contactSelectChosenDelegate = self;
+    
+    [newView release];
 }
 
 - (IBAction)pressedAmountButton:(id)sender 
@@ -282,6 +282,8 @@
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.amountChosenDelegate = self;
+    
+    [newView release];
 }
 
 
@@ -293,9 +295,6 @@
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
     }
-    
-    if([txtComments.text length] > 0)
-        comments = [txtComments.text copy];
     
     BOOL isValid = YES;
     
@@ -382,7 +381,7 @@
     }
     
     
-    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:txtComments.text withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
 
 -(void)swipeDidCancel: (id)sender
@@ -645,8 +644,30 @@
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
-
-
+-(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend
+{
+    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [self didChooseContact:contact];
+    [self didSelectAmount:amountToSend];
+}
+-(void)didSetContact: (Contact*)contact
+{
+    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [self didChooseContact:contact];
+    
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    [newView setTitle:@"Send Amount"];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
+    
+    [newView release];
+    
+}
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {
     if( buttonIndex == 0 )

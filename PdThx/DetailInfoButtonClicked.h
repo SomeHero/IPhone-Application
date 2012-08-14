@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Contact.h"
 
 @protocol DetailInfoButtonClicked;
 
 @protocol DetailInfoButtonClicked <NSObject>
 
--(void)infoButtonClicked: (NSString*) merchantId;
+-(void)infoButtonClicked: (Contact*) contact;
 
 
 @end

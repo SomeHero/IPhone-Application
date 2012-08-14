@@ -249,7 +249,8 @@
 {
     DonationContactSelectViewController *newView = [[DonationContactSelectViewController alloc] initWithNibName:@"DonationContactSelectViewController" bundle:nil];
     [newView setTitle: @"Donate To"];
-    
+    [newView setDidSetContactAndAmount: self];
+    [newView setDidSetContact: self];
     
     [self.navigationController pushViewController:newView animated:YES];
     newView.causeSelectDidComplete = self;
@@ -392,6 +393,7 @@
     TransactionConfirmationViewController*  controller = [[TransactionConfirmationViewController alloc] init];
     controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
     [controller setTransactionConfirmationDelegate: self];
+    [controller setContinueButtonText: @"Make Another Donation"];
     
     [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];
@@ -502,6 +504,27 @@
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
+}
+-(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend;
+{
+    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+
+    [self didChooseCause:contact];
+    [self didSelectAmount:amountToSend];
+}
+-(void)didSetContact: (Contact*)contact
+{
+    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+    
+    [self didChooseCause:contact];
+    
+    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+    [newView setTitle: @"Donation Amount"];
+    
+    [self.navigationController pushViewController:newView animated:YES];
+    newView.amountChosenDelegate = self;
 }
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {

@@ -15,6 +15,8 @@
 @synthesize recipientId;
 @synthesize preferredAccountId;
 @synthesize paypoints;
+@synthesize showDetailIcon;
+@synthesize merchant;
 
 -(id) init
 {
@@ -23,6 +25,7 @@
     if (self)
     {
         paypoints = [[NSMutableArray alloc] init];
+        showDetailIcon = false;
     }
     
     return self;
@@ -62,7 +65,8 @@
     [recipientId release];
     [preferredAccountId release];
     [paypoints release];
-    
+    [merchant release];
+
     [super dealloc];
 }
 @end    

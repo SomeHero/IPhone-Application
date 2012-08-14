@@ -25,8 +25,10 @@
 #import "HBTabBarManager.h"
 #import "DetermineRecipientCompleteProtocol.h"
 #import "SelectRecipientProtocol.h"
+#import "SetContactAndAmountProtocol.h"
+#import "SetContactProtocol.h"
 
-@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol> {
+@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, SetContactProtocol, SetContactAndAmountProtocol, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;
@@ -34,7 +36,6 @@
     IBOutlet UIButton *btnSendMoney;
     User* user;
     NSString* amount;
-    NSString* comments;
     NSString* recipientUri;
     
     NSMutableArray *autoCompleteArray;

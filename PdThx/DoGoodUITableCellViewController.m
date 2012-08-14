@@ -18,7 +18,7 @@
 @synthesize imgData;
 @synthesize detailInfoButtonClicked;
 @synthesize merchantId;
-
+@synthesize btnInfo;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -44,14 +44,14 @@
     [contactImage release];
     [contactDetail release];
     [contactName release];
+    [btnInfo release];
     
     [super dealloc];
 }
 
 -(IBAction)btnInfoClicked:(id)sender
 {
-    [detailInfoButtonClicked infoButtonClicked: merchantId];
-    
+    [detailInfoButtonClicked infoButtonClicked: ((UICustomDetailButton*)sender).contact];
 }
 
 @end
