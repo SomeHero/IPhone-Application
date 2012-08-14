@@ -16,7 +16,6 @@
 
 @synthesize optionItems;
 @synthesize selectedOptionItem;
-@synthesize accountType;
 @synthesize optionSelectDelegate;
 @synthesize headerText;
 @synthesize descriptionText;
@@ -39,7 +38,7 @@
         [tv.layer setMasksToBounds:YES];
         [tv.layer setCornerRadius:self.cornerRadius];
         
-        [tv setRowHeight: 75];
+        [tv setRowHeight: 60];
         
         v = tv;
         
@@ -97,7 +96,7 @@
     [cell.textLabel setFont: [UIFont boldSystemFontOfSize: 16]];
     cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:54/255.0 blue:62/255.0 alpha:1];
     cell.textLabel.text = optionItem;
-    cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
+    //cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
     
     if([optionItem isEqualToString:selectedOptionItem])
     {

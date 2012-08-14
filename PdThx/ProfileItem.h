@@ -17,6 +17,8 @@
     NSString* attributeId;
     NSString* itemType;
     NSInteger points;
+    NSString* selectOptionHeader;
+    NSString* selectOptionDescription;
     NSMutableArray* options;
 }
 
@@ -26,6 +28,8 @@
 @property(nonatomic) NSInteger sortOrder;
 @property(nonatomic, retain) NSString* itemType;
 @property(nonatomic) NSInteger points;
+@property(nonatomic, retain) NSString* selectOptionHeader;
+@property(nonatomic, retain) NSString* selectOptionDescription;
 @property(nonatomic, retain) NSMutableArray* options;
 
 -(ProfileItem *) initWithDictionary : (NSDictionary *) dictionary;

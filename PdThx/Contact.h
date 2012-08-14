@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Merchant.h"
 
 
 @interface Contact : NSObject {
@@ -19,6 +20,8 @@
     NSString* recipientId;
     NSString* preferredAccountId;
     NSMutableArray* paypoints;
+    bool showDetailIcon;
+    Merchant* merchant;
 }
 
 @property(nonatomic, retain) NSString* userId;
@@ -28,9 +31,10 @@
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *lastName;
 @property(nonatomic, retain) NSString* recipientId;
-//Nice one justin.. you had preferred as preffered
 @property(nonatomic, retain) NSString* preferredAccountId;
 @property(nonatomic, retain) NSMutableArray* paypoints;
+@property(nonatomic) bool showDetailIcon;
+@property(nonatomic, retain) Merchant* merchant;
 
 -(NSComparisonResult)compare:(Contact*)otherContact;
 

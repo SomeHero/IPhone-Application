@@ -15,7 +15,7 @@
 #import "Facebook.h"
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
-
+#import "Merchant.h"
 @interface DonationContactSelectViewController ()
 
 - (void)startIconDownload:(Contact*)contact forIndexPath:(NSIndexPath *)indexPath;
@@ -28,6 +28,9 @@
 @synthesize fbIconsDownloading, causeSelectDidComplete;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
 @synthesize  allResults;
+@synthesize didSetContactAndAmount;
+@synthesize didSetContact;
+@synthesize merchant;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -244,7 +247,7 @@
     [myCell.contactImage.layer setCornerRadius:4.0];
     [myCell.contactImage.layer setMasksToBounds:YES];
     myCell.userInteractionEnabled = YES;
-    
+
     Contact *contact;
     if ( isFiltered == YES ) {
         if ( foundFiltered == NO ){ // Only Show it once (section0)
@@ -371,6 +374,14 @@
             else
                 [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
         }
+        [myCell.btnInfo setContact: contact];
+        [myCell.btnInfo setMerchant:contact.merchant];
+        if(!contact.showDetailIcon)
+            [myCell.btnInfo setHidden:YES];
+        else {
+            [myCell.btnInfo setHidden:NO];
+        }
+        
     }
     
     if (indexPath.row%2 == 0)  {
@@ -602,10 +613,13 @@
     [tvSubview reloadData];
 }
 
--(void)infoButtonClicked: (NSString*) merchantId;
+-(void)infoButtonClicked: (Contact*) contact;
 {
     OrganizationDetailViewController* controller = [[OrganizationDetailViewController alloc] init];
-    [controller setMerchantId:merchantId];
+    
+    [controller setContact: contact];
+    [controller setDidSetContactAndAmount: self];
+    [controller setDidSetContact: self];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
     
@@ -659,6 +673,14 @@
     
     [popoverController release];
     popoverController = nil;
+}
+-(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend;
+{
+    [didSetContactAndAmount didSetContactAndAmount:contact amount:amountToSend];
+}
+-(void)didSetContact: (Contact*)contact
+{
+    [didSetContact didSetContact:contact];
 }
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {

@@ -13,6 +13,9 @@
 @synthesize contactDetail, contactImage;
 @synthesize imgData, contactNameField;
 @synthesize contactNameLayer;
+@synthesize btnInfo;
+@synthesize merchantId;
+@synthesize detailInfoButtonClicked;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -31,7 +34,10 @@
 
     // Configure the view for the selected state
 }
-
+-(IBAction)btnInfoClicked:(id)sender
+{
+    [detailInfoButtonClicked infoButtonClicked: ((UICustomDetailButton*)sender).contact];
+}
 - (void)dealloc 
 {
     [contactImage release];
@@ -39,6 +45,9 @@
     [contactDetail release];
     
     [contactNameField release];
+    [btnInfo release];
+    [merchantId release];
+    
     [super dealloc];
 }
 @end

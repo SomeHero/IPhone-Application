@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MerchantListing.h"
 
 @interface Merchant : NSObject
 <NSCopying> {
@@ -15,12 +16,14 @@
     NSString* name;
     NSString* imageUrl;
     NSString* preferredReceiveAccountId;
+    NSMutableArray* merchantListings;
 }
 
 @property(nonatomic, retain) NSString* merchantId;
 @property(nonatomic, retain) NSString* name;
 @property(nonatomic, retain) NSString* imageUrl;
 @property(nonatomic, retain) NSString* preferredReceiveAccountId;
+@property(nonatomic, retain) NSMutableArray* merchantListings;
 
 -(Merchant *) initWithDictionary : (NSDictionary *) dictionary;
 

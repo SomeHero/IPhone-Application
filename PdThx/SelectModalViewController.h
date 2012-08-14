@@ -16,7 +16,6 @@
     UIView *v;
 	NSMutableArray* optionItems;
     NSString* selectedOptionItem;
-    NSString* accountType;
     
     NSString* headerText;
     NSString* descriptionText; 
@@ -32,6 +31,5 @@
 
 @property(nonatomic, retain) NSMutableArray* optionItems;
 @property(nonatomic, retain) NSString* selectedOptionItem;
-@property(nonatomic, retain) NSString* accountType;
 
 @end
