@@ -240,7 +240,7 @@
 
 -(void) securityQuestionAnsweredCorrect
 {
-    [self dismissModalViewControllerAnimated: YES];
+    [self dismissModalViewControllerAnimated: NO];
     
     ForgotPinCodeViewController *controller = [[ForgotPinCodeViewController alloc] init];
     [controller setNavigationTitle:@"Forgot Pin Code"];

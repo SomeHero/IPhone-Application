@@ -127,7 +127,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             txtAction.text = [NSString stringWithFormat: @"sent $%0.2f to", [messageDetail.amount doubleValue]];
             
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                UIButton* btnCancelPayment = [[UIButton alloc] init];
+                UIButton* btnCancelPayment = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnCancelPayment setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
                 [btnCancelPayment setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
@@ -170,7 +170,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             txtRecipient.text = @"You";
             txtAction.text = [NSString stringWithFormat: @"requeseted $%0.2f from", [messageDetail.amount doubleValue]];
             
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+            if([messageDetail.messageStatus isEqualToString: @"Action Needed"]) {
                 UIButton* btnAcceptRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnAcceptRequest setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
@@ -185,7 +185,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 
                 yPos = yPos + btnAcceptRequest.frame.size.height + 5;
             }
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+            if([messageDetail.messageStatus isEqualToString: @"Action Needed"]) {
                 UIButton* btnRejectRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnRejectRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
@@ -206,7 +206,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             txtRecipient.text = messageDetail.recipientName;
             txtAction.text = [NSString stringWithFormat: @"requested $%0.2f from", [messageDetail.amount doubleValue]];
             
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+            if([messageDetail.messageStatus isEqualToString: @"Awaiting Response"]) {
                
                 UIButton* btnCancelRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
             
@@ -222,7 +222,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 
                 yPos = yPos + btnCancelRequest.frame.size.height + 5;
             }
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+            if([messageDetail.messageStatus isEqualToString: @"Awaiting Response"]) {
                 UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
@@ -334,7 +334,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
 }
 -(void)acceptPaymentRequestDidComplete {
-    [pullableView setOpened:NO animated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    //[pullableView setOpened:NO animated:YES];
 }
 -(void)acceptPaymentRequestDidFail {
     //self sho
@@ -360,26 +361,29 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 -(void)btnAcceptRequestClicked {
 
-    controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [pullableView setOpened:NO animated:YES];
+
+    controller=[[CustomSecurityPinSwipeController alloc] init];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm your Pin"];
     [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
     [controller setTag:2];    
-    [self.parent presentModalViewController:controller animated:YES];
+    [self presentModalViewController:controller animated:YES];
     
     ///////////////////////////////////
     // Add the panel to our view
     //[self.view addSubview:securityPinModalPanel];
-    [pullableView setOpened:NO animated:YES];
     //[parent.navigationController pushViewController: securityPinModalPanel animated:YES];
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
+    [self dismissModalViewControllerAnimated: YES];
+    
     [paystreamServices acceptRequest:messageDetail.messageId withUserId:user.userId fromPaymentAccount:user.preferredReceiveAccountId withSecurityPin:pin];
 }
 -(void)swipeDidCancel: (id)sender
 {
-    [self.navigationController dismissModalViewControllerAnimated: YES];
+    [self dismissModalViewControllerAnimated: YES];
 }
 -(void)btnRejectRequestClicked {
     [paystreamServices rejectRequest: messageDetail.messageId];

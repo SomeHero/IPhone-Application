@@ -700,6 +700,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         contact.name = merchant.name;
         contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
         contact.recipientId =  merchant.merchantId;
+        contact.merchant = merchant;
+        
+        if([merchant.merchantListings count] > 0)
+            contact.showDetailIcon = true;
         
         [tempOrganizations addObject:contact];
     }
@@ -733,6 +737,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         contact.name = merchant.name;
         contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
         contact.recipientId =  merchant.merchantId;
+        contact.merchant = merchant;
+        
+        if([merchant.merchantListings count] > 0)
+            contact.showDetailIcon = true;
         
         [tempOrganizations addObject:contact];
     }

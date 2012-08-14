@@ -16,6 +16,8 @@
 @synthesize attributeId;
 @synthesize itemType;
 @synthesize points;
+@synthesize selectOptionHeader;
+@synthesize selectOptionDescription;
 @synthesize options;
 
 -(id)init {
@@ -40,7 +42,8 @@
         points = [[dictionary valueForKey:@"Points"] intValue];
         
         NSArray *tempOptions = [[dictionary valueForKey:@"SelectOptions"] copy];
-        
+        selectOptionHeader = [[dictionary valueForKey: @"SelectOptionHeader"] copy];
+        selectOptionDescription = [[dictionary valueForKey: @"SelectOptionDescription"] copy];
         options = [[NSMutableArray alloc] init];
         
         for(int i = 0; i <[tempOptions count]; i++)

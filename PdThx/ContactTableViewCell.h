@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "DetailInfoButtonClicked.h"
+#import "UICustomDetailButton.h"
 
 @interface ContactTableViewCell : UITableViewCell
 {
@@ -15,12 +17,21 @@
     IBOutlet UILabel *contactNameField;
     CATextLayer* contactNameLayer;
     IBOutlet UILabel *contactDetail;
+    IBOutlet UICustomDetailButton* btnInfo;
+    NSString* merchantId;
+    
+    id<DetailInfoButtonClicked> detailInfoButtonClicked;
 }
+@property(nonatomic, retain) id detailInfoButtonClicked;
 
 @property (nonatomic, retain) UIButton *contactImage;
 @property (nonatomic, retain) UILabel *contactNameField;
 @property (nonatomic, retain) UILabel *contactDetail;
 @property (nonatomic, retain) UIImage *imgData;
 @property (nonatomic, retain) CATextLayer *contactNameLayer;
+@property(nonatomic, retain) UICustomDetailButton* btnInfo;
+@property(nonatomic, retain) NSString* merchantId;
+
+-(IBAction)btnInfoClicked:(id)sender;
 
 @end

@@ -14,6 +14,7 @@
 @synthesize name;
 @synthesize imageUrl;
 @synthesize preferredReceiveAccountId;
+@synthesize merchantListings;
 
 -(id)init {
 self = [super init];
@@ -35,6 +36,15 @@ if(self) {
     name = [[dictionary valueForKey: @"Name"] copy];
     imageUrl = [[dictionary valueForKey: @"MerchantImageUrl"] copy];
     preferredReceiveAccountId = [[dictionary valueForKey:@"PreferredReceiveAccountId"] copy];
+    
+    NSArray *tempMerchantListings = [[dictionary valueForKey:@"Listings"] copy];
+    
+    merchantListings = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i <[tempMerchantListings count]; i++)
+    {
+        [merchantListings addObject: [[[MerchantListing alloc] initWithDictionary: [tempMerchantListings objectAtIndex:(NSUInteger) i]] autorelease]];
+    }
 }
 
 return self;
@@ -42,14 +52,15 @@ return self;
 // In the implementation
 -(id)copyWithZone:(NSZone *)zone
 {
-// We'll ignore the zone for now
-Merchant *another = [[Merchant alloc] init];
+    // We'll ignore the zone for now
+    Merchant *another = [[Merchant alloc] init];
 
-another.merchantId = merchantId;
-another.name = name;
-another.imageUrl = imageUrl;
+    another.merchantId = merchantId;
+    another.name = name;
+    another.imageUrl = imageUrl;
+    another.merchantListings = merchantListings;
 
-return another;
+    return another;
 }
 
 @end

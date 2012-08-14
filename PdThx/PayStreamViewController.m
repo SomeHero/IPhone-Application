@@ -701,13 +701,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     cell.overlayView.layer.opacity = 0.0;   
    
-    UIImage *imgAcceptedImageView = [UIImage imageNamed: @"stampPaid"];
+    UIImage *imgAcceptedImageView = [UIImage imageNamed: @"stampPaid.png"];
     
-    UIImage *imgRejectedImageView = [UIImage imageNamed: @"stampRejected"];
+    UIImage *imgRejectedImageView = [UIImage imageNamed: @"stampRejected.png"];
     
-    UIImage *imgCancelledImageView = [UIImage imageNamed: @"stampCancelled"];
+    UIImage *imgCancelledImageView = [UIImage imageNamed: @"stampCancelled.png"];
     
-    UIImage *imgReturnedImageView = [UIImage imageNamed: @"stampReturned"];
+    UIImage *imgReturnedImageView = [UIImage imageNamed: @"stampReturned.png"];
     
     [cell.stampView setHidden:YES];
     if([item.messageStatus isEqualToString: @"Accepted"])
