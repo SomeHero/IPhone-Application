@@ -3,21 +3,21 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
 		<string key="IBDocument.SystemVersion">11E53</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.47</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1498</string>
+			<string key="NS.object.0">1181</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBProxyObject</string>
-			<string>IBUIButton</string>
+			<string>IBUIView</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
-			<string>IBUIScrollView</string>
+			<string>IBProxyObject</string>
 			<string>IBUISwipeGestureRecognizer</string>
-			<string>IBUIView</string>
+			<string>IBUIScrollView</string>
+			<string>IBUIButton</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -494,6 +494,21 @@
 														</object>
 														<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 													</object>
+													<object class="IBUIView" id="631502891">
+														<reference key="NSNextResponder" ref="1013209811"/>
+														<int key="NSvFlags">292</int>
+														<string key="NSFrame">{{0, 145}, {308, 123}}</string>
+														<reference key="NSSuperview" ref="1013209811"/>
+														<reference key="NSWindow"/>
+														<string key="NSReuseIdentifierKey">_NS:10</string>
+														<object class="NSColor" key="IBUIBackgroundColor" id="437037377">
+															<int key="NSColorSpace">3</int>
+															<bytes key="NSWhite">MCAwAA</bytes>
+														</object>
+														<bool key="IBUIClipsSubviews">YES</bool>
+														<array key="IBUIGestureRecognizers" id="0"/>
+														<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+													</object>
 												</array>
 												<string key="NSFrame">{{0, 69}, {308, 287}}</string>
 												<reference key="NSSuperview" ref="621134868"/>
@@ -615,24 +630,8 @@
 										<reference key="NSSuperview" ref="943674493"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="674904027"/>
-										<object class="NSColor" key="IBUIBackgroundColor" id="437037377">
-											<int key="NSColorSpace">3</int>
-											<bytes key="NSWhite">MCAwAA</bytes>
-										</object>
-										<bool key="IBUIClipsSubviews">YES</bool>
-										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-									</object>
-									<object class="IBUIView" id="631502891">
-										<reference key="NSNextResponder" ref="943674493"/>
-										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{6, 225}, {308, 123}}</string>
-										<reference key="NSSuperview" ref="943674493"/>
-										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
-										<string key="NSReuseIdentifierKey">_NS:10</string>
 										<reference key="IBUIBackgroundColor" ref="437037377"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
-										<array key="IBUIGestureRecognizers" id="0"/>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									</object>
 								</array>
@@ -653,7 +652,7 @@
 						<string key="NSReuseIdentifierKey">_NS:10</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xNDkwMTk2MDc4IDAuNDQ3MDU4ODIzNSAwLjIzOTIxNTY4NjMAA</bytes>
+							<bytes key="NSRGB">MC4wNzQ1MDk4MDM5MiAwLjQyMzUyOTQxMTggMC4wNDcwNTg4MjM1MwA</bytes>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -733,14 +732,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">quickSendView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="631502891"/>
-					</object>
-					<int key="connectionID">111</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lblRemainingLimit</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="666849312"/>
@@ -754,6 +745,14 @@
 						<reference key="destination" ref="163274291"/>
 					</object>
 					<int key="connectionID">141</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">quickSendView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="631502891"/>
+					</object>
+					<int key="connectionID">111</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -850,7 +849,6 @@
 						<reference key="object" ref="943674493"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="621134868"/>
-							<reference ref="631502891"/>
 						</array>
 						<reference key="parent" ref="657457436"/>
 					</object>
@@ -893,6 +891,7 @@
 							<reference ref="77843573"/>
 							<reference ref="51196259"/>
 							<reference ref="442944713"/>
+							<reference ref="631502891"/>
 						</array>
 						<reference key="parent" ref="621134868"/>
 					</object>
@@ -1010,7 +1009,7 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">70</int>
 						<reference key="object" ref="631502891"/>
-						<reference key="parent" ref="943674493"/>
+						<reference key="parent" ref="1013209811"/>
 					</object>
 				</array>
 			</object>
@@ -1063,17 +1062,7 @@
 					<string key="superclassName">UIBaseViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="btnIncreaseScoreClicked:">id</string>
-						<string key="btnPaystreamClicked:">id</string>
 						<string key="btnProfileClicked:">id</string>
-						<string key="qs1pressed:">id</string>
-						<string key="qs2pressed:">id</string>
-						<string key="qs3pressed:">id</string>
-						<string key="qs4pressed:">id</string>
-						<string key="qs5pressed:">id</string>
-						<string key="qs6pressed:">id</string>
-						<string key="qs7pressed:">id</string>
-						<string key="qs8pressed:">id</string>
-						<string key="qs9pressed:">id</string>
 						<string key="swipeDownQuickSend:">id</string>
 						<string key="swipeUpQuickSend:">id</string>
 					</dictionary>
@@ -1082,48 +1071,8 @@
 							<string key="name">btnIncreaseScoreClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="btnPaystreamClicked:">
-							<string key="name">btnPaystreamClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="btnProfileClicked:">
 							<string key="name">btnProfileClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs1pressed:">
-							<string key="name">qs1pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs2pressed:">
-							<string key="name">qs2pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs3pressed:">
-							<string key="name">qs3pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs4pressed:">
-							<string key="name">qs4pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs5pressed:">
-							<string key="name">qs5pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs6pressed:">
-							<string key="name">qs6pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs7pressed:">
-							<string key="name">qs7pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs8pressed:">
-							<string key="name">qs8pressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="qs9pressed:">
-							<string key="name">qs9pressed:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="swipeDownQuickSend:">
@@ -1145,7 +1094,6 @@
 						<string key="lblDailyLimit">UILabel</string>
 						<string key="lblPayPoints">UILabel</string>
 						<string key="lblRemainingLimit">UILabel</string>
-						<string key="lblScore">UILabel</string>
 						<string key="lblUserName">UILabel</string>
 						<string key="quickSendView">QuickSendView</string>
 						<string key="viewPanel">UIView</string>
@@ -1185,10 +1133,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="lblRemainingLimit">
 							<string key="name">lblRemainingLimit</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lblScore">
-							<string key="name">lblScore</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="lblUserName">
@@ -1449,6 +1393,6 @@
 			<string key="btn-profile-308x70.png">{308, 70}</string>
 			<string key="txt-yourinstantlimit-121x10.png">{121, 10}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1498</string>
+		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>

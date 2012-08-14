@@ -583,6 +583,16 @@
 		5BDDAEB915D16FCA007B733E /* UICustomDetailButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEB815D16FC7007B733E /* UICustomDetailButton.m */; };
 		5BDDAEBD15D1EEBF007B733E /* UICustomSetContactAndAmountButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEBC15D1EEB0007B733E /* UICustomSetContactAndAmountButton.m */; };
 		5BDDAEC115D21B18007B733E /* UICustomSetContactButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC015D21AFE007B733E /* UICustomSetContactButton.m */; };
+		5BDDAECC15D40633007B733E /* stampCancelled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC215D4062E007B733E /* stampCancelled.png */; };
+		5BDDAECD15D40633007B733E /* stampCancelled2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC315D4062E007B733E /* stampCancelled2x.png */; };
+		5BDDAECE15D40633007B733E /* stampPaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC415D4062E007B733E /* stampPaid.png */; };
+		5BDDAECF15D40633007B733E /* stampPaid2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC515D4062F007B733E /* stampPaid2x.png */; };
+		5BDDAED015D40633007B733E /* stampRefunded.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC615D40630007B733E /* stampRefunded.png */; };
+		5BDDAED115D40633007B733E /* stampRefunded2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC715D40631007B733E /* stampRefunded2x.png */; };
+		5BDDAED215D40633007B733E /* stampRejected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC815D40632007B733E /* stampRejected.png */; };
+		5BDDAED315D40633007B733E /* stampRejected2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAEC915D40632007B733E /* stampRejected2x.png */; };
+		5BDDAED415D40633007B733E /* stampReturned.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAECA15D40632007B733E /* stampReturned.png */; };
+		5BDDAED515D40633007B733E /* stampReturned2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDDAECB15D40633007B733E /* stampReturned2x.png */; };
 		5BDF440915794A8700FEDFBD /* recipient_search_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF440815794A8700FEDFBD /* recipient_search_go.png */; };
 		5BE06BF51599064900CB630F /* EditACHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE06BF31599064900CB630F /* EditACHAccountViewController.m */; };
 		5BE06BF61599064900CB630F /* EditACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */; };
@@ -1517,6 +1527,16 @@
 		5BDDAEBE15D218C9007B733E /* SetContactProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetContactProtocol.h; sourceTree = "<group>"; };
 		5BDDAEBF15D21AF6007B733E /* UICustomSetContactButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSetContactButton.h; sourceTree = "<group>"; };
 		5BDDAEC015D21AFE007B733E /* UICustomSetContactButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSetContactButton.m; sourceTree = "<group>"; };
+		5BDDAEC215D4062E007B733E /* stampCancelled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled.png; sourceTree = "<group>"; };
+		5BDDAEC315D4062E007B733E /* stampCancelled2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampCancelled2x.png; sourceTree = "<group>"; };
+		5BDDAEC415D4062E007B733E /* stampPaid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampPaid.png; sourceTree = "<group>"; };
+		5BDDAEC515D4062F007B733E /* stampPaid2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampPaid2x.png; sourceTree = "<group>"; };
+		5BDDAEC615D40630007B733E /* stampRefunded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRefunded.png; sourceTree = "<group>"; };
+		5BDDAEC715D40631007B733E /* stampRefunded2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRefunded2x.png; sourceTree = "<group>"; };
+		5BDDAEC815D40632007B733E /* stampRejected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRejected.png; sourceTree = "<group>"; };
+		5BDDAEC915D40632007B733E /* stampRejected2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampRejected2x.png; sourceTree = "<group>"; };
+		5BDDAECA15D40632007B733E /* stampReturned.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampReturned.png; sourceTree = "<group>"; };
+		5BDDAECB15D40633007B733E /* stampReturned2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stampReturned2x.png; sourceTree = "<group>"; };
 		5BDF440815794A8700FEDFBD /* recipient_search_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recipient_search_go.png; sourceTree = "<group>"; };
 		5BE06BF21599064900CB630F /* EditACHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditACHAccountViewController.h; sourceTree = "<group>"; };
 		5BE06BF31599064900CB630F /* EditACHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditACHAccountViewController.m; sourceTree = "<group>"; };
@@ -2412,6 +2432,16 @@
 		54CACB351586758400631B84 /* Paystream Images */ = {
 			isa = PBXGroup;
 			children = (
+				5BDDAEC215D4062E007B733E /* stampCancelled.png */,
+				5BDDAEC315D4062E007B733E /* stampCancelled2x.png */,
+				5BDDAEC415D4062E007B733E /* stampPaid.png */,
+				5BDDAEC515D4062F007B733E /* stampPaid2x.png */,
+				5BDDAEC615D40630007B733E /* stampRefunded.png */,
+				5BDDAEC715D40631007B733E /* stampRefunded2x.png */,
+				5BDDAEC815D40632007B733E /* stampRejected.png */,
+				5BDDAEC915D40632007B733E /* stampRejected2x.png */,
+				5BDDAECA15D40632007B733E /* stampReturned.png */,
+				5BDDAECB15D40633007B733E /* stampReturned2x.png */,
 				544E6D1B15D0368900B35005 /* bg-section-320x25.png */,
 				544E6D1C15D0368900B35005 /* bg-section-320x25@2x.png */,
 				541EE5F7158A649700131B0E /* img-pulltorefresh.png */,
@@ -4288,6 +4318,16 @@
 				C385D83715D02A5F000CA34C /* AUI-contactsMail40x40@2x.png in Resources */,
 				544E6D1D15D0368900B35005 /* bg-section-320x25.png in Resources */,
 				544E6D1E15D0368900B35005 /* bg-section-320x25@2x.png in Resources */,
+				5BDDAECC15D40633007B733E /* stampCancelled.png in Resources */,
+				5BDDAECD15D40633007B733E /* stampCancelled2x.png in Resources */,
+				5BDDAECE15D40633007B733E /* stampPaid.png in Resources */,
+				5BDDAECF15D40633007B733E /* stampPaid2x.png in Resources */,
+				5BDDAED015D40633007B733E /* stampRefunded.png in Resources */,
+				5BDDAED115D40633007B733E /* stampRefunded2x.png in Resources */,
+				5BDDAED215D40633007B733E /* stampRejected.png in Resources */,
+				5BDDAED315D40633007B733E /* stampRejected2x.png in Resources */,
+				5BDDAED415D40633007B733E /* stampReturned.png in Resources */,
+				5BDDAED515D40633007B733E /* stampReturned2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

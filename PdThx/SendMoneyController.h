@@ -36,7 +36,6 @@
     IBOutlet UIButton *btnSendMoney;
     User* user;
     NSString* amount;
-    NSString* comments;
     NSString* recipientUri;
     
     NSMutableArray *autoCompleteArray;

@@ -72,7 +72,6 @@
     [txtComments release];
     [user release];
     [amount release];
-    [comments release];
     [recipientImageButton release];
     [chooseRecipientButton release];
     [contactHead release];
@@ -184,9 +183,6 @@
     autoCompleteArray = [[NSMutableArray alloc] init];
     recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
-    
-    
-    comments = [[NSString alloc] initWithString: @""];
     
     [self setTitle:@"Send $"];
     
@@ -300,9 +296,6 @@
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
     }
     
-    if([txtComments.text length] > 0)
-        comments = [txtComments.text copy];
-    
     BOOL isValid = YES;
     
     if(isValid && [recipient.paypoints count] == 0)
@@ -387,7 +380,7 @@
     }
     
     
-    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:comments withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:txtComments.text withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
 }
 
 -(void)swipeDidCancel: (id)sender
