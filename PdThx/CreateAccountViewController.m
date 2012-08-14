@@ -216,7 +216,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)createAccount {
+- (void)createAccount
+{
     NSString* confirmPassword = [NSString stringWithString: @""];
     
     if([txtEmailAddress.text length] > 0)
@@ -252,7 +253,8 @@
         isValid = NO;
     }
     
-    if(isValid) {
+    if(isValid)
+    {
         [spinner startAnimating];
         
         
@@ -282,14 +284,14 @@
     [txtPassword resignFirstResponder];
     [txtConfirmPassword resignFirstResponder];
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Please Wait" withDetailedStatus:@"Facebook Loading"];
+    [appDelegate showWithStatus:@"Please Wait" withDetailedStatus:@"Facebook Loading"];
     [faceBookSignInHelper signInWithFacebook: self];
 }
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Please Wait" withDetailedStatus:@"Creating Account"];
+    [appDelegate showWithStatus:@"Please Wait" withDetailedStatus:@"Creating Account"];
     [service validateUser:result];
 }
 

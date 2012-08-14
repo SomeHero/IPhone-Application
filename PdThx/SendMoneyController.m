@@ -322,15 +322,16 @@
             {
                 [self startSecurityPin];                
             }
-            else{
-                
+            else
+            {
                 PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
                 [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@""];
                 [sendMoneyService setDetermineRecipientCompleteDelegate:self];
                 [sendMoneyService determineRecipient:recipient.paypoints];
             }
-            
-        } else {
+        }
+        else
+        {
             AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
             controller.newUserFlow = false;
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
@@ -512,7 +513,6 @@
         }
         
     }
-    
     
     [controller setContinueButtonText:@"Send Another Payment"];
     [controller setTransactionConfirmationDelegate: self];

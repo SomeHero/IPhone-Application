@@ -12,22 +12,23 @@
 
 @implementation QuickSendView
 
-@synthesize qs1button, qs1bottomlabel, qs1toplabel;
-@synthesize qs2button, qs2bottomlabel, qs2toplabel;
-@synthesize qs3button, qs3bottomlabel, qs3toplabel;
-@synthesize qs4button, qs4bottomlabel, qs4toplabel;
-@synthesize qs5button, qs5bottomlabel, qs5toplabel;
-@synthesize qs6button, qs6bottomlabel, qs6toplabel;
-@synthesize qs7button, qs7bottomlabel, qs7toplabel;
-@synthesize qs8button, qs8bottomlabel, qs8toplabel;
-@synthesize qs9button, qs9bottomlabel, qs9toplabel;
+@synthesize qs1button, qs1textView;
+@synthesize qs2button, qs2textView;
+@synthesize qs3button, qs3textView;
+@synthesize qs4button, qs4textView;
+@synthesize qs5button, qs5textView;
+@synthesize qs6button, qs6textView;
+@synthesize qs7button, qs7textView;
+@synthesize qs8button, qs8textView;
+@synthesize qs9button, qs9textView;
 @synthesize buttonDelegate;
 
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         // Initialization code
         
     }
@@ -98,25 +99,28 @@
     [qs7button release];
     [qs8button release];
     [qs9button release];
-    [qs1toplabel release];
-    [qs1bottomlabel release];
-    [qs2toplabel release];
-    [qs2bottomlabel release];
-    [qs3toplabel release];
-    [qs3bottomlabel release];
-    [qs4toplabel release];
-    [qs4bottomlabel release];
-    [qs5toplabel release];
-    [qs5bottomlabel release];
-    [qs6toplabel release];
-    [qs6bottomlabel release];
-    [qs7toplabel release];
-    [qs7bottomlabel release];
-    [qs8toplabel release];
-    [qs8bottomlabel release];
-    [qs9toplabel release];
-    [qs9bottomlabel release];
+    [qs1textView release];
+    [qs2textView release];
+    [qs3textView release];
+    [qs4textView release];
+    [qs5textView release];
+    [qs6textView release];
+    [qs7textView release];
+    [qs8textView release];
+    [qs9textView release];
+    
     [super dealloc];
 }
+
+-(void)handleSwipeUp
+{
+    [buttonDelegate quicksendSwipedUp];
+}
+
+-(void)handleSwipeDown
+{
+    [buttonDelegate quicksendSwipedDown];
+}
+
 
 @end

@@ -29,8 +29,8 @@
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate, UINavigationControllerDelegate,
-    CustomAlertViewProtocol> {
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate, UINavigationControllerDelegate, CustomAlertViewProtocol>
+{
     
     Facebook * fBook;
     NSString * deviceToken;
@@ -54,6 +54,7 @@
     
     NSMutableArray *contactsArray;
     NSMutableArray* phoneContacts;
+    CFIndex phoneContactsSize;
     NSMutableArray* faceBookContacts;
     NSMutableArray* nonProfits;
     NSMutableArray* organizations;

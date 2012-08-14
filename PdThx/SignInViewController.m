@@ -259,7 +259,8 @@
     [userService getUserInformation: userId];
 }
 
--(void)userSignInDidFail:(NSString *) reason {
+-(void)userSignInDidFail:(NSString *) reason
+{
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid user/pass"];
     //[self showAlertView:@"User Validation Failed!" withMessage: reason];
@@ -277,6 +278,7 @@
     
     if(paymentAccountAccount != (id)[NSNull null] && [paymentAccountAccount length] > 0)
         user.hasACHAccount = true;
+    
     user.hasSecurityPin = setupSecurityPin;
 
     [appDelegate showSuccessWithStatus:@"Complete!" withDetailedStatus:@""];
