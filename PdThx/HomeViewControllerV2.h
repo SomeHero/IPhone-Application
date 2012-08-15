@@ -39,8 +39,10 @@
     UISwipeGestureRecognizer *swipeDownQuicksend;
     
     UserService *userService;
-    IBOutlet QuickSendView *quickSendView;
+    
     NSMutableArray *quickSendContacts;
+    
+    IBOutlet QuickSendView *quickSendView;
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
@@ -55,7 +57,9 @@
 @property (nonatomic, retain) UILabel *lblRemainingLimit;
 
 @property(nonatomic, retain) UILabel *lblUserName;
-@property(nonatomic, retain) QuickSendView *quickSendView;
+
+
+@property (retain, nonatomic) QuickSendView *quickSendView;
 
 @property (nonatomic, retain) HBTabBarManager *tabBar;
 

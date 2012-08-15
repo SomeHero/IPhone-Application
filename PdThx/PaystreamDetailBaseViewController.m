@@ -72,13 +72,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [lblWhatsNextStatusHeader setBackgroundColor: UIColorFromRGB(0xdbefee)];
     [lblWhatsNextStatusHeader setTextColor: UIColorFromRGB(0x2d7c81)];
     
-    [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
     [btnRecipient.layer setCornerRadius:12.0];
     btnRecipient.clipsToBounds = YES;
     [txtRecipient setTextColor: UIColorFromRGB(0x2d7c81)];
     
-    [btnSender setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    [btnSender setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
     [btnSender.layer setCornerRadius:12.0];
     btnSender.clipsToBounds = YES;

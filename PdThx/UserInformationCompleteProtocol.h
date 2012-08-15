@@ -17,7 +17,7 @@
 -(void)userInformationDidFail:(NSString*) message;
 
 
--(void)userHomeScreenInformationDidComplete:(User*)user;
+-(void)userHomeScreenInformationDidComplete:(NSDictionary*) quickSendDictionary;
 -(void)userHomeScreenInformationDidFail:(NSString*) message;
 
 @end
