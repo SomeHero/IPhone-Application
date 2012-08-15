@@ -222,8 +222,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"Disappearing... seen items: %d", [seenItems count]);
-    
     if ( [seenItems count] > 0 ){
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -605,7 +603,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
 
     
-    [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+    [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
     
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
@@ -616,20 +614,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     {
         // Current user sent this message/payment
         if ( item.senderHasSeen == false ){
-            NSLog(@"User is sender, and hasn't seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
             cell.newColorStrip.backgroundColor = [UIColor colorWithRed:61/255.0 green:147/255.0 blue:76/255.0 alpha:1.0];
         } else {
-            NSLog(@"User is sender, and HAS seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
             cell.newColorStrip.backgroundColor = [UIColor clearColor];
         }
             
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
         if ( item.recipientHasSeen == false ){
-            NSLog(@"User is recipient, and hasn't seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
             cell.newColorStrip.backgroundColor = [UIColor colorWithRed:19/255.0 green:109/255.0 blue:113/255.0 alpha:1.0];
         } else {
-            NSLog(@"User is recipient, and HAS seen [sec][row] - [%d][%d]",indexPath.section,indexPath.row);
             cell.newColorStrip.backgroundColor = [UIColor clearColor];
         }
         //019)(109)(113)
@@ -645,7 +639,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [self startIconDownload:item forIndexPath:indexPath];
         } 
         // if a download is deferred or in progress, return a placeholder image
-        [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     } else if ( item.imgData ) {
         [cell.transactionImageButton setBackgroundImage:item.imgData forState:UIControlStateNormal];
     }

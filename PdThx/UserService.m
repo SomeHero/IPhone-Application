@@ -441,7 +441,20 @@
         
         NSString *theJSON = [request responseString];
         
-        NSLog(@"Hi. %@", theJSON);
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:[jsonDictionary valueForKey:@"numberOfIncomingNotifications"] forKey:@"IncomingNotificationCount"];
+        [defaults setValue:[jsonDictionary valueForKey:@"numberOfOutgoingNotifications"] forKey:@"OutgoingNotificationCount"];
+        
+        /*
+         -(void)userHomeScreenInformationDidComplete:(User*)user;
+         -(void)userHomeScreenInformationDidFail:(NSString*) message;
+         */
+        [userInformationCompleteDelegate userHomeScreenInformationDidComplete:[jsonDictionary objectForKey:@"quickSendContacts"]];
     } else {
         NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     }
