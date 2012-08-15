@@ -132,7 +132,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
         [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
     }else {
-        [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     }
     
     lblUserName.text = user.preferredName;

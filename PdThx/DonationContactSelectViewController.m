@@ -252,7 +252,7 @@
     if ( isFiltered == YES ) {
         if ( foundFiltered == NO ){ // Only Show it once (section0)
             int entryType = [self isValidFormattedPayPoint];
-            [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+            [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
             if ( entryType == 0 ) {
                 // Could not find contact by that name, so put the
                 // "keep typing" screen
@@ -308,7 +308,7 @@
                 }
                 
                 // if a download is deferred or in progress, return a placeholder image
-                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png-50x50.png"] forState:UIControlStateNormal];
                 
                 if (indexPath.row%2 == 0)  {
                     myCell.backgroundView = imageView;
@@ -331,7 +331,7 @@
             if ( contact.imgData )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             else
-                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
         }
     } else {
         Contact *contact = [[allResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -350,7 +350,7 @@
                 }
                 
                 // if a download is deferred or in progress, return a placeholder image
-                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
                 
                 if (indexPath.row%2 == 0)  {
                     myCell.backgroundView = imageView;
@@ -372,7 +372,7 @@
             if ( contact.imgData != nil )
                 [myCell.contactImage setBackgroundImage:contact.imgData forState:UIControlStateNormal];
             else
-                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+                [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
         }
         [myCell.btnInfo setContact: contact];
         [myCell.btnInfo setMerchant:contact.merchant];

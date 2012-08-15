@@ -21,16 +21,20 @@
 @synthesize qs7button, qs7textView;
 @synthesize qs8button, qs8textView;
 @synthesize qs9button, qs9textView;
-@synthesize buttonDelegate;
+@synthesize buttonDelegate, phoneFormatter;
 
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        // Initialization code
-        
+- (id)initWithFrame:(CGRect)frame {
+    
+    //self = [super initWithFrame:frame]; // not needed - thanks ddickison
+	if (self) {
+        NSArray *nib = [[NSBundle mainBundle]
+						loadNibNamed:@"QuickSendView"
+						owner:self
+						options:nil];
+		
+		[self release];	// release object before reassignment to avoid leak - thanks ddickison
+		self = [nib objectAtIndex:0];
     }
     return self;
 }
@@ -108,6 +112,7 @@
     [qs7textView release];
     [qs8textView release];
     [qs9textView release];
+    [phoneFormatter release];
     
     [super dealloc];
 }
@@ -124,79 +129,195 @@
 
 -(void)reloadQuickSendContacts:(NSMutableArray *)contactArray
 {
-    [qs1button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
-    qs1textView.text = @"";
+    if ( phoneFormatter == nil )
+        phoneFormatter = [[PhoneNumberFormatting alloc] init];
     
-    [qs2button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
-    qs2textView.text = @"";
-    
-    [qs3button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
-    qs3textView.text = @"";
-    
-    [qs4button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    [qs4button  setBackgroundImage:NULL forState:UIControlStateNormal];
     qs4textView.text = @"";
     
-    [qs5button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    [qs5button  setBackgroundImage:NULL forState:UIControlStateNormal];
     qs5textView.text = @"";
     
-    [qs6button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    [qs6button  setBackgroundImage:NULL forState:UIControlStateNormal];
     qs6textView.text = @"";
     
-    [qs7button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    [qs7button  setBackgroundImage:NULL forState:UIControlStateNormal];
     qs7textView.text = @"";
     
-    [qs8button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    [qs8button  setBackgroundImage:NULL forState:UIControlStateNormal];
     qs8textView.text = @"";
     
-    [qs9button  setBackgroundImage:NULL forState:UIControlStateNormal | UIControlStateSelected];
+    [qs9button  setBackgroundImage:NULL forState:UIControlStateNormal];
     qs9textView.text = @"";
     
     /*      This cannot be made into a loop... I tried but I did not see an option.     */
     /*  ------------------------------------------------------------------------------  */
     
-    int count = [contactArray count];
+    /*
+     // The only cases we need to handle are: Phone Number and Email
+     NSString * numOnly = [[txtEmailAddress.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+     NSRange numOnly2 = [[[txtEmailAddress.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]  options:NSCaseInsensitiveSearch];
+     if([txtEmailAddress.text length] < 1)
+     return 0;
+     if ( [txtEmailAddress.text isEqualToString:numOnly] || numOnly2.location == NSNotFound ) {
+     // Is only Numbers, I think?
+     */
     
-    if ( count > 0 )
+    if ( contactArray != (id)[NSNull null] )
     {
-        NSDictionary* contactDict;
+        NSLog(@"Inside contact array not null");
+        int count = [contactArray count];
+        NSLog(@"After count, %d",count);
         
         if ( count > 0 )
         {
-            contactDict = [contactArray objectAtIndex:0];
-            [qs4button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
-            qs4textView.text = [contactDict valueForKey:@"userName"];
-        }
-        if ( count > 1 )
-        {
-            contactDict = [contactArray objectAtIndex:1];
-            [qs5button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
-            qs5textView.text = [contactDict valueForKey:@"userName"];
-        }
-        if ( count > 2 )
-        {
-            contactDict = [contactArray objectAtIndex:2];
-            [qs6button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
-            qs6textView.text = [contactDict valueForKey:@"userName"];
-        }
-        if ( count > 3 )
-        {
-            contactDict = [contactArray objectAtIndex:3];
-            [qs7button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
-            qs7textView.text = [contactDict valueForKey:@"userName"];
-        }
-        if ( count > 4 )
-        {
-            contactDict = [contactArray objectAtIndex:4];
-            [qs8button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
-            qs8textView.text = [contactDict valueForKey:@"userName"];
-        }
-        if ( count > 5 )
-        {
-            contactDict = [contactArray objectAtIndex:5];
-            [qs9button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal | UIControlStateSelected];
-            qs9textView.text = [contactDict valueForKey:@"userName"];
+            NSDictionary* contactDict;
+            
+            if ( count > 0 )
+            {
+                contactDict = [contactArray objectAtIndex:0];
+                
+                NSLog(@"ContactDictionary0: %@", contactDict);
+                
+                if ( [contactDict valueForKey:@"userImage"] != (id)[NSNull null] )
+                    [qs4button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
+                else
+                    [qs4button setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
+                
+                if ( [contactDict valueForKey:@"userName"] != (id)[NSNull null] )
+                    [qs4textView setText: [contactDict valueForKey:@"userName"]];
+                else
+                {
+                    NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    
+                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                        [qs4textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
+                    else
+                        [qs4textView setText:[contactDict valueForKey:@"userUri"]];
+                }
+            }
+            if ( count > 1 )
+            {
+                NSLog(@"ContactDictionary1: %@", contactDict);
+                contactDict = [contactArray objectAtIndex:1];
+                if ( [contactDict objectForKey:@"userImage"] != (id)[NSNull null] )
+                    [qs5button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
+                else
+                    [qs5button setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
+                
+                if ( [contactDict valueForKey:@"userName"] != (id)[NSNull null] )
+                    [qs5textView setText: [contactDict valueForKey:@"userName"]];
+                else
+                {
+                    NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    
+                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                        [qs5textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
+                    else
+                        [qs5textView setText:[contactDict valueForKey:@"userUri"]];
+                }
+            }
+            if ( count > 2 )
+            {
+                contactDict = [contactArray objectAtIndex:2];
+                NSLog(@"ContactDictionary2: %@", contactDict);
+                
+                if ( [contactDict valueForKey:@"userImage"] != (id)[NSNull null] )
+                    [qs6button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
+                else
+                    [qs6button setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
+                
+                if ( [contactDict valueForKey:@"userName"] != (id)[NSNull null] )
+                    [qs6textView setText: [contactDict valueForKey:@"userName"]];
+                else
+                {
+                    NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    
+                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                        [qs6textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
+                    else
+                        [qs6textView setText:[contactDict valueForKey:@"userUri"]];
+                }
+            }
+            if ( count > 3 )
+            {
+                contactDict = [contactArray objectAtIndex:3];
+                NSLog(@"ContactDictionary3: %@", contactDict);
+                
+                
+                if ( [contactDict valueForKey:@"userImage"] != (id)[NSNull null] )
+                    [qs7button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
+                else
+                    [qs7button setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
+                
+                if ( [contactDict valueForKey:@"userName"] != (id)[NSNull null] )
+                    [qs7textView setText: [contactDict valueForKey:@"userName"]];
+                else
+                {
+                    NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    
+                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                        [qs7textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
+                    else
+                        [qs7textView setText:[contactDict valueForKey:@"userUri"]];
+                }
+
+            }
+            if ( count > 4 )
+            {
+                contactDict = [contactArray objectAtIndex:4];
+                NSLog(@"ContactDictionary4: %@", contactDict);
+                
+                
+                if ( [contactDict valueForKey:@"userImage"] != (id)[NSNull null] )
+                    [qs8button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
+                else
+                    [qs8button setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
+                
+                if ( [contactDict valueForKey:@"userName"] != (id)[NSNull null] )
+                    [qs8textView setText: [contactDict valueForKey:@"userName"]];
+                else
+                {
+                    NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    
+                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                        [qs8textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
+                    else
+                        [qs8textView setText:[contactDict valueForKey:@"userUri"]];
+                }
+
+            }
+            if ( count > 5 )
+            {
+                contactDict = [contactArray objectAtIndex:5];
+                NSLog(@"ContactDictionary5: %@", contactDict);
+                
+                if ( [contactDict valueForKey:@"userImage"] != (id)[NSNull null] )
+                    [qs9button  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
+                else
+                    [qs9button setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
+                
+                if ( [contactDict valueForKey:@"userName"] != (id)[NSNull null] )
+                    [qs9textView setText: [contactDict valueForKey:@"userName"]];
+                else
+                {
+                    NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                    
+                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                        [qs9textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
+                    else
+                        [qs9textView setText:[contactDict valueForKey:@"userUri"]];
+                }
+
+            }
+            
+            
+            NSLog(@"Successful Finish of Count Block");
         }
     }
+    
+    NSLog(@"Removing from superview.");
+    
 }
 
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QuickSendButtonProtocol.h"
+#import "PhoneNumberFormatting.h"
 
 @interface QuickSendView : UIView
 {
@@ -31,6 +32,7 @@
     IBOutlet UITextView *qs8textView;
     IBOutlet UITextView *qs9textView;
     
+    PhoneNumberFormatting *phoneFormatter;
     
     id<QuickSendButtonProtocol> buttonDelegate;
 }
@@ -54,6 +56,8 @@
 @property (nonatomic,retain) UITextView *qs7textView;
 @property (nonatomic,retain) UITextView *qs8textView;
 @property (nonatomic,retain) UITextView *qs9textView;
+
+@property(nonatomic, retain) PhoneNumberFormatting *phoneFormatter;
 
 @property (assign) id buttonDelegate;
 

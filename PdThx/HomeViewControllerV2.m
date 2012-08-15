@@ -32,7 +32,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize quickSendView;
 @synthesize viewPanel;
 @synthesize tabBar;
+
 @synthesize quickSendOpened;
+
 @synthesize swipeUpQuicksend;
 @synthesize swipeDownQuicksend;
 @synthesize incomingNotificationLabel, outgoingNotificationLabel;
@@ -41,7 +43,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
         [self setTitle:@"Home"];
         
@@ -64,6 +67,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [swipeUpQuicksend release];
     [incomingNotificationLabel release];
     [outgoingNotificationLabel release];
+    [quickSendView release];
     [super dealloc];
 }
 
@@ -104,7 +108,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [quickSendView addSubview:[[[NSBundle mainBundle] loadNibNamed:@"QuickSendView" owner:self options:nil] objectAtIndex:0]];
     
-    [quickSendView setButtonDelegate:self];
+    [quickSendView  setButtonDelegate:self];
     
     swipeUpQuicksend = [[UISwipeGestureRecognizer alloc] initWithTarget:quickSendView action:@selector(handleSwipeUp)];
     swipeDownQuicksend = [[UISwipeGestureRecognizer alloc] initWithTarget:quickSendView action:@selector(handleSwipeDown)];
@@ -115,8 +119,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     swipeUpQuicksend.direction = UISwipeGestureRecognizerDirectionUp;
     swipeDownQuicksend.direction = UISwipeGestureRecognizerDirectionDown;
     
-    [quickSendView addGestureRecognizer:swipeUpQuicksend];
-    [quickSendView addGestureRecognizer:swipeDownQuicksend];
+    [[quickSendView.subviews objectAtIndex:0] addGestureRecognizer:swipeUpQuicksend];
+    [[quickSendView.subviews objectAtIndex:0] addGestureRecognizer:swipeDownQuicksend];
     
     swipeUpQuicksend.delegate = self;
     swipeDownQuicksend.delegate = self;
@@ -132,7 +136,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     else
         lblPayPoints.text = appDelegate.user.userName;
 }
-
 
 - (void) quicksendSwipedUp
 {
@@ -165,7 +168,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* userId = [prefs stringForKey:@"userId"];
     
     [userService refreshHomeScreenInformation:userId];
-    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -177,7 +179,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     quickSendContacts = quickSendContactArray;
     
-    [quickSendView reloadQuickSendContacts:quickSendContacts];
+    [[quickSendView.subviews objectAtIndex:0] reloadQuickSendContacts:quickSendContacts];
 }
 
 -(void)userHomeScreenInformationDidFail:(NSString *)message
@@ -185,7 +187,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSLog(@"Loading homescreen&quicksendcontacts failed");
 }
 
--(void)userInformationDidComplete:(User*) user 
+-(void)userInformationDidComplete:(User*) user
 {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
@@ -201,7 +203,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
         [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
     }else {
-        [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     }
     
     lblUserName.text = user.preferredName;
@@ -229,6 +231,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     incomingNotificationLabel = nil;
     [outgoingNotificationLabel release];
     outgoingNotificationLabel = nil;
+    [self setQuickSendView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

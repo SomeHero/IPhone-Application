@@ -56,7 +56,7 @@
     if(merchant.imageUrl != nil) {
         [merchantImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:merchant.imageUrl]]] forState:UIControlStateNormal];
     } else {
-        [merchantImage setBackgroundImage:[UIImage imageNamed:@"avatar_unknown.jpg"] forState:UIControlStateNormal];
+        [merchantImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     }
     [merchantTagLine setText: listing.TagLine];
     [merchantDescription setText: listing.Description];
