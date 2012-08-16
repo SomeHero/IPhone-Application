@@ -57,6 +57,7 @@
         
         User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
         
+                
         [userInformationCompleteDelegate userInformationDidComplete:user];
     } else {
         [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
@@ -449,6 +450,8 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfIncomingNotifications"] forKey:@"IncomingNotificationCount"];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfOutgoingNotifications"] forKey:@"OutgoingNotificationCount"];
+        
+        [defaults synchronize];
         
         /*
          -(void)userHomeScreenInformationDidComplete:(User*)user;

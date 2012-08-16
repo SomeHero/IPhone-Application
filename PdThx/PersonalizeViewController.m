@@ -58,7 +58,8 @@
         //Handle Error Here
     }
 }   
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
 
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;

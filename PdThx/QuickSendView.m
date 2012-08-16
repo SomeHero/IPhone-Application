@@ -49,47 +49,47 @@
     [self.qs1button.layer setCornerRadius:14.0];
     [self.qs1button.layer setMasksToBounds:YES];
     [self.qs1button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs1button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs1button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs2button.layer setCornerRadius:14.0];
     [self.qs2button.layer setMasksToBounds:YES];
     [self.qs2button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs2button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs2button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs3button.layer setCornerRadius:14.0];
     [self.qs3button.layer setMasksToBounds:YES];
     [self.qs3button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs3button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs3button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs4button.layer setCornerRadius:14.0];
     [self.qs4button.layer setMasksToBounds:YES];
     [self.qs4button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs4button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs4button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs5button.layer setCornerRadius:14.0];
     [self.qs5button.layer setMasksToBounds:YES];
     [self.qs5button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs5button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs5button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs6button.layer setCornerRadius:14.0];
     [self.qs6button.layer setMasksToBounds:YES];
     [self.qs6button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs6button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs6button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs7button.layer setCornerRadius:14.0];
     [self.qs7button.layer setMasksToBounds:YES];
     [self.qs7button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs7button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs7button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs8button.layer setCornerRadius:14.0];
     [self.qs8button.layer setMasksToBounds:YES];
     [self.qs8button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs8button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs8button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs9button.layer setCornerRadius:14.0];
     [self.qs9button.layer setMasksToBounds:YES];
     [self.qs9button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs9button.layer setBorderWidth:0.7]; // 28 24 20
+    [self.qs9button.layer setBorderWidth:0.0]; // 28 24 20
 }
 
 
@@ -190,7 +190,7 @@
                 {
                     NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                     
-                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                    if ( [numOnly isEqualToString:[contactDict objectForKey:@"userUri"] ] )
                         [qs4textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
                     else
                         [qs4textView setText:[contactDict valueForKey:@"userUri"]];
@@ -211,7 +211,7 @@
                 {
                     NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                     
-                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                    if ( [numOnly isEqualToString:[contactDict objectForKey:@"userUri"] ] )
                         [qs5textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
                     else
                         [qs5textView setText:[contactDict valueForKey:@"userUri"]];
@@ -233,7 +233,7 @@
                 {
                     NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                     
-                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                    if ( [numOnly isEqualToString:[contactDict objectForKey:@"userUri"] ] )
                         [qs6textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
                     else
                         [qs6textView setText:[contactDict valueForKey:@"userUri"]];
@@ -256,7 +256,7 @@
                 {
                     NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                     
-                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                    if ( [numOnly isEqualToString:[contactDict objectForKey:@"userUri"] ] )
                         [qs7textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
                     else
                         [qs7textView setText:[contactDict valueForKey:@"userUri"]];
@@ -280,7 +280,7 @@
                 {
                     NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                     
-                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                    if ( [numOnly isEqualToString:[contactDict objectForKey:@"userUri"] ] )
                         [qs8textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
                     else
                         [qs8textView setText:[contactDict valueForKey:@"userUri"]];
@@ -303,7 +303,7 @@
                 {
                     NSString * numOnly = [[[contactDict valueForKey:@"userUri"] componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
                     
-                    if ( [numOnly isEqualToString:[contactDict valueForKey:@"userUri"]] )
+                    if ( [numOnly isEqualToString:[contactDict objectForKey:@"userUri"] ] )
                         [qs9textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
                     else
                         [qs9textView setText:[contactDict valueForKey:@"userUri"]];
