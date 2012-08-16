@@ -1,6 +1,7 @@
 
 #import "PullableView.h"
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 
 /**
@@ -129,11 +130,34 @@
         dragRecognizer.enabled = NO;
         tapRecognizer.enabled = NO;
         
+        /*
+        if ( op )
+        {
+            CABasicAnimation* moveAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+            moveAnimation.duration = 0.3;
+            moveAnimation.fromValue = [NSValue valueWithCGPoint:self.center];
+            moveAnimation.toValue = [NSValue valueWithCGPoint:self.openedCenter];
+            moveAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+            [self.layer addAnimation:moveAnimation forKey:@"position"];
+            self.layer.position = openedCenter;
+        } else {
+            CABasicAnimation* moveAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+            moveAnimation.duration = 0.3;
+            moveAnimation.fromValue = [NSValue valueWithCGPoint:self.center];
+            moveAnimation.toValue = [NSValue valueWithCGPoint:self.closedCenter];
+            moveAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+            [self.layer addAnimation:moveAnimation forKey:@"position"];
+            self.layer.position = closedCenter;
+        }
+         */
+        
+        
         [UIView animateWithDuration:animationDuration delay:0.0 options:UIViewAnimationCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction animations:^{
             self.center = opened ? openedCenter : closedCenter;
         } completion:^(BOOL finished) {
             [self animationDidStop:@"Slideover" finished:[NSNumber numberWithBool:TRUE] context:nil];
         }];
+         
         
     } else {
         if ([delegate respondsToSelector:@selector(pullableView:didChangeState:)]) {
