@@ -127,14 +127,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [self setTitle: @"Home"];
     
-    // lblUserName.text =
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-    lblUserName.text = appDelegate.user.preferredName;
-    if ( [appDelegate.user.payPoints count] > 0 )
-        lblPayPoints.text = appDelegate.user.userUri;
-    else
-        lblPayPoints.text = appDelegate.user.userName;
 }
 
 - (void) quicksendSwipedUp
@@ -161,11 +153,34 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 #pragma mark - View lifecycle
--(void) viewDidAppear:(BOOL)animated{
+-(void) viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString* userId = [prefs stringForKey:@"userId"];
+    
+    // lblUserName.text =
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    lblUserName.text = appDelegate.user.preferredName;
+    
+    
+    NSString * numOnly = [[appDelegate.user.userUri componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    
+    if ( [[appDelegate.user.userUri substringToIndex:3]  isEqualToString:@"fb_"] )
+        lblPayPoints.text = @"Facebook User";
+    else if ( [numOnly isEqualToString:appDelegate.user.preferredName] )
+        lblPayPoints.text = appDelegate.user.userUri;
+    
+    /*
+     [qs5textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
+     */
+    
+    if ( appDelegate.user.imageUrl != (id)[NSNull null] )
+    {
+        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:appDelegate.user.imageUrl]]] forState:UIControlStateNormal];
+    }
     
     [userService refreshHomeScreenInformation:userId];
 }
@@ -178,6 +193,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void)userHomeScreenInformationDidComplete:(NSMutableArray *)quickSendContactArray
 {
     quickSendContacts = quickSendContactArray;
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
+    outgoingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
     
     [[quickSendView.subviews objectAtIndex:0] reloadQuickSendContacts:quickSendContacts];
 }
@@ -322,7 +342,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // REMEMBER: BUTTON INDEXES START AT 1 (number pad layout)
     // INDEX IN QUICK SEND ARRAY WILL BE BUTTONVALUE-1 (done above)
     
-    // [quickSendContacts objectAtIndex:buttonValue];
+    //NSDictionary*contactDict = [quickSendContacts objectAtIndex:buttonValue];
     
     switch (buttonValue)
     {
@@ -371,11 +391,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             // Load Nonprofit Contact Send Screen
             [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) setSelectedContactList: @"NonProfits"];
             
-            SendMoneyController* dvc = [[SendMoneyController alloc] init];
+            DoGoodViewController* dvc = [[DoGoodViewController alloc] init];
             [[self navigationController] pushViewController:dvc animated:NO];
             [dvc viewDidLoad]; // Force load of SendMoneyViewController
             
-            [dvc pressedChooseRecipientButton:self];
+            SendDonationViewController* controller = [[SendDonationViewController alloc] init];
+            [dvc.navigationController pushViewController:controller animated:YES];
+            [controller release];
+            
+            [controller pressedChooseRecipientButton:self];
+            
             [dvc release];
             
             //Remove the view controller this is coming from, from the navigation controller stack

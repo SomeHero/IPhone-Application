@@ -103,4 +103,7 @@
 -(IBAction) btnSendMoneyClicked:(id) sender;
 -(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest;
 -(BOOL) isValidAmount:(NSString *) amountToTest;
+
+-(void)didChooseCause:(Contact*)contact;
+
 @end

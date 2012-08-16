@@ -38,9 +38,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
-        allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).contactsArray;
+        fBook = appDelegate.fBook;
+        
+        if ( [[appDelegate selectedContactList] isEqualToString:@"FacebookContacts"] )
+            allResults = appDelegate.faceBookContacts;
+        else if ( [[appDelegate selectedContactList] isEqualToString:@"NonProfits"] )
+            allResults = appDelegate.nonProfits;
+        else
+            allResults = appDelegate.contactsArray;
         
         filteredResults = [[NSMutableArray alloc] init];
         for ( int i = 0 ; i < 28 ; i ++ )

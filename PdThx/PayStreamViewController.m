@@ -638,6 +638,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO) {
             [self startIconDownload:item forIndexPath:indexPath];
         } 
+        
         // if a download is deferred or in progress, return a placeholder image
         [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     } else if ( item.imgData ) {
