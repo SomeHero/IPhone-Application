@@ -160,7 +160,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString* userId = [prefs stringForKey:@"userId"];
     
-    // lblUserName.text =
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     lblUserName.text = appDelegate.user.preferredName;
@@ -170,12 +169,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     if ( [[appDelegate.user.userUri substringToIndex:3]  isEqualToString:@"fb_"] )
         lblPayPoints.text = @"Facebook User";
-    else if ( [numOnly isEqualToString:appDelegate.user.preferredName] )
+    else if ( [numOnly isEqualToString:appDelegate.user.userUri] )
+        lblPayPoints.text = [phoneNumberFormatter stringToFormattedPhoneNumber:appDelegate.user.userUri];
+    else
         lblPayPoints.text = appDelegate.user.userUri;
-    
-    /*
-     [qs5textView setText:[phoneFormatter stringToFormattedPhoneNumber:[contactDict valueForKey:@"userUri"]]];
-     */
     
     if ( appDelegate.user.imageUrl != (id)[NSNull null] )
     {
