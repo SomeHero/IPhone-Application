@@ -185,6 +185,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    lblUserName.text = @"";
+    lblPayPoints.text = @"";
+    
+    [btnUserImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
 }
 
 -(void)userHomeScreenInformationDidComplete:(NSMutableArray *)quickSendContactArray
@@ -195,6 +200,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
     outgoingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    NSLog(@"FacebookID at Home:%@",appDelegate.user.facebookId);
+    NSLog(@"FacebookToken at Home:%@", [prefs objectForKey:@"FBAccessTokenKey"]);
+    //NSLog(@"Facebook Session: %@", [appDelegate.fBook isSessionValid] ? @"YES" : @"NO");
     
     [[quickSendView.subviews objectAtIndex:0] reloadQuickSendContacts:quickSendContacts];
 }

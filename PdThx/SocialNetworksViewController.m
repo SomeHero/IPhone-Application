@@ -16,7 +16,7 @@
 @end
 
 @implementation SocialNetworksViewController
-@synthesize numFailedFB, profileOptions, sections;
+@synthesize numFailedFB, profileOptions, sections, FacebookResult;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +35,8 @@
     [tableView setRowHeight: 60];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"opSocialNetworks" ofType:@"plist"];
+    
+    userService = [[UserService alloc] init];
     
     NSDictionary *dic = [[NSDictionary alloc] initWithContentsOfFile:path];
     
@@ -81,6 +83,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tblView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     UIProfileTableViewCell *cell = [tblView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil){
@@ -97,6 +100,16 @@
     cell.ctrlImage.image =  [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Image"]];
     cell.ctrlImage.highlightedImage = [UIImage  imageNamed:[[profileSection objectAtIndex:[indexPath row]] objectForKey:@"HighlightedImage"]];
     
+    NSString*preferenceKeyToCheck = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"UserPreferencesKey"];
+    
+    NSLog(@"Preferences value for %@ -> %@", preferenceKeyToCheck, [prefs objectForKey:preferenceKeyToCheck]);
+    
+    if ( [prefs objectForKey:preferenceKeyToCheck] != NULL && [prefs stringForKey:preferenceKeyToCheck].length > 0 ) // Facebook
+    {
+        cell.userInteractionEnabled = NO;
+        cell.lblDescription.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"AlreadyLinkedDescription"];
+    }
+    
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
@@ -108,37 +121,33 @@
 {
     // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    switch(indexPath.section) {
+    switch(indexPath.section)
+    {
         case 0:
         {
-            switch (indexPath.row) 
+            switch (indexPath.row)
             {
                 case 0:
                 {
                     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
-                    if ([prefs objectForKey:@"facebookId"] != nil)
+                    
+                    [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
+                    
+                    Facebook* fBook = appDelegate.fBook;
+                    FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
+                    
+                    if ( ![fBook isSessionValid] )
                     {
-                        [appDelegate showSimpleAlertView:YES withTitle:@"Already linked!" withSubtitle:@"" withDetailedText:@"You've already signed in with Facebook, unable to link!" withButtonText:@"OK" withDelegate:self];
+                        NSLog(@"Linking facebook, session not valid..");
+                        [faceBookSignInHelper setCancelledDelegate:appDelegate];
+                        [faceBookSignInHelper signInWithFacebook:self];
+                    } else {
+                        NSLog(@"Linking facebook, session valid..");
+                        
+                        [fBook requestWithGraphPath:@"me" andDelegate:self];
                     }
-                    else {
-                        
-                        [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
-                        
-                        Facebook* fBook = appDelegate.fBook;
-                        FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
-                        
-                        
-                        if ( ![fBook isSessionValid] ){
-                            NSLog(@"Facebook Session is NOT Valid, Signing in...");
-                            [faceBookSignInHelper setCancelledDelegate:appDelegate];
-                            [faceBookSignInHelper signInWithFacebook:self];
-                        } else {
-                            NSLog(@"Facebook Session is Valid, Getting info...");
-                            
-                            [fBook requestWithGraphPath:@"me" andDelegate:self];
-                        }
-                    }
+                    
                     break;
                 }
                 case 1:
@@ -156,12 +165,6 @@
             break;
         }
     }
-}
-
--(void) didSelectButtonWithIndex:(int)index
-{
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
-    [appDelegate dismissAlertView];
 }
 
 -(void)fbSignInCancelled
@@ -188,11 +191,21 @@
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
-    NSLog(@"User info did load from Facebook, Linking in...");
+    NSLog(@"User info did load from Facebook, linking account...");
+    
+    
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Linking with Facebook" withDetailedStatus:@"Please wait"];
+    
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [userService setLinkFbAccountDelegate:self];
+    
+    NSLog(@"Calling service...");
     [userService linkFacebookAccount:[prefs objectForKey:@"userId"] withFacebookId:[result objectForKey:@"id"] withAuthToken:[prefs objectForKey:@"FBAccessTokenKey"]];
 }
+
 
 -(void) request:(FBRequest *)request didFailWithError:(NSError *)error
 {
@@ -222,8 +235,8 @@
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
     [appDelegate.fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
-    [appDelegate dismissProgressHUD];
-    [appDelegate showSimpleAlertView:YES withTitle:@"Success!" withSubtitle:@"Facebook account successfully linked." withDetailedText:@"Facebook account has been linked, you can now send/request money from Facebook contacts and sign in with Facebook from the welcome page." withButtonText:@"OK" withDelegate:self];
+    
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Facebook linked!"];
 }
 
 -(void) linkFbAccountDidFail:(NSString *)message {
