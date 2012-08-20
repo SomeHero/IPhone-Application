@@ -6,23 +6,31 @@
 	<array>
 		<dict>
 			<key>Description</key>
-			<string>Link Facebook Account</string>
+			<string>Send to your friends!</string>
 			<key>HighlightedImage</key>
 			<string>socialFacebookIcon.png</string>
 			<key>Image</key>
 			<string>socialFacebookIcon.png</string>
 			<key>Label</key>
-			<string>Link Facebook</string>
+			<string>Facebook</string>
+			<key>AlreadyLinkedDescription</key>
+			<string>Facebook Already Linked!</string>
+			<key>UserPreferencesKey</key>
+			<string>facebookId</string>
 		</dict>
 		<dict>
 			<key>Description</key>
-			<string>Link Twitter Account</string>
+			<string>Send to your followers!</string>
 			<key>HighlightedImage</key>
 			<string>socialTwitterIcon.png</string>
 			<key>Image</key>
 			<string>socialTwitterIcon.png</string>
 			<key>Label</key>
-			<string>Link Twitter</string>
+			<string>Twitter</string>
+			<key>AlreadyLinkedDescription</key>
+			<string>Unlink Twitter Account</string>
+			<key>UserPreferencesKey</key>
+			<string>twitterId</string>
 		</dict>
 	</array>
 </dict>

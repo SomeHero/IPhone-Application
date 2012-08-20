@@ -126,7 +126,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             txtRecipient.text = messageDetail.recipientName;
             txtAction.text = [NSString stringWithFormat: @"sent $%0.2f to", [messageDetail.amount doubleValue]];
             
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+            if([messageDetail.messageStatus isEqualToString: @"Processing"])
+            {
                 UIButton* btnCancelPayment = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnCancelPayment setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
@@ -361,13 +362,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 -(void)btnAcceptRequestClicked {
 
-    [pullableView setOpened:NO animated:YES];
+    [pullableView setOpened:NO animated:NO];
 
     controller=[[CustomSecurityPinSwipeController alloc] init];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm your Pin"];
     [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
-    [controller setTag:2];    
+    [controller setTag:2];
     [self presentModalViewController:controller animated:YES];
     
     ///////////////////////////////////

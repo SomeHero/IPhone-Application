@@ -279,6 +279,7 @@
 		54FA47441594C3AF007CFA33 /* AddSecurityQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */; };
 		54FA47451594C3AF007CFA33 /* AddSecurityQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */; };
 		54FA47481595B74E007CFA33 /* GetSecurityQuestionsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FA47471595B74D007CFA33 /* GetSecurityQuestionsService.m */; };
+		54FB576415E2CFA8000415A0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54FB576315E2CFA8000415A0 /* FacebookSDK.framework */; };
 		5B0A227315A0B93000BDA5F8 /* AddMeCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A227115A0B93000BDA5F8 /* AddMeCodeViewController.m */; };
 		5B0A227415A0B93000BDA5F8 /* AddMeCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A227215A0B93000BDA5F8 /* AddMeCodeViewController.xib */; };
 		5B0A227815A0BAD200BDA5F8 /* AddPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A227615A0BAD200BDA5F8 /* AddPhoneViewController.m */; };
@@ -1075,6 +1076,7 @@
 		54FA47461595B74D007CFA33 /* GetSecurityQuestionsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSecurityQuestionsService.h; sourceTree = "<group>"; };
 		54FA47471595B74D007CFA33 /* GetSecurityQuestionsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSecurityQuestionsService.m; sourceTree = "<group>"; };
 		54FA47491595BAA8007CFA33 /* GetSecurityQuestionsProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetSecurityQuestionsProtocol.h; sourceTree = "<group>"; };
+		54FB576315E2CFA8000415A0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5B0A226E159F691D00BDA5F8 /* ChooseMemberImageProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseMemberImageProtocol.h; sourceTree = "<group>"; };
 		5B0A227015A0B93000BDA5F8 /* AddMeCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMeCodeViewController.h; sourceTree = "<group>"; };
 		5B0A227115A0B93000BDA5F8 /* AddMeCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMeCodeViewController.m; sourceTree = "<group>"; };
@@ -1773,6 +1775,7 @@
 				D5FC51D3159247B000C2302E /* libGoogleAnalytics.a in Frameworks */,
 				5B11961415AB2397003F8D53 /* libZendeskDropbox.a in Frameworks */,
 				5BED070715B9E89400D4110A /* libOAuth.a in Frameworks */,
+				54FB576415E2CFA8000415A0 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2792,6 +2795,7 @@
 		5B69DF7C14AE6067003A0F66 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				54FB576315E2CFA8000415A0 /* FacebookSDK.framework */,
 				5485B50F15CAF33C00B59591 /* CoreText.framework */,
 				5BED074315BBB8D400D4110A /* Twitter.framework */,
 				5BED06C915B9E89400D4110A /* Twitter+OAuth */,
@@ -3778,6 +3782,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				he,
 			);
 			mainGroup = 5B69DF6E14AE6067003A0F66;
 			productRefGroup = 5B69DF7A14AE6067003A0F66 /* Products */;
@@ -4602,6 +4607,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
@@ -4706,6 +4715,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
@@ -4740,6 +4753,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -4853,6 +4870,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
@@ -4936,6 +4957,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
@@ -4953,7 +4978,7 @@
 				);
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EAE9F4AA-A8B4-413B-9BCD-BA5FE7BCC9B5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAB9CACA-6807-446C-923C-7B1B9584C6B0";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = NO;
@@ -5022,6 +5047,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -5105,6 +5134,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
@@ -5189,6 +5222,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: James Rhodes (X255VRB688)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Rhodes (X255VRB688)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PdThx/PdThx-Prefix.pch";
