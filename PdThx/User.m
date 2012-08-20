@@ -25,6 +25,8 @@
 @synthesize bankAccounts;
 @synthesize userAttributes;
 @synthesize userConfigurationItems;
+@synthesize facebookId;
+@synthesize facebookToken;
 
 -(id)init {
     self = [super init];
@@ -38,6 +40,8 @@
         firstName = [[NSString alloc] init];
         lastName = [[NSString alloc] init];
         imageUrl = [[NSString alloc] init];
+        facebookId = [[NSString alloc] init];
+        facebookToken = [[NSString alloc] init];
         totalMoneySent = [[NSDecimalNumber alloc] init];
         totalMoneyReceived = [[NSDecimalNumber alloc] init];
         limit = 0;
@@ -75,7 +79,8 @@
         limit = [[dictionary objectForKey: @"upperLimit"] copy];
         instantLimit = [[dictionary objectForKey: @"instantLimit"] copy];
         hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
-        
+        facebookId = [[dictionary valueForKey:@"facebookId"] copy];
+        facebookToken = [[dictionary valueForKey:@"facebookToken"] copy];
         if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0) {
             userUri = mobileNumber;
         } else {
@@ -165,7 +170,9 @@
     another.bankAccounts = [bankAccounts copy];
     another.userAttributes = [userAttributes copy];
     another.userConfigurationItems = [userConfigurationItems copy];
-
+    another.facebookId = facebookId;
+    another.facebookToken = facebookToken;
+    
     return another;
 }
 -(void)dealloc {

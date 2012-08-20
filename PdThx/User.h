@@ -38,6 +38,9 @@
     int securityQuestionId;
     int numberOfPaystreamUpdates;
     
+    NSString* facebookId;
+    NSString* facebookToken;
+    
     NSMutableArray* outstandingPayments;
     NSMutableArray* payPoints;
     NSMutableArray* bankAccounts;
@@ -49,6 +52,9 @@
 @property(nonatomic, retain) NSString* mobileNumber;
 @property(nonatomic, retain) NSString* emailAddress;
 @property(nonatomic, retain) NSString* userName;
+@property(nonatomic, retain) NSString* facebookId;
+@property(nonatomic, retain) NSString* facebookToken;
+
 @property bool isLockedOut;
 @property(nonatomic, retain) NSString* userStatus;
 @property(nonatomic, retain) NSString* preferredName;

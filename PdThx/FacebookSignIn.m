@@ -50,7 +50,7 @@
     
     userInfoDelegate = sender;
     
-    NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", @"publish_stream", nil];
+    NSArray * permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", @"publish_stream", @"offline_access", nil];
     
     fBook = appDelegate.fBook;
     

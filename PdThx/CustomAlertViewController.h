@@ -21,8 +21,10 @@
     IBOutlet UIButton *leftButton;
     IBOutlet UIButton *rightButton;
     id<CustomAlertViewProtocol> alertViewDelegate;
+    IBOutlet UITextField *txtField;
 }
 
+@property (nonatomic, retain) UITextField *txtField;
 @property (nonatomic,retain) UILabel *topTitleLabel;
 @property (nonatomic,retain) UILabel *subTitleLabel;
 @property (nonatomic,retain) UIImageView *resultImageView;
