@@ -186,8 +186,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [super viewWillAppear:animated];
     
-    lblUserName.text = @"";
     lblPayPoints.text = @"";
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
+    outgoingNotificationLabel.text =  [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
+    lblUserName.text = [prefs stringForKey:@"PdThx_PreferredName"];
     
     [btnUserImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
 }
@@ -197,9 +201,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     quickSendContacts = quickSendContactArray;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
+    NSLog(@"Incoming: %d Outgoing: %d",[prefs integerForKey:@"IncomingNotificationCount"],[prefs integerForKey:@"OutgoingNotificationCount"]);
     incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
-    outgoingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
+    outgoingNotificationLabel.text =  [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
