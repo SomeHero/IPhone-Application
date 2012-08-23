@@ -55,6 +55,11 @@
         
         [parser release];
         
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        [userDefaults setObject:[jsonDictionary objectForKey:@"preferredName"] forKey:@"PdThx_PreferredName"];
+        [userDefaults synchronize];
+        
         User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
         
                 
@@ -239,6 +244,7 @@
                               lastName, @"LastName",
                               imageUrl, @"ImageUrl",
                               nil];
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setValue:firstName forKey:@"firstName"];
     [prefs setValue:lastName forKey:@"lastName"];
