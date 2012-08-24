@@ -127,8 +127,9 @@
 {
     [userService getUserInformation:userId];
 }
--(void)userInformationDidComplete:(User*) user {
-    
+
+-(void)userInformationDidComplete:(User *)user
+{    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];

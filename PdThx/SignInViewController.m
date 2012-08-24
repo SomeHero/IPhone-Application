@@ -219,7 +219,6 @@
     UserService* userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
     
-    
     [userService getUserInformation: userId];
 }
 
@@ -405,7 +404,7 @@
 
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
-    NSLog(@"User info did load from Facebook, Logging in...");
+    NSLog(@"User info did load from Facebook %@ , Logging in...", result);
     [service validateUser:result];
 }
 

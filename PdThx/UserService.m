@@ -12,6 +12,7 @@
 #import "ASIHTTPRequest.h"
 #import "SBJsonParser.h"
 #import "JSON.h"
+#import "PdThxAppDelegate.h"
 
 @implementation UserService
 
@@ -45,12 +46,14 @@
 }
 -(void) getUserInformationComplete:(ASIHTTPRequest *)request
 {
-    if ( [request responseStatusCode] == 200 ){
+    if ( [request responseStatusCode] == 200 )
+    {
         //NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
         
         NSString *theJSON = [request responseString];
         
         NSLog(@"GetUserInformationReturned: %@",theJSON);
+        
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
@@ -63,7 +66,11 @@
         [userDefaults synchronize];
         
         User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
-                
+        
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate setUser:[user copy]];
+        
+        NSLog(@"USER INFO COMPLETE DELEGATE: %@", userInformationCompleteDelegate);
         [userInformationCompleteDelegate userInformationDidComplete:user];
     } else {
         [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];

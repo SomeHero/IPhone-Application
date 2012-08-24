@@ -64,6 +64,8 @@
 
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
+    NSLog(@"User objects: %@ %@ %@", user.firstName, user.lastName, user.imageUrl);
+    
     if(user.firstName != (id)[NSNull null] && [user.firstName length] > 0)
         firstNameField.text = user.firstName;
     else
