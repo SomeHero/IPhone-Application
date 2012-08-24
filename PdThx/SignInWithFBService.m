@@ -44,6 +44,8 @@
     
     NSString * newJSON = [userData JSONRepresentation];
     
+    NSLog(@"newJson: %@",newJSON);
+    
     requestObj= [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
@@ -65,7 +67,7 @@
         NSLog(@"User Validation Success");
         
         NSString *theJSON = [request responseString];
-        
+        NSLog(@"TheJSON: %@", theJSON);
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
