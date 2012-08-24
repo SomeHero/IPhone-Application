@@ -32,6 +32,8 @@
     IBOutlet UITextView *qs8textView;
     IBOutlet UITextView *qs9textView;
     
+    IBOutlet UIImageView *noContactsImageView;
+    
     PhoneNumberFormatting *phoneFormatter;
     
     id<QuickSendButtonProtocol> buttonDelegate;
@@ -56,6 +58,8 @@
 @property (nonatomic,retain) UITextView *qs7textView;
 @property (nonatomic,retain) UITextView *qs8textView;
 @property (nonatomic,retain) UITextView *qs9textView;
+
+@property (nonatomic,retain) UIImageView *noContactsImageView;
 
 @property(nonatomic, retain) PhoneNumberFormatting *phoneFormatter;
 
