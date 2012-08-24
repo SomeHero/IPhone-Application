@@ -583,7 +583,7 @@
     
     contactHead.text = contact.name;
     
-    if ( contact.facebookID.length > 0 ){
+    if ( contact.facebookID.length > 0 || [[[contact.paypoints objectAtIndex:0] substringToIndex:3] isEqualToString:@"fb_"] ){
         contactDetail.text = @"Facebook Friend";
     } else if ( [contact.paypoints count] == 1 ){
         if ( [[contact.paypoints objectAtIndex:0] isEqualToString:contact.name] )
