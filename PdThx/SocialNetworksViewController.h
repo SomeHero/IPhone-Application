@@ -17,10 +17,12 @@
 {
     UserService *userService;
     IBOutlet UITableView* tableView;
+    id FacebookResult;
 }
 
 @property (assign, nonatomic) int numFailedFB;
 @property(nonatomic, retain) NSDictionary *profileOptions;
 @property(nonatomic, retain) NSArray *sections;
+@property (assign) id FacebookResult;
 
 @end

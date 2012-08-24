@@ -41,6 +41,7 @@
 @synthesize fbAppId;
 @synthesize mainAreaTabBarController;
 @synthesize selectedContactList;
+@synthesize quickSendArray;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -117,7 +118,6 @@
         //[self.newUserFlowTabController setSelectedIndex:3];
         //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
         // Keep Progress Bar on top
-        
         
         [controller release];
     }
@@ -233,7 +233,7 @@
     selectedContactList = @"AllContacts";
     
     // Override point for customization after application launch.
-    permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
+    permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists",@"offline_access", nil];
     
     [mainAreaTabBarController setDelegate:self];
     
@@ -432,6 +432,9 @@
     {
         [array removeAllObjects];
     }
+    
+    [quickSendArray release];
+    quickSendArray = nil;
     
     // Reload all Contacts (without Facebook permissions)
     [self loadPhoneContacts];
@@ -817,6 +820,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     [tempArray release];
 }
+
 -(void)mergeAllContacts:(NSMutableArray*)arrayOfContacts
 {
     NSMutableArray* tempArray = [[NSMutableArray alloc] init];
@@ -1103,17 +1107,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                      }];
 }
 
+-(void) showTextFieldAlertView:(bool)status withTitle:(NSString*)headerText withSubtitle:(NSString*)subTitle withDetailedText:(NSString*)detailText withButtonText:(NSString*)buttonText withTextFieldPlaceholderText:(NSString*)placeholderText withDelegate:(id)delegate
+{
+    [self showAlertWithResult:status withTitle:headerText withSubtitle:subTitle withDetailText:detailText withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:buttonText withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"im useless" withRightButtonTitleColor:[UIColor whiteColor] withTextFieldPlaceholderText:placeholderText withDelegate:delegate];
+}
+
 -(void) showSimpleAlertView:(bool)status withTitle:(NSString*)headerText withSubtitle:(NSString*)subTitle withDetailedText:(NSString*)detailText withButtonText:(NSString*)buttonText withDelegate:(id)delegate
 {
-    [self showAlertWithResult:status withTitle:headerText withSubtitle:subTitle withDetailText:detailText withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:buttonText withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"im useless" withRightButtonTitleColor:[UIColor whiteColor] withDelegate:delegate];
+    [self showAlertWithResult:status withTitle:headerText withSubtitle:subTitle withDetailText:detailText withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:buttonText withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"im useless" withRightButtonTitleColor:[UIColor whiteColor] withTextFieldPlaceholderText:@"" withDelegate:delegate];
 }
 
 -(void) showTwoButtonAlertView:(bool)status withTitle:(NSString*)headerText withSubtitle:(NSString*)subTitle withDetailedText:(NSString*)detailText withButton1Text:(NSString*)button1Text withButton2Text:(NSString*)button2Text withDelegate:(id<CustomAlertViewProtocol>) delegate
 {
-    [self showAlertWithResult:status withTitle:headerText withSubtitle:subTitle withDetailText:detailText withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:button1Text withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:button2Text withRightButtonTitleColor:[UIColor whiteColor] withDelegate:delegate];
+    [self showAlertWithResult:status withTitle:headerText withSubtitle:subTitle withDetailText:detailText withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:button1Text withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:button2Text withRightButtonTitleColor:[UIColor whiteColor] withTextFieldPlaceholderText:@"" withDelegate:delegate];
 }
 
--(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withLeftButtonImageString:(NSString*)leftButtonImageString withLeftButtonSelectedImageString:(NSString*)leftButtonSelectedImageString withLeftButtonTitle:(NSString*)leftButtonTitle withLeftButtonTitleColor:(UIColor*)leftButtonTextColor withRightButtonOption:(int)rightButtonOption withRightButtonImageString:(NSString*)rightButtonImageString withRightButtonSelectedImageString:(NSString*)rightButtonSelectedImageString withRightButtonTitle:(NSString*)rightButtonTitle withRightButtonTitleColor:(UIColor*)rightButtonTextColor withDelegate:(id)alertDelegate
+-(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withLeftButtonImageString:(NSString*)leftButtonImageString withLeftButtonSelectedImageString:(NSString*)leftButtonSelectedImageString withLeftButtonTitle:(NSString*)leftButtonTitle withLeftButtonTitleColor:(UIColor*)leftButtonTextColor withRightButtonOption:(int)rightButtonOption withRightButtonImageString:(NSString*)rightButtonImageString withRightButtonSelectedImageString:(NSString*)rightButtonSelectedImageString withRightButtonTitle:(NSString*)rightButtonTitle withRightButtonTitleColor:(UIColor*)rightButtonTextColor withTextFieldPlaceholderText:(NSString*)placeholderText withDelegate:(id)alertDelegate
 {
     if ( customAlert == nil ) {
         customAlert = [[CustomAlertViewController alloc] init];
@@ -1138,6 +1147,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     // Set button clicked delegate.
     customAlert.alertViewDelegate = alertDelegate;
     
+    if ( placeholderText && placeholderText.length > 0 )
+    {
+        customAlert.txtField.hidden = NO;
+        customAlert.txtField.placeholder = placeholderText;
+    } else {
+        customAlert.txtField.hidden = YES;
+    }
     
     // Customize the Alert View
     if ( success )

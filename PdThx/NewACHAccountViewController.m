@@ -211,15 +211,6 @@
 {
     [self.navigationController dismissModalViewControllerAnimated: YES];
 }
--(IBAction) btnTakeCheckImageClicked:(id)sender {
-    TakePictureViewController* controller = [[TakePictureViewController alloc] init];
-    
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-    
-    //[controller setNavBarTitle: @"Take Check Image"];
-    
-    [self presentModalViewController: controller animated:YES];
-}
 -(IBAction) bgTouched:(id) sender {
     [txtAccountNickname resignFirstResponder];
     [txtAccountNumber resignFirstResponder];

@@ -45,6 +45,8 @@
     leftButton = nil;
     [rightButton release];
     rightButton = nil;
+    [txtField release];
+    txtField = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -62,13 +64,20 @@
     [detailedTextView release];
     [leftButton release];
     [rightButton release];
+    [txtField release];
     [super dealloc];
 }
 - (IBAction)pressedLeftButton:(id)sender {
-    [alertViewDelegate didSelectButtonWithIndex:0];
+    if ( self.txtField.hidden == NO )
+        [alertViewDelegate didSelectButtonWithIndex:0 withEnteredText:self.txtField.text];
+    else
+        [alertViewDelegate didSelectButtonWithIndex:0];
 }
 
 - (IBAction)pressedRightButton:(id)sender {
-    [alertViewDelegate didSelectButtonWithIndex:1];
+    if ( self.txtField.hidden == NO )
+        [alertViewDelegate didSelectButtonWithIndex:1 withEnteredText:self.txtField.text];
+    else
+        [alertViewDelegate didSelectButtonWithIndex:0];
 }
 @end

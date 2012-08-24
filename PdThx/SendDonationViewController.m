@@ -319,9 +319,9 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    NSString* recipientImageUri = [NSString stringWithString: @""];
-    NSString* recipientFirstName = [NSString stringWithString: @""];
-    NSString* recipientLastName =[NSString stringWithString: @""];
+    NSString* recipientImageUri = @"";
+    NSString* recipientFirstName = @"";
+    NSString* recipientLastName = @"";
     
     [paystreamService sendDonation:user.userId toOrganizationId:recipient.recipientId fromSenderAccount:user.preferredPaymentAccountId withAmount:amount withComments:comments fromLatitude:latitude fromLongitude:longitude withRecipientFirstName:recipientFirstName withRecipientLastName:recipientLastName withRecipientImageUri:recipientImageUri withSecurityPin:pin];
 }
@@ -445,6 +445,9 @@
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
+    
+    NSLog(@"RecipientID after cause chosen: %@",recipient.recipientId);
+    
     if ( contact.imgData )
         [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
     else if ( contact.facebookID.length > 0 )
@@ -453,8 +456,6 @@
         [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
         [recipientImageButton.layer setBorderWidth:0.0];
     }
-    
-    recipientImageButton.imageView.image = nil;
     
     contactHead.text = contact.name;
     

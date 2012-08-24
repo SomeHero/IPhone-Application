@@ -12,7 +12,6 @@
 #import "ValidationHelper.h"
 #import "UserSetupACHAccount.h"
 #import "UserACHSetupCompleteProtocol.h"
-#import "TakePictureViewController.h"
 
 @interface NewACHAccountViewController : UIModalBaseViewController<CustomSecurityPinSwipeProtocol>
 {
@@ -36,6 +35,5 @@
 @property(nonatomic, retain) id<UserACHSetupCompleteProtocol> achSetupDidComplete;
 
 -(IBAction) btnCreateAccountClicked:(id)sender;
--(IBAction) btnTakeCheckImageClicked:(id)sender;
 
 @end

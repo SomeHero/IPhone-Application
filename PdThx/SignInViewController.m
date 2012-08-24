@@ -276,6 +276,26 @@
     NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];
     bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
     
+    [prefs setValue:user.facebookId forKey:@"facebookId"];
+    [prefs setObject:user.facebookToken forKey:@"FBAccessTokenKey"];
+    
+    [prefs synchronize];
+    
+    if ( user.facebookId != (id)[NSNull null] && user.facebookId.length > 0 )
+    {
+        if ( user.facebookToken != (id)[NSNull null] && user.facebookToken.length > 0 )
+        {
+            fBook.accessToken = user.facebookToken;
+            
+            if ( [fBook isSessionValid] )
+                [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
+            else
+            {
+                [fBook authorize:appDelegate.permissions];
+            }
+        }
+    }
+    
     if(paymentAccountAccount != (id)[NSNull null] && [paymentAccountAccount length] > 0)
         user.hasACHAccount = true;
     
@@ -284,7 +304,6 @@
     [appDelegate showSuccessWithStatus:@"Complete!" withDetailedStatus:@""];
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
-    
     
     if(user.isLockedOut)
     {
@@ -303,6 +322,8 @@
     
     return;
 }
+
+
 -(void)userInformationDidFail:(NSString*) message {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error loading user"];

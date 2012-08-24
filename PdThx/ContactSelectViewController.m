@@ -188,9 +188,6 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ( [txtSearchBox isFirstResponder] )
-        NSLog(@"Table view scrolled, getting rid of keyboard.");
-    
     [txtSearchBox resignFirstResponder];
 }
 
@@ -203,12 +200,6 @@
         else
             return [[filteredResults objectAtIndex:section] count];
     } else {
-        NSLog(@"Returning %d rows for section [%d] aka %c", [[allResults objectAtIndex:section] count],section, (char)(section+64));
-        if ([[allResults objectAtIndex:section] count] > 0 ){
-            NSLog(@"First object of %c is: %@", (char)(section+64), ((Contact*)[[allResults objectAtIndex:section] objectAtIndex:0]).name );
-            NSLog(@"First name of object: %@", ((Contact*)[[allResults objectAtIndex:section] objectAtIndex:0]).firstName);
-        }
-        
         return [[allResults objectAtIndex:section] count];
     }
 }
@@ -280,8 +271,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Trying to load cell for indexPath: sec[%d] row[%d] aka %c", indexPath.section, indexPath.row, (char)(indexPath.section+64));
-    
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [imageView setContentMode:UIViewContentModeScaleToFill];
@@ -791,7 +780,7 @@
     if ( section != 27 )
         return [NSString stringWithFormat:@"%c",section+64];
     else {
-        return [NSString stringWithString:@"#"];
+        return @"#";
     }
 }
 

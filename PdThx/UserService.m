@@ -25,7 +25,8 @@
     return self;
 }
 
--(void) getUserInformation:(NSString*) userId {
+-(void) getUserInformation:(NSString*) userId
+{
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
@@ -49,22 +50,26 @@
         
         NSString *theJSON = [request responseString];
         
+        NSLog(@"GetUserInformationReturned: %@",theJSON);
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
         [parser release];
         
-        User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         
+        [userDefaults setObject:[jsonDictionary objectForKey:@"preferredName"] forKey:@"PdThx_PreferredName"];
+        [userDefaults synchronize];
+        
+        User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
                 
         [userInformationCompleteDelegate userInformationDidComplete:user];
     } else {
         [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
     }
-    
-    
 }
+
 -(void) getUserInformationFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
@@ -72,11 +77,12 @@
     NSLog(@"Setup User Info Failed");
     
     [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
-    
 }
 
 -(void)linkFacebookAccount:(NSString*)userId withFacebookId:(NSString*)facebookId withAuthToken:(NSString*)token
 {
+    NSLog(@"User Service -> Linking facebook");
+    
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
@@ -86,7 +92,7 @@
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey, @"apiKey",
                               token, @"oAuthToken",
-                              facebookId, @"accountId",
+                              facebookId, @"AccountId",
                               nil];
     
     NSString* newJSON = [userData JSONRepresentation];
@@ -103,10 +109,11 @@
     [requestObj startAsynchronous];
 }
 
--(void) linkFbAccountSuccess: (ASIHTTPRequest *)request {
+-(void) linkFbAccountSuccess: (ASIHTTPRequest *)request
+{
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    if([request responseStatusCode] == 200) {
+    if([request responseStatusCode] == 200 || [request responseStatusCode] == 201 ) {
         NSLog(@"Linking facebook account success!");
         
         [linkFbAccountDelegate linkFbAccountDidSucceed];
@@ -238,6 +245,7 @@
                               lastName, @"LastName",
                               imageUrl, @"ImageUrl",
                               nil];
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setValue:firstName forKey:@"firstName"];
     [prefs setValue:lastName forKey:@"lastName"];
