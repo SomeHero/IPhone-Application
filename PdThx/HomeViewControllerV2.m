@@ -206,6 +206,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     outgoingNotificationLabel.text =  [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSLog(@"Contacts Array from Server: %@", quickSendContactArray);
     
     NSLog(@"FacebookID at Home:%@",appDelegate.user.facebookId);
     NSLog(@"FacebookToken at Home:%@", [prefs objectForKey:@"FBAccessTokenKey"]);
@@ -350,6 +351,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)clickedQuickSend:(int)buttonValue
 {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     buttonValue--;
     // REMEMBER: BUTTON INDEXES START AT 1 (number pad layout)
     // INDEX IN QUICK SEND ARRAY WILL BE BUTTONVALUE-1 (done above)
@@ -422,143 +424,78 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [[self navigationController] setViewControllers:allViewControllers animated:NO];
             break;
         }
-        case 3:
+        default:
         {
-            SendMoneyController* dvc = [[SendMoneyController alloc] init];
-            [[self navigationController] pushViewController:dvc animated:NO];
-            [dvc viewDidLoad]; // Force load of SendMoneyViewController
+            NSDictionary*contact = [appDelegate.quickSendArray objectAtIndex:buttonValue-3];
             
-            Contact *hugo = [[Contact alloc] init];
-            [hugo.paypoints addObject:@"5712438777"];
-            hugo.firstName = @"Hugo";
-            hugo.lastName = @"Camacho";
-            hugo.name = @"Hugo Camacho";
-            hugo.imgData = [UIImage imageNamed:@"Hugo.png"];
-            [dvc didChooseContact:hugo];
-            [dvc release];
-            
-            //Remove the view controller this is coming from, from the navigation controller stack
-            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-            [allViewControllers removeObjectIdenticalTo:self];
-            
-            [[self navigationController] setViewControllers:allViewControllers animated:NO];
-            break;
-        }
-        case 4:
-        {
-            SendMoneyController* dvc = [[SendMoneyController alloc] init];
-            [[self navigationController] pushViewController:dvc animated:NO];
-            [dvc viewDidLoad]; // Force load of SendMoneyViewController
-            
-            Contact *hugo = [[Contact alloc] init];
-            [hugo.paypoints addObject:[NSString stringWithString:@"8044323290"]];
-            hugo.firstName = @"Rob";
-            hugo.lastName = @"Kirchner";
-            hugo.name = @"Rob Kirchner";
-            hugo.imgData = [UIImage imageNamed:@"ALL.png"];
-            [dvc didChooseContact:hugo];
-            [dvc release];
-            
-            //Remove the view controller this is coming from, from the navigation controller stack
-            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-            [allViewControllers removeObjectIdenticalTo:self];
-            
-            [[self navigationController] setViewControllers:allViewControllers animated:NO];
-            break;
-        }
-        case 5:
-        {
-            SendMoneyController* dvc = [[SendMoneyController alloc] init];
-            [[self navigationController] pushViewController:dvc animated:NO];
-            [dvc viewDidLoad]; // Force load of SendMoneyViewController
-            
-            Contact *hugo = [[Contact alloc] init];
-            [hugo.paypoints addObject:[NSString stringWithString:@"acs@pdthx.me"]];
-            hugo.firstName = @"American";
-            hugo.lastName = @"Cancer Society";
-            hugo.name = @"American Cancer Society";
-            hugo.imgData = [UIImage imageNamed:@"org-acs.png"];
-            [dvc didChooseContact:hugo];
-            [dvc release];
-            
-            //Remove the view controller this is coming from, from the navigation controller stack
-            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-            [allViewControllers removeObjectIdenticalTo:self];
-            
-            [[self navigationController] setViewControllers:allViewControllers animated:NO];
-            break;
-        }
-        case 6:
-        {
-            SendMoneyController* dvc = [[SendMoneyController alloc] init];
-            [[self navigationController] pushViewController:dvc animated:NO];
-            [dvc viewDidLoad]; // Force load of SendMoneyViewController
-            
-            Contact *hugo = [[Contact alloc] init];
-            [hugo.paypoints addObject:[NSString stringWithString:@"8043170066"]];
-            hugo.firstName = @"Thomas";
-            hugo.lastName = @"Eide";
-            hugo.name = @"Thomas Eide";
-            hugo.imgData = [UIImage imageNamed:@"thomas.png"];
-            [dvc didChooseContact:hugo];
-            [dvc release];
-            
-            //Remove the view controller this is coming from, from the navigation controller stack
-            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-            [allViewControllers removeObjectIdenticalTo:self];
-            
-            [[self navigationController] setViewControllers:allViewControllers animated:NO];
-            break;
-        }
-        case 7:
-        {
-            SendMoneyController* dvc = [[SendMoneyController alloc] init];
-            [[self navigationController] pushViewController:dvc animated:NO];
-            [dvc viewDidLoad]; // Force load of SendMoneyViewController
-            
-            Contact *hugo = [[Contact alloc] init];
-            [hugo.paypoints addObject:[NSString stringWithString:@"8043879693"]];
-            hugo.firstName = @"James";
-            hugo.lastName = @"Rhodes";
-            hugo.name = @"James Rhodes";
-            hugo.imgData = [UIImage imageNamed:@"jamesSebastian.png"];
-            [dvc didChooseContact:hugo];
-            [dvc release];
-            
-            //Remove the view controller this is coming from, from the navigation controller stack
-            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-            [allViewControllers removeObjectIdenticalTo:self];
-            
-            [[self navigationController] setViewControllers:allViewControllers animated:NO];
-            break;
-        }
-        case 8:
-        {
-            SendMoneyController* dvc = [[SendMoneyController alloc] init];
-            [[self navigationController] pushViewController:dvc animated:NO];
-            [dvc viewDidLoad]; // Force load of SendMoneyViewController
-            
-            Contact *hugo = [[Contact alloc] init];
-            [hugo.paypoints addObject:[NSString stringWithString:@"$BSA2012"]];
-            hugo.firstName = @"Boy Scouts";
-            hugo.lastName = @"of America";
-            hugo.name = @"Boy Scouts of America";
-            hugo.imgData = [UIImage imageNamed:@"org_bsa.png"];
-            [dvc didChooseContact:hugo];
-            [dvc release];
-            
-            //Remove the view controller this is coming from, from the navigation controller stack
-            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-            [allViewControllers removeObjectIdenticalTo:self];
-            
-            [[self navigationController] setViewControllers:allViewControllers animated:NO];
-            break;
+            if ( [[contact valueForKey:@"userType"] intValue] == 0 )
+            {
+                [self loadQuickSendWithType:0 andContactObject:contact];
+            }
+            else
+            {
+                [self loadQuickSendWithType:[[contact valueForKey:@"userType"] intValue] andContactObject:contact];
+            }
         }
     }
-    
 }
 
-
+-(void)loadQuickSendWithType:(int)type andContactObject:(NSDictionary*)contact
+{
+    if ( type == 0 )
+    {
+        // Normal user (type 0) --> Load SendMoney screen
+        SendMoneyController* dvc = [[SendMoneyController alloc] init];
+        [[self navigationController] pushViewController:dvc animated:NO];
+        [dvc viewDidLoad]; // Force load of SendMoneyViewController
+        
+        Contact *newContact = [[Contact alloc] init];
+        [newContact.paypoints addObject:[contact objectForKey:@"userUri"]];
+        newContact.name = [contact objectForKey:@"userName"];
+        
+        
+        
+        if ( [contact objectForKey:@"userImage"] != (id)[NSNull null] && [(NSString*)[contact valueForKey:@"userImage"] length] > 0 )
+            newContact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contact objectForKey:@"userImage"]]]];
+        
+        [dvc didChooseContact:newContact];
+        [dvc release];
+        
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+    }
+    else
+    {
+        // Non-profit/Organization (type > 0) --> Load Donate screen
+        DoGoodViewController* dvc = [[DoGoodViewController alloc] init];
+        [[self navigationController] pushViewController:dvc animated:NO];
+        [dvc viewDidLoad]; // Force load of SendMoneyViewController
+        
+        SendDonationViewController* controller = [[SendDonationViewController alloc] init];
+        [dvc.navigationController pushViewController:controller animated:YES];
+        [controller viewDidLoad];
+        
+        Contact *newContact = [[Contact alloc] init];
+        [newContact.paypoints addObject:[contact objectForKey:@"userUri"]];
+        newContact.userId = [contact objectForKey:@"userUri"];
+        newContact.recipientId = [contact objectForKey:@"userUri"];
+        newContact.name = [contact objectForKey:@"userName"];
+        
+        if ( [contact objectForKey:@"userImage"] != (id)[NSNull null] && [[contact objectForKey:@"userImage"] length] > 0 )
+            newContact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contact objectForKey:@"userImage"]]]];
+        
+        [controller didChooseCause:newContact];
+        [dvc release];
+        [controller release];
+        
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:self];
+        
+        [[self navigationController] setViewControllers:allViewControllers animated:NO];
+    }
+}
 
 
 

@@ -53,6 +53,8 @@
     NSString* selectedContactList;
     
     NSMutableArray *contactsArray;
+    NSMutableArray *quickSendArray;
+    
     NSMutableArray* phoneContacts;
     CFIndex phoneContactsSize;
     NSMutableArray* faceBookContacts;
@@ -91,6 +93,10 @@
 
 
 @property (nonatomic, retain) NSMutableArray *contactsArray;
+
+@property (nonatomic, retain) NSMutableArray *quickSendArray;
+
+
 @property (nonatomic, retain) NSMutableArray *phoneContacts;
 @property (nonatomic, retain) NSMutableArray *faceBookContacts;
 @property(nonatomic, retain) NSMutableArray* nonProfits;

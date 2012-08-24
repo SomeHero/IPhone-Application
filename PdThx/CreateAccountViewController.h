@@ -15,7 +15,7 @@
 #import "FacebookSignIn.h"
 #import "SignedOutTabBarManager.h"
 
-@interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate,SignedOutTabBarDelegate> {
+@interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate,SignedOutTabBarDelegate, UserInformationCompleteProtocol> {
     IBOutlet UIButton *btnCreateAccount;
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;

@@ -41,6 +41,7 @@
 @synthesize fbAppId;
 @synthesize mainAreaTabBarController;
 @synthesize selectedContactList;
+@synthesize quickSendArray;
 
 -(void)switchToMainAreaTabbedView
 {
@@ -431,6 +432,9 @@
     {
         [array removeAllObjects];
     }
+    
+    [quickSendArray release];
+    quickSendArray = nil;
     
     // Reload all Contacts (without Facebook permissions)
     [self loadPhoneContacts];
