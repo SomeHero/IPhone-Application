@@ -50,7 +50,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    NSLog(@"DrawRect called");
     // Drawing code
     // Quick Send Images
     [self.qs1button.layer setCornerRadius:14.0];
@@ -140,8 +139,6 @@
 
 -(void)reloadQuickSendContacts:(NSMutableArray *)contactArray
 {
-    NSLog(@"Loading contacts array with %@",contactArray);
-    
     if ( contactArray != (id)[NSNull null] && [contactArray count] > 0 )
     {
         if ( phoneFormatter == nil )
