@@ -13,11 +13,13 @@
 #import "SBJsonParser.h"
 #import "JSON.h"
 #import "PdThxAppDelegate.h"
+#import "PhoneNumberFormatting.h"
 
 @implementation UserService
 
 @synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
+@synthesize findUserDelegate;
 
 -(id)init 
 {
@@ -495,6 +497,30 @@
     [super dealloc];
 }
 
+-(Contact*)findContactByPhoneNumber:(NSString*)phoneNumber
+{
+    PhoneNumberFormatting*formatter = [[PhoneNumberFormatting alloc] init];
+    NSString* formattedNumber = [formatter stringToFormattedPhoneNumber:phoneNumber];
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    for ( NSMutableArray*alphaArray in appDelegate.phoneContacts )
+    {
+        for ( Contact*con in alphaArray )
+        {
+            for ( NSString* point in con.paypoints )
+            {
+                if ( [point isEqualToString:formattedNumber] )
+                {
+                    NSLog(@"Found contact: %@ for [%@]",con.name,phoneNumber);
+                    return con;
+                }
+            }
+        }
+    }
+    
+    return NULL;
+}
 
 
 @end
