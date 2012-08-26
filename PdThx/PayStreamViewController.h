@@ -48,6 +48,7 @@
     NSString *textLoading;
     
     PaystreamService* streamService;
+    UserService *findUserService;
     
     // Track seen paystream items
     NSMutableArray* seenItems;
@@ -60,6 +61,8 @@
 @property (nonatomic, retain) UIImageView *refreshArrow;
 @property (nonatomic, retain) UIActivityIndicatorView *refreshSpinner;
 @property (nonatomic, retain) NSMutableArray* seenItems;
+
+@property (nonatomic, retain) UserService *findUserService;
 
 @property (nonatomic, copy) NSString *textPull;
 @property (nonatomic, copy) NSString *textRelease;

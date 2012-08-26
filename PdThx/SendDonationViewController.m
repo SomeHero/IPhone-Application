@@ -44,7 +44,7 @@
     if ( [txtComments.text length] > 0 ) {
         dummyPlaceholder.placeholder = @"";
     } else {
-        dummyPlaceholder.placeholder = @"Enter a comment or message.";
+        dummyPlaceholder.placeholder = @"Add a note or dedication...";
     }
     
     if ( [txtComments.text length] <= 140 ){

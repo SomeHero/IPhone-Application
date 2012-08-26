@@ -15,6 +15,7 @@
 #import "ChangePasswordCompleteProtocol.h"
 #import "ForgotPasswordCompleteProtocol.h"
 #import "LinkWithFacebookProtocol.h"
+#import "FindUserByNumberProtocol.h"
 
 @interface UserService : NSObject {
     ASIHTTPRequest *requestObj;
@@ -25,6 +26,7 @@
     id<ForgotPasswordCompleteProtocol>
         forgotPasswordCompleteDelegate;
     id<LinkWithFacebookProtocol> linkFbAccountDelegate;
+    id<FindUserByNumberProtocol> findUserDelegate;
 }
 
 @property(retain) id userInformationCompleteDelegate;
@@ -33,6 +35,7 @@
 @property(nonatomic, retain) id changePasswordCompleteDelegate;
 @property(nonatomic, retain) id forgotPasswordCompleteDelegate;
 @property(nonatomic, retain) id linkFbAccountDelegate;
+@property(nonatomic, retain) id findUserDelegate;
 
 -(void) getUserInformation:(NSString*) userId;
 
@@ -46,6 +49,8 @@
 -(void) forgotPasswordFor: (NSString*) emailAddress;
 
 -(void)linkFacebookAccount:(NSString*)userId withFacebookId:(NSString*)facebookId withAuthToken:(NSString*)token;
+
+-(Contact*)findContactByPhoneNumber:(NSString*)phoneNumber;
 
 @end
             

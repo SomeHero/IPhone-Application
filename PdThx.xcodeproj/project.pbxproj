@@ -689,6 +689,13 @@
 		5BF3EE2815915A580011BAD8 /* BankAccountService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2715915A580011BAD8 /* BankAccountService.m */; };
 		5BF3EE2D159163380011BAD8 /* UIAccountTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */; };
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
+		7AAFF1E315E7FCCE00A7C6F0 /* MIBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */; };
+		7AAFF1E415E7FCCE00A7C6F0 /* MIPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1D815E7FCCE00A7C6F0 /* MIPController.m */; };
+		7AAFF1E515E7FCCE00A7C6F0 /* MISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1DA15E7FCCE00A7C6F0 /* MISupport.m */; };
+		7AAFF1E615E7FCCE00A7C6F0 /* MIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1DC15E7FCCE00A7C6F0 /* MIUser.m */; };
+		7AAFF1E715E7FCCE00A7C6F0 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1DE15E7FCCE00A7C6F0 /* XMLParser.m */; };
+		7AAFF1E815E7FCCE00A7C6F0 /* XMLParserNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1E015E7FCCE00A7C6F0 /* XMLParserNode.m */; };
+		7AAFF1E915E7FCCE00A7C6F0 /* XMLWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1E215E7FCCE00A7C6F0 /* XMLWebService.m */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
 		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
@@ -1676,6 +1683,21 @@
 		5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccountTableCell.h; sourceTree = "<group>"; };
 		5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccountTableCell.m; sourceTree = "<group>"; };
 		5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIAccountTableCell.xib; sourceTree = "<group>"; };
+		7AAFF1D515E7FCCE00A7C6F0 /* MIBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIBase64.h; sourceTree = "<group>"; };
+		7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIBase64.m; sourceTree = "<group>"; };
+		7AAFF1D715E7FCCE00A7C6F0 /* MIPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIPController.h; sourceTree = "<group>"; };
+		7AAFF1D815E7FCCE00A7C6F0 /* MIPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIPController.m; sourceTree = "<group>"; };
+		7AAFF1D915E7FCCE00A7C6F0 /* MISupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISupport.h; sourceTree = "<group>"; };
+		7AAFF1DA15E7FCCE00A7C6F0 /* MISupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISupport.m; sourceTree = "<group>"; };
+		7AAFF1DB15E7FCCE00A7C6F0 /* MIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIUser.h; sourceTree = "<group>"; };
+		7AAFF1DC15E7FCCE00A7C6F0 /* MIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIUser.m; sourceTree = "<group>"; };
+		7AAFF1DD15E7FCCE00A7C6F0 /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
+		7AAFF1DE15E7FCCE00A7C6F0 /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
+		7AAFF1DF15E7FCCE00A7C6F0 /* XMLParserNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParserNode.h; sourceTree = "<group>"; };
+		7AAFF1E015E7FCCE00A7C6F0 /* XMLParserNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParserNode.m; sourceTree = "<group>"; };
+		7AAFF1E115E7FCCE00A7C6F0 /* XMLWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLWebService.h; sourceTree = "<group>"; };
+		7AAFF1E215E7FCCE00A7C6F0 /* XMLWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLWebService.m; sourceTree = "<group>"; };
+		7AAFF1EE15E8A31900A7C6F0 /* FindUserByNumberProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindUserByNumberProtocol.h; sourceTree = "<group>"; };
 		C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordViewController.xib; sourceTree = "<group>"; };
 		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
@@ -2216,6 +2238,7 @@
 		54A139AF1582702700668984 /* Custom Features */ = {
 			isa = PBXGroup;
 			children = (
+				7AAFF1D215E7FCB900A7C6F0 /* Check OCR */,
 				5B8868381529142B00EA24A4 /* Custom Modal Panel */,
 				54D23FE215BF8BD00037719A /* Signed Out Tab bar */,
 				54D23FD115BEF11A0037719A /* Custom Scroll View */,
@@ -3265,6 +3288,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
+				7AAFF1EE15E8A31900A7C6F0 /* FindUserByNumberProtocol.h */,
 				5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
 				542F12241595C2B90098D77D /* SecurityQuestionInputProtocol.h */,
@@ -3714,6 +3738,35 @@
 				5BDDAE5415C8DAF7007B733E /* NewACHAccountViewController.xib */,
 			);
 			name = "Bank Account Management";
+			sourceTree = "<group>";
+		};
+		7AAFF1D215E7FCB900A7C6F0 /* Check OCR */ = {
+			isa = PBXGroup;
+			children = (
+				7AAFF1D415E7FCBF00A7C6F0 /* Mitek Library */,
+			);
+			name = "Check OCR";
+			sourceTree = "<group>";
+		};
+		7AAFF1D415E7FCBF00A7C6F0 /* Mitek Library */ = {
+			isa = PBXGroup;
+			children = (
+				7AAFF1D515E7FCCE00A7C6F0 /* MIBase64.h */,
+				7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */,
+				7AAFF1D715E7FCCE00A7C6F0 /* MIPController.h */,
+				7AAFF1D815E7FCCE00A7C6F0 /* MIPController.m */,
+				7AAFF1D915E7FCCE00A7C6F0 /* MISupport.h */,
+				7AAFF1DA15E7FCCE00A7C6F0 /* MISupport.m */,
+				7AAFF1DB15E7FCCE00A7C6F0 /* MIUser.h */,
+				7AAFF1DC15E7FCCE00A7C6F0 /* MIUser.m */,
+				7AAFF1DD15E7FCCE00A7C6F0 /* XMLParser.h */,
+				7AAFF1DE15E7FCCE00A7C6F0 /* XMLParser.m */,
+				7AAFF1DF15E7FCCE00A7C6F0 /* XMLParserNode.h */,
+				7AAFF1E015E7FCCE00A7C6F0 /* XMLParserNode.m */,
+				7AAFF1E115E7FCCE00A7C6F0 /* XMLWebService.h */,
+				7AAFF1E215E7FCCE00A7C6F0 /* XMLWebService.m */,
+			);
+			name = "Mitek Library";
 			sourceTree = "<group>";
 		};
 		C38999DB15C2EE4600D98387 /* Select Recipient */ = {
@@ -4533,6 +4586,13 @@
 				5BDDAEB915D16FCA007B733E /* UICustomDetailButton.m in Sources */,
 				5BDDAEBD15D1EEBF007B733E /* UICustomSetContactAndAmountButton.m in Sources */,
 				5BDDAEC115D21B18007B733E /* UICustomSetContactButton.m in Sources */,
+				7AAFF1E315E7FCCE00A7C6F0 /* MIBase64.m in Sources */,
+				7AAFF1E415E7FCCE00A7C6F0 /* MIPController.m in Sources */,
+				7AAFF1E515E7FCCE00A7C6F0 /* MISupport.m in Sources */,
+				7AAFF1E615E7FCCE00A7C6F0 /* MIUser.m in Sources */,
+				7AAFF1E715E7FCCE00A7C6F0 /* XMLParser.m in Sources */,
+				7AAFF1E815E7FCCE00A7C6F0 /* XMLParserNode.m in Sources */,
+				7AAFF1E915E7FCCE00A7C6F0 /* XMLWebService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

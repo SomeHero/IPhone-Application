@@ -42,6 +42,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @synthesize seenItems;
 
+@synthesize findUserService;
+
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -145,7 +147,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         xOffset = 224;
     }
-    
+    findUserService = [[UserService alloc] init];
     detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[UIScreen mainScreen] bounds].size.height-20)];
     detailView.backgroundColor = [UIColor redColor]; // Transparent view with subviews
     detailView.animate = YES;
@@ -608,6 +610,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
+    if ( [self isPhoneNumber:item.recipientName] || [self isPhoneNumber:item.recipientUri] )
+    {
+        Contact * foundContact;
+        foundContact = [findUserService findContactByPhoneNumber:item.recipientName];
+        
+        if ( !foundContact )
+            foundContact = [findUserService findContactByPhoneNumber:item.recipientUri];
+        
+        if ( foundContact )
+        {
+            [item setRecipientName:foundContact.name];
+            [item setImgData:foundContact.imgData];
+        }
+    }
     
     // Configure the cell...
     if([item.direction isEqualToString:@"Out"])
@@ -618,7 +634,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         } else {
             cell.newColorStrip.backgroundColor = [UIColor clearColor];
         }
-            
+        
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
         if ( item.recipientHasSeen == false ){
@@ -760,7 +776,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     return cell;
 }
 
-
+-(bool)isPhoneNumber:(NSString*)recipientName
+{
+    // The only cases we need to handle are: Phone Number and Email
+    NSString * numOnly = [[recipientName componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    NSRange numOnly2 = [[[recipientName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]  options:NSCaseInsensitiveSearch];
+    
+    if ( [recipientName isEqualToString:numOnly] || numOnly2.location == NSNotFound ) {
+        // Is only Numbers, I think?
+        if ( [numOnly characterAtIndex:0] == '1' || [numOnly characterAtIndex:0] == '0' )
+            numOnly = [numOnly substringFromIndex:1]; // Do not include country codes
+        
+        if ( [numOnly length] == 10 )
+            return YES;
+    }
+}
 
 
 #pragma mark -
