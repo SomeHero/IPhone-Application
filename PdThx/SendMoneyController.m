@@ -364,8 +364,10 @@
         }
     }
     
-    
     [self presentModalViewController:controller animated:YES];
+    
+    // Setting the background image must be done after the view loads (could call [controller viewDidLoad] too)
+    [controller.contactImageButton setBackgroundImage:recipient.imgData forState:UIControlStateNormal];
 }
 
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
@@ -572,8 +574,10 @@
     recipient = contact;
     if ( contact.imgData )
         [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
-    else if ( contact.facebookID.length > 0 )
+    else if ( contact.facebookID.length > 0 ){
+        recipient.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]];
         [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
+    }
     else {
         [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
         [recipientImageButton.layer setBorderWidth:0.0];
@@ -644,6 +648,7 @@
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
 }
+
 -(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend
 {
     [self.navigationController popViewControllerAnimated:NO];
@@ -652,6 +657,7 @@
     [self didChooseContact:contact];
     [self didSelectAmount:amountToSend];
 }
+
 -(void)didSetContact: (Contact*)contact
 {
     [self.navigationController popViewControllerAnimated:NO];
