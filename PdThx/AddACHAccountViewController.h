@@ -18,8 +18,10 @@
 #import "ValidationHelper.h"
 #import "UISetupUserBaseViewController.h"
 #import "SetupNavigationView.h"
+#import "CheckImageReturnProtocol.h"
+#import "MIPController.h"
 
-@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate>
+@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate, CheckImageReturnProtocol,MIPControllerDelegate>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
@@ -29,6 +31,9 @@
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UISegmentedControl* ctrlAccountType;
     IBOutlet UITextView* ctrlHeaderText;
+    IBOutlet UIButton *TakePictureOfCheckButton;
+    MIPController*mipControllerInstance;
+    
     NSString* navBarTitle;
     NSString* headerText;
     NSString* securityPin;
@@ -40,11 +45,15 @@
 }
 
 @property(nonatomic, retain) NSString* navBarTitle;
+@property(nonatomic, retain) UIButton *TakePictureOfCheckButton;
+@property(nonatomic, retain) MIPController*mipControllerInstance;
+
 @property(nonatomic, retain) NSString* headerText;
 @property(nonatomic) BOOL newUserFlow;
 
 -(IBAction)btnRemindMeLaterClicked:(id)sender;
 -(IBAction) btnCreateAccountClicked:(id)sender;
 -(IBAction) bgClicked:(id)sender;
+- (IBAction)takePictureOfCheck:(id)sender;
 
 @end

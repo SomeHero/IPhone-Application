@@ -265,14 +265,6 @@
 		54E3FC2D15DBEAC600C96657 /* avatar-50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E3FC2B15DBEAC600C96657 /* avatar-50x50.png */; };
 		54E3FC2E15DBEAC600C96657 /* avatar-50x50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E3FC2C15DBEAC600C96657 /* avatar-50x50@2x.png */; };
 		54E77EBC15B5CE180031116B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E77EBB15B5CE180031116B /* AVFoundation.framework */; };
-		54E77EC915B5D3530031116B /* AROverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E77EC015B5D3530031116B /* AROverlayViewController.m */; };
-		54E77ECA15B5D3530031116B /* bg-checkcapture-320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC115B5D3530031116B /* bg-checkcapture-320x480.png */; };
-		54E77ECB15B5D3530031116B /* bg-checkcapture-320x480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC215B5D3530031116B /* bg-checkcapture-320x480@2x.png */; };
-		54E77ECC15B5D3530031116B /* btn-takepic-48x37-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC315B5D3530031116B /* btn-takepic-48x37-active.png */; };
-		54E77ECD15B5D3530031116B /* btn-takepic-48x37-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC415B5D3530031116B /* btn-takepic-48x37-active@2x.png */; };
-		54E77ECE15B5D3530031116B /* btn-takepic-48x37.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC515B5D3530031116B /* btn-takepic-48x37.png */; };
-		54E77ECF15B5D3530031116B /* btn-takepic-48x37@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E77EC615B5D3530031116B /* btn-takepic-48x37@2x.png */; };
-		54E77ED015B5D3530031116B /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E77EC815B5D3530031116B /* CaptureSessionManager.m */; };
 		54E77ED715B5D6A10031116B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E77ED615B5D6A10031116B /* ImageIO.framework */; };
 		54E77ED915B5D7020031116B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E77ED815B5D7020031116B /* CoreMedia.framework */; };
 		54FA473E1594AEFE007CFA33 /* AddACHAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */; };
@@ -696,6 +688,16 @@
 		7AAFF1E715E7FCCE00A7C6F0 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1DE15E7FCCE00A7C6F0 /* XMLParser.m */; };
 		7AAFF1E815E7FCCE00A7C6F0 /* XMLParserNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1E015E7FCCE00A7C6F0 /* XMLParserNode.m */; };
 		7AAFF1E915E7FCCE00A7C6F0 /* XMLWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1E215E7FCCE00A7C6F0 /* XMLWebService.m */; };
+		7AD84EEB15EB3B77002979D5 /* AROverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EE215EB3B77002979D5 /* AROverlayViewController.m */; };
+		7AD84EEC15EB3B77002979D5 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EE415EB3B77002979D5 /* CaptureSessionManager.m */; };
+		7AD84EED15EB3B77002979D5 /* bg-checkcapture-320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE515EB3B77002979D5 /* bg-checkcapture-320x480.png */; };
+		7AD84EEE15EB3B77002979D5 /* bg-checkcapture-320x480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE615EB3B77002979D5 /* bg-checkcapture-320x480@2x.png */; };
+		7AD84EEF15EB3B77002979D5 /* btn-takepic-48x37-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE715EB3B77002979D5 /* btn-takepic-48x37-active.png */; };
+		7AD84EF015EB3B77002979D5 /* btn-takepic-48x37-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE815EB3B77002979D5 /* btn-takepic-48x37-active@2x.png */; };
+		7AD84EF115EB3B77002979D5 /* btn-takepic-48x37.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE915EB3B77002979D5 /* btn-takepic-48x37.png */; };
+		7AD84EF215EB3B77002979D5 /* btn-takepic-48x37@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EEA15EB3B77002979D5 /* btn-takepic-48x37@2x.png */; };
+		7AD84EF415EB3CED002979D5 /* AROverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EF315EB3CED002979D5 /* AROverlayViewController.xib */; };
+		7AD84EF815EB43CB002979D5 /* NSData+Base64Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EF715EB43CB002979D5 /* NSData+Base64Encoding.m */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
 		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
@@ -1064,16 +1066,6 @@
 		54E3FC2B15DBEAC600C96657 /* avatar-50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-50x50.png"; sourceTree = "<group>"; };
 		54E3FC2C15DBEAC600C96657 /* avatar-50x50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar-50x50@2x.png"; sourceTree = "<group>"; };
 		54E77EBB15B5CE180031116B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		54E77EBF15B5D3530031116B /* AROverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AROverlayViewController.h; sourceTree = "<group>"; };
-		54E77EC015B5D3530031116B /* AROverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AROverlayViewController.m; sourceTree = "<group>"; };
-		54E77EC115B5D3530031116B /* bg-checkcapture-320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-checkcapture-320x480.png"; sourceTree = "<group>"; };
-		54E77EC215B5D3530031116B /* bg-checkcapture-320x480@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-checkcapture-320x480@2x.png"; sourceTree = "<group>"; };
-		54E77EC315B5D3530031116B /* btn-takepic-48x37-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37-active.png"; sourceTree = "<group>"; };
-		54E77EC415B5D3530031116B /* btn-takepic-48x37-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37-active@2x.png"; sourceTree = "<group>"; };
-		54E77EC515B5D3530031116B /* btn-takepic-48x37.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37.png"; sourceTree = "<group>"; };
-		54E77EC615B5D3530031116B /* btn-takepic-48x37@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37@2x.png"; sourceTree = "<group>"; };
-		54E77EC715B5D3530031116B /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
-		54E77EC815B5D3530031116B /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
 		54E77ED615B5D6A10031116B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		54E77ED815B5D7020031116B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddACHAccountViewController.xib; sourceTree = "<group>"; };
@@ -1698,6 +1690,20 @@
 		7AAFF1E115E7FCCE00A7C6F0 /* XMLWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLWebService.h; sourceTree = "<group>"; };
 		7AAFF1E215E7FCCE00A7C6F0 /* XMLWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLWebService.m; sourceTree = "<group>"; };
 		7AAFF1EE15E8A31900A7C6F0 /* FindUserByNumberProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindUserByNumberProtocol.h; sourceTree = "<group>"; };
+		7AD84EE115EB3B77002979D5 /* AROverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AROverlayViewController.h; sourceTree = "<group>"; };
+		7AD84EE215EB3B77002979D5 /* AROverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AROverlayViewController.m; sourceTree = "<group>"; };
+		7AD84EE315EB3B77002979D5 /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
+		7AD84EE415EB3B77002979D5 /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
+		7AD84EE515EB3B77002979D5 /* bg-checkcapture-320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-checkcapture-320x480.png"; sourceTree = "<group>"; };
+		7AD84EE615EB3B77002979D5 /* bg-checkcapture-320x480@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-checkcapture-320x480@2x.png"; sourceTree = "<group>"; };
+		7AD84EE715EB3B77002979D5 /* btn-takepic-48x37-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37-active.png"; sourceTree = "<group>"; };
+		7AD84EE815EB3B77002979D5 /* btn-takepic-48x37-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37-active@2x.png"; sourceTree = "<group>"; };
+		7AD84EE915EB3B77002979D5 /* btn-takepic-48x37.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37.png"; sourceTree = "<group>"; };
+		7AD84EEA15EB3B77002979D5 /* btn-takepic-48x37@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37@2x.png"; sourceTree = "<group>"; };
+		7AD84EF315EB3CED002979D5 /* AROverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AROverlayViewController.xib; sourceTree = "<group>"; };
+		7AD84EF515EB3E64002979D5 /* CheckImageReturnProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckImageReturnProtocol.h; sourceTree = "<group>"; };
+		7AD84EF615EB43CB002979D5 /* NSData+Base64Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64Encoding.h"; sourceTree = "<group>"; };
+		7AD84EF715EB43CB002979D5 /* NSData+Base64Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Encoding.m"; sourceTree = "<group>"; };
 		C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordViewController.xib; sourceTree = "<group>"; };
 		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
@@ -2238,11 +2244,11 @@
 		54A139AF1582702700668984 /* Custom Features */ = {
 			isa = PBXGroup;
 			children = (
+				7AD84EE015EB3B69002979D5 /* Check Picture */,
 				7AAFF1D215E7FCB900A7C6F0 /* Check OCR */,
 				5B8868381529142B00EA24A4 /* Custom Modal Panel */,
 				54D23FE215BF8BD00037719A /* Signed Out Tab bar */,
 				54D23FD115BEF11A0037719A /* Custom Scroll View */,
-				54E77EBE15B5D30C0031116B /* Take Check Picture */,
 				54E77EBD15B5CE870031116B /* Zendesk Files */,
 				5B6D137115B2633500F37A11 /* TSPopover */,
 				540E634E15AFDE650089A5F5 /* Custom Tab bar */,
@@ -2732,23 +2738,6 @@
 			);
 			name = "Zendesk Files";
 			path = ..;
-			sourceTree = "<group>";
-		};
-		54E77EBE15B5D30C0031116B /* Take Check Picture */ = {
-			isa = PBXGroup;
-			children = (
-				54E77EBF15B5D3530031116B /* AROverlayViewController.h */,
-				54E77EC015B5D3530031116B /* AROverlayViewController.m */,
-				54E77EC115B5D3530031116B /* bg-checkcapture-320x480.png */,
-				54E77EC215B5D3530031116B /* bg-checkcapture-320x480@2x.png */,
-				54E77EC315B5D3530031116B /* btn-takepic-48x37-active.png */,
-				54E77EC415B5D3530031116B /* btn-takepic-48x37-active@2x.png */,
-				54E77EC515B5D3530031116B /* btn-takepic-48x37.png */,
-				54E77EC615B5D3530031116B /* btn-takepic-48x37@2x.png */,
-				54E77EC715B5D3530031116B /* CaptureSessionManager.h */,
-				54E77EC815B5D3530031116B /* CaptureSessionManager.m */,
-			);
-			name = "Take Check Picture";
 			sourceTree = "<group>";
 		};
 		5B11964515AEF288003F8D53 /* Navigation Bar Icons */ = {
@@ -3343,6 +3332,7 @@
 				5BDDAE4815C77F32007B733E /* DeletePayPointDelegate.h */,
 				5BDDAEBA15D1EB4D007B733E /* SetContactAndAmountProtocol.h */,
 				5BDDAEBE15D218C9007B733E /* SetContactProtocol.h */,
+				7AD84EF515EB3E64002979D5 /* CheckImageReturnProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -3767,6 +3757,26 @@
 				7AAFF1E215E7FCCE00A7C6F0 /* XMLWebService.m */,
 			);
 			name = "Mitek Library";
+			sourceTree = "<group>";
+		};
+		7AD84EE015EB3B69002979D5 /* Check Picture */ = {
+			isa = PBXGroup;
+			children = (
+				7AD84EE115EB3B77002979D5 /* AROverlayViewController.h */,
+				7AD84EE215EB3B77002979D5 /* AROverlayViewController.m */,
+				7AD84EF315EB3CED002979D5 /* AROverlayViewController.xib */,
+				7AD84EE315EB3B77002979D5 /* CaptureSessionManager.h */,
+				7AD84EE415EB3B77002979D5 /* CaptureSessionManager.m */,
+				7AD84EE515EB3B77002979D5 /* bg-checkcapture-320x480.png */,
+				7AD84EE615EB3B77002979D5 /* bg-checkcapture-320x480@2x.png */,
+				7AD84EE715EB3B77002979D5 /* btn-takepic-48x37-active.png */,
+				7AD84EE815EB3B77002979D5 /* btn-takepic-48x37-active@2x.png */,
+				7AD84EE915EB3B77002979D5 /* btn-takepic-48x37.png */,
+				7AD84EEA15EB3B77002979D5 /* btn-takepic-48x37@2x.png */,
+				7AD84EF615EB43CB002979D5 /* NSData+Base64Encoding.h */,
+				7AD84EF715EB43CB002979D5 /* NSData+Base64Encoding.m */,
+			);
+			name = "Check Picture";
 			sourceTree = "<group>";
 		};
 		C38999DB15C2EE4600D98387 /* Select Recipient */ = {
@@ -4248,12 +4258,6 @@
 				54B4A8A315B3B2EB001F76D8 /* bg-tab-send-75x57@2x.png in Resources */,
 				54B4A8A415B3B2EB001F76D8 /* bg-tab-send-active-75x57.png in Resources */,
 				54B4A8A515B3B2EB001F76D8 /* bg-tab-send-active-75x57@2x.png in Resources */,
-				54E77ECA15B5D3530031116B /* bg-checkcapture-320x480.png in Resources */,
-				54E77ECB15B5D3530031116B /* bg-checkcapture-320x480@2x.png in Resources */,
-				54E77ECC15B5D3530031116B /* btn-takepic-48x37-active.png in Resources */,
-				54E77ECD15B5D3530031116B /* btn-takepic-48x37-active@2x.png in Resources */,
-				54E77ECE15B5D3530031116B /* btn-takepic-48x37.png in Resources */,
-				54E77ECF15B5D3530031116B /* btn-takepic-48x37@2x.png in Resources */,
 				C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */,
 				C3916E5815ACBFCF00888048 /* ForgotPinCodeViewController.xib in Resources */,
 				D58078BF15B725300037ADA0 /* VerifyPhoneNumberViewController.xib in Resources */,
@@ -4360,6 +4364,13 @@
 				54B2F61D15D975A400487F75 /* img-qs-header-309x24@2x.png in Resources */,
 				54E3FC2D15DBEAC600C96657 /* avatar-50x50.png in Resources */,
 				54E3FC2E15DBEAC600C96657 /* avatar-50x50@2x.png in Resources */,
+				7AD84EED15EB3B77002979D5 /* bg-checkcapture-320x480.png in Resources */,
+				7AD84EEE15EB3B77002979D5 /* bg-checkcapture-320x480@2x.png in Resources */,
+				7AD84EEF15EB3B77002979D5 /* btn-takepic-48x37-active.png in Resources */,
+				7AD84EF015EB3B77002979D5 /* btn-takepic-48x37-active@2x.png in Resources */,
+				7AD84EF115EB3B77002979D5 /* btn-takepic-48x37.png in Resources */,
+				7AD84EF215EB3B77002979D5 /* btn-takepic-48x37@2x.png in Resources */,
+				7AD84EF415EB3CED002979D5 /* AROverlayViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4533,8 +4544,6 @@
 				5B6D138115B2633700F37A11 /* UIBarButtonItem+WEPopover.m in Sources */,
 				5B6D138515B2667000F37A11 /* ContactTypeSelectViewController.m in Sources */,
 				5B6D138F15B26F1400F37A11 /* TestViewController.m in Sources */,
-				54E77EC915B5D3530031116B /* AROverlayViewController.m in Sources */,
-				54E77ED015B5D3530031116B /* CaptureSessionManager.m in Sources */,
 				C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */,
 				C3916E5715ACBFCF00888048 /* ForgotPinCodeViewController.m in Sources */,
 				D58078BE15B725300037ADA0 /* VerifyPhoneNumberViewController.m in Sources */,
@@ -4593,6 +4602,9 @@
 				7AAFF1E715E7FCCE00A7C6F0 /* XMLParser.m in Sources */,
 				7AAFF1E815E7FCCE00A7C6F0 /* XMLParserNode.m in Sources */,
 				7AAFF1E915E7FCCE00A7C6F0 /* XMLWebService.m in Sources */,
+				7AD84EEB15EB3B77002979D5 /* AROverlayViewController.m in Sources */,
+				7AD84EEC15EB3B77002979D5 /* CaptureSessionManager.m in Sources */,
+				7AD84EF815EB43CB002979D5 /* NSData+Base64Encoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
