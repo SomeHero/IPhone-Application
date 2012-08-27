@@ -15,6 +15,7 @@
 #import "AddPayPointCompleteProtocol.h"
 #import "PayPointVerificationCompleteProtocol.h"
 #import "DeletePayPointDelegate.h"
+#import "VerifyMobilePayPointProtocol.h"
 
 @interface PayPointService : NSObject
 {
@@ -23,12 +24,14 @@
     id<AddPayPointCompleteProtocol> addPayPointCompleteDelegate;
     id<PayPointVerificationCompleteProtocol> payPointVerificationCompleteDelegate;
     id<DeletePayPointDelegate> deletePayPointCompleteDelegate;
+    id<VerifyMobilePayPointProtocol> verifyMobilePayPointDelegate;
 }
 
 @property(retain) id getPayPointsDelegate;
 @property(retain) id addPayPointCompleteDelegate;
 @property(retain) id payPointVerificationCompleteDelegate;
 @property(retain) id deletePayPointCompleteDelegate;
+@property(retain) id verifyMobilePayPointDelegate;
 
 -(void) getPayPoints:(NSString*) userId;
 -(void) getPayPoints:(NSString*) userId ofType: (NSString*) type;
@@ -36,6 +39,6 @@
 -(void) addPayPoint:(NSString *) uri ofType: (NSString*) type forUserId: (NSString*) userId;
 -(void) resendEmailVerificationLink:(NSString*)payPointId forUserId:(NSString*) userId;
 -(void) resendMobileVerificationCode:(NSString*)payPointId forUserId:(NSString*) userId;
-    
+-(void) verifyMobilePayPoint: (NSString*)verificationCode forPayPointId:(NSString*)payPointId forUserId:(NSString*) userId;
 
 @end

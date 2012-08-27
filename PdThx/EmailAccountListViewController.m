@@ -75,7 +75,7 @@
     
     if(newPayPointAdded)
     {
-        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPont!" withSubtitle:@"You need to complete verification to start sending and receiving money using this email address." withDetailText:@"We sent an email to this email address.  To verify this PayPoint, click the link in this email" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPont!" withSubtitle:@"You need to complete verification to start sending and receiving money using this email address." withDetailText:@"We sent an email to this email address.  To verify this PayPoint, click the link in this email" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText: @"" withDelegate:self];
         
         newPayPointAdded = false;
     }

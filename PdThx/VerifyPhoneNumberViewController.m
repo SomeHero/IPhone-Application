@@ -58,12 +58,16 @@
 {
     EnterVerificationCodeViewController* controller = [[EnterVerificationCodeViewController alloc] init];
     
-    controller.phoneNumber = payPoint.uri;
+    controller.payPoint = payPoint;
     
-    [self.navigationController pushViewController:controller animated:YES]; 
     [controller setTitle : @"Verify"];
-//    [[PhoneNumberTxt setText:[phones objectAtIndex: indexPath.row] uri] ];
+
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [self.navigationController presentModalViewController:navBar animated:YES]; 
+    
     [controller release];
+    [navBar release];
 }
 -(IBAction)btnResendCodes
 {

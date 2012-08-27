@@ -14,6 +14,7 @@
 @synthesize bankAccountRequestDelegate;
 @synthesize deleteBankAccountDelegate, updateBankAccountDelegate;
 @synthesize preferredAccountDelegate;
+@synthesize verifyBankAccountDelegate;
 
 -(void) getUserAccounts:(NSString*) userId {
     
@@ -244,15 +245,16 @@
     
     [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
 }
--(void)verifyBankAccount:(NSString*)accountId forUserId: (NSString*)userId withFirstAmount:(double)firstAmount withSecondAmount:(double)secondAmount
+-(void)verifyBankAccount:(NSString*)accountId forUserId: (NSString*)userId withFirstAmount:(NSString*)firstAmount withSecondAmount:(NSString*)secondAmount
 {
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/verify_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@/verify_account/?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];  
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
-                                 accountId, @"PaymentAccountId",
+                                 firstAmount, @"depositAmount1",
+                                 secondAmount, @"depositAmount2",
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation]; 
@@ -274,14 +276,14 @@
     
     if([request responseStatusCode] == 200 ) {
         
-        [preferredAccountDelegate setPreferredAccountDidComplete];
+        [verifyBankAccountDelegate verifyBankAccountsDidComplete];
         
     }
     else {
         
         NSLog(@"Error Verifying Bank Account");
         
-        [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+        [verifyBankAccountDelegate verifyBankAccountsDidFail: [request responseStatusMessage]];
         
     }
     
@@ -293,6 +295,6 @@
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+    [verifyBankAccountDelegate verifyBankAccountsDidFail: [request responseStatusMessage]];
 }
 @end

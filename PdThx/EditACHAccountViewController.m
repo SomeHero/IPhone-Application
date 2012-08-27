@@ -136,6 +136,8 @@
 }
 -(IBAction)btnVerifyClicked:(id)sender {
     VerifyACHAccountViewController* controller = [[VerifyACHAccountViewController    alloc] init];
+    [controller setBankAccount: bankAccount];
+    [controller setVerifyBankAccountDelegate: self];
     [controller setTitle: @"Verify Account"];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
@@ -144,5 +146,23 @@
     
     [navBar release];
     [controller release];
+}
+-(void)verifyBankAccountsDidComplete {
+    NSLog(@"Verify Bank Account Success");
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+     
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+
+    // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
+    // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
+    // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
+    // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
+    [appDelegate showSuccessWithStatus: @"Account Verified" withDetailedStatus:@"Your account was successfully verified.  You can now begin to use this account to accept funds."];
+}
+-(void)verifyBankAccountsDidFail:(NSString*)errorMessage {
+
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
 }
 @end

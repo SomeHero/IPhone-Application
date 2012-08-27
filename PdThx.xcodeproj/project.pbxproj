@@ -1419,6 +1419,8 @@
 		5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalizeUserCompleteProtocol.h; sourceTree = "<group>"; };
 		5BABF06715975DEB00FB4BD5 /* ValidationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationHelper.h; sourceTree = "<group>"; };
 		5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationHelper.m; sourceTree = "<group>"; };
+		5BAC5A8015E8124700B57167 /* VerifyBankAccountProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyBankAccountProtocol.h; sourceTree = "<group>"; };
+		5BAC5A8115EB01BA00B57167 /* VerifyMobilePayPointProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyMobilePayPointProtocol.h; sourceTree = "<group>"; };
 		5BB14560158B948C00EA652A /* AmountSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmountSelectViewController.xib; sourceTree = "<group>"; };
 		5BB14575158B961A00EA652A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		5BB145E3158C284500EA652A /* FacebookSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookSignIn.h; sourceTree = "<group>"; };
@@ -3319,6 +3321,8 @@
 				5BDDAE4815C77F32007B733E /* DeletePayPointDelegate.h */,
 				5BDDAEBA15D1EB4D007B733E /* SetContactAndAmountProtocol.h */,
 				5BDDAEBE15D218C9007B733E /* SetContactProtocol.h */,
+				5BAC5A8015E8124700B57167 /* VerifyBankAccountProtocol.h */,
+				5BAC5A8115EB01BA00B57167 /* VerifyMobilePayPointProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";

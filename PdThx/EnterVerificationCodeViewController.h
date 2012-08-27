@@ -12,13 +12,24 @@
 #import "PayPointService.h"
 #import "GetPayPointProtocol.h"
 #import "AddPayPointCompleteProtocol.h"
-@interface EnterVerificationCodeViewController :UISetupUserBaseViewController<AddPayPointCompleteProtocol, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>{
-       NSMutableArray* phones;
-    IBOutlet UILabel *txtPhoneNumber;
-    IBOutlet UITextField *verificatoinCode;
-    NSString* phoneNumber;
+#import "UIModalBaseViewController.h"
 
+@interface EnterVerificationCodeViewController :UIModalBaseViewController<VerifyMobilePayPointProtocol>{
+    NSMutableArray* phones;
+    IBOutlet UILabel *txtPhoneNumber;
+    IBOutlet UITextField *txtVerificationCode;
+
+    PayPoint* payPoint;
+    PayPointService* payPointService;
+    
+    id<VerifyMobilePayPointProtocol> verifyMobilePayPointDelegate;
+    
 }
-@property (retain, nonatomic) NSString* phoneNumber;
+
+@property(retain, nonatomic) PayPoint* payPoint;
+@property(retain) id verifyMobilePayPointDelegate;
+
+
 -(IBAction)btnSubmit;
+
 @end

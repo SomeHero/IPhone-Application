@@ -72,7 +72,7 @@
     
     if(newPayPointAdded)
     {
-        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPoint!" withSubtitle:@"You need to complete verification to start sending and receiving money using this mobile #." withDetailText:@"We sent an text to this mobile # with a verification code.  To verify this PayPoint, click verify below and enter the verification code." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Verify" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPoint!" withSubtitle:@"You need to complete verification to start sending and receiving money using this mobile #." withDetailText:@"We sent an text to this mobile # with a verification code.  To verify this PayPoint, click verify below and enter the verification code." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Verify" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText: @"" withDelegate:self];
         
         newPayPointAdded = false;
     }
@@ -245,8 +245,7 @@
     else {
         PayPoint* payPoint = [phones objectAtIndex:indexPath.row];
         
-        if([payPoint verified])
-        {
+
             PhoneDetailViewController *controller = [[PhoneDetailViewController alloc] init];
             controller.payPoint = payPoint;
             [controller setDeletePayPointComplete:self];
@@ -256,18 +255,7 @@
             [self.navigationController pushViewController:controller animated:YES];
             
             [controller release];
-        }
-        else 
-        {
-            VerifyPhoneNumberViewController *controller = [[VerifyPhoneNumberViewController alloc] init];
-            controller.payPoint = payPoint;
-            
-            [controller setTitle: @"Verify"];
-            
-            [self.navigationController pushViewController:controller animated:YES];
-            
-            [controller release];
-        }
+
 
     }
 }
