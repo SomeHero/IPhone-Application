@@ -262,7 +262,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    [appDelegate showAlertWithResult:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Dismiss" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+    [appDelegate showSimpleAlertView:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailedText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withButtonText:@"Dismiss" withDelegate:self];
 }
 
 -(void)didSelectButtonWithIndex:(int)index
@@ -610,13 +610,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    if ( [self isPhoneNumber:item.recipientName] || [self isPhoneNumber:item.recipientUri] )
+    
+    if ( [self isPhoneNumber:item.recipientUri] )
     {
         Contact * foundContact;
-        foundContact = [findUserService findContactByPhoneNumber:item.recipientName];
         
-        if ( !foundContact )
-            foundContact = [findUserService findContactByPhoneNumber:item.recipientUri];
+        foundContact = [findUserService findContactByPhoneNumber:item.recipientUri];
         
         if ( foundContact )
         {
@@ -790,6 +789,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         if ( [numOnly length] == 10 )
             return YES;
     }
+    
+    return NO;
 }
 
 
@@ -926,7 +927,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [outgoingView setPullableView: detailView];
     [outgoingView setParent: self];
     [detailView addSubview: outgoingView.view];
-    
     
     
     [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];

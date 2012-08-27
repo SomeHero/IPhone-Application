@@ -7,6 +7,7 @@
 //
 
 #import "ProgressHudInnnerViewController.h"
+#import "PdThxAppDelegate.h"
 
 @interface ProgressHudInnnerViewController ()
 
@@ -15,7 +16,7 @@
 @implementation ProgressHudInnnerViewController
 
 
-@synthesize topLabel, detailLabel, activityIndicator, imgView;
+@synthesize topLabel, detailLabel, activityIndicator, imgView, dismissButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +36,8 @@
 
 - (void)viewDidUnload
 {
+    [dismissButton release];
+    dismissButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -45,4 +48,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc {
+    [dismissButton release];
+    [super dealloc];
+}
+- (IBAction)pressedDismiss:(id)sender {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) dismissProgressHUD];
+}
 @end
