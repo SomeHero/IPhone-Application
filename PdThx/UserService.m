@@ -512,7 +512,6 @@
             {
                 if ( [point isEqualToString:formattedNumber] )
                 {
-                    NSLog(@"Found contact: %@ for [%@]",con.name,phoneNumber);
                     return con;
                 }
             }
