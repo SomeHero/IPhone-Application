@@ -7,14 +7,16 @@
 @implementation AROverlayViewController
 
 @synthesize captureManager;
+@synthesize CheckImageReturnDelegate;
 @synthesize scanningLabel;
 @synthesize scanButton;
 @synthesize helpButton;
 @synthesize dismissButton;
 @synthesize helpIndicator;
-@synthesize pictureDelegate;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
+    [self setWantsFullScreenLayout:YES];
     
 	[self setCaptureManager:[[[CaptureSessionManager alloc] init] autorelease]];
     
@@ -55,10 +57,20 @@
 	[[captureManager captureSession] startRunning];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+}
 
 - (void)saveImageToPhotoAlbum 
 {
-    UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    [CheckImageReturnDelegate cameraReturnedImage:[self.captureManager stillImage]];
+    //UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
@@ -69,8 +81,9 @@
         [alert release];
     } else {
         // TODO: IMPLEMENT FINISHED SUCCESSFULLY POPOVER
-        [pictureDelegate checkImageDidReturn:image];
+        
         // TODO: CALL IMAGE ADDED DELEGATE
+        [CheckImageReturnDelegate cameraReturnedImage:image];
     }
 }
 
@@ -85,7 +98,6 @@
     [dismissButton release];
     [helpButton release];
     [scanningLabel release];
-    [pictureDelegate release];
     [super dealloc];
 }
 
