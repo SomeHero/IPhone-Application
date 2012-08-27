@@ -89,11 +89,7 @@
 	[[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:videoConnection 
                                                        completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) { 
                                                          CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-                                                         if (exifAttachments) {
-                                                           NSLog(@"attachements: %@", exifAttachments);
-                                                         } else { 
-                                                           NSLog(@"no attachments");
-                                                         }
+                                                           
                                                          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];    
                                                          UIImage *image = [[UIImage alloc] initWithData:imageData];
                                                          [self setStillImage:image];

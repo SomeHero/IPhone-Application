@@ -343,6 +343,8 @@
                          inRotateImage,
                          inNote?:@""
 						 ];
+    
+    NSLog(@"SoapMessageSendingTransaction: %@",soapMsg);
 	
 	insertPhoneTransactionSupport = [[MISupport alloc] init];	
 	BOOL ret = [insertPhoneTransactionSupport doTheCall:@"InsertPhoneTransaction" 
