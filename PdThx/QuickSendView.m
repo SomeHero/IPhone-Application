@@ -23,7 +23,7 @@
 @synthesize qs8button, qs8textView;
 @synthesize qs9button, qs9textView;
 @synthesize buttonDelegate, phoneFormatter;
-@synthesize noContactsImageView;
+@synthesize noContactsImageView, findUserService;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -37,6 +37,7 @@
 						owner:self
 						options:nil];
 		
+        findUserService = [[UserService alloc] init];
 		[self release];	// release object before reassignment to avoid leak - thanks ddickison
 		self = [nib objectAtIndex:0];
     }
@@ -299,10 +300,34 @@
     else
         [imageButton setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     
+    
     if ( [[[contactDict valueForKey:@"userUri"] substringToIndex:3] isEqualToString:@"fb_"] )
     {
         NSLog(@"Setting image for %@ to %@", [contactDict objectForKey:@"userName"], [contactDict objectForKey:@"userImage"]);
         [imageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
+    } else {
+        if ( [self isPhoneNumber:[contactDict valueForKey:@"userUri"]] )
+        {
+            Contact * foundContact;
+            
+            if ( findUserService == nil )
+                findUserService = [[UserService alloc] init];
+            
+            foundContact = [findUserService findContactByPhoneNumber:[contactDict objectForKey:@"userUri"]];
+            
+            if ( foundContact )
+            {
+                [contactDict setValue:foundContact.name forKey:@"userName"];
+                [contactDict setValue:foundContact.firstName forKey:@"userFirstName"];
+                [contactDict setValue:foundContact.lastName forKey:@"userLastName"];
+                
+                if ( foundContact.imgData )
+                {
+                    [imageButton setBackgroundImage:foundContact.imgData forState:UIControlStateNormal];
+                }
+            }
+        }
+        
     }
     
     if ( [contactDict valueForKey:@"userName"] != (id)[NSNull null] )
@@ -316,6 +341,25 @@
         else
             [textView setText:[contactDict valueForKey:@"userUri"]];
     }
+}
+
+
+-(bool)isPhoneNumber:(NSString*)recipientName
+{
+    // The only cases we need to handle are: Phone Number and Email
+    NSString * numOnly = [[recipientName componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    NSRange numOnly2 = [[[recipientName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]  options:NSCaseInsensitiveSearch];
+    
+    if ( [recipientName isEqualToString:numOnly] || numOnly2.location == NSNotFound ) {
+        // Is only Numbers, I think?
+        if ( [numOnly characterAtIndex:0] == '1' || [numOnly characterAtIndex:0] == '0' )
+            numOnly = [numOnly substringFromIndex:1]; // Do not include country codes
+        
+        if ( [numOnly length] == 10 )
+            return YES;
+    }
+    
+    return NO;
 }
 
 @end
