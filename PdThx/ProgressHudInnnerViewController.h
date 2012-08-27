@@ -14,11 +14,15 @@
     IBOutlet UILabel *topLabel;
     IBOutlet UILabel *detailLabel;
     IBOutlet UIImageView *imgView;
+    IBOutlet UIButton *dismissButton;
 }
 
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) UILabel *topLabel;
 @property (nonatomic, retain) UILabel *detailLabel;
 @property (nonatomic, retain) UIImageView *imgView;
+@property (nonatomic, retain) UIButton *dismissButton;
+
+- (IBAction)pressedDismiss:(id)sender;
 
 @end
