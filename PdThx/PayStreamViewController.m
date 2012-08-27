@@ -610,20 +610,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    
-    if ( [self isPhoneNumber:item.recipientUri] )
-    {
-        Contact * foundContact;
-        
-        foundContact = [findUserService findContactByPhoneNumber:item.recipientUri];
-        
-        if ( foundContact )
-        {
-            [item setRecipientName:foundContact.name];
-            [item setImgData:foundContact.imgData];
-        }
-    }
-    
     // Configure the cell...
     if([item.direction isEqualToString:@"Out"])
     {
@@ -634,6 +620,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             cell.newColorStrip.backgroundColor = [UIColor clearColor];
         }
         
+        if ( [self isPhoneNumber:item.recipientUri] )
+        {
+            Contact * foundContact;
+            
+            foundContact = [findUserService findContactByPhoneNumber:item.recipientUri];
+            
+            if ( foundContact )
+            {
+                [item setRecipientName:foundContact.name];
+                [item setImgData:foundContact.imgData];
+            }
+        }
+        
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
         if ( item.recipientHasSeen == false ){
@@ -642,6 +641,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             cell.newColorStrip.backgroundColor = [UIColor clearColor];
         }
         //019)(109)(113)
+        
+        if ( [self isPhoneNumber:item.senderUri] )
+        {
+            Contact * foundContact;
+            
+            foundContact = [findUserService findContactByPhoneNumber:item.senderUri];
+            
+            if ( foundContact )
+            {
+                [item setSenderName:foundContact.name];
+                [item setImgData:foundContact.imgData];
+            }
+        }
         
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
