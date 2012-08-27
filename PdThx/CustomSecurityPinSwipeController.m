@@ -24,6 +24,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize headerText;
 @synthesize tag;
 @synthesize navigationBar;
+@synthesize contactImageButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,6 +44,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)dealloc
 {
     [navigationBar release];
+    [contactImageButton release];
     [super dealloc];
     
     [viewPinLock release];
@@ -94,7 +96,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-
+    
+    [contactImageButton.layer setCornerRadius:11.0];
+    [contactImageButton.layer setMasksToBounds:YES];
     
     [self.viewPinLock addSubview:custom];
     NSError *error;
@@ -131,6 +135,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [navigationBar release];
     navigationBar = nil;
+    [contactImageButton release];
+    contactImageButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
