@@ -15,6 +15,7 @@
 @implementation GetPayStreamService
 
 @synthesize getPayStreamCompleteDelegate;
+@synthesize requestObj;
 
 -(id)init {
     self = [super init];

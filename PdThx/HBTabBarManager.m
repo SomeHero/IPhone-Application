@@ -38,7 +38,8 @@
     
     for( id currentObject in topLevelObjects )
     {
-        if([currentObject isKindOfClass:[HBCustomTabBar class]]){
+        if([currentObject isKindOfClass:[HBCustomTabBar class]])
+        {
             HBCustomTabBar *bar = (HBCustomTabBar *)currentObject;//[topLevelObjects objectAtIndex:0];
             [tabBar release];
             [bar retain];

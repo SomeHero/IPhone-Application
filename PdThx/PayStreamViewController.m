@@ -251,6 +251,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
 
+    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
@@ -1181,77 +1182,30 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 
+
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {
-    if( buttonIndex == 0 )
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    //NSLog(@"Switching to tab index:%d",buttonIndex);
+    UIViewController* newView = [appDelegate switchMainAreaToTabIndex:buttonIndex];
+    
+    //NSLog(@"NewView: %@",newView);
+    if ( newView != nil  && ! [self isEqual:newView])
     {
-        //Switch to the groups tab
-        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
+        //NSLog(@"Switching views, validated that %@ =/= %@",[self class],[newView class]);
         
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-    }
-    if( buttonIndex == 1 )
-    {
-        // Already the current view controller
-        /*
-        //Switch to the groups tab
-        PayStreamViewController *gvc = [[PayStreamViewController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
+        [[self navigationController] pushViewController:newView animated:NO];
         
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-         */
-    }
-    if( buttonIndex == 2 )
-    {
-        //Switch to the groups tab
-        SendMoneyController *gvc = [[SendMoneyController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-    }
-    if( buttonIndex == 3 )
-    {
-        //Switch to the groups tab
-        RequestMoneyController *gvc = [[RequestMoneyController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-    }
-    if( buttonIndex == 4 )
-    {
-        //Switch to the groups tab
-        DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
+        // Get the list of view controllers
         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
         [allViewControllers removeObjectIdenticalTo:self];
         [[self navigationController] setViewControllers:allViewControllers animated:NO];
         [allViewControllers release];
     }
 }
+
+
 
 - (int)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
 {
