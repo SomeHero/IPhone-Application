@@ -11,17 +11,27 @@
 #import "PayPointService.h"
 #import "PdThxAppDelegate.h"
 #import "DeletePayPointDelegate.h"
+#import "ResendVerificationLinkProtocol.h"
 
-@interface EmailAccountDetailViewController : UISetupUserBaseViewController<DeletePayPointDelegate>
+@interface EmailAccountDetailViewController : UISetupUserBaseViewController<DeletePayPointDelegate, ResendVerificationLinkProtocol, CustomAlertViewProtocol>
 {
-    IBOutlet UILabel *txtEmailAddress;
     PayPoint* payPoint;
     PayPointService* payPointService;
     id<DeletePayPointDelegate> deletePayPointComplete;
+    id<ResendVerificationLinkProtocol> resendVerificationLinkDelegate;
+    
+    IBOutlet UILabel *txtEmailAddress;
+    IBOutlet UILabel *txtStatus;
+    IBOutlet UIView *ctrlHeader;
+    IBOutlet UIView *ctrlButtonsView;
+    
+    IBOutlet UIView *ctrlHeaderPending;
+    IBOutlet UIView *ctrlHeaderVerified;
 }
 
 @property(nonatomic, retain) PayPoint* payPoint;
 @property(nonatomic, retain) id<DeletePayPointDelegate> deletePayPointComplete;
+@property(nonatomic, retain) id<ResendVerificationLinkProtocol> resendVerifciationLinkDelegate;
 
 -(IBAction)btnRemovePayPoint;
 

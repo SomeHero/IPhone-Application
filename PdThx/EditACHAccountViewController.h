@@ -13,8 +13,9 @@
 #import "PdThxAppDelegate.h"
 #import "UISetupUserBaseViewController.h"
 #import "VerifyACHAccountViewController.h"
+#import "VerifyBankAccountProtocol.h"
 
-@interface EditACHAccountViewController : UISetupUserBaseViewController <UITextFieldDelegate> {
+@interface EditACHAccountViewController : UISetupUserBaseViewController <UITextFieldDelegate, VerifyBankAccountProtocol> {
     IBOutlet UIView* mainView;
     IBOutlet UITextField* txtNickName;
     IBOutlet UITextField* txtNameOnAccount;
