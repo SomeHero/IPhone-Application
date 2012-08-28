@@ -55,15 +55,14 @@
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
         // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-        [appDelegate showAlertWithResult:false withTitle:@"Invalid MeCode" withSubtitle:@"Error Creating MeCode" withDetailText:@"MeCode isn't sufficient length or has invalid characters" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+        [appDelegate showAlertWithResult:false withTitle:@"Invalid MeCode" withSubtitle:@"Error Creating MeCode" withDetailText:@"MeCode isn't sufficient length or has invalid characters" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withTextFieldPlaceholderText: @"" withDelegate:self];
     }
     else {
         
         [txtMeCode resignFirstResponder];
         
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-    
+        [appDelegate showWithStatus: @"Linking MeCode" withDetailedStatus: @"Adding New PayPoint"];
         
         [payPointService addPayPoint:txtMeCode.text ofType:@"MeCode" forUserId: user.userId];
     }
@@ -93,11 +92,30 @@
             txtMeCode.text = [NSString stringWithFormat:@"$%@",txtMeCode.text];
     }
 }
--(void)addPayPointsDidComplete {
-    [addPayPointComplete addPayPointsDidComplete];
+-(void)addPayPointsDidComplete:(NSString*)payPointId {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [appDelegate dismissProgressHUD];
+        
+        [addPayPointComplete addPayPointsDidComplete: payPointId];
+    });
+    
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
-    [addPayPointComplete addPayPointsDidFail:errorMessage];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [appDelegate dismissProgressHUD];
+        
+        [appDelegate showSimpleAlertView: NO withTitle:@"Failed" withSubtitle: @"Unable to Link Pay Point" withDetailedText: errorMessage  withButtonText: @"Try Again" withDelegate:self];
+        
+    });
+    
 }
 - (IBAction)meCodeChange:(id) sender {
     if([txtMeCode.text length] > 0   && [txtMeCode.text characterAtIndex:0] != '$' )

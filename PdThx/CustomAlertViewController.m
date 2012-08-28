@@ -14,6 +14,7 @@
 
 @implementation CustomAlertViewController
 
+@synthesize txtField;
 @synthesize topTitleLabel, subTitleLabel, resultImageView, detailedTextView, leftButton, rightButton, alertViewDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -78,6 +79,6 @@
     if ( self.txtField.hidden == NO )
         [alertViewDelegate didSelectButtonWithIndex:1 withEnteredText:self.txtField.text];
     else
-        [alertViewDelegate didSelectButtonWithIndex:0];
+        [alertViewDelegate didSelectButtonWithIndex:1];
 }
 @end

@@ -159,9 +159,16 @@ CGSize scrollViewOriginalSize;
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
 
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"BTN-Nav-Cancel-68x30.png"] style:nil target:nil action:@selector(cancelClicked)];
+    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Cancel-68x30.png"];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+    [settingsBtn addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
 
     self.navigationItem.leftBarButtonItem= cancelButton;
+    
     [cancelButton release];
     
     [self setTitle: self.title];
@@ -174,6 +181,7 @@ CGSize scrollViewOriginalSize;
 {
     [super viewWillAppear:animated];
     
+    /*
     if( self.navigationItem.leftBarButtonItem != nil )
     {
         UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
@@ -188,7 +196,7 @@ CGSize scrollViewOriginalSize;
         self.navigationItem.hidesBackButton = YES;
         
         self.navigationItem.leftBarButtonItem = settingsButtons;
-    }
+    }*/
 }
 
 -(void)pressedNavigationBackButton

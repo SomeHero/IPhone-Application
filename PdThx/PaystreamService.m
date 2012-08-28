@@ -17,6 +17,7 @@
 @synthesize cancePaymentRequestProtocol;
 @synthesize cancelPaymentProtocol;
 @synthesize sendMoneyCompleteDelegate;
+@synthesize updateSeenMessagesDelegate;
 
 -(void) sendMoney:(NSString *)theAmount toRecipient:(NSString*)recipientId withRecipientUri:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
        fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount withFromLatitude:(double)latitude

@@ -56,7 +56,6 @@
 -(IBAction)btnVerify
 {
     EnterVerificationCodeViewController* controller = [[EnterVerificationCodeViewController alloc] init];
-    controller.phoneNumber = payPoint.uri;
     [self.navigationController pushViewController:controller animated:YES]; 
     [controller setTitle : @"Verify"];
    

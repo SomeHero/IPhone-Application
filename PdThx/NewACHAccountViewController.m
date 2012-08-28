@@ -199,7 +199,7 @@
     if([ctrlAccountType selectedSegmentIndex] == 1)
         accountType = @"Savings";
     
-    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtAccountNickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
+    [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtAccountNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
     
     //if(!newUserFlow) {
     //[self.navigationController dismissModalViewControllerAnimated:YES];
