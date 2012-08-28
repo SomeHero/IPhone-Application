@@ -21,7 +21,7 @@
 #import "CheckImageReturnProtocol.h"
 #import "MIPController.h"
 
-@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate, CheckImageReturnProtocol,MIPControllerDelegate>
+@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate, CheckImageReturnProtocol,MIPControllerDelegate, CustomAlertViewProtocol>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;

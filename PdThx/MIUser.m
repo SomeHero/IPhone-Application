@@ -91,7 +91,7 @@
 
 
 - (void) wsCallFullDictionaryReturned:(NSDictionary *)xmlDict {
-
+    NSLog(@"Job Settings: %@",xmlDict);
 	[self setJobSettings:xmlDict];
 	
 	if(verbose)
@@ -343,8 +343,6 @@
                          inRotateImage,
                          inNote?:@""
 						 ];
-    
-    NSLog(@"SoapMessageSendingTransaction: %@",soapMsg);
 	
 	insertPhoneTransactionSupport = [[MISupport alloc] init];	
 	BOOL ret = [insertPhoneTransactionSupport doTheCall:@"InsertPhoneTransaction" 

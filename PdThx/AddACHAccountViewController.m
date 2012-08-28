@@ -9,6 +9,7 @@
 #import "AddACHAccountViewController.h"
 #import "AROverlayViewController.h"
 #import "NSData+Base64Encoding.h"
+#import "UIImage+Scale.h"
 
 @interface AddACHAccountViewController ()
 
@@ -172,6 +173,7 @@
         }
         else {
             [controller setHeaderText: @"To complete setting up your account, create a security pin by connecting 4 buttons below."];
+            
             [controller setNavigationTitle: @"Setup your Pin"];
             [controller setTag: 1];
         }
@@ -251,7 +253,6 @@
             [self.navigationController presentModalViewController:navigationBar animated:YES];
         
             [navigationBar release];
-        
     }
 }
 -(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer
@@ -299,7 +300,9 @@
     }
 
 }
--(void)userACHSetupDidFail:(NSString*) message {PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+-(void)userACHSetupDidFail:(NSString*) message {
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
 -(void)swipeDidCancel: (id)sender
@@ -336,7 +339,6 @@
 
 - (IBAction)takePictureOfCheck:(id)sender {
     // Load Camera with Delegate
-    
     AROverlayViewController*cameraVC = [[AROverlayViewController alloc] init];
     
     [cameraVC setCheckImageReturnDelegate:self];
@@ -346,11 +348,37 @@
 
 -(void)cameraReturnedImage:(UIImage *)image
 {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Reading Image"];
+    
     NSLog(@"Successfully returned image: %@",image);
     [self dismissModalViewControllerAnimated:YES];
     
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     
-    [mipControllerInstance sendImage:image delegate:self];
+    UIImage *newImage = [[[UIImage alloc] initWithData:imageData] scaleToSize:CGSizeMake(1200, 1600)];
+    
+    newImage = [newImage rotate:UIImageOrientationLeft];
+    
+    // We don't care to save it anymore. Just send it.
+    // UIImageWriteToSavedPhotosAlbum(newImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    
+    [mipControllerInstance sendImage:newImage delegate:self];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if (error != NULL) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Image couldn't be saved" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    } else {
+        // TODO: IMPLEMENT FINISHED SUCCESSFULLY POPOVER
+        
+        // TODO: CALL IMAGE ADDED DELEGATE
+        //[CheckImageReturnDelegate cameraReturnedImage:image];
+        NSLog(@"Saved image %@.", image);
+    }
 }
 
 
@@ -398,12 +426,26 @@
             [returnedAccountInfo setObject:[self determineValue:Field money:NO] forKey:@"AccountNumber"];
     }
     
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate dismissProgressHUD];
+    [appDelegate showSimpleAlertView:TRUE withTitle:@"Success!" withSubtitle:@"Based on your check, we found:" withDetailedText:[NSString stringWithFormat:@"Your Routing Number is #%@, and your Account Number is #%@. Please verify this information matches the information on your check.",[returnedAccountInfo valueForKey:@"RoutingNumber"],[returnedAccountInfo valueForKey:@"AccountNumber"]] withButtonText:@"Ok" withDelegate:self];
+    
     txtAccountNumber.text = [returnedAccountInfo valueForKey:@"AccountNumber"];
     txtConfirmAccountNumber.text = txtAccountNumber.text;
 
     txtRoutingNumber.text = [returnedAccountInfo valueForKey:@"RoutingNumber"];
+    
+    [returnedAccountInfo removeObjectForKey:@"RoutingNumber"];
+    [returnedAccountInfo removeObjectForKey:@"AccountNumber"];
 }
 
+-(void)didSelectButtonWithIndex:(int)index
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissAlertView];
+}
 
 #pragma mark -
 #pragma mark WebService Delegate
@@ -413,7 +455,6 @@
     // TODO: DISMISS PROGRESS HUD AND SHOW ALERT VIEW LIKE IT DOES BELOW
     
 	NSLog(@"Failure signaled - %@", [err description]);
-	
     
     // TODO: FIX TRANSITION
 }
@@ -421,22 +462,22 @@
 - (void) imageSuccess:(NSDictionary *)xmlDict {
 	
     // TODO: DISMISS PROGRESS HUD
-    NSLog(@"XML Dictionary: %@",xmlDict);
     
     NSDictionary *transaction = [xmlDict objectForKey:@"Transaction"];
     if(transaction)
     {
         if([[xmlDict objectForKey:@"SecurityResult"] integerValue]) {
-            // TODO: REPLACE ALERT VIEW WITH CUSTOM
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Unable to transfer your data to the the Mobile Imaging Server." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            [appDelegate dismissProgressHUD];
+            [appDelegate showSimpleAlertView:TRUE withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButtonText:@"Ok" withDelegate:self];
         }
         else if(![[transaction objectForKey:@"IQAGood"] boolValue]) {
-            // TODO: REPLACE ALERT VIEW WITH CUSTOM
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Image Quality Error" message:[transaction objectForKey:@"IQAMessage"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
             
-            // TODO: RESHOW CAMERA WITH LAYOVER... OR USING INSET CAMERA DONT DO ANYTHING (allow another picture)
+            PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            [appDelegate dismissProgressHUD];
+            [appDelegate showSimpleAlertView:FALSE withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButtonText:@"Ok" withDelegate:self];
         }
         else
         {
@@ -457,7 +498,6 @@
 -(void)delete:(id)sender
 {
     [super dealloc];
-    
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

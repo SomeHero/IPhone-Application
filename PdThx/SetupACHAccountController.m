@@ -290,8 +290,8 @@
     // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
     // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
     // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-    [appDelegate showAlertWithResult:false withTitle:@"Warning!" withSubtitle:@"Skipping your bank setup" withDetailText:@"If you skip linking a bank account to PaidThx, you will not be able to send or receive money. For the best experience, click \"Go Back\" and setup your account now. You can also set one up in the \"Settings\" area later." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonRed240x78.png" withLeftButtonSelectedImageString:@"smallButtonRed240x78_a.png" withLeftButtonTitle:@"Skip" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGreen240x78.png" withRightButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withRightButtonTitle:@"Go Back" withRightButtonTitleColor:[UIColor whiteColor] withDelegate:self];
     
+    [appDelegate showTwoButtonAlertView:false withTitle:@"Warning" withSubtitle:@"Don't skip this!" withDetailedText:@"If you skip linking a bank account to PaidThx, you will not be able to send or receive money. For the best experience, click \"Go Back\" and setup your account now. You can also set one up in the \"Settings\" area later." withButton1Text:@"Skip" withButton2Text:@"Go Back" withDelegate:self];
 }
 
 -(void)didSelectButtonWithIndex:(int)index

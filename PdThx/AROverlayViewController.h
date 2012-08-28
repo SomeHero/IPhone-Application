@@ -14,6 +14,9 @@
 @property (nonatomic, retain) UIButton *helpButton;
 @property (nonatomic, retain) UIButton *dismissButton;
 @property (nonatomic, retain) UIImageView *helpIndicator;
+@property (nonatomic, retain) UILabel *holdSteadyLabel;
+
+@property (assign) bool pictureBeingTaken;
 
 
 @end
