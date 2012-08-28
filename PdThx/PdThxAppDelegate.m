@@ -43,6 +43,88 @@
 @synthesize selectedContactList;
 @synthesize quickSendArray;
 
+// Static Tab Bar View Controllers..
+@synthesize LoggedInCenterViewController, LoggedInFifthViewController, LoggedInFirstViewController, LoggedInFourthViewController, LoggedInSecondViewController, currentMainAreaTabIndex;
+
+
+-(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex
+{
+    UIViewController * viewToSwitchTo;
+    
+    NSLog(@"Curr:%d NewTabIndex:%d",currentMainAreaTabIndex, tabIndex);
+    
+    if ( tabIndex != currentMainAreaTabIndex )
+    {
+        switch ( tabIndex )
+        {
+            case 0:
+            {
+                viewToSwitchTo = LoggedInFirstViewController;
+                
+                if ( viewToSwitchTo == nil ){
+                    LoggedInFirstViewController = [[HomeViewControllerV2 alloc] init];
+                    viewToSwitchTo = LoggedInFirstViewController;
+                    currentMainAreaTabIndex = tabIndex;
+                }
+                
+                break;
+            }
+            case 1:
+            {
+                viewToSwitchTo = LoggedInSecondViewController;
+                
+                if ( viewToSwitchTo == nil ){
+                    LoggedInSecondViewController = [[PayStreamViewController alloc] init];
+                    viewToSwitchTo = LoggedInSecondViewController;
+                    currentMainAreaTabIndex = tabIndex;
+                }
+                
+                break;
+            }
+            case 2:
+            {
+                viewToSwitchTo = LoggedInCenterViewController;
+                
+                if ( viewToSwitchTo == nil ){
+                    LoggedInCenterViewController = [[SendMoneyController alloc] init];
+                    viewToSwitchTo = LoggedInCenterViewController;
+                    currentMainAreaTabIndex = tabIndex;
+                }
+                
+                break;
+            }
+            case 3:
+            {
+                viewToSwitchTo = LoggedInFourthViewController;
+                
+                if ( viewToSwitchTo == nil ){
+                    LoggedInFourthViewController = [[RequestMoneyController alloc] init];
+                    viewToSwitchTo = LoggedInFourthViewController;
+                    currentMainAreaTabIndex = tabIndex;
+                }
+                
+                break;
+            }
+            case 4:
+            {
+                viewToSwitchTo = LoggedInFifthViewController;
+                
+                if ( viewToSwitchTo == nil ){
+                    LoggedInFifthViewController = [[DoGoodViewController alloc] init];
+                    viewToSwitchTo = LoggedInFifthViewController;
+                    currentMainAreaTabIndex = tabIndex;
+                }
+                
+                break;
+            }
+        }
+        currentMainAreaTabIndex = tabIndex;
+        return viewToSwitchTo;
+    }
+    
+    return nil;
+}
+
 -(void)switchToMainAreaTabbedView
 {
     [self.welcomeTabBarController.view removeFromSuperview];

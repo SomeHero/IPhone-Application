@@ -20,6 +20,7 @@
 @synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
 @synthesize findUserDelegate;
+@synthesize requestObj;
 
 -(id)init 
 {

@@ -37,6 +37,9 @@
 @property(nonatomic, retain) id linkFbAccountDelegate;
 @property(nonatomic, retain) id findUserDelegate;
 
+//Request object retained to be able to cancel requests before changing tabs.
+@property(nonatomic, retain) ASIHTTPRequest *requestObj;
+
 -(void) getUserInformation:(NSString*) userId;
 
 -(void) refreshHomeScreenInformation:(NSString*) userId;
