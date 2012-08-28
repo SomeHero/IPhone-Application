@@ -214,7 +214,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)userHomeScreenInformationDidFail:(NSString *)message
 {
-    NSLog(@"Loading homescreen&quicksendcontacts failed");
+    NSLog(@"Loading homescreen&quicksendcontacts failed.");
 }
 
 -(void)userInformationDidComplete:(User*) user

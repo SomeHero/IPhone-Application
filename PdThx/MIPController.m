@@ -177,7 +177,8 @@ static MIPController *gInstance = NULL;
         [_delegate imageFailure:err];
 }
 
-- (void) insertPhoneTransactionReturn:(NSDictionary *)xmlDict {
+- (void) insertPhoneTransactionReturn:(NSDictionary *)xmlDict
+{
 	
     if (_delegate && [_delegate respondsToSelector:@selector(imageSuccess:)])
         [_delegate imageSuccess:xmlDict];

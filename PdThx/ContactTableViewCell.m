@@ -22,7 +22,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        
+        contactImage.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
     }
     return self;
 }

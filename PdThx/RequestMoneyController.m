@@ -302,7 +302,8 @@
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
         // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-        [appDelegate showAlertWithResult:false withTitle:@"Image Save Error" withSubtitle:@"Error saving your image to your phone" withDetailText:@"Your phone was unable to save the image you stored. Please make sure you have sufficient available memory to save the photo, and try again." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+        
+        [appDelegate showSimpleAlertView:false withTitle:@"Attachment Failed" withSubtitle:@"Error saving photo." withDetailedText:@"There was an error saving the photo to your album. Please try again." withButtonText:@"Ok" withDelegate:self];
     } else {
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
@@ -310,7 +311,7 @@
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
         // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-        [appDelegate showAlertWithResult:true withTitle:@"Image Saved!" withSubtitle:@"Your image has been saved" withDetailText:@"Your image was saved, but make sure to save your changes on the next screen!" withLeftButtonOption:0 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:1 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        [appDelegate showSimpleAlertView:false withTitle:@"Attachment Added" withSubtitle:@"Photo saved to album." withDetailedText:@"Adding photo to payment request. Please note, this will increase the amount of time it takes to process your request." withButtonText:@"Continue" withDelegate:self];
     }
 }
 
@@ -326,8 +327,7 @@
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
         [appDelegate dismissAlertView];
-        
-        // TODO: There needs to be a protocol here to load the image as being on top.
+        // TODO: Add protocol to return the image and attach to transaction
     }
 }
 
@@ -369,7 +369,6 @@
 }
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
-    // statsCommuniqueDoneProblem ... !
     NSLog(@"Request Money Failed");
 }
 
@@ -382,7 +381,7 @@
     [controller setSelectRecipientDelegate:self];
     
     if (recipients == nil)
-    {	
+    {
         controller.noMatchFound = YES;
         controller.recipients = recipient.paypoints;
         controller.headerText = [NSString stringWithFormat:@"%@ hasn't joined PaidThx yet. How would you like to invite them?", recipient.name];

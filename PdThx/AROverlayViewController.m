@@ -1,4 +1,5 @@
 #import "AROverlayViewController.h"
+#import "PdThxAppDelegate.h"
 
 @interface AROverlayViewController ()
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
@@ -13,6 +14,8 @@
 @synthesize helpButton;
 @synthesize dismissButton;
 @synthesize helpIndicator;
+@synthesize pictureBeingTaken;
+@synthesize holdSteadyLabel;
 
 - (void)viewDidLoad
 {
@@ -52,8 +55,22 @@
     [helpButton addTarget:self action:@selector(helpButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:helpButton];
     
+    holdSteadyLabel = [[UILabel alloc] init];
+    holdSteadyLabel.transform = CGAffineTransformMakeRotation( M_PI/2 );
+    holdSteadyLabel.frame = CGRectMake(0,0,30,self.view.frame.size.height); //Height will become width after rotation
+    holdSteadyLabel.textAlignment = UITextAlignmentCenter;
+    holdSteadyLabel.text = @"Hold steady";
+    holdSteadyLabel.textColor = [UIColor redColor];
+    holdSteadyLabel.backgroundColor = [UIColor clearColor];
+    holdSteadyLabel.hidden = YES;
     
+    [self.view addSubview:holdSteadyLabel];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImageToPhotoAlbum) name:kImageCapturedSuccessfully object:nil];
+    
+    pictureBeingTaken = false;
+    
 	[[captureManager captureSession] startRunning];
 }
 
@@ -69,21 +86,13 @@
 
 - (void)saveImageToPhotoAlbum 
 {
-    [CheckImageReturnDelegate cameraReturnedImage:[self.captureManager stillImage]];
-    //UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-}
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    if (error != NULL) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Image couldn't be saved" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-    } else {
-        // TODO: IMPLEMENT FINISHED SUCCESSFULLY POPOVER
+    if ( pictureBeingTaken )
+    {
+        NSLog(@"Trying to save image: %@", [self.captureManager stillImage]);
         
-        // TODO: CALL IMAGE ADDED DELEGATE
-        [CheckImageReturnDelegate cameraReturnedImage:image];
+        pictureBeingTaken = false;
+        [CheckImageReturnDelegate cameraReturnedImage:[self.captureManager stillImage]];
+        //UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);s
     }
 }
 
@@ -92,6 +101,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [captureManager release], captureManager = nil;
     [scanButton release];
     [helpIndicator release];
@@ -105,16 +115,33 @@
     [super viewDidUnload];
 }
 
-- (void)scanButtonPressed {
-	// TODO: LOAD ONSCREEN TEXT VIEW WITH "HOLD STEADY"...
-    
-    
-    // TODO: TIMER FUNCTION 2 SECOND DELAY THEN CALL BELOW METHOD
-    [[self captureManager] captureStillImage];
+- (void)scanButtonPressed
+{
+    if ( ! pictureBeingTaken ){
+        holdSteadyLabel.hidden = NO;
+        [self performSelector:@selector(captureImage) withObject:nil afterDelay:2.0];
+        pictureBeingTaken = true;
+    }
 }
 
+-(void)captureImage
+{
+    if ( pictureBeingTaken ){
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Saving Image"];
+        
+        holdSteadyLabel.hidden = YES;
+        [[self captureManager] captureStillImage];
+        
+        // Haha, I guessed that this function following it would freeze the preview layer so the user can
+        // see what they took a picture of, and it works :P
+        
+        [[[[self captureManager] previewLayer] session] stopRunning];
+    }
+}
 
-- (void)helpButtonPressed {
+- (void)helpButtonPressed
+{
     // App Delegate Display Alert View?
     // Nah, I think a custom help indicator.
     

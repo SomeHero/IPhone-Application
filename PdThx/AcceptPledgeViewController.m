@@ -465,10 +465,12 @@
     [paystreamService acceptPledge:user.userId onBehalfOfId:causeId toRecipientUri:recipientUri withAmount:amount withComments:comments fromLatitude:latitude fromLongitude:longitude withRecipientFirstName: recipientFirstName withRecipientLastName:recipientLastName withRecipientImageUri:recipientImageUri withSecurityPin:pin];
     
 }
+
 -(void)swipeDidCancel: (id)sender
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
 -(void)sendMoneyDidComplete {
     
     [self.mainScrollView scrollsToTop];
