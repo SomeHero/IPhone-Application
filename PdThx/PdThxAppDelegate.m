@@ -52,6 +52,7 @@
     [self.window bringSubviewToFront:self.mainAreaTabBarController.view];
     
     // Keep Progress Bar & Alert Views on top
+    
     if ( myProgHudOverlay.view.superview ){
         [self.window bringSubviewToFront:myProgHudOverlay.view];
         [self.window bringSubviewToFront:myProgHudInnerView.view];
@@ -149,7 +150,7 @@
         
         if(setupFlowController != nil) {
             [[myProgHudInnerView activityIndicator] stopAnimating];
-            
+
             [prefs setBool:false forKey:@"isNewUser"];
             
             [prefs synchronize];

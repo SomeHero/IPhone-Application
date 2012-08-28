@@ -7,6 +7,8 @@
 //
 
 #import "AddACHAccountViewController.h"
+#import "AROverlayViewController.h"
+#import "NSData+Base64Encoding.h"
 
 @interface AddACHAccountViewController ()
 
@@ -53,7 +55,40 @@
     
     accountService = [[UserSetupACHAccount alloc] init];
     [accountService setUserACHSetupCompleteDelegate: self];
+    
+    // login
+    mipControllerInstance = [[MIPController alloc] init];
+    [mipControllerInstance setJobName:@"ACH"];
+    [mipControllerInstance setOrgID:@"PaidThx"];
+    [mipControllerInstance setServerURL:@"https://mi1.miteksystems.com/mobileimaging/ImagingPhoneService.asmx"];
+    
+    // Do the login
+    if ( [mipControllerInstance connect:@"paidthxuser2@miteksystems.com" password:@"Pa1dThxx2" delegate:self] )
+    {
+        NSLog(@"Logging into mitek check processor...");
+    } else {
+        NSLog(@"ERROR!");
+    }
 }
+
+- (void)connectSuccess
+{
+    // Stop listening
+    [mipControllerInstance dropDelegate:self];
+    
+    NSLog(@"Success connecting to mitek systems check processor");
+}
+
+- (void)connectFailure
+{
+    // Stop listening
+    [mipControllerInstance dropDelegate:self];
+    
+    NSLog(@"ERROR connecting to mitek systems check processor");
+}
+
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -62,6 +97,8 @@
 }
 - (void)viewDidUnload
 {
+    [TakePictureOfCheckButton release];
+    TakePictureOfCheckButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -296,14 +333,129 @@
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];
 }
--(IBAction)btnRemindMeLaterClicked:(id)sender;
+
+- (IBAction)takePictureOfCheck:(id)sender {
+    // Load Camera with Delegate
+    
+    AROverlayViewController*cameraVC = [[AROverlayViewController alloc] init];
+    
+    [cameraVC setCheckImageReturnDelegate:self];
+    
+    [self presentModalViewController:cameraVC animated:YES];
+}
+
+-(void)cameraReturnedImage:(UIImage *)image
+{
+    NSLog(@"Successfully returned image: %@",image);
+    [self dismissModalViewControllerAnimated:YES];
+    
+    
+    [mipControllerInstance sendImage:image delegate:self];
+}
+
+
+
+- (NSString *)determineValue:(NSDictionary *)field money:(BOOL)money {
+    
+    NSString *value;
+    
+    // The hell does this class do? It seems there's supposed to be different states of information...
+    // Like re-saved after a user edits it. I'm really not sure.
+    
+    if((value = [field objectForKey:@"ValueBest"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"ValueUserUpdated"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"ValuePostProcessed"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"ValueStandardized"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"Value"]) && [value length] > 0 && money == NO)
+        return value;
+    else
+        return @"";
+}
+
+- (void)loadTheResults:(NSDictionary *)transaction
 {
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    NSMutableDictionary *returnedAccountInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     
-}
--(void)delete:(id)sender {
+    // Convert the extracted fields
+    NSDictionary *extractedFields = [transaction objectForKey:@"ExtractedFields"];
+    
+    for(NSDictionary *eachField in extractedFields)
+    {
+        NSDictionary *Field = [eachField objectForKey:@"ExtractedField"];
         
+        NSString * FieldName = [Field objectForKey:@"Name"];
+        
+        // Automatic Clearing House ///////////////////////////////////////////////////////////////////
+        if([FieldName isEqualToString:@"MICR routing#"])
+            [returnedAccountInfo setObject:[self determineValue:Field money:NO] forKey:@"RoutingNumber"];
+        
+        else if([FieldName isEqualToString:@"MICR account#"])
+            [returnedAccountInfo setObject:[self determineValue:Field money:NO] forKey:@"AccountNumber"];
+    }
+    
+    txtAccountNumber.text = [returnedAccountInfo valueForKey:@"AccountNumber"];
+    txtConfirmAccountNumber.text = txtAccountNumber.text;
+
+    txtRoutingNumber.text = [returnedAccountInfo valueForKey:@"RoutingNumber"];
+}
+
+
+#pragma mark -
+#pragma mark WebService Delegate
+
+- (void)imageFailure:(NSError *)err
+{
+    // TODO: DISMISS PROGRESS HUD AND SHOW ALERT VIEW LIKE IT DOES BELOW
+    
+	NSLog(@"Failure signaled - %@", [err description]);
+	
+    
+    // TODO: FIX TRANSITION
+}
+
+- (void) imageSuccess:(NSDictionary *)xmlDict {
+	
+    // TODO: DISMISS PROGRESS HUD
+    NSLog(@"XML Dictionary: %@",xmlDict);
+    
+    NSDictionary *transaction = [xmlDict objectForKey:@"Transaction"];
+    if(transaction)
+    {
+        if([[xmlDict objectForKey:@"SecurityResult"] integerValue]) {
+            // TODO: REPLACE ALERT VIEW WITH CUSTOM
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Unable to transfer your data to the the Mobile Imaging Server." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else if(![[transaction objectForKey:@"IQAGood"] boolValue]) {
+            // TODO: REPLACE ALERT VIEW WITH CUSTOM
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Image Quality Error" message:[transaction objectForKey:@"IQAMessage"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            
+            // TODO: RESHOW CAMERA WITH LAYOVER... OR USING INSET CAMERA DONT DO ANYTHING (allow another picture)
+        }
+        else
+        {
+            // TODO: LOAD RESULTS BASICALLY JUST CHANGES THE TEXT FIELDS ON THE ACCOUNT ADD SCREEN
+            [self loadTheResults:transaction];
+        }
+    }
+    else {
+        NSLog(@"Error connecting to mitek");
+    }
+}
+
+-(IBAction)btnRemindMeLaterClicked:(id)sender;
+{
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+}
+
+-(void)delete:(id)sender
+{
     [super dealloc];
     
     
@@ -313,5 +465,10 @@
     [headerText release];
     [securityPin release];
     [validationHelper release];
+}
+
+- (void)dealloc {
+    [TakePictureOfCheckButton release];
+    [super dealloc];
 }
 @end

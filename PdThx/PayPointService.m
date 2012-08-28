@@ -15,6 +15,7 @@
 @synthesize payPointVerificationCompleteDelegate;
 @synthesize deletePayPointCompleteDelegate;
 @synthesize verifyMobilePayPointDelegate;
+@synthesize resendVerificationLinkDelegate;
 
 -(void) getPayPoints:(NSString*) userId
 {
@@ -170,14 +171,22 @@
     
     if([request responseStatusCode] == 201 ) {
         
-        [addPayPointCompleteDelegate addPayPointsDidComplete];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSString *theJSON = [request responseString];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSString* payPointId = [[jsonDictionary valueForKey: @"Id"] copy];
+        
+        [addPayPointCompleteDelegate addPayPointsDidComplete:payPointId];
         
     }
     else {
         
         NSLog(@"Error Answered Security Questions");
         
-        [addPayPointCompleteDelegate addPayPointsDidFail: [request responseString]];
+        [addPayPointCompleteDelegate addPayPointsDidFail: [request responseStatusMessage]];
         
     }
     
@@ -227,14 +236,14 @@
     
     if([request responseStatusCode] == 202) {
         
-        [payPointVerificationCompleteDelegate payPointWasVerifiedComplete];
+        [resendVerificationLinkDelegate resendVerificationLinkDidComplete];
         
     }
     else {
         
         NSLog(@"Error Answered Security Questions");
         
-        [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
+        [resendVerificationLinkDelegate resendVerificationLinkDidFail: [request responseString]];
         
     }
     
@@ -246,7 +255,7 @@
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
+    [resendVerificationLinkDelegate resendVerificationLinkDidFail: [request responseString]];
     
 }
 -(void) resendMobileVerificationCode:(NSString*)payPointId forUserId:(NSString*) userId {

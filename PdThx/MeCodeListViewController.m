@@ -65,7 +65,7 @@
     
     if(newPayPointAdded)
     {
-        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPoint!" withSubtitle:@"You can start receiving funds with this MeCode." withDetailText:@"You are all set to receive funds at this MeCode." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked Pay Point!" withSubtitle:@"You can start receiving funds with this MeCode." withDetailText:@"You are all set to receive funds at this MeCode." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText: @"" withDelegate:self];
         
         newPayPointAdded = false;
     }
@@ -232,7 +232,7 @@
         
     }
 }
--(void)addPayPointsDidComplete {
+-(void)addPayPointsDidComplete:(NSString*)payPointId {
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [payPointService getPayPoints:user.userId];
@@ -244,6 +244,13 @@
 }
 -(void)deletePayPointCompleted {
     [self.navigationController popViewControllerAnimated:YES];
+    
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showSimpleAlertView: YES withTitle:@"Pay Point Removed" withSubtitle: @"MECode Un-linked From Your Account" withDetailedText: @"You've removed the MECode from your account.  You will no longer receive money sent to this pay point.  In the future, if you wish to use this pay point again, you will need to re-link the mobile # to your account."  withButtonText: @"OK" withDelegate:self];
+    
+    newPayPointAdded = false;
     
     [payPointService getPayPoints: user.userId];
 }

@@ -42,6 +42,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @synthesize seenItems;
 
+@synthesize findUserService;
+
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -145,7 +147,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         xOffset = 224;
     }
-    
+    findUserService = [[UserService alloc] init];
     detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[UIScreen mainScreen] bounds].size.height-20)];
     detailView.backgroundColor = [UIColor redColor]; // Transparent view with subviews
     detailView.animate = YES;
@@ -260,7 +262,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    [appDelegate showAlertWithResult:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Dismiss" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+    [appDelegate showSimpleAlertView:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailedText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withButtonText:@"Dismiss" withDelegate:self];
 }
 
 -(void)didSelectButtonWithIndex:(int)index
@@ -608,7 +610,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    
     // Configure the cell...
     if([item.direction isEqualToString:@"Out"])
     {
@@ -618,7 +619,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         } else {
             cell.newColorStrip.backgroundColor = [UIColor clearColor];
         }
+        
+        if ( [self isPhoneNumber:item.recipientUri] )
+        {
+            Contact * foundContact;
             
+            foundContact = [findUserService findContactByPhoneNumber:item.recipientUri];
+            
+            if ( foundContact )
+            {
+                [item setRecipientName:foundContact.name];
+                [item setImgData:foundContact.imgData];
+            }
+        }
+        
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
         if ( item.recipientHasSeen == false ){
@@ -627,6 +641,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             cell.newColorStrip.backgroundColor = [UIColor clearColor];
         }
         //019)(109)(113)
+        
+        if ( [self isPhoneNumber:item.senderUri] )
+        {
+            Contact * foundContact;
+            
+            foundContact = [findUserService findContactByPhoneNumber:item.senderUri];
+            
+            if ( foundContact )
+            {
+                [item setSenderName:foundContact.name];
+                [item setImgData:foundContact.imgData];
+            }
+        }
         
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.senderName];
     }
@@ -760,7 +787,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     return cell;
 }
 
-
+-(bool)isPhoneNumber:(NSString*)recipientName
+{
+    // The only cases we need to handle are: Phone Number and Email
+    NSString * numOnly = [[recipientName componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    NSRange numOnly2 = [[[recipientName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"+-() "]] componentsJoinedByString:@""] rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]  options:NSCaseInsensitiveSearch];
+    
+    if ( [recipientName isEqualToString:numOnly] || numOnly2.location == NSNotFound ) {
+        // Is only Numbers, I think?
+        if ( [numOnly characterAtIndex:0] == '1' || [numOnly characterAtIndex:0] == '0' )
+            numOnly = [numOnly substringFromIndex:1]; // Do not include country codes
+        
+        if ( [numOnly length] == 10 )
+            return YES;
+    }
+    
+    return NO;
+}
 
 
 #pragma mark -
@@ -896,7 +939,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [outgoingView setPullableView: detailView];
     [outgoingView setParent: self];
     [detailView addSubview: outgoingView.view];
-    
     
     
     [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];

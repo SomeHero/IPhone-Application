@@ -30,12 +30,16 @@
     
     PayPoint* payPoint;
     PayPointService* payPointService;
+    
     id<DeletePayPointDelegate> deletePayPointComplete;
+    id<VerifyMobilePayPointProtocol> verifyMobilePayPointDelegate;
 }
 
 @property(nonatomic, retain) PayPoint* payPoint;
 @property(nonatomic, retain) id<DeletePayPointDelegate> deletePayPointComplete;
+@property(nonatomic, retain) id<VerifyMobilePayPointProtocol> verifyMobilePayPointDelegate;
 
--(IBAction)btnRemovePayPoint;
+-(IBAction)btnRemovePayPoint:(id)sender;
+-(IBAction)btnVerify:(id)sender;
 
 @end

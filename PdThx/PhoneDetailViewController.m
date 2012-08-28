@@ -16,6 +16,7 @@
 
 @synthesize payPoint;
 @synthesize deletePayPointComplete;
+@synthesize verifyMobilePayPointDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -88,7 +89,7 @@
         [removeButton setTitle:@"Remove Pay Point" forState:UIControlStateNormal];
         [[removeButton titleLabel] setTextColor: [UIColor colorWithRed:111.0/255.0 green:111.0/255.0 blue:115.0/255.0 alpha:1.0]];
         
-        removeButton.frame = CGRectMake(10, 80, 298.0, 62.0);
+        removeButton.frame = CGRectMake(10, 70, 298.0, 62.0);
         
         [ctrlButtonsView addSubview:removeButton];
         
@@ -106,6 +107,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 -(IBAction)btnRemovePayPoint:(id)sender {
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+
+    [appDelegate showWithStatus: @"Removing Pay Point" withDetailedStatus: @"We're un-linking this pay point from your account."];
+    
     [payPointService deletePayPoint: payPoint.payPointId forUserId: user.userId];
 }
 -(IBAction)btnVerify:(id)sender
@@ -124,16 +130,26 @@
     [navBar release];
 }
 -(void)deletePayPointCompleted {
-    [deletePayPointComplete deletePayPointCompleted];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [appDelegate dismissProgressHUD];
+        
+        [deletePayPointComplete deletePayPointCompleted];
+    });
 }
 -(void)deletePayPointFailed: (NSString*) errorMessage {
     [deletePayPointComplete deletePayPointFailed:errorMessage];
 }
 -(void)verifyMobilePayPointDidComplete: (bool) verified {
     [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    [verifyMobilePayPointDelegate verifyMobilePayPointDidComplete:YES];
 }
 -(void)verifyMobilePayPointDidFail: (NSString*) errorMessage {
-    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 

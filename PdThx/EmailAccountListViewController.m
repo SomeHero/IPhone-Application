@@ -75,7 +75,7 @@
     
     if(newPayPointAdded)
     {
-        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPont!" withSubtitle:@"You need to complete verification to start sending and receiving money using this email address." withDetailText:@"We sent an email to this email address.  To verify this PayPoint, click the link in this email" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText: @"" withDelegate:self];
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked Pay Point!" withSubtitle:@"Action Needed to Complete Setup." withDetailText:@"You've successfully linked an email address to your account.  You need to verify this pay point before this pay point can be used.  We sent an email to this email address with a verification.  To verify this PayPoint, click the link in this email." withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Ok" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText: @"" withDelegate:self];
         
         newPayPointAdded = false;
     }
@@ -243,8 +243,6 @@
     else {
         PayPoint* payPoint = [emailAddresses objectAtIndex:indexPath.row];
         
-        if([payPoint verified])
-        {
             EmailAccountDetailViewController *controller = [[EmailAccountDetailViewController alloc] init];
             controller.payPoint = payPoint;
             [controller setDeletePayPointComplete: self];
@@ -255,17 +253,6 @@
             
             [controller release];
             
-        }
-        else {
-            VerifyEmailViewController *controller = [[VerifyEmailViewController alloc] init];
-            controller.payPoint = payPoint;
-            
-            [controller setTitle: @"Verify"];
-            
-            [self.navigationController pushViewController:controller animated:YES];
-            
-            [controller release];
-        }
     }
 }
 
@@ -282,7 +269,7 @@
 //    [navBar release];
 //    [controller release];
 //}
--(void)addPayPointsDidComplete {
+-(void)addPayPointsDidComplete:(NSString*)payPointId {
     newPayPointAdded = true;
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
@@ -295,6 +282,9 @@
 -(void)deletePayPointCompleted {
     [self.navigationController popViewControllerAnimated:YES];
     
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showSimpleAlertView: YES withTitle:@"Pay Point Removed" withSubtitle: @"Mobile # Un-linked From Your Account" withDetailedText: @"You've removed the mobile # from your account.  You will no longer receive money sent to this pay point.  In the future, if you wish to use this pay point again, you will need to re-link the mobile # to your account."  withButtonText: @"OK" withDelegate:self];
     [payPointService getPayPoints: user.userId];
 }
 -(void)deletePayPointFailed: (NSString*) errorMessage {

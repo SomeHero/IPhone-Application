@@ -21,6 +21,7 @@
     NSInteger tag;
     NSString* securityPin;
     bool didCancel;
+    IBOutlet UIButton *contactImageButton;
     IBOutlet UINavigationBar *navigationBar;
 }
 
@@ -30,6 +31,8 @@
 @property(nonatomic, retain) UINavigationBar* navigationBar;
 
 @property(nonatomic, retain) UILabel* lblHeader;
+@property(nonatomic, retain) UIButton *contactImageButton;
+
 @property(nonatomic, retain) id securityPinSwipeDelegate;
 @property(nonatomic, retain) NSString* navigationTitle;
 @property(nonatomic, retain) NSString* headerText;

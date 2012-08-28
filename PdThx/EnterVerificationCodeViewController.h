@@ -14,7 +14,7 @@
 #import "AddPayPointCompleteProtocol.h"
 #import "UIModalBaseViewController.h"
 
-@interface EnterVerificationCodeViewController :UIModalBaseViewController<VerifyMobilePayPointProtocol>{
+@interface EnterVerificationCodeViewController :UIModalBaseViewController<VerifyMobilePayPointProtocol, CustomAlertViewProtocol>{
     NSMutableArray* phones;
     IBOutlet UILabel *txtPhoneNumber;
     IBOutlet UITextField *txtVerificationCode;

@@ -8,12 +8,14 @@
 
 #import "PhoneListViewController.h"
 #import "UIProfileTableViewCell.h"
-#import "VerifyPhoneNumberViewController.h"
+
 @interface PhoneListViewController ()
 
 @end
 
 @implementation PhoneListViewController
+
+@synthesize newPayPointId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,28 +74,41 @@
     
     if(newPayPointAdded)
     {
-        [appDelegate showAlertWithResult:true withTitle:@"New Linked PayPoint!" withSubtitle:@"You need to complete verification to start sending and receiving money using this mobile #." withDetailText:@"We sent an text to this mobile # with a verification code.  To verify this PayPoint, click verify below and enter the verification code." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Verify" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText: @"" withDelegate:self];
-        
-        newPayPointAdded = false;
+        [appDelegate showAlertWithResult:true withTitle:@"New Linked Pay Point!" withSubtitle:@"Action Needed to Complete Setup" withDetailText:@"You've successully linked a phone # to your account.  You need to complete verification of this phone #.  We sent a text to this mobile # with a verification code.  To verify this PayPoint, click verify below and enter the verification code. When you receive it, click the Verify button below." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Verify" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Cancel" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText: @"" withDelegate:self];
     }
 }
 -(void)didSelectButtonWithIndex:(int)index
 {
-    if ( index == 0 ) {
+    if ( index == 0 && newPayPointAdded) {
         // Dismiss, error uploading image alert view clicked.
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
         [appDelegate dismissAlertView];
         
-        VerifyPhoneNumberViewController* controller = [[VerifyPhoneNumberViewController alloc] init];
-        //[controller.payPoint = payPoint];
+        EnterVerificationCodeViewController *controller = [[EnterVerificationCodeViewController alloc] init];
+        [controller setVerifyMobilePayPointDelegate: self];
+
+        for(int i =0; i < [user.payPoints count]; i++)
+        {
+            
+            PayPoint* tempPayPoint = [user.payPoints objectAtIndex:i];
+            if([tempPayPoint.payPointId isEqualToString:self.newPayPointId])
+            {
+                controller.payPoint = tempPayPoint;
+            }
+                
+        }
         
         [self.navigationController pushViewController:controller animated:YES];
+        
+        [controller release];
     } else {
         // Successfully saved image, just go back to personalize screen and load the image.
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
         [appDelegate dismissAlertView];
+        
+        newPayPointAdded = false;
         
         // TODO: There needs to be a protocol here to load the image as being on top.
     }
@@ -246,17 +261,15 @@
         PayPoint* payPoint = [phones objectAtIndex:indexPath.row];
         
 
-            PhoneDetailViewController *controller = [[PhoneDetailViewController alloc] init];
-            controller.payPoint = payPoint;
-            [controller setDeletePayPointComplete:self];
+        PhoneDetailViewController *controller = [[PhoneDetailViewController alloc] init];
+        controller.payPoint = payPoint;
+        [controller setDeletePayPointComplete:self];
+        [controller setVerifyMobilePayPointDelegate:self];
+        [controller setTitle: @"Phone #"];
             
-            [controller setTitle: @"Phone #"];
+        [self.navigationController pushViewController:controller animated:YES];
             
-            [self.navigationController pushViewController:controller animated:YES];
-            
-            [controller release];
-
-
+        [controller release];
     }
 }
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -273,9 +286,10 @@
 //    [navBar release];
 //    [controller release];
 //}
--(void)addPayPointsDidComplete {
+-(void)addPayPointsDidComplete:(NSString*) payPointId {
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
+    self.newPayPointId = [payPointId copy];
     [payPointService getPayPoints: user.userId];
     
     newPayPointAdded = true;
@@ -286,10 +300,28 @@
 -(void)deletePayPointCompleted {
     [self.navigationController popViewControllerAnimated:YES];
     
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showSimpleAlertView: YES withTitle:@"Pay Point Removed" withSubtitle: @"Mobile # Un-linked From Your Account" withDetailedText: @"You've removed the mobile # from your account.  You will no longer receive money sent to this pay point.  In the future, if you wish to use this pay point again, you will need to re-link the mobile # to your account."  withButtonText: @"OK" withDelegate:self];
+    
+    newPayPointAdded = false;
+    
     [payPointService getPayPoints: user.userId];
 }
 -(void)deletePayPointFailed: (NSString*) errorMessage {
     
+}
+-(void)verifyMobilePayPointDidComplete: (bool) verified {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showSimpleAlertView: YES withTitle:@"Success" withSubtitle: @"Mobile # Verified" withDetailedText: @"You've successfully verified this mobile # and you can now begin receiving money sent to this pay point.  If there are pending payments sent to this pay point, these payment will be processed."  withButtonText: @"OK" withDelegate:self];
+    
+    newPayPointAdded = false;
+    
+    [payPointService getPayPoints: user.userId];
 }
 
 @end

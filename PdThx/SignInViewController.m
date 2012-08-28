@@ -222,7 +222,8 @@
     [userService getUserInformation: userId];
 }
 
--(void)fbSignInDidFail:(NSString *) reason {
+-(void)fbSignInDidFail:(NSString *) reason
+{
     
     [self.navigationController dismissModalViewControllerAnimated:NO];
     

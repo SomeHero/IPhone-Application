@@ -87,7 +87,7 @@
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
         // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-        [appDelegate showAlertWithResult:false withTitle:@"Invalid Phone Number Format" withSubtitle:@"" withDetailText:@"Please Enter a Phone Number" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withDelegate:self];
+        [appDelegate showAlertWithResult:false withTitle:@"Invalid Phone Number Format" withSubtitle:@"" withDetailText:@"Please Enter a Phone Number" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor] withTextFieldPlaceholderText:@"" withDelegate:self];
     }
     else if(retVal != 1)
     {
@@ -126,18 +126,31 @@
     }
 }
 
--(void)addPayPointsDidComplete {
+-(void)addPayPointsDidComplete:(NSString*) payPointId {
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate dismissProgressHUD];
+    
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [appDelegate dismissProgressHUD];
    
-    [addPayPointComplete addPayPointsDidComplete];
+        [addPayPointComplete addPayPointsDidComplete: payPointId];
+    });
     
 }
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate dismissProgressHUD];
+
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        [appDelegate dismissProgressHUD];
     
-    [addPayPointComplete addPayPointsDidFail:errorMessage];
+        [appDelegate showSimpleAlertView: NO withTitle:@"Failed" withSubtitle: @"Unable to Link Pay Point" withDetailedText: errorMessage  withButtonText: @"Try Again" withDelegate:self];
+        
+        
+    });
 }
 @end

@@ -16,7 +16,7 @@
 #import "PayPointVerificationCompleteProtocol.h"
 #import "DeletePayPointDelegate.h"
 #import "VerifyMobilePayPointProtocol.h"
-
+#import "ResendVerificationLinkProtocol.h"
 @interface PayPointService : NSObject
 {
     ASIHTTPRequest *requestObj;
@@ -25,6 +25,8 @@
     id<PayPointVerificationCompleteProtocol> payPointVerificationCompleteDelegate;
     id<DeletePayPointDelegate> deletePayPointCompleteDelegate;
     id<VerifyMobilePayPointProtocol> verifyMobilePayPointDelegate;
+    id<ResendVerificationLinkProtocol> resendVerificationLinkDelegate;
+    
 }
 
 @property(retain) id getPayPointsDelegate;
@@ -32,6 +34,7 @@
 @property(retain) id payPointVerificationCompleteDelegate;
 @property(retain) id deletePayPointCompleteDelegate;
 @property(retain) id verifyMobilePayPointDelegate;
+@property(retain) id resendVerificationLinkDelegate;
 
 -(void) getPayPoints:(NSString*) userId;
 -(void) getPayPoints:(NSString*) userId ofType: (NSString*) type;

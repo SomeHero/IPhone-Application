@@ -16,15 +16,19 @@
 #import "PhoneDetailViewController.h"
 #import "PhoneNumberFormatting.h"
 #import "DeletePayPointDelegate.h"
+#import "EnterVerificationCodeViewController.h"
 
-@interface PhoneListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, DeletePayPointDelegate, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol>
+@interface PhoneListViewController : UISetupUserBaseViewController<AddPayPointCompleteProtocol, DeletePayPointDelegate, UITableViewDataSource, UITableViewDelegate, GetPayPointProtocol, VerifyMobilePayPointProtocol, CustomAlertViewProtocol>
 {
     IBOutlet UITableView* payPointTable;
     
+    PayPoint* payPoint;
     PayPointService* payPointService;
     NSMutableArray* phones;
     
     bool newPayPointAdded;
+    NSString* newPayPointId;
 }
 
+@property(nonatomic, retain) NSString* newPayPointId;
 @end
