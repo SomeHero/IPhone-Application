@@ -17,6 +17,8 @@
 
 @property(retain) id getPayStreamCompleteDelegate;
 
+@property(nonatomic, retain) ASIHTTPRequest* requestObj;
+
 -(void)getPayStream:(NSString*) userId;
 
 @end
