@@ -13,17 +13,19 @@
 - (id)init {
 	if ((self = [super init])) {
 		[self setCaptureSession:[[AVCaptureSession alloc] init]];
+        self.captureSession.sessionPreset = AVCaptureSessionPreset1280x720;
 	}
 	return self;
 }
 
-- (void)addVideoPreviewLayer {
+- (void)addVideoPreviewLayer
+{
 	[self setPreviewLayer:[[[AVCaptureVideoPreviewLayer alloc] initWithSession:[self captureSession]] autorelease]];
 	[[self previewLayer] setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-  
 }
 
-- (void)addVideoInputFrontCamera:(BOOL)front {
+- (void)addVideoInputFrontCamera:(BOOL)front
+{
     NSArray *devices = [AVCaptureDevice devices];
     AVCaptureDevice *backCamera;
     
@@ -49,26 +51,31 @@
     }
 }
 
-- (void)addStillImageOutput 
+- (void)addStillImageOutput
 {
-  [self setStillImageOutput:[[[AVCaptureStillImageOutput alloc] init] autorelease]];
-  NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];
-  [[self stillImageOutput] setOutputSettings:outputSettings];
-  
-  AVCaptureConnection *videoConnection = nil;
-  for (AVCaptureConnection *connection in [[self stillImageOutput] connections]) {
-    for (AVCaptureInputPort *port in [connection inputPorts]) {
-      if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
-        videoConnection = connection;
-        break;
-      }
+    [self setStillImageOutput:[[[AVCaptureStillImageOutput alloc] init] autorelease]];
+    NSDictionary *outputSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    AVVideoCodecJPEG, AVVideoCodecKey,
+                                    nil];
+    
+    [[self stillImageOutput] setOutputSettings:outputSettings];
+    
+    AVCaptureConnection *videoConnection = nil;
+    
+    for (AVCaptureConnection *connection in [[self stillImageOutput] connections])
+    {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) {
+            break;
+        }
     }
-    if (videoConnection) { 
-      break; 
-    }
-  }
-  
-  [[self captureSession] addOutput:[self stillImageOutput]];
+    
+    [[self captureSession] addOutput:[self stillImageOutput]];
 }
 
 - (void)captureStillImage

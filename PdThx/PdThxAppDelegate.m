@@ -540,13 +540,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
             // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
             // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-            [self showAlertWithResult:true withTitle:@"New Payment Received" withSubtitle:@"Received payment of $X.XX" withDetailText:@"You just received a payment from ?. You can either dismiss this notification and continue with your current process, or press below to view more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+            [self showAlertWithResult:true withTitle:@"New Payment Received" withSubtitle:@"Received payment of $X.XX" withDetailText:@"You just received a payment from ?. You can either dismiss this notification and continue with your current process, or press below to view more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText:@"" withDelegate:self];
         } else if ( [userInfo objectForKey:@"nType"] == @"recPRQ" ) { // Payment Requested
             // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
             // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
             // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
             // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
-            [self showAlertWithResult:true withTitle:@"New Payment Request" withSubtitle:@"Received payment request for $X.XX" withDetailText:@"You just received a payment request from ?. You can dismiss this and pay it later, or press below to see more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withDelegate:self];
+            [self showAlertWithResult:true withTitle:@"New Payment Request" withSubtitle:@"Received payment request for $X.XX" withDetailText:@"You just received a payment request from ?. You can dismiss this and pay it later, or press below to see more details." withLeftButtonOption:2 withLeftButtonImageString:@"smallButtonGreen240x78.png" withLeftButtonSelectedImageString:@"smallButtonGreen240x78_a.png" withLeftButtonTitle:@"Details" withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:2 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78_a.png" withRightButtonTitle:@"Dismiss" withRightButtonTitleColor:[UIColor darkGrayColor] withTextFieldPlaceholderText:@"" withDelegate:self];
         }
         
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
@@ -890,7 +890,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         {
             [[results objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
         }
-        else {
+        else
+        {
             [[results objectAtIndex:27] addObject:person];
         }
     }
@@ -910,7 +911,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 // For iOS 4.2+ support
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
     return [fBook handleOpenURL:url];
 }
 

@@ -557,16 +557,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     return [[transactionsDict objectForKey:[sections objectAtIndex:(NSUInteger) section]] count];
 }
 
+/*
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     // create the parent view that will hold header Label
     UIView* customView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,320,25)] autorelease];
     
     // create the imageView with the image in it
-    /*
-    UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-section-320x25.png"]] autorelease];
-    imageView.frame = CGRectMake(0,0,320,25);
-    */
+    
+    //UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-section-320x25.png"]] autorelease];
+    //imageView.frame = CGRectMake(0,0,320,25);
+    
     customView.backgroundColor = [UIColor colorWithRed:109/255.0 green:110/255.0 blue:114/255.0 alpha:1.0];
 
     
@@ -584,6 +585,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     return customView;
 }
+*/
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

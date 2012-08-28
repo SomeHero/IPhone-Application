@@ -98,6 +98,16 @@
     [self.qs9button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
     [self.qs9button.layer setBorderWidth:0.0]; // 28 24 20
     
+    self.qs1button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs2button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs3button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs4button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs5button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs6button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs7button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs8button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    self.qs9button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
+    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [self reloadQuickSendContacts:appDelegate.quickSendArray];
 }
