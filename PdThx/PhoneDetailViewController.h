@@ -13,19 +13,33 @@
 #import "PhoneNumberFormatting.h"
 #import "PdThxAppDelegate.h"
 #import "DeletePayPointDelegate.h"
+#import "EnterVerificationCodeViewController.h"
+#import "VerifyMobilePayPointProtocol.h"
 
 @interface PhoneDetailViewController : UISetupUserBaseViewController
-    <DeletePayPointDelegate>
+    <DeletePayPointDelegate, VerifyMobilePayPointProtocol>
 {
     IBOutlet UILabel *txtPhoneNumber;
+    IBOutlet UILabel *lblHeader;
+    IBOutlet UILabel *txtStatus;
+    IBOutlet UIView *ctrlHeader;
+    IBOutlet UIView *ctrlButtonsView;
+    
+    IBOutlet UIView *ctrlHeaderPending;
+    IBOutlet UIView *ctrlHeaderVerified;
+    
     PayPoint* payPoint;
     PayPointService* payPointService;
+    
     id<DeletePayPointDelegate> deletePayPointComplete;
+    id<VerifyMobilePayPointProtocol> verifyMobilePayPointDelegate;
 }
 
 @property(nonatomic, retain) PayPoint* payPoint;
 @property(nonatomic, retain) id<DeletePayPointDelegate> deletePayPointComplete;
+@property(nonatomic, retain) id<VerifyMobilePayPointProtocol> verifyMobilePayPointDelegate;
 
--(IBAction)btnRemovePayPoint;
+-(IBAction)btnRemovePayPoint:(id)sender;
+-(IBAction)btnVerify:(id)sender;
 
 @end

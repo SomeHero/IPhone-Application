@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Application.h"
+#import "PayPoint.h"
 
 @protocol AddPayPointCompleteProtocol;
 
 @protocol AddPayPointCompleteProtocol <NSObject>
 
--(void)addPayPointsDidComplete;
+-(void)addPayPointsDidComplete: (NSString*) payPoint;
 -(void)addPayPointsDidFail: (NSString*) errorMessage;
 
 @end
