@@ -682,8 +682,8 @@
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     //NSLog(@"Switching to tab index:%d",buttonIndex);
-    UIViewController* newView = [appDelegate switchMainAreaToTabIndex:buttonIndex];
-    
+    UIViewController* newView = [appDelegate switchMainAreaToTabIndex:buttonIndex fromViewController:self];
+
     //NSLog(@"NewView: %@",newView);
     if ( newView != nil  && ! [self isEqual:newView])
     {

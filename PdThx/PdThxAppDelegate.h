@@ -108,7 +108,8 @@
 
 
 /*      Static Tab Bar Setup        */
-@property (assign) int currentMainAreaTabIndex;
+//@property (assign) int currentMainAreaTabIndex;
+@property(nonatomic, retain) UIViewController* currentLoggedInViewController;
 @property(nonatomic, retain) UIViewController* LoggedInFirstViewController;
 @property(nonatomic, retain) UIViewController* LoggedInSecondViewController;
 @property(nonatomic, retain) UIViewController* LoggedInCenterViewController;
@@ -147,6 +148,7 @@
 
 
 
--(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex;
+//-(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex;
+-(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex fromViewController:(UIViewController*)oldVC;
 
 @end

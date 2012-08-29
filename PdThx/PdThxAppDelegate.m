@@ -44,85 +44,81 @@
 @synthesize quickSendArray;
 
 // Static Tab Bar View Controllers..
-@synthesize LoggedInCenterViewController, LoggedInFifthViewController, LoggedInFirstViewController, LoggedInFourthViewController, LoggedInSecondViewController, currentMainAreaTabIndex;
+@synthesize LoggedInCenterViewController, LoggedInFifthViewController, LoggedInFirstViewController, LoggedInFourthViewController, LoggedInSecondViewController;
+//@synthesize currentMainAreaTabIndex;
 
 
--(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex
+-(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex fromViewController:(UIViewController*)oldVC
 {
     UIViewController * viewToSwitchTo;
     
-    NSLog(@"Curr:%d NewTabIndex:%d",currentMainAreaTabIndex, tabIndex);
+    if ( tabIndex < 0 && tabIndex > 4 )
+        return nil;
     
-    if ( tabIndex != currentMainAreaTabIndex )
+    switch ( tabIndex )
     {
-        switch ( tabIndex )
+        case 0:
         {
-            case 0:
-            {
+            viewToSwitchTo = LoggedInFirstViewController;
+            
+            if ( viewToSwitchTo == nil ){
+                LoggedInFirstViewController = [[HomeViewControllerV2 alloc] init];
                 viewToSwitchTo = LoggedInFirstViewController;
-                
-                if ( viewToSwitchTo == nil ){
-                    LoggedInFirstViewController = [[HomeViewControllerV2 alloc] init];
-                    viewToSwitchTo = LoggedInFirstViewController;
-                    currentMainAreaTabIndex = tabIndex;
-                }
-                
-                break;
             }
-            case 1:
-            {
-                viewToSwitchTo = LoggedInSecondViewController;
-                
-                if ( viewToSwitchTo == nil ){
-                    LoggedInSecondViewController = [[PayStreamViewController alloc] init];
-                    viewToSwitchTo = LoggedInSecondViewController;
-                    currentMainAreaTabIndex = tabIndex;
-                }
-                
-                break;
-            }
-            case 2:
-            {
-                viewToSwitchTo = LoggedInCenterViewController;
-                
-                if ( viewToSwitchTo == nil ){
-                    LoggedInCenterViewController = [[SendMoneyController alloc] init];
-                    viewToSwitchTo = LoggedInCenterViewController;
-                    currentMainAreaTabIndex = tabIndex;
-                }
-                
-                break;
-            }
-            case 3:
-            {
-                viewToSwitchTo = LoggedInFourthViewController;
-                
-                if ( viewToSwitchTo == nil ){
-                    LoggedInFourthViewController = [[RequestMoneyController alloc] init];
-                    viewToSwitchTo = LoggedInFourthViewController;
-                    currentMainAreaTabIndex = tabIndex;
-                }
-                
-                break;
-            }
-            case 4:
-            {
-                viewToSwitchTo = LoggedInFifthViewController;
-                
-                if ( viewToSwitchTo == nil ){
-                    LoggedInFifthViewController = [[DoGoodViewController alloc] init];
-                    viewToSwitchTo = LoggedInFifthViewController;
-                    currentMainAreaTabIndex = tabIndex;
-                }
-                
-                break;
-            }
+            
+            break;
         }
-        currentMainAreaTabIndex = tabIndex;
-        return viewToSwitchTo;
+        case 1:
+        {
+            viewToSwitchTo = LoggedInSecondViewController;
+            
+            if ( viewToSwitchTo == nil ){
+                LoggedInSecondViewController = [[PayStreamViewController alloc] init];
+                viewToSwitchTo = LoggedInSecondViewController;
+            }
+            
+            break;
+        }
+        case 2:
+        {
+            viewToSwitchTo = LoggedInCenterViewController;
+            
+            if ( viewToSwitchTo == nil ){
+                LoggedInCenterViewController = [[SendMoneyController alloc] init];
+                viewToSwitchTo = LoggedInCenterViewController;
+            }
+            
+            break;
+        }
+        case 3:
+        {
+            viewToSwitchTo = LoggedInFourthViewController;
+            
+            if ( viewToSwitchTo == nil ){
+                LoggedInFourthViewController = [[RequestMoneyController alloc] init];
+                viewToSwitchTo = LoggedInFourthViewController;
+            }
+            
+            break;
+        }
+        case 4:
+        {
+            viewToSwitchTo = LoggedInFifthViewController;
+            
+            if ( viewToSwitchTo == nil ){
+                LoggedInFifthViewController = [[DoGoodViewController alloc] init];
+                viewToSwitchTo = LoggedInFifthViewController;
+            }
+            
+            break;
+        }
     }
     
-    return nil;
+    
+    if ( [viewToSwitchTo isKindOfClass:[oldVC class]] )
+        return nil;
+    else
+        return viewToSwitchTo;
 }
 
 -(void)switchToMainAreaTabbedView
