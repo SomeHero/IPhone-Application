@@ -273,9 +273,8 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     //[appDelegate dismissProgressHUD];
     
-    NSString* paymentAccountAccount = [prefs valueForKey:@"paymentAccountId"];
-    bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
-    
+    NSString* paymentAccountId = [prefs valueForKey:@"paymentAccountId"];
+
     [prefs setValue:user.facebookId forKey:@"facebookId"];
     [prefs setObject:user.facebookToken forKey:@"FBAccessTokenKey"];
     
@@ -296,11 +295,9 @@
         }
     }
     
-    if(paymentAccountAccount != (id)[NSNull null] && [paymentAccountAccount length] > 0)
+    if(paymentAccountId == (id)[NSNull null] && [paymentAccountId length] > 0)
         user.hasACHAccount = true;
     
-    user.hasSecurityPin = setupSecurityPin;
-
     [appDelegate showSuccessWithStatus:@"Complete!" withDetailedStatus:@""];
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
