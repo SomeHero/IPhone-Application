@@ -91,7 +91,7 @@
     // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
     // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
     [appDelegate showAlertWithResult:false withTitle:@"Image Upload Error" withSubtitle:@"We could not upload your image." withDetailText:@"We apologize, your image was not correctly processed. Please be sure that you have a data connection (WiFi, 3G or higher) and try again. Thank you!" withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0
-          withRightButtonImageString:@"smallButtonGrey240x78.png"withRightButtonSelectedImageString:@"smallButtonGrey240x78.png" withRightButtonTitle:@"Not Shown" withRightButtonTitleColor:[UIColor whiteColor] withDelegate:self];
+          withRightButtonImageString:@"smallButtonGrey240x78.png"withRightButtonSelectedImageString:@"smallButtonGrey240x78.png" withRightButtonTitle:@"Not Shown" withRightButtonTitleColor:[UIColor whiteColor] withTextFieldPlaceholderText: @"" withDelegate:self];
 }
 
 -(void)didSelectButtonWithIndex:(int)index
