@@ -681,6 +681,8 @@
 		5BF3EE2815915A580011BAD8 /* BankAccountService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2715915A580011BAD8 /* BankAccountService.m */; };
 		5BF3EE2D159163380011BAD8 /* UIAccountTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */; };
 		5BF3EE2E159163380011BAD8 /* UIAccountTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */; };
+		7AAD193515EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */; };
+		7AAD193815EE7DB700308CAA /* UIPaystreamLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */; };
 		7AAFF1E315E7FCCE00A7C6F0 /* MIBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */; };
 		7AAFF1E415E7FCCE00A7C6F0 /* MIPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1D815E7FCCE00A7C6F0 /* MIPController.m */; };
 		7AAFF1E515E7FCCE00A7C6F0 /* MISupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1DA15E7FCCE00A7C6F0 /* MISupport.m */; };
@@ -1681,6 +1683,9 @@
 		5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccountTableCell.h; sourceTree = "<group>"; };
 		5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccountTableCell.m; sourceTree = "<group>"; };
 		5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIAccountTableCell.xib; sourceTree = "<group>"; };
+		7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIPaystreamLoadingTableViewCell.xib; sourceTree = "<group>"; };
+		7AAD193615EE7DB700308CAA /* UIPaystreamLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPaystreamLoadingCell.h; sourceTree = "<group>"; };
+		7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPaystreamLoadingCell.m; sourceTree = "<group>"; };
 		7AAFF1D515E7FCCE00A7C6F0 /* MIBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIBase64.h; sourceTree = "<group>"; };
 		7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIBase64.m; sourceTree = "<group>"; };
 		7AAFF1D715E7FCCE00A7C6F0 /* MIPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIPController.h; sourceTree = "<group>"; };
@@ -2215,6 +2220,9 @@
 				54A13A451584766200668984 /* Slideover Detail View */,
 				54B5F26B156E921F00D970A3 /* UIPaystreamTableViewCell.h */,
 				54B5F26C156E921F00D970A3 /* UIPaystreamTableViewCell.m */,
+				7AAD193615EE7DB700308CAA /* UIPaystreamLoadingCell.h */,
+				7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */,
+				7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */,
 			);
 			name = "Paystream Views";
 			sourceTree = "<group>";
@@ -4373,6 +4381,7 @@
 				7ABC433215EBE3B3009B2B0A /* img-quicksend-preview-296x191@2x.png in Resources */,
 				7ABC434315EC0DD6009B2B0A /* img-shadow-divider-238x7.png in Resources */,
 				7ABC434415EC0DD6009B2B0A /* img-shadow-divider-238x7@2x.png in Resources */,
+				7AAD193515EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4607,6 +4616,7 @@
 				7AD84EEC15EB3B77002979D5 /* CaptureSessionManager.m in Sources */,
 				7AD84EF815EB43CB002979D5 /* NSData+Base64Encoding.m in Sources */,
 				7AD84EFF15EBC1A0002979D5 /* UIImage+Scale.m in Sources */,
+				7AAD193815EE7DB700308CAA /* UIPaystreamLoadingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
