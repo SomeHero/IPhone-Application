@@ -22,6 +22,7 @@
 #import "IconDownloader.h"
 #import "CreateAccountViewController.h"
 #import "PaystreamOutgoingPaymentViewController.h"
+#import "UIPaystreamLoadingCell.h"
 
 @implementation PayStreamViewController
 @synthesize tabBar;
@@ -220,6 +221,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                                         withError:&error]){
         //Handle Error Here
     }
+    
+    // Loading from scratch, show a hard refresh progress dialog.
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showWithStatus:@"Loading" withDetailedStatus:@"Please wait"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -250,11 +254,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* userId = [prefs stringForKey:@"userId"];
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
-
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [[transactionsDict objectForKey:@"Loading"] addObject:[[[NSObject alloc] init] autorelease]];
+    [transactionsTableView reloadData];
     
-    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
     [getPayStreamService getPayStream:userId];
 }
 
@@ -345,6 +348,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+
 -(void)buildTransactionDictionary:(NSMutableArray*) array
 {
     NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -367,16 +372,26 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     
     
+    if ( transactionsDict != nil )
+        [transactionsDict release];
+    
     transactionsDict = [[NSMutableDictionary alloc] init];
+    
+    if ( sections != nil )
+        [sections release];
+    
     sections = [[NSMutableArray alloc] init];
     
     int found;
+    
+    // Creating the loading section.
+    [sections addObject:@"Loading"];
+    [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Loading"];
     
     NSDateComponents* itemComponents;
     
     for(Transaction* item in array)
     {
-        
         NSString* transactionDate = [dateFormatter stringFromDate: item.createDate];
         NSString* transactionMonth = [transactionDate substringToIndex:2];
         NSString* transactionYear = [transactionDate substringFromIndex:6];
@@ -588,9 +603,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 */
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ( indexPath.section == 0 )
+        return 32.0;
+    else
+        return transactionsTableView.rowHeight; // We're setting table row height somewhere lower in the project.
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ( [[transactionsDict  objectForKey:[sections objectAtIndex:section]] count] )
+    if ( section == 0 ) // Loading Label Section -- No header, only one small height cell.
+        return 0.0;
+    else if ( [[transactionsDict  objectForKey:[sections objectAtIndex:section]] count] )
         return 25.0;
     else
         return 0.0;
@@ -599,6 +624,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"transactionCell";
+    
+    if ( indexPath.section == 0 ) // Loading Display Section
+    {
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
+        UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
+        return cell;
+    }
     
     UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
      
@@ -1172,9 +1204,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSString* userId = [prefs stringForKey:@"userId"];
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading paystream"];
     
     [getPayStreamService getPayStream:userId];
     
