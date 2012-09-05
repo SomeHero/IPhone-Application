@@ -3435,7 +3435,6 @@ static NSOperationQueue *sharedQueue = nil;
 			// Decompress the file directly to the destination path
 			if ([self shouldWaitToInflateCompressedResponses]) {
 				[ASIDataDecompressor uncompressDataFromFile:[self temporaryFileDownloadPath] toFile:[self downloadDestinationPath] error:&fileError];
-
 			// Response should already have been inflated, move the temporary file to the destination path
 			} else {
 				NSError *moveError = nil;

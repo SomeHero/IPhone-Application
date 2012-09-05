@@ -31,7 +31,6 @@
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UISegmentedControl* ctrlAccountType;
     IBOutlet UITextView* ctrlHeaderText;
-    IBOutlet UIButton *TakePictureOfCheckButton;
     MIPController*mipControllerInstance;
     
     NSString* navBarTitle;
@@ -45,7 +44,6 @@
 }
 
 @property(nonatomic, retain) NSString* navBarTitle;
-@property(nonatomic, retain) UIButton *TakePictureOfCheckButton;
 @property(nonatomic, retain) MIPController*mipControllerInstance;
 
 @property(nonatomic, retain) NSString* headerText;
@@ -54,6 +52,8 @@
 -(IBAction)btnRemindMeLaterClicked:(id)sender;
 -(IBAction) btnCreateAccountClicked:(id)sender;
 -(IBAction) bgClicked:(id)sender;
-- (IBAction)takePictureOfCheck:(id)sender;
+
+
+- (void)takePictureOfCheck;
 
 @end

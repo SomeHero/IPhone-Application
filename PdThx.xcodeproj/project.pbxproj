@@ -705,6 +705,8 @@
 		7AD84EF415EB3CED002979D5 /* AROverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EF315EB3CED002979D5 /* AROverlayViewController.xib */; };
 		7AD84EF815EB43CB002979D5 /* NSData+Base64Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EF715EB43CB002979D5 /* NSData+Base64Encoding.m */; };
 		7AD84EFF15EBC1A0002979D5 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EFE15EBC1A0002979D5 /* UIImage+Scale.m */; };
+		7AD8923615F795E900726ACB /* AddACHOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD8923415F795E900726ACB /* AddACHOptionsViewController.m */; };
+		7AD8923715F795E900726ACB /* AddACHOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AD8923515F795E900726ACB /* AddACHOptionsViewController.xib */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
 		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
@@ -1686,6 +1688,7 @@
 		7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIPaystreamLoadingTableViewCell.xib; sourceTree = "<group>"; };
 		7AAD193615EE7DB700308CAA /* UIPaystreamLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPaystreamLoadingCell.h; sourceTree = "<group>"; };
 		7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPaystreamLoadingCell.m; sourceTree = "<group>"; };
+		7AAD193915F1159700308CAA /* FindMatchingMeCodesProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindMatchingMeCodesProtocol.h; sourceTree = "<group>"; };
 		7AAFF1D515E7FCCE00A7C6F0 /* MIBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIBase64.h; sourceTree = "<group>"; };
 		7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIBase64.m; sourceTree = "<group>"; };
 		7AAFF1D715E7FCCE00A7C6F0 /* MIPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIPController.h; sourceTree = "<group>"; };
@@ -1721,6 +1724,9 @@
 		7AD84EF715EB43CB002979D5 /* NSData+Base64Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Encoding.m"; sourceTree = "<group>"; };
 		7AD84EFD15EBC1A0002979D5 /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
 		7AD84EFE15EBC1A0002979D5 /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
+		7AD8923315F795E900726ACB /* AddACHOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddACHOptionsViewController.h; sourceTree = "<group>"; };
+		7AD8923415F795E900726ACB /* AddACHOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddACHOptionsViewController.m; sourceTree = "<group>"; };
+		7AD8923515F795E900726ACB /* AddACHOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddACHOptionsViewController.xib; sourceTree = "<group>"; };
 		C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordViewController.xib; sourceTree = "<group>"; };
 		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
@@ -1955,6 +1961,9 @@
 				5B8B456915A3ED0700822B67 /* EnablePaymentsViewController.h */,
 				5B8B456A15A3ED0800822B67 /* EnablePaymentsViewController.m */,
 				5B8B456B15A3ED0900822B67 /* EnablePaymentsViewController.xib */,
+				7AD8923315F795E900726ACB /* AddACHOptionsViewController.h */,
+				7AD8923415F795E900726ACB /* AddACHOptionsViewController.m */,
+				7AD8923515F795E900726ACB /* AddACHOptionsViewController.xib */,
 			);
 			name = "New User Creation";
 			sourceTree = "<group>";
@@ -1962,6 +1971,8 @@
 		541EE60C158A710B00131B0E /* Welcome Signed Out Flow */ = {
 			isa = PBXGroup;
 			children = (
+				54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */,
+				54CACC6815879A3000631B84 /* WelcomeScreenViewController.xib */,
 				54CACC6815879A3000631B84 /* WelcomeScreenViewController.xib */,
 				54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */,
 				5BC9C3BB158C459400E20D9D /* CreateAccountViewController.xib */,
@@ -1973,6 +1984,7 @@
 		541EE60D158A712100131B0E /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				5BB14560158B948C00EA652A /* AmountSelectViewController.xib */,
 				5BF07AFF15978A200020EA2F /* RequestMoneyController.xib */,
 				5B692C5214D4777D00E6E663 /* SendMoneyController.xib */,
 			);
@@ -1983,6 +1995,8 @@
 			isa = PBXGroup;
 			children = (
 				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
+				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
+				541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */,
 				541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */,
 			);
 			name = "Contact Select";
@@ -1992,6 +2006,9 @@
 			isa = PBXGroup;
 			children = (
 				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
+				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
+				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
+				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
 				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 			);
 			name = Paystream;
@@ -2000,6 +2017,7 @@
 		541EE610158A719900131B0E /* Settings and Profile */ = {
 			isa = PBXGroup;
 			children = (
+				5BEBF01814B2281900379108 /* ProfileController.xib */,
 				5BEBF01814B2281900379108 /* ProfileController.xib */,
 				540025BB1598B3FC00332A10 /* MeCodeSetupViewController.xib */,
 				540025A81598A55C00332A10 /* ChangePasswordViewController.xib */,
@@ -3286,6 +3304,7 @@
 			isa = PBXGroup;
 			children = (
 				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
+				7AAD193915F1159700308CAA /* FindMatchingMeCodesProtocol.h */,
 				7AAFF1EE15E8A31900A7C6F0 /* FindUserByNumberProtocol.h */,
 				5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
@@ -3449,16 +3468,7 @@
 				541EE60D158A712100131B0E /* Send/Request Money */,
 				541EE60C158A710B00131B0E /* Welcome Signed Out Flow */,
 				5BD278FA153E7F0300CAFC12 /* Dialogs */,
-				5BB14560158B948C00EA652A /* AmountSelectViewController.xib */,
-				5BEBF01814B2281900379108 /* ProfileController.xib */,
-				5BD2790E154116E900CAFC12 /* PayStreamViewController.xib */,
-				54B5F259156DEEBA00D970A3 /* TableViewCell.xib */,
-				54B5F289156FCEC900D970A3 /* ContactSelectViewController.xib */,
-				541EE5F5158A5F6A00131B0E /* ContactTableViewCell.xib */,
-				5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */,
 				54A139DF158430FA00668984 /* DoGoodViewController.xib */,
-				54CACC6815879A3000631B84 /* WelcomeScreenViewController.xib */,
-				54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -4382,6 +4392,7 @@
 				7ABC434315EC0DD6009B2B0A /* img-shadow-divider-238x7.png in Resources */,
 				7ABC434415EC0DD6009B2B0A /* img-shadow-divider-238x7@2x.png in Resources */,
 				7AAD193515EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib in Resources */,
+				7AD8923715F795E900726ACB /* AddACHOptionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4617,6 +4628,7 @@
 				7AD84EF815EB43CB002979D5 /* NSData+Base64Encoding.m in Sources */,
 				7AD84EFF15EBC1A0002979D5 /* UIImage+Scale.m in Sources */,
 				7AAD193815EE7DB700308CAA /* UIPaystreamLoadingCell.m in Sources */,
+				7AD8923615F795E900726ACB /* AddACHOptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

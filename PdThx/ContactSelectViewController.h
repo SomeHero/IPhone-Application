@@ -22,9 +22,9 @@
 #import "SetContactAndAmountProtocol.h"
 #import "SetContactProtocol.h"
 #import "CustomAlertViewProtocol.h"
+#import "FindMatchingMeCodesProtocol.h"
 
-
-@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate, CustomAlertViewProtocol, SetContactProtocol, SetContactAndAmountProtocol>
+@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate, CustomAlertViewProtocol, SetContactProtocol, SetContactAndAmountProtocol,FindMatchingMeCodesProtocol>
 {
     IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
@@ -40,6 +40,7 @@
     IBOutlet UITextField *txtSearchBox;
     bool isFiltered;
     bool foundFiltered;
+    UserService * userService;
 }
 
 @property (nonatomic, retain) UISearchBar *searchBar;
@@ -54,7 +55,11 @@
 @property (nonatomic, retain) UITextField *txtSearchBox;
 @property (nonatomic, assign) bool isFiltered;
 @property (nonatomic, assign) bool foundFiltered;
+@property (nonatomic, assign) UserService * userService;
 
 - (IBAction)textBoxChanged:(id)sender;
+
+
+-(void)findMeCodesMatchingString:(NSString*)searchTerm;
 
 @end

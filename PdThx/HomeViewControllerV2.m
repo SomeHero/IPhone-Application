@@ -440,8 +440,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)loadQuickSendWithType:(int)type andContactObject:(NSDictionary*)contact
 {
-    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    
     if ( type == 0 )
     {
         // Normal user (type 0) --> Load SendMoney screen
@@ -451,7 +449,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         Contact *newContact = [[Contact alloc] init];
         [newContact.paypoints addObject:[contact objectForKey:@"userUri"]];
-        newContact.name = [contact objectForKey:@"userName"];
+        
+        if ( [contact objectForKey:@"userName"] != (id)[NSNull null] ) {
+            newContact.name = [contact objectForKey:@"userName"];
+        } else {
+            newContact.name = [contact objectForKey:@"userUri"];
+        }
+        
         
         
         

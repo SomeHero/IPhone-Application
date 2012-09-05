@@ -13,7 +13,8 @@
 - (id)init {
 	if ((self = [super init])) {
 		[self setCaptureSession:[[AVCaptureSession alloc] init]];
-        self.captureSession.sessionPreset = AVCaptureSessionPreset1280x720;
+        self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+        
 	}
 	return self;
 }
