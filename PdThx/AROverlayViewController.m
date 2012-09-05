@@ -92,7 +92,28 @@
         
         pictureBeingTaken = false;
         [CheckImageReturnDelegate cameraReturnedImage:[self.captureManager stillImage]];
-        //UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);s
+        
+        UIImageWriteToSavedPhotosAlbum([self.captureManager stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        
+        //UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
+}
+
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error
+  contextInfo:(void *)contextInfo
+{
+    // Was there an error?
+    if (error != NULL)
+    {
+        // Show error message...
+        NSLog(@"Failed to save image to album");
+        
+    }
+    else  // No errors
+    {
+        // Show message image successfully saved
+        NSLog(@"Success saving image to album");
     }
 }
 
@@ -163,6 +184,8 @@
     [dismissButton removeFromSuperview];
     [helpIndicator removeFromSuperview];
 }
+
+
 
 @end
 

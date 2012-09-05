@@ -98,8 +98,6 @@
 }
 - (void)viewDidUnload
 {
-    [TakePictureOfCheckButton release];
-    TakePictureOfCheckButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -300,15 +298,18 @@
     }
 
 }
+
 -(void)userACHSetupDidFail:(NSString*) message {
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
+
 -(void)swipeDidCancel: (id)sender
 {
     [self.navigationController dismissModalViewControllerAnimated: YES];
 }
+
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
@@ -337,13 +338,16 @@
     [txtRoutingNumber resignFirstResponder];
 }
 
-- (IBAction)takePictureOfCheck:(id)sender {
+
+- (void)takePictureOfCheck
+{
     // Load Camera with Delegate
     AROverlayViewController*cameraVC = [[AROverlayViewController alloc] init];
     
     [cameraVC setCheckImageReturnDelegate:self];
     
     [self presentModalViewController:cameraVC animated:YES];
+    [cameraVC release];
 }
 
 -(void)cameraReturnedImage:(UIImage *)image
@@ -365,22 +369,6 @@
     
     [mipControllerInstance sendImage:newImage delegate:self];
 }
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    if (error != NULL) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Image couldn't be saved" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-    } else {
-        // TODO: IMPLEMENT FINISHED SUCCESSFULLY POPOVER
-        
-        // TODO: CALL IMAGE ADDED DELEGATE
-        //[CheckImageReturnDelegate cameraReturnedImage:image];
-        NSLog(@"Saved image %@.", image);
-    }
-}
-
 
 
 - (NSString *)determineValue:(NSDictionary *)field money:(BOOL)money {
@@ -430,6 +418,7 @@
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     [appDelegate dismissProgressHUD];
+    
     [appDelegate showSimpleAlertView:TRUE withTitle:@"Success!" withSubtitle:@"Based on your check, we found:" withDetailedText:[NSString stringWithFormat:@"Your Routing Number is #%@, and your Account Number is #%@. Please verify this information matches the information on your check.",[returnedAccountInfo valueForKey:@"RoutingNumber"],[returnedAccountInfo valueForKey:@"AccountNumber"]] withButtonText:@"Ok" withDelegate:self];
     
     txtAccountNumber.text = [returnedAccountInfo valueForKey:@"AccountNumber"];
@@ -507,8 +496,8 @@
     [validationHelper release];
 }
 
-- (void)dealloc {
-    [TakePictureOfCheckButton release];
+- (void)dealloc
+{
     [super dealloc];
 }
 @end

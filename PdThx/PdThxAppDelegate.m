@@ -960,7 +960,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         else if ( person.firstName.length > 0 )
             comparedString = person.firstName;
         else if(person.name.length > 0)
-            comparedString = person.name;
+        {
+            if ( [person.name characterAtIndex:0] == '$' )
+                comparedString = [person.name substringFromIndex:1];
+            else
+                comparedString = person.name;
+        }
         else
             comparedString = [person.paypoints objectAtIndex:0];
         
@@ -1218,7 +1223,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         customAlert.rightButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     }
     
+    
     /* RESET THE ALERT VIEW */
+    customAlert.view.frame = CGRectMake(self.window.frame.size.width/2-customAlert.view.frame.size.width/2, self.window.frame.size.height/2-customAlert.view.frame.size.height/2, customAlert.view.frame.size.width, customAlert.view.frame.size.height);
+    
     customAlert.leftButton.hidden = NO;
     customAlert.leftButton.titleLabel.text = @"Default";
     customAlert.rightButton.hidden = NO;

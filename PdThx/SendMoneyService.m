@@ -54,6 +54,8 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     
     NSString *newJSON = [paymentData JSONRepresentation];
     
+    NSLog(@"Sending payment with block: %@", newJSON);
+    
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [request addRequestHeader:@"Content-Type" value:@"application/json"];
@@ -70,7 +72,9 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 }
 -(void) sendMoneyComplete:(ASIHTTPRequest *)request
 {
-    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    NSLog(@"Response %d : %@ with %@ and local: %@ -- string: %@", request.responseStatusCode, [request responseString], [request responseStatusMessage], [request.responseHeaders objectForKey:@"localizedDescription"], request.responseString);
+    
+    NSLog(@"ResponseData: %@", request.responseData);
     
     if([request responseStatusCode] == 201 ) {
         
@@ -80,8 +84,8 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
         
     }
     else {
-        
-        NSString* message = @"Unable to send money";
+        NSLog(@"%@",request.responseData);
+        NSString* message = [request.responseHeaders objectForKey:@"localizedDescription"];
         
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
@@ -99,7 +103,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 }
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = @"Unable to send money";
+    NSString* message = [request.responseHeaders objectForKey:@"localizedDescription"];
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     

@@ -19,7 +19,7 @@
 
 @synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
-@synthesize findUserDelegate;
+@synthesize findUserDelegate, findMeCodeDelegate;
 @synthesize requestObj;
 
 -(id)init 
@@ -523,5 +523,51 @@
     return NULL;
 }
 
+-(void) findMeCodesMatchingSearchTerm:(NSString*) searchTerm
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/find_mecodes", myEnvironment.pdthxWebServicesBaseUrl, searchTerm]] autorelease];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj setRequestMethod: @"GET"];
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(findMeCodesMatchingSearchTermComplete:)];
+    [requestObj setDidFailSelector:@selector(findMeCodesMatchingSearchTermFailed:)];
+    [requestObj startAsynchronous];
+}
+
+-(void) findMeCodesMatchingSearchTermComplete:(ASIHTTPRequest *)request
+{
+    if ( [request responseStatusCode] == 200 ){
+        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSMutableArray*meCodeArray = [jsonDictionary objectForKey:@"foundUsers"];
+        NSString*searchTerm = [jsonDictionary objectForKey:@"searchTerm"];
+        
+        [findMeCodeDelegate foundMeCodes:meCodeArray matchingSearchTerm:searchTerm];
+    } else {
+        NSLog(@"Response NOT OKAY %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    }
+}
+
+-(void) findMeCodesMatchingSearchTermFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    NSLog(@"Find me Codes Failed");
+}
 
 @end

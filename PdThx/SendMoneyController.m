@@ -537,7 +537,7 @@
         
         [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
     } else {
-        [self showAlertView: @"Error Sending Money" withMessage: message];
+        [self showAlertView: @"Unable to send money" withMessage: message];
     }
 }
 -(void)onHomeClicked {
