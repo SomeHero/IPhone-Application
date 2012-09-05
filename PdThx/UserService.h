@@ -16,6 +16,7 @@
 #import "ForgotPasswordCompleteProtocol.h"
 #import "LinkWithFacebookProtocol.h"
 #import "FindUserByNumberProtocol.h"
+#import "FindMatchingMeCodesProtocol.h"
 
 @interface UserService : NSObject {
     ASIHTTPRequest *requestObj;
@@ -27,6 +28,7 @@
         forgotPasswordCompleteDelegate;
     id<LinkWithFacebookProtocol> linkFbAccountDelegate;
     id<FindUserByNumberProtocol> findUserDelegate;
+    id<FindMatchingMeCodesProtocol> findMeCodeDelegate;
 }
 
 @property(retain) id userInformationCompleteDelegate;
@@ -36,6 +38,7 @@
 @property(nonatomic, retain) id forgotPasswordCompleteDelegate;
 @property(nonatomic, retain) id linkFbAccountDelegate;
 @property(nonatomic, retain) id findUserDelegate;
+@property(nonatomic, retain) id findMeCodeDelegate;
 
 //Request object retained to be able to cancel requests before changing tabs.
 @property(nonatomic, retain) ASIHTTPRequest *requestObj;
@@ -54,6 +57,8 @@
 -(void)linkFacebookAccount:(NSString*)userId withFacebookId:(NSString*)facebookId withAuthToken:(NSString*)token;
 
 -(Contact*)findContactByPhoneNumber:(NSString*)phoneNumber;
+
+-(void)findMeCodesMatchingSearchTerm:(NSString*)searchTerm;
 
 @end
             

@@ -151,4 +151,6 @@
 //-(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex;
 -(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex fromViewController:(UIViewController*)oldVC;
 
+-(NSMutableArray*)sortContacts:(NSMutableArray*)arr;
+
 @end

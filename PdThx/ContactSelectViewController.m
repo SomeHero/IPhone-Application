@@ -16,6 +16,7 @@
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 #import "SocialNetworksViewController.h"
+#import "UIPaystreamLoadingCell.h"
 
 #import <CoreText/CoreText.h>
 
@@ -32,6 +33,7 @@
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
 @synthesize didSetContactAndAmount;
 @synthesize didSetContact;
+@synthesize userService;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -162,7 +164,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //if ( indexPath.section > 0 )
-    return 60;
+    if ( indexPath.section == 0 && [txtSearchBox.text characterAtIndex:0] == '$')
+        return 32.0;
+    else
+        return 60;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -171,15 +176,19 @@
     {
         if ( foundFiltered == NO ){
             return 0.0;
-        } else if ( [[filteredResults objectAtIndex:section] count] > 0 ){
-            return 22.0;
+        } else if ( [[filteredResults objectAtIndex:section] count] > 0 )
+        {
+            if ( [txtSearchBox.text characterAtIndex:0] == '$' )
+                return 0.0;
+            else
+                return 22.0;
         }
     }
     else
     {
         if ( [[allResults objectAtIndex:section] count] == 0 )
             return 0.0;
-        else 
+        else
             return 22.0;
     }
     
@@ -224,7 +233,7 @@
             // SOMETHING before the @
             // SOMETHING after the @ before the .
             // SOMETHING after the .
-            if ( [txtSearchBox.text rangeOfString:@"@"].location != 0 
+            if ( [txtSearchBox.text rangeOfString:@"@"].location != 0
                 && [txtSearchBox.text rangeOfString:@"."].location != ([txtSearchBox.text rangeOfString:@"@"].location + 1) && [txtSearchBox.text length] != [txtSearchBox.text rangeOfString:@"."].location+1 )
                 return 2;
         }
@@ -279,6 +288,14 @@
     UIImageView *altImageView = [[UIImageView alloc] initWithImage:altBackgroundImage];
     [altImageView setContentMode:UIViewContentModeScaleToFill];
     
+    // Loading Cell
+    if ( indexPath.section == 0 && [txtSearchBox.text characterAtIndex:0] == '$')
+    {
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
+        UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
+        return cell;
+    }
+    
     ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     
     if ( myCell == nil ){
@@ -299,7 +316,8 @@
         myCell.contactNameLayer.contentsScale = [[UIScreen mainScreen] scale];
         
         [layer addSublayer:myCell.contactNameLayer];
-    } else if ( myCell.contactNameLayer && ![myCell.contactNameLayer superlayer])
+    }
+    else if ( myCell.contactNameLayer && ![myCell.contactNameLayer superlayer])
     {
         [myCell.contactNameField.layer addSublayer:myCell.contactNameLayer];
     }
@@ -431,7 +449,7 @@
             
             myCell.contactNameField.text = contact.name;
             myCell.contactDetail.text = @"";
-        
+            
             [myCell.btnInfo setContact:contact];
             if(!contact.showDetailIcon)
                 [myCell.btnInfo setHidden:YES];
@@ -464,6 +482,7 @@
             
             return myCell;
         }
+        
         if ( contact.facebookID.length > 0 ){
             if ( contact.firstName != (id)[NSNull null] && contact.lastName != (id)[NSNull null] ){
                 if ( contact.firstName.length > 0 && contact.lastName.length > 0 )
@@ -533,13 +552,24 @@
                 }
             }
             
+            
+            
             if ([contact.paypoints count] == 1)
             {
                 myCell.contactDetail.text = [contact.paypoints objectAtIndex:0];
+                
+                if ( [[contact.paypoints objectAtIndex:0] isEqualToString:contact.name] && [contact.name characterAtIndex:0] == '$')
+                {
+                    contactLabel = [NSString stringWithFormat:@"%@",contact.name];
+                    boldRange = [contactLabel rangeOfString:contact.name];
+                    myCell.contactDetail.text = @"";
+                }
             }
-            else {
+            else
+            {
                 myCell.contactDetail.text = [NSString stringWithFormat:@"%d paypoints", [contact.paypoints count]];
             }
+            
             [myCell.btnInfo setContact:contact];
             if(!contact.showDetailIcon)
                 [myCell.btnInfo setHidden:YES];
@@ -904,7 +934,62 @@
     [super dealloc];
 }
 
-- (IBAction)textBoxChanged:(id)sender {
+-(void)findMeCodesMatchingString:(NSString*)searchTerm
+{
+    NSLog(@"Searching for %@",searchTerm);
+    
+    if ( userService == nil )
+        userService = [[UserService alloc] init];
+    
+    [userService setFindMeCodeDelegate:self];
+    
+    [userService findMeCodesMatchingSearchTerm:searchTerm];
+}
+
+-(void)foundMeCodes:(NSMutableArray *)meCodes matchingSearchTerm:(NSString *)searchTerm
+{
+    // Created filteredArray for ContactList
+    NSMutableArray*sortedArray = [[NSMutableArray alloc] init];
+    
+    // Make sure it's the correct
+    if ( [searchTerm isEqualToString:txtSearchBox.text] )
+    {
+        // Create a contact for each one of the meCodes entries.
+        Contact *newContact;
+        
+        for ( NSDictionary*meCodeDict in meCodes )
+        {
+            if ( [[meCodeDict objectForKey:@"meCode"] characterAtIndex:0] != '$' )
+                continue;
+            
+            //NSLog("Starting meCodeDictionary: %@", meCodeDict);
+            if ( meCodeDict == nil )
+                NSLog(@"Hi");
+            
+            newContact = [[Contact alloc] init];
+            newContact.userId = [meCodeDict objectForKey:@"userId"];
+            newContact.name = [meCodeDict objectForKey:@"meCode"];
+            
+            
+            if( [meCodeDict objectForKey:@"userImageUri"] != (id)[NSNull null] )
+                newContact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[meCodeDict objectForKey:@"userImageUri"]]]];
+            
+            [newContact.paypoints addObject:[meCodeDict objectForKey:@"meCode"]];
+            
+            [sortedArray addObject:newContact];
+            [newContact release];
+        }
+    }
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [self setFilteredResults:[appDelegate sortContacts:sortedArray]];
+    isFiltered = YES;
+    foundFiltered = YES;
+    [tvSubview reloadData];
+}
+
+- (IBAction)textBoxChanged:(id)sender
+{
     foundFiltered = NO;
     // Search text bar changed, handle the change...
     // If the string is empty (deleted input or just hovered over), reset to full contacts
@@ -913,45 +998,65 @@
         [tvSubview reloadData];
     } else {
         isFiltered = YES;
-        for ( NSMutableArray*arr in filteredResults ) // Empty out array
-            [arr removeAllObjects];
         
-        NSRange hasSimilarity;
-        for ( NSMutableArray*arr3 in allResults ){
-            for ( Contact*contact in arr3 ){
-                hasSimilarity.location = NSNotFound;
-                for (NSString* paypoint in contact.paypoints)
-                {
-                    if ( hasSimilarity.location != NSNotFound )
-                        break;
-                    
-                    // Check first case normally
-                    hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                    if ( hasSimilarity.location == NSNotFound && paypoint != NULL ){
-                        hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
-                    }
-                    /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
-                     hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
-                     }*/
-                    // Add $me code implementation ** TODO: **
-                    
-                    if ( hasSimilarity.location != NSNotFound ){
-                        @try 
-                        {
-                            if ( contact.lastName != (id)[NSNull null] && contact.lastName.length > 0 ){
-                                [[filteredResults objectAtIndex:((int)toupper([contact.lastName characterAtIndex:0]))-64] addObject:contact];
-                            } else if ( contact.firstName != (id)[NSNull null] && contact.firstName.length > 0 ) {
-                                [[filteredResults objectAtIndex:((int)toupper([contact.firstName characterAtIndex:0]))-64] addObject:contact];
-                            } else {
-                                [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
+        if ( [txtSearchBox.text characterAtIndex:0] == '$' )
+        {
+            if ( txtSearchBox.text.length < 4 )
+            {
+                // Do not search for ME Code Results
+                foundFiltered = NO;
+            }
+            else
+            {
+                [[filteredResults objectAtIndex:0] removeAllObjects];
+                [[filteredResults objectAtIndex:0] addObject:[[[Contact alloc] init] autorelease]];
+                [tvSubview reloadData];
+                
+                [self findMeCodesMatchingString:txtSearchBox.text];
+                //[self performSelector:@selector(findMeCodesMatchingString:) withObject:txtSearchBox.text afterDelay:1.0];
+            }
+        }
+        else
+        {
+            [[filteredResults objectAtIndex:0] removeAllObjects];
+            
+            NSRange hasSimilarity;
+            for ( NSMutableArray*arr3 in allResults ){
+                for ( Contact*contact in arr3 ){
+                    hasSimilarity.location = NSNotFound;
+                    for (NSString* paypoint in contact.paypoints)
+                    {
+                        if ( hasSimilarity.location != NSNotFound )
+                            break;
+                        
+                        // Check first case normally
+                        hasSimilarity = [contact.name rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                        if ( hasSimilarity.location == NSNotFound && paypoint != NULL ){
+                            hasSimilarity = [[[paypoint componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] rangeOfString:[[txtSearchBox.text componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"()-+ "]] componentsJoinedByString:@""] options:(NSCaseInsensitiveSearch|NSLiteralSearch)];
+                        }
+                        /*if ( hasSimilarity.location == NSNotFound && contact.emailAddress != NULL ){
+                         hasSimilarity = [contact.emailAddress rangeOfString:txtSearchBox.text options:(NSCaseInsensitiveSearch)];
+                         }*/
+                        // Add $me code implementation ** TODO: **
+                        
+                        if ( hasSimilarity.location != NSNotFound ){
+                            @try
+                            {
+                                if ( contact.lastName != (id)[NSNull null] && contact.lastName.length > 0 ){
+                                    [[filteredResults objectAtIndex:((int)toupper([contact.lastName characterAtIndex:0]))-64] addObject:contact];
+                                } else if ( contact.firstName != (id)[NSNull null] && contact.firstName.length > 0 ) {
+                                    [[filteredResults objectAtIndex:((int)toupper([contact.firstName characterAtIndex:0]))-64] addObject:contact];
+                                } else {
+                                    [[filteredResults objectAtIndex:((int)toupper([contact.name characterAtIndex:0]))-64] addObject:contact];
+                                }
+                                
+                                foundFiltered = YES;
+                            }
+                            @catch (NSException* e) {
+                                NSLog(@"Exception: %@, %@ - %@", e, contact.lastName, contact.firstName);
                             }
                             
-                            foundFiltered = YES;
                         }
-                        @catch (NSException* e) {
-                            NSLog(@"Exception: %@", e);
-                        }
-                        
                     }
                 }
             }
@@ -1044,7 +1149,7 @@
     [controller setTitle: @"Info"];
     
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-
+    
     [self.navigationController presentModalViewController:navBar animated:YES];
     
     [controller release];
