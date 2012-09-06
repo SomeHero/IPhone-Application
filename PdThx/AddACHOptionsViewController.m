@@ -71,13 +71,29 @@
 
 - (IBAction)pressedTakePictureButton:(id)sender
 {
-    // Load the exact same view controller, but call the camera function manually (no button press)
-    [self.navigationController pushViewController:[[AddACHAccountViewController alloc] init] animated:YES];
+    AddACHAccountViewController *achController = [[AddACHAccountViewController alloc] init];
+    [self.navigationController pushViewController:achController animated:YES];
+    [achController takePictureOfCheck];
+    
+    // Get the list of view controllers
+    NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+    [allViewControllers removeObjectIdenticalTo:self];
+    [[self navigationController] setViewControllers:allViewControllers animated:NO];
+    
+    [allViewControllers release];
+    [achController release];
 }
 
 - (IBAction)pressedEnterManuallyButton:(id)sender
 {
-    // Load AddACHAccountController and push
+    // Load the exact same view controller, but call the camera function manually (no button press)
     [self.navigationController pushViewController:[[AddACHAccountViewController alloc] init] animated:YES];
+    
+    // Get the list of view controllers
+    NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+    [allViewControllers removeObjectIdenticalTo:self];
+    [[self navigationController] setViewControllers:allViewControllers animated:NO];
+    
+    [allViewControllers release];
 }
 @end

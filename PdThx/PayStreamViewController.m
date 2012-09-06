@@ -255,8 +255,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
     
-    [[transactionsDict objectForKey:@"Loading"] addObject:[[[NSObject alloc] init] autorelease]];
-    [transactionsTableView reloadData];
+    if ( [[transactionsDict objectForKey:@"Loading"] count] == 0 ){
+        [[transactionsDict objectForKey:@"Loading"] addObject:[[[NSObject alloc] init] autorelease]];
+        [transactionsTableView reloadData];
+    }
     
     [getPayStreamService getPayStream:userId];
 }

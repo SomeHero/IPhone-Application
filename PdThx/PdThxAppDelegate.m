@@ -172,7 +172,7 @@
         }
     } else {
         // setupFlowViewController already is shown.
-        if ( [self ShouldShowPersonalizationOptions] ) {
+        if ( [self ShouldShowPersonalizationOptions] && [caller isKindOfClass:[ActivatePhoneViewController class]] ) {
             [[caller navigationController] pushViewController:[[PersonalizeViewController alloc] init] animated:NO];
             
             // Get the list of view controllers
@@ -180,7 +180,7 @@
             [allViewControllers removeObjectIdenticalTo:caller];
             [[caller navigationController] setViewControllers:allViewControllers animated:NO];
             [allViewControllers release];
-        } else if ( [self ShouldShowBankAccountOptions] ) {
+        } else if ( [self ShouldShowBankAccountOptions] && ![caller isKindOfClass:[AddACHAccountViewController class]] && ![caller isKindOfClass:[AddACHOptionsViewController class]] && ![caller isKindOfClass:[EnablePaymentsNoMoneyWaitingViewController class]] ) {
             EnablePaymentsNoMoneyWaitingViewController*enableVC = [[EnablePaymentsNoMoneyWaitingViewController alloc] init];
             [[caller navigationController] pushViewController:enableVC animated:NO];
             
@@ -198,138 +198,28 @@
 
 -(bool)ShouldShowEnablePhoneOption
 {
-    if ( self.user.mobileNumber != (id)[NSNull null] || shownPhone )
-        return false;
-    else {
-        shownPhone = true;
+    if ( self.user.mobileNumber == (id)[NSNull null] )
         return true;
-    }
+    else
+        return false;
 }
 
 -(bool)ShouldShowPersonalizationOptions
 {
-    if ( ( self.user.firstName != (id)[NSNull null] && self.user.lastName != (id)[NSNull null] ) || shownPersonalize )
+    if ( ( self.user.firstName != (id)[NSNull null] && self.user.lastName != (id)[NSNull null] ) )
         return false;
-    else {
-        shownPersonalize = true;
+    else
         return true;
-    }
 }
 
 -(bool)ShouldShowBankAccountOptions
 {
-    if ( ( self.user.payPoints != (id)[NSNull null] && [self.user.payPoints count] > 0 ) || shownEnablePayments )
+    if ( self.user.bankAccounts != (id)[NSNull null] && self.user.bankAccounts.count > 0 )
         return false;
-    else {
-        shownEnablePayments = true;
+    else
         return true;
-    }
 }
 
-/*
--(void)startUserSetupFlow
-{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    bool isNewUser = [prefs boolForKey: @"isNewUser"];
-
-    if(currentReminderTab < 1 && (user.mobileNumber == (id)[NSNull null] || [user.mobileNumber length] == 0))
-    {
-        currentReminderTab = 1;
-        
-        ActivatePhoneViewController* controller = [[ActivatePhoneViewController alloc] init];
-        
-        if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];
-            [mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];
-            
-        } else {
-            [setupFlowController pushViewController:controller animated:YES];
-        }
-    }
-    else if( ( currentReminderTab < 2 && isNewUser) || (currentReminderTab < 2 && user.firstName == (id)[NSNull null]) || (currentReminderTab < 2 && user.lastName == (id)[NSNull null])) {
-        
-        currentReminderTab = 2;  
-        
-        PersonalizeViewController* controller = [[PersonalizeViewController alloc] init];
-        
-        if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
-            
-        }
-        else {
-            [setupFlowController pushViewController:controller animated:YES];
-        }
-        
-    }
-    else if (currentReminderTab < 3 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0)  && (user.outstandingPayments.count > 0))
-    {
-        currentReminderTab = 3;
-        
-        EnablePaymentsViewController* controller
-        = [[EnablePaymentsViewController alloc] init];
-        controller.message = [user.outstandingPayments objectAtIndex:0];
-        
-        if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
-            
-        }
-        else {
-            [setupFlowController pushViewController:controller animated:YES];
-        }
-        //currentReminderTab = 3;
-        //[self.newUserFlowTabController setSelectedIndex:3];
-        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        // Keep Progress Bar on top
-        
-        [controller release];
-    }
-    else if(currentReminderTab < 4 && (user.preferredPaymentAccountId == (id)[NSNull null] || [user.preferredPaymentAccountId length] == 0))
-    {
-        
-        
-        currentReminderTab = 4;  
-        
-        AddACHAccountViewController* controller = [[AddACHAccountViewController alloc] init];
-        controller.newUserFlow = true;
-        if(setupFlowController == nil) {
-            setupFlowController = [[UINavigationController alloc] initWithRootViewController:controller];[mainAreaTabBarController presentModalViewController:setupFlowController animated:YES];            
-            
-        }
-        else {
-            [setupFlowController pushViewController:controller animated:YES];
-        }
-        //currentReminderTab = 3;
-        //[self.newUserFlowTabController setSelectedIndex:3];
-        //[self.window bringSubviewToFront:self.newUserFlowTabController.view];
-        // Keep Progress Bar on top
-        
-        
-        [controller release];
-        
-    } else {
-        currentReminderTab = 5;
-        
-        if(setupFlowController != nil) {
-            [[myProgHudInnerView activityIndicator] stopAnimating];
-
-            [prefs setBool:false forKey:@"isNewUser"];
-            
-            [prefs synchronize];
-            
-            //add a small delay before dismiss the modal
-            double delayInSeconds = 1.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [mainAreaTabBarController dismissModalViewControllerAnimated:YES];
-            });
-            
-            [setupFlowController release];
-            setupFlowController = nil;
-            
-        }
-    }
-}*/
 
 -(void)endUserSetupFlow
 {
