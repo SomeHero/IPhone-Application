@@ -72,8 +72,13 @@
 - (IBAction)pressedRemindMeLater:(id)sender
 {
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationItem.leftBarButtonItem =nil;
 }
 
 -(IBAction) sendInAppSMS:(id) sender
@@ -94,31 +99,25 @@
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
-    switch (result) 
+    switch (result)
     {
 		case MessageComposeResultCancelled:
 			NSLog(@"Cancelled");
-            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
-            
+            [self dismissModalViewControllerAnimated:YES];
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 			break;
 		case MessageComposeResultFailed:
-            
-            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
-            
+            [self dismissModalViewControllerAnimated:YES];
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 			break;
 		case MessageComposeResultSent:
             NSLog(@"Text Message Sent!");
-            /*
-            PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-            [appDelegate showSuccessWithStatus:@"Message Sent" withDetailedStatus:@"Thank you"];
-            */
-            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+            [self dismissModalViewControllerAnimated:YES];
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 			break;
 		default:
 			break;
 	}
-    
-	[self dismissModalViewControllerAnimated:YES];
 }
 
 @end

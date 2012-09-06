@@ -707,6 +707,8 @@
 		7AD84EFF15EBC1A0002979D5 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EFE15EBC1A0002979D5 /* UIImage+Scale.m */; };
 		7AD8923615F795E900726ACB /* AddACHOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD8923415F795E900726ACB /* AddACHOptionsViewController.m */; };
 		7AD8923715F795E900726ACB /* AddACHOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AD8923515F795E900726ACB /* AddACHOptionsViewController.xib */; };
+		7AD8923C15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD8923A15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.m */; };
+		7AD8923D15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AD8923B15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.xib */; };
 		C303225515AC97C2003B21E3 /* ForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */; };
 		C303225615AC97C2003B21E3 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */; };
 		C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C334D27615BF248E00923348 /* SelectRecipientViewController.m */; };
@@ -1727,6 +1729,9 @@
 		7AD8923315F795E900726ACB /* AddACHOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddACHOptionsViewController.h; sourceTree = "<group>"; };
 		7AD8923415F795E900726ACB /* AddACHOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddACHOptionsViewController.m; sourceTree = "<group>"; };
 		7AD8923515F795E900726ACB /* AddACHOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddACHOptionsViewController.xib; sourceTree = "<group>"; };
+		7AD8923915F8F2F200726ACB /* EnablePaymentsNoMoneyWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnablePaymentsNoMoneyWaitingViewController.h; sourceTree = "<group>"; };
+		7AD8923A15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnablePaymentsNoMoneyWaitingViewController.m; sourceTree = "<group>"; };
+		7AD8923B15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnablePaymentsNoMoneyWaitingViewController.xib; sourceTree = "<group>"; };
 		C303225215AC97C2003B21E3 /* ForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordViewController.xib; sourceTree = "<group>"; };
 		C303225315AC97C2003B21E3 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		C303225415AC97C2003B21E3 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
@@ -1958,6 +1963,9 @@
 				5B8B455D15A2489000822B67 /* SetupNavigationView.h */,
 				5B8B455E15A2489000822B67 /* SetupNavigationView.m */,
 				5B8B455F15A2489000822B67 /* SetupNavigationView.xib */,
+				7AD8923915F8F2F200726ACB /* EnablePaymentsNoMoneyWaitingViewController.h */,
+				7AD8923A15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.m */,
+				7AD8923B15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.xib */,
 				5B8B456915A3ED0700822B67 /* EnablePaymentsViewController.h */,
 				5B8B456A15A3ED0800822B67 /* EnablePaymentsViewController.m */,
 				5B8B456B15A3ED0900822B67 /* EnablePaymentsViewController.xib */,
@@ -4393,6 +4401,7 @@
 				7ABC434415EC0DD6009B2B0A /* img-shadow-divider-238x7@2x.png in Resources */,
 				7AAD193515EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib in Resources */,
 				7AD8923715F795E900726ACB /* AddACHOptionsViewController.xib in Resources */,
+				7AD8923D15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4629,6 +4638,7 @@
 				7AD84EFF15EBC1A0002979D5 /* UIImage+Scale.m in Sources */,
 				7AAD193815EE7DB700308CAA /* UIPaystreamLoadingCell.m in Sources */,
 				7AD8923615F795E900726ACB /* AddACHOptionsViewController.m in Sources */,
+				7AD8923C15F8F2F300726ACB /* EnablePaymentsNoMoneyWaitingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

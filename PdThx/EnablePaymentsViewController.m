@@ -61,21 +61,20 @@
     [lblOutstandingDate setText:[dateFormatter stringFromDate: message.createDate]];
     
     NSString*	s;
-	NSString*	art		= @"bg-message-stretch.png";
-	CGSize		caps		= CGSizeMake(25, 24);
-	UIFont*		font		= [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
-	CGFloat		padTRBL[4]	= {15, 8, 8, 8};
-	UIView*		bubble;
+    NSString*	art		= @"bg-message-stretch.png";
+    CGSize		caps		= CGSizeMake(25, 24);
+    UIFont*		font		= [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
+    CGFloat		padTRBL[4]	= {15, 8, 8, 8};
+    UIView*		bubble;
     
-	// Create bubble
-	s = [NSString stringWithFormat: @"\"%@\"", message.comments];
+    // Create bubble
+    s = [NSString stringWithFormat: @"\"%@\"", message.comments];
     
     bubble =[self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
-	bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
-	[quoteBubble addSubview:bubble];
-    
-    
+    bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
+    [quoteBubble addSubview:bubble];
 }
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -98,7 +97,7 @@
     
 }
 -(IBAction)btnAddBankAccountClicked:(id)sender {
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -136,7 +136,7 @@ CGSize scrollViewOriginalSize;
     
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
-
+    [self.navigationController.navigationBar.backItem setHidesBackButton:YES];
     
     [super viewDidLoad];
 }
