@@ -6,17 +6,19 @@
 //
 //
 
-#import "UIBaseViewController.h"
+#import "UISetupUserBaseViewController.h"
 
-@interface AddACHOptionsViewController : UIBaseViewController
+@interface AddACHOptionsViewController : UISetupUserBaseViewController
 {
     IBOutlet UIButton *takePictureButton;
     
     IBOutlet UIButton *enterManuallyButton;
+    IBOutlet UIView *navBar;
 }
 
 @property (nonatomic, retain) UIButton * takePictureButton;
 @property (nonatomic, retain) UIButton * enterManuallyButton;
+@property (nonatomic, retain) UIView *navBar;
 
 - (IBAction)pressedTakePictureButton:(id)sender;
 - (IBAction)pressedEnterManuallyButton:(id)sender;

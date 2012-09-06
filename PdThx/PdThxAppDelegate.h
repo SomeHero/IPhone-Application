@@ -46,7 +46,6 @@
     myProgressHud *myProgHudOverlay;
     ProgressHudInnnerViewController *myProgHudInnerView;
     CustomAlertViewController *customAlert;
-    UINavigationController* setupFlowController;
     Application* myApplication;
     
     MerchantServices* merchantServices;
@@ -63,16 +62,21 @@
     
     NSString * fbAppId;
     
-    UINavigationController * mainAreaTabBarController;
+    UINavigationController* setupFlowController;
+    id setupFlowViewController;
+    
+    UINavigationController* mainAreaTabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+
 @property (nonatomic, retain) Facebook * fBook;
-@property (nonatomic, retain) NSString * deviceToken;
-@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, retain) NSArray * permissions;
-@property (nonatomic, retain) UIAlertView * notifAlert;
+
+
+@property (nonatomic, retain) NSString * deviceToken;
+
+@property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, assign) bool areFacebookContactsLoaded;
 @property (nonatomic, retain) UITabBarController *newUserFlowTabController;
 @property (nonatomic, retain) FBRequest *friendRequest;
@@ -82,20 +86,16 @@
 @property (nonatomic, retain) ProgressHudInnnerViewController *myProgHudInnerView;
 @property (nonatomic, retain) CustomAlertViewController *customAlert;
 
-@property (nonatomic, retain) UINavigationController* setupFlowController;
+@property (nonatomic, retain) UINavigationController*welcomeTabBarController;
+@property(nonatomic, retain) UINavigationController* mainAreaTabBarController;
 
-@property (nonatomic, retain) UINavigationController *welcomeTabBarController;
-@property(nonatomic, retain) UINavigationController * mainAreaTabBarController;
 @property (nonatomic, assign) int animationTimer;
 
-
 @property(nonatomic, retain) Application* myApplication;
-
 
 @property (nonatomic, retain) NSMutableArray *contactsArray;
 
 @property (nonatomic, retain) NSMutableArray *quickSendArray;
-
 
 @property (nonatomic, retain) NSMutableArray *phoneContacts;
 @property (nonatomic, retain) NSMutableArray *faceBookContacts;
@@ -106,15 +106,23 @@
 
 @property(nonatomic, retain) NSString* selectedContactList;
 
+/*      TEMPORARY BOOLS FOR NEW USER SETUP FLOW     */
+@property(assign) bool shownPhone;
+@property(assign) bool shownPersonalize;
+@property(assign) bool shownEnablePayments;
 
-/*      Static Tab Bar Setup        */
-//@property (assign) int currentMainAreaTabIndex;
+/*              Static Tab Bar Setup                */
+/* ------------------------------------------------ */
 @property(nonatomic, retain) UIViewController* currentLoggedInViewController;
 @property(nonatomic, retain) UIViewController* LoggedInFirstViewController;
 @property(nonatomic, retain) UIViewController* LoggedInSecondViewController;
 @property(nonatomic, retain) UIViewController* LoggedInCenterViewController;
 @property(nonatomic, retain) UIViewController* LoggedInFourthViewController;
 @property(nonatomic, retain) UIViewController* LoggedInFifthViewController;
+
+
+@property(nonatomic,retain) UINavigationController* setupFlowController;
+@property(nonatomic,retain) id setupFlowViewController;
 
 -(void)signOut;
 -(void)forgetMe;
@@ -125,7 +133,9 @@
 
 -(void)switchToMainAreaTabbedView;
 -(void)backToWelcomeTabbedArea;
--(void)startUserSetupFlow;
+
+-(void)startUserSetupFlow:(id)caller;
+
 -(void)endUserSetupFlow;
 
 - (void)showWithStatus:(NSString *)status withDetailedStatus:(NSString*)detailedStatus;
@@ -145,8 +155,6 @@
 -(void) showTwoButtonAlertView:(bool)status withTitle:(NSString*)headerText withSubtitle:(NSString*)subTitle withDetailedText:(NSString*)detailText withButton1Text:(NSString*)button1Text withButton2Text:(NSString*)button2Text withDelegate:(id<CustomAlertViewProtocol>) delegate;
 
 -(void)showAlertWithResult:(bool)success withTitle:(NSString*)title withSubtitle:(NSString*)subtitle withDetailText:(NSString*)detailedText withLeftButtonOption:(int)leftButtonOption withLeftButtonImageString:(NSString*)leftButtonImageString withLeftButtonSelectedImageString:(NSString*)leftButtonSelectedImageString withLeftButtonTitle:(NSString*)leftButtonTitle withLeftButtonTitleColor:(UIColor*)leftButtonTextColor withRightButtonOption:(int)rightButtonOption withRightButtonImageString:(NSString*)rightButtonImageString withRightButtonSelectedImageString:(NSString*)rightButtonSelectedImageString withRightButtonTitle:(NSString*)rightButtonTitle withRightButtonTitleColor:(UIColor*)rightButtonTextColor withTextFieldPlaceholderText:(NSString*)placeholderText withDelegate:(id)alertDelegate;
-
-
 
 //-(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex;
 -(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex fromViewController:(UIViewController*)oldVC;

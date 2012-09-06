@@ -430,7 +430,7 @@
 -(void)securityQuestionAnsweredCorrect {
     [self dismissModalViewControllerAnimated: NO];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
 -(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage {
         
