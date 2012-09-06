@@ -278,10 +278,9 @@
     
     if([request responseStatusCode] == 200 ) {
         NSLog(@"Personalize User Complete");
-        
         [personalizeUserCompleteDelegate personalizeUserDidComplete];
-        
-    } else
+    }
+    else
     {
         NSLog(@"Personalize User Failed");
         

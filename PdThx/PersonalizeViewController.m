@@ -121,15 +121,19 @@
 }
 - (IBAction)pressedSaveContinue:(id)sender 
 {
-    
     [firstNameField resignFirstResponder];
     [lastNameField resignFirstResponder];
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    NSString* imageUrl = [NSString stringWithString: @""];
+    NSString* imageUrl = @"";
     
     if(user.imageUrl != (id)[NSNull null])
         imageUrl = user.imageUrl;
+    
+    // Update user for next time.
+    appDelegate.user.firstName = firstNameField.text;
+    appDelegate.user.lastName = lastNameField.text;
+    appDelegate.user.imageUrl = imageUrl;
     
     [appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
     [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: imageUrl];
