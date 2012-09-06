@@ -138,12 +138,12 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     [appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
 -(void) personalizeUserDidFail:(NSString*) response {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Check data connection"];
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
 -(IBAction) bgTouched:(id) sender {
     [firstNameField resignFirstResponder];

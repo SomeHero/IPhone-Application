@@ -26,13 +26,19 @@
 #import "HomeViewControllerV2.h"
 #import "WelcomeScreenViewController.h"
 #import "AboutPageViewController.h"
+#import "AddACHAccountViewController.h"
+#import "AddACHOptionsViewController.h"
+#import "EnablePaymentsNoMoneyWaitingViewController.h"
 
 @implementation PdThxAppDelegate
 
 @synthesize window=_window;
-@synthesize welcomeTabBarController, newUserFlowTabController, tabBarController;
-@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, contactsArray, notifAlert, areFacebookContactsLoaded;
-@synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert, setupFlowController;
+
+@synthesize welcomeTabBarController, newUserFlowTabController;
+
+@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, contactsArray, areFacebookContactsLoaded;
+@synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert, setupFlowViewController;
+
 @synthesize myApplication;
 @synthesize phoneContacts;
 @synthesize faceBookContacts;
@@ -45,8 +51,10 @@
 
 // Static Tab Bar View Controllers..
 @synthesize LoggedInCenterViewController, LoggedInFifthViewController, LoggedInFirstViewController, LoggedInFourthViewController, LoggedInSecondViewController;
-//@synthesize currentMainAreaTabIndex;
 
+
+/*      Temporary New User Flow Booleans    */
+@synthesize shownEnablePayments, shownPersonalize, shownPhone;
 
 -(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex fromViewController:(UIViewController*)oldVC
 {
@@ -140,9 +148,85 @@
         [self.window bringSubviewToFront:customAlert.view];
     }
     
-    [self startUserSetupFlow];
+    [self startUserSetupFlow:nil];
 }
 
+-(void)startUserSetupFlow:(id)caller
+{
+    if ( caller == nil ) // Setup flow not created, start.
+    {
+        if ( [self ShouldShowEnablePhoneOption] == true )
+        {
+            setupFlowViewController = [[UINavigationController alloc] initWithRootViewController:[[ActivatePhoneViewController alloc] init]];
+            [mainAreaTabBarController pushViewController:[[setupFlowViewController viewControllers] objectAtIndex:0] animated:NO];
+        } else if ( [self ShouldShowPersonalizationOptions] ) {
+            setupFlowViewController = [[UINavigationController alloc] initWithRootViewController:[[PersonalizeViewController alloc] init]];
+            [mainAreaTabBarController pushViewController:[[setupFlowViewController viewControllers] objectAtIndex:0] animated:NO];
+        } else if ( [self ShouldShowBankAccountOptions] ) {
+            EnablePaymentsNoMoneyWaitingViewController*enableVC = [[EnablePaymentsNoMoneyWaitingViewController alloc] init];
+            setupFlowViewController = [[UINavigationController alloc] initWithRootViewController:enableVC];
+            
+            [mainAreaTabBarController pushViewController:[[setupFlowViewController viewControllers] objectAtIndex:0] animated:NO];
+        } else {
+            [mainAreaTabBarController popToRootViewControllerAnimated:YES];
+        }
+    } else {
+        // setupFlowViewController already is shown.
+        if ( [self ShouldShowPersonalizationOptions] ) {
+            [[caller navigationController] pushViewController:[[PersonalizeViewController alloc] init] animated:NO];
+            
+            // Get the list of view controllers
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:((UIViewController*)caller).navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:caller];
+            [[caller navigationController] setViewControllers:allViewControllers animated:NO];
+            [allViewControllers release];
+        } else if ( [self ShouldShowBankAccountOptions] ) {
+            EnablePaymentsNoMoneyWaitingViewController*enableVC = [[EnablePaymentsNoMoneyWaitingViewController alloc] init];
+            [[caller navigationController] pushViewController:enableVC animated:NO];
+            
+            
+            // Get the list of view controllers
+            NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:((UIViewController*)caller).navigationController.viewControllers];
+            [allViewControllers removeObjectIdenticalTo:caller];
+            [[caller navigationController] setViewControllers:allViewControllers animated:NO];
+            [allViewControllers release];
+        } else {
+            [mainAreaTabBarController popToRootViewControllerAnimated:YES];
+        }
+    }
+}
+
+-(bool)ShouldShowEnablePhoneOption
+{
+    if ( self.user.mobileNumber != (id)[NSNull null] || shownPhone )
+        return false;
+    else {
+        shownPhone = true;
+        return true;
+    }
+}
+
+-(bool)ShouldShowPersonalizationOptions
+{
+    if ( ( self.user.firstName != (id)[NSNull null] && self.user.lastName != (id)[NSNull null] ) || shownPersonalize )
+        return false;
+    else {
+        shownPersonalize = true;
+        return true;
+    }
+}
+
+-(bool)ShouldShowBankAccountOptions
+{
+    if ( ( self.user.payPoints != (id)[NSNull null] && [self.user.payPoints count] > 0 ) || shownEnablePayments )
+        return false;
+    else {
+        shownEnablePayments = true;
+        return true;
+    }
+}
+
+/*
 -(void)startUserSetupFlow
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -245,7 +329,8 @@
             
         }
     }
-}
+}*/
+
 -(void)endUserSetupFlow
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -313,6 +398,9 @@
 	//[hostReach startNotifier];
 	//[self updateInterfaceWithReachability: hostReach];
     
+    shownEnablePayments = false;
+    shownPersonalize = false;
+    shownPhone = false;
     
     selectedContactList = @"AllContacts";
     

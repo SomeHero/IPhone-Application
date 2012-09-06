@@ -288,8 +288,7 @@
     [appDelegate showSuccessWithStatus:@"Account Added!" withDetailedStatus:@"Linked bank account"];
     
     if(newUserFlow) {
-     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
-        
+        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
     }
     else {
         [self.navigationController dismissModalViewControllerAnimated: YES];
@@ -481,7 +480,7 @@
 
 -(IBAction)btnRemindMeLaterClicked:(id)sender;
 {
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
 
 -(void)delete:(id)sender

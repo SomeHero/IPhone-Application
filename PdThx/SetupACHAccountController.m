@@ -208,8 +208,8 @@
     
     user.preferredPaymentAccountId = paymentAccountId;
     user.preferredReceiveAccountId = paymentAccountId;
-
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
     // Move to Home View Controller inside NavigationController again
     //[self.navigationController popToRootViewControllerAnimated:YES];
 }
