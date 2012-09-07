@@ -1,21 +1,21 @@
 //
-//  AddACHOptionsViewController.m
+//  ChooseAddACHMethodViewController.m
 //  PdThx
 //
-//  Created by Christopher Magee on 9/5/12.
+//  Created by Christopher Magee on 9/7/12.
 //
 //
 
-#import "AddACHOptionsViewController.h"
-#import "PdThxAppDelegate.h"
+#import "ChooseAddACHMethodViewController.h"
+#import "NewACHAccountViewController.h"
 
-@interface AddACHOptionsViewController ()
+@interface ChooseAddACHMethodViewController ()
 
 @end
 
-@implementation AddACHOptionsViewController
+@implementation ChooseAddACHMethodViewController
 
-@synthesize takePictureButton, enterManuallyButton, navBar;
+@synthesize takePictureButton, enterManuallyButton, achSetupDidComplete;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,11 +31,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
-    [setupNavBar setActiveState:@"Enable Payments" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:YES whereEnableComplete:NO];
-    [navBar addSubview:setupNavBar];
-    
-    [self setTitle: @"Enable Payments"];
+    [self setTitle: @"Add Bank Account"];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"ACH Delegate in Choose: %@", achSetupDidComplete);
 }
 
 - (void)viewDidUnload
@@ -44,17 +45,11 @@
     takePictureButton = nil;
     [enterManuallyButton release];
     enterManuallyButton = nil;
-    [navBar release];
-    navBar = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    self.navigationItem.leftBarButtonItem =nil;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -64,15 +59,16 @@
 - (void)dealloc {
     [takePictureButton release];
     [enterManuallyButton release];
-    [navBar release];
     [super dealloc];
 }
 
 
 - (IBAction)pressedTakePictureButton:(id)sender
 {
-    AddACHAccountViewController *achController = [[AddACHAccountViewController alloc] init];
+    NewACHAccountViewController *achController = [[NewACHAccountViewController alloc] init];
     [self.navigationController pushViewController:achController animated:YES];
+    
+    [achController setAchSetupDidComplete:achSetupDidComplete];
     [achController takePictureOfCheck];
     
     // Get the list of view controllers
@@ -87,7 +83,12 @@
 - (IBAction)pressedEnterManuallyButton:(id)sender
 {
     // Load the exact same view controller, but call the camera function manually (no button press)
-    [self.navigationController pushViewController:[[AddACHAccountViewController alloc] init] animated:YES];
+    NewACHAccountViewController*achController = [[NewACHAccountViewController alloc] init];
+    [self.navigationController pushViewController:achController animated:YES];
+    
+    [achController setAchSetupDidComplete:achSetupDidComplete];
+    [achController setNavigationTitle:@"Add Bank Account"];
+    [achController setTitle:@"Add Bank Account"];
     
     // Get the list of view controllers
     NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];

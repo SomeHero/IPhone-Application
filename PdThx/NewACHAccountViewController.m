@@ -8,6 +8,9 @@
 
 #import "NewACHAccountViewController.h"
 #import "ACHHelpView.h"
+#import "AROverlayViewController.h"
+#import "NSData+Base64Encoding.h"
+#import "UIImage+Scale.h"
 
 @interface NewACHAccountViewController ()
 
@@ -30,7 +33,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [txtAccountNickname becomeFirstResponder];
+    //[txtAccountNickname becomeFirstResponder];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
@@ -44,8 +47,51 @@
     [helpButton setImage:helpImage]; 
     self.navigationItem.rightBarButtonItem = helpButton;
     
-
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    if ( appDelegate.user.firstName != (id)[NSNull null] && appDelegate.user.lastName!= (id)[NSNull null] &&
+        appDelegate.user.firstName.length > 0 && appDelegate.user.lastName.length > 0 )
+    {
+        txtNameOnAccount.text = [NSString stringWithFormat:@"%@ %@", appDelegate.user.firstName, appDelegate.user.lastName];
+    }
+    
+    // login
+    mipControllerInstance = [[MIPController alloc] init];
+    [mipControllerInstance setJobName:@"ACH"];
+    [mipControllerInstance setOrgID:@"PaidThx"];
+    [mipControllerInstance setServerURL:@"https://mi1.miteksystems.com/mobileimaging/ImagingPhoneService.asmx"];
+    
+    // Do the login
+    if ( [mipControllerInstance connect:@"paidthxuser2@miteksystems.com" password:@"Pa1dThxx2" delegate:self] )
+    {
+        NSLog(@"Logging into mitek check processor...");
+    } else {
+        NSLog(@"ERROR!");
+    }
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    if ( navigationTitle.length > 0 )
+        [self setTitle:navigationTitle];
+}
+
+- (void)connectSuccess
+{
+    // Stop listening
+    [mipControllerInstance dropDelegate:self];
+    
+    NSLog(@"Success connecting to mitek systems check processor");
+}
+
+- (void)connectFailure
+{
+    // Stop listening
+    [mipControllerInstance dropDelegate:self];
+    
+    NSLog(@"ERROR connecting to mitek systems check processor");
+}
+
 
 -(void)needsHelp
 {
@@ -68,10 +114,10 @@
 }
 -(IBAction) btnCreateAccountClicked:(id)sender
 {
-    NSString* nameOnAccount = [NSString stringWithString: @""];
-    NSString* routingNumber = [NSString stringWithString: @""];
-    NSString* accountNumber = [NSString stringWithString: @""];
-    NSString* confirmAccountNumber = [NSString stringWithString: @""];
+    NSString* nameOnAccount = @"";
+    NSString* routingNumber = @"";
+    NSString* accountNumber = @"";
+    NSString* confirmAccountNumber = @"";
     
     if([txtNameOnAccount.text length] > 0)
         nameOnAccount = [NSString stringWithString: txtNameOnAccount.text];
@@ -137,6 +183,8 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
+    [sender dismissModalViewControllerAnimated:YES];
+    
     if(user.hasSecurityPin)
     {
         securityPin = pin;
@@ -209,7 +257,7 @@
 }
 -(void)swipeDidCancel: (id)sender
 {
-    [self.navigationController dismissModalViewControllerAnimated: YES];
+    [sender dismissModalViewControllerAnimated: YES];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtAccountNickname resignFirstResponder];
@@ -219,9 +267,157 @@
     [txtRoutingNumber resignFirstResponder];
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Added"];
+    
+    NSLog(@"ACH Delegate: %@", achSetupDidComplete);
     [achSetupDidComplete userACHSetupDidComplete:paymentAccountId];
 }
 -(void)userACHSetupDidFail:(NSString*) message {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Account Invalid"];
     [achSetupDidComplete userACHSetupDidFail: message];
 }
+
+
+- (void)takePictureOfCheck
+{
+    // Load Camera with Delegate
+    AROverlayViewController*cameraVC = [[AROverlayViewController alloc] init];
+    
+    [cameraVC setCheckImageReturnDelegate:self];
+    
+    [self presentModalViewController:cameraVC animated:YES];
+    [cameraVC release];
+}
+
+-(void)cameraReturnedImage:(UIImage *)image
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Reading Image"];
+    
+    NSLog(@"Successfully returned image: %@",image);
+    [self dismissModalViewControllerAnimated:YES];
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    
+    UIImage *newImage = [[[UIImage alloc] initWithData:imageData] scaleToSize:CGSizeMake(1200, 1600)];
+    
+    newImage = [newImage rotate:UIImageOrientationLeft];
+    
+    // We don't care to save it anymore. Just send it.
+    // UIImageWriteToSavedPhotosAlbum(newImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    
+    [mipControllerInstance sendImage:newImage delegate:self];
+}
+
+
+- (NSString *)determineValue:(NSDictionary *)field money:(BOOL)money {
+    
+    NSString *value;
+    
+    // The hell does this class do? It seems there's supposed to be different states of information...
+    // Like re-saved after a user edits it. I'm really not sure.
+    
+    if((value = [field objectForKey:@"ValueBest"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"ValueUserUpdated"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"ValuePostProcessed"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"ValueStandardized"]) && [value length] > 0)
+        return value;
+    else if((value = [field objectForKey:@"Value"]) && [value length] > 0 && money == NO)
+        return value;
+    else
+        return @"";
+}
+
+- (void)loadTheResults:(NSDictionary *)transaction
+{
+    
+    NSMutableDictionary *returnedAccountInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+    
+    // Convert the extracted fields
+    NSDictionary *extractedFields = [transaction objectForKey:@"ExtractedFields"];
+    
+    for(NSDictionary *eachField in extractedFields)
+    {
+        NSDictionary *Field = [eachField objectForKey:@"ExtractedField"];
+        
+        NSString * FieldName = [Field objectForKey:@"Name"];
+        
+        // Automatic Clearing House ///////////////////////////////////////////////////////////////////
+        if([FieldName isEqualToString:@"MICR routing#"])
+            [returnedAccountInfo setObject:[self determineValue:Field money:NO] forKey:@"RoutingNumber"];
+        
+        else if([FieldName isEqualToString:@"MICR account#"])
+            [returnedAccountInfo setObject:[self determineValue:Field money:NO] forKey:@"AccountNumber"];
+    }
+    
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate dismissProgressHUD];
+    
+    [appDelegate showSimpleAlertView:TRUE withTitle:@"Success!" withSubtitle:@"Based on your check, we found:" withDetailedText:[NSString stringWithFormat:@"Your Routing Number is #%@, and your Account Number is #%@. Please verify this information matches the information on your check.",[returnedAccountInfo valueForKey:@"RoutingNumber"],[returnedAccountInfo valueForKey:@"AccountNumber"]] withButtonText:@"Ok" withDelegate:self];
+    
+    txtAccountNumber.text = [returnedAccountInfo valueForKey:@"AccountNumber"];
+    txtConfirmAccountNumber.text = txtAccountNumber.text;
+    
+    txtRoutingNumber.text = [returnedAccountInfo valueForKey:@"RoutingNumber"];
+    
+    [returnedAccountInfo removeObjectForKey:@"RoutingNumber"];
+    [returnedAccountInfo removeObjectForKey:@"AccountNumber"];
+}
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissAlertView];
+}
+
+#pragma mark -
+#pragma mark WebService Delegate
+
+- (void)imageFailure:(NSError *)err
+{
+    // TODO: DISMISS PROGRESS HUD AND SHOW ALERT VIEW LIKE IT DOES BELOW
+    
+	NSLog(@"Failure signaled - %@", [err description]);
+    
+    // TODO: FIX TRANSITION
+}
+
+- (void) imageSuccess:(NSDictionary *)xmlDict {
+	
+    // TODO: DISMISS PROGRESS HUD
+    
+    NSDictionary *transaction = [xmlDict objectForKey:@"Transaction"];
+    if(transaction)
+    {
+        if([[xmlDict objectForKey:@"SecurityResult"] integerValue]) {
+            PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            [appDelegate dismissProgressHUD];
+            [appDelegate showSimpleAlertView:TRUE withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButtonText:@"Ok" withDelegate:self];
+        }
+        else if(![[transaction objectForKey:@"IQAGood"] boolValue]) {
+            
+            PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            [appDelegate dismissProgressHUD];
+            [appDelegate showSimpleAlertView:FALSE withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButtonText:@"Ok" withDelegate:self];
+        }
+        else
+        {
+            // TODO: LOAD RESULTS BASICALLY JUST CHANGES THE TEXT FIELDS ON THE ACCOUNT ADD SCREEN
+            [self loadTheResults:transaction];
+        }
+    }
+    else {
+        NSLog(@"Error connecting to mitek");
+    }
+}
+
+
+
 @end

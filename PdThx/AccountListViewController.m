@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SetupACHAccountController.h"
 #import "NewACHAccountViewController.h"
+#import "ChooseAddACHMethodViewController.h"
 
 @implementation AccountListViewController
 
@@ -83,6 +84,7 @@
 {
     [super viewDidDisappear:animated];
 }
+
 -(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
@@ -344,6 +346,7 @@
     if(indexPath.section == 0)  {
         if(indexPath.row >= [user.bankAccounts count])
         {
+            /*
             NewACHAccountViewController* controller = [[NewACHAccountViewController alloc] init];
             
             [controller setTitle: @"Add Bank Account"];
@@ -353,12 +356,28 @@
             //[controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
 
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-     
+            
             
             //[self.navigationItem setRightBarButtonItem:(UIBarButtonItem *) animated:YES];
             [self.navigationController presentModalViewController:navBar animated:YES];
             [navBar release];
             [controller release];
+             */
+            ChooseAddACHMethodViewController* chooseMethodVC = [[ChooseAddACHMethodViewController alloc] init];
+            [chooseMethodVC setNavigationTitle:@"Add Bank Account"];
+            [chooseMethodVC setTitle:@"Add Bank Account"];
+            
+            NSLog(@"Setting Delegate to: %@", self);
+            [chooseMethodVC setAchSetupDidComplete:self];
+            
+            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:chooseMethodVC];
+            
+            
+            [self.navigationController presentModalViewController:navBar animated:YES];
+            
+            
+            [navBar release];
+            [chooseMethodVC release];
         } else {
             EditACHAccountViewController* controller = [[EditACHAccountViewController alloc] init];
             controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];
@@ -423,8 +442,8 @@
 -(void)setPreferredAccountDidFail:(NSString*)responseMsg {
     NSLog(@"Failed");
 }
--(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
-
+-(void)userACHSetupDidComplete:(NSString*) paymentAccountId
+{
     [self.navigationController dismissModalViewControllerAnimated: NO];
     [self.navigationController dismissModalViewControllerAnimated:YES];
     

@@ -13,7 +13,7 @@
 #import "UserSetupACHAccount.h"
 #import "UserACHSetupCompleteProtocol.h"
 
-@interface NewACHAccountViewController : UIModalBaseViewController<CustomSecurityPinSwipeProtocol>
+@interface NewACHAccountViewController : UIModalBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
@@ -24,6 +24,7 @@
     IBOutlet UITextField* txtConfirmAccountNumber;
     IBOutlet UISegmentedControl* ctrlAccountType;
     IBOutlet UITextView* ctrlHeaderText;
+    MIPController*mipControllerInstance;
     
     NSString* securityPin;
     UserSetupACHAccount* accountService;
@@ -33,7 +34,10 @@
 }
 
 @property(nonatomic, retain) id<UserACHSetupCompleteProtocol> achSetupDidComplete;
+@property(nonatomic, retain) MIPController*mipControllerInstance;
 
 -(IBAction) btnCreateAccountClicked:(id)sender;
+
+- (void)takePictureOfCheck;
 
 @end
