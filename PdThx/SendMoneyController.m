@@ -110,7 +110,7 @@
         characterCountLabel.placeholder = [NSString stringWithFormat:@"%d/140",[txtComments.text length]];
     } else {
         txtComments.text = [txtComments.text substringToIndex:140];
-        characterCountLabel.placeholder = @"0/140";
+        characterCountLabel.placeholder = @"140/140";
     }
 }
 
@@ -367,7 +367,10 @@
     [self presentModalViewController:controller animated:YES];
     
     // Setting the background image must be done after the view loads (could call [controller viewDidLoad] too)
-    [controller.contactImageButton setBackgroundImage:recipient.imgData forState:UIControlStateNormal];
+    if ( recipient.imgData != (id)[NSNull null] )
+        [controller.contactImageButton setBackgroundImage:recipient.imgData forState:UIControlStateNormal];
+    else
+        [controller.contactImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
 }
 
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin

@@ -25,7 +25,7 @@
 }
 
 -(BOOL)isValidAccountNumber:(NSString *) accountNumberToTest {
-    if([accountNumberToTest length] == 0)
+    if([accountNumberToTest length] == 0 || [accountNumberToTest length] < 4 || [accountNumberToTest length] > 17)
         return false;
     
     return true;
@@ -37,5 +37,22 @@
         return false;
     
     return true;
+}
+
+
+-(BOOL)isValidSecurityPinSwipe:(NSString*)swipedPin
+{
+    if ( swipedPin.length < 4 )
+        return false;
+    else
+        return true;
+}
+
+-(BOOL)verifySecurityPinsMatch:(NSString*)firstPin andSecondPin:(NSString*)secondPin
+{
+    if ( [firstPin isEqualToString:secondPin] )
+        return true;
+    else
+        return false;
 }
 @end

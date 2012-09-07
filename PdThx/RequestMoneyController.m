@@ -484,11 +484,10 @@
             else {
                 
                 PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-                [appDelegate showWithStatus:@"Finding recipient" withDetailedStatus:@"Talking with the server to retrive valid recipients.."];
+                [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Finding Recipient"];
                 [requestMoneyService setDetermineRecipientCompleteDelegate:self];
                 [requestMoneyService determineRecipient:recipient.paypoints];
             }
-            
         } else {
             AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
             controller.newUserFlow = false;
@@ -510,16 +509,16 @@
     
     if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
     {
-        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipient.name]];
     }
     else
     {
         if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
         {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipientUri]];
         }
         else {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipient.name]];
         }
     }
     

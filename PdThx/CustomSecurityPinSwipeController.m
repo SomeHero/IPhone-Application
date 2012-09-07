@@ -37,7 +37,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)unlockPatternView:(ALUnlockPatternView *)patternView selectedCode:(NSString *)code{
     securityPin = [NSString stringWithString:[code copy]];
-
+    
     [securityPinSwipeDelegate swipeDidComplete:self withPin:securityPin];
 
 }
@@ -169,8 +169,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     titleView.text = title;
     [titleView sizeToFit];
 }
-
-
 
 
 @end

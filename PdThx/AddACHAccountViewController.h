@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UserSetupACHAccount.h"
-#import "CustomSecurityPinSwipeController.h"
+#import "GenericSecurityPinSwipeController.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "UserSetupACHAccountComplete.h"
 #import "User.h"
@@ -37,7 +37,7 @@
     NSString* headerText;
     NSString* securityPin;
     UserSetupACHAccount* accountService;
-    CustomSecurityPinSwipeController* controller;
+    GenericSecurityPinSwipeController* controller;
     AddSecurityQuestionViewController* addSecurityQuestionController;
     ValidationHelper* validationHelper;
     BOOL newUserFlow;

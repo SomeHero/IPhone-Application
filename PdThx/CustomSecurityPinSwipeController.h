@@ -10,8 +10,8 @@
 #import "ALUnlockPatternView.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 
-@interface CustomSecurityPinSwipeController : UIViewController<ALUnlockPatternViewDelegate> {
-    
+@interface CustomSecurityPinSwipeController : UIViewController<ALUnlockPatternViewDelegate>
+{    
     IBOutlet UIView* viewPinLock;
     IBOutlet UINavigationItem *navigationItem;
     IBOutlet UILabel* lblHeader;
