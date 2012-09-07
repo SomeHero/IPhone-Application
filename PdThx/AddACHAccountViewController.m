@@ -111,10 +111,10 @@
 
 -(IBAction) btnCreateAccountClicked:(id)sender
 {
-    NSString* nameOnAccount = [NSString stringWithString: @""];
-    NSString* routingNumber = [NSString stringWithString: @""];
-    NSString* accountNumber = [NSString stringWithString: @""];
-    NSString* confirmAccountNumber = [NSString stringWithString: @""];
+    NSString* nameOnAccount = @"";
+    NSString* routingNumber = @"";
+    NSString* accountNumber = @"";
+    NSString* confirmAccountNumber = @"";
 
     if([txtNameOnAccount.text length] > 0)
         nameOnAccount = [NSString stringWithString: txtNameOnAccount.text];
@@ -340,6 +340,7 @@
     titleView.text = title;
     [titleView sizeToFit];
 }
+
 -(IBAction) bgClicked:(id)sender {
     [txtAccountNumber resignFirstResponder];
     [txtConfirmAccountNumber resignFirstResponder];
