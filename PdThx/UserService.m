@@ -455,7 +455,7 @@
 -(void) refreshHomeScreenInformationComplete:(ASIHTTPRequest *)request
 {
     if ( [request responseStatusCode] == 200 ){
-        //NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
         
         NSString *theJSON = [request responseString];
         
