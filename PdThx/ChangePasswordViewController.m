@@ -96,9 +96,15 @@
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Password changed"];
+    
+    [self dismissModalViewControllerAnimated:YES];
 }
 -(void) changePasswordDidFail:(NSString*) response
 {
+    txtOldPassword.text = @"";
+    txtNewPassword.text = @"";
+    txtConfirmPassword.text = @"";
+    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Invalid pin/password"];
     

@@ -11,7 +11,9 @@
 
 @implementation SecurityAndPrivacyViewControllerViewController
 
-@synthesize profileOptions, sections;
+@synthesize profileOptions, sections, currentUser, validationHelper;
+@synthesize  savedPinSwipe, anotherSavedPinSwipe;
+@synthesize userService;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +64,10 @@
                                         withError:&error]){
         //Handle Error Here
     }
+    
+    validationHelper = [[ValidationHelper alloc] init];
+    userService = [[UserService alloc] init];
+    currentUser = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
 }
 
 - (void)viewDidUnload
@@ -205,30 +211,25 @@
                 }
                 case 1:
                 {
-                    ChangeSecurityPinController* controller = [[ChangeSecurityPinController alloc] init];
-                    [controller setTitle: @"Change Security Pin"];
-                    [controller setHeaderText: @"To change your security pin, you must first swipe your current security pin."];
+                    GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
+                    [pinSwipe setNavigationTitle:@"Change Security Pin"];
+                    [pinSwipe setHeaderText: @"To change your security pin, you must first swipe your current security pin."];
+                    [pinSwipe setSecurityPinSwipeDelegate:self];
+                    [pinSwipe setTag:0];
                     
-                    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-                    
-                    [self.navigationController presentModalViewController:navBar animated:YES];
-                    
-                    [navBar release];
-                    [controller release];
-                    
+                    [self.navigationController presentModalViewController:pinSwipe animated:YES];
                     break;
                 }
                 case 2:
                 {
                     SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
-                    [controller setNavigationTitle: @"Security Question"];
+                    [controller setTitle: @"Security Question"];
                     [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
                     controller.currUser = [user copy];
                     [controller setSecurityQuestionChallengeDelegate:self];
                     
                     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
                     [self.navigationController presentModalViewController:navBar animated:YES];
-                    
                     [controller release];
                 }
             
@@ -242,34 +243,93 @@
 {
     [self dismissModalViewControllerAnimated: NO];
     
-    ForgotPinCodeViewController *controller = [[ForgotPinCodeViewController alloc] init];
-    [controller setNavigationTitle:@"Forgot Pin Code"];
-    [controller setHeaderText: @"To change your security pin, input your new pin."];
+    GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
+    [pinSwipe setNavigationTitle:@"Forgot Security Pin"];
+    [pinSwipe setHeaderText: @"Enter your NEW Security Pin:"];
+    [pinSwipe setSecurityPinSwipeDelegate:self];
+    [pinSwipe setTag:1];
     
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    [self presentModalViewController:pinSwipe animated:YES];
     
-    [self.navigationController presentModalViewController:navBar animated:YES];
-    
-    [navBar release];
-    [controller release];
 }
 
--(void) securityQuestionAnsweredInCorrect:(NSString *)errorMessage 
+-(void)swipeDidCancel:(id)sender
+{
+    [sender dismissModalViewControllerAnimated:YES];
+}
+
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
+{
+    [sender dismissModalViewControllerAnimated:NO];
+    
+    if ( [sender tag] == 0 )
+    {
+        // User Completed First Swipe of Change Security Pin
+        // Verify that it matches the user's security pin
+        if ( [validationHelper isValidSecurityPinSwipe:pin] ){
+            savedPinSwipe = pin;
+            
+            GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
+            [pinSwipe setNavigationTitle:@"Change Security Pin"];
+            [pinSwipe setHeaderText: @"Enter a NEW Security Pin for your account"];
+            [pinSwipe setSecurityPinSwipeDelegate:self];
+            [pinSwipe setTag:1];
+            
+            [self presentModalViewController:pinSwipe animated:YES];
+        }
+    }
+    else if ( [sender tag] == 1 )
+    {
+        // User entered first swipe of NEW Security Pin. Validate Length, and ask for second confirmation pin.
+        if ( ![validationHelper isValidSecurityPinSwipe:pin] ) {
+            PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Connect 4+ dots"];
+        } else {
+            anotherSavedPinSwipe = pin;
+            
+            GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
+            [pinSwipe setNavigationTitle:@"Change Security Pin"];
+            [pinSwipe setHeaderText: @"Confirm your NEW Security pin by swiping it again"];
+            [pinSwipe setSecurityPinSwipeDelegate:self];
+            [pinSwipe setTag:2];
+            
+            [self presentModalViewController:pinSwipe animated:YES];
+        }
+    }
+    else if ( [sender tag] == 2 )
+    {
+        // User confirmed pin of NEW Security pin. Confirm it matches saved pin, and submit service with old saved pin.
+        if ( [validationHelper verifySecurityPinsMatch:anotherSavedPinSwipe andSecondPin:pin] )
+        {
+            [userService setUserSecurityPinCompleteDelegate:self];
+            [userService changeSecurityPin:user.userId WithOld:savedPinSwipe AndNew:anotherSavedPinSwipe];
+        }
+        else
+        {
+            PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+            [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"New Pin Mismatch"];
+        }
+    }
+    
+    [sender release];
+}
+
+-(void)userSecurityPinDidComplete
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Pin Swipe Changed"];
+}
+
+-(void)userSecurityPinDidFail:(NSString *)message
+{
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Incorrect Pin Swipe"];
+}
+
+-(void) securityQuestionAnsweredInCorrect:(NSString *)errorMessage
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failure" withDetailedStatus:@"Security Question Answer Incorrect."];
-}
-
--(void) userSecurityPinDidComplete {
-    [spinner stopAnimating];
-    
-    [self showAlertView: @"Security Pin Change Success!" withMessage: @"Security Pin successfully changed."];
-}
-
--(void) userSecurityPinDidFail: (NSString*) message {
-    [spinner stopAnimating];
-    
-    [self showAlertView: @"Security Pin Change Failed" withMessage: message];
 }
 
 

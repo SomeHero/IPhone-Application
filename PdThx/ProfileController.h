@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "ChangeSecurityPinController.h"
 #import "UIBaseViewController.h"
 #import "UserService.h"
 #import "UISetupUserBaseViewController.h"

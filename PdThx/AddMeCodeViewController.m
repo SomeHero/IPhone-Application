@@ -86,12 +86,20 @@
     }
 }
 
-- (IBAction)meCodeChanged:(id)sender {
-    if ( [txtMeCode.text length] > 0 ){
-        if ( [txtMeCode.text characterAtIndex:0] != '$' )
-            txtMeCode.text = [NSString stringWithFormat:@"$%@",txtMeCode.text];
+-(bool)CharacterAllowedAtIndex:(NSString*)stringChar atIndex:(int)index
+{
+    if ( [stringChar isEqualToString:@"$"] && index == 0 )
+        return true;
+    else
+    {
+        // Check if the character is in an allowed character set.
+        if ( [stringChar rangeOfCharacterFromSet:[NSCharacterSet alphanumericCharacterSet] options:NSCaseInsensitiveSearch].location == NSNotFound )
+            return false;
     }
+    
+    return true;
 }
+
 -(void)addPayPointsDidComplete:(NSString*)payPointId {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
@@ -104,6 +112,7 @@
     });
     
 }
+
 -(void)addPayPointsDidFail: (NSString*) errorMessage {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
@@ -118,9 +127,13 @@
     
 }
 - (IBAction)meCodeChange:(id) sender {
-    if([txtMeCode.text length] > 0   && [txtMeCode.text characterAtIndex:0] != '$' )
-    {
-        [txtMeCode setText:[NSString stringWithFormat:@"%@%@",@"$",txtMeCode.text]];
+    
+    if ( [txtMeCode.text length] > 0 ){
+        if ( ![self CharacterAllowedAtIndex:[NSString stringWithFormat:@"%c",[txtMeCode.text characterAtIndex:txtMeCode.text.length-1]] atIndex:(txtMeCode.text.length-1)] )
+            txtMeCode.text = [txtMeCode.text substringToIndex:txtMeCode.text.length-1];
+        
+        if ( [txtMeCode.text characterAtIndex:0] != '$' )
+            [txtMeCode setText:[NSString stringWithFormat:@"%@%@",@"$",txtMeCode.text]];
     }
 }
 

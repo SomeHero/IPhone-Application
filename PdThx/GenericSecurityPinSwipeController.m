@@ -1,21 +1,29 @@
 //
-//  ForgotPinCodeViewController.m
+//  CustomSecurityPinSwipeController.m
 //  PdThx
 //
-//  Created by Edward Mitchell on 7/10/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by James Rhodes on 6/17/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ForgotPinCodeViewController.h"
+#import "GenericSecurityPinSwipeController.h"
+#import "PdThxAppDelegate.h"
+
 #define UIColorFromRGB(rgbValue) [UIColor \
 colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@implementation ForgotPinCodeViewController
+@implementation GenericSecurityPinSwipeController
+
 @synthesize viewPinLock;
+@synthesize navigationItem;
 @synthesize securityPinSwipeDelegate;
+@synthesize lblHeader;
+@synthesize navigationTitle;
+@synthesize headerText;
 @synthesize tag;
+@synthesize navigationBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,42 +35,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 -(void)unlockPatternView:(ALUnlockPatternView *)patternView selectedCode:(NSString *)code{
-    newSecurityPin = [NSString stringWithString:[code copy]];
+    securityPin = [NSString stringWithString:[code copy]];
     
-    controller =[[[GenericSecurityPinSwipeController alloc] init] autorelease];
-    [controller setSecurityPinSwipeDelegate: self];
-    [controller setNavigationTitle: @"Confirm your New Pin"];
-    [controller setHeaderText: @"Confirm your new pin by swiping it again below"];
+    [securityPinSwipeDelegate swipeDidComplete:self withPin:securityPin];
     
-    [self presentModalViewController:controller animated:YES];
-    
-}
--(void)swipeDidComplete:(id)sender withPin: (NSString*)pin;
-{
-    if ([newSecurityPin isEqualToString:pin])
-    {
-        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showWithStatus:@"Updating" withDetailedStatus:@"Changing security pin"];
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        
-        [userService setupSecurityPin:[prefs stringForKey:@"userId"] WithPin:newSecurityPin];
-    }
-    else {
-        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showErrorWithStatus:@"Failure" withDetailedStatus:@"New Pin Didn't Match."];
-        
-    }
-}
--(void)swipeDidCancel: (id)sender
-{
-    [self.navigationController dismissModalViewControllerAnimated: YES];
 }
 - (void)dealloc
 {
+    [navigationBar release];
     [super dealloc];
     
     [viewPinLock release];
+    [navigationItem release];
     [securityPinSwipeDelegate release];
     [lblHeader release];
     [headerText release];
@@ -75,9 +59,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     // Release any cached data, images, etc that aren't in use.
 }
--(void)viewDidDisappear:(BOOL)animated {
-    
-}
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -85,14 +66,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    
-    userService = [[UserService alloc] init];
-    [userService setUserSecurityPinCompleteDelegate:self];
+    [self setTitle: navigationTitle];
     
     didCancel = false;
     
     ALUnlockPatternView *custom=[[[ALUnlockPatternView alloc] initWithFrame:CGRectMake(0, 0, viewPinLock.frame.size.width, viewPinLock.frame.size.height)] autorelease];
-    custom.lineColor= UIColorFromRGB(0xb5e3f0);
+    custom.lineColor= UIColorFromRGB(0x47ba80);
     custom.lineWidth=15;
     custom.repeatSelection=YES;
     custom.radiusPercentage=10;
@@ -101,7 +80,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-selected-70x70.png"] forState:UIControlStateSelected];
     [custom setCellsBackgroundImage:[UIImage imageNamed:@"btn-pinswipe-pressed-70x70.png"] forState:UIControlStateHighlighted];
     for (int i=0;i<[custom.cells count];i++) {
-        UIButton* b=(UIButton*)[custom.cells objectAtIndex:i];        
+        UIButton* b=(UIButton*)[custom.cells objectAtIndex:i];
         
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
@@ -111,9 +90,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         b.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     }
     
+    if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+        [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    
     [self.viewPinLock addSubview:custom];
     NSError *error;
-    if(![[GANTracker sharedTracker] trackPageview:@"ChangeSecurityPinController"
+    if(![[GANTracker sharedTracker] trackPageview:@"CustomSecurityPinSwipeController"
                                         withError:&error]){
         //Handle Error Here
     }
@@ -121,32 +105,33 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     //[self.view addSubview: header];
     //[self.view addSubview:body];
 }
--(void)viewDidAppear:(BOOL)animated {
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    lblHeader.text = headerText;
     
-    //lblHeader.text = headerText;
-}
--(void)cancelClicked {
-    didCancel = true;
+    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Cancel-68x30.png"];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
     
-    [self dismissModalViewControllerAnimated:YES];
-}
--(void) userSecurityPinDidComplete {
-    //[spinner stopAnimating];
+    [settingsBtn addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Security pin changed"];
+    UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+    self.navigationItem.hidesBackButton = YES;
+    
+    self.navigationItem.leftBarButtonItem = cancelButtonItem;
 }
 
--(void) userSecurityPinDidFail: (NSString*) message {
-    //[spinner stopAnimating];
-    
-    [self.navigationController popViewControllerAnimated:YES]; 
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Pin change failed"];
+-(void)cancelClicked
+{
+    [securityPinSwipeDelegate swipeDidCancel:self];
 }
+
 - (void)viewDidUnload
 {
+    [navigationBar release];
+    navigationBar = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -178,4 +163,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     titleView.text = title;
     [titleView sizeToFit];
-}@end
+}
+
+
+
+
+@end

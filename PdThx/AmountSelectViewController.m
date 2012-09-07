@@ -42,7 +42,10 @@
                                         withError:&error]){
         //Handle Error Here
     }
+    
+    [goButton setEnabled:NO];
 }
+
 -(void)viewDidAppear:(BOOL)animated {
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     

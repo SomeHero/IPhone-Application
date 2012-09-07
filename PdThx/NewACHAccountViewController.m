@@ -118,7 +118,7 @@
     
     if(isValid) {
         
-        CustomSecurityPinSwipeController* controller = [[[CustomSecurityPinSwipeController alloc] init] retain];
+        GenericSecurityPinSwipeController* controller = [[[GenericSecurityPinSwipeController alloc] init] retain];
         [controller setSecurityPinSwipeDelegate: self];
         
         if(user.hasSecurityPin)
@@ -159,7 +159,7 @@
             
             securityPin = pin;
             
-            CustomSecurityPinSwipeController* controller =[[[CustomSecurityPinSwipeController alloc] init] retain];
+            GenericSecurityPinSwipeController* controller =[[[GenericSecurityPinSwipeController alloc] init] retain];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm your Pin"];
             [controller setHeaderText: [NSString stringWithFormat:@"Confirm your pin, by swiping it again below"]];
