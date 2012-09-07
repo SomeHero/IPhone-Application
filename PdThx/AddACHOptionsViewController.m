@@ -32,7 +32,7 @@
     // Do any additional setup after loading the view from its nib.
     
     SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
-    [setupNavBar setActiveState:@"Enable Payments" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:NO whereEnableComplete:NO];
+    [setupNavBar setActiveState:@"Enable Payments" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:YES whereEnableComplete:NO];
     [navBar addSubview:setupNavBar];
     
     [self setTitle: @"Enable Payments"];

@@ -36,11 +36,12 @@
     mainScrollView.contentSize = CGSizeMake(320, 640);
     [mainView addSubview:mainScrollView];
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    if ([prefs objectForKey:@"firstName"] != nil && [prefs objectForKey:@"lastName"] != nil)
+    if ( appDelegate.user.firstName != (id)[NSNull null] && appDelegate.user.lastName!= (id)[NSNull null] &&
+        appDelegate.user.firstName.length > 0 && appDelegate.user.lastName.length > 0 )
     {
-        txtNameOnAccount.text = [NSString stringWithFormat:@"%@ %@", [prefs objectForKey:@"firstName"], [prefs objectForKey:@"lastName"]];
+        txtNameOnAccount.text = [NSString stringWithFormat:@"%@ %@", appDelegate.user.firstName, appDelegate.user.lastName];
     }
     
     SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
@@ -160,7 +161,7 @@
     
     if(isValid) {
 
-        controller = [[[CustomSecurityPinSwipeController alloc] init] retain];
+        controller = [[[GenericSecurityPinSwipeController alloc] init] retain];
         [controller setSecurityPinSwipeDelegate: self];
         
         if(user.hasSecurityPin)
@@ -221,36 +222,45 @@
     else {
         if([sender tag] == 1)
         {
-            [self.navigationController dismissModalViewControllerAnimated:NO];
-            
-            securityPin = pin;
-        
-            controller =[[[CustomSecurityPinSwipeController alloc] init] retain];
-            [controller setSecurityPinSwipeDelegate: self];
-            [controller setNavigationTitle: @"Confirm your Pin"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Confirm your pin, by swiping it again below"]];
-            
-            [controller setTag:2];    
-            [self.navigationController presentModalViewController:controller animated:YES];
-            
-            [controller release];
+            if ( pin.length < 4 ){
+                [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Pin too short"];
+            } else {
+                [self.navigationController dismissModalViewControllerAnimated:NO];
+                
+                securityPin = pin;
+                
+                controller =[[[GenericSecurityPinSwipeController alloc] init] retain];
+                [controller setSecurityPinSwipeDelegate: self];
+                [controller setNavigationTitle: @"Confirm your Pin"];
+                [controller setHeaderText: [NSString stringWithFormat:@"Confirm your pin, by swiping it again below"]];
+                
+                [controller setTag:2];
+                [self.navigationController presentModalViewController:controller animated:YES];
+                
+                [controller release];
+            }
         }
         else if([sender tag] == 2)
-            
+        {
             [self.navigationController dismissModalViewControllerAnimated:NO];
         
-            securityPin = pin;
-        
-            addSecurityQuestionController = [[[AddSecurityQuestionViewController alloc] init] retain];
-        
-            UINavigationController *navigationBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
-        
-            [addSecurityQuestionController setSecurityQuestionEnteredDelegate:self];
-            [addSecurityQuestionController setNavigationTitle: @"Add a Security Question"];
-        
-            [self.navigationController presentModalViewController:navigationBar animated:YES];
-        
-            [navigationBar release];
+            if ( [securityPin isEqualToString:pin] )
+            {
+                addSecurityQuestionController = [[[AddSecurityQuestionViewController alloc] init] retain];
+                
+                UINavigationController *navigationBar=[[UINavigationController alloc]initWithRootViewController:addSecurityQuestionController];
+                
+                [addSecurityQuestionController setSecurityQuestionEnteredDelegate:self];
+                
+                [addSecurityQuestionController setNavigationTitle: @"Add a Security Question"];
+                
+                [self.navigationController presentModalViewController:navigationBar animated:YES];
+                
+                [navigationBar release];
+            } else {
+                [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Pin mismatch"];
+            }
+        }
     }
 }
 -(void)choseSecurityQuestion:(int)questionId withAnswer:(NSString *)questionAnswer

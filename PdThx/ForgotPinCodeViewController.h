@@ -14,7 +14,7 @@
     id<CustomSecurityPinSwipeProtocol> securityPinSwipeDelegate;
     NSInteger tag;
     bool didCancel;
-    CustomSecurityPinSwipeController *controller;
+    GenericSecurityPinSwipeController *controller;
     UserService* userService;
     NSString* newSecurityPin;
 }
