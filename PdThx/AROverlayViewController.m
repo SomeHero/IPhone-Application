@@ -93,7 +93,7 @@
         pictureBeingTaken = false;
         [CheckImageReturnDelegate cameraReturnedImage:[self.captureManager stillImage]];
         
-        UIImageWriteToSavedPhotosAlbum([self.captureManager stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        //UIImageWriteToSavedPhotosAlbum([self.captureManager stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
         
         //UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }

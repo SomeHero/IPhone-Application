@@ -282,7 +282,7 @@
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUIText">james@paidthx.com</string>
+										<string key="IBUIText"/>
 										<string key="IBUIPlaceholder">Email Address</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">3</int>
@@ -323,7 +323,7 @@
 										<int key="IBUITag">1</int>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentVerticalAlignment">0</int>
-										<string key="IBUIText">james123</string>
+										<string key="IBUIText"/>
 										<string key="IBUIPlaceholder">Password</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">3</int>

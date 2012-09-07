@@ -167,7 +167,9 @@
                 cell.lblHeading.text = @"";
                 cell.lblDescription.text = @"";
                 cell.ctrlImage.image = nil;
+                
                 cell.textLabel.text = bankAccount.nickName;
+                
                 cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
                 
                 found = YES;
