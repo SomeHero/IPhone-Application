@@ -528,7 +528,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/find_mecodes", myEnvironment.pdthxWebServicesBaseUrl, searchTerm]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/searchbymecode/%@", myEnvironment.pdthxWebServicesBaseUrl, searchTerm]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];

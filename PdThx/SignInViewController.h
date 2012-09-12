@@ -12,7 +12,8 @@
 #import "SignInCompleteProtocol.h"
 #import "SignInUserService.h"
 #import "SignInWithFBService.h"
-#import "Facebook.h"
+#import "FacebookSignIn.h"
+
 #import "SetupACHAccountController.h"
 #import "UserSetupACHAccountComplete.h"
 #import "FacebookSignIn.h"
@@ -22,7 +23,7 @@
 #import "ForgotPasswordViewController.h"
 #import "SignedOutTabBarManager.h"
 
-@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBSessionDelegate, FBRequestDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate, FBHelperReturnProtocol, SignedOutTabBarDelegate>
+@interface SignInViewController : UIBaseViewController<UserInformationCompleteProtocol, SecurityQuestionChallengeProtocol, UITextFieldDelegate, FBSignInCompleteProtocol, UINavigationBarDelegate, FBHelperReturnProtocol, SignedOutTabBarDelegate>
 {
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
@@ -31,8 +32,9 @@
     IBOutlet UIImageView *facebookOverlay;
     IBOutlet UIButton *forgotPassword;
     SignInUserService *signInUserService;
-    SignInWithFBService *service;
-    Facebook *fBook;
+    SignInWithFBService* fbSignInService;
+    FacebookSignIn* fbSignInHelper;
+    
     UIAlertView * bankAlert;
     float animatedDistance;
     FacebookSignIn* faceBookSignInHelper;
@@ -41,8 +43,10 @@
 @property(nonatomic, retain) UITextField *txtEmailAddress;
 @property(nonatomic, retain) UITextField *txtPassword;
 @property(nonatomic, assign) UIView* viewPanel;
-@property(nonatomic, retain) Facebook * fBook;
-@property(nonatomic, retain) SignInWithFBService* service;
+
+@property(nonatomic, retain) FacebookSignIn* fbSignInHelper;
+@property(nonatomic, retain) SignInWithFBService* fbSignInService;
+
 @property(nonatomic, retain) UIAlertView * bankAlert;
 //@property(nonatomic, retain) SetupACHAccountController * setupACHAccountController;
 @property(nonatomic, assign) float animatedDistance;

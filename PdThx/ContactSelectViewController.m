@@ -12,7 +12,7 @@
 #import "PhoneNumberFormatting.h"
 #import <AddressBook/AddressBook.h>
 #import <QuartzCore/QuartzCore.h>
-#import "Facebook.h"
+
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 #import "SocialNetworksViewController.h"
@@ -28,7 +28,7 @@
 
 @implementation ContactSelectViewController
 
-@synthesize searchBar, tvSubview, fBook, allResults;
+@synthesize searchBar, tvSubview, allResults;
 @synthesize fbIconsDownloading,contactSelectChosenDelegate;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
 @synthesize didSetContactAndAmount;
@@ -41,8 +41,6 @@
     if (self) {
         // Custom initialization
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        fBook = appDelegate.fBook;
         
         if ( [[appDelegate selectedContactList] isEqualToString:@"FacebookContacts"] )
             allResults = appDelegate.faceBookContacts;

@@ -129,25 +129,14 @@
             {
                 case 0:
                 {
-                    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*) [UIApplication sharedApplication].delegate;
                     
                     [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
                     
-                    Facebook* fBook = appDelegate.fBook;
                     FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
                     
-                    if ( ![fBook isSessionValid] )
-                    {
-                        NSLog(@"Linking facebook, session not valid..");
-                        [faceBookSignInHelper setCancelledDelegate:appDelegate];
-                        [faceBookSignInHelper signInWithFacebook:self];
-                    } else {
-                        NSLog(@"Linking facebook, session valid..");
-                        
-                        [fBook requestWithGraphPath:@"me" andDelegate:self];
-                    }
-                    
+                    // TODO: Implement "linking" AKA just open web view and get user information
+                    [faceBookSignInHelper linkNewFacebookAccount:self];
                     break;
                 }
                 case 1:
@@ -189,6 +178,9 @@
     
 }
 
+/*
+ *      TODO:: FINISH FACEBOOK LINKING IMPLEMENTATION
+ *
 -(void) request:(FBRequest *)request didLoad:(id)result
 {
     NSLog(@"User info did load from Facebook, linking account...");
@@ -207,29 +199,6 @@
 }
 
 
--(void) request:(FBRequest *)request didFailWithError:(NSError *)error
-{
-    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSLog ( @"Error occurred2 -> %@" , [error description] );
-    
-    Facebook* fBook = appDelegate.fBook;
-    FacebookSignIn* faceBookSignInHelper = [[FacebookSignIn alloc] init];
-    
-    NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
-    [def removeObjectForKey:@"FBAccessTokenKey"];
-    [def removeObjectForKey:@"FBExpirationDateKey"];
-    [def synchronize];
-    
-    if ( ![fBook isSessionValid] ){
-        NSLog(@"Facebook Session is NOT Valid, Signing in...");
-        [faceBookSignInHelper setCancelledDelegate:self];
-        [faceBookSignInHelper signInWithFacebook:self];
-    } else {
-        NSLog(@"Facebook Session is Valid, Getting info...");
-        [fBook requestWithGraphPath:@"me" andDelegate:self];
-        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
-    }
-}
 
 -(void) linkFbAccountDidSucceed {
     
@@ -244,6 +213,7 @@
     [appDelegate dismissProgressHUD];
     [appDelegate showSimpleAlertView:NO withTitle:@"Failed!" withSubtitle:@"Facebook account linking failed." withDetailedText:[NSString stringWithFormat:@"Unable to link Facebook account: %@", message] withButtonText:@"OK" withDelegate:self];
 }
+*/
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

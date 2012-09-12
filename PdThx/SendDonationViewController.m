@@ -442,35 +442,45 @@
 }
 -(void)didChooseCause:(Contact*)contact
 {
-    contactButtonBGImage.highlighted = YES;
-    [recipientImageButton.layer setBorderWidth:0.7];
-    recipient = contact;
-    
-    NSLog(@"RecipientID after cause chosen: %@",recipient.recipientId);
-    
-    if ( contact.imgData )
-        [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
-    else if ( contact.facebookID.length > 0 )
-        [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
-    else {
-        [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
-        [recipientImageButton.layer setBorderWidth:0.0];
+    if ( contact.merchant != (id)[NSNull null] )
+    {
+        contactButtonBGImage.highlighted = YES;
+        [recipientImageButton.layer setBorderWidth:0.7];
+        recipient = contact;
+        
+        NSLog(@"RecipientID after cause chosen: %@",recipient.recipientId);
+        
+        if ( contact.imgData )
+            [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
+        else if ( contact.facebookID.length > 0 )
+            [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
+        else {
+            [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
+            [recipientImageButton.layer setBorderWidth:0.0];
+        }
+        
+        contactHead.text = contact.name;
+        
+        if ( contact.facebookID.length > 0 ){
+            contactDetail.text = @"Facebook Friend";
+        } else if ( [contact.paypoints count] == 1 ){
+            contactDetail.text = [contact.paypoints objectAtIndex:0];
+        }else {
+            contactDetail.text = @"No Info to Display";
+        }
+        
+        self.recipientId = contact.recipientId;
+    } else {
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showSimpleAlertView:NO withTitle:@"Failed!" withSubtitle:@"Invalid Recipient Chosen" withDetailedText:@"You can only send donations to wapproved non-profits. Please try again." withButtonText:@"Ok" withDelegate:self];
     }
-    
-    contactHead.text = contact.name;
-    
-    if ( contact.facebookID.length > 0 ){
-        contactDetail.text = @"Facebook Friend";
-    } else if ( [contact.paypoints count] == 1 ){
-        contactDetail.text = [contact.paypoints objectAtIndex:0];
-    }else {
-        contactDetail.text = @"No Info to Display";
-    }
-    
-    self.recipientId = contact.recipientId;
-    
 }
 
+-(void)didSelectButtonWithIndex:(int)index
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissAlertView];
+}
 
 #pragma mark UITextFieldDelegate methods
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;

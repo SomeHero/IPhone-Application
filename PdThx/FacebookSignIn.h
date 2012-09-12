@@ -7,21 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "SignInWithFBService.h"
-#import "Facebook.h"
+
 #import "PdThxAppDelegate.h"
 #import "FBHelperReturnProtocol.h"
 
 
-@interface FacebookSignIn : NSObject<FBSessionDelegate, FBRequestDelegate> {
+@interface FacebookSignIn : NSObject
+{
     SignInWithFBService *service;
-    Facebook *fBook;
-    id<FBHelperReturnProtocol> cancelledDelegate;
-    id userInfoDelegate;
+    
+    id<FBHelperReturnProtocol> returnDelegate;
 }
 
-- (void)signInWithFacebook:(id)sender;
+- (void)signInWithFacebook:(id)returnProtocol;
 
-@property (assign) id cancelledDelegate;
+-(void)getFacebookFriendsWithDelegate:(id)returnDelegate withSocialNetworkUserId:(NSString*)userId withSocialNetworkAccessToken:(NSString*)accessToken;
+
+@property (assign) id returnDelegate;
 
 @end

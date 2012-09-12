@@ -13,7 +13,7 @@
 #import "Environment.h"
 #import "SBJsonParser.h"
 #import "JSON.h"
-#import "Facebook.h"
+
 #import "Contact.h"
 #import <AddressBook/AddressBook.h>
 #import "PhoneNumberFormatting.h"
@@ -36,7 +36,7 @@
 
 @synthesize welcomeTabBarController, newUserFlowTabController;
 
-@synthesize fBook, deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, contactsArray, areFacebookContactsLoaded;
+@synthesize deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, contactsArray, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert, setupFlowViewController;
 
 @synthesize myApplication;
@@ -331,16 +331,6 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      ( UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert )];
     
-    fBook = [[Facebook alloc] initWithAppId:@"332189543469634" andDelegate:self];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if ([defaults objectForKey:@"FBAccessTokenKey"] 
-        && [defaults objectForKey:@"FBExpirationDateKey"]) {
-        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-    }
-    
     // Create ContactsArray variable with 0-26 indeces (A-Z and Other)
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
@@ -417,7 +407,7 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
-    [fBook extendAccessTokenIfNeeded];
+    
     for (NSMutableArray * array in contactsArray)
     {
         [array removeAllObjects];
@@ -479,8 +469,8 @@
     [prefs synchronize];
     
     // Implement Removal of Facebook Contacts from contactArray when they log out of their FACEBOOK-lined account.
-    if ( [fBook isSessionValid] )
-        [fBook logout];
+    if ( [[FBSession activeSession] isOpen] )
+        [[FBSession activeSession] close];
     
     areFacebookContactsLoaded = NO;
     currentReminderTab = 0;
@@ -826,7 +816,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
 
--(void) request:(FBRequest *)request didLoad:(id)result
+-(void)facebookFriendsDidLoad:(id)result
 {
     NSMutableArray* tempArray = [[NSMutableArray alloc] init];
     NSArray *friendArray = [result objectForKey:@"data"];
@@ -960,63 +950,22 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     return results;
 }
 
--(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
 {
-    NSLog ( @"Facebook Error occurred -> %@" , [error description] );
+    return [FBSession.activeSession handleOpenURL:url];
 }
 
-// Pre iOS 4.2 support
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [fBook handleOpenURL:url];
-}
-
-// For iOS 4.2+ support
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    return [fBook handleOpenURL:url];
-}
-
-
--(void)fbDidLogin
-{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:[fBook accessToken] forKey:@"FBAccessTokenKey"];
-    [prefs setObject:[fBook expirationDate] forKey:@"FBExpirationDateKey"];
-    [prefs synchronize];
-    
-}
-
-- (void)fbDidNotLogin:(BOOL)cancelled {
-    
-}
-
-- (void)fbDidExtendToken:(NSString*)accessToken
-               expiresAt:(NSDate*)expiresAt {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:accessToken forKey:@"FBAccessTokenKey"];
-    [defaults setObject:expiresAt forKey:@"FBExpirationDateKey"];
-    [defaults synchronize];
-}
-
-- (void)fbDidLogout {
-    // Do your facebook access token and expiration key deletion here.
-    NSUserDefaults * prefs = [NSUserDefaults standardUserDefaults];
-    [prefs removeObjectForKey:@"FBAccessTokenKey"];
-    [prefs removeObjectForKey:@"FBExpirationDateKey"];
-    [prefs synchronize];
-}
-
-- (void)fbSessionInvalidated {
-    
-}
 
 - (void)dealloc
 {
     [_window release];
     [mainAreaTabBarController release];
     [welcomeTabBarController release];
-    [fBook release];
     [newUserFlowTabController release];
     [user release];
     [myProgHudInnerView release];
@@ -1364,11 +1313,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         upperLimit = (double)[[[[myApplication applicationSettings] objectForKey:@"UpperLimit"] ConfigurationValue] doubleValue];
     }
     @catch (NSException *exception) {
-        NSLog(@"%@",[NSString stringWithFormat:@"%@",exception]); 
+        NSLog(@"%@",[NSString stringWithFormat:@"%@",exception]);
     }
     @finally {
     }
     
     return upperLimit;
 }
+
+-(void)linkedFacebookFriendsDidLoad:(id)friendsList
+{
+    [self facebookFriendsDidLoad:friendsList];
+}
+
 @end

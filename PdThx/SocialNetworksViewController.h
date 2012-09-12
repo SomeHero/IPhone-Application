@@ -8,7 +8,7 @@
 
 #import "UIModalBaseViewController.h"
 #import "UserService.h"
-#import "Facebook.h"
+
 #import "LinkWithFacebookProtocol.h"
 #import "CustomAlertViewProtocol.h"
 
