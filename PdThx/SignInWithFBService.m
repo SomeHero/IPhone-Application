@@ -25,9 +25,15 @@
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/signin_withfacebook?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
-    NSString* oAuthToken = [NSString stringWithFormat:[prefs objectForKey:@"FBAccessTokenKey"]];
+    NSString* oAuthToken = [prefs objectForKey:@"FBAccessTokenKey"];
     
-    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
+    NSString* deviceToken = [prefs objectForKey:@"deviceToken"];
+    
+    NSDictionary *userData;
+    
+    if ( deviceToken == (id)[NSNull null] || deviceToken == NULL )
+    {
+        userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey , @"apiKey",
                               [response objectForKey:@"id"], @"accountId",
                               [response objectForKey:@"first_name"], @"firstName",
@@ -35,6 +41,17 @@
                               [response objectForKey:@"email"], @"emailAddress",
                               oAuthToken, @"oAuthToken",
                               nil];
+    } else {
+        userData = [NSDictionary dictionaryWithObjectsAndKeys:
+                    apiKey , @"apiKey",
+                    deviceToken, @"deviceToken",
+                    [response objectForKey:@"id"], @"accountId",
+                    [response objectForKey:@"first_name"], @"firstName",
+                    [response objectForKey:@"last_name"], @"lastName",
+                    [response objectForKey:@"email"], @"emailAddress",
+                    oAuthToken, @"oAuthToken",
+                    nil];
+    }
     
     [prefs setValue:[response valueForKey:@"first_name"] forKey:@"firstName"];
     [prefs setValue:[response valueForKey:@"last_name"] forKey:@"lastName"];

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FBConnect.h"
 #import "PhoneNumberFormatting.h"
 #import "User.h"
 #import "GANTracker.h"
@@ -26,13 +25,13 @@
 #import "ApplicationSettingsCompleteProtocol.h"
 #import "Merchant.h"
 #import "MerchantServices.h"
+#import <FacebookSDK/FacebookSDK.h>
+#import "FBHelperReturnProtocol.h"
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBSessionDelegate, FBRequestDelegate, UINavigationControllerDelegate, CustomAlertViewProtocol>
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBHelperReturnProtocol, UINavigationControllerDelegate, CustomAlertViewProtocol>
 {
-    
-    Facebook * fBook;
     NSString * deviceToken;
     PhoneNumberFormatting *phoneNumberFormatter;
     NSArray * permissions;
@@ -70,7 +69,6 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) Facebook * fBook;
 @property (nonatomic, retain) NSArray * permissions;
 
 
@@ -160,5 +158,7 @@
 -(UIViewController*)switchMainAreaToTabIndex:(int)tabIndex fromViewController:(UIViewController*)oldVC;
 
 -(NSMutableArray*)sortContacts:(NSMutableArray*)arr;
+
+-(void)facebookFriendsDidLoad:(id)dictionaryOfFriends;
 
 @end

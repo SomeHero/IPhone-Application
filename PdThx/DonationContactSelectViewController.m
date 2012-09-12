@@ -12,7 +12,7 @@
 #import "PhoneNumberFormatting.h"
 #import <AddressBook/AddressBook.h>
 #import <QuartzCore/QuartzCore.h>
-#import "Facebook.h"
+
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 #import "Merchant.h"
@@ -24,7 +24,7 @@
 
 @implementation DonationContactSelectViewController
 
-@synthesize searchBar, tvSubview, fBook;
+@synthesize searchBar, tvSubview;
 @synthesize fbIconsDownloading, causeSelectDidComplete;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
 @synthesize  allResults;
@@ -37,7 +37,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
         
         allResults = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).nonProfits;
         

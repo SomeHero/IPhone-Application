@@ -15,7 +15,7 @@
 #import "FacebookSignIn.h"
 #import "SignedOutTabBarManager.h"
 
-@interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate,SignedOutTabBarDelegate, UserInformationCompleteProtocol> {
+@interface CreateAccountViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, MFMessageComposeViewControllerDelegate,SignedOutTabBarDelegate, UserInformationCompleteProtocol,FBHelperReturnProtocol> {
     IBOutlet UIButton *btnCreateAccount;
     IBOutlet UITextField *txtEmailAddress;
     IBOutlet UITextField *txtPassword;
@@ -26,13 +26,14 @@
     NSString* securityPin;
     IBOutlet UIView *viewPanel;
     ASIHTTPRequest *requestObj;
-    SignInWithFBService *service;
+    
+    SignInWithFBService *fbSignInService;
+    FacebookSignIn* fbSignInHelper;
+    
     RegisterUserService* registerUserService;
     UserService* userService;
     NSString* registrationKey;
     float animatedDistance;
-    FacebookSignIn* faceBookSignInHelper;
-    
 }
 
 @property(nonatomic, retain) UIButton *btnCreateAccount;
@@ -42,6 +43,8 @@
 @property(nonatomic, assign) UIView* viewPanel;
 @property(retain) id achSetupCompleteDelegate;
 @property(nonatomic, assign) float animatedDistance;
+
+@property(nonatomic, retain) FacebookSignIn* fbSignInHelper;
 
 @property (nonatomic, retain) SignedOutTabBarManager *tabBar;
 

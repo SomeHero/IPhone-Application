@@ -23,5 +23,7 @@
 @property(nonatomic, retain) NSString* payPointType;
 @property(nonatomic, retain) NSString* uri;
 @property(nonatomic) bool verified;
+
 -(PayPoint *) initWithDictionary : (NSDictionary *) dictionary;
+
 @end

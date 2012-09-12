@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "SignInUserService.h"
 #import "SignInWithFBService.h"
-#import "Facebook.h"
+
 #import "FacebookSignIn.h"
 
-@interface FaceBookSignInOverlayViewController : UIViewController<FBRequestDelegate>
+@interface FaceBookSignInOverlayViewController : UIViewController
 {
     SignInUserService *signInUserService;
     SignInWithFBService *service;
-    Facebook *fBook;
+    
     FacebookSignIn* faceBookSignInHelper;
     
     id<FBSignInCompleteProtocol> facebookSignInCompleteDelegate;

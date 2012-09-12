@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "ASIHTTPRequest.h"
 #import "FBSignInCompleteProtocol.h"
-#import "Facebook.h"
 
 @interface SignInWithFBService : NSObject
 {
@@ -19,6 +19,6 @@
 
 @property(retain) id fbSignInCompleteDelegate;
 
--(void) validateUser:(Facebook*)response;
+-(void) validateUser:(id)response;
 
 @end

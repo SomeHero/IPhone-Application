@@ -244,29 +244,6 @@
                     
                     break;
                 }
-/*
-case 1:
-                {
-                    Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
-                    
-                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                    
-                    if ([defaults objectForKey:@"FBAccessTokenKey"] 
-                        && [defaults objectForKey:@"FBExpirationDateKey"]) {
-                        fBook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
-                        fBook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
-                    }
-                    
-                    if ( [fBook isSessionValid] )
-                    {
-                        [fBook requestWithGraphPath:@"me" andDelegate:self];
-                    }
-                    else {
-                        [fBook authorize:((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).permissions];
-                    }
-                    break;
-                }
-*/
                 case 1: 
                 {
                     SocialNetworksViewController* controller =

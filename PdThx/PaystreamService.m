@@ -362,7 +362,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     Environment *myEnvironment = [Environment sharedInstance];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PaystreamMessages/update_messages_seen", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PaystreamMessages/%@/update_messages_seen", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
     
     NSLog(@"Sending to: %@", urlToSend);
     
@@ -393,7 +393,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     NSLog(@"Saved paystream seen messages/payments");
     
     if ( [request responseStatusCode] == 200 )
-        [updateSeenMessagesDelegate paystreamUpdated:YES]; // SUCCEEDED
+        [updateSeenMessagesDelegate paystreamUpdated:YES]; // SUCCEEDED_ctx.
     else
         [self updateSeenItemsFailed:request];
 }

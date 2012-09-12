@@ -12,7 +12,7 @@
 #import "PhoneNumberFormatting.h"
 #import <AddressBook/AddressBook.h>
 #import <QuartzCore/QuartzCore.h>
-#import "Facebook.h"
+
 #import "PdThxAppDelegate.h"
 #import "IconDownloader.h"
 #import "SocialNetworksViewController.h"
@@ -28,7 +28,7 @@
 
 @implementation ContactSelectViewController
 
-@synthesize searchBar, tvSubview, fBook, allResults;
+@synthesize searchBar, tvSubview, allResults;
 @synthesize fbIconsDownloading,contactSelectChosenDelegate;
 @synthesize txtSearchBox, filteredResults, isFiltered, foundFiltered;
 @synthesize didSetContactAndAmount;
@@ -41,8 +41,6 @@
     if (self) {
         // Custom initialization
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        fBook = appDelegate.fBook;
         
         if ( [[appDelegate selectedContactList] isEqualToString:@"FacebookContacts"] )
             allResults = appDelegate.faceBookContacts;
@@ -1018,11 +1016,14 @@
         }
         else
         {
-            [[filteredResults objectAtIndex:0] removeAllObjects];
+            for ( NSMutableArray*conArr in filteredResults )
+                [conArr removeAllObjects];
             
             NSRange hasSimilarity;
-            for ( NSMutableArray*arr3 in allResults ){
-                for ( Contact*contact in arr3 ){
+            for ( NSMutableArray*arr3 in allResults )
+            {
+                for ( Contact*contact in arr3 )
+                {
                     hasSimilarity.location = NSNotFound;
                     for (NSString* paypoint in contact.paypoints)
                     {
@@ -1039,7 +1040,8 @@
                          }*/
                         // Add $me code implementation ** TODO: **
                         
-                        if ( hasSimilarity.location != NSNotFound ){
+                        if ( hasSimilarity.location != NSNotFound )
+                        {
                             @try
                             {
                                 if ( contact.lastName != (id)[NSNull null] && contact.lastName.length > 0 ){
@@ -1055,7 +1057,6 @@
                             @catch (NSException* e) {
                                 NSLog(@"Exception: %@, %@ - %@", e, contact.lastName, contact.firstName);
                             }
-                            
                         }
                     }
                 }

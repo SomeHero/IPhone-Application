@@ -167,7 +167,9 @@
                 cell.lblHeading.text = @"";
                 cell.lblDescription.text = @"";
                 cell.ctrlImage.image = nil;
+                
                 cell.textLabel.text = bankAccount.nickName;
+                
                 cell.imageView.image =  [UIImage  imageNamed: @"icon-settings-bank-40x40.png"];
                 
                 found = YES;
@@ -193,7 +195,8 @@
             return cell;
         }
     }
-    if(indexPath.section == 1){ 
+    if(indexPath.section == 1)
+    {
         bool found = false;
         
         for(int i = 0; i < [user.bankAccounts count]; i++)
@@ -277,7 +280,9 @@
 {
     return YES;
 }
- -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+
+ -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
      if(section == 0)
          return @"Linked Accounts";
      if(section == 1)
@@ -287,6 +292,7 @@
      
      return @"";
  }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
     if (sectionTitle == nil) {
@@ -343,7 +349,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0)  {
+    if(indexPath.section == 0)
+    {
         if(indexPath.row >= [user.bankAccounts count])
         {
             /*

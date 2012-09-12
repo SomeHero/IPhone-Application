@@ -15,6 +15,7 @@
 
 @implementation MeCodeService
 @synthesize MeCodeCreateCompleteDelegate;
+
 -(void) validateMeCode:(NSString*)userId withMeCode: (NSString *)meCode
 {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -41,6 +42,7 @@
     
     [requestObj startAsynchronous];
 }
+
 -(void) validateMeCodeComplete:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
