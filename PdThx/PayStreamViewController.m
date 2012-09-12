@@ -650,13 +650,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Configure the cell...
     if([item.direction isEqualToString:@"Out"])
     {
-        // Current user sent this message/payment
-        if ( item.senderHasSeen == false ){
-            cell.newColorStrip.backgroundColor = [UIColor colorWithRed:61/255.0 green:147/255.0 blue:76/255.0 alpha:1.0];
-        } else {
-            cell.newColorStrip.backgroundColor = [UIColor clearColor];
-        }
-        
         if ( [self isPhoneNumber:item.recipientUri] )
         {
             Contact * foundContact;
@@ -672,11 +665,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
     } else {
-        if ( item.recipientHasSeen == false ){
-            cell.newColorStrip.backgroundColor = [UIColor colorWithRed:19/255.0 green:109/255.0 blue:113/255.0 alpha:1.0];
-        } else {
-            cell.newColorStrip.backgroundColor = [UIColor clearColor];
-        }
         //019)(109)(113)
         
         if ( [self isPhoneNumber:item.senderUri] )
@@ -718,17 +706,62 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
     NSString* amount = [NSString stringWithString:[currencyFormatter stringFromNumber: item.amount]];
     
-    //248b3f
+    
+    // Coloring
     if([item.messageType isEqualToString: @"Payment"])
     {
         if([item.direction isEqualToString: @"In"])
         {
-            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+            if ( item.recipientHasSeen == false )
+                cell.newColorStrip.backgroundColor = UIColorFromRGB(0x3D934C); // UPDATED BRIGHT PAYSTREAM GREEN
+            else
+                cell.newColorStrip.backgroundColor = [UIColor clearColor];
+        }
+        else
+        {
+            if ( item.senderHasSeen == false )
+                cell.newColorStrip.backgroundColor = UIColorFromRGB(0x136D71); // UPDATED BRIGHT PAYSTREAM BLUE
+            else
+                cell.newColorStrip.backgroundColor = [UIColor clearColor];
+        }
+    }
+    else
+    {
+        if([item.direction isEqualToString: @"In"])
+        {
+            if ( item.senderHasSeen == false ){
+                if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
+                    cell.newColorStrip.backgroundColor = UIColorFromRGB(0x136D71); // BLUE
+                else
+                    cell.newColorStrip.backgroundColor = UIColorFromRGB(0x688891); // FADED BLUE (Pending)
+            }
+            else
+                cell.newColorStrip.backgroundColor = [UIColor clearColor];
+        }
+        else
+        {
+            if ( item.senderHasSeen == false ){
+                if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
+                    cell.newColorStrip.backgroundColor = UIColorFromRGB(0x3D934C); // Green
+                else
+                    cell.newColorStrip.backgroundColor = UIColorFromRGB(0x648E6F); // Faded Green
+            }
+            else
+                    cell.newColorStrip.backgroundColor = [UIColor clearColor];
+        }
+    }
+    
+    // Coloring
+    if([item.messageType isEqualToString: @"Payment"])
+    {
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.transactionAmount.textColor = UIColorFromRGB(0x3D934C); // Green
             cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
         }
         else
         {
-            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+            cell.transactionAmount.textColor = UIColorFromRGB(0x136D71); // BLUE
             cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
         }
     }
@@ -736,13 +769,51 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     {
         if([item.direction isEqualToString: @"In"])
         {
-            cell.transactionAmount.textColor = UIColorFromRGB(0x2299b5);
+                if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
+                    cell.transactionAmount.textColor = UIColorFromRGB(0x136D71); // BLUE
+                else
+                    cell.transactionAmount.textColor = UIColorFromRGB(0x688891); // FADED BLUE (Pending)
+            
             cell.transactionAmount.text = [NSString stringWithFormat: @"- %@", amount];
         }
         else
         {
-            cell.transactionAmount.textColor = UIColorFromRGB(0x248b3f);
+                if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
+                    cell.transactionAmount.textColor = UIColorFromRGB(0x3D934C); // Green
+                else
+                    cell.transactionAmount.textColor = UIColorFromRGB(0x648E6F); // Faded Green
+            
             cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
+        }
+    }
+    
+    // Coloring
+    if([item.messageType isEqualToString: @"Payment"])
+    {
+        if([item.direction isEqualToString: @"In"])
+        {
+            cell.lblTransactionDirection.textColor = UIColorFromRGB(0x3D934C); // Green
+        }
+        else
+        {
+            cell.lblTransactionDirection.textColor = UIColorFromRGB(0x136D71); // BLUE
+        }
+    }
+    else
+    {
+        if([item.direction isEqualToString: @"In"])
+        {
+            if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
+                cell.lblTransactionDirection.textColor = UIColorFromRGB(0x136D71); // BLUE
+            else
+                cell.lblTransactionDirection.textColor = UIColorFromRGB(0x688891); // FADED BLUE (Pending)
+        }
+        else
+        {
+            if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
+                cell.lblTransactionDirection.textColor = UIColorFromRGB(0x3D934C); // Green
+            else
+                cell.lblTransactionDirection.textColor = UIColorFromRGB(0x648E6F); // Faded Green
         }
     }
     

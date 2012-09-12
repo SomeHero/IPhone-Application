@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FBConnect.h"
 #import "GANTracker.h"
 
 @interface Environment : NSObject {

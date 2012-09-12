@@ -10,6 +10,8 @@
 
 @protocol FBHelperReturnProtocol <NSObject>
 
+-(void)fbSignInCompleteWithMEResponse:(id)response;
 -(void)fbSignInCancelled;
+-(void)linkedFacebookFriendsDidLoad:(id)friendsList;
 
 @end

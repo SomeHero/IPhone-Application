@@ -67,8 +67,7 @@
     [registerUserService release]; 
     [registrationKey release];
     [userService release];
-    [service release];
-    [faceBookSignInHelper release];
+    [fbSignInService release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -156,13 +155,14 @@
     [super viewDidLoad];
     
     tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:2];
-    
-    faceBookSignInHelper = [[FacebookSignIn alloc] init];
     registerUserService = [[RegisterUserService alloc] init];
     [registerUserService setUserRegistrationCompleteDelegate: self];
     
-    service = [[SignInWithFBService alloc] init];
-    service.fbSignInCompleteDelegate = self;
+    fbSignInService = [[SignInWithFBService alloc] init];
+    fbSignInService.fbSignInCompleteDelegate = self;
+    
+    fbSignInHelper = [[FacebookSignIn alloc] init];
+    [fbSignInHelper setReturnDelegate:self];
     
     userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
@@ -285,22 +285,31 @@
     [txtPassword resignFirstResponder];
     [txtConfirmPassword resignFirstResponder];
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Please Wait" withDetailedStatus:@"Facebook Loading"];
-    [faceBookSignInHelper signInWithFacebook: self];
+    
+    [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
+    
+    [fbSignInHelper signInWithFacebook:self];
 }
 
--(void) request:(FBRequest *)request didLoad:(id)result
+-(void)fbSignInCompleteWithMEResponse:(id)response
 {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Please Wait" withDetailedStatus:@"Creating Account"];
-    [service validateUser:result];
-}
-
--(void) request:(FBRequest *)request didFailWithError:(NSError *)error
-{
-    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Facebook Signup Failed"];
-    NSLog ( @"Error occurred -> %@" , [error description] );
+    
+    fbSignInService = [[SignInWithFBService alloc] init];
+    [fbSignInService setFbSignInCompleteDelegate:self];
+    [fbSignInService validateUser:response];
+    
+    FBRequest*friendsRequest = [FBRequest requestForMyFriends];
+    [friendsRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if ( error )
+        {
+            NSLog(@"Facebook Friend Request Failed... %@",error.description);
+        }
+        else
+        {
+            [appDelegate facebookFriendsDidLoad:result];
+        }
+    }];
 }
 
 -(IBAction) btnCreateAccountClicked:(id) sender {

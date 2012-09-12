@@ -97,9 +97,10 @@
     
     [transactionConfirmationDelegate onContinueClicked];
 }
--(IBAction) btnFacebookShare:(id) sender {
-    Facebook * fBook = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).fBook;
-    
+/*
+-(IBAction) btnFacebookShare:(id) sender
+{
+    TODO: Reimplement Sharing with Facebook Active Session...
     NSMutableDictionary* params = [NSMutableDictionary
                                    dictionaryWithObjectsAndKeys:
                                    @"Share on Facebook",  @"user_message_prompt",
@@ -110,6 +111,7 @@
                                    nil];
     
     [fBook dialog:@"feed" andParams:params andDelegate:self];
+     
 }
 
 - (void)dialogDidComplete:(FBDialog *)dialog
@@ -126,6 +128,7 @@
     
     [appDelegate showSuccessWithStatus:@"Failed" withDetailedStatus:@"Your message was not posted on your wall."];
 }
+*/
 
 -(IBAction) btnTwitterShare:(id) sender {
     

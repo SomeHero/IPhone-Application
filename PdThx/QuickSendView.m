@@ -310,7 +310,6 @@
     else
         [imageButton setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     
-    
     if ( [[[contactDict valueForKey:@"userUri"] substringToIndex:3] isEqualToString:@"fb_"] )
     {
         NSLog(@"Setting image for %@ to %@", [contactDict objectForKey:@"userName"], [contactDict objectForKey:@"userImage"]);

@@ -14,9 +14,9 @@
 #import "SignInUserService.h"
 #import "SetupACHAccountController.h"
 #import "SignInWithFBService.h"
+
 #import "Environment.h"
 #import "PdThxAppDelegate.h"
-#import "Facebook.h"
 #import "HomeViewController.h"
 
 
@@ -34,8 +34,8 @@
 @implementation SignInViewController
 
 @synthesize txtEmailAddress, txtPassword, animatedDistance;
-@synthesize viewPanel, fBook, service, bankAlert;
-@synthesize numFailedFB;
+@synthesize viewPanel, fbSignInHelper, bankAlert;
+@synthesize numFailedFB, fbSignInService;
 
 @synthesize tabBar;
 
@@ -59,7 +59,7 @@
     [txtEmailAddress release];
     [txtPassword release];
     [signInUserService release];
-    [fBook release];
+    
     [signInUserService release];
     [SignInWithFBService release];
     [faceBookSignInHelper release];
@@ -94,8 +94,8 @@
     faceBookSignInHelper = [[FacebookSignIn alloc] init];
     signInUserService = [[SignInUserService alloc] init];
     [signInUserService setUserSignInCompleteDelegate:self];
-    service = [[SignInWithFBService alloc] init];
-    service.fbSignInCompleteDelegate = self;
+    fbSignInHelper = [[FacebookSignIn alloc] init];
+    [fbSignInHelper setReturnDelegate:self];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
@@ -103,12 +103,9 @@
     
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"SignInViewController"
-                                        withError:&error]){
+                                        withError:&error]) {
         //Handle Error Here
     }
-    
-    PdThxAppDelegate * appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
-    fBook = appDelegate.fBook;
     
     numFailedFB = 0;
 }
@@ -259,7 +256,7 @@
     [userService getUserInformation: userId];
 }
 
--(void)userSignInDidFail:(NSString *) reason
+-(void)userSignInDidFail:(NSString *)reason
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid user/pass"];
@@ -267,7 +264,7 @@
 }
 
 
--(void)userInformationDidComplete:(User*) user {
+-(void)userInformationDidComplete:(User*)user {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -280,19 +277,11 @@
     
     [prefs synchronize];
     
-    if ( user.facebookId != (id)[NSNull null] && user.facebookId.length > 0 )
+    if ( [user.socialNetworks objectForKey:@"Facebook"] != NULL )
     {
-        if ( user.facebookToken != (id)[NSNull null] && user.facebookToken.length > 0 )
-        {
-            fBook.accessToken = user.facebookToken;
-            
-            if ( [fBook isSessionValid] )
-                [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
-            else
-            {
-                [fBook authorize:appDelegate.permissions];
-            }
-        }
+        NSMutableDictionary*facebookDict = [user.socialNetworks objectForKey:@"Facebook"];
+        
+        [fbSignInHelper getFacebookFriendsWithDelegate:appDelegate withSocialNetworkUserId:[facebookDict objectForKey:@"SocialNetworkUserId"] withSocialNetworkAccessToken:[facebookDict objectForKey:@"SocialNetworkUserToken"]];
     }
     
     if(paymentAccountId == (id)[NSNull null] && [paymentAccountId length] > 0)
@@ -389,51 +378,41 @@
     
     [appDelegate showWithStatus:@"Please wait..." withDetailedStatus:@"Connecting with Facebook"];
     
-    if ( ![fBook isSessionValid] ){
-        NSLog(@"Facebook Session is NOT Valid, Signing in...");
-        [faceBookSignInHelper setCancelledDelegate:self];
-        [faceBookSignInHelper signInWithFacebook:self];
-    } else {
-        NSLog(@"Facebook Session is Valid, Getting info...");
-        [fBook requestWithGraphPath:@"me" andDelegate:self];
-        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
-    }
+    [fbSignInHelper signInWithFacebook:self];
 }
 
--(void) request:(FBRequest *)request didLoad:(id)result
-{
-    NSLog(@"User info did load from Facebook %@ , Logging in...", result);
-    [service validateUser:result];
-}
-
--(void) request:(FBRequest *)request didFailWithError:(NSError *)error
+-(void)fbSignInCompleteWithMEResponse:(id)response
 {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSLog ( @"Error occurred2 -> %@" , [error description] );
     
-    NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
-    [def removeObjectForKey:@"FBAccessTokenKey"];
-    [def removeObjectForKey:@"FBExpirationDateKey"];
-    [def synchronize];
+    fbSignInService = [[SignInWithFBService alloc] init];
+    [fbSignInService setFbSignInCompleteDelegate:self];
+    [fbSignInService validateUser:response];
     
-    if ( ![fBook isSessionValid] ){
-        NSLog(@"Facebook Session is NOT Valid, Signing in...");
-        [faceBookSignInHelper setCancelledDelegate:self];
-        [faceBookSignInHelper signInWithFacebook:self];
-    } else {
-        NSLog(@"Facebook Session is Valid, Getting info...");
-        [fBook requestWithGraphPath:@"me" andDelegate:self];
-        [fBook requestWithGraphPath:@"me/friends" andDelegate:appDelegate];
-    }
+    FBRequest*friendsRequest = [FBRequest requestForMyFriends];
+    [friendsRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if ( error )
+        {
+            NSLog(@"Facebook Friend Request Failed... %@",error.description);
+        }
+        else
+        {
+            [appDelegate facebookFriendsDidLoad:result];
+        }
+    }];
 }
 
--(void)securityQuestionAnsweredCorrect {
+
+-(void)securityQuestionAnsweredCorrect
+{
     [self dismissModalViewControllerAnimated: NO];
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
--(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage {
-        
+
+-(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage
+{
+    NSLog(@"Incorrect security question implementation missing ** TODO");
 }
 
 

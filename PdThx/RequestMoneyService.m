@@ -102,7 +102,7 @@
     bool isLockedOut = [[jsonDictionary valueForKey: @"isLockedOut"] boolValue];
     NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
     
-    NSString* message = [NSString stringWithString: @"Unable to send request for money"];
+    NSString* message = @"Unable to send request for money";
     
     [requestMoneyCompleteDelegate requestMoneyDidFail: message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
 }

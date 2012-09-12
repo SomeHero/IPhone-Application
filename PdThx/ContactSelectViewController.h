@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIBaseViewController.h"
-#import "Facebook.h"
+
 #import "PhoneNumberFormatting.h"
 #import "IconDownloader.h"
 #import "ContactSelectChosenProtocol.h"
@@ -30,7 +30,6 @@
     IBOutlet UITableView *tvSubview;
     
     TSPopoverController *popoverController;
-    Facebook * fBook;
     NSMutableArray * allResults;
     NSMutableArray * filteredResults;
     NSMutableDictionary *fbIconsDownloading;
@@ -47,7 +46,7 @@
 @property (nonatomic, retain) UITableView *tvSubview;
 @property (nonatomic, retain) NSMutableArray * allResults;
 @property (nonatomic, retain) NSMutableArray * filteredResults;
-@property (nonatomic, retain) Facebook * fBook;
+
 @property (nonatomic, retain) NSMutableDictionary *fbIconsDownloading;
 @property(assign) id didSetContact;
 @property(assign) id didSetContactAndAmount;

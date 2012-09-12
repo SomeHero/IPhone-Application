@@ -27,6 +27,7 @@
 @synthesize userConfigurationItems;
 @synthesize facebookId;
 @synthesize facebookToken;
+@synthesize socialNetworks;
 
 -(id)init {
     self = [super init];
@@ -54,6 +55,7 @@
         outstandingPayments = [[NSMutableArray alloc] init];
         userAttributes = [[NSMutableArray alloc] init];
         userConfigurationItems = [[NSMutableArray alloc] init];
+        socialNetworks = [[NSMutableDictionary alloc] init];
     }
     
     return self;
@@ -79,8 +81,10 @@
         limit = [[dictionary objectForKey: @"upperLimit"] copy];
         instantLimit = [[dictionary objectForKey: @"instantLimit"] copy];
         hasSecurityPin = [[dictionary valueForKey: @"setupSecurityPin"] boolValue];
+        
         facebookId = [[dictionary valueForKey:@"facebookId"] copy];
         facebookToken = [[dictionary valueForKey:@"facebookToken"] copy];
+        
         if(mobileNumber != (id)[NSNull null] && [mobileNumber length] > 0) {
             userUri = mobileNumber;
         } else {
@@ -106,6 +110,15 @@
         for(int i = 0; i <[payPointsArray count]; i++)
         {
             [payPoints addObject: [[[PayPoint alloc] initWithDictionary: [payPointsArray objectAtIndex:(NSUInteger) i]] autorelease]];
+        }
+        
+        NSArray *socialNetworksArray = [[dictionary valueForKey:@"userSocialNetworks"] copy];
+        
+        socialNetworks = [[NSMutableDictionary alloc] init];
+        
+        for(NSDictionary*socialNetworkDict in socialNetworksArray)
+        {
+            [socialNetworks setValue:socialNetworkDict forKey:[socialNetworkDict objectForKey:@"SocialNetwork"]];
         }
         
         NSArray *bankAccountsArray = [[dictionary valueForKey:@"bankAccounts"] copy];
@@ -134,7 +147,6 @@
         {
             [userConfigurationItems addObject: [[[UserConfiguration alloc] initWithDictionary: [userConfigurationsArray objectAtIndex:(NSUInteger) i]] autorelease]];
         }
-        
     }
     
     return self;
@@ -167,6 +179,7 @@
     another.numberOfPaystreamUpdates = numberOfPaystreamUpdates;
     another.outstandingPayments = [outstandingPayments copy];
     another.payPoints = [payPoints copy];
+    another.socialNetworks = [socialNetworks copy];
     another.bankAccounts = [bankAccounts copy];
     another.userAttributes = [userAttributes copy];
     another.userConfigurationItems = [userConfigurationItems copy];

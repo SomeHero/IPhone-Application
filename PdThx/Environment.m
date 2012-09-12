@@ -7,7 +7,7 @@
 //
 
 #import "Environment.h"
-#import "FBConnect.h"
+
 
 @implementation Environment
 

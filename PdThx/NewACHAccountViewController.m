@@ -197,8 +197,16 @@
  		PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
         
+        NSString* nickName = @"";
         
-        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:txtAccountNickname.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
+        if ( [txtAccountNickname.text isEqualToString:@""] || txtAccountNickname.text.length == 0 )
+        {
+            nickName = [NSString stringWithFormat:@"%@ %@",accountType,[txtAccountNumber.text substringFromIndex:txtAccountNumber.text.length-4]];
+        }
+        
+        NSLog(@"Submitting with Nickname: %@",nickName);
+        
+        [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickName withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
     else {
         if([sender tag] == 1)
