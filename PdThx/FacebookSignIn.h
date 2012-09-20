@@ -25,6 +25,10 @@
 
 -(void)getFacebookFriendsWithDelegate:(id)returnDelegate withSocialNetworkUserId:(NSString*)userId withSocialNetworkAccessToken:(NSString*)accessToken;
 
+-(void)linkNewFacebookAccount:(id)callback;
+
+-(void)unlinkFacebookAccount:(id)callback;
+
 @property (assign) id returnDelegate;
 
 @end

@@ -52,6 +52,9 @@
     
     [userImageButton.layer setCornerRadius:6.0];
     [userImageButton.layer setMasksToBounds:YES];
+    [userImageButton.layer setBorderWidth:0.2];
+    [userImageButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"PersonalizeViewController"
                                         withError:&error]){

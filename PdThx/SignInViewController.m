@@ -287,7 +287,7 @@
     if(paymentAccountId == (id)[NSNull null] && [paymentAccountId length] > 0)
         user.hasACHAccount = true;
     
-    [appDelegate showSuccessWithStatus:@"Complete!" withDetailedStatus:@""];
+    [appDelegate dismissProgressHUD];
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     

@@ -144,6 +144,69 @@
      }];
 }
 
+-(void)unlinkFacebookAccount:(id)callback
+{
+    [self setReturnDelegate:callback];
+    
+    [self deleteSavedLinkedFacebookSession];
+}
+
+-(void)deleteSavedLinkedFacebookSession
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/SocialNetworks", myEnvironment.pdthxWebServicesBaseUrl, appDelegate.user.userId]] autorelease];
+    
+    
+    // TODO: Finish Implementation of Web Services for Unlinking a Facebook Account.
+    
+    NSDictionary *meCodeData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                @"Facebook",@"SocialNetworkType", nil];
+    
+    NSString *newJSON = [meCodeData JSONRepresentation];
+    
+    ASIHTTPRequest* requestObj;
+    requestObj= [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];
+    
+    [requestObj setDelegate:self];
+    [requestObj setDidFinishSelector:@selector(unlinkFacebookSucceeded:)];
+    [requestObj setDidFailSelector:@selector(unlinkFacebookFailed:)];
+    
+    [requestObj startAsynchronous];
+}
+
+-(void) unlinkFacebookSucceeded:(ASIHTTPRequest *)request
+{
+    NSLog(@"Link FB Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if ( [request responseStatusCode] == 200 || [request responseStatusCode] == 201 )
+    {
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Facebook Unlinked"];
+    }
+    else
+    {
+        [self unlinkFacebookFailed:request];
+    }
+}
+
+-(void) unlinkFacebookFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"Link Facebook failed with Exception");
+    NSLog(@"Link FB Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Unlinking Failed"];
+}
+
+
 -(void)saveLinkedFacebookSession:(FBSession*)sessionOpened
 {
     [FBSession setActiveSession:sessionOpened];

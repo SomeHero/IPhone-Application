@@ -39,6 +39,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize swipeDownQuicksend;
 @synthesize incomingNotificationLabel, outgoingNotificationLabel;
 @synthesize quickSendContacts;
+@synthesize loadingActivityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -68,6 +69,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [incomingNotificationLabel release];
     [outgoingNotificationLabel release];
     [quickSendView release];
+    [loadingActivityIndicator release];
     [super dealloc];
 }
 
@@ -95,12 +97,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
     [[viewPanel layer] setBorderColor:[UIColor colorWithRed:166/255.0 green:168/255.0 blue:168/255.0 alpha:1.0].CGColor];
+    
     [[viewPanel layer] setCornerRadius: 6.0];
     
     [[quickSendView layer] setCornerRadius: 8.0];
     
     [btnUserImage.layer setCornerRadius:11.0];
     [btnUserImage.layer setMasksToBounds:YES];
+    [btnUserImage.layer setBorderWidth:0.2];
+    [btnUserImage.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     UIImage *imgProfileActive = [UIImage imageNamed: @"btn-profile-308x70-active.png"];
     [btnProfile setImage: imgProfileActive forState:UIControlStateHighlighted];
@@ -125,8 +130,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     swipeUpQuicksend.delegate = self;
     swipeDownQuicksend.delegate = self;
     
-    [self setTitle: @"Home"];
+    [loadingActivityIndicator startAnimating];
+    loadingActivityIndicator.hidesWhenStopped = YES;
     
+    [self setTitle: @"Home"];
 }
 
 - (void) quicksendSwipedUp
@@ -157,7 +164,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [super viewDidAppear:animated];
     
+    lblPayPoints.text = @"";
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
+    outgoingNotificationLabel.text =  [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
+    
+    lblUserName.text = [prefs stringForKey:@"PdThx_PreferredName"];
+    
     NSString* userId = [prefs stringForKey:@"userId"];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -181,26 +195,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [btnUserImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     }
     
-    
+    loadingActivityIndicator.hidden = NO;
+    [loadingActivityIndicator startAnimating];
     [userService refreshHomeScreenInformation:userId];
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    lblPayPoints.text = @"";
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
-    outgoingNotificationLabel.text =  [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
-    lblUserName.text = [prefs stringForKey:@"PdThx_PreferredName"];
-    
-    [btnUserImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
 }
 
 -(void)userHomeScreenInformationDidComplete:(NSMutableArray *)quickSendContactArray
 {
+    [loadingActivityIndicator stopAnimating];
+    
     quickSendContacts = quickSendContactArray;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -265,6 +273,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [outgoingNotificationLabel release];
     outgoingNotificationLabel = nil;
     [self setQuickSendView:nil];
+    [loadingActivityIndicator release];
+    loadingActivityIndicator = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

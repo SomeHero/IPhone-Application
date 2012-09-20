@@ -43,13 +43,15 @@
     NSMutableArray *quickSendContacts;
     
     IBOutlet QuickSendView *quickSendView;
+    
+    IBOutlet UIActivityIndicatorView *loadingActivityIndicator;
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
 @property(nonatomic, retain) UIButton *btnSendPhone;
 @property(nonatomic, retain) UIButton *btnSendFacebook;
 @property(nonatomic, retain) UIButton *btnSendNonprofit;
-
+@property(nonatomic, retain) UIActivityIndicatorView *loadingActivityIndicator;
 
 @property(nonatomic, retain) NSMutableArray *quickSendContacts;
 

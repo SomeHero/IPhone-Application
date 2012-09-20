@@ -49,6 +49,8 @@
 @synthesize selectedContactList;
 @synthesize quickSendArray;
 
+@synthesize numberOfFacebookFriends;
+
 // Static Tab Bar View Controllers..
 @synthesize LoggedInCenterViewController, LoggedInFifthViewController, LoggedInFirstViewController, LoggedInFourthViewController, LoggedInSecondViewController;
 
@@ -739,6 +741,62 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
 }
 
+
+-(void)getOrganizationsDidComplete:(NSMutableArray*)merchants
+{
+    /* Operation Queue init (autorelease) */
+    NSOperationQueue *queue = [NSOperationQueue new];
+    
+    /* Create our NSInvocationOperation to call loadDataWithOperation, passing in nil */
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                            selector:@selector(processOrganizationsList:)
+                                                                              object:merchants];
+    
+    /* Add the operation to the queue */
+    [queue addOperation:operation];
+    [operation release];
+}
+
+- (void) processOrganizationsList:(id)merchants
+{
+    [organizations removeAllObjects];
+    
+    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
+    
+    for(int i=0; i < [merchants count]; i++)
+    {
+        Merchant* merchant = [merchants objectAtIndex:i];
+        
+        Contact* contact = [[Contact alloc] init];
+        contact.userId = merchant.merchantId;
+        contact.firstName = @"";
+        contact.lastName = @"";
+        contact.name = merchant.name;
+        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
+        contact.recipientId =  merchant.merchantId;
+        contact.merchant = merchant;
+        
+        if([merchant.merchantListings count] > 0)
+            contact.showDetailIcon = true;
+        
+        [tempOrganizations addObject:contact];
+    }
+    
+    
+    tempOrganizations =  [self sortContacts:tempOrganizations];
+    
+    for(int i = 0; i <[tempOrganizations count]; i++)
+    {
+        [organizations addObject:[tempOrganizations objectAtIndex:i]];
+    }
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          organizations forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
+}
+
+
+/*
 -(void)getOrganizationsDidComplete: (NSMutableArray*) merchants {
     [organizations removeAllObjects];
     
@@ -775,11 +833,67 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                           organizations forKey:@"contacts"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
 }
+*/
+
 -(void)getOrganizationsDidFail: (NSString*) errorMessage {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
+
+-(void)getNonProfitsDidComplete:(NSMutableArray*)merchants
+{
+    [nonProfits removeAllObjects];
+    
+    /* Operation Queue init (autorelease) */
+    NSOperationQueue *queue = [NSOperationQueue new];
+    
+    /* Create our NSInvocationOperation to call loadDataWithOperation, passing in nil */
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                            selector:@selector(processNonProfitsList:)
+                                                                              object:merchants];
+    
+    /* Add the operation to the queue */
+    [queue addOperation:operation];
+    [operation release];
+}
+
+- (void) processNonProfitsList:(id)merchants
+{
+    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
+    
+    for(int i=0; i < [merchants count]; i++)
+    {
+        Merchant* merchant = [merchants objectAtIndex:i];
+        
+        Contact* contact = [[Contact alloc] init];
+        contact.userId = merchant.merchantId;
+        contact.name = merchant.name;
+        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
+        contact.recipientId =  merchant.merchantId;
+        contact.merchant = merchant;
+        
+        if([merchant.merchantListings count] > 0)
+            contact.showDetailIcon = true;
+        
+        [tempOrganizations addObject:contact];
+    }
+    
+    
+    tempOrganizations =  [self sortContacts:tempOrganizations];
+    
+    for(int i = 0; i <[tempOrganizations count]; i++)
+    {
+        [nonProfits addObject:[tempOrganizations objectAtIndex:i]];
+    }
+    
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                          nonProfits forKey:@"contacts"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshNonProfitList" object:self userInfo:dict];
+}
+
+/*
 -(void)getNonProfitsDidComplete: (NSMutableArray*) merchants {
     [nonProfits removeAllObjects];
+    
     
     NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
     
@@ -812,6 +926,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                           nonProfits forKey:@"contacts"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshNonProfitList" object:self userInfo:dict];
 }
+*/
+
 -(void)getNonProfitsDidFail: (NSString*) errorMessage {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
@@ -860,6 +976,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     {
         [faceBookContacts addObject:[faceBookFriends objectAtIndex:i]];
     }
+    
+    numberOfFacebookFriends = [faceBookFriends count];
     
     [self mergeAllContacts: faceBookContacts];
     

@@ -37,8 +37,8 @@
     
     [merchantImage.layer setCornerRadius:5.0];
     [merchantImage.layer setMasksToBounds:YES];
-    [merchantImage.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [merchantImage.layer setBorderWidth:0.7];
+    [merchantImage.layer setBorderWidth:0.2];
+    [merchantImage.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     merchantName.lineBreakMode = UILineBreakModeWordWrap;
     merchantName.numberOfLines = 0;

@@ -17,7 +17,9 @@
 #import "IconDownloader.h"
 #import "SocialNetworksViewController.h"
 #import "UIPaystreamLoadingCell.h"
+#import "ConnectFacebookCell.h"
 
+#import "DAKeyboardControl.h"
 #import <CoreText/CoreText.h>
 
 @interface ContactSelectViewController ()
@@ -34,13 +36,13 @@
 @synthesize didSetContactAndAmount;
 @synthesize didSetContact;
 @synthesize userService;
+@synthesize appDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
         if ( [[appDelegate selectedContactList] isEqualToString:@"FacebookContacts"] )
             allResults = appDelegate.faceBookContacts;
@@ -78,6 +80,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContactList:) name:@"refreshContactList" object:nil];
     
     self.fbIconsDownloading = [NSMutableDictionary dictionary];
+    self.view.keyboardTriggerOffset = 0.0;
+    
+    [tvSubview setBounces:NO];
+    
+    appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        /*
+         Try not to call "self" inside this block (retain cycle).
+         But if you do, make sure to remove DAKeyboardControl
+         when you are done with the view controller by calling:
+         [self.view removeKeyboardControl];
+         */
+        
+    }];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -130,30 +147,11 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    
-    if ([appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && [prefs objectForKey:@"facebookId"] == nil)
-    {
-        NSInteger count = 0;
-        for (NSArray* array in allResults)
-        {
-            for (int i = 0; i < [array count]; i++)
-            {
-                count++;
-            }
-        }
-        
-        if (count == 0)
-        {
-            [appDelegate showTwoButtonAlertView:NO withTitle:@"Facebook not linked!" withSubtitle:@"No Facebook Contacts" withDetailedText:@"Facebook account isn't linked, so you have no Facebook contacts to show! To link your Facebook, click OK." withButton1Text:@"OK" withButton2Text:@"Cancel" withDelegate:self];
-        }
-        
-    }
     
     
     if ( isFiltered && !foundFiltered )
+        return 1;
+    else if ( [appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && appDelegate.numberOfFacebookFriends == 0 )
         return 1;
     else
         return 28;
@@ -162,8 +160,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //if ( indexPath.section > 0 )
-    if ( indexPath.section == 0 && [txtSearchBox.text characterAtIndex:0] == '$')
+    if ( indexPath.section == 0 && txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$')
         return 32.0;
+    else if ( indexPath.section == 0 && [appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && appDelegate.numberOfFacebookFriends == 0 )
+        return 196.0;
     else
         return 60;
 }
@@ -176,7 +176,7 @@
             return 0.0;
         } else if ( [[filteredResults objectAtIndex:section] count] > 0 )
         {
-            if ( [txtSearchBox.text characterAtIndex:0] == '$' )
+            if ( txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$' )
                 return 0.0;
             else
                 return 22.0;
@@ -193,19 +193,17 @@
     return 0.0;
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [txtSearchBox resignFirstResponder];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if ( isFiltered == YES ){
+    if ( isFiltered == YES )
+    {
         if ( [[filteredResults objectAtIndex:section] count] == 0 && section == 0 && !foundFiltered)
-            return 1;
+            return 1; // Loading Cell
         else
             return [[filteredResults objectAtIndex:section] count];
+    } else if ( [appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && appDelegate.numberOfFacebookFriends == 0 ) {
+        return 1; // Facebook Connect Cell
     } else {
         return [[allResults objectAtIndex:section] count];
     }
@@ -287,12 +285,20 @@
     [altImageView setContentMode:UIViewContentModeScaleToFill];
     
     // Loading Cell
-    if ( indexPath.section == 0 && [txtSearchBox.text characterAtIndex:0] == '$')
+    if ( indexPath.section == 0 && txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$')
     {
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
         UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
         return cell;
     }
+    
+    if ( indexPath.section == 0 && [appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && appDelegate.numberOfFacebookFriends == 0 )
+    {
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"ConnectFacebookCellView" owner:self options:nil];
+        ConnectFacebookCell* connectFb = [nib objectAtIndex:0];
+        return connectFb;
+    }
+    
     
     ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     
@@ -324,6 +330,9 @@
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
     [myCell.contactImage.layer setCornerRadius:4.0];
     [myCell.contactImage.layer setMasksToBounds:YES];
+    [myCell.contactImage.layer setBorderWidth:0.2];
+    [myCell.contactImage.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
     myCell.userInteractionEnabled = YES;
     
     myCell.contactNameField.text = @"";
@@ -784,6 +793,7 @@
     [contactSelectChosenDelegate didChooseContact: contact];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 -(void) showContextSelect:(id)sender forEvent:(UIEvent*)event
 {
     [txtSearchBox resignFirstResponder];
@@ -979,7 +989,6 @@
         }
     }
     
-    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [self setFilteredResults:[appDelegate sortContacts:sortedArray]];
     isFiltered = YES;
     foundFiltered = YES;
@@ -997,7 +1006,7 @@
     } else {
         isFiltered = YES;
         
-        if ( [txtSearchBox.text characterAtIndex:0] == '$' )
+        if ( txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$' )
         {
             if ( txtSearchBox.text.length < 4 )
             {
@@ -1065,7 +1074,9 @@
     }
     [tvSubview reloadData];
 }
--(void)contactWasSelected:(NSInteger)contactType {
+
+-(void)contactWasSelected:(NSInteger)contactType
+{
     
     [popoverController dismissPopoverAnimatd:YES];
     
@@ -1141,6 +1152,7 @@
     [popoverController release];
     popoverController = nil;
 }
+
 -(void)infoButtonClicked: (Contact*) contact;
 {
     OrganizationDetailViewController* controller = [[OrganizationDetailViewController alloc] init];
@@ -1167,8 +1179,6 @@
 
 -(void) didSelectButtonWithIndex:(int)index
 {
-    PdThxAppDelegate *appDelegate = (PdThxAppDelegate*) [[UIApplication sharedApplication] delegate];
-    
     switch(index)
     {
         case 0:
