@@ -246,6 +246,9 @@
 					<object class="IBUIView" id="385848343">
 						<reference key="NSNextResponder" ref="1013413805"/>
 						<int key="NSvFlags">292</int>
+						<object class="NSMutableArray" key="NSSubviews">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
 						<string key="NSFrame">{{33, 122}, {254, 51}}</string>
 						<reference key="NSSuperview" ref="1013413805"/>
 						<reference key="NSWindow"/>
@@ -277,7 +280,6 @@
 						<string key="NSFrame">{{0, 282}, {320, 154}}</string>
 						<reference key="NSSuperview" ref="1013413805"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAwLjI4OTIyNjA4ODEgMC45MTkzMTc1ODY3AA</bytes>
@@ -524,6 +526,9 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">103</int>
 						<reference key="object" ref="385848343"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
 						<reference key="parent" ref="1013413805"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -615,7 +620,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">141</int>
+			<int key="maxID">143</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

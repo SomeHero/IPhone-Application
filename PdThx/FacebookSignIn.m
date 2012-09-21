@@ -8,11 +8,14 @@
 
 #import "FacebookSignIn.h"
 #import "FBHelperReturnProtocol.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 
 @implementation FacebookSignIn
 
 @synthesize returnDelegate;
+@synthesize linkDelegate;
+@synthesize unlinkDelegate;
 
 - (id) init
 {
@@ -67,7 +70,6 @@
 {
     NSLog(@"Facebook friends failed to load.");
 }
-
 
 - (void)signInWithFacebook:(id)returnProtocol
 {
@@ -124,30 +126,29 @@
 
 -(void)linkNewFacebookAccount:(id)callback
 {
-    [self setReturnDelegate:callback];
+    [self setLinkDelegate:callback];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    FBSession *newSess = [[FBSession alloc] init];
-    [newSess openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
-     {
-         if ( error )
-         {
-             NSLog(@"Error, did not open new session.");
-             
-             PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-             [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Linking Failed"];
-         }
-         else
-         {
-             NSLog(@"Opened session.");
-             [self saveLinkedFacebookSession:session];
-         }
-     }];
+    [FBSession openActiveSessionWithPermissions:appDelegate.permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
+    {
+        if ( error )
+        {
+            NSLog(@"Error, did not open new session.");
+            [appDelegate showSimpleAlertView:NO withTitle:@"Error" withSubtitle:@"Facebook Link Failed" withDetailedText:@"We were unable to link your PaidThx account with Facebook. Please check your wireless connection and try again." withButtonText:@"Ok" withDelegate:self];
+            [linkDelegate facebookAccountLinkFailed];
+
+        }
+        else
+        {
+            NSLog(@"Opened session. %@", [FBSession activeSession].isOpen ? @"YES!" : @"NO!");
+            [self saveLinkedFacebookSession:session];
+        }
+    }];
 }
 
 -(void)unlinkFacebookAccount:(id)callback
 {
-    [self setReturnDelegate:callback];
-    
+    [self setUnlinkDelegate:callback];
     [self deleteSavedLinkedFacebookSession];
 }
 
@@ -158,8 +159,7 @@
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/SocialNetworks", myEnvironment.pdthxWebServicesBaseUrl, appDelegate.user.userId]] autorelease];
-    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/SocialNetworks/unlink", myEnvironment.pdthxWebServicesBaseUrl, appDelegate.user.userId]] autorelease];
     
     // TODO: Finish Implementation of Web Services for Unlinking a Facebook Account.
     
@@ -186,10 +186,14 @@
 {
     NSLog(@"Link FB Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     if ( [request responseStatusCode] == 200 || [request responseStatusCode] == 201 )
     {
-        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Facebook Unlinked"];
+        [self removeSavedFacebookAccount];
+        
+        [appDelegate showSimpleAlertView:YES withTitle:@"Success" withSubtitle:@"Facebook Unlinked" withDetailedText:@"Your Facebook account has been unlinked from your PaidThx account. Your friends will not be seen in your contact list anymore." withButtonText:@"Ok" withDelegate:self];
+        [unlinkDelegate facebookAccountUnlinkSuccess];
     }
     else
     {
@@ -203,42 +207,58 @@
     NSLog(@"Link FB Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Unlinking Failed"];
+    
+    [appDelegate showSimpleAlertView:NO withTitle:@"Error" withSubtitle:@"Facebook Unlink Failed" withDetailedText:@"We were unable to unlink your PaidThx account with Facebook. Please check your wireless connection and try again." withButtonText:@"Ok" withDelegate:self];
+    
+    [unlinkDelegate facebookAccountUnlinkFailed];
+}
+
+-(void)removeSavedFacebookAccount
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    NSMutableDictionary*mutableSocialNetworks = [appDelegate.user.socialNetworks mutableCopy];
+    
+    [mutableSocialNetworks removeObjectForKey:@"Facebook"];
+    
+    [appDelegate.user setSocialNetworks:mutableSocialNetworks];
 }
 
 
 -(void)saveLinkedFacebookSession:(FBSession*)sessionOpened
 {
-    [FBSession setActiveSession:sessionOpened];
-    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     FBRequest*meRequest = [FBRequest requestForMe];
     
-    [meRequest startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *my, NSError *error)
+    if ( [FBSession activeSession].isOpen )
     {
-        if ( error )
-        {
-            NSLog(@"Error getting linked facebook session, with reason %@", [error description]);
-            
-            PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-            [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Linking Failed"];
-        }
-        else
-        {
-            NSLog(@"Linked Facebook Session Opened -> Setting information in user social networks and calling service.");
-            
-            User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-            
-            NSMutableDictionary*socialNetworkDictionary = [[NSMutableDictionary alloc] init];
-            
-            [socialNetworkDictionary setObject:@"Facebook" forKey:@"SocialNetwork"];
-            [socialNetworkDictionary setObject:[my objectForKey:@"id"] forKey:@"SocialNetworkUserId"];
-            [socialNetworkDictionary setObject:[FBSession activeSession].accessToken forKey:@"SocialNetworkUserToken"];
-            
-            //[user.socialNetworks setObject:socialNetworkDictionary forKey:@"Facebook"];
-            
-            [self updateRemoteServerSocialNetworks:user.userId withSocialNetwork:socialNetworkDictionary];
-        }
-    }];
+        [meRequest startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *my, NSError *error)
+         {
+             if ( error )
+             {
+                 NSLog(@"Error getting linked facebook session, with reason %@", [error description]);
+                 
+                 [appDelegate showSimpleAlertView:NO withTitle:@"Error" withSubtitle:@"Facebook Link Failed" withDetailedText:@"We were unable to link your PaidThx account with Facebook. Please check your wireless connection and try again." withButtonText:@"Ok" withDelegate:self];
+                 [linkDelegate facebookAccountLinkFailed];
+             }
+             else
+             {
+                 User* user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+                 
+                 NSMutableDictionary*socialNetworkDictionary = [[NSMutableDictionary alloc] init];
+                 
+                 [socialNetworkDictionary setObject:@"Facebook" forKey:@"SocialNetwork"];
+                 [socialNetworkDictionary setObject:[my objectForKey:@"id"] forKey:@"SocialNetworkUserId"];
+                 [socialNetworkDictionary setObject:[FBSession activeSession].accessToken forKey:@"SocialNetworkUserToken"];
+                 
+                 NSMutableDictionary*newUserNetworks = [user.socialNetworks mutableCopy];
+                 [newUserNetworks setObject:socialNetworkDictionary forKey:@"Facebook"];
+                 [user setSocialNetworks:newUserNetworks];
+                 
+                 [self updateRemoteServerSocialNetworks:user.userId withSocialNetwork:socialNetworkDictionary];
+             }
+         }];
+    }
 }
 
 -(void)updateRemoteServerSocialNetworks:(NSString*)userId withSocialNetwork:(NSMutableDictionary*)socialNetworkDictionary
@@ -273,12 +293,14 @@
 
 -(void) linkFacebookSucceeded:(ASIHTTPRequest *)request
 {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSLog(@"Link FB Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if ( [request responseStatusCode] == 200 || [request responseStatusCode] == 201 )
     {
-        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Facebook Linked!"];
+        [appDelegate showSimpleAlertView:YES withTitle:@"Success" withSubtitle:@"Facebook Linked" withDetailedText:@"Your PaidThx account is now linked with Facebook. You can now easily send to your facebook friends." withButtonText:@"Ok" withDelegate:self];
+        [self getFacebookFriends:appDelegate];
+        [linkDelegate facebookAccountLinkSuccess];
     }
     else
     {
@@ -288,11 +310,17 @@
 
 -(void) linkFacebookFailed:(ASIHTTPRequest *)request
 {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSLog(@"Link Facebook failed with Exception");
     NSLog(@"Link FB Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Linking Failed"];
+    [appDelegate showSimpleAlertView:NO withTitle:@"Error" withSubtitle:@"Facebook Link Failed" withDetailedText:@"We were unable to link your PaidThx account with Facebook. Please check your wireless connection and try again." withButtonText:@"Ok" withDelegate:self];
+    [linkDelegate facebookAccountLinkFailed];
 }
 
+-(void)didSelectButtonWithIndex:(int)index
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissAlertView];
+}
 @end

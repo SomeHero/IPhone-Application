@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>Description</key>
-			<string>Send to your friends!</string>
+			<string>Click here to sync your friends list!</string>
 			<key>HighlightedImage</key>
 			<string>socialFacebookIcon.png</string>
 			<key>Image</key>
@@ -14,7 +14,7 @@
 			<key>Label</key>
 			<string>Facebook</string>
 			<key>AlreadyLinkedDescription</key>
-			<string>Facebook Already Linked!</string>
+			<string>Click here to unlink</string>
 			<key>UserPreferencesKey</key>
 			<string>facebookId</string>
 		</dict>

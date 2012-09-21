@@ -58,7 +58,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [resultImageView release];
     [topTitleLabel release];
     [subTitleLabel release];
@@ -68,17 +69,11 @@
     [txtField release];
     [super dealloc];
 }
-- (IBAction)pressedLeftButton:(id)sender {
-    if ( self.txtField.hidden == NO )
-        [alertViewDelegate didSelectButtonWithIndex:0 withEnteredText:self.txtField.text];
-    else
-        [alertViewDelegate didSelectButtonWithIndex:0];
+- (IBAction)pressedLeftButton:(id)sender  {
+    [alertViewDelegate didSelectButtonWithIndex:0];
 }
 
 - (IBAction)pressedRightButton:(id)sender {
-    if ( self.txtField.hidden == NO )
-        [alertViewDelegate didSelectButtonWithIndex:1 withEnteredText:self.txtField.text];
-    else
-        [alertViewDelegate didSelectButtonWithIndex:1];
+    [alertViewDelegate didSelectButtonWithIndex:1];
 }
 @end

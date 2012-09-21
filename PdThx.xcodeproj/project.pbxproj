@@ -994,7 +994,6 @@
 		54CACC6D15879A5B00631B84 /* AboutPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutPageViewController.xib; sourceTree = "<group>"; };
 		54CACC7015879BBD00631B84 /* WLCM-BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WLCM-BG.png"; sourceTree = "<group>"; };
 		54CACC831587C6F000631B84 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkWithFacebookProtocol.h; sourceTree = "<group>"; };
 		54D23F8B15BDCA6E0037719A /* HomeViewControllerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewControllerV2.h; sourceTree = "<group>"; };
 		54D23F8C15BDCA6E0037719A /* HomeViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewControllerV2.m; sourceTree = "<group>"; };
 		54D23F8D15BDCA6E0037719A /* HomeViewControllerV2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewControllerV2.xib; sourceTree = "<group>"; };
@@ -1675,6 +1674,8 @@
 		7A9650C6160B6265000B86A4 /* currentStatusBox596x70@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "currentStatusBox596x70@2x.png"; sourceTree = "<group>"; };
 		7A9650D0160B8ACD000B86A4 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
 		7A9650D1160B8ACD000B86A4 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
+		7A9650D3160BAA75000B86A4 /* FacebookUnlinkProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FacebookUnlinkProtocol.h; sourceTree = "<group>"; };
+		7A9650D4160BAAD1000B86A4 /* FacebookLinkProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FacebookLinkProtocol.h; sourceTree = "<group>"; };
 		7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIPaystreamLoadingTableViewCell.xib; sourceTree = "<group>"; };
 		7AAD193615EE7DB700308CAA /* UIPaystreamLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPaystreamLoadingCell.h; sourceTree = "<group>"; };
 		7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPaystreamLoadingCell.m; sourceTree = "<group>"; };
@@ -3294,6 +3295,8 @@
 			children = (
 				5B3A5D4A159A20010028D3F6 /* CustomSecurityPinSwipeProtocol.h */,
 				7AAD193915F1159700308CAA /* FindMatchingMeCodesProtocol.h */,
+				7A9650D3160BAA75000B86A4 /* FacebookUnlinkProtocol.h */,
+				7A9650D4160BAAD1000B86A4 /* FacebookLinkProtocol.h */,
 				7AAFF1EE15E8A31900A7C6F0 /* FindUserByNumberProtocol.h */,
 				5BC2DB42159AA46600BB961D /* SetPreferredAccountProtocol.h */,
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
@@ -3340,7 +3343,6 @@
 				C3916E5215ACB82600888048 /* ForgotPasswordCompleteProtocol.h */,
 				5B357D0115B5277F000CD5FC /* OrganizationDetailViewProtocol.h */,
 				54550A9A15B923220077EA37 /* TakeCheckPictureProtocol.h */,
-				54D23F7A15B9959A0037719A /* LinkWithFacebookProtocol.h */,
 				54D23F9015BDCC660037719A /* FBHelperReturnProtocol.h */,
 				C334D26F15BDE9DA00923348 /* DetermineRecipientCompleteProtocol.h */,
 				C334D27B15BF32E200923348 /* SelectRecipientProtocol.h */,

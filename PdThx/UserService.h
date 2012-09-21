@@ -14,7 +14,7 @@
 #import "PersonalizeUserCompleteProtocol.h"
 #import "ChangePasswordCompleteProtocol.h"
 #import "ForgotPasswordCompleteProtocol.h"
-#import "LinkWithFacebookProtocol.h"
+
 #import "FindUserByNumberProtocol.h"
 #import "FindMatchingMeCodesProtocol.h"
 
@@ -26,7 +26,6 @@
     id<ChangePasswordCompleteProtocol> changePasswordCompleteDelegate;
     id<ForgotPasswordCompleteProtocol>
         forgotPasswordCompleteDelegate;
-    id<LinkWithFacebookProtocol> linkFbAccountDelegate;
     id<FindUserByNumberProtocol> findUserDelegate;
     id<FindMatchingMeCodesProtocol> findMeCodeDelegate;
 }

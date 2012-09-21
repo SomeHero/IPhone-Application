@@ -13,12 +13,17 @@
 #import "PdThxAppDelegate.h"
 #import "FBHelperReturnProtocol.h"
 
+#import "FacebookLinkProtocol.h"
+#import "FacebookUnlinkProtocol.h"
 
-@interface FacebookSignIn : NSObject
+@interface FacebookSignIn : NSObject <CustomAlertViewProtocol>
 {
     SignInWithFBService *service;
     
     id<FBHelperReturnProtocol> returnDelegate;
+    
+    id<FacebookLinkProtocol> linkDelegate;
+    id<FacebookUnlinkProtocol> unlinkDelegate;
 }
 
 - (void)signInWithFacebook:(id)returnProtocol;
@@ -30,5 +35,7 @@
 -(void)unlinkFacebookAccount:(id)callback;
 
 @property (assign) id returnDelegate;
+@property (assign) id linkDelegate;
+@property (assign) id unlinkDelegate;
 
 @end

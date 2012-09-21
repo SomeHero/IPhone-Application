@@ -112,7 +112,9 @@
             [payPoints addObject: [[[PayPoint alloc] initWithDictionary: [payPointsArray objectAtIndex:(NSUInteger) i]] autorelease]];
         }
         
-        NSArray *socialNetworksArray = [[dictionary valueForKey:@"userSocialNetworks"] copy];
+        [payPointsArray release];
+        
+        NSArray *socialNetworksArray = [dictionary valueForKey:@"userSocialNetworks"];
         
         socialNetworks = [[NSMutableDictionary alloc] init];
         

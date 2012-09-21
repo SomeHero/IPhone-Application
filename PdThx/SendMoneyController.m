@@ -27,6 +27,9 @@
 #import "AmountSelectViewController.h"
 #import "SelectRecipientViewController.h"
 
+// Custom Keyboard Dismissing Feature
+#import "DAKeyboardControl.h"
+
 #define tableHeight2 = 30;
 
 @interface SendMoneyController ()
@@ -205,6 +208,16 @@
     
     
     tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:2];
+    
+    self.view.keyboardTriggerOffset = 0.0;
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        /*
+         Try not to call "self" inside this block (retain cycle).
+         But if you do, make sure to remove DAKeyboardControl
+         when you are done with the view controller by calling:
+         [self.view removeKeyboardControl];
+         */
+    }];
 }
 
 - (void)viewDidUnload
@@ -274,8 +287,6 @@
     [newView setContactSelectChosenDelegate:self];
     
     [self.navigationController pushViewController:newView animated:YES];
-    
-    [newView release];
 }
 
 - (IBAction)pressedAmountButton:(id)sender 

@@ -124,7 +124,6 @@
         }
     }
     
-    
     if ( [viewToSwitchTo isKindOfClass:[oldVC class]] )
         return nil;
     else
@@ -140,7 +139,6 @@
     [self.window bringSubviewToFront:self.mainAreaTabBarController.view];
     
     // Keep Progress Bar & Alert Views on top
-    
     if ( myProgHudOverlay.view.superview ){
         [self.window bringSubviewToFront:myProgHudOverlay.view];
         [self.window bringSubviewToFront:myProgHudInnerView.view];
@@ -467,12 +465,11 @@
     [prefs removeObjectForKey:@"deviceToken"];
     [prefs removeObjectForKey:@"facebookId"];
     
-    
     [prefs synchronize];
     
     // Implement Removal of Facebook Contacts from contactArray when they log out of their FACEBOOK-lined account.
     if ( [[FBSession activeSession] isOpen] )
-        [[FBSession activeSession] close];
+        [[FBSession activeSession] closeAndClearTokenInformation];
     
     areFacebookContactsLoaded = NO;
     currentReminderTab = 0;
@@ -987,6 +984,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
     
     NSLog(@"Facebook Contacts Added.");
+    [self setSelectedContactList:@"AllContacts"];
     
     [tempArray release];
 }
@@ -1006,6 +1004,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             [tempArray addObject:contact];
         }
     }
+    
     for(int i = 0; i < 28; i++)
     {
         NSMutableArray* subTempArray = [contactsArray objectAtIndex:i];
@@ -1014,7 +1013,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         {
             Contact* contact = [subTempArray objectAtIndex:j];
             
-            [tempArray addObject:contact];
+            NSLog(@"Does the contact object exist in array? Index[%d]",[tempArray indexOfObject:contact]);
+            
+            if ( [tempArray indexOfObject:contact] == NSNotFound )
+                [tempArray addObject:contact];
         }
     }
     
@@ -1250,6 +1252,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 
 -(void) showSimpleAlertView:(bool)status withTitle:(NSString*)headerText withSubtitle:(NSString*)subTitle withDetailedText:(NSString*)detailText withButtonText:(NSString*)buttonText withDelegate:(id)delegate
 {
+    [self dismissProgressHUD];
     [self showAlertWithResult:status withTitle:headerText withSubtitle:subTitle withDetailText:detailText withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:buttonText withLeftButtonTitleColor:[UIColor whiteColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"im useless" withRightButtonTitleColor:[UIColor whiteColor] withTextFieldPlaceholderText:@"" withDelegate:delegate];
 }
 

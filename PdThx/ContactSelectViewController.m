@@ -43,6 +43,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
         if ( [[appDelegate selectedContactList] isEqualToString:@"FacebookContacts"] )
             allResults = appDelegate.faceBookContacts;
@@ -84,8 +85,6 @@
     
     [tvSubview setBounces:NO];
     
-    appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
         /*
          Try not to call "self" inside this block (retain cycle).
@@ -93,8 +92,8 @@
          when you are done with the view controller by calling:
          [self.view removeKeyboardControl];
          */
-        
     }];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -160,9 +159,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //if ( indexPath.section > 0 )
-    if ( indexPath.section == 0 && txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$')
+    if ( indexPath.section == 0 && [self isSearchingForMeCodes] )
         return 32.0;
-    else if ( indexPath.section == 0 && [appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && appDelegate.numberOfFacebookFriends == 0 )
+    else if ( indexPath.section == 0 && [self shouldShowFacebookLinkCell] )
         return 196.0;
     else
         return 60;
@@ -176,7 +175,7 @@
             return 0.0;
         } else if ( [[filteredResults objectAtIndex:section] count] > 0 )
         {
-            if ( txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$' )
+            if ( [self isSearchingForMeCodes] )
                 return 0.0;
             else
                 return 22.0;
@@ -285,14 +284,14 @@
     [altImageView setContentMode:UIViewContentModeScaleToFill];
     
     // Loading Cell
-    if ( indexPath.section == 0 && txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$')
+    if ( indexPath.section == 0 && [self isSearchingForMeCodes] ) // Should Display Fetching Matching Me Codes
     {
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
         UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
         return cell;
     }
     
-    if ( indexPath.section == 0 && [appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && appDelegate.numberOfFacebookFriends == 0 )
+    if ( indexPath.section == 0 && [self shouldShowFacebookLinkCell] )
     {
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"ConnectFacebookCellView" owner:self options:nil];
         ConnectFacebookCell* connectFb = [nib objectAtIndex:0];
@@ -1203,6 +1202,22 @@
             break;
         }
     }
+}
+
+-(bool)isSearchingForMeCodes
+{
+    if ( txtSearchBox.text &&  txtSearchBox.text.length > 0 && [txtSearchBox.text characterAtIndex:0] == '$' )
+        return YES;
+    else
+        return NO;
+}
+
+-(bool)shouldShowFacebookLinkCell
+{
+    if ( [appDelegate.selectedContactList isEqualToString:@"FacebookContacts"] && appDelegate.numberOfFacebookFriends == 0 )
+        return TRUE;
+    else
+        return FALSE;
 }
 
 @end

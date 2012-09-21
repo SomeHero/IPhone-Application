@@ -279,7 +279,7 @@
     
     if ( [user.socialNetworks objectForKey:@"Facebook"] != NULL )
     {
-        NSMutableDictionary*facebookDict = [user.socialNetworks objectForKey:@"Facebook"];
+        NSDictionary*facebookDict = [user.socialNetworks objectForKey:@"Facebook"];
         
         [fbSignInHelper getFacebookFriendsWithDelegate:appDelegate withSocialNetworkUserId:[facebookDict objectForKey:@"SocialNetworkUserId"] withSocialNetworkAccessToken:[facebookDict objectForKey:@"SocialNetworkUserToken"]];
     }
