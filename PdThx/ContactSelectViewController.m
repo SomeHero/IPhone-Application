@@ -162,7 +162,7 @@
     if ( indexPath.section == 0 && [self isSearchingForMeCodes] )
         return 32.0;
     else if ( indexPath.section == 0 && [self shouldShowFacebookLinkCell] )
-        return 196.0;
+        return 150.0;
     else
         return 60;
 }
@@ -273,6 +273,11 @@
  [attrStr release];
  */
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [txtSearchBox resignFirstResponder];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
@@ -297,7 +302,6 @@
         ConnectFacebookCell* connectFb = [nib objectAtIndex:0];
         return connectFb;
     }
-    
     
     ContactTableViewCell *myCell = (ContactTableViewCell*)[tvSubview dequeueReusableCellWithIdentifier:@"myCell"];
     

@@ -177,6 +177,7 @@
 }
 
 // Facebook (Un)Link Delegate Methods
+// These functions were edited to show alert views in the FbSignInHelper for better error handling.
 -(void)facebookAccountLinkFailed
 {
     //[appDelegate showSimpleAlertView:NO withTitle:@"Error" withSubtitle:@"Facebook Link Failed" withDetailedText:@"We were unable to link your PaidThx account with Facebook. Please check your wireless connection and try again." withButtonText:@"Ok" withDelegate:self];

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FacebookLinkProtocol.h"
 
-@interface ConnectFacebookCell : UITableViewCell
+@interface ConnectFacebookCell : UITableViewCell <FacebookLinkProtocol>
 {
     IBOutlet UIButton *connectFacebookCell;
 }

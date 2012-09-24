@@ -58,9 +58,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [tabBar release];
     [viewPanel release];
     [lblUserName release];
-    [btnSendPhone release];
-    [btnSendNonprofit release];
-    [btnSendFacebook release];
     [userService release];
     
     [quickSendView release];
@@ -421,10 +418,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             SendDonationViewController* controller = [[SendDonationViewController alloc] init];
             [dvc.navigationController pushViewController:controller animated:YES];
+            [controller viewDidLoad];
+        
             [controller release];
-            
-            [controller pressedChooseRecipientButton:self];
-            
             [dvc release];
             
             //Remove the view controller this is coming from, from the navigation controller stack
@@ -432,6 +428,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [allViewControllers removeObjectIdenticalTo:self];
             
             [[self navigationController] setViewControllers:allViewControllers animated:NO];
+            
             break;
         }
         default:

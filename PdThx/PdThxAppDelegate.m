@@ -472,6 +472,8 @@
         [[FBSession activeSession] closeAndClearTokenInformation];
     
     areFacebookContactsLoaded = NO;
+    numberOfFacebookFriends = 0;
+    
     currentReminderTab = 0;
     
     for (NSMutableArray* array in faceBookContacts)
@@ -1013,8 +1015,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         {
             Contact* contact = [subTempArray objectAtIndex:j];
             
-            NSLog(@"Does the contact object exist in array? Index[%d]",[tempArray indexOfObject:contact]);
-            
             if ( [tempArray indexOfObject:contact] == NSNotFound )
                 [tempArray addObject:contact];
         }
@@ -1025,7 +1025,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [tempArray release];
     
 }
--(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts 
+
+-(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts
 {
     NSMutableArray* results = [[NSMutableArray alloc] init];
     

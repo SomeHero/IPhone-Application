@@ -336,6 +336,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [[self transactionsTableView] reloadData];
         [self loadImagesForOnscreenRows];
     }
+    
+    // (resort after load if necessary) **pull to refresh
+    [self segmentedControlChanged]; // Fix for refreshing paystream while on a non-all tab..
 }
 
 - (void)viewDidUnload
@@ -1051,7 +1054,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.navigationController pushViewController:outgoingView animated:YES];
 }
 
--(IBAction)segmentedControlChanged {
+-(IBAction)segmentedControlChanged
+{
     // then use a switch statement or series of if statements to determine which selectedSegmentIndex was touched to control the views
     
     filteredTransactions = [[NSMutableArray alloc] init];
@@ -1061,19 +1065,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [filteredTransactions addObject: transaction];
         }
     }
-    if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
+    else if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
         for (PaystreamMessage* transaction in transactions ){
             if(([transaction.direction isEqualToString: @"Out"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
                 [filteredTransactions addObject: transaction];
         }
     }
-    if([ctrlPaystreamTypes selectedSegmentIndex] == 2) {
+    else if([ctrlPaystreamTypes selectedSegmentIndex] == 2) {
         for (PaystreamMessage* transaction in transactions ){
             if(([transaction.direction isEqualToString: @"In"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
                 [filteredTransactions addObject: transaction];
         }
     }
-    if([ctrlPaystreamTypes selectedSegmentIndex] == 3) {
+    else if([ctrlPaystreamTypes selectedSegmentIndex] == 3) {
         for (PaystreamMessage* transaction in transactions ){
             if(([transaction.messageType isEqualToString: @"PaymentRequest"]))
                 [filteredTransactions addObject: transaction];
@@ -1164,6 +1168,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (isLoading) return;
+    
     isDragging = YES;
 }
 
@@ -1268,7 +1273,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)refresh
 {
-    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSString* userId = [prefs stringForKey:@"userId"];

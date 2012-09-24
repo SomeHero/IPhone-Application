@@ -307,6 +307,25 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         }
     }
     
+    // on Wed, March 23, 2012 at 2:35pm
+    //  on [0] at [1]
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    NSTimeZone *localTimezone = [NSTimeZone defaultTimeZone];
+    [dateFormatter setTimeZone:localTimezone];
+    
+    // dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm";
+    
+    dateFormatter.dateFormat = @"EEE, MMMM dd, yyyy";
+    NSString*arg0 = [dateFormatter stringFromDate:messageDetail.createDate];
+    
+    dateFormatter.dateFormat = @"HH:mm a";
+    
+    NSString*arg1 = [dateFormatter stringFromDate:messageDetail.createDate];
+    
+    [dateFormatter release];
+    
+    [lblSentDate setText:[NSString stringWithFormat:@"on %@ at %@", arg0, arg1]];
     
     UILabel *titleView = (UILabel *)navBar.topItem.titleView;
     

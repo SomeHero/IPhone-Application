@@ -169,7 +169,6 @@
     
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
-    autoCompleteArray = [[NSMutableArray alloc] init];
     recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
     

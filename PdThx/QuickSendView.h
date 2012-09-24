@@ -80,11 +80,4 @@
 
 -(void)reloadQuickSendContacts:(NSMutableArray*)contactArray;
 
-
-
-
-
-
-
-
 @end
