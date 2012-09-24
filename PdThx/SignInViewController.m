@@ -279,7 +279,7 @@
     
     if ( [user.socialNetworks objectForKey:@"Facebook"] != NULL )
     {
-        NSMutableDictionary*facebookDict = [user.socialNetworks objectForKey:@"Facebook"];
+        NSDictionary*facebookDict = [user.socialNetworks objectForKey:@"Facebook"];
         
         [fbSignInHelper getFacebookFriendsWithDelegate:appDelegate withSocialNetworkUserId:[facebookDict objectForKey:@"SocialNetworkUserId"] withSocialNetworkAccessToken:[facebookDict objectForKey:@"SocialNetworkUserToken"]];
     }
@@ -287,7 +287,7 @@
     if(paymentAccountId == (id)[NSNull null] && [paymentAccountId length] > 0)
         user.hasACHAccount = true;
     
-    [appDelegate showSuccessWithStatus:@"Complete!" withDetailedStatus:@""];
+    [appDelegate dismissProgressHUD];
     
     ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
     

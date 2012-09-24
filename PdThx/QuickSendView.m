@@ -55,48 +55,43 @@
     // Quick Send Images
     [self.qs1button.layer setCornerRadius:14.0];
     [self.qs1button.layer setMasksToBounds:YES];
-    [self.qs1button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs1button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs2button.layer setCornerRadius:14.0];
     [self.qs2button.layer setMasksToBounds:YES];
-    [self.qs2button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs2button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs3button.layer setCornerRadius:14.0];
     [self.qs3button.layer setMasksToBounds:YES];
-    [self.qs3button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs3button.layer setBorderWidth:0.0]; // 28 24 20
     
     [self.qs4button.layer setCornerRadius:14.0];
     [self.qs4button.layer setMasksToBounds:YES];
-    [self.qs4button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs4button.layer setBorderWidth:0.0]; // 28 24 20
+    [self.qs4button.layer setBorderWidth:0.2];
+    [self.qs4button.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     [self.qs5button.layer setCornerRadius:14.0];
     [self.qs5button.layer setMasksToBounds:YES];
-    [self.qs5button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs5button.layer setBorderWidth:0.0]; // 28 24 20
+    [self.qs5button.layer setBorderWidth:0.2];
+    [self.qs5button.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     [self.qs6button.layer setCornerRadius:14.0];
     [self.qs6button.layer setMasksToBounds:YES];
-    [self.qs6button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs6button.layer setBorderWidth:0.0]; // 28 24 20
+    [self.qs6button.layer setBorderWidth:0.2];
+    [self.qs6button.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     [self.qs7button.layer setCornerRadius:14.0];
     [self.qs7button.layer setMasksToBounds:YES];
-    [self.qs7button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs7button.layer setBorderWidth:0.0]; // 28 24 20
+    [self.qs7button.layer setBorderWidth:0.2];
+    [self.qs7button.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     [self.qs8button.layer setCornerRadius:14.0];
     [self.qs8button.layer setMasksToBounds:YES];
-    [self.qs8button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs8button.layer setBorderWidth:0.0]; // 28 24 20
+    [self.qs8button.layer setBorderWidth:0.2];
+    [self.qs8button.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     [self.qs9button.layer setCornerRadius:14.0];
     [self.qs9button.layer setMasksToBounds:YES];
-    [self.qs9button.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [self.qs9button.layer setBorderWidth:0.0]; // 28 24 20
+    [self.qs9button.layer setBorderWidth:0.2];
+    [self.qs9button.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
     
     self.qs1button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
     self.qs2button.imageView.contentScaleFactor = [[UIScreen mainScreen] scale];
@@ -310,11 +305,15 @@
     else
         [imageButton setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     
-    if ( [[[contactDict valueForKey:@"userUri"] substringToIndex:3] isEqualToString:@"fb_"] )
+    NSLog(@"contactDict: %@", contactDict);
+    
+    if ( [[[contactDict objectForKey:@"userUri"] substringToIndex:3] isEqualToString:@"fb_"] )
     {
         NSLog(@"Setting image for %@ to %@", [contactDict objectForKey:@"userName"], [contactDict objectForKey:@"userImage"]);
         [imageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
-    } else {
+    }
+    else
+    {
         if ( [self isPhoneNumber:[contactDict valueForKey:@"userUri"]] )
         {
             Contact * foundContact;

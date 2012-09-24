@@ -64,6 +64,8 @@
     UINavigationController* setupFlowController;
     id setupFlowViewController;
     
+    int numberOfFacebookFriends;
+    
     UINavigationController* mainAreaTabBarController;
 }
 
@@ -71,6 +73,7 @@
 
 @property (nonatomic, retain) NSArray * permissions;
 
+@property (assign) int numberOfFacebookFriends;
 
 @property (nonatomic, retain) NSString * deviceToken;
 

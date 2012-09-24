@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
+		<string key="IBDocument.SystemVersion">12B19</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187</string>
+		<string key="IBDocument.HIToolboxVersion">624.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1498</string>
@@ -51,7 +51,8 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{21, 30}, {261, 60}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
-										<reference key="NSNextKeyView" ref="414851389"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="1027708549"/>
 										<object class="NSColor" key="IBUIBackgroundColor" id="59550679">
 											<int key="NSColorSpace">3</int>
 											<bytes key="NSWhite">MCAwAA</bytes>
@@ -90,7 +91,8 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{3, 4}, {251, 35}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
-										<reference key="NSNextKeyView" ref="446122440"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="414851389"/>
 										<reference key="IBUIBackgroundColor" ref="59550679"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -119,7 +121,8 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{4, 89}, {132, 39}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
-										<reference key="NSNextKeyView" ref="1027708549"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="446122440"/>
 										<reference key="IBUIBackgroundColor" ref="59550679"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -141,7 +144,8 @@
 										<int key="NSvFlags">261</int>
 										<string key="NSFrame">{{3, 265}, {182, 37}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
-										<reference key="NSNextKeyView" ref="480418840"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<reference key="IBUIBackgroundColor" ref="59550679"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -163,7 +167,8 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{24, 86}, {92, 21}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
-										<reference key="NSNextKeyView" ref="945810956"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="480418840"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="59550679"/>
 										<bool key="IBUIOpaque">NO</bool>
@@ -194,6 +199,8 @@
 										<int key="NSvFlags">260</int>
 										<string key="NSFrame">{{-5, 299}, {281, 37}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="945810956"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -229,12 +236,10 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{18, 124}, {270, 140}}</string>
 										<reference key="NSSuperview" ref="556894152"/>
+										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="549258468"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
-										<object class="NSColor" key="IBUIBackgroundColor">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MSAxIDEAA</bytes>
-										</object>
+										<reference key="IBUIBackgroundColor" ref="59550679"/>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIDataDetectorTypes">1</int>
 										<bool key="IBUIDetectsPhoneNumbers">YES</bool>
@@ -242,6 +247,7 @@
 								</array>
 								<string key="NSFrame">{{6, 4}, {308, 357}}</string>
 								<reference key="NSSuperview" ref="196810479"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="835945136"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -255,6 +261,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 367}</string>
 						<reference key="NSSuperview" ref="201912044"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="556894152"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -265,6 +272,7 @@
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="196810479"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -431,7 +439,48 @@
 			<nil key="sourceID"/>
 			<int key="maxID">85</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AboutPageViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">linkToMobileWeb:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">linkToMobileWeb:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">linkToMobileWeb:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="toMobileWeb">UIButton</string>
+						<string key="videoView">UIWebView</string>
+						<string key="viewPanel">UIView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="toMobileWeb">
+							<string key="name">toMobileWeb</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="videoView">
+							<string key="name">videoView</string>
+							<string key="candidateClassName">UIWebView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="viewPanel">
+							<string key="name">viewPanel</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AboutPageViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">

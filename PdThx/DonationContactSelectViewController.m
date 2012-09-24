@@ -245,6 +245,8 @@
     [myCell.contactImage setBackgroundImage:NULL forState:UIControlStateNormal];
     [myCell.contactImage.layer setCornerRadius:4.0];
     [myCell.contactImage.layer setMasksToBounds:YES];
+    [myCell.contactImage.layer setBorderWidth:0.2];
+    [myCell.contactImage.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     myCell.userInteractionEnabled = YES;
 
     Contact *contact;

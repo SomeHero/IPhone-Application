@@ -99,6 +99,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [contactImageButton.layer setCornerRadius:11.0];
     [contactImageButton.layer setMasksToBounds:YES];
+    [contactImageButton.layer setBorderWidth:0.2];
+    [contactImageButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     [self.viewPinLock addSubview:custom];
     NSError *error;
