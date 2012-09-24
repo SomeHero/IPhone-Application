@@ -26,6 +26,9 @@
 #import "CustomSecurityPinSwipeController.h"
 #import "SelectRecipientViewController.h"
 
+// Custom Keyboard Handling
+#import "DAKeyboardControl.h"
+
 #define kOFFSET_FOR_KEYBOARD 100.0
 #define tableHeight = 30;
 
@@ -166,7 +169,6 @@
     
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
-    autoCompleteArray = [[NSMutableArray alloc] init];
     recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
     
@@ -195,12 +197,23 @@
     /*          Image Attachment Handling           */
     if ( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] )
         attachPictureButton.hidden = NO;
+    
+    
+    self.view.keyboardTriggerOffset = 0.0;
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        /*
+         Try not to call "self" inside this block (retain cycle).
+         But if you do, make sure to remove DAKeyboardControl
+         when you are done with the view controller by calling:
+         [self.view removeKeyboardControl];
+         */
+    }];
 }
-
 
 -(void)changedCommentBox:(NSNotification*)notification
 {
-    if ( [txtComments.text length] > 0 ) {
+    if ( [txtComments.text length] > 0 )
+    {
         dummyCommentPlaceholder.placeholder = @"";
     } else {
         dummyCommentPlaceholder.placeholder = @"For what? Add a message...";

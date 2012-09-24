@@ -78,6 +78,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [btnUserImage.layer setCornerRadius:6.0];
     [btnUserImage.layer setMasksToBounds:YES];
+    [btnUserImage.layer setBorderWidth:0.2];
+    [btnUserImage.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
 
     UIImage *imgSendMoneyActive  = [UIImage imageNamed:@"btn-send-146x130-active.png"];
     [btnSendMoney setImage:imgSendMoneyActive forState:UIControlStateHighlighted];

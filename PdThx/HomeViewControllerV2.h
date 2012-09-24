@@ -24,9 +24,7 @@
 @interface HomeViewControllerV2 : UIBaseViewController< UserInformationCompleteProtocol, HBTabBarDelegate, QuickSendButtonProtocol, UIGestureRecognizerDelegate>
 {
     IBOutlet UIView *viewPanel;
-    IBOutlet UIButton *btnSendPhone;
-    IBOutlet UIButton *btnSendFacebook;
-    IBOutlet UIButton *btnSendNonprofit;
+    
     IBOutlet UIButton *btnProfile;
     IBOutlet UIButton *btnUserImage;
     IBOutlet UILabel *lblUserName;
@@ -43,13 +41,13 @@
     NSMutableArray *quickSendContacts;
     
     IBOutlet QuickSendView *quickSendView;
+    
+    IBOutlet UIActivityIndicatorView *loadingActivityIndicator;
 }
 
 @property(nonatomic, retain) UIView *viewPanel;
-@property(nonatomic, retain) UIButton *btnSendPhone;
-@property(nonatomic, retain) UIButton *btnSendFacebook;
-@property(nonatomic, retain) UIButton *btnSendNonprofit;
 
+@property(nonatomic, retain) UIActivityIndicatorView *loadingActivityIndicator;
 
 @property(nonatomic, retain) NSMutableArray *quickSendContacts;
 

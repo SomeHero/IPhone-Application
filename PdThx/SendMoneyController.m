@@ -20,9 +20,15 @@
 #import "Contact.h"
 #import "SignInViewController.h"
 #import "SendMoneyService.h"
+
 #import "ContactSelectViewController.h"
+#import "RecipientPickerViewController.h"
+
 #import "AmountSelectViewController.h"
 #import "SelectRecipientViewController.h"
+
+// Custom Keyboard Dismissing Feature
+#import "DAKeyboardControl.h"
 
 #define tableHeight2 = 30;
 
@@ -180,7 +186,6 @@
     
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
-    autoCompleteArray = [[NSMutableArray alloc] init];
     recipientUri = [[NSString alloc] initWithString: @""];
     amount = [[NSString alloc] initWithString: @""];
     
@@ -202,6 +207,16 @@
     
     
     tabBar = [[HBTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:2];
+    
+    self.view.keyboardTriggerOffset = 0.0;
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        /*
+         Try not to call "self" inside this block (retain cycle).
+         But if you do, make sure to remove DAKeyboardControl
+         when you are done with the view controller by calling:
+         [self.view removeKeyboardControl];
+         */
+    }];
 }
 
 - (void)viewDidUnload
@@ -262,17 +277,15 @@
 /*                Button Action Handling                   */
 /*  ------------------------------------------------------ */
 
-- (IBAction)pressedChooseRecipientButton:(id)sender 
+- (IBAction)pressedChooseRecipientButton:(id)sender
 {
     ContactSelectViewController *newView = [[ContactSelectViewController alloc] initWithNibName:@"ContactSelectViewController" bundle:nil];
     [newView setTitle:@"Send To"];
-    [newView setDidSetContactAndAmount: self];
-    [newView setDidSetContact: self];
+    [newView setDidSetContact:self];
+    [newView setDidSetContactAndAmount:self];
+    [newView setContactSelectChosenDelegate:self];
     
     [self.navigationController pushViewController:newView animated:YES];
-    newView.contactSelectChosenDelegate = self;
-    
-    [newView release];
 }
 
 - (IBAction)pressedAmountButton:(id)sender 
@@ -291,6 +304,7 @@
     [txtComments resignFirstResponder];
     [self sendMoney];
 }
+
 -(void) sendMoney {
     if([txtAmount.text length] > 0) {
         amount = [[txtAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""] copy];
@@ -320,7 +334,7 @@
         {
             if ([recipient.paypoints count] == 1)
             {
-                [self startSecurityPin];                
+                [self startSecurityPin];
             }
             else
             {

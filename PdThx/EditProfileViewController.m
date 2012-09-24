@@ -141,6 +141,8 @@
             
             [cell.btnUserImage.layer setCornerRadius:6.0];
             [cell.btnUserImage.layer setMasksToBounds:YES];
+            [cell.btnUserImage.layer setBorderWidth:0.2];
+            [cell.btnUserImage.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
             
             if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
                 [cell.btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];

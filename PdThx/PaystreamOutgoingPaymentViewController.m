@@ -40,7 +40,8 @@
     [paystreamServices cancelPayment: messageDetail.messageId];
 }
 
--(IBAction) btnSenderReminder:(id) sender {
+-(IBAction) btnSenderReminder:(id) sender
+{
     
 }
 
@@ -65,7 +66,7 @@
     [settingsBtn addTarget:self action:@selector(actionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
     
-    
+    quoteView.backgroundColor = [UIColor whiteColor];
     
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
@@ -73,6 +74,7 @@
     
     self.navigationItem.rightBarButtonItem = settingsButtons;
     [settingsButtons release];
+    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"PaystreamOutgoingPaymentViewController"
                                         withError:&error]){
@@ -84,7 +86,15 @@
     {
         //[btnCancel setHidden: YES];
     }
+    
+    NSLog(@"Message Type: %@", messageDetail.messageType);
+    NSLog(@"Message Status: %@", messageDetail.messageStatus);
+    NSLog(@"Message Amount: %@", messageDetail.amount);
+    NSLog(@"Message Direction: %@", messageDetail.direction);
+    
+    [self setTitle:[self determinePageTitle]];
 }
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -115,6 +125,34 @@
     
 }
 
+-(NSString*)determinePageTitle
+{
+    if ( [messageDetail.messageType isEqualToString:@"Payment"] )
+    {
+        if ( [messageDetail.direction isEqualToString:@"Out"] )
+            return @"$ Sent"; // Out
+        else
+            return @"$ Received"; // In
+    }
+    else if ( [messageDetail.messageType isEqualToString:@"PaymentRequest"] )
+    {
+        if ( [messageDetail.direction isEqualToString:@"Out"] )
+            return @"$ Requested"; // Out
+        else
+            return @"$ Request"; // In
+    }
+    else if ( [messageDetail.messageType isEqualToString:@"Donation"] )
+    {
+        if ( [messageDetail.direction isEqualToString:@"Out"] )
+            return @"$ Donated"; // Out
+        else
+            return @"Donation"; // In
+    }
+    else
+    {
+        return messageDetail.messageType;
+    }
+}
 
 - (void)setTitle:(NSString *)title
 {

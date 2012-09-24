@@ -9,17 +9,20 @@
 #import "UIModalBaseViewController.h"
 #import "UserService.h"
 
-#import "LinkWithFacebookProtocol.h"
 #import "CustomAlertViewProtocol.h"
 
+#import "FacebookLinkProtocol.h"
+#import "FacebookUnlinkProtocol.h"
 
-@interface SocialNetworksViewController : UISetupUserBaseViewController <FBRequestDelegate, LinkWithFacebookProtocol, UITableViewDataSource, UITableViewDelegate, CustomAlertViewProtocol>
+
+@interface SocialNetworksViewController : UISetupUserBaseViewController <UITableViewDataSource, UITableViewDelegate, CustomAlertViewProtocol, FacebookLinkProtocol, FacebookUnlinkProtocol>
 {
     UserService *userService;
     IBOutlet UITableView* tableView;
     id FacebookResult;
 }
 
+@property (nonatomic, retain) PdThxAppDelegate*appDelegate;
 @property (assign, nonatomic) int numFailedFB;
 @property(nonatomic, retain) NSDictionary *profileOptions;
 @property(nonatomic, retain) NSArray *sections;

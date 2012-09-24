@@ -7,7 +7,9 @@
 //
 
 #import "PaystreamDetailBaseViewController.h"
+#import "NSAttributedString+Attributes.h"
 #import <QuartzCore/QuartzCore.h>
+#import <CoreText/CoreText.h>
 
 @implementation PaystreamDetailBaseViewController
 
@@ -16,14 +18,15 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@synthesize detailSubview, messageDetail;
+@synthesize messageDetail;
 @synthesize navBar;
-@synthesize txtAction, txtRecipient, txtSender;
+@synthesize txtRecipient, txtSender, txtActionAmount;
 @synthesize lblCurrentStatusHeader, lblWhatsNextStatusHeader;
 @synthesize btnSender, btnRecipient, btnCurrentStatus;
 @synthesize lblSentDate;
 @synthesize quoteView;
 @synthesize actionView;
+@synthesize actionViewDivider;
 @synthesize pullableView;
 @synthesize parent;
 
@@ -38,7 +41,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)dealloc
 {
-    [detailSubView release];
+    [actionViewDivider release];
     [super dealloc];
 }
 
@@ -60,28 +63,57 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Do any additional setup after loading the view from its nib.
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
+    // Disable non-clickable items.
+    [btnSender setUserInteractionEnabled:NO];
+    [btnRecipient setUserInteractionEnabled:NO];
+    [txtActionAmount setUserInteractionEnabled:NO];
+    
+    
+    [btnSender.layer setCornerRadius:11.0];
+    [btnSender.layer setMasksToBounds:YES];
+    [btnSender.layer setBorderWidth:0.2];
+    [btnSender.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    [btnRecipient.layer setCornerRadius:11.0];
+    [btnRecipient.layer setMasksToBounds:YES];
+    [btnRecipient.layer setBorderWidth:0.2];
+    [btnRecipient.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    
+    txtActionAmount.text = @"Action\n$AMT to";
+    
     if ([self.navBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
         [self.navBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-    [lblCurrentStatusHeader setBackgroundColor: UIColorFromRGB(0xdbefee)];
-    [lblCurrentStatusHeader setTextColor: UIColorFromRGB(0x2d7c81)];
+    [lblCurrentStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
+    [lblCurrentStatusHeader setTextColor: UIColorFromRGB(0xFFFFFF)];
     
     [btnCurrentStatus setTitleColor:UIColorFromRGB(0xc56d0c) forState: UIControlStateNormal];
     
-    [lblWhatsNextStatusHeader setBackgroundColor: UIColorFromRGB(0xdbefee)];
-    [lblWhatsNextStatusHeader setTextColor: UIColorFromRGB(0x2d7c81)];
+    [lblWhatsNextStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
+    [lblWhatsNextStatusHeader setTextColor: UIColorFromRGB(0xE8E8E8)];
+    
+    actionView.backgroundColor = [UIColor whiteColor];
+    actionViewDivider.backgroundColor = UIColorFromRGB(0xc1c1c1);
     
     [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
     [btnRecipient.layer setCornerRadius:12.0];
     btnRecipient.clipsToBounds = YES;
-    [txtRecipient setTextColor: UIColorFromRGB(0x2d7c81)];
     
     [btnSender setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
     [btnSender.layer setCornerRadius:12.0];
     btnSender.clipsToBounds = YES;
+    
+    // COLOR REFERENCES:
+    // Amount Color: 0x3e8fa7
+    // Recipient/Sender Color: 0x8d8d8d
+    // Amount/Action Gray Color: 0x34363d  (also color of status text below in button)
+    // Status Label Background Color: 0x6D6E71
+    // Light gray line between buttons and status: 0xc1c1c1
+    
+    [txtRecipient setTextColor: UIColorFromRGB(0x8d8d8d)];
+    [txtSender setTextColor: UIColorFromRGB(0x8d8d8d)];
 
     [lblSentDate setTextColor: UIColorFromRGB(0xb2b7ba)];
 
@@ -97,8 +129,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [paystreamServices setAcceptPaymentRequestProtocol: self];
     [paystreamServices setRejectPaymentRequestProtocol: self];
 
-    txtRecipient.text = messageDetail.recipientName;
-    txtSender.text = messageDetail.senderName;
+    txtSender.text = @"You"; // Constant Sender (You) on left side.
+    
     [btnCurrentStatus setTitle: messageDetail.messageStatus forState:UIControlStateNormal];
     
     //btnSender setImage: [UIImage imageWithContentsOfFile: messageDetail.senderUri];
@@ -120,15 +152,45 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     NSInteger yPos = 5;
     
+    
+    NSString* actionString = @"Action";
+    NSString* amountString = [NSString stringWithFormat:@"$%0.2f",[messageDetail.amount doubleValue]];
+    NSString* toFromString = @"";
+    
+    actionString = [self determineActionString];
+    toFromString = [self determineToFromString];
+    
+    NSString *nonAttribString = [NSString stringWithFormat:@"%@\n%@ %@",actionString, amountString, toFromString];
+    
+    NSMutableAttributedString*attribString = [[NSMutableAttributedString alloc] initWithString:nonAttribString];
+    
+    NSRange attribRange = [nonAttribString rangeOfString:amountString];
+    
+    [attribString setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17.0]];
+    
+    [attribString setTextColor:UIColorFromRGB(0x3E8FA7) range:attribRange];
+    
+    [attribString setTextAlignment:CTTextAlignmentFromUITextAlignment(UITextAlignmentCenter) lineBreakMode:kCTLineBreakByWordWrapping];
+    
+    [txtActionAmount setCenterVertically:YES];
+    
+    [txtActionAmount setAttributedText:attribString];
+    
+    
+    [self customizeContactInformation];
+    
+    // Pushing the buttons down 10px
+    yPos += 5;
     if([messageDetail.messageType isEqualToString: @"Payment"]) {
         if([messageDetail.direction isEqualToString: @"Out"]) { 
             txtSender.text = @"You";
             txtRecipient.text = messageDetail.recipientName;
-            txtAction.text = [NSString stringWithFormat: @"sent $%0.2f to", [messageDetail.amount doubleValue]];
+            
+            // TODO: Fix Action/Amt Statement
             
             if([messageDetail.messageStatus isEqualToString: @"Processing"])
             {
-                UIButton* btnCancelPayment = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
+                UIButton* btnCancelPayment = [[UIButton alloc] initWithFrame:CGRectMake(15/2, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnCancelPayment setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
                 [btnCancelPayment setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
@@ -142,7 +204,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 yPos = yPos + btnCancelPayment.frame.size.height + 5;
             }
             if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
-                UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
+                UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(15/2, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
                 [btnSendReminder setBackgroundImage: greenBackgroundActive forState:UIControlStateSelected];
@@ -160,16 +222,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         else {
             txtSender.text = messageDetail.senderName;
             txtRecipient.text = @"You";
-            txtAction.text = [NSString stringWithFormat: @"sent $%0.2f to", [messageDetail.amount doubleValue]];
+            
+            // TODO: Fix Action/Amt Statement
         }
     }
     if([messageDetail.messageType isEqualToString: @"PaymentRequest"]) {
         
-        if([messageDetail.direction isEqualToString: @"In"]) {
-            
+        if([messageDetail.direction isEqualToString: @"In"])
+        {
             txtSender.text = messageDetail.senderName;
             txtRecipient.text = @"You";
-            txtAction.text = [NSString stringWithFormat: @"requeseted $%0.2f from", [messageDetail.amount doubleValue]];
+            
+            // TODO: Fix Action/Amt Statement
             
             if([messageDetail.messageStatus isEqualToString: @"Action Needed"]) {
                 UIButton* btnAcceptRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
@@ -205,7 +269,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
             txtSender.text = @"You";
             txtRecipient.text = messageDetail.recipientName;
-            txtAction.text = [NSString stringWithFormat: @"requested $%0.2f from", [messageDetail.amount doubleValue]];
+            
+            // TODO: Fix Action/Amt Statement
             
             if([messageDetail.messageStatus isEqualToString: @"Awaiting Response"]) {
                
@@ -241,26 +306,27 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             }
         }
     }
-    /*
-     [super setTitle:title];
-     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
-     if (!titleView) {
-     titleView = [[UILabel alloc] initWithFrame:CGRectZero];
-     titleView.backgroundColor = [UIColor clearColor];
-     titleView.font = [UIFont boldSystemFontOfSize:20.0];
-     titleView.shadowColor = [UIColor colorWithWhite:100.0 alpha:0.5];
-     titleView.shadowOffset = CGSizeMake(0.0,1.5);
-     
-     //52.0 54.0 61.0 is the grey he wanted
-     titleView.textColor = [UIColor colorWithRed:52.0/255.0 green:54.0/255.0 blue:61.0/255.0 alpha:1.0];
-     
-     self.navigationItem.titleView = titleView;
-     [titleView release];
-     }
-     
-     titleView.text = title;
-     [titleView sizeToFit];
-     */
+    
+    // on Wed, March 23, 2012 at 2:35pm
+    //  on [0] at [1]
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    NSTimeZone *localTimezone = [NSTimeZone defaultTimeZone];
+    [dateFormatter setTimeZone:localTimezone];
+    
+    // dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm";
+    
+    dateFormatter.dateFormat = @"EEE, MMMM dd, yyyy";
+    NSString*arg0 = [dateFormatter stringFromDate:messageDetail.createDate];
+    
+    dateFormatter.dateFormat = @"HH:mm a";
+    
+    NSString*arg1 = [dateFormatter stringFromDate:messageDetail.createDate];
+    
+    [dateFormatter release];
+    
+    [lblSentDate setText:[NSString stringWithFormat:@"on %@ at %@", arg0, arg1]];
+    
     UILabel *titleView = (UILabel *)navBar.topItem.titleView;
     
     if ( !titleView ){
@@ -277,34 +343,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         titleView.text = @"";
     }
     
-    if([messageDetail.messageType isEqualToString: @"Payment"]) {
-        if([messageDetail.direction isEqualToString: @"Out"]) {                titleView.text = @"Money Sent";
-                
-            [titleView sizeToFit];
-            [titleView release];
-        } else {            
-            titleView.text = @"Money Received";
-            [titleView sizeToFit];
-            [titleView release];
-        }
-    } else {
-        if([messageDetail.direction isEqualToString: @"Out"]) { 
-            titleView.text = @"Request Sent";
-            
-            [titleView sizeToFit];
-            [titleView release];
-        } else {
-            titleView.text = @"Request Received";
-            
-            [titleView sizeToFit];
-            [titleView release];
-        }
-    }
-    
     /* ---------------------------------------------------- */
     /*      Custom Settings Button Implementation           */
-    /* ---------------------------------------------------- */
+    /* ---------------------------------------------------- 
     
+     This section was commented out when we moved away from the pullable detail view.
+     
     UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-X-35x30.png"];
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [settingsBtn setImage:bgImage forState:UIControlStateNormal];
@@ -314,6 +358,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     navBar.topItem.leftBarButtonItem = settingsButtons;
     [settingsButtons release];
+     */
+    
+    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
+    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
+    settingsBtn.frame = CGRectMake(0, 0, bgImage.size.width, bgImage.size.height);
+    [settingsBtn addTarget:self action:@selector(popViewControllerWithAnimation) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
+    self.navigationItem.hidesBackButton = YES;
+    
+    self.navigationItem.leftBarButtonItem = settingsButtons;
+    
 
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"PayStreamDetailBaseViewController"
@@ -321,19 +377,106 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         //Handle Error Here
     }
 }
+
+-(void)customizeContactInformation
+{
+    
+    if ( [messageDetail.direction isEqualToString:@"Out"] )
+    {
+        // Outgoing payment or donation
+        // Left side should be [self] aka Sender
+        txtSender.text = @"You";
+        txtRecipient.text = messageDetail.recipientName;
+        
+        if ( user.imageUrl != (id)[NSNull null] && user.imageUrl.length > 0 )
+        {
+            [btnSender setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.imageUrl]]] forState:UIControlStateNormal];
+        } else {
+            [btnSender setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
+        }
+        
+        if ( messageDetail.imgData != (id)[NSNull null] )
+        {
+            [btnRecipient setBackgroundImage:messageDetail.imgData forState:UIControlStateNormal];
+        } else {
+            [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
+        }
+    }
+    else
+    {
+        // Incoming event
+        // The left side should display "You" or current user.
+        txtRecipient.text = @"You";
+        txtSender.text = messageDetail.senderName;
+        
+        if ( user.imageUrl != (id)[NSNull null] && user.imageUrl.length > 0 )
+        {
+            [btnRecipient setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.imageUrl]]] forState:UIControlStateNormal];
+        } else {
+            [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
+        }
+        
+        if ( messageDetail.imgData != nil && messageDetail.imgData != NULL )
+        {
+            [btnSender setBackgroundImage:messageDetail.imgData forState:UIControlStateNormal];
+        } else {
+            [btnSender setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
+        }
+    }
+}
+
+-(NSString*)determineActionString
+{
+    if ( [messageDetail.messageType isEqualToString:@"Payment"] )
+    {
+        return @"Sent";
+    } else if ( [messageDetail.messageType isEqualToString:@"PaymentRequest"] )
+    {
+        return @"Requested";
+    } else if ( [messageDetail.messageType isEqualToString:@"Donation"] )
+    {
+        return @"Donated";
+    } else {
+        return messageDetail.messageType;
+    }
+}
+
+-(NSString*)determineToFromString
+{
+    if ( [messageDetail.messageType isEqualToString:@"Payment"] )
+    {
+        return @"to";
+    } else if ( [messageDetail.messageType isEqualToString:@"PaymentRequest"] )
+    {
+        return @"from";
+    } else if ( [messageDetail.messageType isEqualToString:@"Donation"] )
+    {
+        return @"to";
+    } else {
+        return messageDetail.messageType;
+    }
+}
+
+-(void)popViewControllerWithAnimation {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)cancelPaymentDidComplete {
     //[self.navigationController popToRootViewControllerAnimated: YES];
     [pullableView setOpened:NO animated:YES];
 }
+
 -(void)cancelPaymentDidFail {
     
 }
 -(void)cancelPaymentRequestDidComplete {
     [pullableView setOpened:NO animated:YES];
 }
+
 -(void)cancelPaymentRequestDidFail {
     
 }
+
 -(void)acceptPaymentRequestDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:YES];
     //[pullableView setOpened:NO animated:YES];
@@ -349,17 +492,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 - (void)viewDidUnload
 {
-    [detailSubView release];
-    detailSubView = nil;
+    [self setActionViewDivider:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-} 
+}
 
-
--(void)btnCancelPaymentClicked {
+-(void)btnCancelPaymentClicked
+{
     [paystreamServices cancelPayment: messageDetail.messageId];
 }
+
 -(void)btnAcceptRequestClicked {
 
     [pullableView setOpened:NO animated:NO];

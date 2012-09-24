@@ -26,28 +26,31 @@
 
 @interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate, CustomAlertViewProtocol, SetContactProtocol, SetContactAndAmountProtocol,FindMatchingMeCodesProtocol>
 {
-    IBOutlet UISearchBar *searchBar;
     IBOutlet UITableView *tvSubview;
     
     TSPopoverController *popoverController;
     NSMutableArray * allResults;
     NSMutableArray * filteredResults;
     NSMutableDictionary *fbIconsDownloading;
+    
     id<SetContactProtocol> didSetContact;
     id<SetContactAndAmountProtocol> didSetContactAndAmount;
     id<ContactSelectChosenProtocol> contactSelectChosenDelegate;
+    
     IBOutlet UITextField *txtSearchBox;
     bool isFiltered;
     bool foundFiltered;
     UserService * userService;
 }
 
+@property (nonatomic, retain) PdThxAppDelegate* appDelegate;
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, retain) UITableView *tvSubview;
 @property (nonatomic, retain) NSMutableArray * allResults;
 @property (nonatomic, retain) NSMutableArray * filteredResults;
 
 @property (nonatomic, retain) NSMutableDictionary *fbIconsDownloading;
+
 @property(assign) id didSetContact;
 @property(assign) id didSetContactAndAmount;
 @property (assign) id contactSelectChosenDelegate;
@@ -57,7 +60,6 @@
 @property (nonatomic, assign) UserService * userService;
 
 - (IBAction)textBoxChanged:(id)sender;
-
 
 -(void)findMeCodesMatchingString:(NSString*)searchTerm;
 

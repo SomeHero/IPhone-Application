@@ -10,8 +10,12 @@
 
 @implementation SocialNetworkAccount
 
+@synthesize networkAccessToken;
+@synthesize networkName;
+@synthesize networkUserId;
 
--(id)init {
+-(id)init
+{
     self = [super init];
     if(self) {
         

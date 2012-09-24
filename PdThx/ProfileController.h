@@ -23,11 +23,11 @@
 #import "HelpViewController.h"
 #import "TOSViewController.h"
 #import "ZendeskDropboxSampleViewController.h"
-#import "LinkWithFacebookProtocol.h"
+
 #import "TwitterRushViewController.h"
 
 @interface ProfileController : UISetupUserBaseViewController   
-<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, MFMailComposeViewControllerDelegate,LinkWithFacebookProtocol, FBRequestDelegate> {
+<UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, MFMailComposeViewControllerDelegate> {
     NSDictionary *profileOptions;
     NSArray *sections;
     NSString* oldSecurityPin;

@@ -214,8 +214,13 @@
  		PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
         
+        NSString* last4;
         
-        NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5]];
+        if ( txtAccountNumber.text.length == 4 )
+            last4 = txtAccountNumber.text;
+        else
+            last4 = [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5];
+        NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, last4];
         
         [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
@@ -259,6 +264,8 @@
                 [navigationBar release];
             } else {
                 [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Pin mismatch"];
+                
+                [self btnCreateAccountClicked:self];
             }
         }
     }
@@ -273,7 +280,13 @@
     if([ctrlAccountType selectedSegmentIndex] == 1)
         accountType = @"Savings";
     
-    NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5]];
+    NSString* last4;
+    
+    if ( txtAccountNumber.text.length == 4 )
+        last4 = txtAccountNumber.text;
+    else
+        last4 = [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5];
+    NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, last4];
     
     [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
     

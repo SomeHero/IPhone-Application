@@ -17,16 +17,19 @@
 #import "CustomSecurityPinSwipeController.h"
 #import "User.h"
 #import "PdThxAppDelegate.h"
+#import "OHAttributedLabel.h"
 
-@interface PaystreamDetailBaseViewController : UIViewController<AcceptPaymentRequestProtocol, CancelPaymentProtocol> {
-    IBOutlet UIView *detailSubView;
+@interface PaystreamDetailBaseViewController : UIViewController<AcceptPaymentRequestProtocol, CancelPaymentProtocol>
+{
     PaystreamMessage* messageDetail;
     PaystreamService* paystreamServices;
     IBOutlet UINavigationBar* navBar;
     IBOutlet UIButton* btnSender;
     IBOutlet UIButton* btnRecipient;
     IBOutlet UILabel* txtSender;
-    IBOutlet UILabel* txtAction;
+    
+    IBOutlet OHAttributedLabel* txtActionAmount;
+    
     IBOutlet UILabel* txtRecipient;
     IBOutlet UILabel* lblCurrentStatusHeader;
     IBOutlet UIButton* btnCurrentStatus;
@@ -34,6 +37,7 @@
     IBOutlet UILabel* lblSentDate;
     IBOutlet UIView* quoteView;
     IBOutlet UIView* actionView;
+    
     PullableView* pullableView;
     User* user;
     UIViewController* parent;
@@ -41,14 +45,14 @@
     CustomSecurityPinSwipeController *controller;
 }
 
-@property (nonatomic, retain) UIView *detailSubview;
-
 @property(nonatomic, retain) PaystreamMessage* messageDetail;
 @property(nonatomic, retain) UINavigationBar* navBar;
 @property(nonatomic, retain) UIButton* btnSender;
 @property(nonatomic, retain) UIButton* btnRecipient;
 @property(nonatomic, retain) UILabel* txtSender;
-@property(nonatomic, retain) UILabel* txtAction;
+
+@property(nonatomic, retain) OHAttributedLabel* txtActionAmount;
+
 @property(nonatomic, retain) UILabel* txtRecipient;
 @property(nonatomic, retain) UILabel* lblCurrentStatusHeader;
 @property(nonatomic, retain) UILabel* lblWhatsNextStatusHeader;
@@ -56,6 +60,8 @@
 @property(nonatomic, retain) UILabel* lblSentDate;
 @property(nonatomic, retain) UIView* quoteView;
 @property(nonatomic, retain) UIView* actionView;
+@property (retain, nonatomic) IBOutlet UIImageView *actionViewDivider;
+
 @property(nonatomic, retain) PullableView* pullableView;
 @property(nonatomic, retain) UIViewController* parent;
 

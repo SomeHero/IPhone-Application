@@ -138,17 +138,16 @@
     chooseCauseButton.backgroundColor = [UIColor clearColor];
     [contactImage.layer setCornerRadius:5.0];
     [contactImage.layer setMasksToBounds:YES];
-    [contactImage.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [contactImage.layer setBorderWidth:0.7]; // 28 24 20
+    [contactImage.layer setBorderWidth:0.2];
+    [contactImage.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     chooseRecipientButton.backgroundColor = [UIColor clearColor];
     chooseAmountButton.backgroundColor = [UIColor clearColor];
     [recipientImageButton.layer setCornerRadius:5.0];
     [recipientImageButton.layer setMasksToBounds:YES];
-    [recipientImageButton.layer setBorderColor:[UIColor colorWithRed:185.0/255.0 green:195.0/255.0 blue:204.0/255.0 alpha:1.0].CGColor]; // 
-    [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
     
-    
+    [recipientImageButton.layer setBorderWidth:0.2];
+    [recipientImageButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
     
     /*          Services/ViewController Initialization         */
     /*  ------------------------------------------------------ */
