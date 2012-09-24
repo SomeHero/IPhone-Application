@@ -85,17 +85,18 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     }
     else {
         NSLog(@"%@",request.responseData);
-        NSString* message = [request.responseHeaders objectForKey:@"localizedDescription"];
-        
+ 
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
         bool isLockedOut = [[jsonDictionary objectForKey: @"isLockedOut"] boolValue];
-        NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [sendMoneyCompleteDelegate sendMoneyDidFail:message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
+        [sendMoneyCompleteDelegate sendMoneyDidFail:message isLockedOut:isLockedOut withPinCodeFailures:0];
         
         NSLog(@"Error Sending Money");
     }
