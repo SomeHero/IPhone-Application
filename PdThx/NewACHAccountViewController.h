@@ -12,8 +12,9 @@
 #import "ValidationHelper.h"
 #import "UserSetupACHAccount.h"
 #import "UserACHSetupCompleteProtocol.h"
+#import "BankAccountRequestProtocol.h"
 
-@interface NewACHAccountViewController : UIModalBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol>
+@interface NewACHAccountViewController : UIModalBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol, BankAccountRequestProtocol>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
