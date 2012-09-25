@@ -11,6 +11,7 @@
 #import "AROverlayViewController.h"
 #import "NSData+Base64Encoding.h"
 #import "UIImage+Scale.h"
+#import "BankAccountService.h"
 
 @interface NewACHAccountViewController ()
 
@@ -19,6 +20,7 @@
 @implementation NewACHAccountViewController
 
 @synthesize achSetupDidComplete;
+@synthesize mipControllerInstance;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -277,6 +279,10 @@
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Added"];
     
+    BankAccountService* bankService = [[BankAccountService alloc] init];
+    [bankService setBankAccountRequestDelegate:self];
+    [bankService getUserAccounts:user.userId];
+    
     NSLog(@"ACH Delegate: %@", achSetupDidComplete);
     [achSetupDidComplete userACHSetupDidComplete:paymentAccountId];
 }
@@ -285,6 +291,16 @@
     [achSetupDidComplete userACHSetupDidFail: message];
 }
 
+-(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
+{
+    NSLog(@"User bank accounts refreshed.");
+    [user setBankAccounts:bankAccounts];
+}
+
+-(void)getUserAccountsDidFail:(NSString *)errorMessage
+{
+    NSLog(@"Error Refreshing Bank Account List after Adding a Bank Account");
+}
 
 - (void)takePictureOfCheck
 {

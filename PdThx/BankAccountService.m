@@ -65,9 +65,8 @@
         
         [bankAccountRequestDelegate getUserAccountsDidFail: [request responseStatusMessage]];
     }
-    
-    
 }
+
 -(void) getUserAccountsFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Error Getting User Accounts");
