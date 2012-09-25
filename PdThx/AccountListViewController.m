@@ -85,14 +85,16 @@
     [super viewDidDisappear:animated];
 }
 
--(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts {
+-(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts
+{
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
     user.bankAccounts = bankAccounts;
     [userAccountsTableView reloadData];
     
-    if(newAccountAdded) {
+    if(newAccountAdded)
+    {
         // FOR CUSTOMIZING ALERT VIEW FOR OTHER VIEWS:
         // ButtonOption = 0 -> Button hidden, will not show (other button would be option=1)
         // ButtonOption = 1 -> Only button on screen. It will move it to the middle.
@@ -119,7 +121,8 @@
     }
 }
 
--(void)getUserAccountsDidFail:(NSString*)errorMessage {
+-(void)getUserAccountsDidFail:(NSString*)errorMessage
+{
     NSLog(@"%@", errorMessage);
 }
 
@@ -464,4 +467,6 @@
 -(void)userACHSetupDidFail:(NSString*) message {PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
+
+
 @end

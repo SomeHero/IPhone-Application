@@ -16,7 +16,8 @@
 @synthesize preferredAccountDelegate;
 @synthesize verifyBankAccountDelegate;
 
--(void) getUserAccounts:(NSString*) userId {
+-(void) getUserAccounts:(NSString*) userId
+{
     
     Environment *myEnvironment = [Environment sharedInstance];
 
@@ -25,18 +26,20 @@
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
-    [requestObj setRequestMethod: @"GET"];	
+    [requestObj setRequestMethod: @"GET"];
     
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(getUserAccountsComplete:)];
     [requestObj setDidFailSelector:@selector(getUserAccountsFailed:)];
     [requestObj startAsynchronous];
 }
+
 -(void) getUserAccountsComplete:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    if([request responseStatusCode] == 200 ) {
+    if([request responseStatusCode] == 200 )
+    {
         
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
@@ -55,17 +58,15 @@
         [parser release];
         
         [bankAccountRequestDelegate getUserAccountsDidComplete:userAccounts];
-
     }
-    else {
+    else
+    {
         NSLog(@"Error Getting User Accounts");
         
         [bankAccountRequestDelegate getUserAccountsDidFail: [request responseStatusMessage]];
-
     }
-    
-    
 }
+
 -(void) getUserAccountsFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Error Getting User Accounts");
@@ -73,6 +74,7 @@
     
     [bankAccountRequestDelegate getUserAccountsDidFail: [request responseStatusMessage]];
 }
+
 -(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId {
     
     Environment *myEnvironment = [Environment sharedInstance];

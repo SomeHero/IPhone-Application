@@ -17,7 +17,8 @@
 #import "SetPreferredAccountProtocol.h"
 #import "VerifyBankAccountProtocol.h"
 
-@interface BankAccountService : NSObject {
+@interface BankAccountService : NSObject
+{
     ASIHTTPRequest *requestObj;
     id<BankAccountRequestProtocol> bankAccountRequestDelegate;
     id<UpdateBankAccountProtocol> updateBankAccountDelegate;
@@ -32,7 +33,8 @@
 @property(retain) id preferredAccountDelegate;
 @property(retain) id verifyBankAccountDelegate;
 
--(void) getUserAccounts:(NSString*) userId;
+-(void) getUserAccounts:(NSString*)userId;
+
 -(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId;
 -(void) updateBankAccount:(NSString *) accountId forUserId: (NSString*) userId withNickname: (NSString*) nickname withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin;
 -(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId;
