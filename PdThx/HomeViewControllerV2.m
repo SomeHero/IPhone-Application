@@ -220,7 +220,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [[quickSendView.subviews objectAtIndex:0] reloadQuickSendContacts:quickSendContacts];
 }
 
--(void)userHomeScreenInformationDidFail:(NSString *)message
+-(void)userHomeScreenInformationDidFail:(NSString *)message withErrorCode:(int)errorCode
 {
     NSLog(@"Loading homescreen&quicksendcontacts failed.");
 }
@@ -257,7 +257,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 
--(void)userInformationDidFail:(NSString*) message {
+-(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
 }

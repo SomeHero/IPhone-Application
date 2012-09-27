@@ -447,7 +447,7 @@
     }
 }
 
--(void) determineRecipientDidFail: (NSString*) message
+-(void) determineRecipientDidFail: (NSString*) message withErrorCode:(int)errorCode
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Finding matching recipient uris failed. Please pick one." withDetailedStatus:message];
@@ -545,17 +545,12 @@
     //[controller release];
 }
 
--(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {\
-    if(lockedOut)
-    {
-        [self dismissModalViewControllerAnimated: YES];
-        
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
-        
-        [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
-    } else {
-        [self showAlertView: @"Unable to send money" withMessage: message];
-    }
+-(void)sendMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    
+    [self dismissModalViewControllerAnimated: YES];
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Money"];
 }
 -(void)onHomeClicked {
     txtAmount.text = @"0.00";

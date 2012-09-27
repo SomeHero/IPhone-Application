@@ -3275,6 +3275,13 @@
 			name = "Detail View Controllers";
 			sourceTree = "<group>";
 		};
+		5B94366A16136A5800E1D1EC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		5BD278FA153E7F0300CAFC12 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
@@ -3421,6 +3428,7 @@
 		5BD27BCE1547B96200CAFC12 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5B94366A16136A5800E1D1EC /* Components */,
 				5BF3EE1D159143D90011BAD8 /* Bank Account Management */,
 				541EE601158A70C400131B0E /* New User Creation */,
 				54A139AF1582702700668984 /* Custom Features */,

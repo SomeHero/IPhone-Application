@@ -419,9 +419,9 @@
     }
 }
 
--(void) determineRecipientDidFail: (NSString*) message
+-(void) determineRecipientDidFail: (NSString*) message withErrorCode:(int)errorCode
 {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Finding matching recipient uris failed. Please pick one." withDetailedStatus:message];
 }
 
@@ -592,16 +592,10 @@
     recipientUri = @"";
 }
 
--(void)requestMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
+-(void)requestMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode {
     
-    if(lockedOut) {
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
-        
-        [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
-    }
-    else {
-        [self showAlertView: @"Error Sending Request" withMessage: message];
-    }
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Unable Sending Request"];
 }
 -(void)onHomeClicked {
     contactButtonBGImage.highlighted = NO;

@@ -148,7 +148,7 @@
         
     });
 }
--(void)resendVerificationLinkDidFail: (NSString*) errorMessage {
+-(void)resendVerificationLinkDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     double delayInSeconds = 1.0;

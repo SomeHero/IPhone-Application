@@ -87,7 +87,18 @@
     }
     else {
         NSLog(@"Error Sending Money, or timeout");
-        [getPayStreamCompleteDelegate getPayStreamDidFail];
+        
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [getPayStreamCompleteDelegate getPayStreamDidFail: message withErrorCode:errorCode];
     }
     
 }
@@ -95,9 +106,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSLog(@"Send Money Failed");
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [getPayStreamCompleteDelegate getPayStreamDidFail];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [getPayStreamCompleteDelegate getPayStreamDidFail: message withErrorCode:errorCode];
 }
 
 

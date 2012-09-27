@@ -14,11 +14,11 @@
 @protocol UserInformationCompleteProtocol <NSObject>
 
 -(void)userInformationDidComplete:(User*)user;
--(void)userInformationDidFail:(NSString*) message;
+-(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode;
 
 
 -(void)userHomeScreenInformationDidComplete:(NSDictionary*) quickSendDictionary;
--(void)userHomeScreenInformationDidFail:(NSString*) message;
+-(void)userHomeScreenInformationDidFail:(NSString*) message withErrorCode:(int)errorCode;
 
 @end
 

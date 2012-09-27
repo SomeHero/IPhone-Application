@@ -401,18 +401,10 @@
     //[controller release];
 }
 
--(void)sendMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
+-(void)sendMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode {
     
-    if(lockedOut) {
-        [self dismissModalViewControllerAnimated: YES];
-        
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
-        
-        [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
-    }
-    else {
-        [self showAlertView: @"Error Sending Money" withMessage: message];
-    }
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Donation"];
 }
 -(void)onHomeClicked {
     txtAmount.text = @"0.00";

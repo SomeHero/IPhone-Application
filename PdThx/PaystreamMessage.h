@@ -25,6 +25,11 @@
     UIImage * imgData;
     bool senderHasSeen;
     bool recipientHasSeen;
+    
+    bool isCancellable;
+    bool isRemindable;
+    bool isRejectable;
+    bool isAcceptable;
 }
 
 @property(nonatomic, retain) NSDecimalNumber* amount;
@@ -43,6 +48,11 @@
 
 @property(nonatomic, assign) bool senderHasSeen;
 @property(nonatomic, assign) bool recipientHasSeen;
+
+@property(nonatomic, assign) bool isCancellable;
+@property(nonatomic, assign) bool isRemindable;
+@property(nonatomic, assign) bool isRejectable;
+@property(nonatomic, assign) bool isAcceptable;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
 

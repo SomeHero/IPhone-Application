@@ -13,6 +13,6 @@
 @protocol RequestMoneyCompleteProtocol <NSObject>
 
 -(void)requestMoneyDidComplete;
--(void)requestMoneyDidFail: (NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures;
+-(void)requestMoneyDidFail: (NSString*) message  withErrorCode:(int)errorCode;
 
 @end

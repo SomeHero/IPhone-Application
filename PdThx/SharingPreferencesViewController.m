@@ -214,7 +214,7 @@
 -(void)updateUserSettingsDidComplete {
     [userConfigurationService getUserSettings:user.userId];
 }
--(void)updateUserSettingsDidFail: (NSString*) errorMessage {
+-(void)updateUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 -(void)getUserSettingsDidComplete: (NSMutableArray*) userSettings {

@@ -58,7 +58,17 @@
         NSLog(@"Got the NonProfits");
         
     } else {
-        [merchantServicesCompleteProtocol getNonProfitsDidFail: [request responseString]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [merchantServicesCompleteProtocol getNonProfitsDidFail: message withErrorCode: errorCode];
     }
     
     
@@ -67,9 +77,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSLog(@"Get NonProfits Failed");
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [merchantServicesCompleteProtocol getNonProfitsDidFail: [request responseString]];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [merchantServicesCompleteProtocol getNonProfitsDidFail: message withErrorCode: errorCode];
 }
 -(void)getOrganizations
 {
@@ -114,10 +132,20 @@
         
         [merchantServicesCompleteProtocol getOrganizationsDidComplete:merchants];
         
-        NSLog(@"Got the Organizations");
         
     } else {
-        [merchantServicesCompleteProtocol getOrganizationsDidFail: [request responseString]];
+        
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [merchantServicesCompleteProtocol getOrganizationsDidFail: message withErrorCode: errorCode];
     }
     
     
@@ -126,9 +154,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSLog(@"Get Organizations Failed");
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [merchantServicesCompleteProtocol getOrganizationsDidFail: [request responseString]];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [merchantServicesCompleteProtocol getOrganizationsDidFail: message withErrorCode: errorCode];
 }
 -(void)getNonProfitDetail:(NSString*) merchantId {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -169,7 +205,18 @@
         NSLog(@"Got the Merchantw");
         
     } else {
-        [merchantServicesCompleteProtocol getNonProfitDetailDidFail: [request responseString]];
+        
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [merchantServicesCompleteProtocol getNonProfitDetailDidFail: message withErrorCode: errorCode];
     }
     
     
@@ -178,9 +225,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSLog(@"GetMerchants Failed");
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [merchantServicesCompleteProtocol getNonProfitDetailDidFail: [request responseString]];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [merchantServicesCompleteProtocol getNonProfitDetailDidFail: message withErrorCode: errorCode];
 }
 
 @end

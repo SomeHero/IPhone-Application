@@ -1447,5 +1447,31 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 {
     [self facebookFriendsDidLoad:friendsList];
 }
-
+-(void)handleError: (NSString*)errorMessage withErrorCode: (int) errorCode withDefaultTitle: (NSString*) defaultTitle
+{
+    if(errorCode == 1001)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:  @"Account Locked"
+                                                            message: errorMessage
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        
+        [alertView show];
+        
+        [alertView release];
+        
+        [self signOut];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: defaultTitle
+                                                            message: errorMessage
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        
+        [alertView show];
+        
+        [alertView release];
+    }
+}
 @end

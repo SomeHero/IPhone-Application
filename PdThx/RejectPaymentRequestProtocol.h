@@ -13,6 +13,6 @@
 @protocol RejectPaymentRequestProtocol <NSObject>
 
 -(void)rejectPaymentRequestDidComplete;
--(void)rejectPaymentRequestDidFail;
+-(void)rejectPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode;
 
 @end

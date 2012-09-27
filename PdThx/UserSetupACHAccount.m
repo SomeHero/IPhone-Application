@@ -125,9 +125,17 @@
         
     }
     else {
-        NSString* message = [NSString stringWithFormat: @"Unable to setup ACH Account"];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
-        [userACHSetupCompleteDelegate userACHSetupDidFail: message];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [userACHSetupCompleteDelegate userACHSetupDidFail: message withErrorCode:errorCode];
         
         NSLog(@"ACH Account Setup Failed");
     
@@ -138,9 +146,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSString* message = [NSString stringWithFormat: @"Unable to setup ACH Account"];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [userACHSetupCompleteDelegate userACHSetupDidFail: message];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [userACHSetupCompleteDelegate userACHSetupDidFail: message withErrorCode:errorCode];
     
     NSLog(@"Setup ACH Account Failed with Exception");
 }

@@ -101,13 +101,6 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
--(void)cancelPaymentDidComplete {
-    //[self.navigationController popToRootViewControllerAnimated: YES];
-    [pullableView setOpened:NO animated:YES];
-}
--(void)cancelPaymentDidFail {
-    
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

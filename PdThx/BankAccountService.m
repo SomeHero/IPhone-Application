@@ -63,16 +63,35 @@
     {
         NSLog(@"Error Getting User Accounts");
         
-        [bankAccountRequestDelegate getUserAccountsDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [bankAccountRequestDelegate getUserAccountsDidFail: message withErrorCode: errorCode];
     }
 }
 
 -(void) getUserAccountsFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Error Getting User Accounts");
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [bankAccountRequestDelegate getUserAccountsDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [bankAccountRequestDelegate getUserAccountsDidFail: message withErrorCode: errorCode];
 }
 
 -(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId {
@@ -104,7 +123,17 @@
         
         NSLog(@"Error Getting User Accounts");
         
-        [deleteBankAccountDelegate deleteBankAccountDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [deleteBankAccountDelegate deleteBankAccountDidFail: message withErrorCode: errorCode];
         
     }
     
@@ -112,10 +141,19 @@
 }
 -(void) deleteBankAccountDidFail:(ASIHTTPRequest *)request
 {
-    NSLog(@"Error Getting User Accounts");
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [deleteBankAccountDelegate deleteBankAccountDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [deleteBankAccountDelegate deleteBankAccountDidFail: message withErrorCode: errorCode];
 }
 -(void) updateBankAccount:(NSString *) accountId forUserId: (NSString*) userId withNickname: (NSString*) nickname withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin {
     
@@ -159,7 +197,17 @@
         
         NSLog(@"Error Getting User Accounts");
         
-        [deleteBankAccountDelegate deleteBankAccountDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [deleteBankAccountDelegate deleteBankAccountDidFail: message withErrorCode:errorCode];
         
     }
     
@@ -167,10 +215,19 @@
 }
 -(void) updateBankAccountDidFail:(ASIHTTPRequest *)request
 {
-    NSLog(@"Error Getting User Accounts");
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [updateBankAccountDelegate updateBankAccountDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [updateBankAccountDelegate updateBankAccountDidFail: message];
 }
 
 -(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId {
@@ -234,7 +291,17 @@
         
         NSLog(@"Error Getting User Accounts");
         
-        [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [preferredAccountDelegate setPreferredAccountDidFail: message withErrorCode: errorCode];
         
     }
     
@@ -245,7 +312,17 @@
     NSLog(@"Error Getting User Accounts");
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [preferredAccountDelegate setPreferredAccountDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [preferredAccountDelegate setPreferredAccountDidFail: message];
 }
 -(void)verifyBankAccount:(NSString*)accountId forUserId: (NSString*)userId withFirstAmount:(NSString*)firstAmount withSecondAmount:(NSString*)secondAmount
 {
@@ -285,7 +362,17 @@
         
         NSLog(@"Error Verifying Bank Account");
         
-        [verifyBankAccountDelegate verifyBankAccountsDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [verifyBankAccountDelegate verifyBankAccountsDidFail: message];
         
     }
     
@@ -297,6 +384,16 @@
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [verifyBankAccountDelegate verifyBankAccountsDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [verifyBankAccountDelegate verifyBankAccountsDidFail: message];
 }
 @end

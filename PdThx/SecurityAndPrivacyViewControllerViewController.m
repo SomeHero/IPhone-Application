@@ -320,16 +320,16 @@
     [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Pin Swipe Changed"];
 }
 
--(void)userSecurityPinDidFail:(NSString *)message
+-(void)userSecurityPinDidFail:(NSString *)message withErrorCode:(int)errorCode
 {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Incorrect Pin Swipe"];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Occurred"];
 }
 
--(void) securityQuestionAnsweredInCorrect:(NSString *)errorMessage
+-(void) securityQuestionAnsweredInCorrect:(NSString *)message withErrorCode:(int)errorCode
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failure" withDetailedStatus:@"Security Question Answer Incorrect."];
+    [appDelegate showErrorWithStatus:@"Failure" withDetailedStatus:message];
 }
 
 

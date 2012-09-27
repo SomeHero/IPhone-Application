@@ -13,6 +13,6 @@
 @protocol UpdateBankAccountProtocol <NSObject>
 
 -(void)updateBankAccountDidComplete;
--(void)updateBankAccountDidFail:(NSString*)errorMessage;
+-(void)updateBankAccountDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode;
 
 @end

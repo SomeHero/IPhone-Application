@@ -11,6 +11,6 @@
 @protocol PayPointVerificationCompleteProtocol <NSObject>
 
 -(void)payPointWasVerifiedComplete;
--(void)payPointWasVerifiedFailed: (NSString*) errorMessage;
+-(void)payPointWasVerifiedFailed: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

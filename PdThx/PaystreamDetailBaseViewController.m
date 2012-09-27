@@ -188,7 +188,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             // TODO: Fix Action/Amt Statement
             
-            if([messageDetail.messageStatus isEqualToString: @"Processing"])
+            if(messageDetail.isCancellable)
             {
                 UIButton* btnCancelPayment = [[UIButton alloc] initWithFrame:CGRectMake(15/2, yPos, (actionView.frame.size.width - 15), 40)];
                 
@@ -203,7 +203,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 
                 yPos = yPos + btnCancelPayment.frame.size.height + 5;
             }
-            if([messageDetail.messageStatus isEqualToString: @"Processing"]) {
+            if(messageDetail.isRemindable) {
                 UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(15/2, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
@@ -235,7 +235,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             // TODO: Fix Action/Amt Statement
             
-            if([messageDetail.messageStatus isEqualToString: @"Action Needed"]) {
+            if(messageDetail.isAcceptable) {
                 UIButton* btnAcceptRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnAcceptRequest setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
@@ -250,7 +250,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 
                 yPos = yPos + btnAcceptRequest.frame.size.height + 5;
             }
-            if([messageDetail.messageStatus isEqualToString: @"Action Needed"]) {
+            if(messageDetail.isRejectable) {
                 UIButton* btnRejectRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnRejectRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
@@ -272,7 +272,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             // TODO: Fix Action/Amt Statement
             
-            if([messageDetail.messageStatus isEqualToString: @"Awaiting Response"]) {
+            if(messageDetail.isCancellable) {
                
                 UIButton* btnCancelRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
             
@@ -288,7 +288,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 
                 yPos = yPos + btnCancelRequest.frame.size.height + 5;
             }
-            if([messageDetail.messageStatus isEqualToString: @"Awaiting Response"]) {
+            if(messageDetail.isRemindable) {
                 UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
                 
                 [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
@@ -462,33 +462,35 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 -(void)cancelPaymentDidComplete {
-    //[self.navigationController popToRootViewControllerAnimated: YES];
-    [pullableView setOpened:NO animated:YES];
+    [self.navigationController popToRootViewControllerAnimated: YES];
 }
 
--(void)cancelPaymentDidFail {
-    
+-(void)cancelPaymentDidFail: (NSString*) message withErrorCode:(int)errorCode  {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 -(void)cancelPaymentRequestDidComplete {
-    [pullableView setOpened:NO animated:YES];
+    [self.navigationController popToRootViewControllerAnimated: YES]; 
 }
 
--(void)cancelPaymentRequestDidFail {
-    
+-(void)cancelPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 
 -(void)acceptPaymentRequestDidComplete {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-    //[pullableView setOpened:NO animated:YES];
+    [self.navigationController popToRootViewControllerAnimated: YES]; 
 }
--(void)acceptPaymentRequestDidFail {
-    //self sho
+-(void)acceptPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 -(void)rejectPaymentRequestDidComplete {
-    [pullableView setOpened:NO animated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
--(void)rejectPaymentRequestDidFail {
-    
+-(void)rejectPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Reject Request"];
 }
 - (void)viewDidUnload
 {

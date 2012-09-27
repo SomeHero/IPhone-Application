@@ -90,7 +90,7 @@
     MeCodeField.text = @"";
     NSLog(@"MeCode Success!!");
 }
--(void)meCodeCreateDidFail:(NSString*) response
+-(void)meCodeCreateDidFail:(NSString*) response withErrorCode:(int)errorCode
 {
     NSLog(@"%@", response);
 }

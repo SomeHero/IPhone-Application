@@ -108,7 +108,7 @@
 }
 -(IBAction)linkToMobileWeb:(id)sender
 {
-        NSURL *url = [NSURL URLWithString:@"http://www.paidthx.com/mobile"];
+    NSURL *url = [NSURL URLWithString:@"http://www.paidthx.com/mobile"];
     [[UIApplication sharedApplication] openURL:url];
 }
 

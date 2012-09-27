@@ -14,6 +14,6 @@
 @protocol UserACHSetupCompleteProtocol <NSObject>
 
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId;
--(void)userACHSetupDidFail:(NSString*) message;
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode;
 
 @end

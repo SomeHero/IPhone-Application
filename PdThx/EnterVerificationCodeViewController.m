@@ -87,7 +87,7 @@
 
 
 }
--(void)verifyMobilePayPointDidFail: (NSString*) errorMessage {
+-(void)verifyMobilePayPointDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     [appDelegate showErrorWithStatus: @"Unable to Verify Mobile Number" withDetailedStatus: @"We were unable to verify this pay point.  Please try again."];
@@ -108,7 +108,7 @@
         
         [appDelegate dismissAlertView];
         
-        [verifyMobilePayPointDelegate verifyMobilePayPointDidFail: @""];
+        [verifyMobilePayPointDelegate verifyMobilePayPointDidFail: @"" withErrorCode:0];
         
         // TODO: There needs to be a protocol here to load the image as being on top.
     }

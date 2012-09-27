@@ -219,13 +219,13 @@
     [userService getUserInformation: userId];
 }
 
--(void)fbSignInDidFail:(NSString *) reason
+-(void)fbSignInDidFail:(NSString *) message withErrorCode:(int)errorCode
 {
     
     [self.navigationController dismissModalViewControllerAnimated:NO];
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Error!" withDetailedStatus:@"Facebook Login Failed"];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Occurred"];
     
 }
 
@@ -256,11 +256,10 @@
     [userService getUserInformation: userId];
 }
 
--(void)userSignInDidFail:(NSString *)reason
+-(void)userSignInDidFail:(NSString *)message withErrorCode:(int)errorCode
 {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid user/pass"];
-    //[self showAlertView:@"User Validation Failed!" withMessage: reason];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Occurred"];
 }
 
 
@@ -293,6 +292,8 @@
     
     if(user.isLockedOut)
     {
+        [prefs setValue:user.userId forKey:@"userId"];
+        
         SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
         [controller setNavigationTitle: @"Security Question"];
         [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
@@ -310,7 +311,7 @@
 }
 
 
--(void)userInformationDidFail:(NSString*) message {
+-(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode  {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error loading user"];
     //[self showAlertView: @"Error Sending Money" withMessage: message];
@@ -407,12 +408,22 @@
 {
     [self dismissModalViewControllerAnimated: NO];
     
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    UserService* userService = [[UserService alloc] init];
+    [userService setUserInformationCompleteDelegate: self];
+    
+    
+    PdThxAppDelegate *appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Getting your profile"];
+    
+    [userService getUserInformation: [prefs stringForKey: @"userId"]];
 }
 
--(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage
+-(void)securityQuestionAnsweredInCorrect:(NSString*)message withErrorCode:(int)errorCode
 {
-    NSLog(@"Incorrect security question implementation missing ** TODO");
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Occurred"];
 }
 
 
