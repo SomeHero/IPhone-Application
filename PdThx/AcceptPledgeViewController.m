@@ -432,7 +432,7 @@
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm the pledge of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm the pledge of $%0.2f from %@.", [amount doubleValue], recipientUri]];
             
             [self presentModalViewController:controller animated:YES];
         } else {

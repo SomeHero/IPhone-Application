@@ -40,7 +40,10 @@
 @synthesize tabBar;
 @synthesize dummyCommentPlaceholder;
 
-@synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
+// Express Delivery Variables
+@synthesize amount, deliveryType, recipientName;
+
+@synthesize whiteBoxView, viewPanel, txtAmount, txtComments, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
 @synthesize contactButtonBGImage, amountButtonBGImage, characterCountLabel;
 
@@ -365,16 +368,16 @@
     
     if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
     {
-        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+        //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
     }
     else
     {
         if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
         {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
         }
         else {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
         }
     }
     

@@ -680,6 +680,10 @@
 		7A965114160D3C45000B86A4 /* connect_button.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7A965113160D3C45000B86A4 /* connect_button.jpg */; };
 		7A9651161610A9CD000B86A4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9651151610A9CD000B86A4 /* FacebookSDK.framework */; };
 		7A9651181610A9E0000B86A4 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A9651171610A9E0000B86A4 /* FacebookSDKResources.bundle */; };
+		7A965127161487B4000B86A4 /* img-express-icon-14x11.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A965123161487B4000B86A4 /* img-express-icon-14x11.png */; };
+		7A965128161487B4000B86A4 /* img-express-icon-14x11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A965124161487B4000B86A4 /* img-express-icon-14x11@2x.png */; };
+		7A965129161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A965125161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png */; };
+		7A96512A161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A965126161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png */; };
 		7AAD193515EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */; };
 		7AAD193815EE7DB700308CAA /* UIPaystreamLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */; };
 		7AAFF1E315E7FCCE00A7C6F0 /* MIBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */; };
@@ -1680,6 +1684,10 @@
 		7A965113160D3C45000B86A4 /* connect_button.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = connect_button.jpg; sourceTree = "<group>"; };
 		7A9651151610A9CD000B86A4 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		7A9651171610A9E0000B86A4 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		7A965123161487B4000B86A4 /* img-express-icon-14x11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-express-icon-14x11.png"; sourceTree = "<group>"; };
+		7A965124161487B4000B86A4 /* img-express-icon-14x11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-express-icon-14x11@2x.png"; sourceTree = "<group>"; };
+		7A965125161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-pinswipe-confirmer-320x23.png"; sourceTree = "<group>"; };
+		7A965126161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-pinswipe-confirmer-320x23@2x.png"; sourceTree = "<group>"; };
 		7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIPaystreamLoadingTableViewCell.xib; sourceTree = "<group>"; };
 		7AAD193615EE7DB700308CAA /* UIPaystreamLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPaystreamLoadingCell.h; sourceTree = "<group>"; };
 		7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPaystreamLoadingCell.m; sourceTree = "<group>"; };
@@ -2113,6 +2121,7 @@
 		54805865159A3B4B00ED591C /* Pin Swpe */ = {
 			isa = PBXGroup;
 			children = (
+				7A965121161487A0000B86A4 /* Confirm Images */,
 				5B3A5D50159A208F0028D3F6 /* ALUnlockPatternView.h */,
 				5B3A5D51159A208F0028D3F6 /* ALUnlockPatternView.m */,
 				5B3A5D52159A208F0028D3F6 /* ALUnlockPatternViewDemoViewController.xib */,
@@ -3775,6 +3784,17 @@
 			name = "Paystream TABLEVIEW Cells";
 			sourceTree = "<group>";
 		};
+		7A965121161487A0000B86A4 /* Confirm Images */ = {
+			isa = PBXGroup;
+			children = (
+				7A965123161487B4000B86A4 /* img-express-icon-14x11.png */,
+				7A965124161487B4000B86A4 /* img-express-icon-14x11@2x.png */,
+				7A965125161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png */,
+				7A965126161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png */,
+			);
+			name = "Confirm Images";
+			sourceTree = "<group>";
+		};
 		7AAFF1D415E7FCBF00A7C6F0 /* Mitek Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -4420,6 +4440,10 @@
 				7A9650CA160B6265000B86A4 /* currentStatusBox596x70@2x.png in Resources */,
 				7A965114160D3C45000B86A4 /* connect_button.jpg in Resources */,
 				7A9651181610A9E0000B86A4 /* FacebookSDKResources.bundle in Resources */,
+				7A965127161487B4000B86A4 /* img-express-icon-14x11.png in Resources */,
+				7A965128161487B4000B86A4 /* img-express-icon-14x11@2x.png in Resources */,
+				7A965129161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png in Resources */,
+				7A96512A161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

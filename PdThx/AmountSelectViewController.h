@@ -21,7 +21,6 @@
     IBOutlet UIButton *quickAmount2;
     IBOutlet UIButton *quickAmount3;
     IBOutlet UILabel *lblGo;
-    IBOutlet UILabel *lblLimit;
     User* user;
 }
 

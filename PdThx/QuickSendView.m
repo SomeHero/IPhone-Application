@@ -177,9 +177,7 @@
         
         if ( contactArray != (id)[NSNull null] )
         {
-            NSLog(@"Inside contact array not null");
             int count = [contactArray count];
-            NSLog(@"After count, %d",count);
             
             if ( count > 0 )
             {
@@ -215,12 +213,9 @@
                     contactDict = [contactArray objectAtIndex:5];
                     [self populateQuickSendItemWithContactObject:contactDict forQuickSendContactSlot:9];
                 }
-                
-                NSLog(@"Successful Finish of Count Block");
             }
         }
         
-        NSLog(@"Saving Quicksend Information into App Delegate.");
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate setQuickSendArray:contactArray];
     }
@@ -305,11 +300,9 @@
     else
         [imageButton setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     
-    NSLog(@"contactDict: %@", contactDict);
     
     if ( [[[contactDict objectForKey:@"userUri"] substringToIndex:3] isEqualToString:@"fb_"] )
     {
-        NSLog(@"Setting image for %@ to %@", [contactDict objectForKey:@"userName"], [contactDict objectForKey:@"userImage"]);
         [imageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[contactDict valueForKey:@"userImage"]]]] forState:UIControlStateNormal];
     }
     else

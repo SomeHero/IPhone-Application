@@ -522,16 +522,16 @@
     
     if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
     {
-        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+        //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipient.name]];
     }
     else
     {
         if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
         {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipientUri]];
+            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipientUri]];
         }
         else {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment request of $%0.2f to %@.", [amount doubleValue], recipient.name]];
         }
     }
     

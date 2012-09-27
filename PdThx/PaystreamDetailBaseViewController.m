@@ -510,7 +510,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     controller=[[CustomSecurityPinSwipeController alloc] init];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm your Pin"];
-    [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+    //[controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+    
     [controller setTag:2];
     [self presentModalViewController:controller animated:YES];
     

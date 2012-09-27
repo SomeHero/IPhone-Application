@@ -39,6 +39,11 @@
     int securityQuestionId;
     int numberOfPaystreamUpdates;
     
+    // Express Delivery Rate Calculation
+    bool canExpress;
+    double expressDeliveryRate;
+    double expressDeliveryFreeThreshold;
+    
     NSString* facebookId;
     NSString* facebookToken;
     

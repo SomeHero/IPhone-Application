@@ -266,6 +266,11 @@
 	CFRelease(aStyle);
 }
 
+-(NSRange)rangeOfString:(NSString*)subString
+{
+    return [[self string] rangeOfString:subString];
+}
+
 @end
 
 
