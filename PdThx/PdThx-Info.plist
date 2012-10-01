@@ -15,8 +15,8 @@
 		<string>paidthx-icon</string>
 		<string>Default.png</string>
 		<string>Default@2x.png</string>
-		<string>icon-iphone-57x57.png</string>
-		<string>icon-iphone-retina-114x114.png</string>
+		<string>launch-icon-dev.png</string>
+		<string>launch-icon-dev@2x.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -27,8 +27,8 @@
 				<string>paidthx-icon</string>
 				<string>Default.png</string>
 				<string>Default@2x.png</string>
-				<string>icon-iphone-57x57.png</string>
-				<string>icon-iphone-retina-114x114.png</string>
+				<string>launch-icon-dev.png</string>
+				<string>launch-icon-dev@2x.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>

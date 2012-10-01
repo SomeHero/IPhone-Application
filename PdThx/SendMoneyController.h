@@ -28,9 +28,13 @@
 #import "SetContactAndAmountProtocol.h"
 #import "SetContactProtocol.h"
 
-@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, SetContactProtocol, SetContactAndAmountProtocol, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol> {
+@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, SetContactProtocol, SetContactAndAmountProtocol, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol>
+{
     IBOutlet UIView *viewPanel;
+    
     IBOutlet UITextField *txtAmount;
+    IBOutlet OHAttributedLabel *txtDeliveryCharge;
+    
     IBOutlet UITextView *txtComments;
     
     IBOutlet UIButton *btnSendMoney;
@@ -40,6 +44,7 @@
     NSString* amount;
     NSString* deliveryType;
     double deliveryCharge;
+    
     NSString* recipientName;
     
     NSString* recipientUri;
@@ -74,6 +79,8 @@
 
 // Amount and Delivery Charge/Type
 @property(nonatomic, retain) NSString* amount;
+@property (nonatomic, retain) OHAttributedLabel *txtDeliveryCharge;
+
 @property(nonatomic, retain) NSString* deliveryType;
 @property(assign) double deliveryCharge;
 @property(nonatomic, retain) NSString* recipientName;

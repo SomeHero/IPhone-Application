@@ -511,7 +511,7 @@
     return YES;
 } 
 
--(void)didSelectAmount:(double)amountSent
+-(void)didSelectAmount:(double)amountSent withDeliveryOption:(bool)isExpressed
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
@@ -522,7 +522,7 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 
     [self didChooseCause:contact];
-    [self didSelectAmount:amountToSend];
+    [self didSelectAmount:amountToSend withDeliveryOption:NO];
 }
 -(void)didSetContact: (Contact*)contact
 {

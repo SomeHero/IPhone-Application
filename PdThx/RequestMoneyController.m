@@ -665,7 +665,7 @@
     
 }
 
--(void)didSelectAmount:(double)amountSent
+-(void)didSelectAmount:(double)amountSent withDeliveryOption:(bool)isExpressed
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];

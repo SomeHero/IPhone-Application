@@ -30,22 +30,32 @@
 // Custom Keyboard Dismissing Feature
 #import "DAKeyboardControl.h"
 
+#import "NSAttributedString+Attributes.h"
+
 #define tableHeight2 = 30;
+
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SendMoneyController ()
 -(void) sendMoney;
 @end
 
 @implementation SendMoneyController
+
 @synthesize tabBar;
 @synthesize dummyCommentPlaceholder;
 
 // Express Delivery Variables
-@synthesize amount, deliveryType, recipientName;
+@synthesize amount, deliveryType, recipientName, deliveryCharge;
 
 @synthesize whiteBoxView, viewPanel, txtAmount, txtComments, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
 @synthesize contactButtonBGImage, amountButtonBGImage, characterCountLabel;
+
+@synthesize txtDeliveryCharge;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +68,7 @@
 
 - (void)dealloc
 {
+    [txtDeliveryCharge release];
     [super dealloc];
     
     /*  ------------------------------------------------------ */
@@ -158,6 +169,7 @@
     [[viewPanel layer] setCornerRadius: 8.0];
     
     contactButtonBGImage.highlighted = NO;
+    
     /*          Location Services Setup         */
     /*  --------------------------------------- */
     lm = [[CLLocationManager alloc] init];
@@ -183,9 +195,7 @@
     sendMoneyService = [[SendMoneyService alloc] init];
     [sendMoneyService setSendMoneyCompleteDelegate:self];
     
-    
-    
-    
+    [txtDeliveryCharge setText:@""];
     
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
@@ -251,6 +261,8 @@
     [recipientUri release];
     recipientUri = nil;
     [self setDummyCommentPlaceholder:nil];
+    [txtDeliveryCharge release];
+    txtDeliveryCharge = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;
@@ -403,7 +415,7 @@
     }
     
     
-    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:txtComments.text withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:txtComments.text withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri withDeliveryType:deliveryType];
 }
 
 -(void)swipeDidCancel: (id)sender
@@ -663,10 +675,37 @@
     return YES;
 } 
 
--(void)didSelectAmount:(double)amountSent
+-(void)didSelectAmount:(double)amountSent withDeliveryOption:(bool)isExpressed
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
+    
+    if ( isExpressed )
+    {
+        [txtDeliveryCharge setAttributedText:[self formatDeliveryChargeWithAmount:amountSent]];
+    } else {
+        [txtDeliveryCharge setText:@""];
+    }
+}
+
+-(NSMutableAttributedString*)formatDeliveryChargeWithAmount:(double)amt
+{
+    id blueColor = UIColorFromRGB(0x015b7e);
+    
+    NSMutableAttributedString* returnString;
+    
+    if ( amt <= user.expressDeliveryThreshold )
+    {
+        returnString = [NSMutableAttributedString attributedStringWithString:@""];
+    }
+    else
+    {
+        returnString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"+ %0.2f",amt*user.expressDeliveryFeePercentage]];
+    }
+    
+    [returnString setTextColor:blueColor];
+    
+    return returnString;
 }
 
 -(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend
@@ -675,7 +714,7 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [self didChooseContact:contact];
-    [self didSelectAmount:amountToSend];
+    [self didSelectAmount:amountToSend withDeliveryOption:NO];
 }
 
 -(void)didSetContact: (Contact*)contact

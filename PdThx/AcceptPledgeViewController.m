@@ -462,7 +462,6 @@
     }
     
     [paystreamService acceptPledge:user.userId onBehalfOfId:causeId toRecipientUri:recipientUri withAmount:amount withComments:comments fromLatitude:latitude fromLongitude:longitude withRecipientFirstName: recipientFirstName withRecipientLastName:recipientLastName withRecipientImageUri:recipientImageUri withSecurityPin:pin];
-    
 }
 
 -(void)swipeDidCancel: (id)sender
@@ -581,7 +580,7 @@
     
 }
 
--(void)didSelectAmount:(double)amountSent
+-(void)didSelectAmount:(double)amountSent withDeliveryOption:(bool)isExpressed
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
