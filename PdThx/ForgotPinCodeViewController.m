@@ -137,13 +137,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Security pin changed"];
 }
 
--(void) userSecurityPinDidFail: (NSString*) message {
+-(void) userSecurityPinDidFail: (NSString*) message withErrorCode:(int)errorCode {
     //[spinner stopAnimating];
     
     [self.navigationController popViewControllerAnimated:YES]; 
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Pin change failed"];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Occurred"];
 }
 - (void)viewDidUnload
 {

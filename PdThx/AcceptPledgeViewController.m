@@ -504,16 +504,10 @@
     //[controller release];
 }
 
--(void)sendMoneyDidFail:(NSString*) message isLockedOut :(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
+-(void)sendMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode {
     
-    if(lockedOut) {
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) signOut];
-        
-        [self showAlertView: @"Invalid Security Pin" withMessage:@"Your security pin was incorrect, login to continue"];
-    }
-    else {
-        [self showAlertView: @"Error Sending Request" withMessage: message];
-    }
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Pledge"];
 }
 -(void)onHomeClicked {
     contactButtonBGImage.highlighted = NO;

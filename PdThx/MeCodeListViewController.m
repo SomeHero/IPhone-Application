@@ -80,7 +80,7 @@
         
     }
 }
--(void)getPayPointsDidFail: (NSString*) errorMessage {
+-(void)getPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 
@@ -239,7 +239,7 @@
     
     newPayPointAdded = true;
 }
--(void)addPayPointsDidFail: (NSString*) errorMessage {
+-(void)addPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 -(void)deletePayPointCompleted {

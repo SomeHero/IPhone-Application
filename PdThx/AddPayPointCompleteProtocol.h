@@ -15,6 +15,6 @@
 @protocol AddPayPointCompleteProtocol <NSObject>
 
 -(void)addPayPointsDidComplete: (NSString*) payPoint;
--(void)addPayPointsDidFail: (NSString*) errorMessage;
+-(void)addPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

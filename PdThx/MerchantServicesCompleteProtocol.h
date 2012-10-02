@@ -14,11 +14,11 @@
 @protocol MerchantServicesCompleteProtocol <NSObject>
 
 -(void)getOrganizationsDidComplete: (NSMutableArray*) merchants;
--(void)getOrganizationsDidFail: (NSString*) errorMessage;
+-(void)getOrganizationsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 -(void)getNonProfitsDidComplete: (NSMutableArray*) merchants;
--(void)getNonProfitsDidFail: (NSString*) errorMessage;
+-(void)getNonProfitsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 -(void)getNonProfitDetailDidComplete: (NonProfitDetail*) nonProfitDetail;
--(void)getNonProfitDetailDidFail: (NSString*) errorMessage;
+-(void)getNonProfitDetailDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end
 

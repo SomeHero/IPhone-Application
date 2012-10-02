@@ -75,11 +75,13 @@
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+
         [parser release];
         
-        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [userRegistrationCompleteDelegate userRegistrationDidFail: message];
+        [userRegistrationCompleteDelegate userRegistrationDidFail: message withErrorCode:errorCode];
         
         NSLog(@"User Registration Failed, Error Code %d", [request responseStatusCode]);
     }
@@ -87,9 +89,17 @@
 }
 -(void) registerUserFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = [NSString stringWithFormat: @"Unable to add user.  Unhandled Exception"];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [userRegistrationCompleteDelegate userRegistrationDidFail: message];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [userRegistrationCompleteDelegate userRegistrationDidFail: message withErrorCode:errorCode];
     
     NSLog(@"Register User Failed with Exception");
 }

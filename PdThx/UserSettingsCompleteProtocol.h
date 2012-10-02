@@ -13,8 +13,8 @@
 @protocol UserSettingsCompleteProtocol <NSObject>
 
 -(void)getUserSettingsDidComplete: (NSMutableArray*) userSettings;
--(void)getUserSettingsDidFail: (NSString*) errorMessage;
+-(void)getUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 -(void)updateUserSettingsDidComplete;
--(void)updateUserSettingsDidFail: (NSString*) errorMessage;
+-(void)updateUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

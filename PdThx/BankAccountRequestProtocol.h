@@ -13,6 +13,6 @@
 @protocol BankAccountRequestProtocol <NSObject>
 
 -(void)getUserAccountsDidComplete:(NSMutableArray*)bankAccounts;
--(void)getUserAccountsDidFail:(NSString*)errorMessage;
+-(void)getUserAccountsDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode;
 
 @end

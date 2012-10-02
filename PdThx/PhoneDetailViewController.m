@@ -148,7 +148,7 @@
     
     [verifyMobilePayPointDelegate verifyMobilePayPointDidComplete:YES];
 }
--(void)verifyMobilePayPointDidFail: (NSString*) errorMessage {
+-(void)verifyMobilePayPointDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 

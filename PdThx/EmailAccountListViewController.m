@@ -96,7 +96,7 @@
         // TODO: There needs to be a protocol here to load the image as being on top.
     }
 }
--(void)getPayPointsDidFail: (NSString*) errorMessage {
+-(void)getPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 
@@ -276,7 +276,7 @@
     
     [payPointService getPayPoints: user.userId];
 }
--(void)addPayPointsDidFail: (NSString*) errorMessage {
+-(void)addPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 -(void)deletePayPointCompleted {

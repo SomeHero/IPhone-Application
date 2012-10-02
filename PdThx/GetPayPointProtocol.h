@@ -13,6 +13,6 @@
 @protocol GetPayPointProtocol <NSObject>
 
 -(void)getPayPointsDidComplete:(NSMutableArray*)payPoints;
--(void)getPayPointsDidFail: (NSString*) errorMessage;
+-(void)getPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

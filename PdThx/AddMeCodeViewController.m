@@ -113,7 +113,7 @@
     
 }
 
--(void)addPayPointsDidFail: (NSString*) errorMessage {
+-(void)addPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     double delayInSeconds = 1.0;

@@ -153,17 +153,17 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     }
     else {
         
-        NSString* message = [NSString stringWithString: @"Unable to send money"];
-        
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
-        bool isLockedOut = [[jsonDictionary objectForKey: @"isLockedOut"] boolValue];
-        NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+        [parser release];
         
-        [sendMoneyCompleteDelegate sendMoneyDidFail:message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [sendMoneyCompleteDelegate sendMoneyDidFail:message withErrorCode:errorCode];
         
         NSLog(@"Error Sending Money");
     }
@@ -171,8 +171,6 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 }
 -(void) sendMoneyFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = [NSString stringWithString: @"Unable to send money"];
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
@@ -180,10 +178,12 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
     
-    BOOL isLockedOut = [[jsonDictionary valueForKey: @"isLockedOut"] boolValue];
-    NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+    [parser release];
     
-    [sendMoneyCompleteDelegate sendMoneyDidFail: message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [sendMoneyCompleteDelegate sendMoneyDidFail: message withErrorCode:errorCode];
     
     NSLog(@"Send Money Failed");
 }
@@ -215,7 +215,17 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
         [cancelPaymentProtocol cancelPaymentDidComplete];
     }
     else {
-        [cancelPaymentProtocol cancelPaymentDidFail];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [cancelPaymentProtocol cancelPaymentDidFail:message withErrorCode:errorCode];
     }
 
 }
@@ -225,7 +235,17 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [cancelPaymentProtocol cancelPaymentDidFail];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [cancelPaymentProtocol cancelPaymentDidFail:message withErrorCode:errorCode];
 }
 -(void) acceptRequest:(NSString*) messageId withUserId: (NSString*) userId fromPaymentAccount : (NSString*) paymentAccountId withSecurityPin : (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -265,17 +285,36 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
         [acceptPaymentRequestProtocol acceptPaymentRequestDidComplete];
     }
     else {
-        [acceptPaymentRequestProtocol acceptPaymentRequestDidFail];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [acceptPaymentRequestProtocol acceptPaymentRequestDidFail:message withErrorCode:errorCode];
     }
     
 }
 -(void) acceptRequestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Accept Request Failed");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [acceptPaymentRequestProtocol acceptPaymentRequestDidFail];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [acceptPaymentRequestProtocol acceptPaymentRequestDidFail:message withErrorCode:errorCode];
+    
 }
 -(void) rejectRequest:(NSString*) messageId {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -296,25 +335,41 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 }
 -(void) rejectRequestComplete:(ASIHTTPRequest *)request
 {
-    NSLog(@"Reject Request Complete");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 200) {
         [rejectPaymentRequestProtocol rejectPaymentRequestDidComplete];
     }
     else {
-        [rejectPaymentRequestProtocol rejectPaymentRequestDidComplete];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [rejectPaymentRequestProtocol rejectPaymentRequestDidFail:message withErrorCode:errorCode];
     }
     
 }
 -(void) rejectRequestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Reject Request Failed");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [rejectPaymentRequestProtocol rejectPaymentRequestDidFail];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [rejectPaymentRequestProtocol rejectPaymentRequestDidFail:message withErrorCode:errorCode];
 }
 -(void) cancelRequest:(NSString*) messageId {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -335,25 +390,41 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
 }
 -(void) cancelRequestComplete:(ASIHTTPRequest *)request
 {
-    NSLog(@"Cancel Request Complete");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 200) {
         [cancePaymentRequestProtocol cancelPaymentRequestDidComplete];
     }
     else {
-        [cancePaymentRequestProtocol cancelPaymentRequestDidFail];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [cancePaymentRequestProtocol cancelPaymentRequestDidFail:message withErrorCode:errorCode];
     }
     
 }
 -(void) canelRequestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Cancel Request Failed");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [cancePaymentRequestProtocol cancelPaymentRequestDidFail];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [cancePaymentRequestProtocol cancelPaymentRequestDidFail:message withErrorCode:errorCode];
 }
 
 

@@ -56,18 +56,19 @@
     {
         NSLog(@"%@", [request responseStatusMessage]);
         
-        NSString *theJSON = [request responseString];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
-        
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
         [parser release];
         
-        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [MeCodeCreateCompleteDelegate meCodeCreateDidFail: message];
+        [MeCodeCreateCompleteDelegate meCodeCreateDidFail: message withErrorCode:errorCode];
         
-        NSLog(@"User Registration Failed, Error Code %d, ReasonPhrase: %@", [request responseStatusCode], [request responseStatusMessage]);
+        NSLog(@"User Registration Failed, Error Code %d, ReasonPhrase: %@", [request responseStatusCode], message);
     }
 }
 -(void) validateMeCodeFailed:(ASIHTTPRequest *)request
@@ -75,9 +76,17 @@
     NSLog(@"MeCode Creation failed with Exception");
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSString* response = @"Unable to create MeCode Try again.";
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [MeCodeCreateCompleteDelegate meCodeCreateDidFail: response];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [MeCodeCreateCompleteDelegate meCodeCreateDidFail: message withErrorCode:errorCode];
     
 }
 @end
