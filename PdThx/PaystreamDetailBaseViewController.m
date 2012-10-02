@@ -507,10 +507,30 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
     [pullableView setOpened:NO animated:NO];
 
+    // TODO: Change this to generic.
     controller=[[CustomSecurityPinSwipeController alloc] init];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm your Pin"];
-    [controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+    [controller setHeaderText:@"SWIPE YOUR PIN TO PAY REQUEST"];
+    
+    [[controller contactImageButton] setBackgroundImage:[self.btnSender backgroundImageForState:UIControlStateNormal] forState:UIControlStateNormal];
+    
+    /*
+     Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     headerText = @"SWIPE YOUR PIN TO CONFIRM PAYMENT";
+     */
+    
+    [controller setDeliveryType:@"Standard"];
+    [controller setDeliveryCharge:0.0];
+    [controller setAmount:[messageDetail.amount doubleValue]];
+    [controller setRecipientName:txtSender.text];
+    
     [controller setTag:2];
     [self presentModalViewController:controller animated:YES];
     

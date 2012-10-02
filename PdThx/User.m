@@ -29,6 +29,9 @@
 @synthesize facebookToken;
 @synthesize socialNetworks;
 
+// Express Additions
+@synthesize canExpress, expressDeliveryFeePercentage, expressDeliveryThreshold;
+
 -(id)init {
     self = [super init];
     if(self) {
@@ -56,6 +59,11 @@
         userAttributes = [[NSMutableArray alloc] init];
         userConfigurationItems = [[NSMutableArray alloc] init];
         socialNetworks = [[NSMutableDictionary alloc] init];
+        
+        // Express Delivery
+        canExpress = NO;
+        expressDeliveryFeePercentage = 0.0;
+        expressDeliveryThreshold = 0.0;
     }
     
     return self;
@@ -149,6 +157,13 @@
         {
             [userConfigurationItems addObject: [[[UserConfiguration alloc] initWithDictionary: [userConfigurationsArray objectAtIndex:(NSUInteger) i]] autorelease]];
         }
+        
+        // Express Delivery Additions
+        canExpress = [[dictionary valueForKey: @"canExpress"] boolValue];
+        expressDeliveryFeePercentage = [[dictionary objectForKey: @"expressDeliveryFeePercentage"] doubleValue];
+        expressDeliveryThreshold = [[dictionary objectForKey: @"expressDeliveryThreshold"] doubleValue];
+        
+        NSLog(@"Express delivery info loaded as: %@ %f %f", canExpress ? @"EXPRESSABLE" : @"NOTEXPRESSABLE", expressDeliveryFeePercentage, expressDeliveryThreshold);
     }
     
     return self;
@@ -187,6 +202,9 @@
     another.userConfigurationItems = [userConfigurationItems copy];
     another.facebookId = facebookId;
     another.facebookToken = facebookToken;
+    another.canExpress = canExpress;
+    another.expressDeliveryFeePercentage = expressDeliveryFeePercentage;
+    another.expressDeliveryThreshold = expressDeliveryThreshold;
     
     return another;
 }
