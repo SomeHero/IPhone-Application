@@ -29,7 +29,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize amountChosenDelegate;
 @synthesize lblGo;
 
-
 // Express
 @synthesize canExpress, expressChargeLabel, expressDeliveryRate, addExpressDeliveryButton, expressDeliveryFreeThreshold, isExpressed, amountExpressChargeLabel;
 
@@ -149,6 +148,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         if([tempAmount length] < 4)
             [tempAmount insertString:@"0" atIndex:0];
         
+        [goButton setEnabled:YES];
         if([tempAmount isEqualToString: @"0.00"])
         {
             [goButton setBackgroundImage: [UIImage imageNamed: @"btn-go-disabled-50x48.png"] forState:UIControlStateNormal];
@@ -219,10 +219,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)removeExpressedDelivery
 {
-    UIImage*standardDeliveryImage = [UIImage imageNamed:@"hello.png"];
-    
-    [addExpressDeliveryButton setTitle:@"NO" forState:UIControlStateNormal];
-    [addExpressDeliveryButton setTitle:@"NO" forState:UIControlStateDisabled];
+    UIImage*standardDeliveryImage = [UIImage imageNamed:@"btn-express-43x40.png"];
     
     [addExpressDeliveryButton setBackgroundImage:standardDeliveryImage forState:UIControlStateNormal];
     [addExpressDeliveryButton setBackgroundImage:standardDeliveryImage forState:UIControlStateSelected];
@@ -288,7 +285,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     {
         NSLog(@"Not allowed to express.");
         
-        [addExpressDeliveryButton setTitle:@"N/A" forState:UIControlStateDisabled];
         [addExpressDeliveryButton setEnabled:NO];
         
         [expressChargeLabel setText:@"N/A"];
@@ -304,16 +300,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     id greenColor = UIColorFromRGB(0x00a652);
     id grayColor = UIColorFromRGB(0x33363d);
     
-    UIImage* enabledImage = [UIImage imageNamed:@"hello.png"];
+    UIImage* enabledImage = [UIImage imageNamed:@"btn-express-43x40-active.png"];
     
     double transactionAmount = [amountDisplayLabel.text doubleValue];
     
     isExpressed = YES;
     [addExpressDeliveryButton setEnabled:YES];
     
-    // Temp
-    [addExpressDeliveryButton setTitle:@"YES" forState:UIControlStateNormal];
-    [addExpressDeliveryButton setTitle:@"YES" forState:UIControlStateDisabled];
     
     [addExpressDeliveryButton setBackgroundImage:enabledImage forState:UIControlStateNormal];
     [addExpressDeliveryButton setBackgroundImage:enabledImage forState:UIControlStateSelected];
@@ -334,7 +327,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     else
     {
         // Set green color FREE
-        NSString* deliveryChargeString = [NSString stringWithFormat:@"$%0.2f",transactionAmount*expressDeliveryRate];
+        NSString* deliveryChargeString = [NSString stringWithFormat:@"+ $%0.2f",transactionAmount*expressDeliveryRate];
         
         NSMutableAttributedString*chargeAttrib = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",deliveryChargeString]];
         
@@ -432,6 +425,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
     
     [self adjustExpressDeliveryCharge:amountDisplayLabel];
+    [self formatGoButton];
 }
 
 - (IBAction)pressedQuickAmount1:(id)sender
@@ -447,6 +441,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
     
     [self adjustExpressDeliveryCharge:amountDisplayLabel];
+    [self formatGoButton];
 }
 
 - (IBAction)pressedQuickAmount2:(id)sender {
@@ -461,6 +456,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
     
     [self adjustExpressDeliveryCharge:amountDisplayLabel];
+    [self formatGoButton];
 }
 - (IBAction)pressedQuickAmount3:(id)sender {
     // $1
@@ -474,6 +470,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
     
     [self adjustExpressDeliveryCharge:amountDisplayLabel];
+    [self formatGoButton];
 }
 
 - (IBAction)pressedAddExpressDelivery:(id)sender
@@ -484,6 +481,25 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     } else {
         if ( canExpress )
             [self enableExpressedDelivery];
+    }
+    
+    [self formatGoButton];
+}
+
+-(void)formatGoButton
+{
+    if([amountDisplayLabel.text isEqualToString:@"0.00"])
+    {
+        [goButton setBackgroundImage: [UIImage imageNamed: @"btn-go-inactive-50x48.png"] forState:UIControlStateNormal];
+        lblGo.textColor = [UIColor colorWithRed:142 green:144 blue:151 alpha:1.0];
+        [goButton setEnabled:NO];
+    }
+    else
+    {
+        [goButton setEnabled:YES];
+        [goButton setBackgroundImage: [UIImage imageNamed: @"btn-go-active-50x48.png"] forState:UIControlStateNormal];
+        lblGo.textColor = [UIColor whiteColor];
+        lblGo.alpha = 1.0;
     }
 }
 

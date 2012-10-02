@@ -25,9 +25,8 @@
 
 -(void) sendMoney:(NSString *)theAmount toRecipient:(NSString*)recipientId withRecipientUri:(NSString *)theRecipientUri fromSender:(NSString *)theSenderUri withComment:(NSString *)theComments withSecurityPin:(NSString *)securityPin
        fromUserId: (NSString *)userId withFromAccount:(NSString *)fromAccount withFromLatitude:(double)latitude
-withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri withDeliveryType:(NSString *)deliveryType
+withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri withDeliveryType:(NSString *)deliveryMethod
 {
-    
     Environment *myEnvironment = [Environment sharedInstance];
     NSString *rootUrl = [NSString stringWithFormat:@"PaystreamMessages"];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
@@ -49,6 +48,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
                                  recipientFirstName, @"recipientFirstName",
                                  recipientLastName, @"recipientLastName",
                                  recipientImageUri, @"recipientImageUri",
+                                 deliveryMethod, @"deliveryMethod",
                                  nil];
     
     

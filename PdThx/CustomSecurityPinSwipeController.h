@@ -19,13 +19,14 @@
     id<CustomSecurityPinSwipeProtocol> securityPinSwipeDelegate;
     NSString* navigationTitle;
     
+    IBOutlet UILabel *lblHeader;
     IBOutlet OHAttributedLabel* toLabel;
     IBOutlet OHAttributedLabel* amountLabel;
     IBOutlet OHAttributedLabel* deliveryLabel;
     
     NSString* recipientName;
     double amount;
-    
+    NSString* headerText;
     NSString* deliveryType;
     double deliveryCharge;
     
@@ -34,6 +35,7 @@
     NSInteger tag;
     NSString* securityPin;
     bool didCancel;
+    
     IBOutlet UIButton *contactImageButton;
     IBOutlet UINavigationBar *navigationBar;
 }
@@ -42,7 +44,6 @@
 @property(nonatomic, retain) UINavigationItem* navigationItem;
 @property(nonatomic, retain) UINavigationBar* navigationBar;
 
-@property(nonatomic, retain) UILabel* lblHeader;
 @property(nonatomic, retain) UIButton *contactImageButton;
 
 @property(nonatomic, retain) id securityPinSwipeDelegate;
@@ -53,6 +54,8 @@
 @property(nonatomic, retain) OHAttributedLabel* toLabel;
 @property(nonatomic, retain) OHAttributedLabel* amountLabel;
 @property(nonatomic, retain) OHAttributedLabel* deliveryLabel;
+@property(nonatomic, retain) UILabel *lblHeader;
+@property(nonatomic, retain) NSString* headerText;
 
 @property(nonatomic, retain) NSString* recipientName;
 @property(assign) double amount;

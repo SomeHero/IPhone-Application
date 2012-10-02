@@ -20,7 +20,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize viewPinLock;
 @synthesize navigationItem;
 @synthesize securityPinSwipeDelegate;
-@synthesize lblHeader;
+@synthesize lblHeader, headerText;
 @synthesize navigationTitle;
 
 // New Customized Title
@@ -52,12 +52,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [navigationBar release];
     [contactImageButton release];
     [expressIcon release];
-    [super dealloc];
+    [lblHeader release];
     
     [viewPinLock release];
     [navigationItem release];
     [securityPinSwipeDelegate release];
-    [lblHeader release];
+    
+    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,14 +122,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    // Customize Header with To/Amount/DeliveryRates
-    // Delivery Formatted Label: Delivery: Express          ($2.99)
-    
-    // TOODO: This is an example setup: Change to passed in values!!!
-    recipientName = @"Ryan Ricigliano";
-    deliveryCharge = 0.0;
-    amount = 14.59;
-    deliveryType = @"Express";
+    /* 
+       Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
     
     id blueColor = UIColorFromRGB(0x015b7e);
     id grayColor = UIColorFromRGB(0x33363d);
@@ -215,6 +218,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     contactImageButton = nil;
     [expressIcon release];
     expressIcon = nil;
+    [lblHeader release];
+    lblHeader = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

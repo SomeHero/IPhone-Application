@@ -670,6 +670,10 @@
 		7A042944161A0671009FD0AB /* launch-icon-beta.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A042943161A0671009FD0AB /* launch-icon-beta.png */; };
 		7A06D798161A0D2A006B9B11 /* launch-icon-dev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A8D3AF71619F2CE00FBDA70 /* launch-icon-dev@2x.png */; };
 		7A06D799161A0D2D006B9B11 /* launch-icon-dev.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A8D40621619F2B000BA5B0D /* launch-icon-dev.png */; };
+		7A06D79E161A1637006B9B11 /* btn-express-43x40-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79A161A1637006B9B11 /* btn-express-43x40-active.png */; };
+		7A06D79F161A1637006B9B11 /* btn-express-43x40-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79B161A1637006B9B11 /* btn-express-43x40-active@2x.png */; };
+		7A06D7A0161A1637006B9B11 /* btn-express-43x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79C161A1637006B9B11 /* btn-express-43x40.png */; };
+		7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79D161A1637006B9B11 /* btn-express-43x40@2x.png */; };
 		7A39C10915FA6141004EED53 /* ChooseAddACHMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A39C10715FA6141004EED53 /* ChooseAddACHMethodViewController.m */; };
 		7A39C10A15FA6141004EED53 /* ChooseAddACHMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A39C10815FA6141004EED53 /* ChooseAddACHMethodViewController.xib */; };
 		7A8BB6FE161A06F10093ED12 /* launch-icon-beta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A8BB6FD161A06F10093ED12 /* launch-icon-beta@2x.png */; };
@@ -1671,6 +1675,10 @@
 		5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccountTableCell.m; sourceTree = "<group>"; };
 		5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIAccountTableCell.xib; sourceTree = "<group>"; };
 		7A042943161A0671009FD0AB /* launch-icon-beta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch-icon-beta.png"; path = "../launch-icon-beta.png"; sourceTree = "<group>"; };
+		7A06D79A161A1637006B9B11 /* btn-express-43x40-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-express-43x40-active.png"; sourceTree = "<group>"; };
+		7A06D79B161A1637006B9B11 /* btn-express-43x40-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-express-43x40-active@2x.png"; sourceTree = "<group>"; };
+		7A06D79C161A1637006B9B11 /* btn-express-43x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-express-43x40.png"; sourceTree = "<group>"; };
+		7A06D79D161A1637006B9B11 /* btn-express-43x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-express-43x40@2x.png"; sourceTree = "<group>"; };
 		7A39C10615FA6141004EED53 /* ChooseAddACHMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseAddACHMethodViewController.h; sourceTree = "<group>"; };
 		7A39C10715FA6141004EED53 /* ChooseAddACHMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseAddACHMethodViewController.m; sourceTree = "<group>"; };
 		7A39C10815FA6141004EED53 /* ChooseAddACHMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseAddACHMethodViewController.xib; sourceTree = "<group>"; };
@@ -3814,6 +3822,10 @@
 		7A96512B16164642000B86A4 /* Amount Select View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7A06D79A161A1637006B9B11 /* btn-express-43x40-active.png */,
+				7A06D79B161A1637006B9B11 /* btn-express-43x40-active@2x.png */,
+				7A06D79C161A1637006B9B11 /* btn-express-43x40.png */,
+				7A06D79D161A1637006B9B11 /* btn-express-43x40@2x.png */,
 			);
 			name = "Amount Select View Controller";
 			sourceTree = "<group>";
@@ -4468,6 +4480,10 @@
 				7A8BB6FE161A06F10093ED12 /* launch-icon-beta@2x.png in Resources */,
 				7A06D798161A0D2A006B9B11 /* launch-icon-dev@2x.png in Resources */,
 				7A06D799161A0D2D006B9B11 /* launch-icon-dev.png in Resources */,
+				7A06D79E161A1637006B9B11 /* btn-express-43x40-active.png in Resources */,
+				7A06D79F161A1637006B9B11 /* btn-express-43x40-active@2x.png in Resources */,
+				7A06D7A0161A1637006B9B11 /* btn-express-43x40.png in Resources */,
+				7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

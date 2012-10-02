@@ -31,7 +31,8 @@
     return self;
 }
 
--(NSComparisonResult)compare:(Contact*)otherContact {
+-(NSComparisonResult)compare:(Contact*)otherContact
+{
     NSString * comparedProperty1 = ( self.lastName.length == 0 ? self.firstName : self.lastName );
     NSString * comparedProperty2 = ( otherContact.lastName.length == 0 ? otherContact.firstName : otherContact.lastName );
     
@@ -55,7 +56,23 @@
     return [comparedProperty1 caseInsensitiveCompare:comparedProperty2];
 }
 
-                
+-(NSString*)getSenderName
+{
+    if ( name != (id)[NSNull null] && name.length > 0 )
+    {
+        return name;
+    }
+    else if ( firstName != (id)[NSNull null] && lastName != (id)[NSNull null] && firstName.length > 0 && lastName.length > 0 )
+    {
+        return [NSString stringWithFormat:@"%@ %@",firstName, lastName];
+    } else if ( paypoints && [paypoints count] > 0 )
+    {
+        return [paypoints objectAtIndex:0];
+    } else {
+        return recipientId;
+    }
+}
+    
 - (void)dealloc {
     [name release];
     [facebookID release];

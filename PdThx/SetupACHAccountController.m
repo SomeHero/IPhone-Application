@@ -119,10 +119,14 @@
         // Not found, so remove keyboard and try to create ach account
         [textField resignFirstResponder];
 
-        controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+        controller = [[[GenericSecurityPinSwipeController alloc] init] autorelease];
+        
         [controller setSecurityPinSwipeDelegate: self];
         [controller setNavigationTitle: @"Setup your Pin"];
-        //[controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
+        [controller setHeaderText:@"Hello"];
+        
+        
+        
         [controller setTag:1];
         
         [self presentModalViewController:controller animated:YES];
@@ -226,8 +230,9 @@
     [txtNameOnAccount resignFirstResponder];
     [txtRoutingNumber resignFirstResponder];
     
-    controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    controller = [[[GenericSecurityPinSwipeController alloc] init] autorelease];
     [controller setSecurityPinSwipeDelegate: self];
+    
     [controller setNavigationTitle: @"Setup your Pin"];
     //[controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];
     [controller setTag:1];
@@ -238,7 +243,8 @@
 {
     if([sender tag] == 1)
     {
-        controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+        controller = [[[GenericSecurityPinSwipeController alloc] init] autorelease];
+        
         [controller setSecurityPinSwipeDelegate: self];
         [controller setNavigationTitle: @"Confirm your Pin"];
         //[controller setHeaderText: [NSString stringWithFormat:@"To complete setting up your account, create a pin by connecting 4 buttons below."]];

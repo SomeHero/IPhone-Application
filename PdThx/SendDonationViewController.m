@@ -303,7 +303,23 @@
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
-            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your donation of $%0.2f to %@.", [amount doubleValue], recipient.name]];
+            
+            /*
+             Custom Security Pin Swipe Controller Example
+             -==============================================-
+             
+             recipientName = @"Ryan Ricigliano";
+             deliveryCharge = 0.0;
+             amount = 14.59;
+             deliveryType = @"Express";
+             lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+             */
+            
+            [controller setHeaderText:@"SWIPE YOUR PIN TO DONATE"];
+            [controller setDeliveryType:@"Standard"];
+            [controller setDeliveryCharge:0.0];
+            [controller setAmount:[amount doubleValue]];
+            [controller setRecipientName:[recipient getSenderName]];
             
             [self presentModalViewController:controller animated:YES];
         } else {

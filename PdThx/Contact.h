@@ -37,5 +37,6 @@
 @property(nonatomic, retain) Merchant* merchant;
 
 -(NSComparisonResult)compare:(Contact*)otherContact;
+-(NSString*)getSenderName;
 
 @end

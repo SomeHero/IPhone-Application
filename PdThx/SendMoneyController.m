@@ -190,12 +190,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
     
     
-    /*          Services/ViewController Initialization         */
-    /*  ------------------------------------------------------ */
+    /*          Services/ViewController Initialization          */
+    /*  ------------------------------------------------------  */
     sendMoneyService = [[SendMoneyService alloc] init];
     [sendMoneyService setSendMoneyCompleteDelegate:self];
     
+    
+    /*          Delivery Method Set Default Value               */
+    /*  ------------------------------------------------------  */
     [txtDeliveryCharge setText:@""];
+    deliveryType = @"Standard";
+    
     
     /*                TextField Initialization                 */
     /*  ------------------------------------------------------ */
@@ -230,6 +235,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
          [self.view removeKeyboardControl];
          */
     }];
+    
 }
 
 - (void)viewDidUnload
@@ -378,20 +384,22 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm"];
     
-    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
-    {
-        //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-    }
-    else
-    {
-        if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
-        {
-            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
-        }
-        else {
-            //[controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-        }
-    }
+    /*
+     Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
+    
+    [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM PAYMENT"];
+    [controller setDeliveryType:deliveryType];
+    [controller setDeliveryCharge:deliveryCharge];
+    [controller setAmount:[amount doubleValue]];
+    [controller setRecipientName:[recipient getSenderName]];
     
     [self presentModalViewController:controller animated:YES];
     
@@ -541,11 +549,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
         {
             controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
-        }
-        else {
+        } else {
             controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
         }
-        
     }
     
     [controller setContinueButtonText:@"Send Another Payment"];
@@ -557,10 +563,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     recipientUri = @"";
     
-    //[controller release];
 }
 
--(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {\
+-(void)sendMoneyDidFail:(NSString*) message isLockedOut:(BOOL)lockedOut withPinCodeFailures : (NSInteger) pinCodeFailures {
     if(lockedOut)
     {
         [self dismissModalViewControllerAnimated: YES];
@@ -579,6 +584,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
     
+    txtDeliveryCharge.text = @"";
+    deliveryType = @"Standard";
+    
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     
@@ -587,30 +595,36 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self tabBarClicked:1]; // Option: REFRESH PAYSTREAM
 }
 
--(void)onContinueClicked {
+-(void)onContinueClicked
+{
     txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
     
+    txtDeliveryCharge.text = @"";
+    deliveryType = @"Standard";
+    
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
-    
 }
+
 -(void)didChooseContact:(Contact *)contact
 {
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
+    
     if ( contact.imgData )
         [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
     else if ( contact.facebookID.length > 0 ){
         recipient.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]];
         [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
     }
-    else {
+    else
+    {
         [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
         [recipientImageButton.layer setBorderWidth:0.0];
     }
@@ -682,8 +696,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     if ( isExpressed )
     {
+        deliveryType = @"Express";
         [txtDeliveryCharge setAttributedText:[self formatDeliveryChargeWithAmount:amountSent]];
     } else {
+        deliveryType = @"Standard";
         [txtDeliveryCharge setText:@""];
     }
 }
