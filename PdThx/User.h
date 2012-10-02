@@ -39,6 +39,11 @@
     int securityQuestionId;
     int numberOfPaystreamUpdates;
     
+    // Express Delivery Rate Calculation
+    bool canExpress;
+    double expressDeliveryFeePercentage;
+    double expressDeliveryThreshold;
+    
     NSString* facebookId;
     NSString* facebookToken;
     
@@ -81,6 +86,11 @@
 @property(nonatomic, retain) NSMutableArray* bankAccounts;
 @property(nonatomic, retain) NSMutableArray* userAttributes;
 @property(nonatomic, retain) NSMutableArray* userConfigurationItems;
+
+// Express Delivery
+@property (assign) bool canExpress;
+@property (assign) double expressDeliveryFeePercentage;
+@property (assign) double expressDeliveryThreshold;
 
 @property(nonatomic, retain) NSMutableDictionary* socialNetworks;
 

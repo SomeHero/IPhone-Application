@@ -263,19 +263,6 @@
         [appDelegate showWithStatus:@"Signing up" withDetailedStatus:@"Registering user"];
         
         [registerUserService registerUser:userName withPassword:password withMobileNumber:@"" withSecurityPin:@"" withDeviceId:@""];
-        
-        //securityPinModal = [[SetupSecurityPin alloc] initWithFrame:self.view.bounds];
-        
-        //securityPinModal.tag = 0;
-        //securityPinModal.delegate = self;
-        
-        ///////////////////////////////////
-        // Add the panel to our view
-        //[self.view addSubview:securityPinModal];
-        
-        ///////////////////////////////////
-        // Show the panel from the center of the button that was pressed
-        //[securityPinModal show];
     }
 }
 - (IBAction)signInWithFacebookClicked:(id)sender 
@@ -290,6 +277,7 @@
     
     [fbSignInHelper signInWithFacebook:self];
 }
+
 
 -(void)fbSignInCompleteWithMEResponse:(id)response
 {
@@ -311,6 +299,7 @@
         }
     }];
 }
+
 
 -(IBAction) btnCreateAccountClicked:(id) sender {
     

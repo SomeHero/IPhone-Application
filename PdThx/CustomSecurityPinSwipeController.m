@@ -7,6 +7,7 @@
 //
 
 #import "CustomSecurityPinSwipeController.h"
+#import "NSAttributedString+Attributes.h"
 #import "PdThxAppDelegate.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor \
@@ -19,9 +20,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize viewPinLock;
 @synthesize navigationItem;
 @synthesize securityPinSwipeDelegate;
-@synthesize lblHeader;
+@synthesize lblHeader, headerText;
 @synthesize navigationTitle;
-@synthesize headerText;
+
+// New Customized Title
+@synthesize toLabel, amountLabel, deliveryLabel;
+@synthesize recipientName, amount, deliveryCharge, deliveryType;
+@synthesize  expressIcon;
+
 @synthesize tag;
 @synthesize navigationBar;
 @synthesize contactImageButton;
@@ -45,13 +51,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [navigationBar release];
     [contactImageButton release];
-    [super dealloc];
+    [expressIcon release];
+    [lblHeader release];
     
     [viewPinLock release];
     [navigationItem release];
     [securityPinSwipeDelegate release];
-    [lblHeader release];
-    [headerText release];
+    
+    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,9 +120,77 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     //[self.view addSubview:body];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{    
-    lblHeader.text = headerText;
+-(void)viewWillAppear:(BOOL)animated
+{
+    /* 
+       Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
+    
+    id blueColor = UIColorFromRGB(0x015b7e);
+    id grayColor = UIColorFromRGB(0x33363d);
+    id greenColor = UIColorFromRGB(0x00a652);
+    
+    id helvBoldFont = [UIFont fontWithName:@"Helvetica-Bold" size:15.0];
+    
+    // Dark Grey Color for "To:/Amount:/Delivery:" => 0x33363d
+    NSMutableAttributedString*recipientAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"To: %@",recipientName]];
+    
+    [recipientAttribString setTextColor:grayColor];
+    [recipientAttribString setTextColor:[UIColor blackColor] range:[recipientAttribString rangeOfString:recipientName]];
+    [recipientAttribString setFont:helvBoldFont];
+    
+    // Done with Recipient Label, set it.
+    [toLabel setAttributedText:recipientAttribString];
+    
+    // Amount Label, simple Amount: $x.xx
+    NSString*highlightedAmountString = [NSString stringWithFormat:@"$%0.2f",amount];
+    
+    NSMutableAttributedString*amountAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Amount: %@",highlightedAmountString]];
+    [amountAttribString setTextColor:grayColor];
+    [amountAttribString setTextColor:blueColor range:[amountAttribString rangeOfString:highlightedAmountString]];
+    [amountAttribString setFont:helvBoldFont];
+    
+    [amountLabel setAttributedText:amountAttribString];
+    
+    NSMutableAttributedString*deliveryChargeAttribString;
+    if ( deliveryCharge == 0.0 )
+    {
+        // Free Delivery - Standard
+        // Colors:
+        // FREE in Green 0x00a652
+        NSString*highlightedDeliveryChargeString = [NSString stringWithFormat:@"FREE"];
+        
+        deliveryChargeAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Delivery: %@ (%@)", deliveryType, highlightedDeliveryChargeString]];
+        
+        [expressIcon setHidden:YES];
+        [deliveryChargeAttribString setTextColor:grayColor];
+        [deliveryChargeAttribString setTextColor:greenColor range:[deliveryChargeAttribString rangeOfString:highlightedDeliveryChargeString]];
+    }
+    else
+    {
+        // Express Delivery, There's a charge.
+        // Blue Color: 0x015b7e
+        NSString*highlightedDeliveryChargeString = [NSString stringWithFormat:@"$%0.2f",deliveryCharge];
+        
+        deliveryChargeAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Delivery: %@     (%@)",deliveryType,highlightedDeliveryChargeString]];
+        
+        [expressIcon setHidden:NO];
+        [deliveryChargeAttribString setTextColor:grayColor];
+        [deliveryChargeAttribString setTextColor:blueColor range:[deliveryChargeAttribString rangeOfString:highlightedDeliveryChargeString]];
+        [deliveryChargeAttribString setTextColor:blueColor range:[deliveryChargeAttribString rangeOfString:deliveryType]];
+    }
+    
+    [deliveryChargeAttribString setFont:helvBoldFont];
+    [deliveryLabel setAttributedText:deliveryChargeAttribString];
+    
+    //NSMutableAttributedString* deliveryString = [NSMutableAttributedString attributedStringWithString:[NSString stringWithFormat:@"Delivery: %@          %@%@%@", deliveryTypeAttrib, openParen,amountAttrib, closeParen]];
     
     UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Cancel-68x30.png"];
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -130,15 +205,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     self.navigationItem.leftBarButtonItem = cancelButtonItem;
 }
 
--(void)cancelClicked {
+-(void)cancelClicked
+{
     [securityPinSwipeDelegate swipeDidCancel:self];
 }
+
 - (void)viewDidUnload
 {
     [navigationBar release];
     navigationBar = nil;
     [contactImageButton release];
     contactImageButton = nil;
+    [expressIcon release];
+    expressIcon = nil;
+    [lblHeader release];
+    lblHeader = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
