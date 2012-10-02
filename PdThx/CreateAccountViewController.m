@@ -334,12 +334,13 @@
     [userService setUserInformationCompleteDelegate: self];
     [userService getUserInformation: userId];
 }
--(void)userRegistrationDidFail:(NSString*) response
+-(void)userRegistrationDidFail:(NSString*) message withErrorCode:(int)errorCode
 {
     [spinner stopAnimating];
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Username in use"];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Unable to Create Account"];
+    
 }
 /*          FACEBOOK ACCOUNT SIGN IN HANDLING     */
 -(void)fbSignInDidComplete:(BOOL)hasACHaccount withSecurityPin:(BOOL)hasSecurityPin withUserId:(NSString*) userId withPaymentAccountId:(NSString*) paymentAccountId withMobileNumber: (NSString*) mobileNumber isNewUser:(BOOL)isNewUser
@@ -359,9 +360,9 @@
     [userService getUserInformation: userId];
 }
 
--(void)fbSignInDidFail:(NSString *) reason {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Signup Failed!" withDetailedStatus:@"Check username/password"];
+-(void)fbSignInDidFail:(NSString *) message withErrorCode:(int)errorCode {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Unable to Create Account"];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtEmailAddress resignFirstResponder];

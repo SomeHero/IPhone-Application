@@ -13,6 +13,6 @@
 @protocol SecurityQuestionAnsweredProtocol <NSObject>
 
 -(void)securityQuestionAnsweredDidComplete;
--(void)securityQuestionAnsweredDidFail:(NSString*)errorMessage;
+-(void)securityQuestionAnsweredDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode;
 
 @end

@@ -11,6 +11,6 @@
 @protocol ApplicationSettingsCompleteProtocol <NSObject>
 
 -(void)getApplicationSettingsDidComplete:(Application*)application;
--(void)getApplicationSettingsDidFail: (NSString*) errorMessage;
+-(void)getApplicationSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

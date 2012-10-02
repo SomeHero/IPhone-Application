@@ -11,6 +11,6 @@
 @protocol UserSecurityPinCompleteProtocol <NSObject>
 
 -(void)userSecurityPinDidComplete;
--(void)userSecurityPinDidFail:(NSString*) message;
+-(void)userSecurityPinDidFail:(NSString*) message withErrorCode:(int)errorCode;
 
 @end

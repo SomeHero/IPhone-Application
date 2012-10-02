@@ -11,6 +11,6 @@
 @protocol ResendVerificationLinkProtocol <NSObject>
 
 -(void)resendVerificationLinkDidComplete;
--(void)resendVerificationLinkDidFail: (NSString*) errorMessage;
+-(void)resendVerificationLinkDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

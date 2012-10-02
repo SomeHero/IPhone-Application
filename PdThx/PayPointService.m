@@ -78,7 +78,17 @@
         
         NSLog(@"Error Getting Pay Points");
         
-        [getPayPointsDelegate getPayPointsDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [getPayPointsDelegate getPayPointsDidFail: message withErrorCode:errorCode];
 
     }
     
@@ -86,11 +96,19 @@
 }
 -(void) getPayPointsFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Error Getting Pay Points");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [getPayPointsDelegate getPayPointsDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [getPayPointsDelegate getPayPointsDidFail: message withErrorCode: errorCode];
 
 }
 -(void) deletePayPoint: (NSString*)payPointId forUserId: (NSString*) userId
@@ -122,7 +140,17 @@
         
         NSLog(@"Error Answered Security Questions");
         
-        [deletePayPointCompleteDelegate deletePayPointFailed: [request responseString]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [deletePayPointCompleteDelegate deletePayPointFailed: message withErrorCode: errorCode];
     }
     
     
@@ -133,7 +161,17 @@
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-   [deletePayPointCompleteDelegate deletePayPointFailed: [request responseString]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+   [deletePayPointCompleteDelegate deletePayPointFailed: message withErrorCode: errorCode];
 }
 -(void) addPayPoint:(NSString *) uri ofType: (NSString*) type forUserId: (NSString*) userId
 {
@@ -186,7 +224,17 @@
         
         NSLog(@"Error Answered Security Questions");
         
-        [addPayPointCompleteDelegate addPayPointsDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [addPayPointCompleteDelegate addPayPointsDidFail: message withErrorCode: errorCode];
         
     }
     
@@ -194,11 +242,19 @@
 }
 -(void) addPayPointFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Error Answering Security Questions");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [addPayPointCompleteDelegate addPayPointsDidFail: [request responseString]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [addPayPointCompleteDelegate addPayPointsDidFail: message withErrorCode: errorCode];
     
 }
 -(void) resendEmailVerificationLink:(NSString*)payPointId forUserId:(NSString*) userId
@@ -243,7 +299,17 @@
         
         NSLog(@"Error Answered Security Questions");
         
-        [resendVerificationLinkDelegate resendVerificationLinkDidFail: [request responseString]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [resendVerificationLinkDelegate resendVerificationLinkDidFail: message withErrorCode: errorCode];
         
     }
     
@@ -251,11 +317,19 @@
 }
 -(void) resendVerificationLinkCompletedFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"Error Answering Security Questions");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [resendVerificationLinkDelegate resendVerificationLinkDidFail: [request responseString]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [resendVerificationLinkDelegate resendVerificationLinkDidFail: message withErrorCode: errorCode];
     
 }
 -(void) resendMobileVerificationCode:(NSString*)payPointId forUserId:(NSString*) userId {
@@ -297,9 +371,17 @@
     }
     else {
         
-        NSLog(@"Error Answered Security Questions");
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
-        [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: message withErrorCode: errorCode];
     }
 }
 -(void) resendMobileVerificationCodeFailed:(ASIHTTPRequest *)request
@@ -308,7 +390,17 @@
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: [request responseString]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [payPointVerificationCompleteDelegate payPointWasVerifiedFailed: message withErrorCode: errorCode];
     
 }
 -(void) verifyMobilePayPoint: (NSString*)verificationCode forPayPointId:(NSString*)payPointId forUserId:(NSString*) userId
@@ -361,16 +453,34 @@
         
         NSLog(@"Verify Mobile Pay Point Failed");
         
-        [verifyMobilePayPointDelegate verifyMobilePayPointDidFail: [request responseString]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [verifyMobilePayPointDelegate verifyMobilePayPointDidFail: message withErrorCode: errorCode];
     }
 }
 -(void) verifyMobilePayPointDidFail:(ASIHTTPRequest *)request
 {
-    NSLog(@"Verify Mobile Pay Point Failed");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [verifyMobilePayPointDelegate verifyMobilePayPointDidFail: [request responseString]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [verifyMobilePayPointDelegate verifyMobilePayPointDidFail: message withErrorCode:errorCode];
     
 }
 @end

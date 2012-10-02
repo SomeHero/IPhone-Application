@@ -13,6 +13,6 @@
 @protocol CancelPaymentProtocol <NSObject>
 
 -(void)cancelPaymentDidComplete;
--(void)cancelPaymentDidFail;
+-(void)cancelPaymentDidFail: (NSString*) message withErrorCode:(int)errorCode;
 
 @end

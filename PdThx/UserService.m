@@ -75,8 +75,20 @@
         
         NSLog(@"USER INFO COMPLETE DELEGATE: %@", userInformationCompleteDelegate);
         [userInformationCompleteDelegate userInformationDidComplete:user];
+        
     } else {
-        [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [userInformationCompleteDelegate userInformationDidFail:message withErrorCode:errorCode];
     }
 }
 
@@ -84,9 +96,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSLog(@"Setup User Info Failed");
+    NSString *theJSON = [request responseString];
     
-    [userInformationCompleteDelegate userInformationDidFail:@"Timed out?"];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [userInformationCompleteDelegate userInformationDidFail:message withErrorCode:errorCode];
 }
 
 -(void)linkFacebookAccount:(NSString*)userId withFacebookId:(NSString*)facebookId withAuthToken:(NSString*)token
@@ -139,16 +159,27 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
         // NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
         
-        [linkFbAccountDelegate linkFbAccountDidFail: @"Failed to Link Facebook"];
+        [linkFbAccountDelegate linkFbAccountDidFail:  @"Failed to Link Facebook"];
         
         NSLog(@"Linking FB Account Error Code %d", [request responseStatusCode]);
     }
 }
 -(void) linkFbAccountFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = [NSString stringWithFormat: @"Unable to change link Facebook.  Unhandled Exception"];
+    NSString *theJSON = [request responseString];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
     [linkFbAccountDelegate linkFbAccountDidFail: message];
     
@@ -226,18 +257,26 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
+        [userSecurityPinCompleteDelegate userSecurityPinDidFail: message withErrorCode:errorCode];
         
-        NSLog(@"Security Pin Failed, Error Code %d", [request responseStatusCode]);
     }
 }
 -(void) setupSecurityPinFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = [NSString stringWithFormat: @"Unable to change security pin.  Unhandled Exception"];
+    NSString *theJSON = [request responseString];
     
-    [userSecurityPinCompleteDelegate userSecurityPinDidFail: message];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [userSecurityPinCompleteDelegate userSecurityPinDidFail: message withErrorCode:errorCode];
     
     NSLog(@"Security Pin Failed with Exception");
 }
@@ -291,9 +330,10 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [personalizeUserCompleteDelegate personalizeUserDidFail: message];
+        [personalizeUserCompleteDelegate personalizeUserDidFail: message withErrorCode:errorCode];
         
         NSLog(@"Security Pin Failed, Error Code %d", [request responseStatusCode]);
     }
@@ -302,9 +342,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSString* message = [NSString stringWithFormat: [request responseString]];
+    NSString *theJSON = [request responseString];
     
-    [personalizeUserCompleteDelegate personalizeUserDidFail: message];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [personalizeUserCompleteDelegate personalizeUserDidFail: message withErrorCode:errorCode];
     
     NSLog(@"Security Pin Failed with Exception");
 }
@@ -352,9 +400,10 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [changePasswordCompleteDelegate changePasswordDidFail:message];
+        [changePasswordCompleteDelegate changePasswordDidFail:message withErrorCode:errorCode];
         
         NSLog(@"Password Change Failed, Error Code %d", [request responseStatusCode]);
     }
@@ -362,9 +411,17 @@
 
 -(void) changePasswordFailed:(ASIHTTPRequest *)request
 {
-    NSString* message = [NSString stringWithFormat: @"Unable to change password.  Unhandled Exception"];
+    NSString *theJSON = [request responseString];
     
-    [changePasswordCompleteDelegate changePasswordDidFail:message];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [changePasswordCompleteDelegate changePasswordDidFail:message withErrorCode:errorCode];
     
     NSLog(@"Password change failed with Exception");
 }
@@ -412,9 +469,10 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [forgotPasswordCompleteDelegate forgotPasswordDidFail:[request responseStatusMessage]];
+        [forgotPasswordCompleteDelegate forgotPasswordDidFail:message withErrorCode:errorCode];
         
         NSLog(@"Password Change Failed, Error Code %d", [request responseStatusCode]);
         NSLog(@"Error: %@", [request error]);
@@ -423,9 +481,17 @@
 
 -(void) forgotPasswordFailed: (ASIHTTPRequest*) request
 {
-    NSString* message = [NSString stringWithFormat: @"Unable to change password.  Unhandled Exception"];
+    NSString *theJSON = [request responseString];
     
-    [forgotPasswordCompleteDelegate forgotPasswordDidFail:message];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [forgotPasswordCompleteDelegate forgotPasswordDidFail:message withErrorCode:errorCode];
     
     NSLog(@"Password change failed with Exception");
 }
@@ -464,6 +530,9 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfIncomingNotifications"] forKey:@"IncomingNotificationCount"];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfOutgoingNotifications"] forKey:@"OutgoingNotificationCount"];
@@ -552,6 +621,9 @@
         
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
         NSMutableArray*meCodeArray = [jsonDictionary objectForKey:@"foundUsers"];
         NSString*searchTerm = [jsonDictionary objectForKey:@"searchTerm"];

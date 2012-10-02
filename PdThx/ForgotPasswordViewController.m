@@ -121,10 +121,10 @@
     [appDelegate showSimpleAlertView:YES withTitle:@"Email sent!" withSubtitle:@"Email successfully sent" withDetailedText:@"Check your email for a link to our website, and fill in the information to reset your password!" withButtonText:@"OK" withDelegate:self];
 }
 
--(void) forgotPasswordDidFail:(NSString *)message
+-(void) forgotPasswordDidFail:(NSString *)message withErrorCode:(int)errorCode
 {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:message];
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Occurred"];
 }
 
 - (void)dealloc {

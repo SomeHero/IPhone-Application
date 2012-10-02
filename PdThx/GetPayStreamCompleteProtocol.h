@@ -13,6 +13,6 @@
 @protocol GetPayStreamCompleteProtocol <NSObject>
 
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages;
--(void)getPayStreamDidFail;
+-(void)getPayStreamDidFail:(NSString*)message withErrorCode:(int)errorCode;
 
 @end

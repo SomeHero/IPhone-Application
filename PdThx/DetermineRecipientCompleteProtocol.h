@@ -11,6 +11,6 @@
 @protocol DetermineRecipientCompleteProtocol <NSObject>
 
 -(void) determineRecipientDidComplete:(NSArray*) recipients;
--(void) determineRecipientDidFail:(NSString*) message;
+-(void) determineRecipientDidFail:(NSString*) message withErrorCode:(int)errorCode;
 
 @end

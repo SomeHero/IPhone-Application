@@ -13,7 +13,7 @@
 @protocol SecurityQuestionChallengeProtocol <NSObject>
 
 -(void)securityQuestionAnsweredCorrect;
--(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage;
+-(void)securityQuestionAnsweredInCorrect:(NSString*)errorMessage withErrorCode:(int)errorCode;
 
 
 @end

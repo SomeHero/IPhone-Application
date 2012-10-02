@@ -11,7 +11,7 @@
 @protocol VerifyMobilePayPointProtocol <NSObject>
 
 -(void)verifyMobilePayPointDidComplete: (bool) verified;
--(void)verifyMobilePayPointDidFail: (NSString*) errorMessage;
+-(void)verifyMobilePayPointDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 
 @end

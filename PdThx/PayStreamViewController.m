@@ -238,6 +238,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         // Call message service to say that you read items in the array.
         // Using json, construct a dictionary of dictionaries?
         [streamService updateSeenItems:userId withArray:seenItems];
+        
+        [seenItems removeAllObjects];
     }
 }
 
@@ -264,12 +266,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [getPayStreamService getPayStream:userId];
 }
 
--(void)getPayStreamDidFail
+-(void)getPayStreamDidFail:(NSString*)message withErrorCode:(int)errorCode
 {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    [appDelegate showSimpleAlertView:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailedText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withButtonText:@"Dismiss" withDelegate:self];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Unable to Send"];
+    
+    //[appDelegate showSimpleAlertView:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailedText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withButtonText:@"Dismiss" withDelegate:self];
 }
 
 -(void)didSelectButtonWithIndex:(int)index

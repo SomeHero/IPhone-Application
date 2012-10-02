@@ -11,6 +11,6 @@
 @protocol ForgotPasswordCompleteProtocol <NSObject>
 
 -(void) forgotPasswordDidComplete;
--(void) forgotPasswordDidFail: (NSString*) message;
+-(void) forgotPasswordDidFail: (NSString*) message withErrorCode:(int)errorCode;
 
 @end
