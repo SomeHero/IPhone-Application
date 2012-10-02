@@ -30,19 +30,32 @@
 // Custom Keyboard Dismissing Feature
 #import "DAKeyboardControl.h"
 
+#import "NSAttributedString+Attributes.h"
+
 #define tableHeight2 = 30;
+
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface SendMoneyController ()
 -(void) sendMoney;
 @end
 
 @implementation SendMoneyController
+
 @synthesize tabBar;
 @synthesize dummyCommentPlaceholder;
 
-@synthesize whiteBoxView, viewPanel, txtAmount, txtComments, amount, lm;
+// Express Delivery Variables
+@synthesize amount, deliveryType, recipientName, deliveryCharge;
+
+@synthesize whiteBoxView, viewPanel, txtAmount, txtComments, lm;
 @synthesize chooseRecipientButton, contactHead, contactDetail, recipientImageButton, recipientUri, chooseAmountButton, btnSendMoney;
 @synthesize contactButtonBGImage, amountButtonBGImage, characterCountLabel;
+
+@synthesize txtDeliveryCharge;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,6 +68,7 @@
 
 - (void)dealloc
 {
+    [txtDeliveryCharge release];
     [super dealloc];
     
     /*  ------------------------------------------------------ */
@@ -155,6 +169,7 @@
     [[viewPanel layer] setCornerRadius: 8.0];
     
     contactButtonBGImage.highlighted = NO;
+    
     /*          Location Services Setup         */
     /*  --------------------------------------- */
     lm = [[CLLocationManager alloc] init];
@@ -175,13 +190,16 @@
     [recipientImageButton.layer setBorderWidth:0.7]; // 28 24 20
     
     
-    /*          Services/ViewController Initialization         */
-    /*  ------------------------------------------------------ */
+    /*          Services/ViewController Initialization          */
+    /*  ------------------------------------------------------  */
     sendMoneyService = [[SendMoneyService alloc] init];
     [sendMoneyService setSendMoneyCompleteDelegate:self];
     
     
-    
+    /*          Delivery Method Set Default Value               */
+    /*  ------------------------------------------------------  */
+    [txtDeliveryCharge setText:@""];
+    deliveryType = @"Standard";
     
     
     /*                TextField Initialization                 */
@@ -217,6 +235,7 @@
          [self.view removeKeyboardControl];
          */
     }];
+    
 }
 
 - (void)viewDidUnload
@@ -248,6 +267,8 @@
     [recipientUri release];
     recipientUri = nil;
     [self setDummyCommentPlaceholder:nil];
+    [txtDeliveryCharge release];
+    txtDeliveryCharge = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     //e.g. self.myOutlet = nil;
@@ -363,20 +384,22 @@
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm"];
     
-    if ( [[recipientUri substringToIndex:3] isEqualToString:@"fb_"] )
-    {
-        [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-    }
-    else
-    {
-        if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
-        {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipientUri]];
-        }
-        else {
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm your payment of $%0.2f to %@.", [amount doubleValue], recipient.name]];
-        }
-    }
+    /*
+     Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
+    
+    [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM PAYMENT"];
+    [controller setDeliveryType:deliveryType];
+    [controller setDeliveryCharge:deliveryCharge];
+    [controller setAmount:[amount doubleValue]];
+    [controller setRecipientName:[recipient getSenderName]];
     
     [self presentModalViewController:controller animated:YES];
     
@@ -400,7 +423,7 @@
     }
     
     
-    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:txtComments.text withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri];
+    [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:txtComments.text withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri withDeliveryType:deliveryType];
 }
 
 -(void)swipeDidCancel: (id)sender
@@ -526,11 +549,9 @@
         if ( [[recipient.paypoints objectAtIndex:0] isEqualToString:recipient.name] )
         {
             controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipientUri];
-        }
-        else {
+        } else {
             controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
         }
-        
     }
     
     [controller setContinueButtonText:@"Send Another Payment"];
@@ -542,7 +563,6 @@
     
     recipientUri = @"";
     
-    //[controller release];
 }
 
 -(void)sendMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode {
@@ -559,6 +579,9 @@
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
     
+    txtDeliveryCharge.text = @"";
+    deliveryType = @"Standard";
+    
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     
@@ -567,30 +590,36 @@
     [self tabBarClicked:1]; // Option: REFRESH PAYSTREAM
 }
 
--(void)onContinueClicked {
+-(void)onContinueClicked
+{
     txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
     contactDetail.text = @"Click Here";
     txtComments.text = @"";
     
+    txtDeliveryCharge.text = @"";
+    deliveryType = @"Standard";
+    
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
-    
 }
+
 -(void)didChooseContact:(Contact *)contact
 {
     contactButtonBGImage.highlighted = YES;
     [recipientImageButton.layer setBorderWidth:0.7];
     recipient = contact;
+    
     if ( contact.imgData )
         [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
     else if ( contact.facebookID.length > 0 ){
         recipient.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]];
         [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
     }
-    else {
+    else
+    {
         [recipientImageButton setBackgroundImage:NULL forState:UIControlStateNormal];
         [recipientImageButton.layer setBorderWidth:0.0];
     }
@@ -655,10 +684,39 @@
     return YES;
 } 
 
--(void)didSelectAmount:(double)amountSent
+-(void)didSelectAmount:(double)amountSent withDeliveryOption:(bool)isExpressed
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
+    
+    if ( isExpressed )
+    {
+        deliveryType = @"Express";
+        [txtDeliveryCharge setAttributedText:[self formatDeliveryChargeWithAmount:amountSent]];
+    } else {
+        deliveryType = @"Standard";
+        [txtDeliveryCharge setText:@""];
+    }
+}
+
+-(NSMutableAttributedString*)formatDeliveryChargeWithAmount:(double)amt
+{
+    id blueColor = UIColorFromRGB(0x015b7e);
+    
+    NSMutableAttributedString* returnString;
+    
+    if ( amt <= user.expressDeliveryThreshold )
+    {
+        returnString = [NSMutableAttributedString attributedStringWithString:@""];
+    }
+    else
+    {
+        returnString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"+ %0.2f",amt*user.expressDeliveryFeePercentage]];
+    }
+    
+    [returnString setTextColor:blueColor];
+    
+    return returnString;
 }
 
 -(void)didSetContactAndAmount: (Contact*)contact amount:(double)amountToSend
@@ -667,7 +725,7 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
     [self didChooseContact:contact];
-    [self didSelectAmount:amountToSend];
+    [self didSelectAmount:amountToSend withDeliveryOption:NO];
 }
 
 -(void)didSetContact: (Contact*)contact

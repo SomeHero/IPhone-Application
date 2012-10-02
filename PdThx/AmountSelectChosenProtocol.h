@@ -10,6 +10,6 @@
 
 @protocol AmountSelectChosenProtocol <NSObject>
 
--(void)didSelectAmount:(double)amount;
+-(void)didSelectAmount:(double)amount withDeliveryOption:(bool)isExpressed;
 
 @end

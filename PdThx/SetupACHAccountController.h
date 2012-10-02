@@ -12,7 +12,7 @@
 #import "UserSetupACHAccount.h"
 #import "UserSetupACHAccountComplete.h"
 #import "ACHAccountReminderProtocol.h"
-#import "CustomSecurityPinSwipeController.h"
+#import "GenericSecurityPinSwipeController.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "UISetupUserBaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -30,7 +30,9 @@
     IBOutlet UIView* viewPanel;
     UserSetupACHAccount* userSetupACHAccountService;
     IBOutlet UIBarButtonItem *skipButton;
-    CustomSecurityPinSwipeController *controller;
+    
+    GenericSecurityPinSwipeController *controller;
+    
     AddSecurityQuestionViewController *securityQuestionController;
     NSString* securityPin;
     ValidationHelper* validationHelper;

@@ -432,7 +432,24 @@
             CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Please swipe your security pin to confirm the pledge of $%0.2f from %@.", [amount doubleValue], recipientUri]];
+            
+            /*
+             Custom Security Pin Swipe Controller Example
+             -==============================================-
+             
+             recipientName = @"Ryan Ricigliano";
+             deliveryCharge = 0.0;
+             amount = 14.59;
+             deliveryType = @"Express";
+             lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+             */
+            
+            [controller setHeaderText:@"SWIPE YOUR PIN TO ACCEPT PLEDGE"];
+            [controller setDeliveryType:@"Standard"];
+            [controller setDeliveryCharge:0.0];
+            [controller setAmount:[txtAmount.text doubleValue]];
+            [controller setRecipientName:[recipient getSenderName]];
+            
             
             [self presentModalViewController:controller animated:YES];
         } else {
@@ -462,7 +479,6 @@
     }
     
     [paystreamService acceptPledge:user.userId onBehalfOfId:causeId toRecipientUri:recipientUri withAmount:amount withComments:comments fromLatitude:latitude fromLongitude:longitude withRecipientFirstName: recipientFirstName withRecipientLastName:recipientLastName withRecipientImageUri:recipientImageUri withSecurityPin:pin];
-    
 }
 
 -(void)swipeDidCancel: (id)sender
@@ -575,7 +591,7 @@
     
 }
 
--(void)didSelectAmount:(double)amountSent
+-(void)didSelectAmount:(double)amountSent withDeliveryOption:(bool)isExpressed
 {
     amountButtonBGImage.highlighted = YES;
     txtAmount.text = [NSString stringWithFormat: @"%.2lf", amountSent];
