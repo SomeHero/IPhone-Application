@@ -35,6 +35,7 @@
     UIPickerView *myPickerView;
     SelectAccountModalViewControllerViewController* selectModal;
     NSString* selectedOption;
+    NSString* accountType;
     
     bool newAccountAdded;
 }

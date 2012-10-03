@@ -94,16 +94,25 @@
     [bankAccountRequestDelegate getUserAccountsDidFail: message withErrorCode: errorCode];
 }
 
--(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId {
+-(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin {
     
     Environment *myEnvironment = [Environment sharedInstance];
 
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];  
     
+    
+    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 securityPin, @"securityPin",
+                                 nil];
+    
+    NSString *newJSON = [paymentData JSONRepresentation];
+    
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
-    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
-    [requestObj setRequestMethod: @"DELETE"];	
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj buildPostBody];
+    [requestObj setRequestMethod: @"DELETE"];
     
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(deleteBankAccountDidComplete:)];
@@ -207,7 +216,7 @@
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [deleteBankAccountDelegate deleteBankAccountDidFail: message withErrorCode:errorCode];
+        [updateBankAccountDelegate updateBankAccountDidFail: message withErrorCode:errorCode];
         
     }
     
@@ -227,18 +236,18 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    [updateBankAccountDelegate updateBankAccountDidFail: message];
+    [updateBankAccountDelegate updateBankAccountDidFail: message withErrorCode: errorCode];
 }
 
--(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId {
+-(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_send_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_send_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
                                  accountId, @"PaymentAccountId",
-                                 @"2589", @"SecurityPin",
+                                 securityPin, @"SecurityPin",
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation]; 
@@ -254,7 +263,7 @@
     [requestObj setDidFailSelector:@selector(setPreferredAccountDidFail:)];
     [requestObj startAsynchronous];
 }
--(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId {
+-(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_receive_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
@@ -262,7 +271,7 @@
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
                                  accountId, @"PaymentAccountId",
-                                 @"2589", @"SecurityPin",
+                                 securityPin, @"SecurityPin",
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation]; 
