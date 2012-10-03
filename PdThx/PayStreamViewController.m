@@ -47,7 +47,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize findUserService;
 
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
     if (self != nil) {
         [self setupStrings];
