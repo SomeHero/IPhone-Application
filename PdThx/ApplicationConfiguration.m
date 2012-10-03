@@ -16,12 +16,11 @@
 @synthesize ConfigurationValue;
 @synthesize ConfigurationType;
 
--(id)init {
+-(id)init
+{
     self = [super init];
-    if(self) {
-        
-        
-    }
+    
+    if(self) { }
     
     return self;
 }

@@ -397,7 +397,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM PAYMENT"];
     [controller setDeliveryType:deliveryType];
-    [controller setDeliveryCharge:deliveryCharge];
     [controller setAmount:[amount doubleValue]];
     [controller setRecipientName:[recipient getSenderName]];
     
@@ -613,8 +612,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     recipient = contact;
     
     if ( contact.imgData )
+    {
         [recipientImageButton setBackgroundImage:contact.imgData forState:UIControlStateNormal];
-    else if ( contact.facebookID.length > 0 ){
+    }
+    else if ( contact.facebookID.length > 0 )
+    {
         recipient.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]];
         [recipientImageButton setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", contact.facebookID]]]] forState:UIControlStateNormal];
     }
@@ -628,9 +630,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     contactHead.text = contact.name;
     
-    if ( contact.facebookID.length > 0 || ( contact.paypoints != (id)[NSNull null] && contact.paypoints.count > 0 && [[[contact.paypoints objectAtIndex:0] substringToIndex:3] isEqualToString:@"fb_"]) ){
+    if ( contact.facebookID.length > 0 || ( contact.paypoints != (id)[NSNull null] && contact.paypoints.count > 0 && [[[contact.paypoints objectAtIndex:0] substringToIndex:3] isEqualToString:@"fb_"]) )
+    {
         contactDetail.text = @"Facebook Friend";
-    } else if ( [contact.paypoints count] == 1 ){
+    }
+    else if ( [contact.paypoints count] == 1 )
+    {
         if ( [[contact.paypoints objectAtIndex:0] isEqualToString:contact.name] )
         {
             contactDetail.text = @"";
@@ -692,6 +697,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if ( isExpressed )
     {
         deliveryType = @"Express";
+        
+        if ( amountSent < user.expressDeliveryThreshold )
+        {
+            // Free Express, under threshold
+            deliveryCharge = 0.0;
+        } else {
+            // Express Delivery Charge
+            deliveryCharge = amountSent*user.expressDeliveryFeePercentage;
+        }
+        
         [txtDeliveryCharge setAttributedText:[self formatDeliveryChargeWithAmount:amountSent]];
     } else {
         deliveryType = @"Standard";
