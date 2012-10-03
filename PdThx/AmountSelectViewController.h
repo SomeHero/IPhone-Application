@@ -33,8 +33,6 @@
     double expressDeliveryFreeThreshold;
     
     double upperLimit;
-    
-    User* user;
 }
 
 - (IBAction)amountChanged:(id)sender;

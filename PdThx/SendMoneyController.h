@@ -38,8 +38,7 @@
     IBOutlet UITextView *txtComments;
     
     IBOutlet UIButton *btnSendMoney;
-    User* user;
-    
+
     // Amount and Delivery Charge
     NSString* amount;
     NSString* deliveryType;

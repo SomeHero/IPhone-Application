@@ -58,6 +58,11 @@
     accountService = [[UserSetupACHAccount alloc] init];
     [accountService setUserACHSetupCompleteDelegate: self];
     
+    bankAccountService = [[BankAccountService alloc] init];
+    [bankAccountService setBankAccountRequestDelegate: self];
+    
+    userService = [[UserService alloc] init];
+    [userService setUserInformationCompleteDelegate: self];
     // login
     mipControllerInstance = [[MIPController alloc] init];
     [mipControllerInstance setJobName:@"ACH"];
@@ -306,25 +311,16 @@
     txtConfirmAccountNumber.text = @"";
     txtRoutingNumber.text = @"";
     txtNameOnAccount.text = @"";
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showSuccessWithStatus:@"Account Added!" withDetailedStatus:@"Linked bank account"];
-    
-    if(newUserFlow) {
-        [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
-    }
-    else {
-        [self.navigationController dismissModalViewControllerAnimated: YES];
-        [self.navigationController popViewControllerAnimated:YES];
-        //[self dismissModalViewControllerAnimated:YES];
-    }
+
+    [userService getUserInformation:user.userId];
+
 
 }
 
--(void)userACHSetupDidFail:(NSString*) message {
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Adding Account"];
 }
 
 -(void)swipeDidCancel: (id)sender
@@ -518,7 +514,26 @@
     [securityPin release];
     [validationHelper release];
 }
+-(void)userInformationDidComplete:(User*)userInfo{
 
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSuccessWithStatus:@"Account Added!" withDetailedStatus:@"Linked bank account"];
+    
+    [appDelegate setUser:userInfo];
+    
+    [self.navigationController dismissModalViewControllerAnimated: YES];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [appDelegate startUserSetupFlow:self];
+}
+-(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Refreshing Accounts"];
+    
+    [self.navigationController dismissModalViewControllerAnimated: YES];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 - (void)dealloc
 {
     [super dealloc];

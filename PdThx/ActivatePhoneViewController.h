@@ -8,9 +8,9 @@
 
 #import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
-#import "UISetupUserBaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SetupNavigationView.h"
+#import "UISetupUserBaseViewController.h"
 
 @interface ActivatePhoneViewController : UISetupUserBaseViewController <MFMessageComposeViewControllerDelegate>
 {

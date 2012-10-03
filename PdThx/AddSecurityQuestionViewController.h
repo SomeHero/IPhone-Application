@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UISetupUserBaseViewController.h"
 #import "SecurityQuestionInputProtocol.h"
 #import "GetSecurityQuestionsService.h"
 #import "GetSecurityQuestionsProtocol.h"
-#import "UISetupUserBaseViewController.h"
 
 @interface AddSecurityQuestionViewController : UISetupUserBaseViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol>
 {
@@ -20,8 +20,6 @@
     id<SecurityQuestionInputProtocol> securityQuestionEnteredDelegate;
     int questionId;
     NSString *questionAnswer;
-    NSString* navigationTitle;
-    NSString* headerText;
     GetSecurityQuestionsService* securityQuestionService;
     NSMutableArray *securityQuestions;
 }

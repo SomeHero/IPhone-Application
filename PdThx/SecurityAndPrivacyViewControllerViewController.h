@@ -15,6 +15,7 @@
 #import "GenericSecurityPinSwipeController.h"
 #import "ValidationHelper.h"
 #import "UserService.h"
+#import "User.h"
 
 @interface SecurityAndPrivacyViewControllerViewController : UISetupUserBaseViewController 
 <UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, SecurityQuestionChallengeProtocol, CustomSecurityPinSwipeProtocol, UserSecurityPinCompleteProtocol>

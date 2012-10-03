@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIModalBaseViewController.h"
+#import "UIBaseViewController.h"
+#import "CustomAlertViewProtocol.h"
+#import "MIPController.h"
+#import "SecurityQuestionInputProtocol.h"
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "ValidationHelper.h"
 #import "UserSetupACHAccount.h"
 #import "UserACHSetupCompleteProtocol.h"
 #import "BankAccountRequestProtocol.h"
 
-@interface NewACHAccountViewController : UIModalBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol, BankAccountRequestProtocol>
+@interface NewACHAccountViewController : UIBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol, BankAccountRequestProtocol>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;

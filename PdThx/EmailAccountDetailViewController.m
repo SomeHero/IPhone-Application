@@ -146,20 +146,26 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [appDelegate dismissProgressHUD];
         
+        [appDelegate showSimpleAlertView: YES withTitle:@"Verification Email Sent" withSubtitle: @"" withDetailedText: @"We re-sent your verification email for this pay point.  To complete verification of this email address, click the verification link in the email."  withButtonText: @"OK" withDelegate:self];
+        
     });
 }
--(void)resendVerificationLinkDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+-(void)resendVerificationLinkDidFail: (NSString*) message withErrorCode:(int)errorCode {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [appDelegate dismissProgressHUD];
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         
-        PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        [appDelegate showSimpleAlertView: YES withTitle:@"Verification Email Sent" withSubtitle: @"" withDetailedText: @"We re-sent your verification email for this pay point.  To complete verification of this email address, click the verification link in the email."  withButtonText: @"OK" withDelegate:self];
-        
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [appDelegate dismissProgressHUD];
+            
+            [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Link"];
+            
+        });
     });
 }
 -(void)didSelectButtonWithIndex:(int)index
