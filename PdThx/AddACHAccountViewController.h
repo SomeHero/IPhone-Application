@@ -14,14 +14,17 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "AddSecurityQuestionViewController.h"
-#import "UIBaseViewController.h"
 #import "ValidationHelper.h"
 #import "UISetupUserBaseViewController.h"
 #import "SetupNavigationView.h"
 #import "CheckImageReturnProtocol.h"
 #import "MIPController.h"
+#import "BankAccountService.h"
+#import "UserService.h"
+#import "UserInformationCompleteProtocol.h"
 
-@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate, CheckImageReturnProtocol,MIPControllerDelegate, CustomAlertViewProtocol>
+@interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate, CheckImageReturnProtocol,MIPControllerDelegate, CustomAlertViewProtocol,
+    UserInformationCompleteProtocol>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
@@ -34,9 +37,10 @@
     MIPController*mipControllerInstance;
     
     NSString* navBarTitle;
-    NSString* headerText;
     NSString* securityPin;
     UserSetupACHAccount* accountService;
+    BankAccountService* bankAccountService;
+    UserService* userService;
     GenericSecurityPinSwipeController* controller;
     AddSecurityQuestionViewController* addSecurityQuestionController;
     ValidationHelper* validationHelper;

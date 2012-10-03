@@ -41,7 +41,7 @@
     IBOutlet UITextView *txtComments;
     
     IBOutlet UIButton *btnSendMoney;
-    User* user;
+    
     NSString* amount;
     NSString* comments;
     NSString* recipientId;

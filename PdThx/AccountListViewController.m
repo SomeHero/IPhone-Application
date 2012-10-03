@@ -384,10 +384,8 @@
             
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:chooseMethodVC];
             
-            
             [self.navigationController presentModalViewController:navBar animated:YES];
-            
-            
+
             [navBar release];
             [chooseMethodVC release];
         } else {

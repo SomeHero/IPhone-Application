@@ -5,8 +5,6 @@
 //  Created by James Rhodes on 1/28/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
-#import "PdThxAppDelegate.h"
-#import "HomeViewController.h"
 #import "HomeViewControllerV2.h"
 
 #import "PayStreamViewController.h"

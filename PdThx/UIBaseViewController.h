@@ -13,12 +13,14 @@
 #import "TSPopoverController.h"
 #import "TSActionSheet.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "User.h"
 
 @interface UIBaseViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 {
     IBOutlet TPKeyboardAvoidingScrollView *mainScrollView;
     NSObject *currTextField;
     PhoneNumberFormatting* phoneNumberFormatter;
+    User* user;
 }
 
 @property(nonatomic, retain) TPKeyboardAvoidingScrollView *mainScrollView;

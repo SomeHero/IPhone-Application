@@ -46,6 +46,10 @@
 {
     [self setTitle: @"Security & Privacy"];
     
+    validationHelper = [[ValidationHelper alloc] init];
+    userService = [[UserService alloc] init];
+    currentUser = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"security" ofType:@"plist"];
     
     NSDictionary *dic = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -65,9 +69,6 @@
         //Handle Error Here
     }
     
-    validationHelper = [[ValidationHelper alloc] init];
-    userService = [[UserService alloc] init];
-    currentUser = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
 }
 
 - (void)viewDidUnload
@@ -107,17 +108,16 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [sections count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSString *optionSection = [sections objectAtIndex:section];
+    if(currentUser.hasSecurityPin)
+        return 3;
     
-    NSArray *profileSection = [profileOptions objectForKey:optionSection];
-    
-    return [profileSection count];
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

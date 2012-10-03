@@ -40,7 +40,6 @@
     
     IBOutlet UIButton *btnSendRequest;
     
-    User* user;
     NSString* causeId;
     NSString* recipientUri;
     NSString* amount;

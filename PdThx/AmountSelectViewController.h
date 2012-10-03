@@ -31,8 +31,6 @@
     bool isExpressed;
     double expressDeliveryRate;
     double expressDeliveryFreeThreshold;
-    
-    User* user;
 }
 
 - (IBAction)amountChanged:(id)sender;
