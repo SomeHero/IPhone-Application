@@ -38,11 +38,10 @@
     IBOutlet UIView* quoteView;
     IBOutlet UIView* actionView;
     
-    PullableView* pullableView;
     User* user;
     UIViewController* parent;
 
-    CustomSecurityPinSwipeController *controller;
+    NSString* pendingAction;
 }
 
 @property(nonatomic, retain) PaystreamMessage* messageDetail;

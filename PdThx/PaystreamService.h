@@ -37,10 +37,10 @@
 -(void) sendDonation:(NSString*)senderId toOrganizationId:(NSString*) organizationId  fromSenderAccount:(NSString*)senderAccountId withAmount: (NSString*) amount withComments:(NSString*) comments fromLatitude:(double) latitude fromLongitude: (double)longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName:(NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri withSecurityPin:(NSString*) securityPin;
 
 
--(void) cancelPayment:(NSString*) messageId;
+-(void) cancelPayment:(NSString*) messageId withUserId:(NSString*) userId withSecurityPin: (NSString*)securityPin;
 -(void) acceptRequest:(NSString*) messageId withUserId: (NSString*) userId fromPaymentAccount : (NSString*) paymentAccountId withSecurityPin : (NSString*) securityPin;
--(void) rejectRequest:(NSString*) messageId;
--(void) cancelRequest:(NSString*) messageId;
+-(void) rejectRequest:(NSString*) messageId withUserId:(NSString*) userId withSecurityPin: (NSString*)securityPin;
+-(void) cancelRequest:(NSString*) messageId withUserId:(NSString*) userId withSecurityPin: (NSString*)securityPin;
 
 -(void)updateSeenItems:(NSString*) userId withArray:(NSMutableArray*)seenItems;
 
