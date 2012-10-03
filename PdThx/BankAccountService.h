@@ -35,10 +35,10 @@
 
 -(void) getUserAccounts:(NSString*)userId;
 
--(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId;
+-(void) deleteBankAccount: (NSString*)accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin;
 -(void) updateBankAccount:(NSString *) accountId forUserId: (NSString*) userId withNickname: (NSString*) nickname withNameOnAccount:(NSString *) nameOnAccount withRoutingNumber:(NSString *) routingNumber ofAccountType: (NSString *) accountType withSecurityPin : (NSString*) securityPin;
--(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId;
--(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId;
+-(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin;
+-(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin;
 -(void)verifyBankAccount:(NSString*)accountId forUserId: (NSString*)userId withFirstAmount:(NSString*)firstAmount withSecondAmount:(NSString*)secondAmount;
 
 @end

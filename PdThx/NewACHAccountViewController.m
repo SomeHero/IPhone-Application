@@ -295,6 +295,8 @@
 {
     NSLog(@"User bank accounts refreshed.");
     [user setBankAccounts:bankAccounts];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)getUserAccountsDidFail:(NSString *)errorMessage

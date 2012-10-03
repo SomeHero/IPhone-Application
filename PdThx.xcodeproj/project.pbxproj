@@ -3273,8 +3273,8 @@
 			children = (
 				540025A51598A53600332A10 /* ChangePasswordViewController.h */,
 				540025A61598A53600332A10 /* ChangePasswordViewController.m */,
-				5B8BDE69159D5EE900E01753 /* security.plist */,
 				5B0A228715A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.h */,
+				5B8BDE69159D5EE900E01753 /* security.plist */,
 				5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */,
 				5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */,
 				C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */,
