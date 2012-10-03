@@ -26,6 +26,7 @@
     IBOutlet UIView* ctrlUpdateView;
     BankAccount* bankAccount;
     BankAccountService* bankAccountService;
+    NSString* pendingAction;
     
 }
 

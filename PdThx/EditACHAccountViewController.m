@@ -7,6 +7,7 @@
 //
 
 #import "EditACHAccountViewController.h"
+#import "GenericSecurityPinSwipeController.h"
 
 @interface EditACHAccountViewController ()
 
@@ -40,6 +41,9 @@
     bankAccountService = [[BankAccountService alloc] init];
     [bankAccountService setDeleteBankAccountDelegate: self];
     [bankAccountService setUpdateBankAccountDelegate: self];
+    [bankAccountService setBankAccountRequestDelegate:self];
+    
+    pendingAction = @"";
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -94,39 +98,115 @@
 }
 
 -(IBAction)btnSaveChangesClicked :(id)sender {
-    NSString* accountType = @"Checking";
+    pendingAction = @"Update";
     
-    if([ctrlAccountType selectedSegmentIndex] == 1)
-        accountType = @"Savings";
-
-	PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Saving changes"];
-    
-    [bankAccountService updateBankAccount:bankAccount.bankAccountId forUserId:user.userId withNickname:txtNickName.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: @"2578"];
+    [self startSecurityPin];
 }
 -(IBAction)btnDeleteAccountClicked:(id)sender {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Deleting Account" withDetailedStatus:@"Unlinking bank account"];
-    [bankAccountService deleteBankAccount: bankAccount.bankAccountId forUserId:user.userId];
+    pendingAction = @"Delete";
+    
+    [self startSecurityPin];
 }
+-(void) startSecurityPin
+{
+    GenericSecurityPinSwipeController *controller=[[[GenericSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+
+    /*
+     Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
+    
+    if(pendingAction == @"Update")
+    {
+        [controller setNavigationTitle: @"Confirm Changes"];
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM CHANGES TO YOUR PAYMENT ACCOUNT"];
+    }
+    else if(pendingAction == @"Delete")
+    {
+        [controller setNavigationTitle: @"Confirm Delete"];
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM CHANGES YOUR INTENT TO DELETE THIS PAYMENT ACCOUNT"];
+    }
+    
+    [self.navigationController presentModalViewController:controller animated:YES];
+    
+}
+
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    if(pendingAction == @"Delete") {
+        [appDelegate showWithStatus:@"Deleting Account" withDetailedStatus:@"Unlinking bank account"];
+        [bankAccountService deleteBankAccount: bankAccount.bankAccountId forUserId:user.userId withSecurityPin: pin];
+    } else if(pendingAction == @"Update") {
+        NSString* accountType = @"Checking";
+    
+        if([ctrlAccountType selectedSegmentIndex] == 1)
+            accountType = @"Savings";
+        
+        [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Saving changes"];
+    
+        [bankAccountService updateBankAccount:bankAccount.bankAccountId forUserId:user.userId withNickname:txtNickName.text withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: pin];
+    }
+}
+
+-(void)swipeDidCancel: (id)sender
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
 -(void)deleteBankAccountDidComplete {
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    [self.navigationController popViewControllerAnimated:YES];
-}
--(void)deleteBankAccountDidFail:(NSString*)errorMessage {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Deleted"];
     
+    [bankAccountService getUserAccounts:user.userId];
+}
+-(void)deleteBankAccountDidFail:(NSString*)message withErrorCode:(int)errorCode {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Updating Account"];
 }
 -(void)updateBankAccountDidComplete {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Updated"];
+    
+    [bankAccountService getUserAccounts:user.userId];
+}
+-(void)updateBankAccountDidFail:(NSString*)message withErrorCode:(int)errorCode {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate dismissProgressHUD];
+    
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Updating Account"];
+}
+-(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
+{
+    NSLog(@"User bank accounts refreshed.");
+    [user setBankAccounts:bankAccounts];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)updateBankAccountDidFail:(NSString*)errorMessage {
 
+-(void)getUserAccountsDidFail:(NSString *)errorMessage
+{
+    NSLog(@"Error Refreshing Bank Account List after Adding a Bank Account");
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(IBAction) bgTouched:(id) sender {
     [txtNickName resignFirstResponder];
