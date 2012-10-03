@@ -29,12 +29,17 @@
 @synthesize isRemindable;
 @synthesize isAcceptable;
 @synthesize isRejectable;
+@synthesize isExpressable;
+
+@synthesize deliveryMethod, deliveryCharge;
 
 -(id)init {
     self = [super init];
     
     
-    if(self) {
+    if(self)
+    {
+        /*
         amount = [[NSDecimalNumber alloc] init];
         comments = [[NSString alloc] init];
         messageId = [[NSString alloc] init];
@@ -47,11 +52,15 @@
         recipientName = [[NSString alloc] init];
         senderName = [[NSString alloc] init];
         transactionImageUri = [[NSString alloc] init];
+         */
+        
+        // We probably shouldn't initialize the above variables... We would be losing memory by initializing strings, and then setting the variables to copies of objects from the dictionary we pass.
      }
     
     return self;
 }
--(id)initWithDictionary:(NSDictionary *)dictionary  {
+-(id)initWithDictionary:(NSDictionary *)dictionary
+{
     self = [super init];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];

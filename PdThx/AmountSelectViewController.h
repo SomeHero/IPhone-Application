@@ -31,6 +31,8 @@
     bool isExpressed;
     double expressDeliveryRate;
     double expressDeliveryFreeThreshold;
+    
+    double upperLimit;
 }
 
 - (IBAction)amountChanged:(id)sender;
@@ -48,6 +50,8 @@
 @property (assign) bool canExpress;
 @property (assign) bool isExpressed;
 @property (assign) double expressDeliveryFreeThreshold;
+
+@property (assign) double upperLimit;
 
 @property (nonatomic, retain) OHAttributedLabel *expressChargeLabel;
 @property (nonatomic, retain) OHAttributedLabel *amountExpressChargeLabel;

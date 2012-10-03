@@ -121,7 +121,6 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Error, connection failed...");
 	// Clear the activeDownload property to allow later attempts
     self.activeDownload = nil;
     

@@ -1424,12 +1424,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     myApplication = [application copy];
 }
 
--(void)getApplicationSettingsDidFail: (NSString*) errorMessage
+-(void)getApplicationSettingsDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode
 {
-    NSLog( @"Failed to get application settings, error %@" , errorMessage );
+    NSLog( @"Failed to get application settings, error %@ code %d" , errorMessage, errorCode );
 }
 
--(NSString*)getSelectedContactListImage {
+-(NSString*)getSelectedContactListImage
+{
     if([selectedContactList isEqualToString: @"AllContacts"])
         return @"nav-selector-allcontacts-52x30.png";
     if([selectedContactList isEqualToString: @"PhoneContacts"])
