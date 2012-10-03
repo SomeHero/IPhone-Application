@@ -3273,8 +3273,8 @@
 			children = (
 				540025A51598A53600332A10 /* ChangePasswordViewController.h */,
 				540025A61598A53600332A10 /* ChangePasswordViewController.m */,
-				5B8BDE69159D5EE900E01753 /* security.plist */,
 				5B0A228715A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.h */,
+				5B8BDE69159D5EE900E01753 /* security.plist */,
 				5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */,
 				5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */,
 				C3916E5415ACBFCC00888048 /* ForgotPinCodeViewController.h */,
@@ -3295,6 +3295,13 @@
 				544A4F6A1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.xib */,
 			);
 			name = "Detail View Controllers";
+			sourceTree = "<group>";
+		};
+		5B94366A16136A5800E1D1EC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 		5BD278FA153E7F0300CAFC12 /* Dialogs */ = {
@@ -3443,6 +3450,7 @@
 		5BD27BCE1547B96200CAFC12 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5B94366A16136A5800E1D1EC /* Components */,
 				5BF3EE1D159143D90011BAD8 /* Bank Account Management */,
 				541EE601158A70C400131B0E /* New User Creation */,
 				54A139AF1582702700668984 /* Custom Features */,

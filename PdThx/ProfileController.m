@@ -448,7 +448,7 @@
     [self showAlertView: @"Security Pin Change Success!" withMessage: @"Security Pin successfully changed."];
 }
 
--(void) userSecurityPinDidFail: (NSString*) message {
+-(void) userSecurityPinDidFail: (NSString*) message withErrorCode:(int)errorCode {
     [spinner stopAnimating];
     
     [self showAlertView: @"Security Pin Change Failed" withMessage: message];

@@ -104,9 +104,17 @@
     } else {
         NSLog(@"User Validation Failed");
         
-        NSString* response = [NSString stringWithString: @"Unable to validate user.  Try again."];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
-        [fbSignInCompleteDelegate fbSignInDidFail:response];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [fbSignInCompleteDelegate fbSignInDidFail:message withErrorCode: errorCode];
     }
     
 }
@@ -116,9 +124,17 @@
     NSLog(@"User Validation Failed with Exception");
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSString* response = [NSString stringWithString: @"Unable to validate user.  Try again."];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [fbSignInCompleteDelegate fbSignInDidFail:response];    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [fbSignInCompleteDelegate fbSignInDidFail:message withErrorCode:errorCode];    
     
 }
 - (void)dealloc

@@ -73,6 +73,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [userAccountsTableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -121,7 +123,7 @@
     }
 }
 
--(void)getUserAccountsDidFail:(NSString*)errorMessage
+-(void)getUserAccountsDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode
 {
     NSLog(@"%@", errorMessage);
 }
@@ -419,8 +421,8 @@
         [self.view addSubview:selectModal];
         [selectModal show];
     }
-}
--(void) userSecurityPinDidFail: (NSString*) message {
+} 
+-(void) userSecurityPinDidFail: (NSString*) message withErrorCode:(int)errorCode {
     //[spinner stopAnimating];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -429,19 +431,63 @@
 -(void) optionDidSelect:(NSString*) optionId {
     
     selectedOption = optionId;
+    accountType = selectModal.accountType;
     
-    if([selectModal.accountType isEqualToString: @"Send"]) {
-        [bankAccountService setPreferredSendAccount:optionId forUserId:user.userId];
+    [selectModal hide];
+    
+    [self startSecurityPin];
+}
+-(void) startSecurityPin
+{
+    GenericSecurityPinSwipeController *controller=[[[GenericSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    
+    /*
+     Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
+    
+    if(accountType == @"Send")
+    {
+        [controller setNavigationTitle: @"Confirm Changes"];
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM CHANGES TO YOUR SEND ACCOUNT"];
+    }
+    else
+    {
+        [controller setNavigationTitle: @"Confirm Changes"];
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM CHANGES TO YOUR RECEIVE ACCOUNT"];
+
+    }
+    
+    [self.navigationController presentModalViewController:controller animated:YES];
+    
+}
+
+-(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    if(accountType == @"Send") {
+        [bankAccountService setPreferredSendAccount:selectedOption forUserId:user.userId withSecurityPin:pin];
     }
     else {
-        [bankAccountService setPreferredReceiveAccount:optionId forUserId:user.userId];
+        [bankAccountService setPreferredReceiveAccount:selectedOption forUserId:user.userId withSecurityPin:pin];
     }
 }
 
+-(void)swipeDidCancel: (id)sender
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
 -(void)setPreferredAccountDidComplete {
-    [selectModal hide];
-    
-    if([selectModal.accountType isEqualToString: @"Send"]) {
+
+    if(accountType == @"Send") {
         user.preferredPaymentAccountId = selectedOption;
     }
     else {
@@ -449,8 +495,11 @@
     }
     [userAccountsTableView reloadData];
 }
--(void)setPreferredAccountDidFail:(NSString*)responseMsg {
-    NSLog(@"Failed");
+-(void)setPreferredAccountDidFail:(NSString*)message withErrorCode:(int)errorCode {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Setting Preferred Account"];
+
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId
 {
@@ -464,7 +513,8 @@
     [bankAccountService getUserAccounts: user.userId];
     
 }
--(void)userACHSetupDidFail:(NSString*) message {PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
 

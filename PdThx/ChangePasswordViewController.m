@@ -99,15 +99,13 @@
     
     [self dismissModalViewControllerAnimated:YES];
 }
--(void) changePasswordDidFail:(NSString*) response
+-(void) changePasswordDidFail:(NSString*) message withErrorCode:(int)errorCode
 {
     txtOldPassword.text = @"";
     txtNewPassword.text = @"";
     txtConfirmPassword.text = @"";
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Invalid pin/password"];
-    
-    NSLog(@"%@", response);
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Occurred"];
 }
 @end

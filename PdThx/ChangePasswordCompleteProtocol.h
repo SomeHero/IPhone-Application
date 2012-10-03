@@ -11,6 +11,6 @@
 @protocol ChangePasswordCompleteProtocol <NSObject>
 
 -(void) changePasswordSuccess;
--(void) changePasswordDidFail: (NSString*) response;
+-(void) changePasswordDidFail: (NSString*) response withErrorCode:(int)errorCode;
 
 @end

@@ -153,7 +153,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [numberFormatter release];
 }
 
--(void)userInformationDidFail:(NSString*) message {
+-(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
 }

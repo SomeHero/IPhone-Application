@@ -51,7 +51,17 @@
         
         NSLog(@"Error Getting Application");
         
-        [applicationSettingsDidComplete getApplicationSettingsDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [applicationSettingsDidComplete getApplicationSettingsDidFail: message withErrorCode: errorCode];
         
     }
     
@@ -63,7 +73,17 @@
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [applicationSettingsDidComplete getApplicationSettingsDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [applicationSettingsDidComplete getApplicationSettingsDidFail: message withErrorCode: errorCode];
     
     
 }

@@ -25,6 +25,10 @@
 @synthesize imgData;
 @synthesize transactionImageUri;
 @synthesize senderHasSeen, recipientHasSeen;
+@synthesize isCancellable;
+@synthesize isRemindable;
+@synthesize isAcceptable;
+@synthesize isRejectable;
 
 -(id)init {
     self = [super init];
@@ -72,6 +76,11 @@
         transactionImageUri = [[dictionary valueForKey:@"transactionImageUri"] copy];
         senderHasSeen = [[dictionary objectForKey:@"senderSeen"] boolValue];
         recipientHasSeen = [[dictionary objectForKey:@"recipientSeen"] boolValue];
+        
+        isCancellable = [[dictionary objectForKey: @"isCancellable"] boolValue];
+        isRemindable = [[dictionary objectForKey: @"isRemindable"] boolValue];
+        isAcceptable = [[dictionary objectForKey: @"isAcceptable"] boolValue];
+        isRejectable = [[dictionary objectForKey: @"isRejectable"] boolValue];
     }
     
     [format release];

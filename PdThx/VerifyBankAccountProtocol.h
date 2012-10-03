@@ -13,6 +13,6 @@
 @protocol VerifyBankAccountProtocol <NSObject>
 
 -(void)verifyBankAccountsDidComplete;
--(void)verifyBankAccountsDidFail:(NSString*)errorMessage;
+-(void)verifyBankAccountsDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode;
 
 @end

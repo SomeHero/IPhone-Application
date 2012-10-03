@@ -13,6 +13,6 @@
 @protocol DeleteBankAccountProtocol <NSObject>
 
 -(void)deleteBankAccountDidComplete;
--(void)deleteBankAccountDidFail:(NSString*)errorMessage;
+-(void)deleteBankAccountDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode;
 
 @end

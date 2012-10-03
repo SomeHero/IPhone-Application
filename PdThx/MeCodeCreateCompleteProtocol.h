@@ -10,5 +10,5 @@
 
 @protocol MeCodeCreateCompleteProtocol <NSObject>
 -(void) meCodeCreateSuccess;
--(void)meCodeCreateDidFail:(NSString*) response;
+-(void)meCodeCreateDidFail:(NSString*) response withErrorCode:(int)errorCode;
 @end

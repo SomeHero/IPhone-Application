@@ -81,12 +81,12 @@
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
-        bool isLockedOut = [[jsonDictionary valueForKey: @"isLockedOut"] boolValue];
-        NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+        [parser release];
         
-        NSString* message = [NSString stringWithString: @"Unable to send request for money"];
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [requestMoneyCompleteDelegate requestMoneyDidFail:message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
+        [requestMoneyCompleteDelegate requestMoneyDidFail:message withErrorCode:errorCode];
     }
     
 }
@@ -98,13 +98,12 @@
     
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
     
-    bool isLockedOut = [[jsonDictionary valueForKey: @"isLockedOut"] boolValue];
-    NSInteger numberOfPinCodeFailures = [[jsonDictionary valueForKey: @"numberOfPinCodeFailures"] intValue];
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    NSString* message = @"Unable to send request for money";
-    
-    [requestMoneyCompleteDelegate requestMoneyDidFail: message isLockedOut:isLockedOut withPinCodeFailures:numberOfPinCodeFailures];
+    [requestMoneyCompleteDelegate requestMoneyDidFail: message withErrorCode:errorCode];
 }
 
 -(void) determineRecipient:(NSArray*) recipientUris
@@ -156,13 +155,32 @@
     }
     else
     {
-        [determineRecipientCompleteDelegate determineRecipientDidFail:[request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+        
+        [determineRecipientCompleteDelegate determineRecipientDidFail:message withErrorCode: errorCode];
     }
 }
 
 -(void) determineRecipientDidFail: (ASIHTTPRequest*) request
 {
-    [determineRecipientCompleteDelegate determineRecipientDidFail:[request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [determineRecipientCompleteDelegate determineRecipientDidFail:message withErrorCode: errorCode];
 }
 
 

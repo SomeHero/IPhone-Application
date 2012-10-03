@@ -163,5 +163,6 @@
 -(NSMutableArray*)sortContacts:(NSMutableArray*)arr;
 
 -(void)facebookFriendsDidLoad:(id)dictionaryOfFriends;
+-(void)handleError: (NSString*)errorMessage withErrorCode: (int) errorCode withDefaultTitle: (NSString*) defaultTitle;
 
 @end

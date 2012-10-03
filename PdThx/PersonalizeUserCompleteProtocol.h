@@ -13,6 +13,6 @@
 @protocol PersonalizeUserCompleteProtocol <NSObject>
 
 -(void) personalizeUserDidComplete;
--(void) personalizeUserDidFail:(NSString*) response;
+-(void) personalizeUserDidFail:(NSString*) response withErrorCode:(int)errorCode;
 
 @end

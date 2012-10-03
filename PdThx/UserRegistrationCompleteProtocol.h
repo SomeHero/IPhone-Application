@@ -15,6 +15,6 @@
 
 -(void)userRegistrationDidComplete:(NSString*) userId withSenderUri:(NSString*) senderUri;
 
--(void)userRegistrationDidFail:(NSString*) response;
+-(void)userRegistrationDidFail:(NSString*) response withErrorCode:(int)errorCode;
 
 @end

@@ -11,6 +11,6 @@
 @protocol DeletePayPointDelegate <NSObject>
 
 -(void)deletePayPointCompleted;
--(void)deletePayPointFailed: (NSString*) errorMessage;
+-(void)deletePayPointFailed: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

@@ -64,8 +64,8 @@
 -(void)securityQuestionAnsweredDidComplete {
     [securityQuestionChallengeDelegate securityQuestionAnsweredCorrect];
 }
--(void)securityQuestionAnsweredDidFail:(NSString*)errorMessage {
-    [securityQuestionChallengeDelegate securityQuestionAnsweredInCorrect:errorMessage];
+-(void)securityQuestionAnsweredDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode {
+    [securityQuestionChallengeDelegate securityQuestionAnsweredInCorrect:errorMessage withErrorCode: errorCode];
 }
 
 - (void)dealloc {

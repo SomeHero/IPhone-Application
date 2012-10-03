@@ -48,7 +48,17 @@
         
         NSLog(@"Error Answered Security Questions");
         
-        [securityQuestionAnsweredDelegate securityQuestionAnsweredDidFail: [request responseStatusMessage]];
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [securityQuestionAnsweredDelegate securityQuestionAnsweredDidFail: message withErrorCode:errorCode];
         
     }
     
@@ -56,11 +66,19 @@
 }
 -(void) securityQuestionAnsweredDidFail:(ASIHTTPRequest *)request
 {
-    NSLog(@"Error Answering Security Questions");
-    
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [securityQuestionAnsweredDelegate securityQuestionAnsweredDidFail: [request responseStatusMessage]];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [securityQuestionAnsweredDelegate securityQuestionAnsweredDidFail: message withErrorCode: errorCode];
 }
 
 @end

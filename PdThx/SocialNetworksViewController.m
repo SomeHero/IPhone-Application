@@ -213,7 +213,7 @@
     }
 }
 
--(void)fbSignInDidFail:(NSString *) reason {
+-(void)fbSignInDidFail:(NSString *) reason withErrorCode:(int)errorCode {
     
     [self.navigationController dismissModalViewControllerAnimated:NO];
     
