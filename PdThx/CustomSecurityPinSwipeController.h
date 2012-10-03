@@ -12,7 +12,7 @@
 #import "OHAttributedLabel.h"
 
 @interface CustomSecurityPinSwipeController : UIViewController<ALUnlockPatternViewDelegate>
-{    
+{
     IBOutlet UIView* viewPinLock;
     IBOutlet UINavigationItem *navigationItem;
 
