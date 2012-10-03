@@ -462,33 +462,53 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 -(void)cancelPaymentDidComplete {
+    [self dismissModalViewControllerAnimated: YES];
+    
     [self.navigationController popToRootViewControllerAnimated: YES];
 }
 
 -(void)cancelPaymentDidFail: (NSString*) message withErrorCode:(int)errorCode  {
+    if(errorCode == 1001)
+        [self dismissModalViewControllerAnimated: YES];
+    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 -(void)cancelPaymentRequestDidComplete {
-    [self.navigationController popToRootViewControllerAnimated: YES]; 
+    [self dismissModalViewControllerAnimated: YES];
+    
+    [self.navigationController popToRootViewControllerAnimated: YES];
 }
 
 -(void)cancelPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
+    if(errorCode == 1001)
+        [self dismissModalViewControllerAnimated: YES];
+    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 
 -(void)acceptPaymentRequestDidComplete {
-    [self.navigationController popToRootViewControllerAnimated: YES]; 
+    [self dismissModalViewControllerAnimated: YES];
+    
+    [self.navigationController popToRootViewControllerAnimated: YES];
 }
 -(void)acceptPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
+    if(errorCode == 1001)
+        [self dismissModalViewControllerAnimated: YES];
+    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 -(void)rejectPaymentRequestDidComplete {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated: YES];
+    
+    [self.navigationController popToRootViewControllerAnimated: YES];
 }
 -(void)rejectPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
+    if(errorCode == 1001)
+        [self dismissModalViewControllerAnimated: YES];
+    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Reject Request"];
 }
@@ -502,15 +522,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)btnCancelPaymentClicked
 {
-    [paystreamServices cancelPayment: messageDetail.messageId];
+    pendingAction = @"CancelPayment";
+    
+    [self startSecurityPin];
 }
 
 -(void)btnAcceptRequestClicked {
 
-    [pullableView setOpened:NO animated:NO];
-
+ 
     // TODO: Change this to generic.
-    controller=[[CustomSecurityPinSwipeController alloc] init];
+    CustomSecurityPinSwipeController* controller=[[CustomSecurityPinSwipeController alloc] init];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm your Pin"];
     [controller setHeaderText:@"SWIPE YOUR PIN TO PAY REQUEST"];
@@ -541,21 +562,57 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     //[self.view addSubview:securityPinModalPanel];
     //[parent.navigationController pushViewController: securityPinModalPanel animated:YES];
 }
+-(void) startSecurityPin
+{
+    GenericSecurityPinSwipeController *controller=[[[GenericSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    
+    /*
+     Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
+
+    [controller setNavigationTitle: @"Confirm"];
+    [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM CHANGES YOUR INTENT TO DELETE THIS PAYMENT ACCOUNT"];
+    
+    [self.navigationController presentModalViewController:controller animated:YES];
+    
+}
+
+-(void)btnRejectRequestClicked {
+    pendingAction = @"RejectRequest";
+    
+    [self startSecurityPin];
+}
+-(void)btnCancelRequestClicked {
+    pendingAction = @"CancelRequest";
+    
+    [self startSecurityPin];
+}
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    [self dismissModalViewControllerAnimated: YES];
-    
-    [paystreamServices acceptRequest:messageDetail.messageId withUserId:user.userId fromPaymentAccount:user.preferredReceiveAccountId withSecurityPin:pin];
+    if(pendingAction == @"AcceptRequest") {
+        [paystreamServices acceptRequest:messageDetail.messageId withUserId:user.userId fromPaymentAccount:user.preferredReceiveAccountId withSecurityPin:pin];
+    }
+    if(pendingAction == @"RejectRequest") {
+        [paystreamServices rejectRequest:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
+    }
+    if(pendingAction == @"CancelPayment") {
+        [paystreamServices cancelPayment:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
+    }
+    if(pendingAction == @"CancelRequest") {
+        [paystreamServices cancelRequest:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
+    }
 }
 -(void)swipeDidCancel: (id)sender
 {
     [self dismissModalViewControllerAnimated: YES];
-}
--(void)btnRejectRequestClicked {
-    [paystreamServices rejectRequest: messageDetail.messageId];
-}
--(void)btnCancelRequestClicked {
-    [paystreamServices cancelRequest: messageDetail.messageId];
 }
 -(void)closeButtonClicked
 {

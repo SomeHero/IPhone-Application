@@ -187,7 +187,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     
     NSLog(@"Send Money Failed");
 }
--(void) cancelPayment:(NSString*) messageId {
+-(void) cancelPayment:(NSString*) messageId withUserId:(NSString*) userId  withSecurityPin:(NSString*) securityPin {
     
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
@@ -195,10 +195,18 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/cancel_payment?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
     
+    NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 userId, @"userId",
+                                 securityPin, @"securityPin",
+                                 nil];
+    
+    NSString *newJSON = [requestBody JSONRepresentation];
+    
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
-    [requestObj setRequestMethod: @"POST"];	
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];
     
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(cancelPaymentComplete:)];
@@ -316,17 +324,26 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     [acceptPaymentRequestProtocol acceptPaymentRequestDidFail:message withErrorCode:errorCode];
     
 }
--(void) rejectRequest:(NSString*) messageId {
+-(void) rejectRequest:(NSString*) messageId withUserId:(NSString*) userId withSecurityPin: (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/reject_request?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
     
+    NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 userId, @"userId",
+                                 securityPin, @"securityPin",
+                                 nil];
+    
+    
+    NSString *newJSON = [requestBody JSONRepresentation];
+    
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
-    [requestObj setRequestMethod: @"POST"];	
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];
     
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(rejectRequestComplete:)];
@@ -371,16 +388,24 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     
     [rejectPaymentRequestProtocol rejectPaymentRequestDidFail:message withErrorCode:errorCode];
 }
--(void) cancelRequest:(NSString*) messageId {
+-(void) cancelRequest:(NSString*) messageId withUserId:(NSString*) userId withSecurityPin: (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/cancel_request?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
     
+    NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 userId, @"userId",
+                                 securityPin, @"securityPin",
+                                 nil];
+    
+    NSString *newJSON = [requestBody JSONRepresentation];
+    
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
-    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
     [requestObj setRequestMethod: @"POST"];	
     
     [requestObj setDelegate: self];
