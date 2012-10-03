@@ -15,8 +15,6 @@
 #import "ProgressHudInnnerViewController.h"
 #import "CustomAlertViewController.h"
 #import "CustomAlertViewProtocol.h"
-#import "ActivatePhoneViewController.h"
-#import "PersonalizeViewController.h"
 #import "AddACHAccountViewController.h"
 #import "SetupFlowViewController.h"
 #import "EnablePaymentsViewController.h"

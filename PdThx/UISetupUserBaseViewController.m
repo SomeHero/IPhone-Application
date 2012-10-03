@@ -10,7 +10,6 @@
 #import "Contact.h"
 #import <AddressBook/AddressBook.h>
 #import "ProfileController.h"
-#import "PdThxAppDelegate.h"
 
 @implementation UISetupUserBaseViewController
 

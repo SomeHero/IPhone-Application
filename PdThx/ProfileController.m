@@ -405,7 +405,7 @@
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    [userService linkFacebookAccount:user.userId withFacebookId:[result objectForKey:@"id"] withAuthToken:[NSString stringWithFormat:[prefs  objectForKey:@"FBAccessTokenKey"]]];
+    //[userService linkFacebookAccount:user.userId withFacebookId:[result objectForKey:@"id"] withAuthToken:[NSString stringWithFormat:[prefs  objectForKey:@"FBAccessTokenKey"]]];
     
     [prefs release];
     

@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UISetupUserBaseViewController.h"
 #import "ASIHTTPRequest.h"
 #import "PersonalizeUserCompleteProtocol.h"
 #import "UserService.h"
 #import "ChooseMemberImageProtocol.h"
 #import "SetupNavigationView.h"
+#import "UISetupUserBaseViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 

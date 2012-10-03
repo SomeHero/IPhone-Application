@@ -8,17 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "PhoneNumberFormatting.h"
-#import "User.h"
 #import "UIBaseViewController.h"
 #import "TPKeyboardAvoidingScrollView.h"
 
-@interface UISetupUserBaseViewController : UIBaseViewController <UITextFieldDelegate>
+@interface UISetupUserBaseViewController : UIBaseViewController
 {
     IBOutlet TPKeyboardAvoidingScrollView *scrollView;
     NSMutableArray *autoCompleteArray;
     NSMutableArray *allResults;
     UITextField *currentTextField;
-    User* user;
 }
 
 @property(nonatomic, retain) TPKeyboardAvoidingScrollView *scrollView;

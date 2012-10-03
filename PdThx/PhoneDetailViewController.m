@@ -140,8 +140,8 @@
         [deletePayPointComplete deletePayPointCompleted];
     });
 }
--(void)deletePayPointFailed: (NSString*) errorMessage {
-    [deletePayPointComplete deletePayPointFailed:errorMessage];
+-(void)deletePayPointFailed: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    [deletePayPointComplete deletePayPointFailed:errorMessage withErrorCode:errorCode];
 }
 -(void)verifyMobilePayPointDidComplete: (bool) verified {
     [self.navigationController dismissModalViewControllerAnimated:YES];

@@ -290,7 +290,7 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    if([request responseStatusCode] == 202) {
+    if([request responseStatusCode] == 200) {
         
         [resendVerificationLinkDelegate resendVerificationLinkDidComplete];
         

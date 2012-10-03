@@ -59,7 +59,7 @@
         [ctrlAccountType setSelectedSegmentIndex: 0];
     }
     
-    if([bankAccount.status isEqualToString: @"Pending Activation"])
+    if([bankAccount.status isEqualToString: @"Pending"])
     {
         [self.view addSubview: ctrlVerifyView];
     }

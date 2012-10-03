@@ -9,9 +9,17 @@
 #import "UIBaseViewController.h"
 #import "Contact.h"
 #import <AddressBook/AddressBook.h>
-#import "ProfileController.h"
 #import "PdThxAppDelegate.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "ProfileController.h"
+#import "PhoneNumberFormatting.h"
+#import "ContactSelectChosenProtocol.h"
+#import "ContactTypeSelectViewController.h"
+#import "TSPopoverController.h"
+#import "TSActionSheet.h"
+#import "TPKeyboardAvoidingScrollView.h"
+#import "User.h"
+#import "PdThxAppDelegate.h"
 
 @implementation UIBaseViewController
 
@@ -148,6 +156,8 @@ CGSize scrollViewOriginalSize;
 {
     [self registerForKeyboardNotifications];
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
+    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     self.navigationItem.hidesBackButton = YES;
     

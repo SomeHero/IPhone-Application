@@ -36,7 +36,6 @@
     
     IBOutlet UIButton *btnSendRequest;
     
-    User* user;
     NSString* recipientUri;
     NSString* amount;
     NSString* comments;

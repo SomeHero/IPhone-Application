@@ -12,6 +12,7 @@
 #import "NSData+Base64Encoding.h"
 #import "UIImage+Scale.h"
 #import "BankAccountService.h"
+#import "PdThxAppDelegate.h"
 
 @interface NewACHAccountViewController ()
 
@@ -43,11 +44,11 @@
     [accountService setUserACHSetupCompleteDelegate: self];
     validationHelper = [[ValidationHelper alloc] init];
     
-    UIImage *helpImage = [UIImage imageNamed:@"nav-help-60x30.png"];
-    UIBarButtonItem *helpButton = [[UIBarButtonItem alloc] initWithTitle:@"Help"
-                                                                   style:UIBarButtonSystemItemDone target:nil action:@selector(needsHelp)];
-    [helpButton setImage:helpImage]; 
-    self.navigationItem.rightBarButtonItem = helpButton;
+    //UIImage *helpImage = [UIImage imageNamed:@"nav-help-60x30.png"];
+    //UIBarButtonItem *helpButton = [[UIBarButtonItem alloc] initWithTitle:@"Help"
+                                                        //           style:UIBarButtonSystemItemDone target:nil action:@selector(needsHelp)];
+    //[helpButton setImage:helpImage];
+    //self.navigationItem.rightBarButtonItem = helpButton;
     
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
@@ -74,8 +75,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    if ( navigationTitle.length > 0 )
-        [self setTitle:navigationTitle];
+    [super viewWillAppear:animated];
 }
 
 - (void)connectSuccess
@@ -286,9 +286,9 @@
     NSLog(@"ACH Delegate: %@", achSetupDidComplete);
     [achSetupDidComplete userACHSetupDidComplete:paymentAccountId];
 }
--(void)userACHSetupDidFail:(NSString*) message {
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Account Invalid"];
-    [achSetupDidComplete userACHSetupDidFail: message];
+    [achSetupDidComplete userACHSetupDidFail: message withErrorCode: errorCode];
 }
 
 -(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
@@ -296,7 +296,8 @@
     NSLog(@"User bank accounts refreshed.");
     [user setBankAccounts:bankAccounts];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 -(void)getUserAccountsDidFail:(NSString *)errorMessage
@@ -311,7 +312,7 @@
     
     [cameraVC setCheckImageReturnDelegate:self];
     
-    [self presentModalViewController:cameraVC animated:YES];
+    [self.navigationController presentModalViewController:cameraVC animated:YES];
     [cameraVC release];
 }
 
@@ -321,7 +322,7 @@
     [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Reading Image"];
     
     NSLog(@"Successfully returned image: %@",image);
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
     
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     
