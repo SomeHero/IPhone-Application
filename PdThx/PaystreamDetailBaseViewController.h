@@ -38,12 +38,27 @@
     IBOutlet UIView* quoteView;
     IBOutlet UIView* actionView;
     
-    PullableView* pullableView;
+    IBOutlet OHAttributedLabel *expressDeliveryChargeLabel;
+    IBOutlet UIButton *expressDeliveryButton;
+    IBOutlet OHAttributedLabel *expressDeliveryText;
+    IBOutlet UILabel *expressSubtext;
+    
+    bool isExpressed;
+    double expressDeliveryCharge;
+    
     User* user;
     UIViewController* parent;
 
-    CustomSecurityPinSwipeController *controller;
+    NSString* pendingAction;
 }
+
+@property(nonatomic, retain) OHAttributedLabel *expressDeliveryChargeLabel;
+@property(nonatomic, retain) UIButton *expressDeliveryButton;
+@property(nonatomic, retain) OHAttributedLabel *expressDeliveryText;
+@property(nonatomic, retain) UILabel *expressSubtext;
+
+@property (assign) bool isExpressed;
+@property (assign) double expressDeliveryCharge;
 
 @property(nonatomic, retain) PaystreamMessage* messageDetail;
 @property(nonatomic, retain) UINavigationBar* navBar;

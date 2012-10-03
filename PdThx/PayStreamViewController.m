@@ -38,7 +38,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @synthesize viewPanel, psImagesDownloading;
 @synthesize transactionsTableView, shadedLayer;
-@synthesize ctrlPaystreamTypes, detailView;
+@synthesize ctrlPaystreamTypes;
 
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
 
@@ -151,6 +151,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         xOffset = 224;
     }
     findUserService = [[UserService alloc] init];
+    
+    /*      Old Pullable View      
     detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[UIScreen mainScreen] bounds].size.height-20)];
     detailView.backgroundColor = [UIColor redColor]; // Transparent view with subviews
     detailView.animate = YES;
@@ -162,12 +164,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     detailView.closedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width + (detailView.frame.size.width/2), [[UIScreen mainScreen] bounds].size.height*0.5+10);
     detailView.openedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width - (detailView.frame.size.width/2)+20, [[UIScreen mainScreen] bounds].size.height*0.5+10);
     detailView.center = detailView.closedCenter;
+     
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:detailView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerBottomLeft) cornerRadii:CGSizeMake(8.0, 8.0)];
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.frame = detailView.bounds;
     maskLayer.path = maskPath.CGPath;
     detailView.layer.mask = maskLayer;
+     */
     
     // Darkened Layer
     shadedLayer = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
@@ -212,12 +216,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     /*  Navigation Bar  */
     [self setTitle:@"Paystream"];
     
-    // Show View
+    /*
     [detailView.handleView.layer setCornerRadius:8.0];
     [[[[UIApplication sharedApplication] delegate] window] addSubview:detailView];
     [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
     
     [detailView release];
+     */
+    
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"PayStreamViewController"
                                         withError:&error]){
@@ -1097,6 +1103,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 
+/*
 - (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened
 {
     if ( ! opened ) { // View totally closed
@@ -1122,12 +1129,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 shadedLayer.layer.opacity = 0.7;
             }];
             
-            /*
+            // Remove these last 4 lines with block-in-block comment
             [UIView beginAnimations:@"Darken" context:NULL];
             [UIView setAnimationDuration:animationDuration];
             shadedLayer.layer.opacity = 0.7;
             [UIView commitAnimations];
-             */
+             
         }
     } else {
         [UIView animateWithDuration:animationDuration animations:^{
@@ -1135,6 +1142,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         }];
     }
 }
+ */
 
 /* -------------------------------------
         Pull to Refresh

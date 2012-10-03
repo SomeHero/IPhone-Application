@@ -55,7 +55,8 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewDidAppear:(BOOL)animated
+{
     [self setTitle: navigationTitle];
     
     
@@ -64,7 +65,9 @@
     self.navigationItem.leftBarButtonItem= cancelButton;
     [cancelButton release];
 }
--(void)cancelClicked {
+
+-(void)cancelClicked
+{
 
     [self dismissModalViewControllerAnimated:YES];
 }

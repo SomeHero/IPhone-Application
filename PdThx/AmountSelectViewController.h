@@ -32,6 +32,8 @@
     double expressDeliveryRate;
     double expressDeliveryFreeThreshold;
     
+    double upperLimit;
+    
     User* user;
 }
 
@@ -50,6 +52,8 @@
 @property (assign) bool canExpress;
 @property (assign) bool isExpressed;
 @property (assign) double expressDeliveryFreeThreshold;
+
+@property (assign) double upperLimit;
 
 @property (nonatomic, retain) OHAttributedLabel *expressChargeLabel;
 @property (nonatomic, retain) OHAttributedLabel *amountExpressChargeLabel;

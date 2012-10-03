@@ -29,6 +29,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize amountChosenDelegate;
 @synthesize lblGo;
 
+@synthesize upperLimit;
+
 // Express
 @synthesize canExpress, expressChargeLabel, expressDeliveryRate, addExpressDeliveryButton, expressDeliveryFreeThreshold, isExpressed, amountExpressChargeLabel;
 
@@ -47,6 +49,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super viewDidLoad];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    ApplicationConfiguration*appConfig = [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).myApplication.applicationSettings objectForKey:@"UpperLimit"];
+    
+    
+    if ( [appConfig.ConfigurationValue doubleValue] <= 0.0 )
+        upperLimit = [appConfig.ConfigurationValue doubleValue];
+    else
+        upperLimit = 1000.0;
+    
     
     // Do any additional setup after loading the view from its nib.
     NSError *error;
@@ -76,6 +86,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [amountExpressChargeLabel setText:@""];
     
     [amountDisplayLabel becomeFirstResponder];
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidUnload

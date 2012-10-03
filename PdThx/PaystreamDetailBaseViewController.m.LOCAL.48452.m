@@ -30,8 +30,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize pullableView;
 @synthesize parent;
 
-@synthesize expressDeliveryButton, expressDeliveryCharge, expressDeliveryChargeLabel, expressDeliveryText, expressSubtext, isExpressed;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,10 +42,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)dealloc
 {
     [actionViewDivider release];
-    [expressSubtext release];
-    [expressDeliveryChargeLabel release];
-    [expressDeliveryButton release];
-    [expressDeliveryText release];
     [super dealloc];
 }
 
@@ -61,99 +55,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #pragma mark - View lifecycle
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    
-}
 
--(void)configureExpressView
-{
-    // Delivery Method Options
-    
-    id normalFont = [UIFont fontWithName:@"Helvetica" size:14.0];
-    id italicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:14.0];
-    
-    id grayColor = UIColorFromRGB(0x33363d);
-    id blueColor = UIColorFromRGB(0x015b7e);
-    
-    if ( [messageDetail.deliveryMethod isEqualToString:@"Standard"] )
-    {
-        NSMutableAttributedString*expressAttribTitle;
-        
-        if ( messageDetail.isExpressable )
-        {
-            expressAttribTitle = [[NSMutableAttributedString alloc] initWithString:@"Add Express Delivery"];
-            
-            // Font
-            [expressAttribTitle setFont:normalFont];
-            [expressAttribTitle setFont:italicFont range:[expressAttribTitle rangeOfString:@"Express Delivery"]];
-            
-            // Color
-            [expressAttribTitle setTextColor:grayColor];
-            [expressAttribTitle setTextColor:blueColor range:[expressAttribTitle rangeOfString:@"ExpressDelivery"]];
-            
-            if ( [self isReceivingMoney] )
-            {
-                [expressSubtext setText:@"Get it faster!"];
-            } else {
-                [expressSubtext setText:@"Send it expressed!"];
-            }
-            
-            [expressDeliveryButton setEnabled:YES];
-        }
-        else
-        {
-            expressAttribTitle = [[NSMutableAttributedString alloc] initWithString:@"Add Express Delivery"];
-            
-            // Font
-            [expressAttribTitle setFont:normalFont];
-            [expressAttribTitle setFont:italicFont range:[expressAttribTitle rangeOfString:@"Express Delivery"]];
-            
-            // Color
-            [expressAttribTitle setTextColor:grayColor];
-            [expressAttribTitle setTextColor:blueColor range:[expressAttribTitle rangeOfString:@"ExpressDelivery"]];
-            
-            expressSubtext.text = @"Not available";
-            
-            [expressDeliveryButton setEnabled:NO];
-        }
-    }
-}
-
--(bool)isReceivingMoney
-{
-    if ( [messageDetail.direction isEqualToString:@"In"] )
-    {
-        if ( [messageDetail.messageType isEqualToString:@"Payment"] || [messageDetail.messageType isEqualToString:@"Donation"] )
-        {
-            return true;
-        } else {
-            return false;
-        }
-    } else if ( [messageDetail.direction isEqualToString:@"Out"] )
-    {
-        if ( [messageDetail.messageType isEqualToString:@"Request"] && [messageDetail.messageType isEqualToString:@"AcceptPledge"])
-        {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    return false;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
-    // Initialize Express Labels
-    [expressDeliveryChargeLabel setCenterVertically:YES];
-    [self configureExpressView];
     
     // Disable non-clickable items.
     [btnSender setUserInteractionEnabled:NO];
@@ -554,71 +462,39 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 -(void)cancelPaymentDidComplete {
-    [self dismissModalViewControllerAnimated: YES];
-    
     [self.navigationController popToRootViewControllerAnimated: YES];
 }
 
--(void)cancelPaymentDidFail: (NSString*) message withErrorCode:(int)errorCode
-{
-    if(errorCode == 1001)
-        [self dismissModalViewControllerAnimated: YES];
-    
+-(void)cancelPaymentDidFail: (NSString*) message withErrorCode:(int)errorCode  {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
--(void)cancelPaymentRequestDidComplete
-{
-    [self dismissModalViewControllerAnimated: YES];
-    
-    [self.navigationController popToRootViewControllerAnimated: YES];
+-(void)cancelPaymentRequestDidComplete {
+    [self.navigationController popToRootViewControllerAnimated: YES]; 
 }
 
 -(void)cancelPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
-    if(errorCode == 1001)
-        [self dismissModalViewControllerAnimated: YES];
-    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 
--(void)acceptPaymentRequestDidComplete
-{
-    [self dismissModalViewControllerAnimated: YES];
-    
-    [self.navigationController popToRootViewControllerAnimated: YES];
+-(void)acceptPaymentRequestDidComplete {
+    [self.navigationController popToRootViewControllerAnimated: YES]; 
 }
 -(void)acceptPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
-    if(errorCode == 1001)
-        [self dismissModalViewControllerAnimated: YES];
-    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
--(void)rejectPaymentRequestDidComplete
-{    
-    [self dismissModalViewControllerAnimated: YES];
-    
-    [self.navigationController popToRootViewControllerAnimated: YES];
+-(void)rejectPaymentRequestDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)rejectPaymentRequestDidFail: (NSString*) message withErrorCode:(int)errorCode {
-    if(errorCode == 1001)
-        [self dismissModalViewControllerAnimated: YES];
-    
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Reject Request"];
 }
 - (void)viewDidUnload
 {
     [self setActionViewDivider:nil];
-    [expressSubtext release];
-    expressSubtext = nil;
-    [expressDeliveryChargeLabel release];
-    expressDeliveryChargeLabel = nil;
-    [expressDeliveryButton release];
-    expressDeliveryButton = nil;
-    [expressDeliveryText release];
-    expressDeliveryText = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -626,16 +502,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)btnCancelPaymentClicked
 {
-    pendingAction = @"CancelPayment";
-    
-    [self startSecurityPin];
+    [paystreamServices cancelPayment: messageDetail.messageId];
 }
 
 -(void)btnAcceptRequestClicked {
 
- 
+    [pullableView setOpened:NO animated:NO];
+
     // TODO: Change this to generic.
-    CustomSecurityPinSwipeController* controller=[[CustomSecurityPinSwipeController alloc] init];
+    controller=[[CustomSecurityPinSwipeController alloc] init];
     [controller setSecurityPinSwipeDelegate: self];
     [controller setNavigationTitle: @"Confirm your Pin"];
     [controller setHeaderText:@"SWIPE YOUR PIN TO PAY REQUEST"];
@@ -666,57 +541,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     //[self.view addSubview:securityPinModalPanel];
     //[parent.navigationController pushViewController: securityPinModalPanel animated:YES];
 }
--(void) startSecurityPin
-{
-    GenericSecurityPinSwipeController *controller=[[[GenericSecurityPinSwipeController alloc] init] autorelease];
-    [controller setSecurityPinSwipeDelegate: self];
-    
-    /*
-     Custom Security Pin Swipe Controller Example
-     -==============================================-
-     
-     recipientName = @"Ryan Ricigliano";
-     deliveryCharge = 0.0;
-     amount = 14.59;
-     deliveryType = @"Express";
-     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
-     */
-
-    [controller setNavigationTitle: @"Confirm"];
-    [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM CHANGES YOUR INTENT TO DELETE THIS PAYMENT ACCOUNT"];
-    
-    [self.navigationController presentModalViewController:controller animated:YES];
-    
-}
-
--(void)btnRejectRequestClicked {
-    pendingAction = @"RejectRequest";
-    
-    [self startSecurityPin];
-}
--(void)btnCancelRequestClicked {
-    pendingAction = @"CancelRequest";
-    
-    [self startSecurityPin];
-}
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    if(pendingAction == @"AcceptRequest") {
-        [paystreamServices acceptRequest:messageDetail.messageId withUserId:user.userId fromPaymentAccount:user.preferredReceiveAccountId withSecurityPin:pin];
-    }
-    if(pendingAction == @"RejectRequest") {
-        [paystreamServices rejectRequest:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
-    }
-    if(pendingAction == @"CancelPayment") {
-        [paystreamServices cancelPayment:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
-    }
-    if(pendingAction == @"CancelRequest") {
-        [paystreamServices cancelRequest:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
-    }
+    [self dismissModalViewControllerAnimated: YES];
+    
+    [paystreamServices acceptRequest:messageDetail.messageId withUserId:user.userId fromPaymentAccount:user.preferredReceiveAccountId withSecurityPin:pin];
 }
 -(void)swipeDidCancel: (id)sender
 {
     [self dismissModalViewControllerAnimated: YES];
+}
+-(void)btnRejectRequestClicked {
+    [paystreamServices rejectRequest: messageDetail.messageId];
+}
+-(void)btnCancelRequestClicked {
+    [paystreamServices cancelRequest: messageDetail.messageId];
 }
 -(void)closeButtonClicked
 {

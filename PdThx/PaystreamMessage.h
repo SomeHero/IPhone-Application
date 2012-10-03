@@ -30,6 +30,10 @@
     bool isRemindable;
     bool isRejectable;
     bool isAcceptable;
+    bool isExpressable;
+    
+    NSString* deliveryMethod;
+    double deliveryCharge;
 }
 
 @property(nonatomic, retain) NSDecimalNumber* amount;
@@ -46,13 +50,20 @@
 @property(nonatomic, retain) NSString* senderName;
 @property (nonatomic, retain) UIImage * imgData;
 
-@property(nonatomic, assign) bool senderHasSeen;
-@property(nonatomic, assign) bool recipientHasSeen;
+@property(assign) bool senderHasSeen;
+@property(assign) bool recipientHasSeen;
 
-@property(nonatomic, assign) bool isCancellable;
-@property(nonatomic, assign) bool isRemindable;
-@property(nonatomic, assign) bool isRejectable;
-@property(nonatomic, assign) bool isAcceptable;
+@property(assign) bool senderExpressed;
+@property(assign) bool recipientExpressed;
+
+@property(assign) bool isCancellable;
+@property(assign) bool isRemindable;
+@property(assign) bool isRejectable;
+@property(assign) bool isAcceptable;
+@property(assign) bool isExpressable;
+
+@property (nonatomic, retain) NSString* deliveryMethod;
+@property (assign) double deliveryCharge;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
 

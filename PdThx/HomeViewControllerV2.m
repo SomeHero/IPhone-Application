@@ -157,7 +157,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 #pragma mark - View lifecycle
--(void) viewDidAppear:(BOOL)animated
+-(void) viewWillAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -174,7 +174,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     lblUserName.text = appDelegate.user.preferredName;
-    
     
     NSString * numOnly = [[appDelegate.user.userUri componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
     
@@ -197,10 +196,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [userService refreshHomeScreenInformation:userId];
 }
 
--(void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
 
 -(void)userHomeScreenInformationDidComplete:(NSMutableArray *)quickSendContactArray
 {
