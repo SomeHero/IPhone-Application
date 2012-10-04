@@ -27,8 +27,9 @@
 #import "SelectRecipientProtocol.h"
 #import "SetContactAndAmountProtocol.h"
 #import "SetContactProtocol.h"
+#import "AddACHOptionsViewController.h"
 
-@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, SetContactProtocol, SetContactAndAmountProtocol, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol>
+@interface SendMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, SetContactProtocol, SetContactAndAmountProtocol, AmountSelectChosenProtocol, TransactionConfirmationProtocol, UITextViewDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol, ACHSetupCompleteProtocol>
 {
     IBOutlet UIView *viewPanel;
     

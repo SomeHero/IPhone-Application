@@ -19,6 +19,7 @@
 
 @synthesize navBarTitle, headerText;
 @synthesize newUserFlow;
+@synthesize achSetupComplete;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -302,6 +303,9 @@
 
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
+    
+    [self.navigationController popViewControllerAnimated:NO];
+    
     if([user.preferredPaymentAccountId length] == 0)
         user.preferredPaymentAccountId = paymentAccountId;
     if([user.preferredReceiveAccountId length] == 0)
@@ -313,7 +317,6 @@
     txtNameOnAccount.text = @"";
 
     [userService getUserInformation:user.userId];
-
 
 }
 
@@ -520,18 +523,12 @@
     [appDelegate showSuccessWithStatus:@"Account Added!" withDetailedStatus:@"Linked bank account"];
     
     [appDelegate setUser:userInfo];
-    
-    [self.navigationController dismissModalViewControllerAnimated: YES];
-    [self.navigationController popViewControllerAnimated:YES];
-    
-    [appDelegate startUserSetupFlow:self];
+        
+    [achSetupComplete achSetupDidComplete];
 }
 -(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode {
-    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Refreshing Accounts"];
-    
-    [self.navigationController dismissModalViewControllerAnimated: YES];
-    [self.navigationController popViewControllerAnimated:YES];
+
+    [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
     
 }
 - (void)dealloc

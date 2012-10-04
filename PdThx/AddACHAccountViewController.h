@@ -10,7 +10,7 @@
 #import "UserSetupACHAccount.h"
 #import "GenericSecurityPinSwipeController.h"
 #import "CustomSecurityPinSwipeProtocol.h"
-#import "UserSetupACHAccountComplete.h"
+#import "ACHSetupCompleteProtocol.h"
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "AddSecurityQuestionViewController.h"
@@ -45,6 +45,8 @@
     AddSecurityQuestionViewController* addSecurityQuestionController;
     ValidationHelper* validationHelper;
     BOOL newUserFlow;
+    
+    id<ACHSetupCompleteProtocol> achSetupComplete;
 }
 
 @property(nonatomic, retain) NSString* navBarTitle;
@@ -52,6 +54,8 @@
 
 @property(nonatomic, retain) NSString* headerText;
 @property(nonatomic) BOOL newUserFlow;
+
+@property(nonatomic, retain) id<ACHSetupCompleteProtocol> achSetupComplete;
 
 -(IBAction)btnRemindMeLaterClicked:(id)sender;
 -(IBAction) btnCreateAccountClicked:(id)sender;

@@ -23,7 +23,7 @@
 #import "ModalSelectProtocol.h"
 #import "UIProfileTableViewCell.h"
 
-@interface AccountListViewController : UISetupUserBaseViewController<UITextFieldDelegate, BankAccountRequestProtocol, UserACHSetupCompleteProtocol, SetPreferredAccountProtocol, ModalSelectProtocol, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate>{
+@interface AccountListViewController : UISetupUserBaseViewController<UITextFieldDelegate, BankAccountRequestProtocol, ACHSetupCompleteProtocol, DeleteBankAccountProtocol, SetPreferredAccountProtocol, ModalSelectProtocol, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UserInformationCompleteProtocol>{
     IBOutlet UIScrollView* scrollview;
     IBOutlet UIPickerView *senderAccountPickerView;
     IBOutlet UIPickerView *receiveAccountPickerView;
@@ -32,6 +32,7 @@
     IBOutlet UIView* editAccountView;
     NSMutableArray *arrayColors;
     BankAccountService *bankAccountService;
+    UserService* userService;
     UIPickerView *myPickerView;
     SelectAccountModalViewControllerViewController* selectModal;
     NSString* selectedOption;

@@ -15,7 +15,8 @@
 #import "VerifyACHAccountViewController.h"
 #import "VerifyBankAccountProtocol.h"
 
-@interface EditACHAccountViewController : UISetupUserBaseViewController <UITextFieldDelegate, VerifyBankAccountProtocol> {
+@interface EditACHAccountViewController : UISetupUserBaseViewController <UITextFieldDelegate,
+     VerifyBankAccountProtocol> {
     IBOutlet UIView* mainView;
     IBOutlet UITextField* txtNickName;
     IBOutlet UITextField* txtNameOnAccount;
@@ -28,8 +29,10 @@
     BankAccountService* bankAccountService;
     NSString* pendingAction;
     
+    id<DeleteBankAccountProtocol> deleteBankAccountProtocol;
 }
 
+@property(nonatomic, retain) id<DeleteBankAccountProtocol> deleteBankAccountProtocol;
 @property(nonatomic, retain) BankAccount* bankAccount;
 
 -(IBAction)btnSaveChangesClicked :(id)sender;

@@ -300,38 +300,48 @@
         
         if([user.preferredPaymentAccountId length] > 0)
         {
-            CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
-            [controller setSecurityPinSwipeDelegate: self];
-            [controller setNavigationTitle: @"Confirm"];
-            
-            /*
-             Custom Security Pin Swipe Controller Example
-             -==============================================-
-             
-             recipientName = @"Ryan Ricigliano";
-             deliveryCharge = 0.0;
-             amount = 14.59;
-             deliveryType = @"Express";
-             lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
-             */
-            
-            [controller setHeaderText:@"SWIPE YOUR PIN TO DONATE"];
-            [controller setDeliveryType:@"Standard"];
-            [controller setDeliveryCharge:0.0];
-            [controller setAmount:[amount doubleValue]];
-            [controller setRecipientName:[recipient getSenderName]];
-            
-            [self presentModalViewController:controller animated:YES];
+            [self startSecurityPin];
         } else {
-            AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
-            controller.newUserFlow = false;
+            AddACHOptionsViewController* controller= [[AddACHOptionsViewController alloc] init];
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             
-            [controller setNavBarTitle: @"Enable Payment"];
-            [controller setHeaderText: @"To complete sending money, complete your account by adding a bank account"];
+            [controller setAchSetupComplete:self];
+            
             [self presentModalViewController: navBar animated:YES];
         }
     }
+}
+
+
+-(void) startSecurityPin
+{
+    CustomSecurityPinSwipeController *controller=[[[CustomSecurityPinSwipeController alloc] init] autorelease];
+    [controller setSecurityPinSwipeDelegate: self];
+    [controller setNavigationTitle: @"Confirm"];
+    
+    /*
+     Custom Security Pin Swipe Controller Example
+     -==============================================-
+     
+     recipientName = @"Ryan Ricigliano";
+     deliveryCharge = 0.0;
+     amount = 14.59;
+     deliveryType = @"Express";
+     lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     */
+    
+    [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM YOUR DONATION"];
+    [controller setDeliveryType: @"Standard"];
+    [controller setAmount: 0.0];
+    [controller setRecipientName:[recipient getSenderName]];
+    
+    [self.navigationController presentModalViewController:controller animated:YES];
+    
+    // Setting the background image must be done after the view loads (could call [controller viewDidLoad] too)
+    if ( recipient.imgData != (id)[NSNull null] )
+        [controller.contactImageButton setBackgroundImage:recipient.imgData forState:UIControlStateNormal];
+    else
+        [controller.contactImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
@@ -615,5 +625,13 @@
         [[self navigationController] setViewControllers:allViewControllers animated:NO];
         [allViewControllers release];
     }
+}
+-(void)achSetupDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+    
+    [self startSecurityPin];
+}
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Money"];
 }
 @end

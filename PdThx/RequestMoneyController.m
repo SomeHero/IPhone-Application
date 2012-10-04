@@ -502,12 +502,11 @@
                 [requestMoneyService determineRecipient:recipient.paypoints];
             }
         } else {
-            AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
-            controller.newUserFlow = false;
+            AddACHOptionsViewController* controller= [[AddACHOptionsViewController alloc] init];
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             
-            [controller setNavBarTitle: @"Enable Payment"];
-            [controller setHeaderText: @"To complete sending money, complete your account by adding a bank account"];
+            [controller setAchSetupComplete:self];
+            
             [self presentModalViewController: navBar animated:YES];
         }
     }
@@ -695,5 +694,13 @@
 }
 
 
+-(void)achSetupDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+    
+    [self startSecurityPin];
+}
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Money"];
+}
 
 @end
