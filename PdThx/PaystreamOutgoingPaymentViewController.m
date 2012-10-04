@@ -81,7 +81,9 @@
         //Handle Error Here
     }
 }
--(void)viewWillAppear:(BOOL)animated {
+
+-(void)viewWillAppear:(BOOL)animated
+{
     if(!([messageDetail.messageStatus isEqualToString: @"Processing"]))
     {
         //[btnCancel setHidden: YES];

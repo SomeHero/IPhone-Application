@@ -702,16 +702,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
 }
 
--(void)btnRejectRequestClicked {
+-(void)btnRejectRequestClicked
+{
     pendingAction = @"RejectRequest";
     
     [self startSecurityPin];
 }
--(void)btnCancelRequestClicked {
+
+-(void)btnCancelRequestClicked
+{
     pendingAction = @"CancelRequest";
     
     [self startSecurityPin];
 }
+
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
     if(pendingAction == @"AcceptRequest") {
@@ -727,19 +731,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [paystreamServices cancelRequest:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
     }
 }
+
 -(void)swipeDidCancel: (id)sender
 {
     [self dismissModalViewControllerAnimated: YES];
 }
+
 -(void)closeButtonClicked
 {
     [pullableView setOpened:NO animated:YES];
 }
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 - (UIView*)makeBubbleWithWidth:(CGFloat)w font:(UIFont*)f text:(NSString*)s background:(NSString*)fn caps:(CGSize)caps padding:(CGFloat*)padTRBL
 {
 	// Create label
@@ -776,6 +784,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	return [finalView autorelease];
 }
 
+
 -(void)achSetupDidComplete {
     [self.navigationController dismissModalViewControllerAnimated:NO];
 
@@ -783,7 +792,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [self startSecurityPin];
 }
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode
+{
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
+
 @end
