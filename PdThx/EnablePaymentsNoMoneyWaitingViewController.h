@@ -7,8 +7,10 @@
 //
 
 #import "UISetupUserBaseViewController.h"
+#import "UserSetupACHAccountComplete.h"
+#import "ACHSetupCompleteProtocol.h"
 
-@interface EnablePaymentsNoMoneyWaitingViewController : UISetupUserBaseViewController
+@interface EnablePaymentsNoMoneyWaitingViewController : UISetupUserBaseViewController<ACHSetupCompleteProtocol>
 {
     IBOutlet UIButton *addBankAccountButton;
     IBOutlet UIButton *remindMeLaterButton;

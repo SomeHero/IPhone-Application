@@ -349,7 +349,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         //[((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow];
         
-        if([user.preferredPaymentAccountId length] > 0)
+        if([user.preferredPaymentAccountId length] > 0 && [user.bankAccounts count] > 0)
         {
             if ([recipient.paypoints count] == 1)
             {
@@ -365,12 +365,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         }
         else
         {
-            AddACHAccountViewController* controller= [[AddACHAccountViewController alloc] init];
-            controller.newUserFlow = false;
+            AddACHOptionsViewController* controller= [[AddACHOptionsViewController alloc] init];
+           
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
             
-            [controller setNavBarTitle: @"Enable Payment"];
-            [controller setHeaderText: @"To complete sending money, complete your account by adding a bank account"];
+            [controller setAchSetupComplete:self];
             [self presentModalViewController: navBar animated:YES];
         }
     }
@@ -402,7 +401,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [controller setAmount:[amount doubleValue]];
     [controller setRecipientName:[recipient getSenderName]];
     
-    [self presentModalViewController:controller animated:YES];
+    [self.navigationController presentModalViewController:controller animated:YES];
     
     // Setting the background image must be done after the view loads (could call [controller viewDidLoad] too)
     NSLog(@"%@",recipient.imgData);
@@ -787,6 +786,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
 }
 
+-(void)achSetupDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+    
+    [self startSecurityPin];
+}
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Money"];
+}
 
 @end
 

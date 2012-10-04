@@ -7,15 +7,19 @@
 //
 
 #import "UISetupUserBaseViewController.h"
+#import "ACHSetupCompleteProtocol.h"
 
-@interface AddACHOptionsViewController : UISetupUserBaseViewController
+@interface AddACHOptionsViewController : UISetupUserBaseViewController<ACHSetupCompleteProtocol>
 {
     IBOutlet UIButton *takePictureButton;
     
     IBOutlet UIButton *enterManuallyButton;
     IBOutlet UIView *navBar;
+    
+    id<ACHSetupCompleteProtocol> achSetupComplete;
 }
 
+@property(nonatomic, retain) id<ACHSetupCompleteProtocol> achSetupComplete;
 @property (nonatomic, retain) UIButton * takePictureButton;
 @property (nonatomic, retain) UIButton * enterManuallyButton;
 @property (nonatomic, retain) UIView *navBar;

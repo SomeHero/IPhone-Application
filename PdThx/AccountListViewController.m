@@ -10,10 +10,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SetupACHAccountController.h"
 #import "NewACHAccountViewController.h"
+#import "AddACHOptionsViewController.h"
 #import "ChooseAddACHMethodViewController.h"
 
 @implementation AccountListViewController
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +45,9 @@
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
+    userService = [[UserService alloc] init];
+    [userService setUserInformationCompleteDelegate: self];
+    
     bankAccountService = [[BankAccountService alloc] init];
     [bankAccountService setBankAccountRequestDelegate: self];
     [bankAccountService setPreferredAccountDelegate: self];
@@ -57,7 +60,6 @@
         //Handle Error Here
     }
 }
-    
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -69,12 +71,6 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [userAccountsTableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -347,26 +343,36 @@
             [controller release];
              */
             
-            ChooseAddACHMethodViewController* chooseMethodVC = [[ChooseAddACHMethodViewController alloc] init];
+            if([user.bankAccounts count] > 0) {
+            ChooseAddACHMethodViewController* chooseMethodVC = [[[ChooseAddACHMethodViewController alloc] init] autorelease];
             [chooseMethodVC setNavigationTitle:@"Add Bank Account"];
             [chooseMethodVC setTitle:@"Add Bank Account"];
-            
-            [chooseMethodVC setAchSetupDidComplete:self];
+            [chooseMethodVC setAchSetupComplete:self];
             
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:chooseMethodVC];
             
             [self.navigationController presentModalViewController:navBar animated:YES];
             
             [navBar release];
-            [chooseMethodVC release];
-        }
-        else
-        {
-            EditACHAccountViewController* controller = [[EditACHAccountViewController alloc] init];
+            
+        } else {
+                AddACHOptionsViewController* controller = [[[AddACHOptionsViewController alloc] init] autorelease];
+                [controller setAchSetupComplete: self];
+                
+                UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+                
+                [self.navigationController presentModalViewController:navBar animated:YES];
+                
+                [navBar release];
+                
+            }
+        } else {
+            EditACHAccountViewController* controller = [[[EditACHAccountViewController alloc] init] autorelease];
+            [controller setDeleteBankAccountProtocol: self];
+            
             controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];
             
             [self.navigationController pushViewController:controller animated:YES];
-            [controller release];
         }
     } else if(indexPath.section == 1)
     {
@@ -473,22 +479,45 @@
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Setting Preferred Account"];
 
 }
--(void)userACHSetupDidComplete:(NSString*) paymentAccountId
-{
-    [self.navigationController dismissModalViewControllerAnimated: NO];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+
+-(void)achSetupDidComplete {
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){ 
+        [self.navigationController dismissModalViewControllerAnimated:YES];
+        
+        user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    newAccountAdded = true;
-    
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate showWithStatus:@"Please wait" withDetailedStatus:@"Loading user accounts"];
-    [bankAccountService getUserAccounts: user.userId];
-    
+        [userAccountsTableView reloadData];
+    });
 }
 -(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
 
+-(void)deleteBankAccountDidComplete {
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.navigationController popViewControllerAnimated: YES];
+        
+        [userService getUserInformation: user.userId];
+    });
+}
+-(void)deleteBankAccountDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:errorMessage withErrorCode:errorCode withDefaultTitle: @"Error Deleting Account"];
+}
+
+-(void)userInformationDidComplete:(User*)userInfo {
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= userInfo;
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
+    [userAccountsTableView reloadData];
+}
+-(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Refreshing User"];
+}
 
 @end

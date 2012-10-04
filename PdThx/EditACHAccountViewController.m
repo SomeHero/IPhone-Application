@@ -16,6 +16,7 @@
 @implementation EditACHAccountViewController
 
 @synthesize bankAccount;
+@synthesize deleteBankAccountProtocol;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -172,13 +173,10 @@
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Deleted"];
     
-    [bankAccountService getUserAccounts:user.userId];
+    [deleteBankAccountProtocol deleteBankAccountDidComplete];
 }
 -(void)deleteBankAccountDidFail:(NSString*)message withErrorCode:(int)errorCode {
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate dismissProgressHUD];
-    
-    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Updating Account"];
+    [deleteBankAccountProtocol deleteBankAccountDidFail:message withErrorCode:errorCode];
 }
 -(void)updateBankAccountDidComplete {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
