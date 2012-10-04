@@ -316,35 +316,7 @@
     
     return view;
 }
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths :[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 #pragma mark - Table view delegate
 
@@ -360,7 +332,6 @@
             [controller setTitle: @"Add Bank Account"];
             [controller setAchSetupDidComplete:self];
             
-            
             //[controller setHeaderText: @"To add a mobile # to your PaidThx account, enter your new mobile # below."];
 
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
@@ -371,6 +342,7 @@
             [navBar release];
             [controller release];
              */
+            
             if([user.bankAccounts count] > 0) {
             ChooseAddACHMethodViewController* chooseMethodVC = [[[ChooseAddACHMethodViewController alloc] init] autorelease];
             [chooseMethodVC setNavigationTitle:@"Add Bank Account"];
@@ -380,9 +352,10 @@
             UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:chooseMethodVC];
             
             [self.navigationController presentModalViewController:navBar animated:YES];
-
+            
             [navBar release];
-            } else {
+            
+        } else {
                 AddACHOptionsViewController* controller = [[[AddACHOptionsViewController alloc] init] autorelease];
                 [controller setAchSetupComplete: self];
                 
@@ -396,11 +369,13 @@
         } else {
             EditACHAccountViewController* controller = [[[EditACHAccountViewController alloc] init] autorelease];
             [controller setDeleteBankAccountProtocol: self];
+            
             controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];
-        
+            
             [self.navigationController pushViewController:controller animated:YES];
         }
-    } else if(indexPath.section == 1){
+    } else if(indexPath.section == 1)
+    {
         selectModal = [[[SelectAccountModalViewControllerViewController alloc] initWithFrame:self.view.bounds] autorelease];
         [selectModal setOptionSelectDelegate: self];
         selectModal.bankAccounts = user.bankAccounts;

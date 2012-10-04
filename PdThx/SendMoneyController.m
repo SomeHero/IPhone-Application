@@ -394,13 +394,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM PAYMENT"];
     [controller setDeliveryType:deliveryType];
+    
+    if ( [deliveryType isEqualToString:@"Express"] )
+        [controller setDeliveryCharge:([amount doubleValue]*user.expressDeliveryFeePercentage)];
+    
     [controller setAmount:[amount doubleValue]];
     [controller setRecipientName:[recipient getSenderName]];
     
     [self.navigationController presentModalViewController:controller animated:YES];
     
     // Setting the background image must be done after the view loads (could call [controller viewDidLoad] too)
-    if ( recipient.imgData != (id)[NSNull null] )
+    NSLog(@"%@",recipient.imgData);
+    if ( recipient.imgData != (id)[NSNull null] && recipient.imgData != NULL )
         [controller.contactImageButton setBackgroundImage:recipient.imgData forState:UIControlStateNormal];
     else
         [controller.contactImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
