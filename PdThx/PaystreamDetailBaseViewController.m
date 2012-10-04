@@ -92,7 +92,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             // Color
             [expressAttribTitle setTextColor:grayColor];
-            [expressAttribTitle setTextColor:blueColor range:[expressAttribTitle rangeOfString:@"ExpressDelivery"]];
+            [expressAttribTitle setTextColor:blueColor range:[expressAttribTitle rangeOfString:@"Express Delivery"]];
             
             if ( [self isReceivingMoney] )
             {
@@ -113,9 +113,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             // Color
             [expressAttribTitle setTextColor:grayColor];
-            [expressAttribTitle setTextColor:blueColor range:[expressAttribTitle rangeOfString:@"ExpressDelivery"]];
+            [expressAttribTitle setTextColor:blueColor range:[expressAttribTitle rangeOfString:@"Express Delivery"]];
             
-            expressSubtext.text = @"Not available";
+            [expressSubtext setText:@"Not available"];
             
             [expressDeliveryButton setEnabled:NO];
         }
@@ -631,9 +631,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self startSecurityPin];
 }
 
--(void)btnAcceptRequestClicked {
-
- 
+-(void)btnAcceptRequestClicked
+{
     // TODO: Change this to generic.
     CustomSecurityPinSwipeController* controller=[[CustomSecurityPinSwipeController alloc] init];
     [controller setSecurityPinSwipeDelegate: self];

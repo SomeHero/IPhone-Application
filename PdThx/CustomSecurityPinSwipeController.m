@@ -108,6 +108,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [contactImageButton.layer setMasksToBounds:YES];
     [contactImageButton.layer setBorderWidth:0.2];
     [contactImageButton.layer setBorderColor:[[UIColor darkGrayColor] CGColor]];
+    [contactImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
     [self.viewPinLock addSubview:custom];
     NSError *error;
@@ -167,7 +168,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         // FREE in Green 0x00a652
         NSString*highlightedDeliveryChargeString = [NSString stringWithFormat:@"FREE"];
         
-        deliveryChargeAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Delivery: %@ (%@)", deliveryType, highlightedDeliveryChargeString]];
+        deliveryChargeAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Delivery: %@  (%@)", deliveryType, highlightedDeliveryChargeString]];
         
         [expressIcon setHidden:YES];
         [deliveryChargeAttribString setTextColor:grayColor];
@@ -179,7 +180,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         // Blue Color: 0x015b7e
         NSString*highlightedDeliveryChargeString = [NSString stringWithFormat:@"$%0.2f",deliveryCharge];
         
-        deliveryChargeAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Delivery: %@     (%@)",deliveryType,highlightedDeliveryChargeString]];
+        deliveryChargeAttribString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Delivery: %@      (%@)",deliveryType,highlightedDeliveryChargeString]];
         
         [expressIcon setHidden:NO];
         [deliveryChargeAttribString setTextColor:grayColor];
