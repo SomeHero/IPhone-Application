@@ -28,8 +28,10 @@
 }
 */
 
-- (void)dealloc {
+- (void)dealloc
+{
     [exitButton release];
     [super dealloc];
 }
+
 @end
