@@ -431,10 +431,10 @@
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/reset_password", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/forgot_password", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];  
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
-                              emailAddress, @"emailAddress",
+                              emailAddress, @"userName",
                               nil];
     
     NSString* newJSON = [userData JSONRepresentation];
