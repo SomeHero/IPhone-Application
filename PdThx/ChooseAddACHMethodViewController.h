@@ -7,18 +7,18 @@
 //
 
 #import "UIModalBaseViewController.h"
-#import "UserACHSetupCompleteProtocol.h"
+#import "ACHSetupCompleteProtocol.h"
 
-@interface ChooseAddACHMethodViewController : UIModalBaseViewController
+@interface ChooseAddACHMethodViewController : UIModalBaseViewController<ACHSetupCompleteProtocol>
 {
     IBOutlet UIButton *takePictureButton;
     
     IBOutlet UIButton *enterManuallyButton;
     
-    id<UserACHSetupCompleteProtocol> achSetupDidComplete;
+    id<ACHSetupCompleteProtocol> achSetupComplete;
 }
 
-@property(nonatomic, retain) id<UserACHSetupCompleteProtocol> achSetupDidComplete;
+@property(nonatomic, retain) id<ACHSetupCompleteProtocol> achSetupComplete;
 
 @property (nonatomic, retain) UIButton * takePictureButton;
 @property (nonatomic, retain) UIButton * enterManuallyButton;

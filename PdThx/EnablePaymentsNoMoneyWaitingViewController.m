@@ -71,18 +71,27 @@
 
 - (IBAction)pressedAddBankAccountButton:(id)sender
 {
-    [self.navigationController pushViewController:[[AddACHOptionsViewController alloc] init] animated:YES];
+    AddACHAccountViewController* controller = [[[AddACHAccountViewController alloc] init] autorelease];
+    [controller setAchSetupComplete:self];
     
-    // Get the list of view controllers
-    NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-    [allViewControllers removeObjectIdenticalTo:self];
-    [[self navigationController] setViewControllers:allViewControllers animated:NO];
-    
-    [allViewControllers release];
+    [self.navigationController pushViewController:controller animated:YES];
+
+
 }
 
 - (IBAction)pressedRemindMeLaterButton:(id)sender
 {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
+
+-(void)achSetupDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated: YES];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
+}
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Registering User"];
+}
+
 @end

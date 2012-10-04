@@ -14,7 +14,7 @@
 #import "CustomSecurityPinSwipeProtocol.h"
 #import "ValidationHelper.h"
 #import "UserSetupACHAccount.h"
-#import "UserACHSetupCompleteProtocol.h"
+#import "ACHSetupCompleteProtocol.h"
 #import "BankAccountRequestProtocol.h"
 
 @interface NewACHAccountViewController : UIBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol, BankAccountRequestProtocol>
@@ -34,10 +34,10 @@
     UserSetupACHAccount* accountService;
     ValidationHelper* validationHelper;
     
-    id<UserACHSetupCompleteProtocol> achSetupDidComplete;
+    id<ACHSetupCompleteProtocol> achSetupComplete;
 }
 
-@property(nonatomic, retain) id<UserACHSetupCompleteProtocol> achSetupDidComplete;
+@property(nonatomic, retain) id<ACHSetupCompleteProtocol> achSetupComplete;
 @property(nonatomic, retain) MIPController*mipControllerInstance;
 
 -(IBAction) btnCreateAccountClicked:(id)sender;

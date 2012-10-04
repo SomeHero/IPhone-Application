@@ -28,7 +28,8 @@
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBHelperReturnProtocol, UINavigationControllerDelegate, CustomAlertViewProtocol>
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBHelperReturnProtocol,
+    UINavigationControllerDelegate, CustomAlertViewProtocol>
 {
     NSString * deviceToken;
     PhoneNumberFormatting *phoneNumberFormatter;

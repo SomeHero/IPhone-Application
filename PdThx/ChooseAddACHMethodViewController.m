@@ -15,7 +15,7 @@
 
 @implementation ChooseAddACHMethodViewController
 
-@synthesize takePictureButton, enterManuallyButton, achSetupDidComplete;
+@synthesize takePictureButton, enterManuallyButton, achSetupComplete;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,10 +34,6 @@
     [self setTitle: @"Add Bank Account"];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"ACH Delegate in Choose: %@", achSetupDidComplete);
-}
 
 - (void)viewDidUnload
 {
@@ -68,7 +64,7 @@
     NewACHAccountViewController *achController = [[NewACHAccountViewController alloc] init];
     [self.navigationController pushViewController:achController animated:YES];
     
-    [achController setAchSetupDidComplete:achSetupDidComplete];
+    [achController setAchSetupComplete:self];
     [achController takePictureOfCheck];
     
     // Get the list of view controllers
@@ -83,12 +79,20 @@
 - (IBAction)pressedEnterManuallyButton:(id)sender
 {
     // Load the exact same view controller, but call the camera function manually (no button press)
-    NewACHAccountViewController*achController = [[NewACHAccountViewController alloc] init];
+    NewACHAccountViewController*achController = [[[NewACHAccountViewController alloc] init] autorelease];
 
-    [achController setAchSetupDidComplete:achSetupDidComplete];
+    [achController setAchSetupComplete:self];
     [achController setTitle:@"Add Bank Account"];
     
     [self.navigationController pushViewController:achController animated:YES];
+}
+-(void)achSetupDidComplete {
+    [self.navigationController popViewControllerAnimated:NO];
+
+    [achSetupComplete achSetupDidComplete];
+}
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
 }
 
 @end
