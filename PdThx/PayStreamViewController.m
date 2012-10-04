@@ -297,53 +297,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     transactions = [payStreamMessages copy];
     
-    [self buildTransactionDictionary: transactions];
     
     if([transactions count] == 0)
     {
-        [transactionsTableView setHidden:YES];
+        [[transactionsDict objectForKey:@"NoItemsFound"] addObject:[[[NSObject alloc] init] autorelease]];
+        [self buildTransactionDictionary: transactions];
         
-        NSString* noItems = [NSString stringWithString:  @"You have no items in your paystream.  Start sending or requesting some money!"];
-        
-        CGSize constraintSize;
-        
-        constraintSize.width = 300.0f;
-        constraintSize.height = MAXFLOAT;
-        
-        CGSize stringSize =[noItems sizeWithFont: [UIFont boldSystemFontOfSize: 16] constrainedToSize: constraintSize lineBreakMode: UILineBreakModeWordWrap];
-        
-        CGRect rect = CGRectMake(10, 120, stringSize.width, stringSize.height);
-        
-        UILabel* lblNoItems = [[UILabel alloc] initWithFrame: CGRectMake(12, 12, transactionsTableView.frame.size.width - 32, rect.size.height)];
-        
-        [lblNoItems setText: noItems];
-        [lblNoItems setBackgroundColor: [UIColor clearColor]];
-        lblNoItems.textAlignment = UITextAlignmentLeft;
-        lblNoItems.lineBreakMode = UILineBreakModeWordWrap;
-        lblNoItems.baselineAdjustment = UIBaselineAdjustmentNone;
-        [lblNoItems setFont:[UIFont fontWithName:@"Helvetica" size:15.0]];
-        lblNoItems.numberOfLines = 0;
-        
-        UIView* viewNoItems = [[UIView alloc] initWithFrame:CGRectMake(8, transactionsTableView.frame.origin.y + 20, transactionsTableView.frame.size.width - 20, rect.size.height + 24)];
-        
-        [[viewNoItems layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
-        [[viewNoItems layer] setBorderWidth:1.5];
-        [[viewNoItems layer] setCornerRadius: 8.0];
-        [viewNoItems setBackgroundColor: [UIColor whiteColor]];
-        [viewNoItems addSubview: lblNoItems];
-        
-        //[self.view addSubview:viewNoItems];
-        
-        [lblNoItems release];
-        [viewNoItems release];
-        
+        [transactionsTableView reloadData];
     }
     else
     {
-        if ( transactionsTableView.hidden == YES )
-            [transactionsTableView setHidden:NO];
-        
-        
+        [self buildTransactionDictionary: transactions];
+    
         [[self transactionsTableView] reloadData];
         [self loadImagesForOnscreenRows];
     }
@@ -404,6 +369,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Creating the loading section.
     [sections addObject:@"Loading"];
     [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Loading"];
+    
+    [sections addObject: @"NoItemsFound"];
+    [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"NoItemsFound"];
     
     NSDateComponents* itemComponents;
     
@@ -641,21 +609,25 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"transactionCell";
-    
-    if ( indexPath.section == 0 )
+
+    if ([sections objectAtIndex:indexPath.section] == @"Loading")
     {
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
         UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
         return cell;
     }
-    
+    if ([sections objectAtIndex:indexPath.section] == @"NoItemsFound")
+    {
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
+        UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
+        return cell;
+    }
     UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil){
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-
     
     [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
