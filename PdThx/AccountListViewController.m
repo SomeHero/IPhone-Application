@@ -343,7 +343,8 @@
             [controller release];
              */
             
-            if([user.bankAccounts count] > 0) {
+            if([user.bankAccounts count] > 0)
+            {
             ChooseAddACHMethodViewController* chooseMethodVC = [[[ChooseAddACHMethodViewController alloc] init] autorelease];
             [chooseMethodVC setNavigationTitle:@"Add Bank Account"];
             [chooseMethodVC setTitle:@"Add Bank Account"];
