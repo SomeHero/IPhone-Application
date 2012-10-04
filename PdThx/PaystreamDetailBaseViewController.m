@@ -633,6 +633,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)btnAcceptRequestClicked {
 
+    pendingAction = @"AcceptRequest";
+    
+    if([user.bankAccounts count] > 0)
+    {
  
     // TODO: Change this to generic.
     CustomSecurityPinSwipeController* controller=[[CustomSecurityPinSwipeController alloc] init];
@@ -665,6 +669,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     // Add the panel to our view
     //[self.view addSubview:securityPinModalPanel];
     //[parent.navigationController pushViewController: securityPinModalPanel animated:YES];
+    }
+    else {
+        AddACHOptionsViewController* controller= [[AddACHOptionsViewController alloc] init];
+        
+        UINavigationController *navigationBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [controller setAchSetupComplete:self];
+        [self presentModalViewController: navigationBar animated:YES];
+    }
 }
 -(void) startSecurityPin
 {
@@ -761,5 +774,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	[label release];
 	[background release];
 	return [finalView autorelease];
+}
+
+-(void)achSetupDidComplete {
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+
+    user = [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) user];
+    
+    [self startSecurityPin];
+}
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 @end
