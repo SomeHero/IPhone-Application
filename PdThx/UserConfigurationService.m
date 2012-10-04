@@ -105,7 +105,7 @@
                           configurationValue, @"Value",
                           nil];
     
-    NSString *newJSON = [data JSONRepresentation]; 
+    NSString *newJSON = [data JSONRepresentation];
     
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 

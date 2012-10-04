@@ -395,6 +395,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM PAYMENT"];
     [controller setDeliveryType:deliveryType];
+    
+    if ( [deliveryType isEqualToString:@"Express"] )
+        [controller setDeliveryCharge:([amount doubleValue]*user.expressDeliveryFeePercentage)];
+    
     [controller setAmount:[amount doubleValue]];
     [controller setRecipientName:[recipient getSenderName]];
     
