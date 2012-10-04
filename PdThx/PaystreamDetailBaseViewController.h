@@ -18,8 +18,9 @@
 #import "User.h"
 #import "PdThxAppDelegate.h"
 #import "OHAttributedLabel.h"
+#import "AddACHOptionsViewController.h"
 
-@interface PaystreamDetailBaseViewController : UIViewController<AcceptPaymentRequestProtocol, CancelPaymentProtocol>
+@interface PaystreamDetailBaseViewController : UIViewController<AcceptPaymentRequestProtocol, CancelPaymentProtocol, ACHSetupCompleteProtocol>
 {
     PaystreamMessage* messageDetail;
     PaystreamService* paystreamServices;
