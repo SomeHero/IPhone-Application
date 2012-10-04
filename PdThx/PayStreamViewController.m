@@ -265,7 +265,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
     
-    if ( [[transactionsDict objectForKey:@"Loading"] count] == 0 ){
+    if ( [[transactionsDict objectForKey:@"Loading"] count] == 0 )
+    {
         [[transactionsDict objectForKey:@"Loading"] addObject:[[[NSObject alloc] init] autorelease]];
         [transactionsTableView reloadData];
     }
@@ -301,7 +302,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     if([transactions count] == 0)
     {
-        [transactionsTableView setHidden:YES];
+        //[transactionsTableView setHidden:NO];
         
         NSString* noItems = [NSString stringWithString:  @"You have no items in your paystream.  Start sending or requesting some money!"];
         
@@ -332,7 +333,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [viewNoItems setBackgroundColor: [UIColor whiteColor]];
         [viewNoItems addSubview: lblNoItems];
         
-        //[self.view addSubview:viewNoItems];
+        [self.view addSubview:viewNoItems];
         
         [lblNoItems release];
         [viewNoItems release];

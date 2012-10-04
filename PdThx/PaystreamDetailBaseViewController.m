@@ -660,10 +660,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [controller setTag:2];
     [self presentModalViewController:controller animated:YES];
     
-    ///////////////////////////////////
-    // Add the panel to our view
-    //[self.view addSubview:securityPinModalPanel];
-    //[parent.navigationController pushViewController: securityPinModalPanel animated:YES];
 }
 -(void) startSecurityPin
 {
@@ -688,16 +684,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
 }
 
--(void)btnRejectRequestClicked {
+-(void)btnRejectRequestClicked
+{
     pendingAction = @"RejectRequest";
     
     [self startSecurityPin];
 }
--(void)btnCancelRequestClicked {
+
+-(void)btnCancelRequestClicked
+{
     pendingAction = @"CancelRequest";
     
     [self startSecurityPin];
 }
+
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
     if(pendingAction == @"AcceptRequest") {
@@ -713,19 +713,23 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [paystreamServices cancelRequest:messageDetail.messageId withUserId:user.userId withSecurityPin:pin];
     }
 }
+
 -(void)swipeDidCancel: (id)sender
 {
     [self dismissModalViewControllerAnimated: YES];
 }
+
 -(void)closeButtonClicked
 {
     [pullableView setOpened:NO animated:YES];
 }
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 - (UIView*)makeBubbleWithWidth:(CGFloat)w font:(UIFont*)f text:(NSString*)s background:(NSString*)fn caps:(CGSize)caps padding:(CGFloat*)padTRBL
 {
 	// Create label
@@ -761,4 +765,5 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	[background release];
 	return [finalView autorelease];
 }
+
 @end
