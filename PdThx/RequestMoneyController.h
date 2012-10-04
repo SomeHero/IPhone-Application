@@ -27,7 +27,7 @@
 #import "DetermineRecipientCompleteProtocol.h"
 #import "SelectRecipientProtocol.h"
 
-@interface RequestMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol, UINavigationControllerDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol> 
+@interface RequestMoneyController : UIBaseViewController<HBTabBarDelegate, UIAlertViewDelegate, UITextFieldDelegate, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, UIImagePickerControllerDelegate, UITextViewDelegate, CustomAlertViewProtocol, UINavigationControllerDelegate, DetermineRecipientCompleteProtocol, SelectRecipientProtocol, ACHSetupCompleteProtocol>
 {
     
     IBOutlet UIView *viewPanel;

@@ -20,7 +20,7 @@
 
 @implementation NewACHAccountViewController
 
-@synthesize achSetupDidComplete;
+@synthesize achSetupComplete;
 @synthesize mipControllerInstance;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -71,11 +71,6 @@
     } else {
         NSLog(@"ERROR!");
     }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 - (void)connectSuccess
@@ -185,7 +180,7 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    [sender dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
     
     if(user.hasSecurityPin)
     {
@@ -283,12 +278,11 @@
     [bankService setBankAccountRequestDelegate:self];
     [bankService getUserAccounts:user.userId];
     
-    NSLog(@"ACH Delegate: %@", achSetupDidComplete);
-    [achSetupDidComplete userACHSetupDidComplete:paymentAccountId];
 }
 -(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Account Invalid"];
-    [achSetupDidComplete userACHSetupDidFail: message withErrorCode: errorCode];
+    
+    [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
 }
 
 -(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
@@ -296,13 +290,14 @@
     NSLog(@"User bank accounts refreshed.");
     [user setBankAccounts:bankAccounts];
     
-    [self.navigationController popViewControllerAnimated:NO];
-    [self dismissModalViewControllerAnimated:YES];
+    [achSetupComplete achSetupDidComplete];
 }
 
--(void)getUserAccountsDidFail:(NSString *)errorMessage
+-(void)getUserAccountsDidFail:(NSString *)message withErrorCode:(int)errorCode
 {
     NSLog(@"Error Refreshing Bank Account List after Adding a Bank Account");
+    
+    [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
 }
 
 - (void)takePictureOfCheck

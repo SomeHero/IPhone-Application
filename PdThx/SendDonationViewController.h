@@ -35,7 +35,7 @@
 #import "SetContactAndAmountProtocol.h"
 #import "SetContactProtocol.h"
 
-@interface SendDonationViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, SetContactAndAmountProtocol, SetContactProtocol, TransactionConfirmationProtocol, UITextViewDelegate, CustomAlertViewProtocol> {
+@interface SendDonationViewController : UIBaseViewController<UIAlertViewDelegate, UITextFieldDelegate, SendMoneyCompleteProtocol, ContactSelectChosenProtocol, CLLocationManagerDelegate, AmountSelectChosenProtocol, SetContactAndAmountProtocol, SetContactProtocol, TransactionConfirmationProtocol, UITextViewDelegate, CustomAlertViewProtocol, ACHSetupCompleteProtocol> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITextField *txtAmount;
     IBOutlet UITextView *txtComments;

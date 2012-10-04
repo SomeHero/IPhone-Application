@@ -16,6 +16,7 @@
 @implementation AddACHOptionsViewController
 
 @synthesize takePictureButton, enterManuallyButton, navBar;
+@synthesize achSetupComplete;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,30 +72,28 @@
 
 - (IBAction)pressedTakePictureButton:(id)sender
 {
-    AddACHAccountViewController *achController = [[AddACHAccountViewController alloc] init];
+    AddACHAccountViewController *achController = [[[AddACHAccountViewController alloc] init] autorelease];
     [self.navigationController pushViewController:achController animated:YES];
     [achController takePictureOfCheck];
-    
-    // Get the list of view controllers
-    NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-    [allViewControllers removeObjectIdenticalTo:self];
-    [[self navigationController] setViewControllers:allViewControllers animated:NO];
-    
-    [allViewControllers release];
-    [achController release];
+
 }
 
 - (IBAction)pressedEnterManuallyButton:(id)sender
 {
     // Load the exact same view controller, but call the camera function manually (no button press)
-    [self.navigationController pushViewController:[[AddACHAccountViewController alloc] init] animated:YES];
+    AddACHAccountViewController* achController = [[[AddACHAccountViewController alloc] init] autorelease];
+    [achController setAchSetupComplete: self];
     
-    // Get the list of view controllers
-    NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-    [allViewControllers removeObjectIdenticalTo:self];
-    [[self navigationController] setViewControllers:allViewControllers animated:NO];
-    
-    [allViewControllers release];
+    [self.navigationController pushViewController:achController animated:YES];
 }
+-(void)achSetupDidComplete {
+    [self.navigationController popViewControllerAnimated:NO];
+    [achSetupComplete achSetupDidComplete];
+}
+-(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+    [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
+}
+
+
 
 @end
