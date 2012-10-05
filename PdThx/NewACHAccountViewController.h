@@ -16,8 +16,9 @@
 #import "UserSetupACHAccount.h"
 #import "ACHSetupCompleteProtocol.h"
 #import "BankAccountRequestProtocol.h"
+#import "BankAccountService.h"
 
-@interface NewACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol, BankAccountRequestProtocol>
+@interface NewACHAccountViewController : UISetupUserBaseViewController<UITextFieldDelegate, CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol,MIPControllerDelegate,CustomAlertViewProtocol, BankAccountRequestProtocol, VerifyRoutingNumberProtocol>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
@@ -32,6 +33,8 @@
     
     NSString* securityPin;
     UserSetupACHAccount* accountService;
+    BankAccountService* bankService;
+    
     ValidationHelper* validationHelper;
     
     id<ACHSetupCompleteProtocol> achSetupComplete;

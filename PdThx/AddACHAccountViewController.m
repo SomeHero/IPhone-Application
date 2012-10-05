@@ -44,6 +44,16 @@
     {
         txtNameOnAccount.text = [NSString stringWithFormat:@"%@ %@", appDelegate.user.firstName, appDelegate.user.lastName];
     }
+    else if ( appDelegate.user.firstName != (id)[NSNull null] && 
+             appDelegate.user.firstName.length > 0)
+    {
+        txtNameOnAccount.text = [NSString stringWithFormat:@"%@", appDelegate.user.firstName];
+    }
+    else if ( appDelegate.user.lastName != (id)[NSNull null] &&
+             appDelegate.user.lastName.length > 0)
+    {
+        txtNameOnAccount.text = [NSString stringWithFormat:@"%@", appDelegate.user.lastName];
+    }
     
     SetupNavigationView *setupNavBar = [[SetupNavigationView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
     [setupNavBar setActiveState:@"Enable" withJoinComplete:YES whereActivateComplete:YES wherePersonalizeComplete:YES whereEnableComplete:NO];
@@ -61,6 +71,7 @@
     
     bankAccountService = [[BankAccountService alloc] init];
     [bankAccountService setBankAccountRequestDelegate: self];
+    [bankAccountService setVerifyRoutingNumberDelegate: self];
     
     userService = [[UserService alloc] init];
     [userService setUserInformationCompleteDelegate: self];
@@ -166,23 +177,7 @@
     }
     
     if(isValid) {
-
-        controller = [[[GenericSecurityPinSwipeController alloc] init] retain];
-        [controller setSecurityPinSwipeDelegate: self];
-        
-        if(user.hasSecurityPin)
-        {
-            [controller setHeaderText: @"Swipe your pin to add your new bank account"];
-            [controller setNavigationTitle: @"Confirm"];
-            [controller setTag: 1];
-        }
-        else {
-            [controller setHeaderText: @"To complete setting up your account, create a security pin by connecting 4 buttons below."];
-            
-            [controller setNavigationTitle: @"Setup your Pin"];
-            [controller setTag: 1];
-        }
-        [self.navigationController presentModalViewController:controller animated:YES];
+        [bankAccountService verifyRoutingNumber: txtRoutingNumber.text];
     }
 }
 -(void)cancelClicked {
@@ -504,6 +499,33 @@
 -(IBAction)btnRemindMeLaterClicked:(id)sender;
 {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
+}
+
+-(void)verifyRoutingNumberDidComplete: (bool) verified {
+    if(!verified)
+    {
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate showErrorWithStatus: @"Invalid Routing Number" withDetailedStatus: @"Try Again"];
+    } else {
+        controller = [[[GenericSecurityPinSwipeController alloc] init] retain];
+        [controller setSecurityPinSwipeDelegate: self];
+        
+
+        [controller setHeaderText: @"To complete setting up your account, create a security pin by connecting 4 buttons below."];
+            
+        [controller setNavigationTitle: @"Setup your Pin"];
+        [controller setTag: 1];
+
+        [self.navigationController presentModalViewController:controller animated:YES];
+    }
+}
+-(void)verifyRoutingNumberDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate handleError:errorMessage withErrorCode:errorCode withDefaultTitle: @"Invalid Routing Number"];
+    
 }
 
 -(void)delete:(id)sender

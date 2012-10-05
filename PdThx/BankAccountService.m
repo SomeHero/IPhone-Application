@@ -15,6 +15,7 @@
 @synthesize deleteBankAccountDelegate, updateBankAccountDelegate;
 @synthesize preferredAccountDelegate;
 @synthesize verifyBankAccountDelegate;
+@synthesize verifyRoutingNumberDelegate;
 
 -(void) getUserAccounts:(NSString*) userId
 {
@@ -332,7 +333,7 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    [preferredAccountDelegate setPreferredAccountDidFail: message];
+    [preferredAccountDelegate setPreferredAccountDidFail: message withErrorCode:errorCode];
 }
 -(void)verifyBankAccount:(NSString*)accountId forUserId: (NSString*)userId withFirstAmount:(NSString*)firstAmount withSecondAmount:(NSString*)secondAmount
 {
@@ -382,7 +383,7 @@
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [verifyBankAccountDelegate verifyBankAccountsDidFail: message];
+        [verifyBankAccountDelegate verifyBankAccountsDidFail: message withErrorCode:errorCode];
         
     }
     
@@ -404,6 +405,80 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    [verifyBankAccountDelegate verifyBankAccountsDidFail: message];
+    [verifyBankAccountDelegate verifyBankAccountsDidFail: message withErrorCode:errorCode];
+}
+-(void)verifyRoutingNumber: (NSString*) routingNumber {
+    Environment *myEnvironment = [Environment sharedInstance];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/routingnumber/validateapiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  myEnvironment.pdthxAPIKey]] autorelease];
+    
+    NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 //deviceId, @"deviceId",
+                                 routingNumber, @"routingNumber",
+                                 nil];
+    
+    NSString *newJSON = [paymentData JSONRepresentation];
+    
+    requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
+    [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];
+    [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
+    [requestObj setRequestMethod: @"POST"];
+    
+    [requestObj setDelegate: self];
+    [requestObj setDidFinishSelector:@selector(verifyRoutingNumberDidComplete:)];
+    [requestObj setDidFailSelector:@selector(verifyRoutingNumberDidFail:)];
+    [requestObj startAsynchronous];
+    
+}
+-(void) verifyRoutingNumberDidComplete:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 200 ) {
+        
+        BOOL verified = [[request responseString] boolValue];
+        [verifyRoutingNumberDelegate verifyRoutingNumberDidComplete: verified];
+        
+    }
+    else {
+        
+        NSLog(@"Error Verifying Routing Number");
+        
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        
+        [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [verifyRoutingNumberDelegate verifyRoutingNumberDidFail: message withErrorCode:errorCode];
+        
+    }
+    
+    
+}
+-(void) verifyRoutingNumberDidFail:(ASIHTTPRequest *)request
+{
+    NSLog(@"Error Verifying Routing Number");
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+    
+    [verifyRoutingNumberDelegate verifyRoutingNumberDidFail: message withErrorCode:errorCode];
 }
 @end
+
+
