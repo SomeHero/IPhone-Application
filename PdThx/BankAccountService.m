@@ -185,7 +185,8 @@
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
     [requestObj addRequestHeader:@"Content-Type" value:@"application/json"]; 
     [requestObj appendPostData:[newJSON dataUsingEncoding:NSUTF8StringEncoding]];
-    [requestObj setRequestMethod: @"PUT"];	
+    [requestObj buildPostBody];
+    [requestObj setRequestMethod: @"PUT"];
     
     [requestObj setDelegate: self];
     [requestObj setDidFinishSelector:@selector(updateBankAccountDidComplete:)];

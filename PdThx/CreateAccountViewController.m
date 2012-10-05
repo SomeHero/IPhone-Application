@@ -219,7 +219,7 @@
 
 - (void)createAccount
 {
-    NSString* confirmPassword = [NSString stringWithString: @""];
+    NSString* confirmPassword = @"";
     
     if([txtEmailAddress.text length] > 0)
         userName = [NSString stringWithString: txtEmailAddress.text];
@@ -235,21 +235,21 @@
     if(isValid && ![self isValidEmailAddress:userName])
     {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Enter an email address"];
+        [appDelegate showErrorWithStatus:@"Invalid Username" withDetailedStatus:@"Enter an email address"];
         
         isValid = NO;
     }
     if(isValid && ![self isValidPassword:password])
     {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid password"];
+        [appDelegate showErrorWithStatus:@"Invalid Password" withDetailedStatus:@"Passwords must contain: 6+ characters, at least 1 uppercase, an 1 number"];
         
         isValid = NO;
     }
     if(isValid && ![self doesPasswordMatch:password passwordToMatch:confirmPassword])
     {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Password mismatch"];
+        [appDelegate showErrorWithStatus:@"Invalid Password" withDetailedStatus:@"Your passwords don't match"];
         
         isValid = NO;
     }
@@ -307,6 +307,7 @@
     [txtEmailAddress resignFirstResponder];
     [txtPassword resignFirstResponder];
     [txtConfirmPassword resignFirstResponder];
+    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Signing up" withDetailedStatus:@"Checking connection"];
     
@@ -376,10 +377,44 @@
     return true;
 }
 -(BOOL)isValidPassword:(NSString *) passwordToTest {
-    if([passwordToTest length]  == 0)
+    if([passwordToTest length]  <= 6)
+        return false;
+    
+    if(![self validateOneUpperCaseLetter:passwordToTest])
+        return false;
+    
+    if(![self validateOneInteger: passwordToTest])
         return false;
     
     return true;
+}
+-(BOOL) validateOneUpperCaseLetter:(NSString *)stringToTest {
+    if ((stringToTest == nil) || ([stringToTest isEqualToString: @""])) {
+        return NO;
+    }
+    
+    NSRange upperCaseRange;
+    NSCharacterSet *upperCaseSet = [NSCharacterSet uppercaseLetterCharacterSet];
+    
+    upperCaseRange = [stringToTest rangeOfCharacterFromSet: upperCaseSet];
+    if (upperCaseRange.location == NSNotFound)
+        return NO;
+
+    return YES;
+}
+-(BOOL) validateOneInteger:(NSString *)stringToTest {
+    if ((stringToTest == nil) || ([stringToTest isEqualToString: @""])) {
+        return NO;
+    }
+    
+    NSRange upperCaseRange;
+    NSCharacterSet *upperCaseSet = [NSCharacterSet decimalDigitCharacterSet];
+    
+    upperCaseRange = [stringToTest rangeOfCharacterFromSet: upperCaseSet];
+    if (upperCaseRange.location == NSNotFound)
+        return NO;
+    
+    return YES;
 }
 -(BOOL)doesPasswordMatch:(NSString *) passwordToTest passwordToMatch: (NSString *) confirmPassword {
     if(![passwordToTest isEqualToString:confirmPassword])

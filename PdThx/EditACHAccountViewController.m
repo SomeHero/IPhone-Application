@@ -44,11 +44,6 @@
     [bankAccountService setUpdateBankAccountDelegate: self];
     [bankAccountService setBankAccountRequestDelegate:self];
     
-    pendingAction = @"";
-}
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
     txtNickName.text = bankAccount.nickName;
     txtNameOnAccount.text = bankAccount.nameOnAccount;
     txtAccountNumber.text = [NSString stringWithFormat: @"********%@", bankAccount.accountNumber];
@@ -59,6 +54,12 @@
     else {
         [ctrlAccountType setSelectedSegmentIndex: 0];
     }
+    
+    
+    pendingAction = @"";
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     
     if([bankAccount.status isEqualToString: @"Pending"])
     {

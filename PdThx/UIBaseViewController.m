@@ -154,18 +154,15 @@ CGSize scrollViewOriginalSize;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     [self registerForKeyboardNotifications];
     phoneNumberFormatter = [[PhoneNumberFormatting alloc] init];
     
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    self.navigationItem.hidesBackButton = YES;
+    [self.navigationController.navigationBar.backItem setHidesBackButton:YES];
     
-    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
-    }
-    
-    [super viewDidLoad];
 }
 -(void)popViewControllerWithAnimation {
     [self.navigationController popViewControllerAnimated:YES];
@@ -175,7 +172,10 @@ CGSize scrollViewOriginalSize;
 {
     [super viewWillAppear:animated];
     
-    if([self.navigationController.viewControllers objectAtIndex:0] != self  && [self.navigationItem hidesBackButton] == YES)
+    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    if([self.navigationController.viewControllers objectAtIndex:0] != self)
     {
         UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
         UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -198,12 +198,6 @@ CGSize scrollViewOriginalSize;
     
     if([userId length] > 0)
     {
-        
-        
-        /* ---------------------------------------------------- */
-        /*      Custom Settings Button Implementation           */
-        /* ---------------------------------------------------- */
-        
         UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Settings-35x30.png"];
         UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [settingsBtn setImage:bgImage forState:UIControlStateNormal];
@@ -215,7 +209,6 @@ CGSize scrollViewOriginalSize;
         [settingsButtons release];
     }
     else {
-        self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.rightBarButtonItem = nil;
     }
     

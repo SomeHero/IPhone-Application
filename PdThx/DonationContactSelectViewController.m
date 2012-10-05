@@ -254,7 +254,10 @@
         if ( foundFiltered == NO ){ // Only Show it once (section0)
             int entryType = [self isValidFormattedPayPoint];
             [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
-            if ( entryType == 0 ) {
+            if ( entryType == 3 ) {
+                // Valid me code entered.. show new contact with that information
+                // but $ME codes aren't done yet
+            } else {
                 // Could not find contact by that name, so put the
                 // "keep typing" screen
                 myCell.contactName.text = [NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
@@ -268,28 +271,6 @@
                 }
                 
                 return myCell;
-            } else if ( entryType == 1 ) {
-                // Valid phone number entered... show a new contact with that information
-                // entered in the search box.
-                myCell.contactName.text = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
-                myCell.contactDetail.text = @"New Phone Recipient";
-                return myCell;
-            } else if ( entryType == 2 ) {
-                // Valid email address entered, show a new contact box with that information
-                // entered as the contaction information
-                myCell.contactName.text = txtSearchBox.text;
-                myCell.contactDetail.text = @"New Email Recipient";
-                
-                if (indexPath.row%2 == 0)  {
-                    myCell.backgroundView = imageView;
-                } else {
-                    myCell.backgroundView = altImageView;
-                }
-                
-                return myCell;
-            } else if ( entryType == 3 ) {
-                // Valid me code entered.. show new contact with that information
-                // but $ME codes aren't done yet
             }
         } else {
             contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];

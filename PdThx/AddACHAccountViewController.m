@@ -101,7 +101,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
 }
 - (void)viewDidUnload
 {

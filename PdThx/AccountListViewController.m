@@ -492,7 +492,7 @@
         [userAccountsTableView reloadData];
     });
 }
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+-(void)achSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }

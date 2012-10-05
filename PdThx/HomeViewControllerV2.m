@@ -159,7 +159,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark - View lifecycle
 -(void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     lblPayPoints.text = @"";
     
@@ -267,6 +267,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self setQuickSendView:nil];
     [loadingActivityIndicator release];
     loadingActivityIndicator = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
