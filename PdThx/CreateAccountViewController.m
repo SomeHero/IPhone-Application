@@ -377,7 +377,7 @@
     return true;
 }
 -(BOOL)isValidPassword:(NSString *) passwordToTest {
-    if([passwordToTest length]  <= 6)
+    if([passwordToTest length]  < 6)
         return false;
     
     if(![self validateOneUpperCaseLetter:passwordToTest])

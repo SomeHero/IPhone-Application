@@ -73,11 +73,12 @@
 
 - (IBAction)pressedAddBankAccountButton:(id)sender
 {
-    AddACHAccountViewController* controller = [[[AddACHAccountViewController alloc] init] autorelease];
-    [controller setAchSetupComplete:self];
+    AddACHOptionsViewController* controller= [[AddACHOptionsViewController alloc] init];
     
-    [self.navigationController pushViewController:controller animated:YES];
-
+    UINavigationController *navigationBar=[[UINavigationController alloc]initWithRootViewController:controller];
+    
+    [controller setAchSetupComplete:self];
+    [self presentModalViewController: navigationBar animated:YES];
 
 }
 

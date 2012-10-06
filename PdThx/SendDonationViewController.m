@@ -412,6 +412,8 @@
 /*  --------------------------------------------------------- */
 
 -(void)sendMoneyDidComplete {
+    recipient = nil;
+    
     [self.mainScrollView scrollsToTop];
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;

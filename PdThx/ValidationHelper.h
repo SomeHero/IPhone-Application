@@ -16,6 +16,7 @@
 -(BOOL) doesAccountNumberMatch: accountNumber doesMatch: confirmAccountNumber;
 -(BOOL)verifySecurityPinsMatch:(NSString*)firstPin andSecondPin:(NSString*)secondPin;
 -(BOOL)isValidSecurityPinSwipe:(NSString*)swipedPin;
+-(BOOL)isRequired:(NSString*) valueToTest;
 
 @end
 

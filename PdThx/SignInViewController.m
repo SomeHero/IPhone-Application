@@ -295,12 +295,14 @@
         [prefs setValue:user.userId forKey:@"userId"];
         
         SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
-        [controller setNavigationTitle: @"Security Question"];
-        [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
+        [controller setTitle: @"Security Question"];
+        [controller setHeaderText: [NSString stringWithFormat:@"FOR SECURITY REASONS, YOUR ACCOUNT HAS BEEN LOCKED.  TO UNLOCK YOUR ACCOUNT, ANSWER YOUR SECURITY QUESTION BELOW."]]; 
         controller.currUser = [user copy];
         [controller setSecurityQuestionChallengeDelegate: self];
         
-        [self presentModalViewController:controller animated:YES];
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
+        
+        [self presentModalViewController:navBar animated:YES];
         
         [controller release];
     } else {

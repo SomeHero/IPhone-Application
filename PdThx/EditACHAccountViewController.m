@@ -17,6 +17,7 @@
 
 @synthesize bankAccount;
 @synthesize deleteBankAccountProtocol;
+@synthesize updateBankAccountProtocol;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -185,13 +186,13 @@
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Updated"];
     
-    [bankAccountService getUserAccounts:user.userId];
+    [updateBankAccountProtocol updateBankAccountDidComplete];
 }
 -(void)updateBankAccountDidFail:(NSString*)message withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Updating Account"];
+    [updateBankAccountProtocol updateBankAccountDidFail:message withErrorCode:errorCode];
 }
 -(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
 {

@@ -563,6 +563,8 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)requestMoneyDidComplete {
+    recipient = nil;
+    
     [self.mainScrollView scrollsToTop];
     
     contactButtonBGImage.highlighted = NO;

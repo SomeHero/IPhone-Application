@@ -50,6 +50,8 @@
     userService = [[UserService alloc] init];
     [userService setPersonalizeUserCompleteDelegate: self];
     
+    validationHelper = [[ValidationHelper alloc] init];
+    
     [userImageButton.layer setCornerRadius:6.0];
     [userImageButton.layer setMasksToBounds:YES];
     [userImageButton.layer setBorderWidth:0.2];
@@ -126,8 +128,26 @@
 {
     [firstNameField resignFirstResponder];
     [lastNameField resignFirstResponder];
+    
+    BOOL isValid = YES;
+    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
+    if(isValid && ![validationHelper isRequired:firstNameField.text])
+    {
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"First Name is Required"];
+        
+        isValid = NO;
+    }
+
+    if(isValid && ![validationHelper isRequired:lastNameField.text])
+    {
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Last Name is Required"];
+        
+        isValid = NO;
+    }
+    if(isValid)
+    {
     NSString* imageUrl = @"";
     
     if(user.imageUrl != (id)[NSNull null])
@@ -140,6 +160,7 @@
     
     [appDelegate showWithStatus:@"Updating Profile" withDetailedStatus:@""];
     [userService personalizeUser:user.userId WithFirstName:firstNameField.text withLastName:lastNameField.text withImage: imageUrl];
+    }
 }
 -(void) personalizeUserDidComplete {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];

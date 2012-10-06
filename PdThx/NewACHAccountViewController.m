@@ -148,7 +148,7 @@
     if(isValid && ![validationHelper isValidNameOnAccount:nameOnAccount])
     {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Account Name"];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Name on Account"];
         
         isValid = NO;
     }
@@ -195,9 +195,9 @@
  		PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
         
-        NSString* nickName = @"";
+        NSString* nickName = txtAccountNickname.text;
         
-        if ( [txtAccountNickname.text isEqualToString:@""] || txtAccountNickname.text.length == 0 )
+        if ( [nickName isEqualToString:@""] || nickName.length == 0 )
         {
             nickName = [NSString stringWithFormat:@"%@ %@",accountType,[txtAccountNumber.text substringFromIndex:txtAccountNumber.text.length-4]];
         }
@@ -281,9 +281,9 @@
     
 }
 -(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Account Invalid"];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) dismissProgressHUD];
     
-    [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode: errorCode withDefaultTitle: @"Error Linking Account"];
 }
 
 -(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
