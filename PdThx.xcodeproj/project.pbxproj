@@ -689,6 +689,8 @@
 		7A965128161487B4000B86A4 /* img-express-icon-14x11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A965124161487B4000B86A4 /* img-express-icon-14x11@2x.png */; };
 		7A965129161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A965125161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png */; };
 		7A96512A161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A965126161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png */; };
+		7AABBF20161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABBF1F161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m */; };
+		7AABBF22161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AABBF21161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib */; };
 		7AAD193515EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */; };
 		7AAD193815EE7DB700308CAA /* UIPaystreamLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */; };
 		7AAFF1E315E7FCCE00A7C6F0 /* MIBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFF1D615E7FCCE00A7C6F0 /* MIBase64.m */; };
@@ -1700,6 +1702,9 @@
 		7A965124161487B4000B86A4 /* img-express-icon-14x11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-express-icon-14x11@2x.png"; sourceTree = "<group>"; };
 		7A965125161487B4000B86A4 /* img-pinswipe-confirmer-320x23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-pinswipe-confirmer-320x23.png"; sourceTree = "<group>"; };
 		7A965126161487B4000B86A4 /* img-pinswipe-confirmer-320x23@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "img-pinswipe-confirmer-320x23@2x.png"; sourceTree = "<group>"; };
+		7AABBF1E161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPaystreamNoItemsFoundCell.h; sourceTree = "<group>"; };
+		7AABBF1F161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPaystreamNoItemsFoundCell.m; sourceTree = "<group>"; };
+		7AABBF21161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIPaystreamNoItemsFoundCellView.xib; sourceTree = "<group>"; };
 		7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIPaystreamLoadingTableViewCell.xib; sourceTree = "<group>"; };
 		7AAD193615EE7DB700308CAA /* UIPaystreamLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPaystreamLoadingCell.h; sourceTree = "<group>"; };
 		7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPaystreamLoadingCell.m; sourceTree = "<group>"; };
@@ -3287,6 +3292,7 @@
 		5B9057EF157F8B8D00D0373B /* Detail View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7AE4D2CE161F26A6005DBDD0 /* Detail View Subviews */,
 				7A9650C1160B625C000B86A4 /* Detail View Images */,
 				541EE5D9158A461500131B0E /* PaystreamDetailBaseViewController.h */,
 				541EE5DA158A461500131B0E /* PaystreamDetailBaseViewController.m */,
@@ -3812,6 +3818,9 @@
 				7AAD193615EE7DB700308CAA /* UIPaystreamLoadingCell.h */,
 				7AAD193715EE7DB700308CAA /* UIPaystreamLoadingCell.m */,
 				7AAD193415EE7BD100308CAA /* UIPaystreamLoadingTableViewCell.xib */,
+				7AABBF1E161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.h */,
+				7AABBF1F161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m */,
+				7AABBF21161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib */,
 			);
 			name = "Paystream TABLEVIEW Cells";
 			sourceTree = "<group>";
@@ -3891,6 +3900,13 @@
 				7AAFF1D415E7FCBF00A7C6F0 /* Mitek Library */,
 			);
 			name = "Check Picture";
+			sourceTree = "<group>";
+		};
+		7AE4D2CE161F26A6005DBDD0 /* Detail View Subviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Detail View Subviews";
 			sourceTree = "<group>";
 		};
 		C38999DB15C2EE4600D98387 /* Select Recipient */ = {
@@ -4492,6 +4508,7 @@
 				7A06D79F161A1637006B9B11 /* btn-express-43x40-active@2x.png in Resources */,
 				7A06D7A0161A1637006B9B11 /* btn-express-43x40.png in Resources */,
 				7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */,
+				7AABBF22161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4735,6 +4752,7 @@
 				7AB60E0D160A0EA00098A5CA /* NSAttributedString+Attributes.m in Sources */,
 				7AB60E0E160A0EA00098A5CA /* OHAttributedLabel.m in Sources */,
 				7A9650D2160B8ACD000B86A4 /* DAKeyboardControl.m in Sources */,
+				7AABBF20161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

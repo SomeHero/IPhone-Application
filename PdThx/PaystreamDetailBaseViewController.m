@@ -21,16 +21,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize messageDetail;
 @synthesize navBar;
 @synthesize txtRecipient, txtSender, txtActionAmount;
-@synthesize lblCurrentStatusHeader, lblWhatsNextStatusHeader;
+
 @synthesize btnSender, btnRecipient, btnCurrentStatus;
 @synthesize lblSentDate;
 @synthesize quoteView;
-@synthesize actionView;
-@synthesize actionViewDivider;
-@synthesize pullableView;
 @synthesize parent;
 
-@synthesize expressDeliveryButton, expressDeliveryCharge, expressDeliveryChargeLabel, expressDeliveryText, expressSubtext, isExpressed;
+@synthesize detailTableView;
+// Sections
+@synthesize deliverySectionHeader, statusSectionHeader;
+@synthesize acceptButton, rejectButton, remindButton,
+    sendReminderCell, rejectRequestCell, acceptPayCell;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,11 +45,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)dealloc
 {
-    [actionViewDivider release];
-    [expressSubtext release];
-    [expressDeliveryChargeLabel release];
-    [expressDeliveryButton release];
-    [expressDeliveryText release];
+    [detailTableView release];
+    [statusSectionHeader release];
+    [deliverySectionHeader release];
+    [rejectRequestCell release];
+    [sendReminderCell release];
+    [acceptPayCell release];
+    [rejectButton release];
+    [remindButton release];
+    [acceptButton release];
     [super dealloc];
 }
 
@@ -96,12 +102,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             if ( [self isReceivingMoney] )
             {
-                [expressSubtext setText:@"Get it faster!"];
+                //[expressSubtext setText:@"Get it faster!"];
             } else {
-                [expressSubtext setText:@"Send it expressed!"];
+                //[expressSubtext setText:@"Send it expressed!"];
             }
             
-            [expressDeliveryButton setEnabled:YES];
+            //[expressDeliveryButton setEnabled:YES];
         }
         else
         {
@@ -115,9 +121,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             [expressAttribTitle setTextColor:grayColor];
             [expressAttribTitle setTextColor:blueColor range:[expressAttribTitle rangeOfString:@"Express Delivery"]];
             
-            [expressSubtext setText:@"Not available"];
+            //[expressSubtext setText:@"Not available"];
             
-            [expressDeliveryButton setEnabled:NO];
+            //[expressDeliveryButton setEnabled:NO];
         }
     }
 }
@@ -152,14 +158,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
     // Initialize Express Labels
-    [expressDeliveryChargeLabel setCenterVertically:YES];
+    //[expressDeliveryChargeLabel setCenterVertically:YES];
     [self configureExpressView];
     
     // Disable non-clickable items.
     [btnSender setUserInteractionEnabled:NO];
     [btnRecipient setUserInteractionEnabled:NO];
     [txtActionAmount setUserInteractionEnabled:NO];
-    
     
     [btnSender.layer setCornerRadius:11.0];
     [btnSender.layer setMasksToBounds:YES];
@@ -176,16 +181,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [self.navBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-    [lblCurrentStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
-    [lblCurrentStatusHeader setTextColor: UIColorFromRGB(0xFFFFFF)];
+    //[lblCurrentStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
+    //[lblCurrentStatusHeader setTextColor: UIColorFromRGB(0xFFFFFF)];
     
     [btnCurrentStatus setTitleColor:UIColorFromRGB(0xc56d0c) forState: UIControlStateNormal];
     
-    [lblWhatsNextStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
-    [lblWhatsNextStatusHeader setTextColor: UIColorFromRGB(0xE8E8E8)];
+    //[lblWhatsNextStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
+    //[lblWhatsNextStatusHeader setTextColor: UIColorFromRGB(0xE8E8E8)];
     
-    actionView.backgroundColor = [UIColor whiteColor];
-    actionViewDivider.backgroundColor = UIColorFromRGB(0xc1c1c1);
+    //actionView.backgroundColor = [UIColor whiteColor];
+    //actionViewDivider.backgroundColor = UIColorFromRGB(0xc1c1c1);
     
     [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
@@ -208,11 +213,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [txtSender setTextColor: UIColorFromRGB(0x8d8d8d)];
 
     [lblSentDate setTextColor: UIColorFromRGB(0xb2b7ba)];
-
-    UIImage* redBackgroundNormal = [UIImage imageNamed: @"btn-psdetail-red-267x40.png"];
-    UIImage* redBackgroundActive = [UIImage imageNamed: @"btn-psdetail-red-267x40-active.png"];
-    UIImage* greenBackgroundNormal = [UIImage imageNamed: @"btn-psdetail-green-267x40.png"];
-    UIImage* greenBackgroundActive = [UIImage imageNamed: @"btn-psdetail-green-267x40-active.png"];
     
     paystreamServices = [[PaystreamService alloc] init];
     
@@ -221,12 +221,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [paystreamServices setAcceptPaymentRequestProtocol: self];
     [paystreamServices setRejectPaymentRequestProtocol: self];
 
-    txtSender.text = @"You"; // Constant Sender (You) on left side.
+    txtSender.text = @"You";
     
     [btnCurrentStatus setTitle: messageDetail.messageStatus forState:UIControlStateNormal];
     
-    //btnSender setImage: [UIImage imageWithContentsOfFile: messageDetail.senderUri];
-    //btnRecipient setImage: [UIImage imageWithContentsOfFile:<#(NSString *)#> forState:<#(UIControlState)#>
     // Settings
 	NSString*	s;
 	NSString*	art		= @"bg-message-stretch.png";
@@ -243,7 +241,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	[self.quoteView addSubview:bubble];
     
     NSInteger yPos = 5;
-    
     
     NSString* actionString = @"Action";
     NSString* amountString = [NSString stringWithFormat:@"$%0.2f",[messageDetail.amount doubleValue]];
@@ -273,6 +270,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     // Pushing the buttons down 10px
     yPos += 5;
+    
+    /*
     if([messageDetail.messageType isEqualToString: @"Payment"]) {
         if([messageDetail.direction isEqualToString: @"Out"]) { 
             txtSender.text = @"You";
@@ -398,6 +397,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             }
         }
     }
+     */
     
     // on Wed, March 23, 2012 at 2:35pm
     //  on [0] at [1]
@@ -435,22 +435,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         titleView.text = @"";
     }
     
-    /* ---------------------------------------------------- */
-    /*      Custom Settings Button Implementation           */
-    /* ---------------------------------------------------- 
     
-     This section was commented out when we moved away from the pullable detail view.
-     
-    UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-X-35x30.png"];
-    UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [settingsBtn setImage:bgImage forState:UIControlStateNormal];
-    settingsBtn.frame = CGRectMake(0, 0, 35, 30);
-    [settingsBtn addTarget:self action:@selector(closeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *settingsButtons = [[UIBarButtonItem alloc] initWithCustomView:settingsBtn];
-    
-    navBar.topItem.leftBarButtonItem = settingsButtons;
-    [settingsButtons release];
-     */
     
     UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -610,15 +595,25 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 - (void)viewDidUnload
 {
-    [self setActionViewDivider:nil];
-    [expressSubtext release];
-    expressSubtext = nil;
-    [expressDeliveryChargeLabel release];
-    expressDeliveryChargeLabel = nil;
-    [expressDeliveryButton release];
-    expressDeliveryButton = nil;
-    [expressDeliveryText release];
-    expressDeliveryText = nil;
+    [detailTableView release];
+    detailTableView = nil;
+    
+    [statusSectionHeader release];
+    statusSectionHeader = nil;
+    [deliverySectionHeader release];
+    deliverySectionHeader = nil;
+    [rejectRequestCell release];
+    rejectRequestCell = nil;
+    [sendReminderCell release];
+    sendReminderCell = nil;
+    [acceptPayCell release];
+    acceptPayCell = nil;
+    [rejectButton release];
+    rejectButton = nil;
+    [remindButton release];
+    remindButton = nil;
+    [acceptButton release];
+    acceptButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -737,10 +732,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self dismissModalViewControllerAnimated: YES];
 }
 
--(void)closeButtonClicked
-{
-    [pullableView setOpened:NO animated:YES];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -785,7 +776,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 
--(void)achSetupDidComplete {
+-(void)achSetupDidComplete
+{
     [self.navigationController dismissModalViewControllerAnimated:NO];
 
     user = [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) user];
@@ -796,6 +788,39 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode
 {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
+}
+
+
+/*      Action Table View Functions         */
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    #warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    #warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    // Configure the cell...
+    
+    return cell;
 }
 
 @end

@@ -22,7 +22,10 @@
 #import "IconDownloader.h"
 #import "CreateAccountViewController.h"
 #import "PaystreamOutgoingPaymentViewController.h"
+
 #import "UIPaystreamLoadingCell.h"
+#import "UIPaystreamNoItemsFoundCell.h"
+
 #import "ConnectFacebookCell.h"
 
 @implementation PayStreamViewController
@@ -151,6 +154,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         xOffset = 224;
     }
     findUserService = [[UserService alloc] init];
+    
+    [transactionsTableView setHidden:NO];
     
     /*      Old Pullable View      
     detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[UIScreen mainScreen] bounds].size.height-20)];
@@ -298,18 +303,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     transactions = [payStreamMessages copy];
     
+    [self buildTransactionDictionary: transactions];
     
     if([transactions count] == 0)
     {
         [[transactionsDict objectForKey:@"NoItemsFound"] addObject:[[[NSObject alloc] init] autorelease]];
-        [self buildTransactionDictionary: transactions];
-        
         [transactionsTableView reloadData];
     }
     else
     {
-        [self buildTransactionDictionary: transactions];
-    
         [[self transactionsTableView] reloadData];
         [self loadImagesForOnscreenRows];
     }
@@ -371,7 +373,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [sections addObject:@"Loading"];
     [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"Loading"];
     
-    [sections addObject: @"NoItemsFound"];
+    [sections addObject:@"NoItemsFound"];
     [transactionsDict setValue:[[[NSMutableArray alloc] init] autorelease] forKey:@"NoItemsFound"];
     
     NSDateComponents* itemComponents;
@@ -556,6 +558,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    NSLog(@"Section[%d], %d",section,[[transactionsDict objectForKey:[sections objectAtIndex:(NSUInteger) section]] count]);
     return [[transactionsDict objectForKey:[sections objectAtIndex:(NSUInteger) section]] count];
 }
 
@@ -591,15 +594,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ( indexPath.section == 0 )
+    if ( [[sections objectAtIndex:indexPath.section] isEqualToString:@"Loading"] )
         return 32.0;
+    else if ( [[sections objectAtIndex:indexPath.section] isEqualToString:@"NoItemsFound"] )
+        return 187.0;
     else
         return transactionsTableView.rowHeight; // We're setting table row height somewhere lower in the project.
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ( section == 0 ) // Loading Label Section -- No header, only one small height cell.
+    if ( [[sections objectAtIndex:section] isEqualToString:@"Loading"] ) // Loading Label Section -- No header
+        return 0.0;
+    else if ( [[sections objectAtIndex:section] isEqualToString:@"NoItemsFound"] ) // No Items Cell -- No header
         return 0.0;
     else if ( [[transactionsDict  objectForKey:[sections objectAtIndex:section]] count] )
         return 25.0;
@@ -607,22 +614,50 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         return 0.0;
 }
 
+-(NSString*)getNoItemsFoundTitleForCurrentSegment
+{
+    if ([ctrlPaystreamTypes selectedSegmentIndex] == 0)
+    {
+        return @"All transactions";
+    }
+    else if([ctrlPaystreamTypes selectedSegmentIndex] == 1)
+    {
+        return @"Money Sent";
+    }
+    else if([ctrlPaystreamTypes selectedSegmentIndex] == 2)
+    {
+        return @"Money Received";
+    }
+    else if([ctrlPaystreamTypes selectedSegmentIndex] == 3)
+    {
+        return @"Money Requests";
+    } else {
+        return @"Paystream";
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"transactionCell";
-
+    
     if ([sections objectAtIndex:indexPath.section] == @"Loading")
     {
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
         UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
+        [cell setUserInteractionEnabled:NO];
         return cell;
     }
-    if ([sections objectAtIndex:indexPath.section] == @"NoItemsFound")
+    else if ([sections objectAtIndex:indexPath.section] == @"NoItemsFound")
     {
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamLoadingTableViewCell" owner:self options:nil];
-        UIPaystreamLoadingCell*cell = [nib objectAtIndex:0];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"UIPaystreamNoItemsFoundCellView" owner:self options:nil];
+        UIPaystreamNoItemsFoundCell*cell = [nib objectAtIndex:0];
+        
+        [cell.environmentName setText:[self getNoItemsFoundTitleForCurrentSegment]];
+        
+        [cell setUserInteractionEnabled:NO];
         return cell;
     }
+    
     UIPaystreamTableViewCell*cell = (UIPaystreamTableViewCell*)[transactionsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil){
@@ -1017,6 +1052,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ( [[sections objectAtIndex:indexPath.section] isEqualToString:@"Loading"] )
+        return;
+    else if ( [[sections objectAtIndex:indexPath.section] isEqualToString:@"NoItemsFound"] )
+        return;
+    
     PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
     // Record the paystream item as being "seen".
@@ -1069,6 +1109,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     
     [self buildTransactionDictionary: filteredTransactions];
+    
+    if ( [filteredTransactions count] == 0 )
+        [[transactionsDict objectForKey:@"NoItemsFound"] addObject:[[[NSObject alloc] init] autorelease]];
     
     [transactionsTableView reloadData];
     
