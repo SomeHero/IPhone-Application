@@ -6,30 +6,30 @@
 	<array>
 		<dict>
 			<key>Description</key>
-			<string>Twitter</string>
-			<key>ConfigurationKey</key>
-			<string>Sharing_SendMoney_Twitter</string>
-		</dict>
-		<dict>
-			<key>Description</key>
 			<string>Facebook</string>
 			<key>ConfigurationKey</key>
 			<string>Sharing_SendMoney_Facebook</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Twitter</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_SendMoney_Twitter</string>
 		</dict>
 	</array>
 	<key>When I Receive Money</key>
 	<array>
 		<dict>
-			<key>Description</key>
-			<string>Twitter</string>
-			<key>ConfigurationKey</key>
-			<string>Sharing_ReceiveMoney_Twitter</string>
-		</dict>
-		<dict>
 			<key>ConfigurationKey</key>
 			<string>Sharing_ReceiveMoney_Facebook</string>
 			<key>Description</key>
 			<string>Facebook</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Twitter</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_ReceiveMoney_Twitter</string>
 		</dict>
 	</array>
 	<key>When I Request Money</key>
@@ -50,16 +50,16 @@
 	<key>When I Receive a Request</key>
 	<array>
 		<dict>
-			<key>Description</key>
-			<string>Twitter</string>
-			<key>ConfigurationKey</key>
-			<string>Sharing_ReceiveRequest_Twitter</string>
-		</dict>
-		<dict>
 			<key>ConfigurationKey</key>
 			<string>Sharing_ReceiveRequest_Facebook</string>
 			<key>Description</key>
 			<string>Facebook</string>
+		</dict>
+		<dict>
+			<key>Description</key>
+			<string>Twitter</string>
+			<key>ConfigurationKey</key>
+			<string>Sharing_ReceiveRequest_Twitter</string>
 		</dict>
 	</array>
 </dict>

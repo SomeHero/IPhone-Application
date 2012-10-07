@@ -30,8 +30,12 @@
     
     return true;
 }
-
-
+-(BOOL)isRequired:(NSString*) valueToTest {
+    if([valueToTest length] == 0)
+        return false;
+    
+    return true;
+}
 -(BOOL)doesAccountNumberMatch:(NSString *) accountNumberToTest doesMatch:(NSString *) confirmationNumber {
     if(![accountNumberToTest isEqualToString:confirmationNumber])
         return false;

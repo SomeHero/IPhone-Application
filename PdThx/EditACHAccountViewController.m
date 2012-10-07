@@ -17,6 +17,7 @@
 
 @synthesize bankAccount;
 @synthesize deleteBankAccountProtocol;
+@synthesize updateBankAccountProtocol;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,11 +45,6 @@
     [bankAccountService setUpdateBankAccountDelegate: self];
     [bankAccountService setBankAccountRequestDelegate:self];
     
-    pendingAction = @"";
-}
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
     txtNickName.text = bankAccount.nickName;
     txtNameOnAccount.text = bankAccount.nameOnAccount;
     txtAccountNumber.text = [NSString stringWithFormat: @"********%@", bankAccount.accountNumber];
@@ -59,6 +55,12 @@
     else {
         [ctrlAccountType setSelectedSegmentIndex: 0];
     }
+    
+    
+    pendingAction = @"";
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     
     if([bankAccount.status isEqualToString: @"Pending"])
     {
@@ -184,13 +186,13 @@
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Updated"];
     
-    [bankAccountService getUserAccounts:user.userId];
+    [updateBankAccountProtocol updateBankAccountDidComplete];
 }
 -(void)updateBankAccountDidFail:(NSString*)message withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Updating Account"];
+    [updateBankAccountProtocol updateBankAccountDidFail:message withErrorCode:errorCode];
 }
 -(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
 {

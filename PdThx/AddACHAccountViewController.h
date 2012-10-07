@@ -24,7 +24,7 @@
 #import "UserInformationCompleteProtocol.h"
 
 @interface AddACHAccountViewController : UISetupUserBaseViewController<CustomSecurityPinSwipeProtocol, SecurityQuestionInputProtocol, UITextFieldDelegate, CheckImageReturnProtocol,MIPControllerDelegate, CustomAlertViewProtocol,
-    UserInformationCompleteProtocol>
+    UserInformationCompleteProtocol, VerifyBankAccountProtocol>
 {
     IBOutlet UIView* mainView;
     IBOutlet UIView* navBar;
