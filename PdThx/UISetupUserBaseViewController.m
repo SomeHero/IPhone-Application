@@ -141,10 +141,6 @@ CGSize scrollViewOriginalSize;
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
-    }
 }
 
 -(void) viewDidAppear:(BOOL)animated{

@@ -370,6 +370,7 @@
         } else {
             EditACHAccountViewController* controller = [[[EditACHAccountViewController alloc] init] autorelease];
             [controller setDeleteBankAccountProtocol: self];
+            [controller setUpdateBankAccountProtocol: self];
             
             controller.bankAccount = [user.bankAccounts objectAtIndex: indexPath.row];
             
@@ -487,12 +488,10 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){ 
         [self.navigationController dismissModalViewControllerAnimated:YES];
         
-        user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
-    
-        [userAccountsTableView reloadData];
+        [userService getUserInformation: user.userId];
     });
 }
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+-(void)achSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Error linking account"];
 }
@@ -509,6 +508,19 @@
 -(void)deleteBankAccountDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:errorMessage withErrorCode:errorCode withDefaultTitle: @"Error Deleting Account"];
+}
+-(void)updateBankAccountDidComplete {
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.navigationController popViewControllerAnimated: YES];
+        
+        [userService getUserInformation: user.userId];
+    });
+}
+-(void)updateBankAccountDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode {
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate handleError:errorMessage withErrorCode:errorCode withDefaultTitle: @"Error Updating Account"];
 }
 
 -(void)userInformationDidComplete:(User*)userInfo {

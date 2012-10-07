@@ -42,6 +42,11 @@
     
     accountService = [[UserSetupACHAccount alloc] init];
     [accountService setUserACHSetupCompleteDelegate: self];
+    
+    bankService = [[BankAccountService alloc] init];
+    [bankService setBankAccountRequestDelegate:self];
+    [bankService setVerifyRoutingNumberDelegate: self];
+    
     validationHelper = [[ValidationHelper alloc] init];
     
     //UIImage *helpImage = [UIImage imageNamed:@"nav-help-60x30.png"];
@@ -56,6 +61,16 @@
         appDelegate.user.firstName.length > 0 && appDelegate.user.lastName.length > 0 )
     {
         txtNameOnAccount.text = [NSString stringWithFormat:@"%@ %@", appDelegate.user.firstName, appDelegate.user.lastName];
+    }
+    else if ( appDelegate.user.firstName != (id)[NSNull null] &&
+             appDelegate.user.firstName.length > 0)
+    {
+        txtNameOnAccount.text = [NSString stringWithFormat:@"%@", appDelegate.user.firstName];
+    }
+    else if ( appDelegate.user.lastName != (id)[NSNull null] &&
+             appDelegate.user.lastName.length > 0)
+    {
+        txtNameOnAccount.text = [NSString stringWithFormat:@"%@", appDelegate.user.lastName];
     }
     
     // login
@@ -133,7 +148,7 @@
     if(isValid && ![validationHelper isValidNameOnAccount:nameOnAccount])
     {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Account Name"];
+        [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid Name on Account"];
         
         isValid = NO;
     }
@@ -161,21 +176,7 @@
     
     if(isValid) {
         
-        GenericSecurityPinSwipeController* controller = [[[GenericSecurityPinSwipeController alloc] init] retain];
-        [controller setSecurityPinSwipeDelegate: self];
-        
-        if(user.hasSecurityPin)
-        {
-            [controller setHeaderText: @"Swipe your pin to add your new bank account"];
-            [controller setNavigationTitle: @"Confirm"];
-            [controller setTag: 1];
-        }
-        else {
-            [controller setHeaderText: @"To complete setting up your account, create a security pin by connecting 4 buttons below."];
-            [controller setNavigationTitle: @"Setup your Pin"];
-            [controller setTag: 1];
-        }
-        [self.navigationController presentModalViewController:controller animated:YES];
+        [bankService verifyRoutingNumber: txtRoutingNumber.text];
     }
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
@@ -194,12 +195,14 @@
  		PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Adding Account" withDetailedStatus:@"Linking bank account"];
         
-        NSString* nickName = @"";
+        NSString* nickName = txtAccountNickname.text;
         
-        if ( [txtAccountNickname.text isEqualToString:@""] || txtAccountNickname.text.length == 0 )
+        if ( [nickName isEqualToString:@""] || nickName.length == 0 )
         {
             nickName = [NSString stringWithFormat:@"%@ %@",accountType,[txtAccountNumber.text substringFromIndex:txtAccountNumber.text.length-4]];
         }
+        
+        [bankService verifyRoutingNumber: txtRoutingNumber.text];
         
         NSLog(@"Submitting with Nickname: %@",nickName);
         
@@ -274,15 +277,13 @@
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Added"];
     
-    BankAccountService* bankService = [[BankAccountService alloc] init];
-    [bankService setBankAccountRequestDelegate:self];
     [bankService getUserAccounts:user.userId];
     
 }
 -(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showErrorWithStatus:@"Failed!" withDetailedStatus:@"Account Invalid"];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) dismissProgressHUD];
     
-    [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode: errorCode withDefaultTitle: @"Error Linking Account"];
 }
 
 -(void)getUserAccountsDidComplete:(NSMutableArray *)bankAccounts
@@ -400,6 +401,7 @@
 #pragma mark -
 #pragma mark WebService Delegate
 
+
 - (void)imageFailure:(NSError *)err
 {
     // TODO: DISMISS PROGRESS HUD AND SHOW ALERT VIEW LIKE IT DOES BELOW
@@ -440,6 +442,30 @@
     }
 }
 
+-(void)verifyRoutingNumberDidComplete: (bool) verified {
+    if(!verified)
+    {
+        PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [appDelegate showErrorWithStatus: @"Invalid Routing Number" withDetailedStatus: @"Try Again"];
+    } else {
+        GenericSecurityPinSwipeController* controller = [[[GenericSecurityPinSwipeController alloc] init] retain];
+        [controller setSecurityPinSwipeDelegate: self];
+        
+        [controller setHeaderText: @"Swipe your pin to add your new bank account"];
+        [controller setNavigationTitle: @"Confirm"];
+        [controller setTag: 1];
+        
+        [self.navigationController presentModalViewController:controller animated:YES];
+    }
+}
+-(void)verifyRoutingNumberDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate handleError:errorMessage withErrorCode:errorCode withDefaultTitle: @"Invalid Routing Number"];
+    
+}
 
 
 @end

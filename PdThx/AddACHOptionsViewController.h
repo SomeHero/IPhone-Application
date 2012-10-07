@@ -6,10 +6,10 @@
 //
 //
 
-#import "UISetupUserBaseViewController.h"
+#import "UIModalBaseViewController.h"
 #import "ACHSetupCompleteProtocol.h"
 
-@interface AddACHOptionsViewController : UISetupUserBaseViewController<ACHSetupCompleteProtocol>
+@interface AddACHOptionsViewController : UIModalBaseViewController<ACHSetupCompleteProtocol>
 {
     IBOutlet UIButton *takePictureButton;
     

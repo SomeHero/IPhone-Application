@@ -91,7 +91,7 @@
 
     [achSetupComplete achSetupDidComplete];
 }
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+-(void)achSetupDidFail:(NSString *)message withErrorCode:(int)errorCode {
     [achSetupComplete achSetupDidFail:message withErrorCode:errorCode];
 }
 

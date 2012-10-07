@@ -254,7 +254,10 @@
         if ( foundFiltered == NO ){ // Only Show it once (section0)
             int entryType = [self isValidFormattedPayPoint];
             [myCell.contactImage setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
-            if ( entryType == 0 ) {
+            if ( entryType == 3 ) {
+                // Valid me code entered.. show new contact with that information
+                // but $ME codes aren't done yet
+            } else {
                 // Could not find contact by that name, so put the
                 // "keep typing" screen
                 myCell.contactName.text = [NSString stringWithFormat:@"'%@' not found", txtSearchBox.text];
@@ -268,28 +271,6 @@
                 }
                 
                 return myCell;
-            } else if ( entryType == 1 ) {
-                // Valid phone number entered... show a new contact with that information
-                // entered in the search box.
-                myCell.contactName.text = [[txtSearchBox.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
-                myCell.contactDetail.text = @"New Phone Recipient";
-                return myCell;
-            } else if ( entryType == 2 ) {
-                // Valid email address entered, show a new contact box with that information
-                // entered as the contaction information
-                myCell.contactName.text = txtSearchBox.text;
-                myCell.contactDetail.text = @"New Email Recipient";
-                
-                if (indexPath.row%2 == 0)  {
-                    myCell.backgroundView = imageView;
-                } else {
-                    myCell.backgroundView = altImageView;
-                }
-                
-                return myCell;
-            } else if ( entryType == 3 ) {
-                // Valid me code entered.. show new contact with that information
-                // but $ME codes aren't done yet
             }
         } else {
             contact = [[filteredResults objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -685,75 +666,24 @@
 }
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {
-    if( buttonIndex == 0 )
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    //NSLog(@"Switching to tab index:%d",buttonIndex);
+    UIViewController* newView = [appDelegate switchMainAreaToTabIndex:buttonIndex fromViewController:self];
+    
+    //NSLog(@"NewView: %@",newView);
+    if ( newView != nil  && ! [self isEqual:newView])
     {
-        //Switch to the groups tab
-        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
+        //NSLog(@"Switching views, validated that %@ =/= %@",[self class],[newView class]);
         
-        //Remove the view controller this is coming from, from the navigation controller stack
+        [[self navigationController] pushViewController:newView animated:NO];
+        
+        // Get the list of view controllers
         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
         [allViewControllers removeObjectIdenticalTo:self];
         [[self navigationController] setViewControllers:allViewControllers animated:NO];
         [allViewControllers release];
-    }
-    if( buttonIndex == 1 )
-    {
-        //Switch to the groups tab
-        PayStreamViewController *gvc = [[PayStreamViewController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
         
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-    }
-    if( buttonIndex == 2 )
-    {
-        //Switch to the groups tab
-        SendMoneyController *gvc = [[SendMoneyController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        
-        [gvc pressedChooseRecipientButton:self];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-    }
-    if( buttonIndex == 3 )
-    {
-        // Already the current view controller
-        /*
-         //Switch to the groups tab
-         HomeViewController *gvc = [[HomeViewController alloc]init];
-         [[self navigationController] pushViewController:gvc animated:NO];
-         [gvc release];
-         
-         //Remove the view controller this is coming from, from the navigation controller stack
-         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-         [allViewControllers removeObjectIdenticalTo:self];
-         [[self navigationController] setViewControllers:allViewControllers animated:NO];
-         [allViewControllers release];
-         */
-    }
-    if( buttonIndex == 4 )
-    {
-        //Switch to the groups tab
-        DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
     }
 }
 

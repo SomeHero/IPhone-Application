@@ -160,7 +160,7 @@
 				emailView.borderStyle = UITextBorderStyleNone;
 				[cell.contentView addSubview:emailView];
 			}
-//			emailView.text = @"test@test.com";
+			emailView.text = user.emailAddress;
 //			cell.accessoryView = emailView;
 			break;
 		}

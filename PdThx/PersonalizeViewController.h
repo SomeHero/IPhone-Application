@@ -13,6 +13,7 @@
 #import "ChooseMemberImageProtocol.h"
 #import "SetupNavigationView.h"
 #import "UISetupUserBaseViewController.h"
+#import "ValidationHelper.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -26,6 +27,7 @@
     IBOutlet UIView* viewPanel;
     ASIHTTPRequest *requestObj;
     UserService* userService;
+    ValidationHelper* validationHelper;
 }
 
 @property (nonatomic, retain) UIButton *userImageButton;
