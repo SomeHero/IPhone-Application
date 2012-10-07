@@ -124,10 +124,20 @@
         }
     }
     
+    
+    
     if ( [viewToSwitchTo isKindOfClass:[oldVC class]] )
         return nil;
     else
+    {
+        // Remove Duplicate of new view if it exists.
+        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:oldVC.navigationController.viewControllers];
+        [allViewControllers removeObjectIdenticalTo:viewToSwitchTo];
+        [[oldVC navigationController] setViewControllers:allViewControllers animated:NO];
+        [allViewControllers release];
+        
         return viewToSwitchTo;
+    }
 }
 
 -(void)switchToMainAreaTabbedView
@@ -852,7 +862,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 }
 */
 
--(void)getOrganizationsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+-(void)getOrganizationsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode
+{
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
 

@@ -74,15 +74,19 @@
     [super dealloc];
 }
 
--(IBAction)btnDonateClicked:(id)sender {
+-(IBAction)btnDonateClicked:(id)sender
+{
     SendDonationViewController* controller = [[SendDonationViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
     
     [controller release];
 }
--(IBAction)btnAcceptPledgeClicked:(id)sender {
+
+-(IBAction)btnAcceptPledgeClicked:(id)sender
+{
     AcceptPledgeViewController* controller = [[AcceptPledgeViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+    
     
     [controller release];
 }
