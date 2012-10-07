@@ -32,36 +32,42 @@
     IBOutlet OHAttributedLabel* txtActionAmount;
     
     IBOutlet UILabel* txtRecipient;
-    IBOutlet UILabel* lblCurrentStatusHeader;
-    IBOutlet UIButton* btnCurrentStatus;
-    IBOutlet UILabel* lblWhatsNextStatusHeader;
     IBOutlet UILabel* lblSentDate;
     IBOutlet UIView* quoteView;
-    IBOutlet UIView* actionView;
-    
-    IBOutlet OHAttributedLabel *expressDeliveryChargeLabel;
-    IBOutlet UIButton *expressDeliveryButton;
-    IBOutlet OHAttributedLabel *expressDeliveryText;
-    IBOutlet UILabel *expressSubtext;
-    
-    bool isExpressed;
-    double expressDeliveryCharge;
+    IBOutlet UITableView* detailTableView;
     
     User* user;
     UIViewController* parent;
 
     NSString* pendingAction;
+    
+    // Table Subviews and information
+    IBOutlet UIView *statusSectionHeader;
+    
+    IBOutlet UIButton* btnCurrentStatus;
+
+    
+    IBOutlet UIView *deliverySectionHeader;
+    IBOutlet OHAttributedLabel *expressDeliveryChargeLabel;
+    IBOutlet UIButton *expressDeliveryButton;
+    IBOutlet OHAttributedLabel *expressDeliveryText;
+    
+    // ActionTable View Setup
+    
+    
+    // Action Buttons
+    IBOutlet UITableViewCell *rejectRequestCell;
+    IBOutlet UIButton *rejectButton;
+    
+    IBOutlet UITableViewCell *sendReminderCell;
+    IBOutlet UIButton *remindButton;
+    
+    IBOutlet UITableViewCell *acceptPayCell;
+    IBOutlet UIButton *acceptButton;
 }
 
-@property(nonatomic, retain) OHAttributedLabel *expressDeliveryChargeLabel;
-@property(nonatomic, retain) UIButton *expressDeliveryButton;
-@property(nonatomic, retain) OHAttributedLabel *expressDeliveryText;
-@property(nonatomic, retain) UILabel *expressSubtext;
-
-@property (assign) bool isExpressed;
-@property (assign) double expressDeliveryCharge;
-
 @property(nonatomic, retain) PaystreamMessage* messageDetail;
+
 @property(nonatomic, retain) UINavigationBar* navBar;
 @property(nonatomic, retain) UIButton* btnSender;
 @property(nonatomic, retain) UIButton* btnRecipient;
@@ -70,16 +76,34 @@
 @property(nonatomic, retain) OHAttributedLabel* txtActionAmount;
 
 @property(nonatomic, retain) UILabel* txtRecipient;
-@property(nonatomic, retain) UILabel* lblCurrentStatusHeader;
-@property(nonatomic, retain) UILabel* lblWhatsNextStatusHeader;
 @property(nonatomic, retain) UIButton* btnCurrentStatus;
 @property(nonatomic, retain) UILabel* lblSentDate;
 @property(nonatomic, retain) UIView* quoteView;
-@property(nonatomic, retain) UIView* actionView;
-@property (retain, nonatomic) IBOutlet UIImageView *actionViewDivider;
 
-@property(nonatomic, retain) PullableView* pullableView;
 @property(nonatomic, retain) UIViewController* parent;
+
+@property (nonatomic, retain) UITableView* detailTableView;
+
+@property (nonatomic, retain) UIView *deliverySectionHeader;
+@property (nonatomic, retain) OHAttributedLabel *expressDeliveryChargeLabel;
+@property (nonatomic, retain) UIButton *expressDeliveryButton;
+@property (nonatomic, retain) OHAttributedLabel *expressDeliveryText;
+
+
+// Action Buttons
+@property (nonatomic, retain) UITableViewCell *rejectRequestCell;
+@property (nonatomic, retain) UIButton *rejectButton;
+
+@property (nonatomic, retain) UITableViewCell *sendReminderCell;
+@property (nonatomic, retain) UIButton *remindButton;
+
+@property (nonatomic, retain) UITableViewCell *acceptPayCell;
+@property (nonatomic, retain) UIButton *acceptButton;
+
+
+
+@property (nonatomic, retain) UIView *statusSectionHeader;
+
 
 - (UIView*)makeBubbleWithWidth:(CGFloat)w font:(UIFont*)f text:(NSString*)s background:(NSString*)fn caps:(CGSize)caps padding:(CGFloat*)padTRBL;
 
