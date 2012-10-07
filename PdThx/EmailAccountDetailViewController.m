@@ -135,8 +135,8 @@
         [deletePayPointComplete deletePayPointCompleted];
     });
 }
--(void)deletePayPointFailed: (NSString*) errorMessage {
-    [deletePayPointComplete deletePayPointFailed:errorMessage];
+-(void)deletePayPointFailed: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    [deletePayPointComplete deletePayPointFailed:errorMessage withErrorCode:errorCode];
 }
 -(void)resendVerificationLinkDidComplete {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -151,8 +151,7 @@
     });
 }
 -(void)resendVerificationLinkDidFail: (NSString*) message withErrorCode:(int)errorCode {
-    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    
+
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){

@@ -559,73 +559,24 @@
 }
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {
-    if( buttonIndex == 0 )
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    //NSLog(@"Switching to tab index:%d",buttonIndex);
+    UIViewController* newView = [appDelegate switchMainAreaToTabIndex:buttonIndex fromViewController:self];
+    
+    //NSLog(@"NewView: %@",newView);
+    if ( newView != nil  && ! [self isEqual:newView])
     {
-        //Switch to the groups tab
-        HomeViewControllerV2 *gvc = [[HomeViewControllerV2 alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
+        //NSLog(@"Switching views, validated that %@ =/= %@",[self class],[newView class]);
         
-        //Remove the view controller this is coming from, from the navigation controller stack
+        [[self navigationController] pushViewController:newView animated:NO];
+        
+        // Get the list of view controllers
         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
         [allViewControllers removeObjectIdenticalTo:self];
         [[self navigationController] setViewControllers:allViewControllers animated:NO];
         [allViewControllers release];
-    }
-    if( buttonIndex == 1 )
-    {
-        //Switch to the groups tab
-        PayStreamViewController *gvc = [[PayStreamViewController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
         
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-    }
-    if( buttonIndex == 2 )
-    {
-        //Switch to the groups tab
-        SendMoneyController *gvc = [[SendMoneyController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
-    }
-    if( buttonIndex == 3 )
-    {
-        // Already the current view controller
-        /*
-         //Switch to the groups tab
-         HomeViewController *gvc = [[HomeViewController alloc]init];
-         [[self navigationController] pushViewController:gvc animated:NO];
-         [gvc release];
-         
-         //Remove the view controller this is coming from, from the navigation controller stack
-         NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-         [allViewControllers removeObjectIdenticalTo:self];
-         [[self navigationController] setViewControllers:allViewControllers animated:NO];
-         [allViewControllers release];
-         */
-    }
-    if( buttonIndex == 4 )
-    {
-        //Switch to the groups tab
-        DoGoodViewController *gvc = [[DoGoodViewController alloc]init];
-        [[self navigationController] pushViewController:gvc animated:NO];
-        [gvc release];
-        
-        //Remove the view controller this is coming from, from the navigation controller stack
-        NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-        [allViewControllers removeObjectIdenticalTo:self];
-        [[self navigationController] setViewControllers:allViewControllers animated:NO];
-        [allViewControllers release];
     }
 }
 -(void)achSetupDidComplete {
