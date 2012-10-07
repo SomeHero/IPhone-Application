@@ -16,6 +16,7 @@
 #import "DeleteBankAccountProtocol.h"
 #import "SetPreferredAccountProtocol.h"
 #import "VerifyBankAccountProtocol.h"
+#import "VerifyRoutingNumberProtocol.h"
 
 @interface BankAccountService : NSObject
 {
@@ -25,6 +26,7 @@
     id<DeleteBankAccountProtocol> deleteBankAccountDelegate;
     id<SetPreferredAccountProtocol> preferredAccountDelegate;
     id<VerifyBankAccountProtocol> verifyBankAccountDelegate;
+    id<VerifyRoutingNumberProtocol> verifyRoutingNumberDelegate;
 }
 
 @property(retain) id bankAccountRequestDelegate;
@@ -32,6 +34,7 @@
 @property(retain) id deleteBankAccountDelegate;
 @property(retain) id preferredAccountDelegate;
 @property(retain) id verifyBankAccountDelegate;
+@property(retain) id verifyRoutingNumberDelegate;
 
 -(void) getUserAccounts:(NSString*)userId;
 
@@ -40,5 +43,6 @@
 -(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin;
 -(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin;
 -(void)verifyBankAccount:(NSString*)accountId forUserId: (NSString*)userId withFirstAmount:(NSString*)firstAmount withSecondAmount:(NSString*)secondAmount;
+-(void)verifyRoutingNumber: (NSString*) routingNumber;
 
 @end

@@ -1415,6 +1415,7 @@
 		5B905802157FCB9D00D0373B /* PaystreamService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaystreamService.h; sourceTree = "<group>"; };
 		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
 		5B9101FE15EC4F0E00501B9C /* ResendVerificationLinkProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResendVerificationLinkProtocol.h; sourceTree = "<group>"; };
+		5B92F1F8161F2504001C361E /* VerifyRoutingNumberProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyRoutingNumberProtocol.h; sourceTree = "<group>"; };
 		5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalizeUserCompleteProtocol.h; sourceTree = "<group>"; };
 		5BABF06715975DEB00FB4BD5 /* ValidationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationHelper.h; sourceTree = "<group>"; };
 		5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationHelper.m; sourceTree = "<group>"; };
@@ -3385,6 +3386,7 @@
 				5B8B45DB15AA134100822B67 /* UserSettingsCompleteProtocol.h */,
 				5BAC5A8015E8124700B57167 /* VerifyBankAccountProtocol.h */,
 				5BAC5A8115EB01BA00B57167 /* VerifyMobilePayPointProtocol.h */,
+				5B92F1F8161F2504001C361E /* VerifyRoutingNumberProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";

@@ -862,7 +862,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 }
 */
 
--(void)getOrganizationsDidFail: (NSString*) errorMessage  withErrorCode:(int)errorCode
+-(void)getOrganizationsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode
 {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
@@ -956,7 +956,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 }
 */
 
--(void)getNonProfitsDidFail: (NSString*) errorMessage {
+-(void)getNonProfitsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
 }
 

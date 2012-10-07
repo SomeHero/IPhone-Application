@@ -72,6 +72,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear: animated];
+    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     getPayStreamService = [[GetPayStreamService alloc] init];

@@ -73,6 +73,9 @@
     bubble =[self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
     bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
     [quoteBubble addSubview:bubble];
+    
+    self.navigationItem.leftBarButtonItem =nil;
+
 }
 
 - (void)viewDidUnload

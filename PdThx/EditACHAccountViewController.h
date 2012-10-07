@@ -30,9 +30,12 @@
     NSString* pendingAction;
     
     id<DeleteBankAccountProtocol> deleteBankAccountProtocol;
+    id<UpdateBankAccountProtocol> updateBankAccountProtocol;
 }
 
 @property(nonatomic, retain) id<DeleteBankAccountProtocol> deleteBankAccountProtocol;
+@property(nonatomic, retain) id<UpdateBankAccountProtocol> updateBankAccountProtocol;
+
 @property(nonatomic, retain) BankAccount* bankAccount;
 
 -(IBAction)btnSaveChangesClicked :(id)sender;

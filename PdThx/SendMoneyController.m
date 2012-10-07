@@ -535,6 +535,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)sendMoneyDidComplete 
 {
+    recipient = nil;
+
     [self.mainScrollView scrollsToTop];
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;

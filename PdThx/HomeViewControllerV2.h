@@ -21,7 +21,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <CoreText/CoreText.h>
 
-@interface HomeViewControllerV2 : UIBaseViewController< UserInformationCompleteProtocol, HBTabBarDelegate, QuickSendButtonProtocol, UIGestureRecognizerDelegate>
+@interface HomeViewControllerV2 : UIBaseViewController<UserInformationCompleteProtocol, HBTabBarDelegate, QuickSendButtonProtocol, UIGestureRecognizerDelegate>
 {
     IBOutlet UIView *viewPanel;
     
