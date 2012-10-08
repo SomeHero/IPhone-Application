@@ -10,7 +10,7 @@
 
 @implementation UserConfigurationService
 
-@synthesize userSettingsCompleteDelegate;
+@synthesize userConfigurationCompleteDelegate;
 
 -(void) getUserSettings:(NSString*) userId;
 {
@@ -50,7 +50,7 @@
         }
         [parser release];
                 
-        [userSettingsCompleteDelegate getUserSettingsDidComplete:userConfigurationItems];
+        [userConfigurationCompleteDelegate getUserConfigurationDidComplete:userConfigurationItems];
     }
     else {
         
@@ -66,7 +66,7 @@
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        [userSettingsCompleteDelegate getUserSettingsDidFail: message withErrorCode: errorCode];
+        [userConfigurationCompleteDelegate getUserConfigurationDidFail:message withErrorCode: errorCode];
         
     }
     
@@ -86,7 +86,7 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    [userSettingsCompleteDelegate getUserSettingsDidFail: message withErrorCode: errorCode];
+    [userConfigurationCompleteDelegate getUserConfigurationDidFail:  message withErrorCode: errorCode];
     
 }
 -(void)updateUserConfiguration:(NSString*)configurationValue forKey:(NSString*) configurationKey forUserId:(NSString *)userId;
@@ -114,28 +114,20 @@
     [request setRequestMethod: @"PUT"];	
     
     [request setDelegate:self];
-    [request setDidFinishSelector:@selector(updateUserSettingsDidComplete:)];
-    [request setDidFailSelector:@selector(updateUserSettingsDidFail:)];
+    [request setDidFinishSelector:@selector(updateUserConfigurationDidComplete:)];
+    [request setDidFailSelector:@selector(updateUserConfigurationDidFail:)];
     
     [request startAsynchronous];
 }
--(void)updateUserSettingsDidComplete:(ASIHTTPRequest *)request
+-(void)updateUserConfigurationDidComplete:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-    
-    [parser release];
-    
-    NSString* message = [jsonDictionary valueForKey: @"Message"];
-    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
-    
-    [userSettingsCompleteDelegate updateUserSettingsDidComplete];
+    [userConfigurationCompleteDelegate updateUserConfigurationDidComplete];
 }
--(void)updateUserSettingsDidFail:(ASIHTTPRequest *)request
+-(void)updateUserConfigurationDidFail:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
@@ -149,7 +141,7 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    [userSettingsCompleteDelegate updateUserSettingsDidFail: message withErrorCode: errorCode];
+    [userConfigurationCompleteDelegate updateUserConfigurationDidFail: message withErrorCode: errorCode];
 }
 
 

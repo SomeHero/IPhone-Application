@@ -12,7 +12,7 @@
 #import "UserConfigurationService.h"
 #import "UserSettingsCompleteProtocol.h"
 
-@interface NotificationConfigurationViewController : UISetupUserBaseViewController<UserSettingsCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
+@interface NotificationConfigurationViewController : UISetupUserBaseViewController<UserConfigurationCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
 {
     NSDictionary *notificationOptions;
     NSArray *sections;

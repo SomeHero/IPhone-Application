@@ -32,7 +32,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize deliverySectionHeader, statusSectionHeader;
 @synthesize acceptButton, rejectButton, remindButton,
     sendReminderCell, rejectRequestCell, acceptPayCell;
-
+@synthesize expressDeliveryText;
+@synthesize expressDeliveryButton;
+@synthesize expressDeliveryChargeLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -785,7 +787,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self startSecurityPin];
 }
 
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode
+-(void)achSetupDidFail:(NSString*) message withErrorCode:(int)errorCode
 {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
@@ -797,14 +799,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    #warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    #warning Incomplete method implementation.
     // Return the number of rows in the section.
     return 0;
 }

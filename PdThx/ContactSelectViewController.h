@@ -24,7 +24,7 @@
 #import "CustomAlertViewProtocol.h"
 #import "FindMatchingMeCodesProtocol.h"
 
-@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, FBRequestDelegate, IconDownloaderDelegate, CustomAlertViewProtocol, SetContactProtocol, SetContactAndAmountProtocol,FindMatchingMeCodesProtocol>
+@interface ContactSelectViewController : UIBaseViewController <ContactTypeSelectWasSelectedDelegate, UITableViewDelegate, UITableViewDataSource, IconDownloaderDelegate, CustomAlertViewProtocol, SetContactProtocol, SetContactAndAmountProtocol,FindMatchingMeCodesProtocol>
 {
     IBOutlet UITableView *tvSubview;
     

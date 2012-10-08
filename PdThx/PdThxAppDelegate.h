@@ -23,14 +23,17 @@
 #import "ApplicationSettingsCompleteProtocol.h"
 #import "Merchant.h"
 #import "MerchantServices.h"
+#import "SecurityQuestionService.h"
+#import "GetSecurityQuestionsProtocol.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "FBHelperReturnProtocol.h"
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, FBHelperReturnProtocol,
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, GetSecurityQuestionsProtocol, FBHelperReturnProtocol,
     UINavigationControllerDelegate, CustomAlertViewProtocol>
 {
+    NSString* apiKey;
     NSString * deviceToken;
     PhoneNumberFormatting *phoneNumberFormatter;
     NSArray * permissions;
@@ -39,14 +42,20 @@
     IBOutlet UITabBarController *newUserFlowTabController;
     FBRequest *friendRequest;
     FBRequest *infoRequest;
-    User* user;
     NSInteger currentReminderTab;
     myProgressHud *myProgHudOverlay;
     ProgressHudInnnerViewController *myProgHudInnerView;
     CustomAlertViewController *customAlert;
-    Application* myApplication;
     
+    User* user;
+    Application* myApplication;
+    Environment *myEnvironment;
+    NSMutableArray* securityQuestions;
+    
+    ApplicationService* applicationServices;
     MerchantServices* merchantServices;
+    SecurityQuestionService* securityQuestionServices;
+    
     NSString* selectedContactList;
     
     NSMutableArray *contactsArray;
@@ -101,6 +110,7 @@
 @property (nonatomic, retain) NSMutableArray *faceBookContacts;
 @property(nonatomic, retain) NSMutableArray* nonProfits;
 @property(nonatomic, retain) NSMutableArray* organizations;
+@property(nonatomic, retain) NSMutableArray* securityQuestions;
 
 @property(nonatomic, retain) NSString * fbAppId;
 

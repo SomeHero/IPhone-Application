@@ -127,7 +127,7 @@
     [userService getUserInformation:userId];
 }
 
--(void)userInformationDidComplete:(User *)user
+-(void)userInformationDidComplete:(User *)currentUser
 {    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
@@ -135,18 +135,21 @@
     bool setupSecurityPin = [prefs boolForKey:@"setupSecurityPin"];
     
     if(paymentAccountAccount != (id)[NSNull null] && [paymentAccountAccount length] > 0)
-        user.hasACHAccount = true;
-    user.hasSecurityPin = setupSecurityPin;
+        currentUser.hasACHAccount = true;
+    currentUser.hasSecurityPin = setupSecurityPin;
     
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showSuccessWithStatus:@"Account Created" withDetailedStatus:@"Welcome to PaidThx"];
     
-    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [currentUser mutableCopy];
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) switchToMainAreaTabbedView];
     
     return;
+}
+-(void) userInformationDidFail:(NSString *)message withErrorCode:(int)errorCode{
+    //TODO: complete method
 }
 #pragma mark - View lifecycle
 

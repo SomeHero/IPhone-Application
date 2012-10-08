@@ -14,7 +14,7 @@
 #import "UserConfiguration.h"
 #import "SocialNetworkAccount.h"
 
-@interface User : NSObject<NSCopying> {
+@interface User : NSObject<NSCopying, NSMutableCopying> {
 @private
     NSString* userId;
     NSString* mobileNumber;

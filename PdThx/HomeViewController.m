@@ -118,34 +118,34 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     lblPaystreamCount.text = @"";
 }
 
--(void)userInformationDidComplete:(User*) user 
+-(void)userInformationDidComplete:(User*) currentUser
 {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
 
-    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [currentUser mutableCopy];
     
-    if (user.securityQuestion != (id) [NSNull null] && user.securityQuestion.length > 0) {
+    if (currentUser.securityQuestion != (id) [NSNull null] && currentUser.securityQuestion.length > 0) {
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        [prefs setValue:user.securityQuestion forKey:@"securityQuestion"];
+        [prefs setValue:currentUser.securityQuestion forKey:@"securityQuestion"];
         [prefs synchronize];
     }
     
-    if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
-        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
+    if(currentUser.imageUrl != (id)[NSNull null] && [currentUser.imageUrl length] > 0) {
+        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: currentUser.imageUrl]]] forState:UIControlStateNormal];
     }else {
         [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     }
     
-    lblUserName.text = user.preferredName;
-    if ( [[user.userName substringToIndex:3] isEqualToString:@"fb_"] )
+    lblUserName.text = currentUser.preferredName;
+    if ( [[currentUser.userName substringToIndex:3] isEqualToString:@"fb_"] )
         lblPayPoints.text = @"Facebook User";
     else
-        lblPayPoints.text = user.userName;
+        lblPayPoints.text = currentUser.userName;
     
     lblScore.text = [NSString stringWithFormat: @"%d", [user.instantLimit intValue]];
     lblIncreaseScore.text = @"+ Link your Facebook Account";
-    lblPaystreamCount.text = [NSString stringWithFormat: @"%d", user.numberOfPaystreamUpdates];
+    lblPaystreamCount.text = [NSString stringWithFormat: @"%d", currentUser.numberOfPaystreamUpdates];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];

@@ -276,6 +276,8 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [txtSearchBox resignFirstResponder];
+    
+    return false;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

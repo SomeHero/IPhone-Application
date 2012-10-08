@@ -141,11 +141,11 @@
 
 - (void)createACHAccount:(NSString*)pin withSecurityQuestionId:(int)questionId withSecurityQuestionAnswer:(NSString*)questionAnswer
 {
-    NSString* nameOnAccount = [NSString stringWithString: @""];
-    NSString* routingNumber = [NSString stringWithString: @""];
-    NSString* accountNumber = [NSString stringWithString: @""];
-    NSString* confirmAccountNumber = [NSString stringWithString: @""];
-    NSString* accountType = [NSString stringWithString: @"Checking"];
+    NSString* nameOnAccount = @"";
+    NSString* routingNumber =  @"";
+    NSString* accountNumber = @"";
+    NSString* confirmAccountNumber = @"";
+    NSString* accountType = @"Checking";
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
     NSString* userId = [prefs stringForKey:@"userId"];

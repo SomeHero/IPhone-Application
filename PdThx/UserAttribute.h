@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserAttribute : NSObject<NSCopying> {
+@interface UserAttribute : NSObject<NSCopying, NSMutableCopying> {
 @private
     NSString* attributeId;
     NSString* attributeName;

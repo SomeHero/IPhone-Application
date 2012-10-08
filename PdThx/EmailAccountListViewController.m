@@ -287,7 +287,7 @@
     [appDelegate showSimpleAlertView: YES withTitle:@"Pay Point Removed" withSubtitle: @"Mobile # Un-linked From Your Account" withDetailedText: @"You've removed the mobile # from your account.  You will no longer receive money sent to this pay point.  In the future, if you wish to use this pay point again, you will need to re-link the mobile # to your account."  withButtonText: @"OK" withDelegate:self];
     [payPointService getPayPoints: user.userId];
 }
--(void)deletePayPointFailed: (NSString*) errorMessage {
+-(void)deletePayPointFailed: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 

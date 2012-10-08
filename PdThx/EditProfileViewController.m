@@ -32,6 +32,7 @@
     
     attributeValues = [[NSMutableArray alloc] init];
     userAttributeService = [[UserAttributeService alloc] init];
+    [userAttributeService setUserSettingsCompleteProtocol: self];
     
 }
 
@@ -86,7 +87,20 @@
     
     [updatedAttribute release];
 }
-
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
+ replacementText:(NSString *)text
+{
+    // Any new character added is passed in as the "text" parameter
+    if ([text isEqualToString:@"\n"]) {
+        // Be sure to test for equality using the "isEqualToString" message
+        [textView resignFirstResponder];
+        
+        // Return FALSE so that the final '\n' character doesn't get added
+        return FALSE;
+    }
+    // For any other character return TRUE so that the text gets added to the view
+    return TRUE;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [profileSections count];
@@ -190,6 +204,7 @@
         txtField.delegate = self;
         txtField.attributeId= profileItem.attributeId;
         txtField.font = [UIFont systemFontOfSize:14];
+        [txtField setReturnKeyType: UIReturnKeyDone];
         
         for(int i = 0; i < [user.userAttributes count]; i++)
         {
@@ -268,7 +283,8 @@
         [txtView setBackgroundColor: [UIColor clearColor]];
         txtView.attributeId= profileItem.attributeId;
         [txtView setDelegate: self];
-       
+        [txtView setReturnKeyType: UIReturnKeyDone];
+        
         for(int i = 0; i < [user.userAttributes count]; i++)
         {
             UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
@@ -287,9 +303,24 @@
     }
     else if([[profileItem itemType] isEqualToString: @"Switch"])
     {
-        UISwitch* switchItem = [[UISwitch alloc] initWithFrame:CGRectMake(0, cell.txtAttributeValue.frame.size.height/2- 12, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
+        UIProfileSwitch* switchItem = [[UIProfileSwitch alloc] initWithFrame:CGRectMake(0, cell.txtAttributeValue.frame.size.height/2- 12, cell.txtAttributeValue.frame.size.width, cell.txtAttributeValue.frame.size.height)];
+        switchItem.attributeId = profileItem.attributeId;
         
+        [switchItem addTarget: self action: @selector(flip:) forControlEvents:UIControlEventValueChanged];
         
+        [switchItem setOn: false];
+        for(int i = 0; i < [user.userAttributes count]; i++)
+        {
+            UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+            
+            if([profileItem.attributeId isEqualToString:userAttribute.attributeId])
+            {
+                if([userAttribute.attributeValue isEqualToString: @"On"]) {
+                    [switchItem setOn: true];
+                }
+            }
+        }
+
         
         [cell.txtAttributeValue addSubview:switchItem];
         
@@ -297,9 +328,18 @@
         
     }
     
-    
     return cell;
 
+}
+- (IBAction) flip: (id) sender {
+    UIProfileSwitch *onoff = (UIProfileSwitch *) sender;
+    NSString* attributeValue = onoff.on ? @"On" : @"Off";
+    
+    UserAttribute* updatedAttribute = [[UserAttribute alloc] init];
+    updatedAttribute.attributeId = onoff.attributeId;
+    updatedAttribute.attributeValue = attributeValue;
+    
+    [userAttributeService updateUserAttribute:updatedAttribute.attributeId withValue:updatedAttribute.attributeValue forUser:user.userId];
 }
 -(void) selectOption: (id)sender {
     selectModalViewController = [[[SelectModalViewController alloc] initWithFrame:self.view.bounds] autorelease];
@@ -438,7 +478,11 @@
     } 
     
     return YES;
-} 
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [theTextField resignFirstResponder];
+    return YES;
+}
 -(void) optionDidSelect:(NSString*) optionId {
     
     //if([selectModal.accountType isEqualToString: @"Send"]) {
@@ -453,22 +497,51 @@
     
     [userAttributeService updateUserAttribute:updatedAttribute.attributeId withValue:updatedAttribute.attributeValue forUser:user.userId];
     
-
-    for(int i = 0; i < [user.userAttributes count]; i++)
-    {
-        UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
-        
-        if([optionSelectAttributeId isEqualToString:userAttribute.attributeId])
-        {
-            userAttribute.attributeValue = optionId;
-        }
-    }
-    
-    optionSelectAttributeId = @"";
     
     [updatedAttribute release];
     [selectModalViewController hide];
     
     [profileTable reloadData];
 }
+-(void)getUserSettingsDidComplete: (NSMutableArray*) userSettings {
+    
+}
+-(void)getUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    
+    
+}
+-(void)updateUserSettingsDidComplete: (NSString*) attributeKey withValue: (NSString*) attributeValue {
+    NSLog(@"%@", @"Update Settings");
+
+    bool found = false;
+    for(int i = 0; i < [user.userAttributes count]; i++)
+    {
+        UserAttribute* userAttribute = [user.userAttributes objectAtIndex:i];
+        
+        if([attributeKey isEqualToString:userAttribute.attributeId])
+        {
+            userAttribute.attributeValue = attributeValue;
+            found = true;
+        }
+    }
+    
+    if(!found)
+    {
+        UserAttribute* attribute = [UserAttribute alloc];
+        attribute.attributeId = attributeKey;
+        attribute.attributeName = @"";
+        attribute.attributeValue = attributeValue;
+        
+        [user.userAttributes addObject: attribute];
+    }
+}
+-(void)updateUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    
+}
+
+-(IBAction) bgTouched:(id) sender {
+    [currentTextField resignFirstResponder];
+}
+
+
 @end

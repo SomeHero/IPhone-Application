@@ -258,11 +258,11 @@
         [controller release];
     }
     else {
-        PayPoint* payPoint = [phones objectAtIndex:indexPath.row];
+        PayPoint* currentPayPoint = [phones objectAtIndex:indexPath.row];
         
 
         PhoneDetailViewController *controller = [[PhoneDetailViewController alloc] init];
-        controller.payPoint = payPoint;
+        controller.payPoint = currentPayPoint;
         [controller setDeletePayPointComplete:self];
         [controller setVerifyMobilePayPointDelegate:self];
         [controller setTitle: @"Phone #"];
@@ -308,7 +308,7 @@
     
     [payPointService getPayPoints: user.userId];
 }
--(void)deletePayPointFailed: (NSString*) errorMessage {
+-(void)deletePayPointFailed: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 -(void)verifyMobilePayPointDidComplete: (bool) verified {
@@ -323,5 +323,7 @@
     
     [payPointService getPayPoints: user.userId];
 }
-
+-(void) verifyMobilePayPointDidFail:(NSString *)errorMessage withErrorCode:(int)errorCode {
+    
+}
 @end

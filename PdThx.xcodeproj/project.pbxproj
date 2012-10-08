@@ -485,6 +485,7 @@
 		5B8BDE6A159D5EE900E01753 /* security.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B8BDE69159D5EE900E01753 /* security.plist */; };
 		5B9057FC157FC3CD00D0373B /* PaystreamOutgoingPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B9057FA157FC3CC00D0373B /* PaystreamOutgoingPaymentViewController.xib */; };
 		5B905804157FCB9D00D0373B /* PaystreamService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B905803157FCB9D00D0373B /* PaystreamService.m */; };
+		5B92F20116236EEF001C361E /* UIProfileSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B92F20016236EEC001C361E /* UIProfileSwitch.m */; };
 		5BABF06915975DEB00FB4BD5 /* ValidationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */; };
 		5BB1452A158ADC5000EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
 		5BB1452C158ADCE200EA652A /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -1416,6 +1417,9 @@
 		5B905803157FCB9D00D0373B /* PaystreamService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaystreamService.m; sourceTree = "<group>"; };
 		5B9101FE15EC4F0E00501B9C /* ResendVerificationLinkProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResendVerificationLinkProtocol.h; sourceTree = "<group>"; };
 		5B92F1F8161F2504001C361E /* VerifyRoutingNumberProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyRoutingNumberProtocol.h; sourceTree = "<group>"; };
+		5B92F1FF16236EEB001C361E /* UIProfileSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIProfileSwitch.h; sourceTree = "<group>"; };
+		5B92F20016236EEC001C361E /* UIProfileSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIProfileSwitch.m; sourceTree = "<group>"; };
+		5B92F20216238751001C361E /* UserConfigurationCompleteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserConfigurationCompleteProtocol.h; sourceTree = "<group>"; };
 		5BABF0341593F31400FB4BD5 /* PersonalizeUserCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalizeUserCompleteProtocol.h; sourceTree = "<group>"; };
 		5BABF06715975DEB00FB4BD5 /* ValidationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationHelper.h; sourceTree = "<group>"; };
 		5BABF06815975DEB00FB4BD5 /* ValidationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationHelper.m; sourceTree = "<group>"; };
@@ -1979,6 +1983,9 @@
 				5B8B4F93159357FF00820B3E /* AddACHAccountViewController.h */,
 				5B8B4F94159357FF00820B3E /* AddACHAccountViewController.m */,
 				54FA473D1594AEFE007CFA33 /* AddACHAccountViewController.xib */,
+				54FA47411594C3AF007CFA33 /* AddSecurityQuestionViewController.h */,
+				54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */,
+				54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */,
 				541EE602158A70EC00131B0E /* ActivatePhoneViewController.h */,
 				541EE603158A70EC00131B0E /* ActivatePhoneViewController.m */,
 				541EE607158A70FA00131B0E /* PersonalizeViewController.h */,
@@ -3135,6 +3142,8 @@
 				5BDDAE9615CF7A4F007B733E /* UIProfileTextView.m */,
 				5BDDAEA215D0152F007B733E /* UIProfileOptionSelectButton.h */,
 				5BDDAEA315D01537007B733E /* UIProfileOptionSelectButton.m */,
+				5B92F1FF16236EEB001C361E /* UIProfileSwitch.h */,
+				5B92F20016236EEC001C361E /* UIProfileSwitch.m */,
 			);
 			name = EditProfile;
 			sourceTree = "<group>";
@@ -3381,6 +3390,7 @@
 				541EE59015890AFD00131B0E /* UserSecurityPinCompleteProtocol.h */,
 				54B2F60415D5AC5D00487F75 /* UpdateSeenMessagesProtocol.h */,
 				5BE06BF8159A037500CB630F /* UpdateBankAccountProtocol.h */,
+				5B92F20216238751001C361E /* UserConfigurationCompleteProtocol.h */,
 				5B0E84C2159E3DEC00EC4E9C /* UserSetupCompleteProtocol.h */,
 				5B0E84C4159E40A000EC4E9C /* UserSetupStepCompleteProtocol.h */,
 				5B8B45DB15AA134100822B67 /* UserSettingsCompleteProtocol.h */,
@@ -3502,42 +3512,42 @@
 		5BD27BEB154B926300CAFC12 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5BD27BEC154B92FB00CAFC12 /* UserService.h */,
-				5BD27BED154B92FB00CAFC12 /* UserService.m */,
-				5B3F4A9D155F41E300A67649 /* SendMoneyService.m */,
-				5B3F4A9C155F41E200A67649 /* SendMoneyService.h */,
-				5B3F4A9F155F4F1300A67649 /* RequestMoneyService.h */,
-				5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */,
+				5B8B45B915A8EFA100822B67 /* ApplicationService.h */,
+				5B8B45BA15A8EFA800822B67 /* ApplicationService.m */,
+				5BF3EE2615915A570011BAD8 /* BankAccountService.h */,
+				5BF3EE2715915A580011BAD8 /* BankAccountService.m */,
 				54FA47461595B74D007CFA33 /* GetSecurityQuestionsService.h */,
 				54FA47471595B74D007CFA33 /* GetSecurityQuestionsService.m */,
 				5B3F4AA2155F571900A67649 /* GetPayStreamService.h */,
 				5B3F4AA3155F571900A67649 /* GetPayStreamService.m */,
+				D587EDEA157FC60500ABE854 /* MeCodeService.h */,
+				D587EDEB157FC60500ABE854 /* MeCodeService.m */,
+				5B11963715ADFC6A003F8D53 /* MerchantServices.h */,
+				5B11963815ADFC6A003F8D53 /* MerchantServices.m */,
+				5B905802157FCB9D00D0373B /* PaystreamService.h */,
+				5B905803157FCB9D00D0373B /* PaystreamService.m */,
+				5B0A227F15A0CD1600BDA5F8 /* PayPointService.h */,
+				5B0A228015A0CD1600BDA5F8 /* PayPointService.m */,
+				5B3F4A9F155F4F1300A67649 /* RequestMoneyService.h */,
+				5B3F4AA0155F4F1300A67649 /* RequestMoneyService.m */,
 				5B3F4CF1155F7BAF00A67649 /* RegisterUserService.h */,
 				5B3F4CF2155F7BB000A67649 /* RegisterUserService.m */,
+				5BC2DB4C159B961300BB961D /* SecurityQuestionService.h */,
+				5BC2DB4D159B961800BB961D /* SecurityQuestionService.m */,
+				5B3F4A9D155F41E300A67649 /* SendMoneyService.m */,
+				5B3F4A9C155F41E200A67649 /* SendMoneyService.h */,
 				5B3F4CF4155FD99B00A67649 /* SignInUserService.h */,
 				5B3F4CF5155FD99C00A67649 /* SignInUserService.m */,
 				54B5F254156D6A5100D970A3 /* SignInWithFBService.h */,
 				54B5F255156D6A5100D970A3 /* SignInWithFBService.m */,
-				5B3F4CF8155FF3C400A67649 /* UserSetupACHAccount.h */,
-				5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */,
-				D587EDEA157FC60500ABE854 /* MeCodeService.h */,
-				D587EDEB157FC60500ABE854 /* MeCodeService.m */,
-				5B905802157FCB9D00D0373B /* PaystreamService.h */,
-				5B905803157FCB9D00D0373B /* PaystreamService.m */,
-				5BF3EE2615915A570011BAD8 /* BankAccountService.h */,
-				5BF3EE2715915A580011BAD8 /* BankAccountService.m */,
-				5BC2DB4C159B961300BB961D /* SecurityQuestionService.h */,
-				5BC2DB4D159B961800BB961D /* SecurityQuestionService.m */,
-				5B0A227F15A0CD1600BDA5F8 /* PayPointService.h */,
-				5B0A228015A0CD1600BDA5F8 /* PayPointService.m */,
-				5B8B45AF15A7C96C00822B67 /* UserConfigurationService.h */,
-				5B8B45B015A7C96E00822B67 /* UserConfigurationService.m */,
-				5B8B45B915A8EFA100822B67 /* ApplicationService.h */,
-				5B8B45BA15A8EFA800822B67 /* ApplicationService.m */,
-				5B11963715ADFC6A003F8D53 /* MerchantServices.h */,
-				5B11963815ADFC6A003F8D53 /* MerchantServices.m */,
 				5BDDAE8F15CF64C3007B733E /* UserAttributeService.h */,
 				5BDDAE9015CF64C4007B733E /* UserAttributeService.m */,
+				5B8B45AF15A7C96C00822B67 /* UserConfigurationService.h */,
+				5B8B45B015A7C96E00822B67 /* UserConfigurationService.m */,
+				5BD27BEC154B92FB00CAFC12 /* UserService.h */,
+				5BD27BED154B92FB00CAFC12 /* UserService.m */,
+				5B3F4CF8155FF3C400A67649 /* UserSetupACHAccount.h */,
+				5B3F4CF9155FF3C500A67649 /* UserSetupACHAccount.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -3764,9 +3774,6 @@
 				5BF3EE2A159163370011BAD8 /* UIAccountTableCell.h */,
 				5BF3EE2B159163380011BAD8 /* UIAccountTableCell.m */,
 				5BF3EE2C159163380011BAD8 /* UIAccountTableCell.xib */,
-				54FA47411594C3AF007CFA33 /* AddSecurityQuestionViewController.h */,
-				54FA47421594C3AF007CFA33 /* AddSecurityQuestionViewController.m */,
-				54FA47431594C3AF007CFA33 /* AddSecurityQuestionViewController.xib */,
 				5BE06BF21599064900CB630F /* EditACHAccountViewController.h */,
 				5BE06BF31599064900CB630F /* EditACHAccountViewController.m */,
 				5BE06BF41599064900CB630F /* EditACHAccountViewController.xib */,
@@ -4755,6 +4762,7 @@
 				7AB60E0E160A0EA00098A5CA /* OHAttributedLabel.m in Sources */,
 				7A9650D2160B8ACD000B86A4 /* DAKeyboardControl.m in Sources */,
 				7AABBF20161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m in Sources */,
+				5B92F20116236EEF001C361E /* UIProfileSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
