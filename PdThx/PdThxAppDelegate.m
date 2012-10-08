@@ -124,8 +124,6 @@
         }
     }
     
-    
-    
     if ( [viewToSwitchTo isKindOfClass:[oldVC class]] )
         return nil;
     else
