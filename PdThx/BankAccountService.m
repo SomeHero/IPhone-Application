@@ -412,6 +412,7 @@
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/routingnumber/validateapiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  myEnvironment.pdthxAPIKey]] autorelease];
     
+    
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
                                  routingNumber, @"routingNumber",
