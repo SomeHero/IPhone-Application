@@ -225,7 +225,7 @@
                     SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
                     [controller setTitle: @"Security Question"];
                     [controller setHeaderText: [NSString stringWithFormat:@"To continue, provide the answer to the security question you setup when you created your account."]]; 
-                    controller.currUser = [user copy];
+                    controller.currUser = [user mutableCopy];
                     [controller setSecurityQuestionChallengeDelegate:self];
                     
                     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];

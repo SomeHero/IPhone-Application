@@ -16,6 +16,7 @@
 @interface ApplicationService : NSObject
 {
     ASIHTTPRequest *requestObj;
+    
     id<ApplicationSettingsCompleteProtocol> applicationSettingsDidComplete;
 }
 

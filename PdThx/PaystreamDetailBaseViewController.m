@@ -667,7 +667,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self startSecurityPin];
 }
 
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode
+-(void)achSetupDidFail:(NSString*) message withErrorCode:(int)errorCode
 {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }

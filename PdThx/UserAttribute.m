@@ -48,5 +48,16 @@ another.attributeValue = attributeValue;
 
 return another;
 }
+-(id)mutableCopyWithZone:(NSZone *)zone
+{
+    // We'll ignore the zone for now
+    UserAttribute *another = [[UserAttribute alloc] init];
+    
+    another.attributeId = attributeId;
+    another.attributeName = attributeName;
+    another.attributeValue = attributeValue;
+    
+    return another;
+}
 
 @end

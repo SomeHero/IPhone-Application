@@ -584,7 +584,7 @@
     
     [self startSecurityPin];
 }
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+-(void)achSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Money"];
 }
 @end

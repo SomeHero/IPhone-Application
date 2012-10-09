@@ -14,7 +14,7 @@
 
 -(void)getUserSettingsDidComplete: (NSMutableArray*) userSettings;
 -(void)getUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
--(void)updateUserSettingsDidComplete;
+-(void)updateUserSettingsDidComplete: (NSString*) attributeKey withValue: (NSString*) attributeValue;
 -(void)updateUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

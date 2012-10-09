@@ -14,6 +14,8 @@
 
 @implementation SetupFlowViewController
 
+@synthesize userSetupCompleteDelegate;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,6 +47,9 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+-(void)setupStepDidComplete:(id)sender {
+    
 }
 
 @end

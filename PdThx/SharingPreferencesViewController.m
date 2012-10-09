@@ -33,7 +33,7 @@
     [self setTitle: @"Sharing"];
     
     userConfigurationService= [[UserConfigurationService alloc] init];
-    [userConfigurationService setUserSettingsCompleteDelegate: self];
+    [userConfigurationService setUserConfigurationCompleteDelegate: self];
     
     configurationKeys = [[NSMutableArray  alloc] init];
     
@@ -211,18 +211,19 @@
     
     NSLog( @"The switch is %@", switchControl.on ? @"ON" : @"OFF" );
 }
--(void)updateUserSettingsDidComplete {
-    [userConfigurationService getUserSettings:user.userId];
-}
--(void)updateUserSettingsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
-    
-}
--(void)getUserSettingsDidComplete: (NSMutableArray*) userSettings {
+-(void)getUserConfigurationDidComplete: (NSMutableArray*) userSettings {
     user.userConfigurationItems = userSettings;
     
     [tableUserSettings reloadData];
 }
--(void)getUserSettingsDidFail: (NSString*) errorMessage {
+-(void)getUserConfigurationDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
+-(void)updateUserConfigurationDidComplete {
+    
+}
+-(void)updateUserConfigurationDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    
+}
+
 @end

@@ -168,7 +168,7 @@
     [appDelegate showSuccessWithStatus:@"Profile Updated" withDetailedStatus:@""];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
--(void) personalizeUserDidFail:(NSString*) response {
+-(void) personalizeUserDidFail:(NSString*) response withErrorCode:(int)errorCode {
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate showWithStatus:@"Failed!" withDetailedStatus:@"Check data connection"];
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];

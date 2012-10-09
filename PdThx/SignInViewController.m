@@ -155,8 +155,8 @@
 }
 
 - (void)signInUser {
-    NSString* username = [NSString stringWithString:@""];
-    NSString* password = [NSString stringWithString: @""];
+    NSString* username = @"";
+    NSString* password = @"";
     
     if([txtEmailAddress.text length] > 0)
         username = txtEmailAddress.text;
@@ -263,7 +263,7 @@
 }
 
 
--(void)userInformationDidComplete:(User*)user {
+-(void)userInformationDidComplete:(User*)currentUser {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -271,33 +271,33 @@
     
     NSString* paymentAccountId = [prefs valueForKey:@"paymentAccountId"];
 
-    [prefs setValue:user.facebookId forKey:@"facebookId"];
-    [prefs setObject:user.facebookToken forKey:@"FBAccessTokenKey"];
+    [prefs setValue:currentUser.facebookId forKey:@"facebookId"];
+    [prefs setObject:currentUser.facebookToken forKey:@"FBAccessTokenKey"];
     
     [prefs synchronize];
     
-    if ( [user.socialNetworks objectForKey:@"Facebook"] != NULL )
+    if ( [currentUser.socialNetworks objectForKey:@"Facebook"] != NULL )
     {
-        NSDictionary*facebookDict = [user.socialNetworks objectForKey:@"Facebook"];
+        NSDictionary*facebookDict = [currentUser.socialNetworks objectForKey:@"Facebook"];
         
         [fbSignInHelper getFacebookFriendsWithDelegate:appDelegate withSocialNetworkUserId:[facebookDict objectForKey:@"SocialNetworkUserId"] withSocialNetworkAccessToken:[facebookDict objectForKey:@"SocialNetworkUserToken"]];
     }
     
     if(paymentAccountId == (id)[NSNull null] && [paymentAccountId length] > 0)
-        user.hasACHAccount = true;
+        currentUser.hasACHAccount = true;
     
     [appDelegate dismissProgressHUD];
     
-    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [user copy];
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [currentUser mutableCopy];
     
-    if(user.isLockedOut)
+    if(currentUser.isLockedOut)
     {
-        [prefs setValue:user.userId forKey:@"userId"];
+        [prefs setValue:currentUser.userId forKey:@"userId"];
         
         SecurityQuestionChallengeViewController* controller = [[SecurityQuestionChallengeViewController alloc] init];
         [controller setTitle: @"Security Question"];
         [controller setHeaderText: [NSString stringWithFormat:@"FOR SECURITY REASONS, YOUR ACCOUNT HAS BEEN LOCKED.  TO UNLOCK YOUR ACCOUNT, ANSWER YOUR SECURITY QUESTION BELOW."]]; 
-        controller.currUser = [user copy];
+        controller.currUser = [currentUser mutableCopy];
         [controller setSecurityQuestionChallengeDelegate: self];
         
         UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];

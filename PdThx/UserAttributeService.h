@@ -10,8 +10,14 @@
 #import "Environment.h"
 #import "JSON.h"
 #import "ASIHTTPRequest.h"
+#import "UserSettingsCompleteProtocol.h"
 
-@interface UserAttributeService : NSObject
+@interface UserAttributeService : NSObject{
+    ASIHTTPRequest *requestObj;
+    id<UserSettingsCompleteProtocol> userSettingsCompleteProtocol;
+}
+
+@property(retain) id userSettingsCompleteProtocol;
 
 -(void) updateUserAttribute:(NSString*)attributeId withValue:(NSString*) attributeValue forUser:(NSString*) userId;
 

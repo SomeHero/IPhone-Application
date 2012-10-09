@@ -198,7 +198,46 @@
     another.payPoints = [payPoints copy];
     another.socialNetworks = [socialNetworks copy];
     another.bankAccounts = [bankAccounts copy];
-    another.userAttributes = [userAttributes copy];
+    another.userAttributes = [userAttributes mutableCopy];
+    another.userConfigurationItems = [userConfigurationItems copy];
+    another.facebookId = facebookId;
+    another.facebookToken = facebookToken;
+    another.canExpress = canExpress;
+    another.expressDeliveryFeePercentage = expressDeliveryFeePercentage;
+    another.expressDeliveryThreshold = expressDeliveryThreshold;
+    
+    return another;
+}
+-(id)mutableCopyWithZone:(NSZone *)zone
+{
+    // We'll ignore the zone for now
+    User *another = [[User alloc] init];
+    
+    another.userId = userId;
+    another.mobileNumber = mobileNumber;
+    another.emailAddress = emailAddress;
+    another.userName = userName;
+    another.isLockedOut = isLockedOut;
+    another.userStatus = userStatus;
+    another.preferredName = preferredName;
+    another.firstName = firstName;
+    another.lastName = lastName;
+    another.imageUrl = imageUrl;
+    another.totalMoneySent = totalMoneySent;
+    another.totalMoneyReceived = totalMoneyReceived;
+    another.preferredPaymentAccountId = preferredPaymentAccountId;
+    another.preferredReceiveAccountId = preferredReceiveAccountId;
+    another.hasSecurityPin = hasSecurityPin;
+    another.limit = limit;
+    another.userUri = userUri;
+    another.securityQuestionId = securityQuestionId;
+    another.securityQuestion = securityQuestion;
+    another.numberOfPaystreamUpdates = numberOfPaystreamUpdates;
+    another.outstandingPayments = [outstandingPayments copy];
+    another.payPoints = [payPoints copy];
+    another.socialNetworks = [socialNetworks copy];
+    another.bankAccounts = [bankAccounts copy];
+    another.userAttributes = [userAttributes mutableCopy];
     another.userConfigurationItems = [userConfigurationItems copy];
     another.facebookId = facebookId;
     another.facebookToken = facebookToken;

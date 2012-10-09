@@ -398,7 +398,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [amountDisplayLabel resignFirstResponder];
     
-    double upperLimit = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).getUpperLimit;
+    upperLimit = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).getUpperLimit;
     
     double amount = [amountDisplayLabel.text doubleValue];
     
