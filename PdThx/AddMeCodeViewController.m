@@ -132,8 +132,10 @@
         if ( ![self CharacterAllowedAtIndex:[NSString stringWithFormat:@"%c",[txtMeCode.text characterAtIndex:txtMeCode.text.length-1]] atIndex:(txtMeCode.text.length-1)] )
             txtMeCode.text = [txtMeCode.text substringToIndex:txtMeCode.text.length-1];
         
-        if ( [txtMeCode.text characterAtIndex:0] != '$' )
-            [txtMeCode setText:[NSString stringWithFormat:@"%@%@",@"$",txtMeCode.text]];
+        if ( [txtMeCode.text length] > 0 ){
+            if ( [txtMeCode.text characterAtIndex:0] != '$' )
+                [txtMeCode setText:[NSString stringWithFormat:@"%@%@",@"$",txtMeCode.text]];
+        }
     }
 }
 
