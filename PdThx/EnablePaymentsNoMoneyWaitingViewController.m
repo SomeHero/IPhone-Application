@@ -93,7 +93,7 @@
     
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
 }
--(void)userACHSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
+-(void)achSetupDidFail:(NSString*) message withErrorCode:(int)errorCode {
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Registering User"];
 }
 

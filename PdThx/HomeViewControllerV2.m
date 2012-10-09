@@ -193,7 +193,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     loadingActivityIndicator.hidden = NO;
     [loadingActivityIndicator startAnimating];
+    
     [userService refreshHomeScreenInformation:userId];
+    
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 
@@ -208,8 +211,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
     outgoingNotificationLabel.text =  [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
     
-    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    
     //NSLog(@"Facebook Session: %@", [appDelegate.fBook isSessionValid] ? @"YES" : @"NO");
     
     [[quickSendView.subviews objectAtIndex:0] reloadQuickSendContacts:quickSendContacts];
@@ -220,30 +221,30 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSLog(@"Loading homescreen&quicksendcontacts failed.");
 }
 
--(void)userInformationDidComplete:(User*) user
+-(void)userInformationDidComplete:(User*) currentUser
 {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
     
-    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [user copy];
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [currentUser mutableCopy];
     
-    if (user.securityQuestion != (id) [NSNull null] && user.securityQuestion.length > 0) {
+    if (currentUser.securityQuestion != (id) [NSNull null] && currentUser.securityQuestion.length > 0) {
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         [prefs setValue:user.securityQuestion forKey:@"securityQuestion"];
         [prefs synchronize];
     }
     
-    if(user.imageUrl != (id)[NSNull null] && [user.imageUrl length] > 0) {
-        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: user.imageUrl]]] forState:UIControlStateNormal];
+    if(currentUser.imageUrl != (id)[NSNull null] && [currentUser.imageUrl length] > 0) {
+        [btnUserImage setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: currentUser.imageUrl]]] forState:UIControlStateNormal];
     } else {
         [btnUserImage setBackgroundImage:[UIImage imageNamed: @"avatar-50x50.png"] forState:UIControlStateNormal];
     }
     
-    lblUserName.text = user.preferredName;
-    if ( [[user.userName substringToIndex:3] isEqualToString:@"fb_"] )
+    lblUserName.text = currentUser.preferredName;
+    if ( [[currentUser.userName substringToIndex:3] isEqualToString:@"fb_"] )
         lblPayPoints.text = @"Facebook User";
     else
-        lblPayPoints.text = user.userName;
+        lblPayPoints.text = currentUser.userName;
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];

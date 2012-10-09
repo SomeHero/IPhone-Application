@@ -91,8 +91,6 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
-        bool isLockedOut = [[jsonDictionary objectForKey: @"isLockedOut"] boolValue];
-
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         

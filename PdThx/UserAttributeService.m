@@ -10,6 +10,8 @@
 
 @implementation UserAttributeService
 
+@synthesize userSettingsCompleteProtocol;
+
 -(void) updateUserAttribute:(NSString*)attributeId withValue:(NSString*) attributeValue forUser:(NSString*) userId
 {
     Environment *myEnvironment = [Environment sharedInstance];
@@ -40,4 +42,37 @@
     [request startAsynchronous];
     
 }
+-(void)updateUserSettingsDidComplete:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* attributeKey = [jsonDictionary valueForKey: @"AttributeKey"];
+    NSString* attributeValue = [jsonDictionary valueForKey: @"AttributeValue"];
+    
+    [userSettingsCompleteProtocol updateUserSettingsDidComplete: attributeKey withValue: attributeValue];
+}
+-(void)updateUserSettingsDidFail:(ASIHTTPRequest *)request
+{
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* message = [jsonDictionary valueForKey: @"Message"];
+    int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+
+    [userSettingsCompleteProtocol updateUserSettingsDidFail:message withErrorCode:errorCode];
+}
+
 @end

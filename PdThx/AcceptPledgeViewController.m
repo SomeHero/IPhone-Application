@@ -31,6 +31,8 @@
 @end
 
 @implementation AcceptPledgeViewController
+
+@synthesize contactImage;
 @synthesize dummyPlaceholder;
 
 @synthesize recipientUri, attachPictureButton;
@@ -468,9 +470,9 @@
 }
 -(void)swipeDidComplete:(id)sender withPin: (NSString*)pin
 {
-    NSString* recipientImageUri = [NSString stringWithString: @""];
-    NSString* recipientFirstName = [NSString stringWithString: @""];
-    NSString* recipientLastName =[NSString stringWithString: @""];
+    NSString* recipientImageUri = @"";
+    NSString* recipientFirstName = @"";
+    NSString* recipientLastName = @"";
     
     if([[recipientUri substringToIndex:3] isEqual:@"fb_"]) {
         recipientImageUri = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", recipient.facebookID];

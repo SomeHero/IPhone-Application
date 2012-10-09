@@ -18,11 +18,14 @@
 #import "UserAttributeService.h"
 #import "UIProfileTextField.h"
 #import "UIProfileTextView.h"
+#import "UIProfileSwitch.h"
 #import "SelectModalViewController.h"
 #import "ModalSelectProtocol.h"
+#import "ChooseMemberImageProtocol.h"
+#import "UserSettingsCompleteProtocol.h"
 #import "UIProfileOptionSelectButton.h"
 
-@interface EditProfileViewController : UISetupUserBaseViewController<UITextFieldDelegate, UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, ModalSelectProtocol>
+@interface EditProfileViewController : UISetupUserBaseViewController<UITextFieldDelegate, UITableViewDataSource, UIAlertViewDelegate,UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UserSettingsCompleteProtocol, ModalSelectProtocol, ChooseMemberImageProtocol>
 {
     IBOutlet UITableView* profileTable;
     NSMutableArray* profileSections;
@@ -31,7 +34,11 @@
     SelectModalViewController* selectModalViewController;
     NSString* optionSelectAttributeId;
     
+    UserService* userService;
     UserAttributeService* userAttributeService;
+
 }
+
+-(IBAction) bgTouched:(id) sender;
 
 @end

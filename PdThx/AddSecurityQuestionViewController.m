@@ -33,14 +33,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    securityQuestions = [appDelegate securityQuestions];
     answerField.delegate = self;
     
     questionId = 1;
-    // TODO: Security Question Delegate
-    securityQuestionService = [[GetSecurityQuestionsService alloc] init];
-    securityQuestionService.questionsLoadedDelegate = self;
-    [securityQuestionService getSecurityQuestions:NO];
+
 }
 
 - (void)viewDidUnload
@@ -92,23 +92,7 @@
     //[securityQuestionService getSecurityQuestions:NO]; // Get All questions
     questionPicker.hidden = NO;
 }
--(void)loadedSecurityQuestions:(NSMutableArray *)questionArray
-{
-    securityQuestions = questionArray;
-    
-    [questionPicker reloadAllComponents];
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    
-    if ( [defaults objectForKey:@"securityQuestionId"] == NULL )
-        NSLog(@"Null Question Id");
-    else 
-        NSLog(@"Question ID: %d", [[defaults objectForKey:@"securityQuestionId"] integerValue]);
-    
-    if ( [[defaults objectForKey:@"securityQuestionId"] intValue] >= 0 ){
-        questionId = [[defaults objectForKey:@"securityQuestionId"] integerValue];
-        [questionPicker selectedRowInComponent:questionId];
-    }
-}
+
 /*      Setting up Picker View      */
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
 {

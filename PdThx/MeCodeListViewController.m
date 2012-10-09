@@ -254,7 +254,7 @@
     
     [payPointService getPayPoints: user.userId];
 }
--(void)deletePayPointFailed: (NSString*) errorMessage {
+-(void)deletePayPointFailed: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
 

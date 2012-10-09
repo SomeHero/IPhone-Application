@@ -10,15 +10,15 @@
 #import "Environment.h"
 #import "JSON.h"
 #import "ASIHTTPRequest.h"
-#import "UserSettingsCompleteProtocol.h"
+#import "UserConfigurationCompleteProtocol.h"
 #import "UserConfiguration.h"
 
 @interface UserConfigurationService : NSObject
 {
-    id<UserSettingsCompleteProtocol> userSettingsCompleteDelegate;
+    id<UserConfigurationCompleteProtocol> userConfigurationCompleteDelegate;
 }
 
-@property(nonatomic, retain) id userSettingsCompleteDelegate;
+@property(nonatomic, retain) id userConfigurationCompleteDelegate;
 
 -(void)getUserSettings:(NSString*)userId;
 

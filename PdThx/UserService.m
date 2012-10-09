@@ -71,7 +71,7 @@
         User* user = [[[User alloc] initWithDictionary:jsonDictionary] autorelease];
         
         PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-        [appDelegate setUser:[user copy]];
+        [appDelegate setUser:[user mutableCopy]];
         
         NSLog(@"USER INFO COMPLETE DELEGATE: %@", userInformationCompleteDelegate);
         [userInformationCompleteDelegate userInformationDidComplete:user];
@@ -214,9 +214,7 @@
 
 -(void) changeSecurityPin: (NSString*) userId WithOld:(NSString*) oldSecurityPin AndNew:(NSString*) newSecurityPin {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
-    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
-    
+
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_securitypin", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -502,9 +500,7 @@
 -(void) refreshHomeScreenInformation:(NSString*) userId
 {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
-    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
-    
+
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/refresh_homepage", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
@@ -594,9 +590,7 @@
 -(void) findMeCodesMatchingSearchTerm:(NSString*) searchTerm
 {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
-    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
-    
+
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/searchbymecode/%@", myEnvironment.pdthxWebServicesBaseUrl, searchTerm]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];

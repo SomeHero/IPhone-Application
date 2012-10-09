@@ -121,7 +121,7 @@
     [verifyBankAccountDelegate verifyBankAccountsDidComplete];
     
 }
--(void)verifyBankAccountsDidFail:(NSString*)errorMessage {
+-(void)verifyBankAccountsDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode {
     NSLog(@"Verify Bank Account InValid");
     
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -150,7 +150,7 @@
             
             [self.navigationController dismissModalViewControllerAnimated:YES];
             
-            [verifyBankAccountDelegate verifyBankAccountsDidFail: @""];
+            [verifyBankAccountDelegate verifyBankAccountsDidFail: @"" withErrorCode: 0];
             
             break;
         }

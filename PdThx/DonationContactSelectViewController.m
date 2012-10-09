@@ -422,7 +422,7 @@
     if ( section != 27 )
         return [NSString stringWithFormat:@"%c",section+64];
     else {
-        return [NSString stringWithString:@"#"];
+        return @"#";
     }
 }
 

@@ -110,6 +110,10 @@
         {
             cell.lblDescription.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"AlreadyLinkedDescription"];
         }
+        else
+        {
+            cell.lblDescription.text = [[profileSection objectAtIndex:[indexPath row]] objectForKey:@"Description"];
+        }
     } else if ( [prefs objectForKey:preferenceKeyToCheck] != NULL && [prefs stringForKey:preferenceKeyToCheck].length > 0 )
     {
         // Default Handling...

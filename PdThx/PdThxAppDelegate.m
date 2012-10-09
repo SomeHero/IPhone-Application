@@ -44,12 +44,13 @@
 @synthesize faceBookContacts;
 @synthesize nonProfits;
 @synthesize organizations;
+@synthesize securityQuestions;
 @synthesize fbAppId;
 @synthesize mainAreaTabBarController;
 @synthesize selectedContactList;
 @synthesize quickSendArray;
-
 @synthesize numberOfFacebookFriends;
+@synthesize setupFlowController;
 
 // Static Tab Bar View Controllers..
 @synthesize LoggedInCenterViewController, LoggedInFifthViewController, LoggedInFirstViewController, LoggedInFourthViewController, LoggedInSecondViewController;
@@ -283,7 +284,7 @@
 }
 
 
-
+#pragma mark - Application LifeCycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
@@ -307,14 +308,16 @@
     
     [mainAreaTabBarController setDelegate:self];
     
-    Environment *myEnvironment = [Environment sharedInstance];
+    myEnvironment = [Environment sharedInstance];
     
     merchantServices = [[MerchantServices alloc] init];
     [merchantServices setMerchantServicesCompleteProtocol: self];
     
-    ApplicationService* applicationService = [[ApplicationService alloc] init];
-    [applicationService setApplicationSettingsDidComplete: self];
-    [applicationService getApplicationSettings:myEnvironment.pdthxAPIKey];
+    applicationServices = [[ApplicationService alloc] init];
+    [applicationServices setApplicationSettingsDidComplete: self];
+    
+    securityQuestionServices = [[SecurityQuestionService alloc] init];
+    [securityQuestionServices setGetSecurityQuestionsDelegate: self];
     
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *googleAnalyticsKey = [NSString stringWithString: myEnvironment.GoogleAnalyticsKey];
@@ -358,12 +361,16 @@
     organizations = [[NSMutableArray alloc] init];
     organizations = [self sortContacts:organizations];
     
+    securityQuestions = [[NSMutableArray alloc] init];
+    
     areFacebookContactsLoaded = NO;
     currentReminderTab = 0;
     
     [self loadPhoneContacts];
     [self loadNonProfits];
     [self loadOrganizations];
+    [self loadApplicationSettings];
+    [self loadSecurityQuestions];
     
     [self.window makeKeyAndVisible];
     
@@ -503,22 +510,6 @@
     [prefs synchronize];
     
     [self backToWelcomeTabbedArea];
-}
-
--(void)forgetMe
-{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    [prefs removeObjectForKey:@"userId"];
-    [prefs removeObjectForKey:@"mobileNumber"];
-    [prefs removeObjectForKey:@"paymentAccountId"];      
-    [prefs removeObjectForKey:@"setupPassword"];
-    [prefs removeObjectForKey:@"setupSecurityPin"];
-    [prefs removeObjectForKey:@"deviceToken"];
-    [prefs removeObjectForKey:@"FBAccessTokenKey"];
-    [prefs removeObjectForKey:@"FBExpirationDateKey"];
-    
-    [prefs synchronize];
 }
 
 
@@ -763,25 +754,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 -(void) loadOrganizations
 {
     [merchantServices getOrganizations];
-    
 }
-
-
--(void)getOrganizationsDidComplete:(NSMutableArray*)merchants
+-(void) loadApplicationSettings
 {
-    /* Operation Queue init (autorelease) */
-    NSOperationQueue *queue = [NSOperationQueue new];
-    
-    /* Create our NSInvocationOperation to call loadDataWithOperation, passing in nil */
-    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                            selector:@selector(processOrganizationsList:)
-                                                                              object:merchants];
-    
-    /* Add the operation to the queue */
-    [queue addOperation:operation];
-    [operation release];
+    [applicationServices getApplicationSettings:myEnvironment.pdthxAPIKey];
+}
+-(void) loadSecurityQuestions
+{
+     [securityQuestionServices getSecurityQuestions:NO];
 }
 
+#pragma mark - Organizations Delegate
 - (void) processOrganizationsList:(id)merchants
 {
     [organizations removeAllObjects];
@@ -819,62 +802,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                           organizations forKey:@"contacts"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
 }
-
-
-/*
--(void)getOrganizationsDidComplete: (NSMutableArray*) merchants {
-    [organizations removeAllObjects];
- 
-    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
- 
-    for(int i=0; i < [merchants count]; i++)
-    {
-        Merchant* merchant = [merchants objectAtIndex:i];
- 
-        Contact* contact = [[Contact alloc] init];
-        contact.userId = merchant.merchantId;
-        contact.firstName = @"";
-        contact.lastName = @"";
-        contact.name = merchant.name;
-        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
-        contact.recipientId =  merchant.merchantId;
-        contact.merchant = merchant;
- 
-        if([merchant.merchantListings count] > 0)
-            contact.showDetailIcon = true;
- 
-        [tempOrganizations addObject:contact];
-    }
- 
- 
-    tempOrganizations =  [self sortContacts:tempOrganizations];
- 
-    for(int i = 0; i <[tempOrganizations count]; i++)
-    {
-        [organizations addObject:[tempOrganizations objectAtIndex:i]];
-    }
- 
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:
-                          organizations forKey:@"contacts"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrganizationList" object:self userInfo:dict];
-}
-*/
-
--(void)getOrganizationsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode
+-(void)getOrganizationsDidComplete:(NSMutableArray*)merchants
 {
-    NSLog( @"Failed to get merchants, error %@" , errorMessage );
-}
-
--(void)getNonProfitsDidComplete:(NSMutableArray*)merchants
-{
-    [nonProfits removeAllObjects];
-    
     /* Operation Queue init (autorelease) */
     NSOperationQueue *queue = [NSOperationQueue new];
     
     /* Create our NSInvocationOperation to call loadDataWithOperation, passing in nil */
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                            selector:@selector(processNonProfitsList:)
+                                                                            selector:@selector(processOrganizationsList:)
                                                                               object:merchants];
     
     /* Add the operation to the queue */
@@ -882,6 +817,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [operation release];
 }
 
+-(void)getOrganizationsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode
+{
+    NSLog( @"Failed to get merchants, error %@" , errorMessage );
+    
+    [self loadOrganizations];
+}
+
+#pragma mark - NonProfits Delegates
 - (void) processNonProfitsList:(id)merchants
 {
     NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
@@ -915,47 +858,27 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                           nonProfits forKey:@"contacts"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshNonProfitList" object:self userInfo:dict];
 }
-
-/*
--(void)getNonProfitsDidComplete: (NSMutableArray*) merchants {
+-(void)getNonProfitsDidComplete:(NSMutableArray*)merchants
+{
     [nonProfits removeAllObjects];
     
+    /* Operation Queue init (autorelease) */
+    NSOperationQueue *queue = [NSOperationQueue new];
     
-    NSMutableArray* tempOrganizations = [[NSMutableArray alloc] init];
+    /* Create our NSInvocationOperation to call loadDataWithOperation, passing in nil */
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                            selector:@selector(processNonProfitsList:)
+                                                                              object:merchants];
     
-    for(int i=0; i < [merchants count]; i++)
-    {
-        Merchant* merchant = [merchants objectAtIndex:i];
-        
-        Contact* contact = [[Contact alloc] init];
-        contact.userId = merchant.merchantId;
-        contact.name = merchant.name;
-        contact.imgData = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString: merchant.imageUrl]]];
-        contact.recipientId =  merchant.merchantId;
-        contact.merchant = merchant;
-        
-        if([merchant.merchantListings count] > 0)
-            contact.showDetailIcon = true;
-        
-        [tempOrganizations addObject:contact];
-    }
-    
-    
-    tempOrganizations =  [self sortContacts:tempOrganizations];
-    
-    for(int i = 0; i <[tempOrganizations count]; i++)
-    {
-        [nonProfits addObject:[tempOrganizations objectAtIndex:i]];
-    }
-    
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:
-                          nonProfits forKey:@"contacts"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshNonProfitList" object:self userInfo:dict];
+    /* Add the operation to the queue */
+    [queue addOperation:operation];
+    [operation release];
 }
-*/
 
 -(void)getNonProfitsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
+    
+    [self loadNonProfits];
 }
 
 -(void)facebookFriendsDidLoad:(id)result
@@ -1428,14 +1351,23 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                          customAlert.view.transform = CGAffineTransformScale(self.customAlert.view.transform, 1.3, 1.3);
                      }];
 }
-
+#pragma mark - ApplicationSettings Delegate
 -(void)getApplicationSettingsDidComplete:(Application*)application {
     myApplication = [application copy];
 }
 
 -(void)getApplicationSettingsDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode
 {
-    NSLog( @"Failed to get application settings, error %@ code %d" , errorMessage, errorCode );
+    NSLog( @"Failed to get application settings, error %@ code %d" , errorMessage, errorCode);
+    
+    [self loadApplicationSettings];
+}
+#pragma mark - SecurityQuestions Delegate
+-(void)getSecurityQuestionsDidComplete:(NSMutableArray*)questionArray {
+    securityQuestions = questionArray;
+}
+-(void)getSecurityQuestionsDidFail:(NSString*)message withErrorCode:(int) errorCode {
+    [self loadSecurityQuestions];
 }
 
 -(NSString*)getSelectedContactListImage
@@ -1475,6 +1407,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 {
     [self facebookFriendsDidLoad:friendsList];
 }
+#pragma mark - Global Handlers
 -(void)handleError: (NSString*)errorMessage withErrorCode: (int) errorCode withDefaultTitle: (NSString*) defaultTitle
 {
     if(errorCode == 1001)

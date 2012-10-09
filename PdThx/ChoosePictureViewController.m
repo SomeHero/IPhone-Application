@@ -60,7 +60,7 @@
     
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    if([request responseStatusCode] == 201 ) {
+    if([request responseStatusCode] == 200 ) {
         
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
@@ -140,6 +140,7 @@
     UIGraphicsEndImageContext();
     
     [self imageUpload:UIImagePNGRepresentation(newImage) filename:imageName];
+
 }
 
 

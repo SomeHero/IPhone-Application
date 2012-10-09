@@ -13,7 +13,7 @@
 
 @protocol GetSecurityQuestionsProtocol <NSObject>
 
--(void)loadedSecurityQuestions:(NSMutableArray*)questionArray;
-
+-(void)getSecurityQuestionsDidComplete:(NSMutableArray*)questionArray;
+-(void)getSecurityQuestionsDidFail:(NSString*)message withErrorCode:(int) errorCode;
 @end
 

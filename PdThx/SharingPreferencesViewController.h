@@ -10,9 +10,9 @@
 #import "UISetupUserBaseViewController.h"
 #import "UserConfiguration.h"
 #import "UserConfigurationService.h"
-#import "UserSettingsCompleteProtocol.h"
+#import "UserConfigurationCompleteProtocol.h"
 
-@interface SharingPreferencesViewController : UISetupUserBaseViewController<UserSettingsCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
+@interface SharingPreferencesViewController : UISetupUserBaseViewController<UserConfigurationCompleteProtocol, UITableViewDataSource, UITableViewDelegate>
 {
     NSDictionary *notificationOptions;
     NSArray *sections;

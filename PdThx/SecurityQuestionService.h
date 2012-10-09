@@ -9,16 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequest.h"
 #import "SecurityQuestionAnsweredProtocol.h"
+#import "GetSecurityQuestionsProtocol.h"
 #import "Environment.h"
 #import "JSON.h"
 
 @interface SecurityQuestionService : NSObject {
     ASIHTTPRequest *requestObj;
+    
     id<SecurityQuestionAnsweredProtocol> securityQuestionAnsweredDelegate;
+    id<GetSecurityQuestionsProtocol> getSecurityQuestionsDelegate;
 }
 
 @property(retain) id<SecurityQuestionAnsweredProtocol> securityQuestionAnsweredDelegate;
+@property(retain) id<GetSecurityQuestionsProtocol> getSecurityQuestionsDelegate;
 
+-(void) getSecurityQuestions:(bool)onlyActive;
 -(void) validateSecurityAnswer: (NSString*) answer forUserId: (NSString*) userId;
 
 @end

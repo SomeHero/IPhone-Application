@@ -155,14 +155,11 @@
 -(void)deleteSavedLinkedFacebookSession
 {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/SocialNetworks/unlink", myEnvironment.pdthxWebServicesBaseUrl, appDelegate.user.userId]] autorelease];
-    
-    // TODO: Finish Implementation of Web Services for Unlinking a Facebook Account.
-    
+
     NSDictionary *meCodeData = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"Facebook",@"SocialNetworkType", nil];
     
@@ -265,8 +262,7 @@
 {
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
-    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
-    
+
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/SocialNetworks", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
     
     NSDictionary *meCodeData = [NSDictionary dictionaryWithObjectsAndKeys:

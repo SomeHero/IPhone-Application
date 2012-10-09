@@ -59,7 +59,7 @@
         
         NSMutableArray* TempQuestions = [[[NSMutableArray alloc] initWithArray:tempArray] mutableCopy];
         
-        [questionsLoadedDelegate loadedSecurityQuestions:TempQuestions];
+        [questionsLoadedDelegate getSecurityQuestionsDidComplete:TempQuestions];
         
         [parser release];
         
