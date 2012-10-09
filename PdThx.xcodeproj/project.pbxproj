@@ -271,6 +271,8 @@
 		5B0A228415A0D00A00BDA5F8 /* PayPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A228315A0D00A00BDA5F8 /* PayPoint.m */; };
 		5B0A228A15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A228815A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.m */; };
 		5B0A228B15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */; };
+		5B10DB051623C57C00E829FD /* PhotoSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B10DB031623C57B00E829FD /* PhotoSelectorViewController.m */; };
+		5B10DB061623C57C00E829FD /* PhotoSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B10DB041623C57C00E829FD /* PhotoSelectorViewController.xib */; };
 		5B11961415AB2397003F8D53 /* libZendeskDropbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B11961215AB2397003F8D53 /* libZendeskDropbox.a */; };
 		5B11962115AB6C3A003F8D53 /* SendDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11961F15AB6C3A003F8D53 /* SendDonationViewController.m */; };
 		5B11962215AB6C3A003F8D53 /* SendDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962015AB6C3A003F8D53 /* SendDonationViewController.xib */; };
@@ -1099,6 +1101,9 @@
 		5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecurityAndPrivacyViewControllerViewController.xib; sourceTree = "<group>"; };
 		5B0E84C2159E3DEC00EC4E9C /* UserSetupCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSetupCompleteProtocol.h; sourceTree = "<group>"; };
 		5B0E84C4159E40A000EC4E9C /* UserSetupStepCompleteProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSetupStepCompleteProtocol.h; sourceTree = "<group>"; };
+		5B10DB021623C57B00E829FD /* PhotoSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelectorViewController.h; sourceTree = "<group>"; };
+		5B10DB031623C57B00E829FD /* PhotoSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSelectorViewController.m; sourceTree = "<group>"; };
+		5B10DB041623C57C00E829FD /* PhotoSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoSelectorViewController.xib; sourceTree = "<group>"; };
 		5B11961215AB2397003F8D53 /* libZendeskDropbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libZendeskDropbox.a; sourceTree = "<group>"; };
 		5B11961315AB2397003F8D53 /* ZendeskDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZendeskDropbox.h; sourceTree = "<group>"; };
 		5B11961E15AB6C3A003F8D53 /* SendDonationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDonationViewController.h; sourceTree = "<group>"; };
@@ -3144,6 +3149,9 @@
 				5BDDAEA315D01537007B733E /* UIProfileOptionSelectButton.m */,
 				5B92F1FF16236EEB001C361E /* UIProfileSwitch.h */,
 				5B92F20016236EEC001C361E /* UIProfileSwitch.m */,
+				5B10DB021623C57B00E829FD /* PhotoSelectorViewController.h */,
+				5B10DB031623C57B00E829FD /* PhotoSelectorViewController.m */,
+				5B10DB041623C57C00E829FD /* PhotoSelectorViewController.xib */,
 			);
 			name = EditProfile;
 			sourceTree = "<group>";
@@ -4518,6 +4526,7 @@
 				7A06D7A0161A1637006B9B11 /* btn-express-43x40.png in Resources */,
 				7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */,
 				7AABBF22161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib in Resources */,
+				5B10DB061623C57C00E829FD /* PhotoSelectorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4763,6 +4772,7 @@
 				7A9650D2160B8ACD000B86A4 /* DAKeyboardControl.m in Sources */,
 				7AABBF20161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m in Sources */,
 				5B92F20116236EEF001C361E /* UIProfileSwitch.m in Sources */,
+				5B10DB051623C57C00E829FD /* PhotoSelectorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

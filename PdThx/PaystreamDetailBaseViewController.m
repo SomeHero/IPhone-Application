@@ -22,25 +22,35 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize navBar;
 @synthesize txtRecipient, txtSender, txtActionAmount;
 
-@synthesize btnSender, btnRecipient, btnCurrentStatus;
-@synthesize lblSentDate;
-@synthesize quoteView;
-@synthesize parent;
+@synthesize acceptButton;
+@synthesize acceptPayCell;
 
-@synthesize detailTableView;
-// Sections
-@synthesize deliverySectionHeader, statusSectionHeader;
-@synthesize acceptButton, rejectButton, remindButton,
-    sendReminderCell, rejectRequestCell, acceptPayCell;
-@synthesize expressDeliveryText;
-@synthesize expressDeliveryButton;
-@synthesize expressDeliveryChargeLabel;
+@synthesize btnRecipient, btnSender;
+@synthesize currentStatusButton;
+@synthesize deliverySectionHeader, detailTableView, deliveryStatusCell;
+
+@synthesize expressDeliveryButton, expressDeliveryCell, expressDeliveryChargeLabel, expressDeliveryText;
+
+@synthesize lblSentDate, quoteView;
+
+@synthesize sendReminderCell, remindButton, rejectRequestCell, rejectButton, statusCell;
+
+@synthesize parent, pendingAction, paystreamServices;
+
+@synthesize user;
+
+@synthesize sections;
+@synthesize actionTableData;
+
+@synthesize actionButtonsHeader;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization        
+        // Custom initialization
+        sections = [[NSMutableArray alloc] init];
+        actionTableData = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -48,14 +58,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (void)dealloc
 {
     [detailTableView release];
-    [statusSectionHeader release];
-    [deliverySectionHeader release];
     [rejectRequestCell release];
     [sendReminderCell release];
     [acceptPayCell release];
     [rejectButton release];
     [remindButton release];
     [acceptButton release];
+    [expressDeliveryCell release];
+    [currentStatusButton release];
+    [statusCell release];
+    [actionButtonsHeader release];
+    [deliveryStatusCell release];
     [super dealloc];
 }
 
@@ -72,8 +85,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    
 }
 
 -(void)configureExpressView
@@ -183,16 +194,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [self.navBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-    //[lblCurrentStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
-    //[lblCurrentStatusHeader setTextColor: UIColorFromRGB(0xFFFFFF)];
     
-    [btnCurrentStatus setTitleColor:UIColorFromRGB(0xc56d0c) forState: UIControlStateNormal];
-    
-    //[lblWhatsNextStatusHeader setBackgroundColor: UIColorFromRGB(0x6D6E71)];
-    //[lblWhatsNextStatusHeader setTextColor: UIColorFromRGB(0xE8E8E8)];
-    
-    //actionView.backgroundColor = [UIColor whiteColor];
-    //actionViewDivider.backgroundColor = UIColorFromRGB(0xc1c1c1);
     
     [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
@@ -225,7 +227,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
     txtSender.text = @"You";
     
-    [btnCurrentStatus setTitle: messageDetail.messageStatus forState:UIControlStateNormal];
     
     // Settings
 	NSString*	s;
@@ -241,8 +242,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     bubble =[self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
 	bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
 	[self.quoteView addSubview:bubble];
-    
-    NSInteger yPos = 5;
     
     NSString* actionString = @"Action";
     NSString* amountString = [NSString stringWithFormat:@"$%0.2f",[messageDetail.amount doubleValue]];
@@ -270,136 +269,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [self customizeContactInformation];
     
-    // Pushing the buttons down 10px
-    yPos += 5;
+    [self buildActionTableView];
     
-    /*
-    if([messageDetail.messageType isEqualToString: @"Payment"]) {
-        if([messageDetail.direction isEqualToString: @"Out"]) { 
-            txtSender.text = @"You";
-            txtRecipient.text = messageDetail.recipientName;
-            
-            // TODO: Fix Action/Amt Statement
-            
-            if(messageDetail.isCancellable)
-            {
-                UIButton* btnCancelPayment = [[UIButton alloc] initWithFrame:CGRectMake(15/2, yPos, (actionView.frame.size.width - 15), 40)];
-                
-                [btnCancelPayment setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-                [btnCancelPayment setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-                [btnCancelPayment setTitle: @"Cancel Payment" forState:UIControlStateNormal];
-                [btnCancelPayment setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-                [btnCancelPayment addTarget:self action:@selector(btnCancelPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
-                [actionView addSubview:btnCancelPayment];
-                
-                [btnCancelPayment release];
-                
-                yPos = yPos + btnCancelPayment.frame.size.height + 5;
-            }
-            if(messageDetail.isRemindable) {
-                UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(15/2, yPos, (actionView.frame.size.width - 15), 40)];
-                
-                [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
-                [btnSendReminder setBackgroundImage: greenBackgroundActive forState:UIControlStateSelected];
-                [btnSendReminder setTitle: @"Send a Reminder" forState:UIControlStateNormal];
-                [btnSendReminder setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-                [btnSendReminder addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
-                
-                [actionView addSubview:btnSendReminder];
-                
-                [btnSendReminder release];
-                
-                yPos = yPos + btnSendReminder.frame.size.height + 5;
-            }
-        }
-        else {
-            txtSender.text = messageDetail.senderName;
-            txtRecipient.text = @"You";
-            
-            // TODO: Fix Action/Amt Statement
-        }
-    }
-    if([messageDetail.messageType isEqualToString: @"PaymentRequest"]) {
-        
-        if([messageDetail.direction isEqualToString: @"In"])
-        {
-            txtSender.text = messageDetail.senderName;
-            txtRecipient.text = @"You";
-            
-            // TODO: Fix Action/Amt Statement
-            
-            if(messageDetail.isAcceptable) {
-                UIButton* btnAcceptRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
-                
-                [btnAcceptRequest setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
-                [btnAcceptRequest setBackgroundImage: greenBackgroundActive forState:UIControlStateSelected];
-                [btnAcceptRequest setTitle: @"Accept & Pay" forState:UIControlStateNormal];
-                [btnAcceptRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-                [btnAcceptRequest addTarget:self action:@selector(btnAcceptRequestClicked) forControlEvents:UIControlEventTouchUpInside];
-                
-                [actionView addSubview:btnAcceptRequest];
-                
-                [btnAcceptRequest release];
-                
-                yPos = yPos + btnAcceptRequest.frame.size.height + 5;
-            }
-            if(messageDetail.isRejectable) {
-                UIButton* btnRejectRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
-                
-                [btnRejectRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-                [btnRejectRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-                [btnRejectRequest setTitle: @"Reject Request" forState:UIControlStateNormal];
-                [btnRejectRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-                [btnRejectRequest addTarget:self action:@selector(btnRejectRequestClicked) forControlEvents:UIControlEventTouchUpInside];
-                [actionView addSubview:btnRejectRequest];
-                
-                [btnRejectRequest release];
-                
-                yPos = yPos + btnRejectRequest.frame.size.height + 5;
-            }
-        }
-        else if([messageDetail.direction isEqualToString: @"Out"]) {
-
-            txtSender.text = @"You";
-            txtRecipient.text = messageDetail.recipientName;
-            
-            // TODO: Fix Action/Amt Statement
-            
-            if(messageDetail.isCancellable) {
-               
-                UIButton* btnCancelRequest = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
-            
-                [btnCancelRequest setBackgroundImage: redBackgroundNormal forState:UIControlStateNormal];
-                [btnCancelRequest setBackgroundImage: redBackgroundActive forState:UIControlStateSelected];
-                [btnCancelRequest setTitle: @"Cancel Request" forState:UIControlStateNormal];
-                [btnCancelRequest setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-                [btnCancelRequest addTarget:self action:@selector(btnCancelRequestClicked) forControlEvents:UIControlEventTouchUpInside];
-                
-                [actionView addSubview:btnCancelRequest];
-                
-                [btnCancelRequest release];
-                
-                yPos = yPos + btnCancelRequest.frame.size.height + 5;
-            }
-            if(messageDetail.isRemindable) {
-                UIButton* btnSendReminder = [[UIButton alloc] initWithFrame:CGRectMake(5, yPos, (actionView.frame.size.width - 15), 40)];
-                
-                [btnSendReminder setBackgroundImage: greenBackgroundNormal forState:UIControlStateNormal];
-                [btnSendReminder setBackgroundImage: greenBackgroundActive forState:UIControlStateSelected];
-                [btnSendReminder setTitle: @"Send a Reminder" forState:UIControlStateNormal];
-                [btnSendReminder setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-                [btnSendReminder addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
-                
-                
-                [actionView addSubview:btnSendReminder];
-                
-                [btnSendReminder release];
-                
-                yPos = yPos + btnSendReminder.frame.size.height + 5;
-            }
-        }
-    }
-     */
+    
     
     // on Wed, March 23, 2012 at 2:35pm
     //  on [0] at [1]
@@ -456,6 +328,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         //Handle Error Here
     }
 }
+
 
 -(void)customizeContactInformation
 {
@@ -600,8 +473,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [detailTableView release];
     detailTableView = nil;
     
-    [statusSectionHeader release];
-    statusSectionHeader = nil;
     [deliverySectionHeader release];
     deliverySectionHeader = nil;
     [rejectRequestCell release];
@@ -616,6 +487,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     remindButton = nil;
     [acceptButton release];
     acceptButton = nil;
+    [expressDeliveryCell release];
+    expressDeliveryCell = nil;
+    [currentStatusButton release];
+    currentStatusButton = nil;
+    [statusCell release];
+    statusCell = nil;
+    [actionButtonsHeader release];
+    actionButtonsHeader = nil;
+    [deliveryStatusCell release];
+    deliveryStatusCell = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -777,7 +658,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	return [finalView autorelease];
 }
 
-
 -(void)achSetupDidComplete
 {
     [self.navigationController dismissModalViewControllerAnimated:NO];
@@ -793,32 +673,180 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 
-/*      Action Table View Functions         */
 
+-(void) buildActionTableView
+{
+    // Reset Arrays
+    [sections release];
+    [actionTableData release];
+    
+    sections = [[NSMutableArray alloc] init];
+    actionTableData = [[NSMutableDictionary alloc] init];
+    
+    // Initialize Status Section (Always Exists)
+    [sections addObject:@"Status"];
+    [actionTableData setValue:[[NSMutableArray alloc] initWithObjects:statusCell, nil] forKey:@"Status"];
+    
+    // Delivery Section
+    [sections addObject:@"DeliveryMethod"];
+    [actionTableData setValue:[[NSMutableArray alloc] initWithObjects:deliveryStatusCell, nil] forKey:@"DeliveryMethod"];
+    
+    if ( messageDetail.isExpressable )
+    {
+        [self configureExpressView];
+        
+        // Display Cell (Add to list)
+        [[actionTableData objectForKey:@"DeliveryMethod"] addObject:expressDeliveryCell];
+    }
+    
+    // Button actions
+    // Create ActionButton Empty Array
+    [sections addObject:@"ActionButtons"];
+    [actionTableData setValue:[[NSMutableArray alloc] init] forKey:@"ActionButtons"];
+    
+    if([messageDetail.messageType isEqualToString: @"Payment"])
+    {
+        if([messageDetail.direction isEqualToString: @"Out"])
+        {
+            txtSender.text = @"You";
+            txtRecipient.text = messageDetail.recipientName;
+            
+            if(messageDetail.isCancellable)
+            {
+                [[actionTableData objectForKey:@"ActionButtons"] addObject:rejectRequestCell];
+                
+                [rejectButton addTarget:self action:@selector(btnCancelPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+                
+                [rejectButton setTitle: @"Cancel Payment" forState:UIControlStateNormal];
+            }
+            if(messageDetail.isRemindable)
+            {
+                [[actionTableData objectForKey:@"ActionButtons"] addObject:sendReminderCell];
+                
+                [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+        else {
+            txtSender.text = messageDetail.senderName;
+            txtRecipient.text = @"You";
+            
+            // TODO: Fix Action/Amt Statement
+        }
+    }
+    if([messageDetail.messageType isEqualToString: @"PaymentRequest"])
+    {
+        if([messageDetail.direction isEqualToString: @"In"])
+        {
+            txtSender.text = messageDetail.senderName;
+            txtRecipient.text = @"You";
+            
+            // TODO: Fix Action/Amt Statement
+            
+            if(messageDetail.isAcceptable)
+            {
+                
+                [[actionTableData objectForKey:@"ActionButtons"] addObject:acceptPayCell];
+                
+                [acceptButton addTarget:self action:@selector(btnAcceptRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+            }
+            if(messageDetail.isRejectable)
+            {
+                [[actionTableData objectForKey:@"ActionButtons"] addObject:rejectRequestCell];
+                
+                [rejectButton addTarget:self action:@selector(btnRejectRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+            }
+        }
+        else if([messageDetail.direction isEqualToString: @"Out"]) {
+            
+            txtSender.text = @"You";
+            txtRecipient.text = messageDetail.recipientName;
+            
+            // TODO: Fix Action/Amt Statement
+            
+            if(messageDetail.isCancellable)
+            {
+                [[actionTableData objectForKey:@"ActionButtons"] addObject:rejectRequestCell];
+                
+                [rejectButton addTarget:self action:@selector(btnCancelRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+                
+                [rejectButton setTitle: @"Cancel Request" forState:UIControlStateNormal];
+            }
+            if(messageDetail.isRemindable)
+            {
+                [[actionTableData objectForKey:@"ActionButtons"] addObject:sendReminderCell];
+                
+                [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+                
+                [remindButton setTitle:@"Reject Request" forState:UIControlStateNormal];
+            }
+        }
+    }
+}
+
+
+/*      Action Table View Functions         */
 #pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
+{
+    if ( [[sections objectAtIndex:section] isEqualToString:@"DeliveryMethod"] )
+    {
+        return 17.0;
+    }
+    else if ( [[sections objectAtIndex:section] isEqualToString:@"ActionButtons"] )
+    {
+        if ( [[actionTableData objectForKey:@"ActionButtons"] count] > 0 )
+        {
+            return 17.0;
+        }
+        else
+        {
+            return 0.0;
+        }
+    }
+    
+    return 0.0;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return ((UITableViewCell*)[[actionTableData objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]).frame.size.height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if ( [[sections objectAtIndex:section] isEqualToString:@"DeliveryMethod"] )
+    {
+        return deliverySectionHeader;
+    }
+    else if ( [[sections objectAtIndex:section] isEqualToString:@"ActionButtons"] )
+    {
+        return actionButtonsHeader;
+    }
+    
+    return [[[UIView alloc] init] autorelease];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return [sections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return [[actionTableData objectForKey:[sections objectAtIndex:section]] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [[actionTableData objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    if (cell == nil)
+    {
+        NSLog(@"Error loading cell for sec[%d] row[%d]",indexPath.section,indexPath.row);
     }
-    
-    // Configure the cell...
     
     return cell;
 }

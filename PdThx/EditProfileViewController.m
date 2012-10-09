@@ -31,8 +31,12 @@
     profileSections = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).myApplication.profileSections;
     
     attributeValues = [[NSMutableArray alloc] init];
+    
     userAttributeService = [[UserAttributeService alloc] init];
     [userAttributeService setUserSettingsCompleteProtocol: self];
+    
+    userService = [[UserService alloc] init];
+    [userService setPersonalizeUserCompleteDelegate: self];
     
 }
 
@@ -447,14 +451,15 @@
 {
     if(indexPath.section == 0 && indexPath.row == 0)
     {
-        ChoosePictureViewController* controller = [[ChoosePictureViewController alloc] init];
+        ChoosePictureViewController* controller = [[[ChoosePictureViewController alloc] init] autorelease];
         [controller setTitle: @"Choose Picture"];
+        [controller setChooseMemberImageDelegate:self];
+        
         UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
         
         [self.navigationController presentModalViewController:navBar animated:YES];
         
         [navBar release];
-        [controller release];
     }
 }
 #pragma mark UITextFieldDelegate methods
@@ -541,6 +546,25 @@
 
 -(IBAction) bgTouched:(id) sender {
     [currentTextField resignFirstResponder];
+}
+-(void)chooseMemberImageDidComplete: (NSString*) imageUrl {
+    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    user.imageUrl = imageUrl;
+    
+    [profileTable reloadData];
+    
+    [self dismissModalViewControllerAnimated:YES];
+    
+    [userService personalizeUser:user.userId WithFirstName:user.firstName withLastName:user.lastName withImage: imageUrl];
+    
+}
+-(void) personalizeUserDidComplete {
+     NSLog(@"%@", @"Image Uploaded");
+    
+}
+-(void) personalizeUserDidFail:(NSString*) response withErrorCode:(int)errorCode {
+    
 }
 
 
