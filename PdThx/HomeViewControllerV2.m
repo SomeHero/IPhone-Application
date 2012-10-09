@@ -193,7 +193,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     loadingActivityIndicator.hidden = NO;
     [loadingActivityIndicator startAnimating];
+    
     [userService refreshHomeScreenInformation:userId];
+    
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 
