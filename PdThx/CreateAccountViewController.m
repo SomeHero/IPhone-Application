@@ -158,6 +158,7 @@
     [super viewDidLoad];
     
     tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:2];
+    
     registerUserService = [[RegisterUserService alloc] init];
     [registerUserService setUserRegistrationCompleteDelegate: self];
     
@@ -196,6 +197,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+#pragma mark TextFieldDelegate
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
     NSInteger nextTag = textField.tag + 1;

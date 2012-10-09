@@ -49,10 +49,7 @@
     return self;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [self setTitle:@"Sign In"];
-}
+
 
 - (void)dealloc
 {
@@ -92,10 +89,14 @@
     tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:1];
     
     faceBookSignInHelper = [[FacebookSignIn alloc] init];
+    
     signInUserService = [[SignInUserService alloc] init];
     [signInUserService setUserSignInCompleteDelegate:self];
+    
     fbSignInHelper = [[FacebookSignIn alloc] init];
     [fbSignInHelper setReturnDelegate:self];
+    
+    [self setTitle:@"Sign In"];
     
     [[viewPanel layer] setBorderColor: [[UIColor colorWithHue:0 saturation:0 brightness: 0.81 alpha:1.0] CGColor]];
     [[viewPanel layer] setBorderWidth:0.0]; // Old Width 1.0
@@ -109,19 +110,23 @@
     
     numFailedFB = 0;
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
 -(void)viewDidAppear:(BOOL)animated 
 {
-    [self setTitle:@"Sign In"];
-    [self.navigationItem setHidesBackButton:YES];
+
 }
 
 - (void)viewDidUnload
 {
+    self.tabBar = nil;
     [loginFBButton release];
     loginFBButton = nil;
     [forgotPassword release];
     forgotPassword = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
