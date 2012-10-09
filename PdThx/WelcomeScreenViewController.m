@@ -65,6 +65,7 @@
 
 - (void)viewDidUnload
 {
+    self.tabBar = nil;
     [firstTimeUserButton release];
     firstTimeUserButton = nil;
     [currentUserButton release];
