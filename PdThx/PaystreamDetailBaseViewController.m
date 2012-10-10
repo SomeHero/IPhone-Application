@@ -824,7 +824,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 
                 [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
-                [remindButton setTitle:@"Reject Request" forState:UIControlStateNormal];
+                [remindButton setTitle:@"Send Reminder" forState:UIControlStateNormal];
             }
         }
     }
