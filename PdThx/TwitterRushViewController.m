@@ -127,8 +127,6 @@
     {
         NSMutableDictionary* dict = [userInfo objectAtIndex:i];
         NSMutableDictionary* user = [dict objectForKey: @"user"];
-        
-        NSLog(@"%@", [user valueForKey: @"name"]);
     }
 }
 
