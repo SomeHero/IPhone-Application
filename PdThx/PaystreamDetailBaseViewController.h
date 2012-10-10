@@ -61,6 +61,7 @@
     // Express Delivery Section Header and Cell
     IBOutlet UIView *deliverySectionHeader;
     IBOutlet UITableViewCell *deliveryStatusCell;
+    IBOutlet UIButton *deliveryMethodButton;
     
     IBOutlet UITableViewCell *expressDeliveryCell;
     IBOutlet OHAttributedLabel *expressDeliveryChargeLabel;
@@ -93,7 +94,7 @@
 // Table Subviews and information
 @property (nonatomic, retain) UITableViewCell *statusCell;
 @property (nonatomic, retain) UIButton *currentStatusButton;
-
+@property (nonatomic, retain) UIButton *deliveryMethodButton;
 
 // Action Buttons
 @property (nonatomic, retain) UITableViewCell *rejectRequestCell;

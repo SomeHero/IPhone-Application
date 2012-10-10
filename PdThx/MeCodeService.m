@@ -54,8 +54,6 @@
         
     } else
     {
-        NSLog(@"%@", [request responseStatusMessage]);
-        
         NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];

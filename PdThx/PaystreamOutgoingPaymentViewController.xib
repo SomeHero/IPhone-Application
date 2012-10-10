@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">12C54</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1926</string>
+			<string key="NS.object.0">1929</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -55,7 +55,7 @@
 								<string key="NSFrame">{{24, 76}, {100, 32}}</string>
 								<reference key="NSSuperview" ref="280186147"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="420562129"/>
+								<reference key="NSNextKeyView" ref="385848343"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -92,7 +92,7 @@
 								<string key="NSFrame">{{235, 76}, {100, 32}}</string>
 								<reference key="NSSuperview" ref="280186147"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="385848343"/>
+								<reference key="NSNextKeyView" ref="229375645"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -201,10 +201,10 @@
 								<object class="NSMutableArray" key="NSSubviews">
 									<bool key="EncodedWithXMLCoder">YES</bool>
 								</object>
-								<string key="NSFrame">{{53, 108}, {254, 51}}</string>
+								<string key="NSFrame">{{53, 106}, {254, 51}}</string>
 								<reference key="NSSuperview" ref="280186147"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="229375645"/>
+								<reference key="NSNextKeyView" ref="420562129"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="452846472">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
@@ -229,7 +229,7 @@
 							<object class="IBUILabel" id="650449350">
 								<reference key="NSNextResponder" ref="280186147"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{119, 20}, {122, 44}}</string>
+								<string key="NSFrame">{{114, 20}, {120, 44}}</string>
 								<reference key="NSSuperview" ref="280186147"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="659767459"/>
@@ -259,7 +259,7 @@
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-								<double key="preferredMaxLayoutWidth">122</double>
+								<double key="preferredMaxLayoutWidth">120</double>
 							</object>
 							<object class="IBUITableView" id="231525083">
 								<reference key="NSNextResponder" ref="280186147"/>
@@ -272,6 +272,10 @@
 								<reference key="IBUIBackgroundColor" ref="348471694"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<double key="IBUIContentInset.top">0.0</double>
+								<double key="IBUIContentInset.bottom">15</double>
+								<double key="IBUIContentInset.left">0.0</double>
+								<double key="IBUIContentInset.right">0.0</double>
 								<bool key="IBUIAlwaysBounceVertical">YES</bool>
 								<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 								<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
@@ -1064,19 +1068,27 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">currentStatusButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="377862806"/>
-					</object>
-					<int key="connectionID">291</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">deliveryStatusCell</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="460568182"/>
 					</object>
 					<int key="connectionID">293</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">currentStatusButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="121139547"/>
+					</object>
+					<int key="connectionID">294</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">deliveryMethodButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="377862806"/>
+					</object>
+					<int key="connectionID">295</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -1142,47 +1154,6 @@
 							<reference ref="231525083"/>
 						</object>
 						<reference key="parent" ref="1013413805"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">107</int>
-						<reference key="object" ref="619450764"/>
-						<reference key="parent" ref="280186147"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">134</int>
-						<reference key="object" ref="420562129"/>
-						<reference key="parent" ref="280186147"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">97</int>
-						<reference key="object" ref="659767459"/>
-						<reference key="parent" ref="280186147"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">98</int>
-						<reference key="object" ref="171269352"/>
-						<reference key="parent" ref="280186147"/>
-						<string key="objectName">Button</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">99</int>
-						<reference key="object" ref="229375645"/>
-						<reference key="parent" ref="280186147"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">103</int>
-						<reference key="object" ref="385848343"/>
-						<reference key="parent" ref="280186147"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">104</int>
-						<reference key="object" ref="305195947"/>
-						<reference key="parent" ref="280186147"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">140</int>
-						<reference key="object" ref="650449350"/>
-						<reference key="parent" ref="280186147"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">230</int>
@@ -1333,6 +1304,47 @@
 						<reference key="object" ref="377862806"/>
 						<reference key="parent" ref="460568182"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">104</int>
+						<reference key="object" ref="305195947"/>
+						<reference key="parent" ref="280186147"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">98</int>
+						<reference key="object" ref="171269352"/>
+						<reference key="parent" ref="280186147"/>
+						<string key="objectName">Button</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">107</int>
+						<reference key="object" ref="619450764"/>
+						<reference key="parent" ref="280186147"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">134</int>
+						<reference key="object" ref="420562129"/>
+						<reference key="parent" ref="280186147"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">140</int>
+						<reference key="object" ref="650449350"/>
+						<reference key="parent" ref="280186147"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">97</int>
+						<reference key="object" ref="659767459"/>
+						<reference key="parent" ref="280186147"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">99</int>
+						<reference key="object" ref="229375645"/>
+						<reference key="parent" ref="280186147"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">103</int>
+						<reference key="object" ref="385848343"/>
+						<reference key="parent" ref="280186147"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1469,7 +1481,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">293</int>
+			<int key="maxID">300</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1506,6 +1518,7 @@
 							<string>btnRecipient</string>
 							<string>btnSender</string>
 							<string>currentStatusButton</string>
+							<string>deliveryMethodButton</string>
 							<string>deliverySectionHeader</string>
 							<string>deliveryStatusCell</string>
 							<string>detailTableView</string>
@@ -1521,6 +1534,7 @@
 							<string>remindButton</string>
 							<string>sendReminderCell</string>
 							<string>statusCell</string>
+							<string>transactionInfoCell</string>
 							<string>txtActionAmount</string>
 							<string>txtRecipient</string>
 							<string>txtSender</string>
@@ -1530,6 +1544,7 @@
 							<string>UIButton</string>
 							<string>UITableViewCell</string>
 							<string>UIView</string>
+							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
@@ -1548,6 +1563,7 @@
 							<string>UIButton</string>
 							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
+							<string>UITableViewCell</string>
 							<string>OHAttributedLabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
@@ -1563,6 +1579,7 @@
 							<string>btnRecipient</string>
 							<string>btnSender</string>
 							<string>currentStatusButton</string>
+							<string>deliveryMethodButton</string>
 							<string>deliverySectionHeader</string>
 							<string>deliveryStatusCell</string>
 							<string>detailTableView</string>
@@ -1578,6 +1595,7 @@
 							<string>remindButton</string>
 							<string>sendReminderCell</string>
 							<string>statusCell</string>
+							<string>transactionInfoCell</string>
 							<string>txtActionAmount</string>
 							<string>txtRecipient</string>
 							<string>txtSender</string>
@@ -1606,6 +1624,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">currentStatusButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">deliveryMethodButton</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -1666,6 +1688,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">statusCell</string>
+								<string key="candidateClassName">UITableViewCell</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">transactionInfoCell</string>
 								<string key="candidateClassName">UITableViewCell</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -1781,6 +1807,6 @@
 				<string>{14, 11}</string>
 			</object>
 		</object>
-		<string key="IBCocoaTouchPluginVersion">1926</string>
+		<string key="IBCocoaTouchPluginVersion">1929</string>
 	</data>
 </archive>

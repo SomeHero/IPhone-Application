@@ -26,7 +26,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize acceptPayCell;
 
 @synthesize btnRecipient, btnSender;
-@synthesize currentStatusButton;
+@synthesize currentStatusButton, deliveryMethodButton;
 @synthesize deliverySectionHeader, detailTableView, deliveryStatusCell;
 
 @synthesize expressDeliveryButton, expressDeliveryCell, expressDeliveryChargeLabel, expressDeliveryText;
@@ -69,6 +69,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [statusCell release];
     [actionButtonsHeader release];
     [deliveryStatusCell release];
+    [deliveryMethodButton release];
     [super dealloc];
 }
 
@@ -194,7 +195,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [self.navBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-    
+    [detailTableView setBounces:NO];
+    [detailTableView setAlwaysBounceVertical:NO];
     
     [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
@@ -232,7 +234,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	NSString*	s;
 	NSString*	art		= @"bg-message-stretch.png";
 	CGSize		caps		= CGSizeMake(25, 24);
-	UIFont*		font		= [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
+    UIFont*		font;
+    if ( messageDetail.comments.length > 100 )
+        font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 8];
+    else
+        font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
+    
 	CGFloat		padTRBL[4]	= {15, 8, 8, 8};
 	UIView*		bubble;
     
@@ -480,7 +487,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     actionButtonsHeader = nil;
     [deliveryStatusCell release];
     deliveryStatusCell = nil;
+    [deliveryMethodButton release];
+    deliveryMethodButton = nil;
     [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -702,8 +712,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Accepting Request"];
 }
 
-
-
 -(void) buildActionTableView
 {
     // Reset Arrays
@@ -713,13 +721,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     sections = [[NSMutableArray alloc] init];
     actionTableData = [[NSMutableDictionary alloc] init];
     
+    
     // Initialize Status Section (Always Exists)
     [sections addObject:@"Status"];
     [actionTableData setValue:[[NSMutableArray alloc] initWithObjects:statusCell, nil] forKey:@"Status"];
     
+    [currentStatusButton setTitle:messageDetail.messageStatus forState:UIControlStateNormal];
+    
+    
     // Delivery Section
     [sections addObject:@"DeliveryMethod"];
     [actionTableData setValue:[[NSMutableArray alloc] initWithObjects:deliveryStatusCell, nil] forKey:@"DeliveryMethod"];
+    if ( messageDetail.deliveryMethod !=(id)[NSNull null] && messageDetail.deliveryMethod != NULL )
+        [deliveryMethodButton setTitle:[NSString stringWithFormat:@"%@ Delivery",messageDetail.deliveryMethod] forState:UIControlStateNormal];
+    else
+        [deliveryMethodButton setTitle:@"Standard Delivery" forState:UIControlStateNormal];
     
     if ( messageDetail.isExpressable )
     {
@@ -727,6 +743,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         // Display Cell (Add to list)
         [[actionTableData objectForKey:@"DeliveryMethod"] addObject:expressDeliveryCell];
+        [deliveryMethodButton setUserInteractionEnabled:NO];
     }
     
     // Button actions
@@ -763,6 +780,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             // TODO: Fix Action/Amt Statement
         }
     }
+    
     if([messageDetail.messageType isEqualToString: @"PaymentRequest"])
     {
         if([messageDetail.direction isEqualToString: @"In"])
@@ -774,7 +792,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             
             if(messageDetail.isAcceptable)
             {
-                
                 [[actionTableData objectForKey:@"ActionButtons"] addObject:acceptPayCell];
                 
                 [acceptButton addTarget:self action:@selector(btnAcceptRequestClicked) forControlEvents:UIControlEventTouchUpInside];

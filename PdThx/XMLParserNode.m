@@ -76,7 +76,6 @@
 	[self.nodeContent appendString:string];
 	
 	if(verbose) NSLog(@"XML: Node <%@> received content: %@",self.nodeName, string);
-
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
