@@ -20,8 +20,13 @@
 @synthesize senderUri;
 @synthesize createDate;
 @synthesize direction;
+@synthesize recipientUriType;
+@synthesize recipientImageUri;
+@synthesize recipientImage;
 @synthesize recipientName;
 @synthesize senderName;
+@synthesize senderImage;
+@synthesize senderImageUri;
 @synthesize imgData;
 @synthesize transactionImageUri;
 @synthesize senderHasSeen, recipientHasSeen;
@@ -74,7 +79,8 @@
         messageType = [[dictionary valueForKey:@"messageType"] copy];
         senderUri = [[dictionary valueForKey:@"senderUri"] copy];
         recipientUri = [[dictionary valueForKey:@"recipientUri"] copy];
-        
+        recipientUriType = [[dictionary valueForKey: @"recipientUriType"] copy];
+        recipientImageUri = [[dictionary valueForKey: @"recipientImageUri"] copy];
         NSString* rawData = [[dictionary valueForKey:@"createDate"] autorelease];
         NSRange timezone = NSMakeRange([rawData length] - 10, 3);
         NSString *cleanData = [rawData stringByReplacingOccurrencesOfString:@":" withString:@"" options:NSCaseInsensitiveSearch range:timezone ];
@@ -82,6 +88,7 @@
         direction = [[dictionary valueForKey:@"direction"] copy];
         recipientName = [[dictionary valueForKey:@"recipientName"] copy];
         senderName = [[dictionary valueForKey:@"senderName"] copy];
+        senderImageUri = [[dictionary valueForKey: @"senderImageUri"] copy];
         transactionImageUri = [[dictionary valueForKey:@"transactionImageUri"] copy];
         senderHasSeen = [[dictionary objectForKey:@"senderSeen"] boolValue];
         recipientHasSeen = [[dictionary objectForKey:@"recipientSeen"] boolValue];

@@ -347,19 +347,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         txtSender.text = @"You";
         txtRecipient.text = messageDetail.recipientName;
         
-        if ( user.imageUrl != (id)[NSNull null] && user.imageUrl.length > 0 )
-        {
-            [btnSender setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.imageUrl]]] forState:UIControlStateNormal];
-        } else {
-            [btnSender setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
-        }
-        
-        if ( messageDetail.imgData != (id)[NSNull null] )
-        {
-            [btnRecipient setBackgroundImage:messageDetail.imgData forState:UIControlStateNormal];
-        } else {
-            [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
-        }
+        [btnSender  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:messageDetail.senderImageUri]]] forState:UIControlStateNormal];
+
+        [btnRecipient  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:messageDetail.recipientImageUri]]] forState:UIControlStateNormal];
+
     }
     else
     {
@@ -368,19 +359,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         txtRecipient.text = @"You";
         txtSender.text = messageDetail.senderName;
         
-        if ( user.imageUrl != (id)[NSNull null] && user.imageUrl.length > 0 )
-        {
-            [btnRecipient setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.imageUrl]]] forState:UIControlStateNormal];
-        } else {
-            [btnRecipient setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
-        }
+        [btnSender  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:messageDetail.senderImageUri]]] forState:UIControlStateNormal];
         
-        if ( messageDetail.imgData != nil && messageDetail.imgData != NULL )
-        {
-            [btnSender setBackgroundImage:messageDetail.imgData forState:UIControlStateNormal];
-        } else {
-            [btnSender setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
-        }
+        [btnRecipient  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:messageDetail.recipientImageUri]]] forState:UIControlStateNormal];
+
     }
 }
 
@@ -475,6 +457,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Reject Request"];
 }
+
 - (void)viewDidUnload
 {
     [detailTableView release];
@@ -565,6 +548,53 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         [controller setAchSetupComplete:self];
         [self presentModalViewController: navigationBar animated:YES];
+    }
+}
+-(void) btnSendReminderPaymentClicked:(id)sender {
+    if([messageDetail.recipientUriType isEqualToString: @"MobileNumber"])
+        [self openSMSComposer];
+    else if([messageDetail.recipientUriType isEqualToString: @"EmailAddress"])
+        [self openMailComposer];
+}
+-(void) openSMSComposer {
+	MFMessageComposeViewController *controller = [[[MFMessageComposeViewController alloc] init] autorelease];
+	
+    if([MFMessageComposeViewController canSendText])
+	{
+        controller.title = @"Send Reminder";
+		controller.body = @"You owe me money";
+		controller.recipients = [NSArray arrayWithObjects:@"8043879693", nil];
+		controller.messageComposeDelegate = self;
+        
+		[self presentModalViewController:controller animated:YES];
+	}
+}
+- (IBAction)openMailComposer
+{
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+        mailer.mailComposeDelegate = self;
+        [mailer setSubject:@"A Message from PaidThx"];
+        NSArray *toRecipients = [NSArray arrayWithObjects: messageDetail.recipientUri, nil];
+        [mailer setToRecipients:toRecipients];
+        //UIImage *myImage = [UIImage imageNamed:@"mobiletuts-logo.png"];
+        //NSData *imageData = UIImagePNGRepresentation(myImage);
+        //[mailer addAttachmentData:imageData mimeType:@"image/png" fileName:@"mobiletutsImage"];
+        NSString *emailBody = @"I sent you some money using PaidThx";
+        [mailer setMessageBody:emailBody isHTML:NO];
+        [self presentModalViewController:mailer animated:YES];
+        [mailer release];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
+                                                        message:@"Your device doesn't support the composer sheet"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
+        [alert release];
     }
 }
 -(void) startSecurityPin
@@ -740,7 +770,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             {
                 [[actionTableData objectForKey:@"ActionButtons"] addObject:sendReminderCell];
                 
-                [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+                [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked:) forControlEvents:UIControlEventTouchUpInside];
             }
         }
         else {
@@ -792,7 +822,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             {
                 [[actionTableData objectForKey:@"ActionButtons"] addObject:sendReminderCell];
                 
-                [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
+                [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [remindButton setTitle:@"Reject Request" forState:UIControlStateNormal];
             }
@@ -867,5 +897,51 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     return cell;
 }
-
+#pragma mark MessageComposeViewControllerDelegate
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    switch (result)
+    {
+		case MessageComposeResultCancelled:
+			NSLog(@"Cancelled");
+            [self dismissModalViewControllerAnimated:YES];
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
+			break;
+		case MessageComposeResultFailed:
+            [self dismissModalViewControllerAnimated:YES];
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
+			break;
+		case MessageComposeResultSent:
+            NSLog(@"Text Message Sent!");
+            [self dismissModalViewControllerAnimated:YES];
+            [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) startUserSetupFlow:self];
+			break;
+		default:
+			break;
+	}
+}
+#pragma mark MailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+            break;
+        default:
+            NSLog(@"Mail not sent.");
+            break;
+    }
+    // Remove the mail view
+    [self dismissModalViewControllerAnimated:YES];
+}
 @end
