@@ -16,10 +16,15 @@
     NSString* messageStatus;
     NSString* messageType;
     NSString* recipientUri;
+    NSString* recipientImageUri;
+    UIImage* recipientImageData;;
     NSString* senderUri;
+    NSString* senderImageUri;
+    UIImage* senderImageData;
     NSDate* createDate;
     NSString* direction;
     NSString* recipientName;
+    NSString* recipientUriType;
     NSString* senderName;
     NSString* transactionImageUri;
     UIImage * imgData;
@@ -42,13 +47,18 @@
 @property(nonatomic, retain) NSString* messageStatus;
 @property(nonatomic, retain) NSString* messageType;
 @property(nonatomic, retain) NSString* recipientUri;
+@property(nonatomic, retain) NSString* recipientImageUri;
+@property(nonatomic, retain) UIImage* recipientImage;
+@property(nonatomic, retain) NSString* recipientUriType;
 @property(nonatomic, retain) NSString* senderUri;
+@property(nonatomic, retain) NSString* senderImageUri;
+@property(nonatomic, retain) UIImage* senderImage;
 @property(nonatomic, retain) NSDate* createDate;
 @property(nonatomic, retain) NSString* direction;
 @property(nonatomic, retain) NSString* recipientName;
 @property(nonatomic, retain) NSString* transactionImageUri;
 @property(nonatomic, retain) NSString* senderName;
-@property (nonatomic, retain) UIImage * imgData;
+@property (nonatomic, retain) UIImage* imgData;
 
 @property(assign) bool senderHasSeen;
 @property(assign) bool recipientHasSeen;

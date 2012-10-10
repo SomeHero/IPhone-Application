@@ -273,6 +273,8 @@
 		5B0A228B15A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A228915A1037C00BDA5F8 /* SecurityAndPrivacyViewControllerViewController.xib */; };
 		5B10DB051623C57C00E829FD /* PhotoSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B10DB031623C57B00E829FD /* PhotoSelectorViewController.m */; };
 		5B10DB061623C57C00E829FD /* PhotoSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B10DB041623C57C00E829FD /* PhotoSelectorViewController.xib */; };
+		5B10DB0B1624ED7D00E829FD /* SendReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B10DB091624ED7D00E829FD /* SendReminderViewController.m */; };
+		5B10DB0C1624ED7D00E829FD /* SendReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B10DB0A1624ED7D00E829FD /* SendReminderViewController.xib */; };
 		5B11961415AB2397003F8D53 /* libZendeskDropbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B11961215AB2397003F8D53 /* libZendeskDropbox.a */; };
 		5B11962115AB6C3A003F8D53 /* SendDonationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B11961F15AB6C3A003F8D53 /* SendDonationViewController.m */; };
 		5B11962215AB6C3A003F8D53 /* SendDonationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B11962015AB6C3A003F8D53 /* SendDonationViewController.xib */; };
@@ -1104,6 +1106,9 @@
 		5B10DB021623C57B00E829FD /* PhotoSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelectorViewController.h; sourceTree = "<group>"; };
 		5B10DB031623C57B00E829FD /* PhotoSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSelectorViewController.m; sourceTree = "<group>"; };
 		5B10DB041623C57C00E829FD /* PhotoSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoSelectorViewController.xib; sourceTree = "<group>"; };
+		5B10DB081624ED7D00E829FD /* SendReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendReminderViewController.h; sourceTree = "<group>"; };
+		5B10DB091624ED7D00E829FD /* SendReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendReminderViewController.m; sourceTree = "<group>"; };
+		5B10DB0A1624ED7D00E829FD /* SendReminderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendReminderViewController.xib; sourceTree = "<group>"; };
 		5B11961215AB2397003F8D53 /* libZendeskDropbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libZendeskDropbox.a; sourceTree = "<group>"; };
 		5B11961315AB2397003F8D53 /* ZendeskDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZendeskDropbox.h; sourceTree = "<group>"; };
 		5B11961E15AB6C3A003F8D53 /* SendDonationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDonationViewController.h; sourceTree = "<group>"; };
@@ -3317,6 +3322,9 @@
 				544A4F681592493F003EEE7D /* PaystreamOutgoingPaymentViewController.h */,
 				544A4F691592493F003EEE7D /* PaystreamOutgoingPaymentViewController.m */,
 				544A4F6A1592493F003EEE7D /* PaystreamOutgoingPaymentViewController.xib */,
+				5B10DB081624ED7D00E829FD /* SendReminderViewController.h */,
+				5B10DB091624ED7D00E829FD /* SendReminderViewController.m */,
+				5B10DB0A1624ED7D00E829FD /* SendReminderViewController.xib */,
 			);
 			name = "Detail View Controllers";
 			sourceTree = "<group>";
@@ -3412,46 +3420,47 @@
 		5BD2793815464D4C00CAFC12 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5BD2793915464D6700CAFC12 /* Transaction.h */,
-				5BD2793A15464D6700CAFC12 /* Transaction.m */,
-				5BD27BE8154B7E3B00CAFC12 /* User.h */,
-				5BD27BE9154B7E3D00CAFC12 /* User.m */,
-				5B3F4CED155F6FB600A67649 /* PaystreamMessage.h */,
-				5B3F4CEE155F6FB600A67649 /* PaystreamMessage.m */,
+				5B8B45BC15A8F06200822B67 /* Application.h */,
+				5B8B45BD15A8F06500822B67 /* Application.m */,
+				5BDDADC315BDE5A5007B733E /* ApplicationConfiguration.h */,
+				5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */,
+				5BF3EE231591563D0011BAD8 /* BankAccount.h */,
+				5BF3EE241591563F0011BAD8 /* BankAccount.m */,
 				5BD27BCF1547BD9F00CAFC12 /* Contact.h */,
 				5BD27BD01547BDA000CAFC12 /* Contact.m */,
 				5BE6F7AA14E9E0EE00599EF2 /* Environment.h */,
 				5BE6F7AB14E9E0F000599EF2 /* Environment.m */,
-				5BF3EE231591563D0011BAD8 /* BankAccount.h */,
-				5BF3EE241591563F0011BAD8 /* BankAccount.m */,
-				5B0A228215A0D00A00BDA5F8 /* PayPoint.h */,
-				5B0A228315A0D00A00BDA5F8 /* PayPoint.m */,
-				5B8B456615A28B1C00822B67 /* UserProfileItem.h */,
-				5B8B456715A28B1C00822B67 /* UserProfileItem.m */,
-				5B8B459715A6282800822B67 /* UserAttribute.h */,
-				5B8B459815A6282800822B67 /* UserAttribute.m */,
-				5B8B45B215A7C9E100822B67 /* UserConfiguration.h */,
-				5B8B45B315A7C9E200822B67 /* UserConfiguration.m */,
-				5B8B45BC15A8F06200822B67 /* Application.h */,
-				5B8B45BD15A8F06500822B67 /* Application.m */,
-				5B8B45BF15A8F10800822B67 /* ProfileItem.h */,
-				5B8B45C015A8F10B00822B67 /* ProfileItem.m */,
-				5B8B45C315A9125200822B67 /* ProfileSection.h */,
-				5B8B45C415A9125600822B67 /* ProfileSection.m */,
 				5B11963B15ADFFD1003F8D53 /* Merchant.h */,
 				5B11963C15ADFFD1003F8D53 /* Merchant.m */,
-				5B357D0215B59987000CD5FC /* NonProfitDetail.h */,
-				5B357D0315B59987000CD5FC /* NonProfitDetail.m */,
-				5BDDADC315BDE5A5007B733E /* ApplicationConfiguration.h */,
-				5BDDADC415BDE5A5007B733E /* ApplicationConfiguration.m */,
-				5BDDAE9C15CF7E54007B733E /* ProfileOptionItem.h */,
-				5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */,
 				5BDDAEAD15D0AA8B007B733E /* MerchantListing.h */,
 				5BDDAEAE15D0AA8B007B733E /* MerchantListing.m */,
 				5BDDAEB115D0AA9F007B733E /* MerchantOffer.h */,
 				5BDDAEB215D0AAA0007B733E /* MerchantOffer.m */,
+				5B357D0215B59987000CD5FC /* NonProfitDetail.h */,
+				5B357D0315B59987000CD5FC /* NonProfitDetail.m */,
+				5B0A228215A0D00A00BDA5F8 /* PayPoint.h */,
+				5B0A228315A0D00A00BDA5F8 /* PayPoint.m */,
+				5B3F4CED155F6FB600A67649 /* PaystreamMessage.h */,
+				5B3F4CEE155F6FB600A67649 /* PaystreamMessage.m */,
+				5B8B45BF15A8F10800822B67 /* ProfileItem.h */,
+				5B8B45C015A8F10B00822B67 /* ProfileItem.m */,
+				5BDDAE9C15CF7E54007B733E /* ProfileOptionItem.h */,
+				5BDDAE9D15CF7E55007B733E /* ProfileOptionItem.m */,
+				5B8B45C315A9125200822B67 /* ProfileSection.h */,
+				5B8B45C415A9125600822B67 /* ProfileSection.m */,
 				7AB60DC515FFD6A70098A5CA /* SocialNetworkAccount.h */,
 				7AB60DC615FFD6A70098A5CA /* SocialNetworkAccount.m */,
+				5BD2793915464D6700CAFC12 /* Transaction.h */,
+				5BD2793A15464D6700CAFC12 /* Transaction.m */,
+				5BD27BE8154B7E3B00CAFC12 /* User.h */,
+				5BD27BE9154B7E3D00CAFC12 /* User.m */,
+				5B8B459715A6282800822B67 /* UserAttribute.h */,
+				5B8B459815A6282800822B67 /* UserAttribute.m */,
+				5B8B45B215A7C9E100822B67 /* UserConfiguration.h */,
+				5B8B45B315A7C9E200822B67 /* UserConfiguration.m */,
+				5B8B456615A28B1C00822B67 /* UserProfileItem.h */,
+				5B8B456715A28B1C00822B67 /* UserProfileItem.m */,
+				5BE6F79E14E75C5E00599EF2 /* DataObjects */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -3487,7 +3496,6 @@
 				5BD2793C15465FE600CAFC12 /* Helpers */,
 				5BD279111544431C00CAFC12 /* Protocols */,
 				5BD2793815464D4C00CAFC12 /* Models */,
-				5BE6F79E14E75C5E00599EF2 /* DataObjects */,
 				5BD27BCB1547B46300CAFC12 /* UIBaseViewController.h */,
 				5BD27BCC1547B46500CAFC12 /* UIBaseViewController.m */,
 				5BF1F215158F4FAE00CFBF77 /* UISetupUserBaseViewController.h */,
@@ -4527,6 +4535,7 @@
 				7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */,
 				7AABBF22161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib in Resources */,
 				5B10DB061623C57C00E829FD /* PhotoSelectorViewController.xib in Resources */,
+				5B10DB0C1624ED7D00E829FD /* SendReminderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4773,6 +4782,7 @@
 				7AABBF20161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m in Sources */,
 				5B92F20116236EEF001C361E /* UIProfileSwitch.m in Sources */,
 				5B10DB051623C57C00E829FD /* PhotoSelectorViewController.m in Sources */,
+				5B10DB0B1624ED7D00E829FD /* SendReminderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

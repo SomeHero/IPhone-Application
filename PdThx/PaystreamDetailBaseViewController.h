@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "PaystreamMessage.h"
 #import "PaystreamService.h"
 #import "PullableView.h"
@@ -20,7 +21,7 @@
 #import "OHAttributedLabel.h"
 #import "AddACHOptionsViewController.h"
 
-@interface PaystreamDetailBaseViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,AcceptPaymentRequestProtocol, CancelPaymentProtocol, ACHSetupCompleteProtocol>
+@interface PaystreamDetailBaseViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,AcceptPaymentRequestProtocol, CancelPaymentProtocol, ACHSetupCompleteProtocol, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 {
     PaystreamMessage* messageDetail;
     PaystreamService* paystreamServices;
