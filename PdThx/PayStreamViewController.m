@@ -716,7 +716,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO) {
             [self startIconDownload:item forIndexPath:indexPath];
-        } 
+        }
         
         // if a download is deferred or in progress, return a placeholder image
         [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
@@ -855,7 +855,14 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         else
             cell.lblTransactionDirection.text = @"You sent money to them";
     }
-    else {
+    else if([item.messageType isEqualToString: @"Donation"])
+    {
+        if([item.direction isEqualToString: @"In"])
+            cell.lblTransactionDirection.text = @"They donated to you";
+        else
+            cell.lblTransactionDirection.text = @"You donated to them";
+    }
+    else if([item.messageType isEqualToString: @"PaymentRequest"]){
         if([item.direction isEqualToString: @"In"])
             cell.lblTransactionDirection.text = @"Request money from you";
         else
