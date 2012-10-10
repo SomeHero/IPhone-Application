@@ -22,7 +22,9 @@
 #import "ContactSelectViewController.h"
 #import "RecipientPickerViewController.h"
 
+#import "ExpressableAmountSelectViewController.h"
 #import "AmountSelectViewController.h"
+
 #import "SelectRecipientViewController.h"
 
 // Custom Keyboard Dismissing Feature
@@ -309,13 +311,26 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (IBAction)pressedAmountButton:(id)sender 
 {
-    AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
-    [newView setTitle:@"Send Amount"];
-    
-    [self.navigationController pushViewController:newView animated:YES];
-    newView.amountChosenDelegate = self;
-    
-    [newView release];
+    if ( user.canExpress )
+    {
+        ExpressableAmountSelectViewController *newView = [[ExpressableAmountSelectViewController alloc] initWithNibName:@"ExpressableAmountSelectViewController" bundle:nil];
+        [newView setTitle:@"Send Amount"];
+        
+        [self.navigationController pushViewController:newView animated:YES];
+        newView.amountChosenDelegate = self;
+        
+        [newView release];
+    }
+    else
+    {
+        AmountSelectViewController *newView = [[AmountSelectViewController alloc] initWithNibName:@"AmountSelectViewController" bundle:nil];
+        [newView setTitle:@"Send Amount"];
+        
+        [self.navigationController pushViewController:newView animated:YES];
+        newView.amountChosenDelegate = self;
+        
+        [newView release];
+    }
 }
 
 
@@ -395,7 +410,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM PAYMENT"];
     [controller setDeliveryType:deliveryType];
     
-    if ( [deliveryType isEqualToString:@"Express"] )
+    if ( [deliveryType isEqualToString:@"Express"] && [amount doubleValue] > user.expressDeliveryThreshold )
         [controller setDeliveryCharge:([amount doubleValue]*user.expressDeliveryFeePercentage)];
     
     [controller setAmount:[amount doubleValue]];
@@ -404,7 +419,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.navigationController presentModalViewController:controller animated:YES];
     
     // Setting the background image must be done after the view loads (could call [controller viewDidLoad] too)
-    NSLog(@"%@",recipient.imgData);
     if ( recipient.imgData != (id)[NSNull null] && recipient.imgData != NULL )
         [controller.contactImageButton setBackgroundImage:recipient.imgData forState:UIControlStateNormal];
     else

@@ -679,6 +679,8 @@
 		7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79D161A1637006B9B11 /* btn-express-43x40@2x.png */; };
 		7A39C10915FA6141004EED53 /* ChooseAddACHMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A39C10715FA6141004EED53 /* ChooseAddACHMethodViewController.m */; };
 		7A39C10A15FA6141004EED53 /* ChooseAddACHMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A39C10815FA6141004EED53 /* ChooseAddACHMethodViewController.xib */; };
+		7A672A831625C30800C8B967 /* ExpressableAmountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A672A811625C30800C8B967 /* ExpressableAmountSelectViewController.m */; };
+		7A672A841625C30800C8B967 /* ExpressableAmountSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A672A821625C30800C8B967 /* ExpressableAmountSelectViewController.xib */; };
 		7A8BB6FE161A06F10093ED12 /* launch-icon-beta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A8BB6FD161A06F10093ED12 /* launch-icon-beta@2x.png */; };
 		7A9650C7160B6265000B86A4 /* bg-psdetail-arrow-133x44.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9650C3160B6265000B86A4 /* bg-psdetail-arrow-133x44.png */; };
 		7A9650C8160B6265000B86A4 /* bg-psdetail-arrow-133x44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9650C4160B6265000B86A4 /* bg-psdetail-arrow-133x44@2x.png */; };
@@ -1694,6 +1696,9 @@
 		7A39C10615FA6141004EED53 /* ChooseAddACHMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseAddACHMethodViewController.h; sourceTree = "<group>"; };
 		7A39C10715FA6141004EED53 /* ChooseAddACHMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseAddACHMethodViewController.m; sourceTree = "<group>"; };
 		7A39C10815FA6141004EED53 /* ChooseAddACHMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseAddACHMethodViewController.xib; sourceTree = "<group>"; };
+		7A672A801625C30800C8B967 /* ExpressableAmountSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressableAmountSelectViewController.h; sourceTree = "<group>"; };
+		7A672A811625C30800C8B967 /* ExpressableAmountSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressableAmountSelectViewController.m; sourceTree = "<group>"; };
+		7A672A821625C30800C8B967 /* ExpressableAmountSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpressableAmountSelectViewController.xib; sourceTree = "<group>"; };
 		7A8BB6FD161A06F10093ED12 /* launch-icon-beta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch-icon-beta@2x.png"; path = "../launch-icon-beta@2x.png"; sourceTree = "<group>"; };
 		7A8D3AF71619F2CE00FBDA70 /* launch-icon-dev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch-icon-dev@2x.png"; path = "../launch-icon-dev@2x.png"; sourceTree = "<group>"; };
 		7A8D40621619F2B000BA5B0D /* launch-icon-dev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch-icon-dev.png"; path = "../launch-icon-dev.png"; sourceTree = "<group>"; };
@@ -2270,13 +2275,12 @@
 		54A139A815826C2200668984 /* Send/Request Money */ = {
 			isa = PBXGroup;
 			children = (
+				7A672A7F1625C2CD00C8B967 /* Amount Select */,
 				5485B50D15CAB99300B59591 /* Transaction Confirmation */,
 				C38999DB15C2EE4600D98387 /* Select Recipient */,
 				549FD4441588F87300809EAA /* Request Money */,
 				549FD4431588F86E00809EAA /* Send Money */,
 				54A139AA15826E8000668984 /* Contact Table View */,
-				54A139A215826B0900668984 /* AmountSelectViewController.h */,
-				54A139A315826B0900668984 /* AmountSelectViewController.m */,
 			);
 			name = "Send/Request Money";
 			sourceTree = "<group>";
@@ -3792,6 +3796,18 @@
 			name = "Bank Account Management";
 			sourceTree = "<group>";
 		};
+		7A672A7F1625C2CD00C8B967 /* Amount Select */ = {
+			isa = PBXGroup;
+			children = (
+				54A139A215826B0900668984 /* AmountSelectViewController.h */,
+				54A139A315826B0900668984 /* AmountSelectViewController.m */,
+				7A672A801625C30800C8B967 /* ExpressableAmountSelectViewController.h */,
+				7A672A811625C30800C8B967 /* ExpressableAmountSelectViewController.m */,
+				7A672A821625C30800C8B967 /* ExpressableAmountSelectViewController.xib */,
+			);
+			name = "Amount Select";
+			sourceTree = "<group>";
+		};
 		7A8D40591619F23F00BA5B0D /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
@@ -4527,6 +4543,7 @@
 				7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */,
 				7AABBF22161E0E8700EE0EBA /* UIPaystreamNoItemsFoundCellView.xib in Resources */,
 				5B10DB061623C57C00E829FD /* PhotoSelectorViewController.xib in Resources */,
+				7A672A841625C30800C8B967 /* ExpressableAmountSelectViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4773,6 +4790,7 @@
 				7AABBF20161E0E6800EE0EBA /* UIPaystreamNoItemsFoundCell.m in Sources */,
 				5B92F20116236EEF001C361E /* UIProfileSwitch.m in Sources */,
 				5B10DB051623C57C00E829FD /* PhotoSelectorViewController.m in Sources */,
+				7A672A831625C30800C8B967 /* ExpressableAmountSelectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
