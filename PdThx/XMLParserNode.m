@@ -58,8 +58,8 @@
 #pragma mark NSXMLParser Delegate Methods
 
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
-	
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
+{
 	XMLParserNode *newNode = [[XMLParserNode alloc] initWithName:elementName attributes:attributeDict parent:self children:nil parser:parser];
 	[self.childNodes addObject:newNode];
 	
@@ -70,8 +70,9 @@
 
 
 }
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
 	// Append the data
 	[self.nodeContent appendString:string];
 	
