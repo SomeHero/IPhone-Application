@@ -56,7 +56,6 @@
     [lblOutstandingHeader setText: [NSString stringWithFormat: @"You have $%0.2f waiting for you!", [message.amount doubleValue]]];
     
     [lblOutstandingSender setText: [NSString stringWithFormat: @"%@ sent you $%0.2f", message.senderName, [message.amount doubleValue]]];
-    NSLog(@"%@",lblOutstandingSender.text);
     
     [lblOutstandingDate setText:[dateFormatter stringFromDate: message.createDate]];
     

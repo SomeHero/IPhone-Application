@@ -31,8 +31,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @synthesize upperLimit;
 
-// Express
-@synthesize canExpress, expressChargeLabel, expressDeliveryRate, addExpressDeliveryButton, expressDeliveryFreeThreshold, isExpressed, amountExpressChargeLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,26 +63,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         //Handle Error Here
     }
     
-    NSLog(@"Setting canExpress to %@", user.canExpress ? @"YES" : @"NO" );
-    
-    canExpress = user.canExpress;
-    expressDeliveryRate = user.expressDeliveryFeePercentage;
-    expressDeliveryFreeThreshold = user.expressDeliveryThreshold;
-    
     [goButton setEnabled:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    if ( canExpress )
-    {
-        [self enableExpressedDelivery];
-    } else {
-        [amountExpressChargeLabel setText:@"N/A"];
-    }
-    
-    [amountExpressChargeLabel setText:@""];
-    
     [amountDisplayLabel becomeFirstResponder];
     
     [super viewWillAppear:animated];
@@ -105,14 +88,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [quickAmount3 release];
     quickAmount3 = nil;
     
-    [addExpressDeliveryButton release];
-    addExpressDeliveryButton = nil;
-    
-    [expressChargeLabel release];
-    expressChargeLabel = nil;
-    
-    [amountExpressChargeLabel release];
-    amountExpressChargeLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -131,8 +106,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    NSString* oldString = textField.text;
-    
     NSMutableString *tempAmount = [NSMutableString stringWithString:@""];
     [tempAmount appendString: @""];
     
@@ -216,140 +189,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         }
     }
     
-    [self adjustExpressDeliveryCharge:textField];
-    
-    if ( [textField.text doubleValue] > expressDeliveryFreeThreshold && [oldString doubleValue] < expressDeliveryFreeThreshold )
-    {
-        // The amount to send increased to be OVER
-        // The free threshold. Reset the button.
-        [self removeExpressedDelivery];
-    }
-    
         
     return NO;
 }
 
--(void)removeExpressedDelivery
-{
-    UIImage*standardDeliveryImage = [UIImage imageNamed:@"btn-express-43x40.png"];
-    
-    [addExpressDeliveryButton setBackgroundImage:standardDeliveryImage forState:UIControlStateNormal];
-    [addExpressDeliveryButton setBackgroundImage:standardDeliveryImage forState:UIControlStateSelected];
-    
-    isExpressed = NO;
-}
-
--(void)adjustExpressDeliveryCharge:(UITextField*)txtField
-{
-    id blueColor = UIColorFromRGB(0x015b7e);
-    id greenColor = UIColorFromRGB(0x00a652);
-    id grayColor = UIColorFromRGB(0x33363d);
-    
-    double transactionAmount = [txtField.text doubleValue];
-    
-    // What are the cases this is called?
-    // Can Express?
-    // isExpressed?
-    // isFree?
-    
-    if ( canExpress )
-    {
-        if ( transactionAmount <= expressDeliveryFreeThreshold )
-        {
-            // Free Express Delivery
-            if ( ! isExpressed ) {
-                [self enableExpressedDelivery];
-            } else {
-                // Is already expressed, but not free.
-                // Set to FREE express, because
-                // its now lower than the threshold.
-                NSMutableAttributedString*freeAttrib = [[NSMutableAttributedString alloc] initWithString:@"(FREE)"];
-                [freeAttrib setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0]];
-                
-                [freeAttrib setTextColor:grayColor];
-                [freeAttrib setTextColor:greenColor range:[freeAttrib rangeOfString:@"FREE"]];
-                [expressChargeLabel setAttributedText:freeAttrib];
-                [amountExpressChargeLabel setText:@""];
-                [freeAttrib release];
-            }
-        }
-        else
-        {
-            // Paid Express Delivery
-            // Update Labels...
-            
-            NSString* deliveryChargeString = [NSString stringWithFormat:@"+ $%0.2f",transactionAmount*expressDeliveryRate];
-            
-            NSMutableAttributedString*chargeAttrib = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",deliveryChargeString]];
-            
-            [chargeAttrib setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0]];
-            [chargeAttrib setTextColor:grayColor];
-            [chargeAttrib setTextColor:blueColor range:[chargeAttrib rangeOfString:deliveryChargeString]];
-            
-            [expressChargeLabel setAttributedText:chargeAttrib];
-            
-            [amountExpressChargeLabel setAttributedText:[chargeAttrib attributedSubstringFromRange:[chargeAttrib rangeOfString:deliveryChargeString]]];
-            
-            [chargeAttrib release];
-        }
-    }
-    else
-    {
-        NSLog(@"Not allowed to express.");
-        
-        [addExpressDeliveryButton setEnabled:NO];
-        
-        [expressChargeLabel setText:@"N/A"];
-        [expressChargeLabel setEnabled:NO];
-    }
-}
-
--(void)enableExpressedDelivery
-{
-    NSLog(@"Enabling express delivery.");
-    
-    id blueColor = UIColorFromRGB(0x015b7e);
-    id greenColor = UIColorFromRGB(0x00a652);
-    id grayColor = UIColorFromRGB(0x33363d);
-    
-    UIImage* enabledImage = [UIImage imageNamed:@"btn-express-43x40-active.png"];
-    
-    double transactionAmount = [amountDisplayLabel.text doubleValue];
-    
-    isExpressed = YES;
-    [addExpressDeliveryButton setEnabled:YES];
-    
-    
-    [addExpressDeliveryButton setBackgroundImage:enabledImage forState:UIControlStateNormal];
-    [addExpressDeliveryButton setBackgroundImage:enabledImage forState:UIControlStateSelected];
-    
-    if ( transactionAmount < expressDeliveryFreeThreshold )
-    {
-        // Set green color FREE
-        NSMutableAttributedString*freeAttrib = [[NSMutableAttributedString alloc] initWithString:@"(FREE)"];
-        [freeAttrib setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0]];
-        
-        [freeAttrib setTextColor:grayColor];
-        [freeAttrib setTextColor:greenColor range:[freeAttrib rangeOfString:@"FREE"]];
-        [expressChargeLabel setAttributedText:freeAttrib];
-        
-        [amountExpressChargeLabel setText:@""];
-        [freeAttrib release];
-    }
-    else
-    {
-        // Set green color FREE
-        NSString* deliveryChargeString = [NSString stringWithFormat:@"+ $%0.2f",transactionAmount*expressDeliveryRate];
-        
-        NSMutableAttributedString*chargeAttrib = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",deliveryChargeString]];
-        
-        [chargeAttrib setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14.0]];
-        [chargeAttrib setTextColor:grayColor];
-        [chargeAttrib setTextColor:blueColor range:[chargeAttrib rangeOfString:deliveryChargeString]];
-        
-        [expressChargeLabel setAttributedText:chargeAttrib];
-    }
-}
 
 
 - (void)setTitle:(NSString *)title
@@ -372,20 +215,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [titleView sizeToFit];
 }
 
-- (void)dealloc {
-    
-    [addExpressDeliveryButton release];
-    [expressChargeLabel release];
-    [amountExpressChargeLabel release];
-    [super dealloc];
-    
+- (void)dealloc
+{
     [amountDisplayLabel release];
     [goButton release];
     [quickAmount0 release];
     [quickAmount1 release];
     [quickAmount2 release];
     [quickAmount3 release];
-
+    [super dealloc];
 }
 
 - (IBAction)amountChanged:(id)sender 
@@ -407,10 +245,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showAlertWithResult:false withTitle:@"Amount Exceeds the Upper Limit" withSubtitle: @"" withDetailText: [NSString stringWithFormat: @"The amount you entered exceeds the upper limit of $%0.2f.  Please reduce the amount to continue.", upperLimit]  withLeftButtonOption:1 withLeftButtonImageString:@"smallButtonGray240x78.png" withLeftButtonSelectedImageString:@"smallButtonGray240x78.png" withLeftButtonTitle:@"Ok" withLeftButtonTitleColor:[UIColor darkGrayColor] withRightButtonOption:0 withRightButtonImageString:@"smallButtonGray240x78.png" withRightButtonSelectedImageString:@"smallButtonGray240x78.png" withRightButtonTitle:@"Not shown" withRightButtonTitleColor:[UIColor clearColor]  withTextFieldPlaceholderText: @"" withDelegate:self];
 
     }
-    else {
-    
-        [amountChosenDelegate didSelectAmount: amount withDeliveryOption:isExpressed];
-    
+    else
+    {
+        [amountChosenDelegate didSelectAmount: amount withDeliveryOption:FALSE];
+        
         [self.navigationController popViewControllerAnimated:YES]; 
     }
 }
@@ -436,7 +274,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
     
-    [self adjustExpressDeliveryCharge:amountDisplayLabel];
     [self formatGoButton];
 }
 
@@ -452,11 +289,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
     
-    [self adjustExpressDeliveryCharge:amountDisplayLabel];
     [self formatGoButton];
 }
 
-- (IBAction)pressedQuickAmount2:(id)sender {
+- (IBAction)pressedQuickAmount2:(id)sender
+{
     // $5
     NSString* strippedString = amountDisplayLabel.text;
     strippedString = [strippedString stringByReplacingOccurrencesOfString:@"$" withString:@""];
@@ -467,7 +304,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
     
-    [self adjustExpressDeliveryCharge:amountDisplayLabel];
     [self formatGoButton];
 }
 - (IBAction)pressedQuickAmount3:(id)sender {
@@ -480,20 +316,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     floatAmount += 100;
     
     [amountDisplayLabel setText:[self createAmountStringFromDouble:floatAmount]];
-    
-    [self adjustExpressDeliveryCharge:amountDisplayLabel];
-    [self formatGoButton];
-}
-
-- (IBAction)pressedAddExpressDelivery:(id)sender
-{
-    if ( isExpressed )
-    {
-        [self removeExpressedDelivery];
-    } else {
-        if ( canExpress )
-            [self enableExpressedDelivery];
-    }
     
     [self formatGoButton];
 }

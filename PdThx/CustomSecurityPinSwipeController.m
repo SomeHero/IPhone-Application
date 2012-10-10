@@ -161,7 +161,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [amountLabel setAttributedText:amountAttribString];
     
     NSMutableAttributedString*deliveryChargeAttribString;
-    if ( deliveryCharge == 0.0 )
+    if ( deliveryCharge == 0.0 || [deliveryType isEqualToString:@"Standard"] )
     {
         // Free Delivery - Standard
         // Colors:
