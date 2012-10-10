@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TransactionConfirmationProtocol.h"
 #import "PdThxAppDelegate.h"
+#import "User.h"
 
 @interface TransactionConfirmationViewController : UIViewController {
     IBOutlet UILabel* lblConfirmationHeader;
@@ -25,6 +26,7 @@
 @property(nonatomic, retain) id transactionConfirmationDelegate;
 @property(nonatomic, retain) UIButton* btnContinue;
 @property(nonatomic, retain) NSString* continueButtonText;
+@property(nonatomic, retain) User* user;
 
 -(IBAction) btnHomeClicked:(id) sender;
 -(IBAction) btnContinueClicked: (id) sender;

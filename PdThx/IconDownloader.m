@@ -143,9 +143,17 @@
     
     // Release the connection now that it's finished
     self.imageConnection = nil;
-        
+    
+    // appImageDidLoad:(NSString*)transactionId forIndexPath:(NSIndexPath *)indexPath
     // call our delegate and tell it that our icon is ready for display
-    [delegate appImageDidLoad:self.indexPathInTableView];
+    if ( contact != NULL && contact != (id)[NSNull null] && contact.facebookID.length > 0)
+    {
+        [delegate appImageDidLoad:self.indexPathInTableView];
+    }
+    else if ( message != (id)[NSNull null] )
+    {
+        [delegate appImageDidLoad:message.messageId forIndexPath:self.indexPathInTableView];
+    }
 }
 
 @end

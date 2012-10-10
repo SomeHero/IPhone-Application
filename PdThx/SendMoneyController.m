@@ -578,10 +578,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     recipientUri = @"";
     [recipient release];
+    recipient = nil;
 }
 
--(void)sendMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode {
-    
+-(void)sendMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode
+{
     [self dismissModalViewControllerAnimated: YES];
     
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
