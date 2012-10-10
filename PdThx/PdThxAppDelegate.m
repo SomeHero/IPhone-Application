@@ -647,7 +647,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
             firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
             
-            
             CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
             
             UIImage * tempImgData = nil;
@@ -709,7 +708,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                     CFStringRef emailRef = ABMultiValueCopyValueAtIndex(multiEmails, k);
                     NSString *emailAddress = (NSString*) emailRef;
                     
-                    if (![paypoints containsObject:emailAddress])
+                    if (![paypoints containsObject:emailAddress] && [emailAddress rangeOfString:@"@facebook.com"].location == NSNotFound )
                     {
                         [paypoints addObject:emailAddress];
                     }
@@ -718,11 +717,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             
             contact.paypoints = paypoints;
             
-            [tempArray addObject:contact];
+            if ( [paypoints count] > 0 )
+                [tempArray addObject:contact];
             
             [contact release];
         }
-        
         
         NSMutableArray* tempPhoneContacts = [self sortContacts: tempArray];
         
@@ -751,14 +750,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 {
     [merchantServices getNonProfits];
 }
+
 -(void) loadOrganizations
 {
     [merchantServices getOrganizations];
 }
+
 -(void) loadApplicationSettings
 {
     [applicationServices getApplicationSettings:myEnvironment.pdthxAPIKey];
 }
+
 -(void) loadSecurityQuestions
 {
      [securityQuestionServices getSecurityQuestions:NO];

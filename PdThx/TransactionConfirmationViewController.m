@@ -15,6 +15,7 @@
 @synthesize transactionConfirmationDelegate;
 @synthesize btnContinue;
 @synthesize continueButtonText;
+@synthesize user;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,12 +48,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    
     if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]) {
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-320x44.png"] forBarMetrics:UIBarMetricsDefault];
     }
     
-    
+    user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"TransactionConfirmationViewController"
                                         withError:&error]){
@@ -85,8 +85,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(IBAction) btnHomeClicked:(id) sender {
-    
+-(IBAction) btnHomeClicked:(id) sender
+{    
     [self dismissModalViewControllerAnimated:YES];
     
     [transactionConfirmationDelegate onHomeClicked];
@@ -97,9 +97,10 @@
     
     [transactionConfirmationDelegate onContinueClicked];
 }
-/*
+
 -(IBAction) btnFacebookShare:(id) sender
 {
+    /*
     TODO: Reimplement Sharing with Facebook Active Session...
     NSMutableDictionary* params = [NSMutableDictionary
                                    dictionaryWithObjectsAndKeys:
@@ -111,27 +112,11 @@
                                    nil];
     
     [fBook dialog:@"feed" andParams:params andDelegate:self];
-     
+     */
 }
 
-- (void)dialogDidComplete:(FBDialog *)dialog
+-(IBAction) btnTwitterShare:(id) sender
 {
-    PdThxAppDelegate *appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
-    
-    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Your message has been posted on your wall"];
-    btnFacebookShare.enabled = NO;
-}
-
-- (void) dialogDidNotComplete:(FBDialog *)dialog
-{
-    PdThxAppDelegate *appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
-    
-    [appDelegate showSuccessWithStatus:@"Failed" withDetailedStatus:@"Your message was not posted on your wall."];
-}
-*/
-
--(IBAction) btnTwitterShare:(id) sender {
-    
 }
 
 

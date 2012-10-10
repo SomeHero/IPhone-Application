@@ -79,6 +79,7 @@
 @property (nonatomic, retain) HBTabBarManager *tabBar;
 
 -(IBAction)segmentedControlChanged;
+
 -(void)buildTransactionDictionary:(NSMutableArray*) array;
 
 @end
