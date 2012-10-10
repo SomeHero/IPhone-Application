@@ -562,7 +562,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"Section[%d], %d",section,[[transactionsDict objectForKey:[sections objectAtIndex:(NSUInteger) section]] count]);
     return [[transactionsDict objectForKey:[sections objectAtIndex:(NSUInteger) section]] count];
 }
 
@@ -714,8 +713,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if ( !item.imgData && item.transactionImageUri != (id)[NSNull null] )
     {
         
-        if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO) {
-            [self startIconDownload:item forIndexPath:indexPath];
+        if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO){
+            [self startIconDownload:item forTransactionId:item.messageId atIndexPath:indexPath];
         }
         
         // if a download is deferred or in progress, return a placeholder image
@@ -953,9 +952,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma mark -
 #pragma mark Table cell image support
 
-- (void)startIconDownload:(PaystreamMessage *)message forIndexPath:(NSIndexPath *)indexPath
+- (void)startIconDownload:(PaystreamMessage *)message forTransactionId:(NSString*)transactionId atIndexPath:(NSIndexPath *)indexPath
 {
-    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
+    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:transactionId];
     
     if ( iconDownloader == nil )
     {
@@ -963,11 +962,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         iconDownloader.message = message;
         iconDownloader.indexPathInTableView = indexPath;
         iconDownloader.delegate = self;
-        [psImagesDownloading setObject:iconDownloader forKey:indexPath];
+        [psImagesDownloading setObject:iconDownloader forKey:transactionId];
         [iconDownloader startDownload];
         [iconDownloader release];
     } else {
-        [self appImageDidLoad:indexPath];
+        [self appImageDidLoad:transactionId forIndexPath:indexPath];
     }
 }
 
@@ -985,18 +984,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             if ( !message.imgData ) // avoid the app icon download if the app already has an icon
             {
                 if ( [[message direction] isEqualToString:@"Out"] )
-                    [self startIconDownload:message forIndexPath:indexPath];
+                    [self startIconDownload:message forTransactionId:message.messageId atIndexPath:indexPath];
                 else
-                    [self startIconDownload:message forIndexPath:indexPath];
+                    [self startIconDownload:message forTransactionId:message.messageId atIndexPath:indexPath];
             }
         }
     }
 }
 
 // called by our ImageDownloader when an icon is ready to be displayed
-- (void)appImageDidLoad:(NSIndexPath *)indexPath
+- (void)appImageDidLoad:(NSString*)transactionId forIndexPath:(NSIndexPath *)indexPath
 {
-    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:indexPath];
+    IconDownloader *iconDownloader = [psImagesDownloading objectForKey:transactionId];
     
     if (iconDownloader != nil && iconDownloader.message.imgData )
     {
@@ -1126,9 +1125,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [transactionsTableView reloadData];
     
+    if ( [filteredTransactions count] > 0 )
+        [self loadImagesForOnscreenRows];
+    
     [filteredTransactions release];
 }
-
 
 /*
 - (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened
@@ -1176,7 +1177,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     ------------------------------------ */
 
 
-- (void)setupStrings{
+- (void)setupStrings
+{
     textPull = [[NSString alloc] initWithString:@"Pull down to refresh..."];
     textRelease = [[NSString alloc] initWithString:@"Release to refresh..."];
     textLoading = [[NSString alloc] initWithString:@"Loading..."];
@@ -1323,8 +1325,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [self performSelector:@selector(stopLoading) withObject:nil afterDelay:0.5];
 }
-
-
 
 - (void)tabBarClicked:(NSUInteger)buttonIndex
 {

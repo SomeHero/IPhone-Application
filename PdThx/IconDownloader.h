@@ -82,6 +82,7 @@
 
 @protocol IconDownloaderDelegate 
 
-- (void)appImageDidLoad:(NSIndexPath *)indexPath;
+-(void)appImageDidLoad:(NSIndexPath*)indexPath;
+- (void)appImageDidLoad:(NSString*)transactionId forIndexPath:(NSIndexPath *)indexPath;
 
 @end
