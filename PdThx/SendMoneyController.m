@@ -549,8 +549,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)sendMoneyDidComplete 
 {
-    recipient = nil;
-
     [self.mainScrollView scrollsToTop];
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
@@ -579,7 +577,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self presentModalViewController:controller animated:YES];
     
     recipientUri = @"";
-    
+    [recipient release];
 }
 
 -(void)sendMoneyDidFail:(NSString*) message withErrorCode:(int)errorCode {
@@ -589,7 +587,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Error Sending Money"];
 }
--(void)onHomeClicked {
+
+-(void)onHomeClicked
+{
     txtAmount.text = @"0.00";
     
     contactHead.text = @"Select a Recipient";
