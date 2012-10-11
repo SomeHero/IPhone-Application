@@ -213,7 +213,8 @@
                 {
                     GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
                     [pinSwipe setNavigationTitle:@"Change Security Pin"];
-                    [pinSwipe setHeaderText: @"To change your security pin, you must first swipe your current security pin."];
+                    [pinSwipe setHeaderText: @"TO CHANGE YOUR SECURITY PIN, FIRST SWIPE YOUR CURRENT SECURITY PIN BELOW"];
+                    
                     [pinSwipe setSecurityPinSwipeDelegate:self];
                     [pinSwipe setTag:0];
                     
@@ -245,7 +246,7 @@
     
     GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
     [pinSwipe setNavigationTitle:@"Forgot Security Pin"];
-    [pinSwipe setHeaderText: @"Enter your NEW Security Pin:"];
+    [pinSwipe setHeaderText: @"CREATE A NEW SECURITY PIN BY CONNECTING ATLEAST 4 BUTTONS BELOW"];
     [pinSwipe setSecurityPinSwipeDelegate:self];
     [pinSwipe setTag:1];
     
@@ -271,7 +272,7 @@
             
             GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
             [pinSwipe setNavigationTitle:@"Change Security Pin"];
-            [pinSwipe setHeaderText: @"Enter a NEW Security Pin for your account"];
+            [pinSwipe setHeaderText: @"CREATE A NEW SECURITY PIN BY CONNECTING ATLEAST 4 BUTTONS BELOW"];
             [pinSwipe setSecurityPinSwipeDelegate:self];
             [pinSwipe setTag:1];
             
@@ -289,7 +290,7 @@
             
             GenericSecurityPinSwipeController*pinSwipe = [[GenericSecurityPinSwipeController alloc] init];
             [pinSwipe setNavigationTitle:@"Change Security Pin"];
-            [pinSwipe setHeaderText: @"Confirm your NEW Security pin by swiping it again"];
+            [pinSwipe setHeaderText: @"CONFIRM YOUR SECURITY PIN BY CONNECTING THE SAME BUTTONS BELOW"];
             [pinSwipe setSecurityPinSwipeDelegate:self];
             [pinSwipe setTag:2];
             
