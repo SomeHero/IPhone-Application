@@ -218,8 +218,7 @@
             GenericSecurityPinSwipeController* controller =[[[GenericSecurityPinSwipeController alloc] init] retain];
             [controller setSecurityPinSwipeDelegate: self];
             [controller setNavigationTitle: @"Confirm your Pin"];
-            [controller setHeaderText: [NSString stringWithFormat:@"Confirm your pin, by swiping it again below"]];
-            
+            [controller setHeaderText: [NSString stringWithFormat:@"CONFIRM YOUR SECURITY PIN BY CONNECTING THE SAME BUTTONS BELOW"]];
             [controller setTag:2];    
             [self.navigationController presentModalViewController:controller animated:YES];
             
@@ -452,7 +451,7 @@
         GenericSecurityPinSwipeController* controller = [[[GenericSecurityPinSwipeController alloc] init] retain];
         [controller setSecurityPinSwipeDelegate: self];
         
-        [controller setHeaderText: @"Swipe your pin to add your new bank account"];
+        [controller setHeaderText: @"SWIPE YOUR SECURITY PIN BELOW TO ADD THE NEW BANK ACCOUNT"];
         [controller setNavigationTitle: @"Confirm"];
         [controller setTag: 1];
         
