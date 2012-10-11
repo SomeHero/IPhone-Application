@@ -907,30 +907,28 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [friend release];
     }
     
-    areFacebookContactsLoaded = YES;
-    
-    NSMutableArray* faceBookFriends = [self sortContacts:tempArray];
-    /*
-     [self sortContacts:tempArray];
-     for ( Contact*con in tempArray)
-     {
-     if ( con.facebookID != (id)[NSNull null] && [con.facebookID length] > 0 )
-     {
-     [faceBookFriends addObject:con];
-     }
-     }
-     */ 
-    // [contactsArray removeAllObjects];
-    [faceBookContacts removeAllObjects];
-    
-    for(int i = 0; i <[faceBookFriends count]; i++)
+    if ( areFacebookContactsLoaded == YES )
     {
-        [faceBookContacts addObject:[faceBookFriends objectAtIndex:i]];
+        [contactsArray removeAllObjects];
+        
+        for ( int i = 0 ; i < 28 ; i ++ )
+            [contactsArray addObject:[[NSMutableArray alloc] init]];
+        
+        [self loadPhoneContacts];
     }
     
-    numberOfFacebookFriends = [faceBookFriends count];
+    areFacebookContactsLoaded = YES;
     
-    [self mergeAllContacts: faceBookContacts];
+    [faceBookContacts removeAllObjects];
+    
+    for ( int i = 0 ; i < 28 ; i ++ )
+        [faceBookContacts addObject:[[NSMutableArray alloc] init]];
+    
+    faceBookContacts = [self sortContacts:tempArray];
+    
+    numberOfFacebookFriends = [tempArray count];
+    
+    [self mergeAllContacts:faceBookContacts];
     
     NSDictionary* dict = [NSDictionary dictionaryWithObject:
                           contactsArray forKey:@"contacts"];
@@ -1010,9 +1008,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         else
             comparedString = [person.paypoints objectAtIndex:0];
         
-        if((((int)toupper([comparedString characterAtIndex:0]))-64) < 28 && (((int)toupper([comparedString characterAtIndex:0]))-64 >= 0))
+        int desiredSection = (((int)toupper([comparedString characterAtIndex:0]))-64);
+        
+        if(desiredSection < 28 && desiredSection >= 0)
         {
-            [[results objectAtIndex:((int)toupper([comparedString characterAtIndex:0]))-64] addObject:person];
+            [[results objectAtIndex:desiredSection] addObject:person];
         }
         else
         {
@@ -1437,4 +1437,5 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [alertView release];
     }
 }
+
 @end
