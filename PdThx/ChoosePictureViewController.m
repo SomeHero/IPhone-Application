@@ -46,8 +46,6 @@
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/upload_member_image?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, tmpUser.userId, myEnvironment.pdthxAPIKey]] autorelease];  
     
-    [tmpUser release];
-    
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:urlToSend];
     // Upload a file on disk
     [request addData:imageData withFileName:@"photo.jpg" andContentType:@"image/jpeg" forKey:@"file"];
