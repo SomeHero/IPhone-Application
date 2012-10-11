@@ -31,9 +31,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     controller =[[[GenericSecurityPinSwipeController alloc] init] autorelease];
     [controller setSecurityPinSwipeDelegate: self];
-    [controller setNavigationTitle: @"Confirm your New Pin"];
-    [controller setHeaderText: @"Confirm your new pin by swiping it again below"];
-    
+    [controller setNavigationTitle: @"Confirm "];
+    [controller setHeaderText: @"CONFIRM YOUR NEW SECURITY PIN BY CONNECTING THE SAME BUTTONS BELOW"];
+
     [self presentModalViewController:controller animated:YES];
     
 }

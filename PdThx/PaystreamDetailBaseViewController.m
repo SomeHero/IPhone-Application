@@ -614,7 +614,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
      */
 
     [controller setNavigationTitle: @"Confirm"];
-    [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM CHANGES YOUR INTENT TO DELETE THIS PAYMENT ACCOUNT"];
+    
+    if(pendingAction == @"AcceptRequest") {
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM THAT YOU ACCEPT THE PAYMENT REQUEST"];
+    }
+    if(pendingAction == @"RejectRequest") {
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM THAT YOU REJECT THE PAYMENT REQUEST"];
+    }
+    if(pendingAction == @"CancelPayment") {
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM THAT YOU INTEND TO CANCEL THE PAYMENT"];
+    }
+    if(pendingAction == @"CancelRequest") {
+        [controller setHeaderText:@"SWIPE YOUR SECURITY PIN TO CONFIRM THAT YOU INTEND TO CANCEL THE PAYMENT REQUEST"];
+    }
     
     [self.navigationController presentModalViewController:controller animated:YES];
     
