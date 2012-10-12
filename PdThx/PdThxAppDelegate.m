@@ -921,6 +921,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     // [contactsArray removeAllObjects];
     [faceBookContacts removeAllObjects];
     
+    
     for(int i = 0; i <[faceBookFriends count]; i++)
     {
         [faceBookContacts addObject:[faceBookFriends objectAtIndex:i]];
