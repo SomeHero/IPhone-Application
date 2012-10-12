@@ -274,7 +274,10 @@
     [txtRoutingNumber resignFirstResponder];
 }
 -(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
-    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Added"];
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Added"];
+    user = [appDelegate user];
     
     [bankService getUserAccounts:user.userId];
     

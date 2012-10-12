@@ -311,6 +311,11 @@
     txtRoutingNumber.text = @"";
     txtNameOnAccount.text = @"";
 
+    PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Account Added"];
+    user = [appDelegate user];
+    
     [userService getUserInformation:user.userId];
 
 }
