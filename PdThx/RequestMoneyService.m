@@ -26,7 +26,7 @@
    withFromLongitude: (double) longitude withRecipientFirstName: (NSString*) recipientFirstName withRecipientLastName: (NSString*) recipientLastName withRecipientImageUri:(NSString*) recipientImageUri {
     
     Environment *myEnvironment = [Environment sharedInstance];
-    NSString *rootUrl = [NSString stringWithString:@"PaystreamMessages"];
+    NSString *rootUrl = @"PaystreamMessages";
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  rootUrl, apiKey]] autorelease];  

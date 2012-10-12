@@ -690,9 +690,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         }
         
         cell.transactionRecipient.text = [NSString stringWithFormat: @"%@", item.recipientName];
-    } else {
-        //019)(109)(113)
-        
+    } else
+    {
         if ( [self isPhoneNumber:item.senderUri] )
         {
             Contact * foundContact;

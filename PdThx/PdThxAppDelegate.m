@@ -367,6 +367,7 @@
     currentReminderTab = 0;
     
     [self loadPhoneContacts];
+    
     [self loadNonProfits];
     [self loadOrganizations];
     [self loadApplicationSettings];
@@ -607,145 +608,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 }
 
 
--(void)loadPhoneContacts
-{
-    //if ( [fBook isSessionValid] ){
-    //friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
-    //}
-    // get the address book
-    
-    ABAddressBookRef addressBook = ABAddressBookCreate();
-    
-    if ( [[[UIDevice currentDevice] systemVersion] floatValue] > 6.0 )
-    {
-        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error)
-                                                 {
-                                                     if ( granted )
-                                                     {
-                                                         NSLog(@"iOS version > 6.0, granted access.");
-                                                     } else {
-                                                         NSLog(@"iOS version > 6.0, DENIED access.");
-                                                     }
-                                                 });
-    }
-    else
-    {
-        NSMutableArray* tempArray = [[NSMutableArray alloc] init];
-        
-        Contact * contact;
-        
-        CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-        
-        phoneContactsSize = ABAddressBookGetPersonCount(addressBook);
-        
-        
-        for (int i = 0; i < phoneContactsSize; i++)
-        {
-            ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
-            CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
-            
-            NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
-            firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
-            
-            CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-            
-            UIImage * tempImgData = nil;
-            
-            if ( ABPersonHasImageData(ref) ) {
-                if ( &ABPersonCopyImageData != nil ){
-                    tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageDataWithFormat(ref, kABPersonImageFormatThumbnail)];
-                } else {
-                    tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageData(ref)];
-                }
-            }
-            
-            ABMultiValueRef multiPhones = ABRecordCopyValue(ref, kABPersonPhoneProperty);
-            
-            ABMultiValueRef multiEmails = ABRecordCopyValue(ref, kABPersonEmailProperty);
-            
-            
-            
-            NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
-            lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
-            
-            NSString *contactFirstLast = @"";
-            
-            if( [firstName length] > 0 || [lastName length] > 0 ){
-                contactFirstLast = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
-            } else {
-                continue; //Contact is an organization or non-labeled contact
-            }
-            
-            contactFirstLast = [contactFirstLast stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
-            
-            contact = [[Contact alloc] init];
-            contact.name = contactFirstLast;
-            contact.firstName = (NSString*)firstName;
-            contact.lastName = (NSString*)lastName;
-            if ( tempImgData != nil ) {
-                contact.imgData = tempImgData;
-            }
-            
-            NSMutableArray* paypoints = [[NSMutableArray alloc] init];
-            
-            // Handles Multiple Phone Numbers for One Contact...
-            if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){
-                for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
-                    CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
-                    NSString *phoneNumber = (NSString *) phoneNumberRef;
-                    
-                    NSString* formattedNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
-                    
-                    if (![paypoints containsObject:formattedNumber])
-                    {
-                        [paypoints addObject: formattedNumber];
-                    }
-                    
-                }
-                
-                for (CFIndex k = 0; k < ABMultiValueGetCount(multiEmails); ++k)
-                {
-                    CFStringRef emailRef = ABMultiValueCopyValueAtIndex(multiEmails, k);
-                    NSString *emailAddress = (NSString*) emailRef;
-                    
-                    if (![paypoints containsObject:emailAddress] && [emailAddress rangeOfString:@"@facebook.com"].location == NSNotFound )
-                    {
-                        [paypoints addObject:emailAddress];
-                    }
-                }
-            }
-            
-            contact.paypoints = paypoints;
-            
-            if ( [paypoints count] > 0 )
-                [tempArray addObject:contact];
-            
-            [contact release];
-        }
-        
-        NSMutableArray* tempPhoneContacts = [self sortContacts: tempArray];
-        
-        [phoneContacts removeAllObjects];
-        
-        for(int i = 0; i <[tempPhoneContacts count]; i++)
-        {
-            [phoneContacts addObject:[tempPhoneContacts objectAtIndex:i]];
-        }
-        
-        [self mergeAllContacts: phoneContacts];
-        
-        NSDictionary* dict = [NSDictionary dictionaryWithObject:
-                              contactsArray forKey:@"contacts"];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
-        
-        NSLog(@"Contacts Ready.");
-        
-        [tempArray release];
-    }
-    
-    
-}
 -(void) loadNonProfits
 {
     [merchantServices getNonProfits];
@@ -953,7 +815,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         {
             Contact* contact = [subTempArray objectAtIndex:j];
             
-            [tempArray addObject:contact];
+            if ( [tempArray indexOfObject:contact] == NSNotFound )
+                [tempArray addObject:contact];
         }
     }
     
@@ -971,12 +834,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     }
     
     contactsArray = [self sortContacts:tempArray];
-    
     [tempArray release];
-    
 }
 
--(NSMutableArray*)sortContacts:(NSMutableArray*) arrayOfContacts
+-(NSMutableArray*)sortContacts:(NSMutableArray*)arrayOfContacts
 {
     NSMutableArray* results = [[NSMutableArray alloc] init];
     
@@ -993,7 +854,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
      *      
      *      ASCII character A = 65. SubArray index = (int)toupper('?')-65
      */
-    for (Contact*person in tmpArray) {
+    for (Contact*person in tmpArray)
+    {
         if ( person.lastName.length > 0 )
             comparedString = person.lastName;
         else if ( person.firstName.length > 0 )
@@ -1022,8 +884,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     return results;
 }
-
-
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -1435,6 +1295,148 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         [alertView show];
         
         [alertView release];
+    }
+}
+
+
+/*      ----------------        ------------------
+            Contact Loading and Sorting
+ *      ----------------        ------------------ */
+
+-(void)loadPhoneContacts
+{
+    //if ( [fBook isSessionValid] ){
+    //friendRequest = [fBook requestWithGraphPath:@"me/friends" andDelegate:self];
+    //}
+    // get the address book
+    
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+    
+    if ( [[[UIDevice currentDevice] systemVersion] floatValue] > 6.0 )
+    {
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error)
+                                                 {
+                                                     if ( granted )
+                                                     {
+                                                         NSLog(@"iOS version > 6.0, granted access.");
+                                                     } else {
+                                                         NSLog(@"iOS version > 6.0, DENIED access.");
+                                                     }
+                                                 });
+    }
+    else
+    {
+        NSMutableArray* tempArray = [[NSMutableArray alloc] init];
+        
+        Contact * contact;
+        
+        CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+        
+        phoneContactsSize = ABAddressBookGetPersonCount(addressBook);
+        
+        
+        for (int i = 0; i < phoneContactsSize; i++)
+        {
+            ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
+            CFStringRef firstNameRef = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+            
+            NSString* firstName = [NSString stringWithFormat: @"%@", (NSString*)firstNameRef];
+            firstName = [firstName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+            
+            CFStringRef lastNameRef = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+            
+            UIImage * tempImgData = nil;
+            
+            if ( ABPersonHasImageData(ref) ) {
+                if ( &ABPersonCopyImageData != nil ){
+                    tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageDataWithFormat(ref, kABPersonImageFormatThumbnail)];
+                } else {
+                    tempImgData = [UIImage imageWithData:(NSData *)ABPersonCopyImageData(ref)];
+                }
+            }
+            
+            ABMultiValueRef multiPhones = ABRecordCopyValue(ref, kABPersonPhoneProperty);
+            
+            ABMultiValueRef multiEmails = ABRecordCopyValue(ref, kABPersonEmailProperty);
+            
+            
+            
+            NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
+            lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+            
+            NSString *contactFirstLast = @"";
+            
+            if( [firstName length] > 0 || [lastName length] > 0 ){
+                contactFirstLast = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+            } else {
+                continue; //Contact is an organization or non-labeled contact
+            }
+            
+            contactFirstLast = [contactFirstLast stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@""]];
+            
+            contact = [[Contact alloc] init];
+            contact.name = contactFirstLast;
+            contact.firstName = (NSString*)firstName;
+            contact.lastName = (NSString*)lastName;
+            if ( tempImgData != nil ) {
+                contact.imgData = tempImgData;
+            }
+            
+            NSMutableArray* paypoints = [[NSMutableArray alloc] init];
+            
+            // Handles Multiple Phone Numbers for One Contact...
+            if ( [(NSString*)firstName length] > 0 || [(NSString*)lastName length] > 0 ){
+                for(CFIndex j=0;j<ABMultiValueGetCount(multiPhones);++j) {
+                    CFStringRef phoneNumberRef = ABMultiValueCopyValueAtIndex(multiPhones, j);
+                    NSString *phoneNumber = (NSString *) phoneNumberRef;
+                    
+                    NSString* formattedNumber = [phoneNumberFormatter stringToFormattedPhoneNumber:phoneNumber];
+                    
+                    if (![paypoints containsObject:formattedNumber])
+                    {
+                        [paypoints addObject: formattedNumber];
+                    }
+                    
+                }
+                
+                for (CFIndex k = 0; k < ABMultiValueGetCount(multiEmails); ++k)
+                {
+                    CFStringRef emailRef = ABMultiValueCopyValueAtIndex(multiEmails, k);
+                    NSString *emailAddress = (NSString*) emailRef;
+                    
+                    if (![paypoints containsObject:emailAddress] && [emailAddress rangeOfString:@"@facebook.com"].location == NSNotFound )
+                    {
+                        [paypoints addObject:emailAddress];
+                    }
+                }
+            }
+            
+            contact.paypoints = paypoints;
+            
+            if ( [paypoints count] > 0 )
+                [tempArray addObject:contact];
+            
+            [contact release];
+        }
+        
+        NSMutableArray* tempPhoneContacts = [self sortContacts: tempArray];
+        
+        [phoneContacts removeAllObjects];
+        
+        for(int i = 0; i <[tempPhoneContacts count]; i++)
+        {
+            [phoneContacts addObject:[tempPhoneContacts objectAtIndex:i]];
+        }
+        
+        [self mergeAllContacts: phoneContacts];
+        
+        NSDictionary* dict = [NSDictionary dictionaryWithObject:
+                              contactsArray forKey:@"contacts"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshContactList" object:self userInfo:dict];
+        
+        NSLog(@"Contacts Ready.");
+        [tempArray release];
     }
 }
 

@@ -11,7 +11,7 @@
 @synthesize CheckImageReturnDelegate;
 @synthesize scanningLabel;
 @synthesize scanButton;
-@synthesize helpButton;
+@synthesize backButton;
 @synthesize dismissButton;
 @synthesize helpIndicator;
 @synthesize pictureBeingTaken;
@@ -29,31 +29,16 @@
     
 	[[self captureManager] addVideoPreviewLayer];
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [backgroundImageView setImage:[UIImage imageNamed:@"bg-checkcapture-320x480.png"]];
-    [[self view] addSubview:backgroundImageView];
-    [backgroundImageView release];
     
     CGRect layerRect = CGRectMake(28.5,15.5,354/2,898/2);
     [[[self captureManager] previewLayer] setBounds:layerRect];
     [[[self captureManager] previewLayer] setPosition:CGPointMake(CGRectGetMidX(layerRect),CGRectGetMidY(layerRect))];
 	[[[self view] layer] addSublayer:[[self captureManager] previewLayer]];
     
-    UIImage *scanImage = [UIImage imageNamed:@"btn-takepic-48x37-active.png"];
-    scanButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-scanImage.size.width-25, self.view.frame.size.height-scanImage.size.height-10, 37, 48)];
-    [scanButton setBackgroundImage:scanImage forState:UIControlStateNormal];
-    [scanButton setBackgroundImage:scanImage forState:UIControlStateSelected];
-    [scanButton setBackgroundImage:scanImage forState:UIControlStateHighlighted];
-    [scanButton addTarget:self action:@selector(scanButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:scanButton];
     
-    UIImage *helpImage = [UIImage imageNamed:@"btn-takepic-48x37.png"];
-    helpButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-helpImage.size.width-5, 10, 37, 48)];
-    [helpButton setBackgroundImage:helpImage forState:UIControlStateNormal];
-    [helpButton setBackgroundImage:helpImage forState:UIControlStateSelected];
-    [helpButton setBackgroundImage:helpImage forState:UIControlStateHighlighted];
-    [helpButton addTarget:self action:@selector(helpButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:helpButton];
+    [scanButton addTarget:self action:@selector(scanButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    [backButton addTarget:self action:@selector(backButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     holdSteadyLabel = [[UILabel alloc] init];
     holdSteadyLabel.transform = CGAffineTransformMakeRotation( M_PI/2 );
@@ -63,7 +48,6 @@
     holdSteadyLabel.textColor = [UIColor redColor];
     holdSteadyLabel.backgroundColor = [UIColor clearColor];
     holdSteadyLabel.hidden = YES;
-    
     [self.view addSubview:holdSteadyLabel];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -72,6 +56,11 @@
     pictureBeingTaken = false;
     
 	[[captureManager captureSession] startRunning];
+}
+
+-(void)backButtonPressed
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -127,12 +116,16 @@
     [scanButton release];
     [helpIndicator release];
     [dismissButton release];
-    [helpButton release];
     [scanningLabel release];
+    [backButton release];
     [super dealloc];
 }
 
 - (void)viewDidUnload {
+    [backButton release];
+    backButton = nil;
+    [scanButton release];
+    scanButton = nil;
     [super viewDidUnload];
 }
 

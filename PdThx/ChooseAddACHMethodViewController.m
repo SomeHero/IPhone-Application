@@ -63,6 +63,7 @@
 {
     NewACHAccountViewController *achController = [[NewACHAccountViewController alloc] init];
     [self.navigationController pushViewController:achController animated:YES];
+    [achController setTitle:@"Add Account"];
     
     [achController setAchSetupComplete:self];
     [achController takePictureOfCheck];
