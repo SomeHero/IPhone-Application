@@ -164,8 +164,6 @@
         
         // NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
         
-        [linkFbAccountDelegate linkFbAccountDidFail:  @"Failed to Link Facebook"];
-        
         NSLog(@"Linking FB Account Error Code %d", [request responseStatusCode]);
     }
 }

@@ -139,10 +139,10 @@
 	NSInteger lowerRightY;
 }
 
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *value;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *value;
 @property (nonatomic, assign) NSInteger confidence;
-@property (nonatomic) NSString *valueStandardized;
+@property (nonatomic, retain) NSString *valueStandardized;
 @property (nonatomic, assign) NSInteger upperLeftX;
 @property (nonatomic, assign) NSInteger upperLeftY;
 @property (nonatomic, assign) NSInteger lowerRightX;

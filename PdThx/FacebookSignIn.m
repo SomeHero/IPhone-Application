@@ -26,7 +26,8 @@
     
     return self;
 }
-- (void)dealloc {
+- (void)dealloc
+{
     [service release];
     [super dealloc];
 }
@@ -122,7 +123,6 @@
         }
     }];
 }
-
 
 -(void)linkNewFacebookAccount:(id)callback
 {
@@ -319,4 +319,7 @@
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissAlertView];
 }
+
+-(void)didSelectButtonWithIndex:(int)index withEnteredText:(NSString *)text {}
+
 @end

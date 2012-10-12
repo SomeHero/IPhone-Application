@@ -38,6 +38,7 @@
 @synthesize userService;
 @synthesize appDelegate;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -1225,5 +1226,9 @@
     else
         return FALSE;
 }
+
+//      Unused Method implementations
+-(void)didSelectButtonWithIndex:(int)index withEnteredText:(NSString *)text {}
+-(void)appImageDidLoad:(NSString *)transactionId forIndexPath:(NSIndexPath *)indexPath {}
 
 @end

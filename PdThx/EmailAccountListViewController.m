@@ -60,7 +60,8 @@
 }
 
 
--(void)getPayPointsDidComplete:(NSMutableArray*)payPoints {
+-(void)getPayPointsDidComplete:(NSMutableArray*)payPoints
+{
     user.payPoints = payPoints;
     
     NSPredicate* predicate = [NSPredicate predicateWithFormat: @"payPointType == 'EmailAddress'"];
@@ -96,11 +97,11 @@
         // TODO: There needs to be a protocol here to load the image as being on top.
     }
 }
--(void)getPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+
+-(void)getPayPointsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode
+{
     
 }
-
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
