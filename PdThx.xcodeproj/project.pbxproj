@@ -679,6 +679,10 @@
 		7A06D79F161A1637006B9B11 /* btn-express-43x40-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79B161A1637006B9B11 /* btn-express-43x40-active@2x.png */; };
 		7A06D7A0161A1637006B9B11 /* btn-express-43x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79C161A1637006B9B11 /* btn-express-43x40.png */; };
 		7A06D7A1161A1637006B9B11 /* btn-express-43x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A06D79D161A1637006B9B11 /* btn-express-43x40@2x.png */; };
+		7A0EA7A316288F7900E337CE /* CheckCapture320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0EA7A116288F7900E337CE /* CheckCapture320x480.png */; };
+		7A0EA7A416288F7900E337CE /* CheckCapture320x480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0EA7A216288F7900E337CE /* CheckCapture320x480@2x.png */; };
+		7A0EA7A616288FDD00E337CE /* BTN-Nav-Back-vertical-61x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0EA7A516288FDD00E337CE /* BTN-Nav-Back-vertical-61x30.png */; };
+		7A0EA7A816288FE300E337CE /* BTN-Nav-Back-vertical-61x30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0EA7A716288FE300E337CE /* BTN-Nav-Back-vertical-61x30@2x.png */; };
 		7A39C10915FA6141004EED53 /* ChooseAddACHMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A39C10715FA6141004EED53 /* ChooseAddACHMethodViewController.m */; };
 		7A39C10A15FA6141004EED53 /* ChooseAddACHMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A39C10815FA6141004EED53 /* ChooseAddACHMethodViewController.xib */; };
 		7A672A831625C30800C8B967 /* ExpressableAmountSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A672A811625C30800C8B967 /* ExpressableAmountSelectViewController.m */; };
@@ -720,8 +724,6 @@
 		7ABC434415EC0DD6009B2B0A /* img-shadow-divider-238x7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC434215EC0DD6009B2B0A /* img-shadow-divider-238x7@2x.png */; };
 		7AD84EEB15EB3B77002979D5 /* AROverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EE215EB3B77002979D5 /* AROverlayViewController.m */; };
 		7AD84EEC15EB3B77002979D5 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD84EE415EB3B77002979D5 /* CaptureSessionManager.m */; };
-		7AD84EED15EB3B77002979D5 /* bg-checkcapture-320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE515EB3B77002979D5 /* bg-checkcapture-320x480.png */; };
-		7AD84EEE15EB3B77002979D5 /* bg-checkcapture-320x480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE615EB3B77002979D5 /* bg-checkcapture-320x480@2x.png */; };
 		7AD84EEF15EB3B77002979D5 /* btn-takepic-48x37-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE715EB3B77002979D5 /* btn-takepic-48x37-active.png */; };
 		7AD84EF015EB3B77002979D5 /* btn-takepic-48x37-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE815EB3B77002979D5 /* btn-takepic-48x37-active@2x.png */; };
 		7AD84EF115EB3B77002979D5 /* btn-takepic-48x37.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD84EE915EB3B77002979D5 /* btn-takepic-48x37.png */; };
@@ -1698,6 +1700,10 @@
 		7A06D79B161A1637006B9B11 /* btn-express-43x40-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-express-43x40-active@2x.png"; sourceTree = "<group>"; };
 		7A06D79C161A1637006B9B11 /* btn-express-43x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-express-43x40.png"; sourceTree = "<group>"; };
 		7A06D79D161A1637006B9B11 /* btn-express-43x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-express-43x40@2x.png"; sourceTree = "<group>"; };
+		7A0EA7A116288F7900E337CE /* CheckCapture320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckCapture320x480.png; sourceTree = "<group>"; };
+		7A0EA7A216288F7900E337CE /* CheckCapture320x480@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CheckCapture320x480@2x.png"; sourceTree = "<group>"; };
+		7A0EA7A516288FDD00E337CE /* BTN-Nav-Back-vertical-61x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTN-Nav-Back-vertical-61x30.png"; sourceTree = "<group>"; };
+		7A0EA7A716288FE300E337CE /* BTN-Nav-Back-vertical-61x30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BTN-Nav-Back-vertical-61x30@2x.png"; sourceTree = "<group>"; };
 		7A39C10615FA6141004EED53 /* ChooseAddACHMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseAddACHMethodViewController.h; sourceTree = "<group>"; };
 		7A39C10715FA6141004EED53 /* ChooseAddACHMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseAddACHMethodViewController.m; sourceTree = "<group>"; };
 		7A39C10815FA6141004EED53 /* ChooseAddACHMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseAddACHMethodViewController.xib; sourceTree = "<group>"; };
@@ -1764,8 +1770,6 @@
 		7AD84EE215EB3B77002979D5 /* AROverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AROverlayViewController.m; sourceTree = "<group>"; };
 		7AD84EE315EB3B77002979D5 /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
 		7AD84EE415EB3B77002979D5 /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
-		7AD84EE515EB3B77002979D5 /* bg-checkcapture-320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-checkcapture-320x480.png"; sourceTree = "<group>"; };
-		7AD84EE615EB3B77002979D5 /* bg-checkcapture-320x480@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-checkcapture-320x480@2x.png"; sourceTree = "<group>"; };
 		7AD84EE715EB3B77002979D5 /* btn-takepic-48x37-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37-active.png"; sourceTree = "<group>"; };
 		7AD84EE815EB3B77002979D5 /* btn-takepic-48x37-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37-active@2x.png"; sourceTree = "<group>"; };
 		7AD84EE915EB3B77002979D5 /* btn-takepic-48x37.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-takepic-48x37.png"; sourceTree = "<group>"; };
@@ -3804,6 +3808,21 @@
 			name = "Bank Account Management";
 			sourceTree = "<group>";
 		};
+		7A0EA7A016288D8E00E337CE /* Vertical Check Images */ = {
+			isa = PBXGroup;
+			children = (
+				7A0EA7A116288F7900E337CE /* CheckCapture320x480.png */,
+				7A0EA7A216288F7900E337CE /* CheckCapture320x480@2x.png */,
+				7A0EA7A516288FDD00E337CE /* BTN-Nav-Back-vertical-61x30.png */,
+				7A0EA7A716288FE300E337CE /* BTN-Nav-Back-vertical-61x30@2x.png */,
+				7AD84EE715EB3B77002979D5 /* btn-takepic-48x37-active.png */,
+				7AD84EE815EB3B77002979D5 /* btn-takepic-48x37-active@2x.png */,
+				7AD84EE915EB3B77002979D5 /* btn-takepic-48x37.png */,
+				7AD84EEA15EB3B77002979D5 /* btn-takepic-48x37@2x.png */,
+			);
+			name = "Vertical Check Images";
+			sourceTree = "<group>";
+		};
 		7A672A7F1625C2CD00C8B967 /* Amount Select */ = {
 			isa = PBXGroup;
 			children = (
@@ -3923,17 +3942,12 @@
 		7AD84EE015EB3B69002979D5 /* Check Picture */ = {
 			isa = PBXGroup;
 			children = (
+				7A0EA7A016288D8E00E337CE /* Vertical Check Images */,
 				7AD84EE115EB3B77002979D5 /* AROverlayViewController.h */,
 				7AD84EE215EB3B77002979D5 /* AROverlayViewController.m */,
 				7AD84EF315EB3CED002979D5 /* AROverlayViewController.xib */,
 				7AD84EE315EB3B77002979D5 /* CaptureSessionManager.h */,
 				7AD84EE415EB3B77002979D5 /* CaptureSessionManager.m */,
-				7AD84EE515EB3B77002979D5 /* bg-checkcapture-320x480.png */,
-				7AD84EE615EB3B77002979D5 /* bg-checkcapture-320x480@2x.png */,
-				7AD84EE715EB3B77002979D5 /* btn-takepic-48x37-active.png */,
-				7AD84EE815EB3B77002979D5 /* btn-takepic-48x37-active@2x.png */,
-				7AD84EE915EB3B77002979D5 /* btn-takepic-48x37.png */,
-				7AD84EEA15EB3B77002979D5 /* btn-takepic-48x37@2x.png */,
 				7AD84EFD15EBC1A0002979D5 /* UIImage+Scale.h */,
 				7AD84EFE15EBC1A0002979D5 /* UIImage+Scale.m */,
 				7AD84EF615EB43CB002979D5 /* NSData+Base64Encoding.h */,
@@ -4513,8 +4527,6 @@
 				54B2F61D15D975A400487F75 /* img-qs-header-309x24@2x.png in Resources */,
 				54E3FC2D15DBEAC600C96657 /* avatar-50x50.png in Resources */,
 				54E3FC2E15DBEAC600C96657 /* avatar-50x50@2x.png in Resources */,
-				7AD84EED15EB3B77002979D5 /* bg-checkcapture-320x480.png in Resources */,
-				7AD84EEE15EB3B77002979D5 /* bg-checkcapture-320x480@2x.png in Resources */,
 				7AD84EEF15EB3B77002979D5 /* btn-takepic-48x37-active.png in Resources */,
 				7AD84EF015EB3B77002979D5 /* btn-takepic-48x37-active@2x.png in Resources */,
 				7AD84EF115EB3B77002979D5 /* btn-takepic-48x37.png in Resources */,
@@ -4553,6 +4565,10 @@
 				5B10DB061623C57C00E829FD /* PhotoSelectorViewController.xib in Resources */,
 				5B10DB0C1624ED7D00E829FD /* SendReminderViewController.xib in Resources */,
 				7A672A841625C30800C8B967 /* ExpressableAmountSelectViewController.xib in Resources */,
+				7A0EA7A316288F7900E337CE /* CheckCapture320x480.png in Resources */,
+				7A0EA7A416288F7900E337CE /* CheckCapture320x480@2x.png in Resources */,
+				7A0EA7A616288FDD00E337CE /* BTN-Nav-Back-vertical-61x30.png in Resources */,
+				7A0EA7A816288FE300E337CE /* BTN-Nav-Back-vertical-61x30@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5266,9 +5282,9 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = PaidThx;
-				PROVISIONING_PROFILE = "44309D40-66FE-417B-883D-DA702B6EDFA3";
-				"PROVISIONING_PROFILE[sdk=*]" = "44309D40-66FE-417B-883D-DA702B6EDFA3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "44309D40-66FE-417B-883D-DA702B6EDFA3";
+				PROVISIONING_PROFILE = "5C3AAC8B-35F7-4D22-979F-F3D53531F290";
+				"PROVISIONING_PROFILE[sdk=*]" = "5C3AAC8B-35F7-4D22-979F-F3D53531F290";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C3AAC8B-35F7-4D22-979F-F3D53531F290";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = NO;

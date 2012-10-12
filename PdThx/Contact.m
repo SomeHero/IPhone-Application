@@ -72,7 +72,7 @@
         return recipientId;
     }
 }
-    
+
 - (void)dealloc {
     [name release];
     [facebookID release];

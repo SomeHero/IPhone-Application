@@ -74,10 +74,6 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
         [parser release];
-        
-        NSString* message = [jsonDictionary valueForKey: @"Message"];
-        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
-        
         NSLog(@"Error Getting Security Questions");
     }
 }
