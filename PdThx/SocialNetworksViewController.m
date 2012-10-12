@@ -139,7 +139,7 @@
             {
                 case 0:
                 {
-                    if ( [user.socialNetworks objectForKey:@"Facebook"] || [self userHasValidFacebookId] )
+                    if ( [user.socialNetworks objectForKey:@"Facebook"] )
                     {
                         NSLog(@"Facebook already linked, trying to unlink...");
                         
@@ -236,11 +236,4 @@
     [super dealloc];
 }
 
--(bool)userHasValidFacebookId
-{
-    if ( user.facebookId && user.facebookId.length > 0 )
-        return TRUE;
-    else
-        return FALSE;
-}
 @end

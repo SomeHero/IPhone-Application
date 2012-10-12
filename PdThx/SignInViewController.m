@@ -293,7 +293,7 @@
     
     [appDelegate dismissProgressHUD];
     
-    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user= [currentUser mutableCopy];
+    ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user = [currentUser mutableCopy];
     
     if(currentUser.isLockedOut)
     {
