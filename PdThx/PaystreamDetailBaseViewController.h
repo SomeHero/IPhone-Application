@@ -122,4 +122,6 @@
 
 - (UIView*)makeBubbleWithWidth:(CGFloat)w font:(UIFont*)f text:(NSString*)s background:(NSString*)fn caps:(CGSize)caps padding:(CGFloat*)padTRBL;
 
+-(void)reloadTransactionInformation;
+
 @end

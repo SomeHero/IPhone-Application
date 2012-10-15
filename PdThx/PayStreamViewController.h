@@ -33,6 +33,7 @@
     SignInViewController* signInViewController;
     GetPayStreamService* getPayStreamService;
     IBOutlet UISegmentedControl* ctrlPaystreamTypes;
+    
     PaystreamDetailBaseViewController* ctrlDetailView;
     
     UIView *shadedLayer;
@@ -56,6 +57,7 @@
 }
 
 
+@property (nonatomic, retain) PaystreamDetailBaseViewController* ctrlDetailView;
 //Pull to refresh properties
 @property (nonatomic, retain) UIView *refreshHeaderView;
 @property (nonatomic, retain) UILabel *refreshLabel;

@@ -49,6 +49,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @synthesize findUserService;
 
+@synthesize ctrlDetailView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -243,7 +244,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showWithStatus:@"Loading" withDetailedStatus:@"Please wait"];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+-(void)viewDidDisappear:(BOOL)animated
 {
     if ( [seenItems count] > 0 ){
         
@@ -1080,11 +1081,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [transactionsTableView reloadData];
     }
     
-    PaystreamDetailBaseViewController* outgoingView =  [[PaystreamOutgoingPaymentViewController alloc] init];
+    if ( ctrlDetailView == nil )
+        ctrlDetailView = [[PaystreamOutgoingPaymentViewController alloc] init];
     
-    outgoingView.messageDetail = item;
+    ctrlDetailView.messageDetail = item;
     
-    [self.navigationController pushViewController:outgoingView animated:YES];
+    [self.navigationController pushViewController:ctrlDetailView animated:YES];
 }
 
 -(IBAction)segmentedControlChanged
