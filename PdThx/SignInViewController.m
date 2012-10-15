@@ -187,7 +187,11 @@
     if(isValid) {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Accessing account"];
-        [signInUserService validateUser:username withPassword:password];
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString* deviceToken = [[UIDevice currentDevice] uniqueIdentifier];
+        
+        [signInUserService validateUser:username withPassword:password withDeviceId:deviceToken];
     } else {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid username/password"];
