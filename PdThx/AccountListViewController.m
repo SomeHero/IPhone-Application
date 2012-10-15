@@ -343,20 +343,20 @@
             [controller release];
              */
             
-            if([user.bankAccounts count] > 0)
+            if(user.hasSecurityPin)
             {
-            ChooseAddACHMethodViewController* chooseMethodVC = [[[ChooseAddACHMethodViewController alloc] init] autorelease];
-            [chooseMethodVC setNavigationTitle:@"Add Bank Account"];
-            [chooseMethodVC setTitle:@"Add Bank Account"];
-            [chooseMethodVC setAchSetupComplete:self];
+                ChooseAddACHMethodViewController* chooseMethodVC = [[[ChooseAddACHMethodViewController alloc] init] autorelease];
+                [chooseMethodVC setNavigationTitle:@"Add Bank Account"];
+                [chooseMethodVC setTitle:@"Add Bank Account"];
+                [chooseMethodVC setAchSetupComplete:self];
             
-            UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:chooseMethodVC];
+                UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:chooseMethodVC];
             
-            [self.navigationController presentModalViewController:navBar animated:YES];
+                [self.navigationController presentModalViewController:navBar animated:YES];
             
-            [navBar release];
+                [navBar release];
             
-        } else {
+            } else {
                 AddACHOptionsViewController* controller = [[[AddACHOptionsViewController alloc] init] autorelease];
                 [controller setAchSetupComplete: self];
                 

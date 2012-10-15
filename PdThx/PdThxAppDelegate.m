@@ -505,6 +505,27 @@
     [quickSendArray release];
     quickSendArray = nil;
     
+    [LoggedInCenterViewController release];
+    LoggedInCenterViewController = nil;
+    
+    [LoggedInFifthViewController release];
+    LoggedInFifthViewController = nil;
+    
+    [LoggedInFirstViewController release];
+    LoggedInFirstViewController = nil;
+    
+    [LoggedInFourthViewController release];
+    LoggedInFourthViewController = nil;
+    
+    [LoggedInSecondViewController release];
+    LoggedInSecondViewController = nil;
+    
+    [mainAreaTabBarController release];
+    
+    HomeViewControllerV2 *hvc = [[HomeViewControllerV2 alloc]init];
+    mainAreaTabBarController = [[UINavigationController alloc] initWithRootViewController:hvc];
+    [hvc release];
+    
     // Reload all Contacts (without Facebook permissions)
     [self loadPhoneContacts];
     

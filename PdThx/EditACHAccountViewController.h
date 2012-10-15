@@ -16,7 +16,8 @@
 #import "VerifyBankAccountProtocol.h"
 
 @interface EditACHAccountViewController : UISetupUserBaseViewController <UITextFieldDelegate,
-     VerifyBankAccountProtocol> {
+     VerifyBankAccountProtocol>
+{
     IBOutlet UIView* mainView;
     IBOutlet UITextField* txtNickName;
     IBOutlet UITextField* txtNameOnAccount;
