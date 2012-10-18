@@ -86,6 +86,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    
     tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:1];
     
     faceBookSignInHelper = [[FacebookSignIn alloc] init];
