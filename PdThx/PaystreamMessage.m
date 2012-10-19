@@ -67,10 +67,13 @@
 -(id)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
-    
+
+    NSTimeZone* localTimeZone = [NSTimeZone localTimeZone];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
-    
+    [format setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+   
+    [format setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+
     if(self) { 
         messageId = [[dictionary objectForKey:@"Id"] copy];
         amount = [[dictionary objectForKey:@"amount"] copy];
@@ -82,9 +85,12 @@
         recipientUriType = [[dictionary valueForKey: @"recipientUriType"] copy];
         recipientImageUri = [[dictionary valueForKey: @"recipientImageUri"] copy];
         NSString* rawData = [[dictionary valueForKey:@"createDate"] autorelease];
-        NSRange timezone = NSMakeRange([rawData length] - 10, 3);
-        NSString *cleanData = [rawData stringByReplacingOccurrencesOfString:@":" withString:@"" options:NSCaseInsensitiveSearch range:timezone ];
-        createDate = [[format dateFromString: cleanData] copy];
+        createDate = [[format dateFromString: rawData] copy];
+        
+        NSTimeInterval seconds = -60 * 60;
+        if([localTimeZone isDaylightSavingTime])
+            createDate = [[createDate dateByAddingTimeInterval: seconds] copy];
+        
         direction = [[dictionary valueForKey:@"direction"] copy];
         recipientName = [[dictionary valueForKey:@"recipientName"] copy];
         senderName = [[dictionary valueForKey:@"senderName"] copy];

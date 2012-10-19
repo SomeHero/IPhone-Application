@@ -86,6 +86,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    
     tabBar = [[SignedOutTabBarManager alloc]initWithViewController:self topView:self.view delegate:self selectedIndex:1];
     
     faceBookSignInHelper = [[FacebookSignIn alloc] init];
@@ -187,7 +188,11 @@
     if(isValid) {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showWithStatus:@"Signing in" withDetailedStatus:@"Accessing account"];
-        [signInUserService validateUser:username withPassword:password];
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString* deviceToken = [[UIDevice currentDevice] uniqueIdentifier];
+        
+        [signInUserService validateUser:username withPassword:password withDeviceId:deviceToken];
     } else {
         PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
         [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Invalid username/password"];
