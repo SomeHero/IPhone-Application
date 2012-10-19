@@ -218,13 +218,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [self adjustExpressDeliveryCharge:textField];
     
-    if ( [textField.text doubleValue] > expressDeliveryFreeThreshold && [oldString doubleValue] < expressDeliveryFreeThreshold )
+    if ( [textField.text doubleValue] > expressDeliveryFreeThreshold && [oldString doubleValue] <= expressDeliveryFreeThreshold )
     {
         // The amount to send increased to be OVER
         // The free threshold. Reset the button.
+        NSLog(@"Removing expressed delivery because going over the free threshold");
         [self removeExpressedDelivery];
     }
-    
     
     return NO;
 }
@@ -235,6 +235,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [addExpressDeliveryButton setBackgroundImage:standardDeliveryImage forState:UIControlStateNormal];
     [addExpressDeliveryButton setBackgroundImage:standardDeliveryImage forState:UIControlStateSelected];
+    
+    [amountExpressChargeLabel setHidden:YES];
     
     isExpressed = NO;
 }
@@ -318,7 +320,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     isExpressed = YES;
     [addExpressDeliveryButton setEnabled:YES];
-    
+    [amountExpressChargeLabel setHidden:NO];
     
     [addExpressDeliveryButton setBackgroundImage:enabledImage forState:UIControlStateNormal];
     [addExpressDeliveryButton setBackgroundImage:enabledImage forState:UIControlStateSelected];

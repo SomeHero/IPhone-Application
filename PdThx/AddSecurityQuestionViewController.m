@@ -58,12 +58,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [self setTitle: navigationTitle];
-    
-    
-    UIBarButtonItem *cancelButton =  [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemAction target:self action:@selector(cancelClicked)];
-    
-    self.navigationItem.leftBarButtonItem= cancelButton;
-    [cancelButton release];
 }
 
 -(void)cancelClicked
@@ -115,7 +109,8 @@
     //questionPicker.hidden = YES;
 }
 
-- (IBAction)doSubmit:(id)sender {
+- (IBAction)doSubmit:(id)sender
+{
     [answerField resignFirstResponder];
     
     if ( [answerField.text length] > 0 ){
@@ -137,7 +132,8 @@
 }
 
 
--(IBAction) bgTouched:(id) sender {
+-(IBAction) bgTouched:(id) sender
+{
     [answerField resignFirstResponder];
     //[questionPicker setHidden:YES];
 }

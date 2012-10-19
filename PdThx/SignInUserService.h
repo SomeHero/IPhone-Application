@@ -17,6 +17,6 @@
 
 @property(retain) id userSignInCompleteDelegate;
 
--(void) validateUser:(NSString*) userName withPassword:(NSString*) password withDeviceId:(NSString*) deviceId;
+-(void) validateUser:(NSString*) userName withPassword:(NSString*) password;
 
 @end

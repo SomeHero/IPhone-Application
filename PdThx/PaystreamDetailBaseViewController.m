@@ -43,6 +43,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize actionTableData;
 
 @synthesize actionButtonsHeader;
+@synthesize bubble;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -161,34 +162,34 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     return false;
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void)reloadTransactionInformation
 {
-    [super viewWillAppear:animated];
-    
     // Initialize Express Labels
     //[expressDeliveryChargeLabel setCenterVertically:YES];
     [self configureExpressView];
     
     txtActionAmount.text = @"Action\n$AMT to";
     
+    if ( bubble != nil && bubble.superview )
+        [bubble removeFromSuperview];
     
     // Settings
 	NSString*	s;
 	NSString*	art		= @"bg-message-stretch.png";
 	CGSize		caps		= CGSizeMake(25, 24);
     UIFont*		font;
+    
     if ( messageDetail.comments.length > 100 )
         font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 8];
     else
         font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
     
 	CGFloat		padTRBL[4]	= {15, 8, 8, 8};
-	UIView*		bubble;
     
 	// Create bubble
 	s = [NSString stringWithFormat: @"\"%@\"", messageDetail.comments];
     
-    bubble =[self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
+    bubble = [self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
 	bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
 	[self.quoteView addSubview:bubble];
     
@@ -240,8 +241,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [dateFormatter release];
     
     [lblSentDate setText:[NSString stringWithFormat:@"on %@ at %@", arg0, arg1]];
-    
-    
 }
 
 - (void)viewDidLoad

@@ -302,7 +302,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
-    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
@@ -901,7 +900,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
     cell.transactionStatus.text = item.messageStatus;
     cell.lblComments.text = item.comments;
-        
+    
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [imageView setContentMode:UIViewContentModeScaleToFill];
@@ -1087,6 +1086,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     ctrlDetailView.messageDetail = item;
     
     [self.navigationController pushViewController:ctrlDetailView animated:YES];
+    [ctrlDetailView reloadTransactionInformation];
 }
 
 -(IBAction)segmentedControlChanged

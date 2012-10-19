@@ -68,6 +68,8 @@
     IBOutlet UIButton *expressDeliveryButton;
     IBOutlet OHAttributedLabel *expressDeliveryText;
     
+	UIView* bubble;
+    
     NSMutableArray* sections;
     NSMutableDictionary* actionTableData;
 }
@@ -119,6 +121,8 @@
 @property (nonatomic, retain) NSMutableDictionary* actionTableData;
 
 @property (nonatomic, retain) UIView *actionButtonsHeader;
+
+@property (nonatomic, retain) UIView* bubble;
 
 - (UIView*)makeBubbleWithWidth:(CGFloat)w font:(UIFont*)f text:(NSString*)s background:(NSString*)fn caps:(CGSize)caps padding:(CGFloat*)padTRBL;
 

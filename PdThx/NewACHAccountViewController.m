@@ -197,7 +197,7 @@
         
         NSString* nickName = txtAccountNickname.text;
         
-        if ( [nickName isEqualToString:@""] || nickName.length == 0 )
+        if ( nickName == (id)[NSNull null] || nickName == NULL || [nickName isEqualToString:@""] || nickName.length == 0 )
         {
             nickName = [NSString stringWithFormat:@"%@ %@",accountType,[txtAccountNumber.text substringFromIndex:txtAccountNumber.text.length-4]];
         }
@@ -208,7 +208,8 @@
         
         [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickName withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
-    else {
+    else
+    {
         if([sender tag] == 1)
         {
             [self.navigationController dismissModalViewControllerAnimated:NO];
@@ -430,8 +431,8 @@
             
             [appDelegate showTwoButtonAlertView:NO withTitle:@"Error" withSubtitle:@"Unable to read check image" withDetailedText:@"We were unable to read the check. Please ensure all four corners of the check are in the picture." withButton1Text:@"Manual" withButton2Text:@"Retry" withDelegate:self];
         }
-        else if(![[transaction objectForKey:@"IQAGood"] boolValue]) {
-            
+        else if(![[transaction objectForKey:@"IQAGood"] boolValue])
+        {
             PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
             
             [appDelegate dismissProgressHUD];

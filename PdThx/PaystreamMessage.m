@@ -35,46 +35,31 @@
 @synthesize isAcceptable;
 @synthesize isRejectable;
 @synthesize isExpressable;
-
 @synthesize deliveryMethod, deliveryCharge;
 
--(id)init {
+-(id)init
+{
     self = [super init];
     
     
     if(self)
     {
-        /*
-        amount = [[NSDecimalNumber alloc] init];
-        comments = [[NSString alloc] init];
-        messageId = [[NSString alloc] init];
-        messageStatus = [[NSString alloc] init];
-        messageType = [[NSString alloc] init];
-        senderUri = [[NSString alloc] init];
-        recipientUri = [[NSString alloc] init];
-        createDate = [[NSDate alloc] init];
-        direction = [[NSString alloc] init];
-        recipientName = [[NSString alloc] init];
-        senderName = [[NSString alloc] init];
-        transactionImageUri = [[NSString alloc] init];
-         */
-        
-        // We probably shouldn't initialize the above variables... We would be losing memory by initializing strings, and then setting the variables to copies of objects from the dictionary we pass.
-     }
+    }
     
     return self;
 }
+
 -(id)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
-
+    
     NSTimeZone* localTimeZone = [NSTimeZone localTimeZone];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-   
+    
     [format setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-
-    if(self) { 
+    
+    if(self) {
         messageId = [[dictionary objectForKey:@"Id"] copy];
         amount = [[dictionary objectForKey:@"amount"] copy];
         comments =[[dictionary valueForKey:@"comments"] copy];
@@ -87,7 +72,7 @@
         NSString* rawData = [[dictionary valueForKey:@"createDate"] autorelease];
         createDate = [[format dateFromString: rawData] copy];
         
-        NSTimeInterval seconds = -60 * 60;
+        NSTimeInterval seconds = -60*60;
         if([localTimeZone isDaylightSavingTime])
             createDate = [[createDate dateByAddingTimeInterval: seconds] copy];
         
@@ -106,9 +91,7 @@
     }
     
     [format release];
-    
     return self;
-    
 }
 
 -(void)dealloc {

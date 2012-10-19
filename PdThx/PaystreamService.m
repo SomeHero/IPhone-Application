@@ -70,7 +70,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/pledge?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/accept_pledge?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",

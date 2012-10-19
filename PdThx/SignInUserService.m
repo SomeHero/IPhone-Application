@@ -16,7 +16,7 @@
 
 @synthesize userSignInCompleteDelegate;
 
--(void) validateUser:(NSString*) userName withPassword:(NSString*) password withDeviceId:(NSString *)deviceId
+-(void) validateUser:(NSString*) userName withPassword:(NSString*) password
 {
     Environment *myEnvironment = [Environment sharedInstance];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
@@ -27,7 +27,6 @@
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               userName, @"userName",
                               password, @"password",
-                              deviceId, @"deviceId",
                               nil];
     
     NSString *newJSON = [userData JSONRepresentation];
