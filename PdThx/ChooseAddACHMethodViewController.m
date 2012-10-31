@@ -67,21 +67,13 @@
     
     [achController setAchSetupComplete:self];
     [achController takePictureOfCheck];
-    
-    // Get the list of view controllers
-    NSMutableArray *allViewControllers = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-    [allViewControllers removeObjectIdenticalTo:self];
-    [[self navigationController] setViewControllers:allViewControllers animated:NO];
-    
-    [allViewControllers release];
-    [achController release];
 }
 
 - (IBAction)pressedEnterManuallyButton:(id)sender
 {
     // Load the exact same view controller, but call the camera function manually (no button press)
     NewACHAccountViewController*achController = [[[NewACHAccountViewController alloc] init] autorelease];
-
+    
     [achController setAchSetupComplete:self];
     [achController setTitle:@"Add Bank Account"];
     

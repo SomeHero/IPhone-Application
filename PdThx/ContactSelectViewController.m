@@ -303,6 +303,7 @@
     {
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"ConnectFacebookCellView" owner:self options:nil];
         ConnectFacebookCell* connectFb = [nib objectAtIndex:0];
+        [connectFb setParentTableView:self];
         return connectFb;
     }
     
@@ -778,6 +779,7 @@
                     contact.name = txtSearchBox.text;
                 }
             }
+            
             [contactSelectChosenDelegate didChooseContact:contact];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
@@ -790,7 +792,8 @@
     }
 }
 
--(IBAction) btnGoClicked:(id)sender {
+-(IBAction) btnGoClicked:(id)sender
+{
     Contact* contact = [[[Contact alloc] init] autorelease];
     
     contact.name = [[txtSearchBox text] copy];

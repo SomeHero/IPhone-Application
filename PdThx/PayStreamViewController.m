@@ -42,13 +42,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize viewPanel, psImagesDownloading;
 @synthesize transactionsTableView, shadedLayer;
 @synthesize ctrlPaystreamTypes;
-
+@synthesize storedTransactionImages;
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
-
 @synthesize seenItems;
 
 @synthesize findUserService;
 
+@synthesize ctrlDetailView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -130,6 +130,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+    [storedTransactionImages release];
 }
 
 -(void)signInDidComplete {
@@ -141,7 +142,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.navigationController popViewControllerAnimated:NO];
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
-
 
 #pragma mark - View lifecycle
 
@@ -216,6 +216,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [detailView.layer addSublayer:roundedLayer];
      */
     
+    storedTransactionImages = [[NSMutableDictionary alloc] init];
+    
     /* Tracking Seen Paystream Items */
     if ( seenItems == nil )
         seenItems = [[NSMutableArray alloc] init];
@@ -243,7 +245,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) showWithStatus:@"Loading" withDetailedStatus:@"Please wait"];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+-(void)viewDidDisappear:(BOOL)animated
 {
     if ( [seenItems count] > 0 ){
         
@@ -301,7 +303,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 -(void)getPayStreamDidComplete:(NSMutableArray*)payStreamMessages
 {
-    
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
@@ -399,7 +400,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 if ( [[dateFormatter stringFromDate:todaysDate] isEqualToString:transactionDate] )
                 {
                     found = NO;
-                    
                     
                     for(int i = 0; i <[sections count]; i++)
                     {
@@ -671,7 +671,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [cell.transactionImageButton setBackgroundImage:[UIImage imageNamed:@"avatar-50x50.png"] forState:UIControlStateNormal];
     
     
-    PaystreamMessage* item = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    PaystreamMessage* item = [[transactionsDict objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
     // Configure the cell...
     if([item.direction isEqualToString:@"Out"])
@@ -711,7 +711,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     if ( !item.imgData && item.transactionImageUri != (id)[NSNull null] )
     {
-        
         if (transactionsTableView.dragging == NO && transactionsTableView.decelerating == NO){
             [self startIconDownload:item forTransactionId:item.messageId atIndexPath:indexPath];
         }
@@ -900,7 +899,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
     cell.transactionStatus.text = item.messageStatus;
     cell.lblComments.text = item.comments;
-        
+    
     UIImage *backgroundImage = [UIImage imageNamed: @"transaction_row_background"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [imageView setContentMode:UIViewContentModeScaleToFill];
@@ -965,31 +964,35 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [iconDownloader startDownload];
         [iconDownloader release];
     } else {
+        iconDownloader.indexPathInTableView = indexPath;
         [self appImageDidLoad:transactionId forIndexPath:indexPath];
     }
 }
 
-
-// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
 - (void)loadImagesForOnscreenRows
 {
     if ([transactionsDict count] > 0)
     {
         NSArray *visiblePaths = [transactionsTableView indexPathsForVisibleRows];
+        
         for (NSIndexPath *indexPath in visiblePaths)
         {
             PaystreamMessage *message = [[transactionsDict  objectForKey:[sections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
             
-            if ( !message.imgData ) // avoid the app icon download if the app already has an icon
+            if ( !message.imgData )
             {
-                if ( [[message direction] isEqualToString:@"Out"] )
-                    [self startIconDownload:message forTransactionId:message.messageId atIndexPath:indexPath];
-                else
-                    [self startIconDownload:message forTransactionId:message.messageId atIndexPath:indexPath];
+                UIImage*imageStored = [storedTransactionImages objectForKey:message.messageId];
+                if ( imageStored != nil )
+                {
+                    message.imgData = imageStored;
+                }
+                
+                [self startIconDownload:message forTransactionId:message.messageId atIndexPath:indexPath];
             }
         }
     }
 }
+
 
 // called by our ImageDownloader when an icon is ready to be displayed
 - (void)appImageDidLoad:(NSString*)transactionId forIndexPath:(NSIndexPath *)indexPath
@@ -1000,20 +1003,19 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     {
         UIPaystreamTableViewCell *cell = (UIPaystreamTableViewCell*)[transactionsTableView cellForRowAtIndexPath:iconDownloader.indexPathInTableView];
         
-        // Display the newly loaded image
         [cell.transactionImageButton setBackgroundImage:iconDownloader.message.imgData forState:UIControlStateNormal];
+        
+        [storedTransactionImages setValue:iconDownloader.message.imgData forKey:transactionId];
     }
     
     iconDownloader = nil;
     [iconDownloader release];
 }
 
-
 #pragma mark -
 #pragma mark Deferred image loading (UIScrollViewDelegate)
 
 /*
- 
 // Load images for all onscreen rows when scrolling is finished
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
@@ -1080,11 +1082,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [transactionsTableView reloadData];
     }
     
-    PaystreamDetailBaseViewController* outgoingView =  [[PaystreamOutgoingPaymentViewController alloc] init];
+    if ( ctrlDetailView == nil )
+        ctrlDetailView = [[PaystreamOutgoingPaymentViewController alloc] init];
     
-    outgoingView.messageDetail = item;
+    ctrlDetailView.messageDetail = item;
     
-    [self.navigationController pushViewController:outgoingView animated:YES];
+    [self.navigationController pushViewController:ctrlDetailView animated:YES];
+    [ctrlDetailView reloadTransactionInformation];
 }
 
 -(IBAction)segmentedControlChanged

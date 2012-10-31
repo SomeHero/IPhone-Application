@@ -14,10 +14,9 @@
 #import "SetupNavigationView.h"
 #import "UISetupUserBaseViewController.h"
 #import "ValidationHelper.h"
-
 #import <QuartzCore/QuartzCore.h>
 
-@interface PersonalizeViewController : UISetupUserBaseViewController<PersonalizeUserCompleteProtocol, ChooseMemberImageProtocol, UITextFieldDelegate>
+@interface PersonalizeViewController : UISetupUserBaseViewController<UINavigationControllerDelegate,PersonalizeUserCompleteProtocol, ChooseMemberImageProtocol, UITextFieldDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate>
 {
     IBOutlet UIView *navBar;
     IBOutlet UIButton *userImageButton;

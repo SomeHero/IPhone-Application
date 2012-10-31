@@ -8,10 +8,12 @@
 
 #import "ConnectFacebookCell.h"
 #import "FacebookSignIn.h"
+#import "ContactSelectViewController.h"
 
 @implementation ConnectFacebookCell
 
 @synthesize connectFacebookCell;
+@synthesize parentTableView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -39,6 +41,8 @@
 {
     FacebookSignIn*fbHelper = [[FacebookSignIn alloc] init];
     [fbHelper linkNewFacebookAccount:self];
+    
+    [((ContactSelectViewController*)parentTableView).txtSearchBox resignFirstResponder];
     
     [self becomeFirstResponder];
 }
