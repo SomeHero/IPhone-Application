@@ -35,7 +35,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -117,7 +117,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/link_facebook", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/link_facebook?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey, @"apiKey",
@@ -190,7 +190,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               securityPin, @"securityPin",
@@ -212,8 +212,9 @@
 
 -(void) changeSecurityPin: (NSString*) userId WithOld:(NSString*) oldSecurityPin AndNew:(NSString*) newSecurityPin {
     Environment *myEnvironment = [Environment sharedInstance];
-
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_securitypin", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_securitypin?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               oldSecurityPin, @"currentSecurityPin",
@@ -283,7 +284,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/personalize_user?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/personalize_user?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               firstName, @"FirstName",
@@ -356,9 +357,9 @@
 -(void) changePasswordFor: (NSString*) userId WithOld: (NSString*) oldPassword AndNew:(NSString*) newPassword 
 {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_password", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_password?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               oldPassword, @"currentPassword",
@@ -425,9 +426,9 @@
 -(void) forgotPasswordFor:(NSString *)emailAddress
 {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/forgot_password", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/forgot_password?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               emailAddress, @"userName",
@@ -498,8 +499,10 @@
 -(void) refreshHomeScreenInformation:(NSString*) userId
 {
     Environment *myEnvironment = [Environment sharedInstance];
-
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/refresh_homepage", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/refresh_homepage?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
@@ -589,7 +592,9 @@
 {
     Environment *myEnvironment = [Environment sharedInstance];
 
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/searchbymecode/%@", myEnvironment.pdthxWebServicesBaseUrl, searchTerm]] autorelease];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/searchbymecode/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, searchTerm, apiKey]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];

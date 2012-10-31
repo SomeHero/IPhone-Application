@@ -34,7 +34,7 @@
     NSString *rootUrl = [NSString stringWithFormat:@"/%@/PayStreamMessages", userId];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, rootUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, rootUrl, apiKey]] autorelease];  
 
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 

@@ -44,7 +44,7 @@
     Environment *myEnvironment = [Environment sharedInstance];
     User* tmpUser = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/upload_member_image?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, tmpUser.userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/upload_member_image?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, tmpUser.userId, myEnvironment.pdthxAPIKey]] autorelease];  
     
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:urlToSend];
     // Upload a file on disk

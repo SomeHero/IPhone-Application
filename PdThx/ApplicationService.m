@@ -16,7 +16,7 @@
 {
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Applications/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Applications/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey, apiKey]] autorelease];  
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 

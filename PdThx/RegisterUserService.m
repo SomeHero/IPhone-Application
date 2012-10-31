@@ -23,7 +23,7 @@
     
     NSString *apiKey = myEnvironment.pdthxAPIKey;
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
 
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey, @"apiKey",

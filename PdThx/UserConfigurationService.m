@@ -16,7 +16,7 @@
 {
     Environment *myEnvironment = [Environment sharedInstance];
 
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, myEnvironment.pdthxAPIKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, myEnvironment.pdthxAPIKey]] autorelease];
 
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     request = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
@@ -95,7 +95,7 @@
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
     
     [rootUrl release];
     [apiKey release];

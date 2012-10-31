@@ -28,7 +28,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     NSString *rootUrl = [NSString stringWithFormat:@"PaystreamMessages"];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl, apiKey]] autorelease];
     
     NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
@@ -70,7 +70,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/pledge?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/pledge?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
@@ -108,7 +108,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/donate?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/donate?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
@@ -193,7 +193,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/cancel_payment?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/cancel_payment?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  userId, @"userId",
@@ -260,7 +260,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/accept_request?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/accept_request?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  userId, @"userId",
@@ -329,7 +329,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/reject_request?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/reject_request?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  userId, @"userId",
@@ -393,7 +393,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/cancel_request?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PayStreamMessages/%@/cancel_request?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, messageId, apiKey]] autorelease];  
     
     NSDictionary *requestBody = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  userId, @"userId",
@@ -459,9 +459,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PaystreamMessages/%@/update_messages_seen", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
-    
-    NSLog(@"Sending to: %@", urlToSend);
-    
+
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  apiKey, @"apiKey",
                                  userId, @"userId",
@@ -469,9 +467,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
                                  nil];
     
     NSString *newJSON = [paymentData JSONRepresentation];
-    
-    NSLog(@"JSON Being Sent:%@",newJSON);
-    
+
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
     [requestObj addRequestHeader:@"Content-Type" value:@"application/json"];

@@ -22,7 +22,7 @@
     
     Environment *myEnvironment = [Environment sharedInstance];
 
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -99,7 +99,7 @@
     
     Environment *myEnvironment = [Environment sharedInstance];
 
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];
     
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -169,7 +169,7 @@
     
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
@@ -244,7 +244,7 @@
 -(void) setPreferredSendAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_send_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_send_account?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
@@ -268,7 +268,7 @@
 -(void) setPreferredReceiveAccount:(NSString*) accountId forUserId: (NSString*) userId withSecurityPin: (NSString*) securityPin {
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_receive_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/set_preferred_receive_account?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, myEnvironment.pdthxAPIKey]] autorelease];
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
@@ -339,7 +339,7 @@
 {
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@/verify_account/?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/%@/verify_account/?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, accountId, myEnvironment.pdthxAPIKey]] autorelease];
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  //deviceId, @"deviceId",
@@ -410,7 +410,7 @@
 -(void)verifyRoutingNumber: (NSString*) routingNumber {
     Environment *myEnvironment = [Environment sharedInstance];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/routingnumber/validateapiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  myEnvironment.pdthxAPIKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/routingnumber/validate?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  myEnvironment.pdthxAPIKey]] autorelease];
     
     
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:

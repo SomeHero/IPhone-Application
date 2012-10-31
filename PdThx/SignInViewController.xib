@@ -172,6 +172,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{60, 319}, {238, 35}}</string>
 										<reference key="NSSuperview" ref="764254352"/>
+										<reference key="NSNextKeyView"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 										<int key="IBUIContentHorizontalAlignment">2</int>
@@ -692,9 +693,9 @@
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{16, 16}</string>
-				<string>{16, 16}</string>
-				<string>{16, 16}</string>
+				<string>{596, 123}</string>
+				<string>{596, 93}</string>
+				<string>{292, 79}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">1926</string>
