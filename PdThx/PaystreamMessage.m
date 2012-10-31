@@ -41,7 +41,6 @@
 {
     self = [super init];
     
-    
     if(self)
     {
     }
@@ -52,14 +51,15 @@
 -(id)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
-    
+
     NSTimeZone* localTimeZone = [NSTimeZone localTimeZone];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    
+   
     [format setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     
-    if(self) {
+    if(self)
+    {
         messageId = [[dictionary objectForKey:@"Id"] copy];
         amount = [[dictionary objectForKey:@"amount"] copy];
         comments =[[dictionary valueForKey:@"comments"] copy];
@@ -73,6 +73,7 @@
         createDate = [[format dateFromString: rawData] copy];
         
         NSTimeInterval seconds = -60*60;
+        
         if([localTimeZone isDaylightSavingTime])
             createDate = [[createDate dateByAddingTimeInterval: seconds] copy];
         

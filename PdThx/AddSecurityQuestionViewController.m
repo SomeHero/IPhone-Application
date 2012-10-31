@@ -8,6 +8,7 @@
 
 #import "AddSecurityQuestionViewController.h"
 #import "PdThxAppDelegate.h"
+#import "SecurityQuestionSelectOptionViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface AddSecurityQuestionViewController ()
@@ -16,9 +17,12 @@
 
 @implementation AddSecurityQuestionViewController
 
-@synthesize submitButton, questionPicker, answerField, securityQuestionEnteredDelegate;
+@synthesize chooseQuestionButton, questionLabel;
+
+@synthesize submitButton, answerField, securityQuestionEnteredDelegate;
 @synthesize navigationTitle, headerText;
 @synthesize questionId, questionAnswer;
+@synthesize optionSelector;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,10 +41,11 @@
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     securityQuestions = [appDelegate securityQuestions];
-    answerField.delegate = self;
+    NSLog(@"Security Questions: %@", securityQuestions);
+    [questionLabel setText:[[securityQuestions objectAtIndex:0] objectForKey:@"Question"]];
+    questionId = 0;
     
-    questionId = 1;
-
+    answerField.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -49,8 +54,10 @@
     answerField = nil;
     [submitButton release];
     submitButton = nil;
-    [questionPicker release];
-    questionPicker = nil;
+    [questionLabel release];
+    questionLabel = nil;
+    [chooseQuestionButton release];
+    chooseQuestionButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -73,18 +80,15 @@
 - (void)dealloc {
     [answerField release];
     [submitButton release];
-    [questionPicker release];
     [navigationTitle release];
     [headerText release];
     
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
+    [questionLabel release];
+    [chooseQuestionButton release];
     [super dealloc];
-}
-- (IBAction)showQuestionPicker:(id)sender {
-    //[securityQuestionService getSecurityQuestions:NO]; // Get All questions
-    questionPicker.hidden = NO;
 }
 
 /*      Setting up Picker View      */
@@ -136,6 +140,29 @@
 {
     [answerField resignFirstResponder];
     //[questionPicker setHidden:YES];
+}
+
+- (IBAction)chooseQuestion:(id)sender
+{
+    optionSelector = [[[SecurityQuestionSelectOptionViewController alloc] initWithFrame:self.view.bounds] autorelease];
+    
+    [optionSelector setOptionsArray:securityQuestions];
+    [optionSelector setOptionSelectDelegate: self];
+    [optionSelector setSelectedOption:questionId];
+    
+    [optionSelector setHeaderText:@"Choose a Question"];
+    [optionSelector setDescriptionText:@"This question will be used to recover your account."];
+    
+    [self.view addSubview:optionSelector];
+    [optionSelector show];
+}
+
+-(void)didSelectOption:(int)indexSelected
+{
+    [optionSelector hide];
+    questionId = indexSelected;
+    
+    [questionLabel setText:[[securityQuestions objectAtIndex:indexSelected] objectForKey:@"Question"]];
 }
 
 @end

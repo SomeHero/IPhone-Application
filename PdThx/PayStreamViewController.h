@@ -29,6 +29,7 @@
     NSMutableArray *sections;
     NSMutableDictionary* transactionsDict;
     NSMutableDictionary * psImagesDownloading;
+    NSMutableDictionary* storedTransactionImages;
     
     SignInViewController* signInViewController;
     GetPayStreamService* getPayStreamService;
@@ -56,7 +57,6 @@
     NSMutableArray* seenItems;
 }
 
-
 @property (nonatomic, retain) PaystreamDetailBaseViewController* ctrlDetailView;
 //Pull to refresh properties
 @property (nonatomic, retain) UIView *refreshHeaderView;
@@ -79,6 +79,8 @@
 @property (nonatomic, retain) UIView *shadedLayer;
 
 @property (nonatomic, retain) HBTabBarManager *tabBar;
+
+@property (nonatomic, retain) NSMutableDictionary* storedTransactionImages;
 
 -(IBAction)segmentedControlChanged;
 
