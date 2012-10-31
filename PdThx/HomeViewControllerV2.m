@@ -25,7 +25,6 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-
 @implementation HomeViewControllerV2
 
 @synthesize lblUserName;
@@ -161,15 +160,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [super viewWillAppear:animated];
     
-    lblPayPoints.text = @"";
-    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     incomingNotificationLabel.text = [NSString stringWithFormat:@"%d",[prefs integerForKey:@"IncomingNotificationCount"]];
     outgoingNotificationLabel.text =  [NSString stringWithFormat:@"%d",[prefs integerForKey:@"OutgoingNotificationCount"]];
     
     lblUserName.text = [prefs stringForKey:@"PdThx_PreferredName"];
     
-    NSString* userId = [prefs stringForKey:@"userId"];
+    self.navigationItem.leftBarButtonItem = nil;
+    
+    lblPayPoints.text = @"";
     
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
@@ -194,9 +193,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     loadingActivityIndicator.hidden = NO;
     [loadingActivityIndicator startAnimating];
     
-    [userService refreshHomeScreenInformation:userId];
-    
-    self.navigationItem.leftBarButtonItem = nil;
+    [userService refreshHomeScreenInformation:appDelegate.user.userId];
 }
 
 

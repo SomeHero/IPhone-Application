@@ -17,7 +17,8 @@
 	[self addSubview:mainSubView];
 }
 
--(id) initWithCoder:(NSCoder *)coder {
+-(id) initWithCoder:(NSCoder *)coder
+{
 	self = [super initWithCoder:coder];
 	if(self) {
 		[self loadViewsFromBundle];
@@ -34,7 +35,6 @@
         [lblActivate setTextColor:[UIColor colorWithRed:118/256.0 green:119/256.0 blue:122/256.0 alpha:1]];
         [lblPersonalize setTextColor:[UIColor colorWithRed:118/256.0 green:119/256.0 blue:122/256.0 alpha:1]];
         [lblEnable setTextColor:[UIColor colorWithRed:118/256.0 green:119/256.0 blue:122/256.0 alpha:1]];
-        
     }
     return self;
 }

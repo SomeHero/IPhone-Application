@@ -16,6 +16,8 @@
 
 #import "Contact.h"
 #import <AddressBook/AddressBook.h>
+#import <FacebookSDK/FacebookSDK.h>
+
 #import "PhoneNumberFormatting.h"
 #import "ContactSelectViewController.h"
 #import "UINavigationBar+CustomImage.h"
@@ -45,7 +47,9 @@
 @synthesize nonProfits;
 @synthesize organizations;
 @synthesize securityQuestions;
+
 @synthesize fbAppId;
+
 @synthesize mainAreaTabBarController;
 @synthesize selectedContactList;
 @synthesize quickSendArray;
@@ -54,7 +58,6 @@
 
 // Static Tab Bar View Controllers..
 @synthesize LoggedInCenterViewController, LoggedInFifthViewController, LoggedInFirstViewController, LoggedInFourthViewController, LoggedInSecondViewController;
-
 
 /*      Temporary New User Flow Booleans    */
 @synthesize shownEnablePayments, shownPersonalize, shownPhone;
@@ -297,6 +300,8 @@
 	//[hostReach startNotifier];
 	//[self updateInterfaceWithReachability: hostReach];
     
+    [FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorFBURLConnections, nil]];
+    
     shownEnablePayments = false;
     shownPersonalize = false;
     shownPhone = false;
@@ -304,7 +309,7 @@
     selectedContactList = @"AllContacts";
     
     // Override point for customization after application launch.
-    permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists",@"offline_access", nil];
+    permissions = [[NSArray alloc] initWithObjects:@"email",@"read_friendlists", nil];
     
     [mainAreaTabBarController setDelegate:self];
     
@@ -398,6 +403,7 @@
         //Handle Error Here
     }
     
+    [FBSession setDefaultAppID:@"332189543469634"];
     
     return YES;
 }
@@ -439,6 +445,10 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface
      */
+    
+    
+    // Bugged FBSDK 3.1.1 functionality
+    //[[FBSession activeSession] handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -484,8 +494,7 @@
     [prefs synchronize];
     
     // Implement Removal of Facebook Contacts from contactArray when they log out of their FACEBOOK-lined account.
-    if ( [[FBSession activeSession] isOpen] )
-        [[FBSession activeSession] closeAndClearTokenInformation];
+    [[FBSession activeSession] closeAndClearTokenInformation];
     
     areFacebookContactsLoaded = NO;
     numberOfFacebookFriends = 0;
@@ -505,6 +514,27 @@
     [quickSendArray release];
     quickSendArray = nil;
     
+    [LoggedInCenterViewController release];
+    LoggedInCenterViewController = nil;
+    
+    [LoggedInFifthViewController release];
+    LoggedInFifthViewController = nil;
+    
+    [LoggedInFirstViewController release];
+    LoggedInFirstViewController = nil;
+    
+    [LoggedInFourthViewController release];
+    LoggedInFourthViewController = nil;
+    
+    [LoggedInSecondViewController release];
+    LoggedInSecondViewController = nil;
+    
+    [mainAreaTabBarController release];
+    
+    HomeViewControllerV2 *hvc = [[HomeViewControllerV2 alloc]init];
+    mainAreaTabBarController = [[UINavigationController alloc] initWithRootViewController:hvc];
+    [hvc release];
+    
     // Reload all Contacts (without Facebook permissions)
     [self loadPhoneContacts];
     
@@ -513,19 +543,7 @@
     [self backToWelcomeTabbedArea];
 }
 
-
-/*
- -(UIImage*)findImageForContact:(Contact*)contact;
- {
- if ( [contactsArray indexOfObject:contact] )
- return ((Contact*)[contactsArray objectAtIndex:[contactsArray indexOfObject:contact]]).imgData;
- else
- return [UIImage imageWithContentsOfFile:@"avatar_unknown.jpg"];
- }
- */
-
 /*       Push Notification Handling         */
-
 - (void)application:(UIApplication*)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
@@ -884,15 +902,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     
     return results;
 }
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
-    return [FBSession.activeSession handleOpenURL:url];
-}
-
 
 - (void)dealloc
 {
@@ -1359,8 +1368,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
             
             ABMultiValueRef multiEmails = ABRecordCopyValue(ref, kABPersonEmailProperty);
             
-            
-            
             NSString* lastName = [NSString stringWithFormat: @"%@", (NSString*)lastNameRef];
             lastName = [lastName stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
             
@@ -1438,6 +1445,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
         NSLog(@"Contacts Ready.");
         [tempArray release];
     }
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [FBSession.activeSession handleOpenURL:url];
 }
 
 @end

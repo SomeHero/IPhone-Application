@@ -13,7 +13,6 @@
 #import "PdThxAppDelegate.h"
 #import "Application.h"
 #import "ProfileSection.h"
-#import "ChoosePictureViewController.h"
 #import "UserAttribute.h"
 #import "UserAttributeService.h"
 #import "UIProfileTextField.h"

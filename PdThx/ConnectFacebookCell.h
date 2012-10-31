@@ -12,9 +12,12 @@
 @interface ConnectFacebookCell : UITableViewCell <FacebookLinkProtocol>
 {
     IBOutlet UIButton *connectFacebookCell;
+    id parentTableView;
 }
 
 @property (nonatomic, retain) UIButton *connectFacebookCell;
+
+@property (nonatomic, retain) id parentTableView;
 
 - (IBAction)linkFacebookPressed:(id)sender;
 

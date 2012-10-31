@@ -221,6 +221,7 @@
             last4 = txtAccountNumber.text;
         else
             last4 = [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5];
+        
         NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, last4];
         
         [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
@@ -286,19 +287,15 @@
     if ( txtAccountNumber.text.length == 4 )
         last4 = txtAccountNumber.text;
     else
-        last4 = [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 5];
+        last4 = [txtAccountNumber.text substringFromIndex: txtAccountNumber.text.length - 4];
     NSString* nickname = [NSString stringWithFormat: @"%@ %@", accountType, last4];
     
     [accountService setupACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickname withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType:accountType withSecurityPin:securityPin withSecurityQuestionID:questionId withSecurityQuestionAnswer: questionAnswer];
-    
-    //if(!newUserFlow) {
-        //[self.navigationController dismissModalViewControllerAnimated:YES];
-   // }
-
-
 }
--(void)userACHSetupDidComplete:(NSString*) paymentAccountId {
-    
+
+
+-(void)userACHSetupDidComplete:(NSString*) paymentAccountId
+{
     [self.navigationController popViewControllerAnimated:NO];
     
     if([user.preferredPaymentAccountId length] == 0)
