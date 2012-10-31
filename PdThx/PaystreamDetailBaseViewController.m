@@ -212,15 +212,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     [attribString setTextAlignment:CTTextAlignmentFromUITextAlignment(UITextAlignmentCenter) lineBreakMode:kCTLineBreakByWordWrapping];
     
-    
     [txtActionAmount setAttributedText:attribString];
-    
     
     [self customizeContactInformation];
     
     [self buildActionTableView];
-    
-    
     
     // on Wed, March 23, 2012 at 2:35pm
     //  on [0] at [1]
@@ -356,7 +352,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [btnSender  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:messageDetail.senderImageUri]]] forState:UIControlStateNormal];
 
         [btnRecipient  setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:messageDetail.recipientImageUri]]] forState:UIControlStateNormal];
-
     }
     else
     {
@@ -783,19 +778,22 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 [rejectButton addTarget:self action:@selector(btnCancelPaymentClicked) forControlEvents:UIControlEventTouchUpInside];
                 
                 [rejectButton setTitle: @"Cancel Payment" forState:UIControlStateNormal];
+            } else {
+                [[actionTableData objectForKey:@"ActionButtons"] removeObject:rejectRequestCell];
             }
+            
             if(messageDetail.isRemindable)
             {
                 [[actionTableData objectForKey:@"ActionButtons"] addObject:sendReminderCell];
                 
                 [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked:) forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                [[actionTableData objectForKey:@"ActionButtons"] removeObject:sendReminderCell];
             }
         }
         else {
             txtSender.text = messageDetail.senderName;
             txtRecipient.text = @"You";
-            
-            // TODO: Fix Action/Amt Statement
         }
     }
     
@@ -806,19 +804,22 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             txtSender.text = messageDetail.senderName;
             txtRecipient.text = @"You";
             
-            // TODO: Fix Action/Amt Statement
-            
             if(messageDetail.isAcceptable)
             {
                 [[actionTableData objectForKey:@"ActionButtons"] addObject:acceptPayCell];
                 
                 [acceptButton addTarget:self action:@selector(btnAcceptRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                [[actionTableData objectForKey:@"ActionButtons"] removeObject:acceptPayCell];
             }
+            
             if(messageDetail.isRejectable)
             {
                 [[actionTableData objectForKey:@"ActionButtons"] addObject:rejectRequestCell];
                 
                 [rejectButton addTarget:self action:@selector(btnRejectRequestClicked) forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                [[actionTableData objectForKey:@"ActionButtons"] removeObject:rejectRequestCell];
             }
         }
         else if([messageDetail.direction isEqualToString: @"Out"]) {
@@ -835,7 +836,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 [rejectButton addTarget:self action:@selector(btnCancelRequestClicked) forControlEvents:UIControlEventTouchUpInside];
                 
                 [rejectButton setTitle: @"Cancel Request" forState:UIControlStateNormal];
+            } else {
+                [[actionTableData objectForKey:@"ActionButtons"] removeObject:rejectRequestCell];
             }
+            
             if(messageDetail.isRemindable)
             {
                 [[actionTableData objectForKey:@"ActionButtons"] addObject:sendReminderCell];
@@ -843,9 +847,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                 [remindButton addTarget:self action:@selector(btnSendReminderPaymentClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [remindButton setTitle:@"Send Reminder" forState:UIControlStateNormal];
+            } else {
+                [[actionTableData objectForKey:@"ActionButtons"] removeObject:sendReminderCell];
             }
         }
     }
+    
+    [detailTableView reloadData];
 }
 
 
