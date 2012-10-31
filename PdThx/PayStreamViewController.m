@@ -634,6 +634,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     else if([ctrlPaystreamTypes selectedSegmentIndex] == 3)
     {
         return @"Money Requests";
+    }
+    else if([ctrlPaystreamTypes selectedSegmentIndex] == 4)
+    {
+        return @"New incoming transactions";
     } else {
         return @"Paystream";
     }
@@ -802,10 +806,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         }
         else
         {
-                if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
-                    cell.transactionAmount.textColor = UIColorFromRGB(0x3D934C); // Green
-                else
-                    cell.transactionAmount.textColor = UIColorFromRGB(0x648E6F); // Faded Green
+            if ( [item.messageStatus isEqualToString:@"Accepted"] || [item.messageStatus isEqualToString:@"Rejected"] )
+                cell.transactionAmount.textColor = UIColorFromRGB(0x3D934C); // Green
+            else
+                cell.transactionAmount.textColor = UIColorFromRGB(0x648E6F); // Faded Green
             
             cell.transactionAmount.text = [NSString stringWithFormat: @"+ %@", amount];
         }
@@ -1104,7 +1108,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     }
     else if([ctrlPaystreamTypes selectedSegmentIndex] == 1) {
         for (PaystreamMessage* transaction in transactions ){
-            if(([transaction.direction isEqualToString: @"Out"]) && ([transaction.messageType isEqualToString: @"Payment"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"])))
+            if(([transaction.direction isEqualToString: @"Out"]) && ([transaction.messageType isEqualToString: @"Payment"] || [transaction.messageType isEqualToString: @"Donation"] || [transaction.messageType isEqualToString: @"AcceptPledge"]) && (([transaction.messageStatus isEqualToString: @"Submitted"]) || ([transaction.messageStatus isEqualToString: @"Processing"]) || ([transaction.messageStatus isEqualToString  : @"Complete"] )))
                 [filteredTransactions addObject: transaction];
         }
     }
@@ -1119,6 +1123,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
             if(([transaction.messageType isEqualToString: @"PaymentRequest"]))
                 [filteredTransactions addObject: transaction];
         }
+    } else if ([ctrlPaystreamTypes selectedSegmentIndex] == 4) {
+        NSLog(@"Trying to see if this works.");
     }
     
     [self buildTransactionDictionary: filteredTransactions];
@@ -1134,46 +1140,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [filteredTransactions release];
 }
 
-/*
-- (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened
-{
-    if ( ! opened ) { // View totally closed
-        [shadedLayer removeFromSuperview];
-    }
-}
-
-- (void)pullableView:(PullableView *)pView didMoveLocation:(float)relativePosition
-{
-    shadedLayer.layer.opacity = ( 0.7 - (0.7 * relativePosition));
-}
-
-
-- (void)pullableView:(PullableView *)pView startedAnimation:(float)animationDuration withDirection:(BOOL)directionBoolean;
-{
-    
-    if ( directionBoolean ){
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:shadedLayer];
-        [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
-    
-        if ( detailView.layer.position.x != detailView.openedCenter.x ){
-            [UIView animateWithDuration:animationDuration animations:^{
-                shadedLayer.layer.opacity = 0.7;
-            }];
-            
-            // Remove these last 4 lines with block-in-block comment
-            [UIView beginAnimations:@"Darken" context:NULL];
-            [UIView setAnimationDuration:animationDuration];
-            shadedLayer.layer.opacity = 0.7;
-            [UIView commitAnimations];
-             
-        }
-    } else {
-        [UIView animateWithDuration:animationDuration animations:^{
-            shadedLayer.layer.opacity = 0.0;
-        }];
-    }
-}
- */
 
 /* -------------------------------------
         Pull to Refresh
