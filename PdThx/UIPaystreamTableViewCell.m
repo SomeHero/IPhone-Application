@@ -21,13 +21,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize overlayView;
 @synthesize stampView;
 @synthesize newColorStrip;
+@synthesize transactionId;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        
     }
     return self;
 }

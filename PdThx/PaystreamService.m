@@ -458,7 +458,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     Environment *myEnvironment = [Environment sharedInstance];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PaystreamMessages/%@/update_messages_seen", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/PaystreamMessages/%@/update_messages_seen?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
 
     NSDictionary *paymentData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  apiKey, @"apiKey",

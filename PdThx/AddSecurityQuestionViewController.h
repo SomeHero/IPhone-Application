@@ -11,29 +11,43 @@
 #import "SecurityQuestionInputProtocol.h"
 #import "GetSecurityQuestionsService.h"
 #import "GetSecurityQuestionsProtocol.h"
+#import "GenericModalReturnProtocol.h"
+#import "SecurityQuestionSelectOptionViewController.h"
 
-@interface AddSecurityQuestionViewController : UISetupUserBaseViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol>
+@interface AddSecurityQuestionViewController : UISetupUserBaseViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol,GenericModalReturnProtocol>
 {
+    IBOutlet UILabel *questionLabel;
     IBOutlet UITextField *answerField;
     IBOutlet UIButton *submitButton;
-    IBOutlet UIPickerView *questionPicker;
+    IBOutlet UIButton *chooseQuestionButton;
+    
     id<SecurityQuestionInputProtocol> securityQuestionEnteredDelegate;
+    
     int questionId;
     NSString *questionAnswer;
     GetSecurityQuestionsService* securityQuestionService;
     NSMutableArray *securityQuestions;
 }
 
+@property (nonatomic, retain) UILabel *questionLabel;
+@property (nonatomic, retain) UIButton *chooseQuestionButton;
+
 @property (nonatomic, retain) UITextField *answerField;
 @property (nonatomic, assign) int questionId;
 @property (nonatomic, retain) NSString *questionAnswer;
+
 @property (nonatomic, retain) UIButton *submitButton;
-@property (nonatomic, retain) UIPickerView *questionPicker;
+
+@property (nonatomic, retain) SecurityQuestionSelectOptionViewController* optionSelector;
+
 @property (retain) id<SecurityQuestionInputProtocol> securityQuestionEnteredDelegate;
+
 @property(nonatomic, retain) NSString* navigationTitle;
 @property(nonatomic, retain) NSString* headerText;
 
 - (IBAction)doSubmit:(id)sender;
--(IBAction) bgTouched:(id) sender;
+
+- (IBAction)chooseQuestion:(id)sender;
+
 
 @end

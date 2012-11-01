@@ -174,4 +174,7 @@
 -(void)facebookFriendsDidLoad:(id)dictionaryOfFriends;
 -(void)handleError: (NSString*)errorMessage withErrorCode: (int) errorCode withDefaultTitle: (NSString*) defaultTitle;
 
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
+-(void)couldOpenFBSessionForLogon;
+
 @end

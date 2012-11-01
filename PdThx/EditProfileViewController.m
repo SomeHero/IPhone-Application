@@ -7,6 +7,7 @@
 //
 
 #import "EditProfileViewController.h"
+#import "ASIFormDataRequest.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface EditProfileViewController ()
@@ -37,12 +38,13 @@
     
     userService = [[UserService alloc] init];
     [userService setPersonalizeUserCompleteDelegate: self];
-    
 }
 
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear: animated];
 }
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -364,37 +366,17 @@
     [selectModalViewController show];
     
 }
-- (IBAction) captureImage: (id) sender {
-    NSLog(@"snap");
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        NSLog(@"is camera ok");
-        UIActionSheet *photoSourceSheet = [[UIActionSheet alloc] initWithTitle:@"Select Picture"
-                                                                      delegate:self 
-                                                             cancelButtonTitle:@"cancel" 
-                                                        destructiveButtonTitle:nil
-                                                             otherButtonTitles:@"Take new photo", @"Choose existing photo", nil, nil];
-        
-        [photoSourceSheet showInView:self.view];
-        [photoSourceSheet release];
-    }
-    else {
-        NSLog(@"No camera");
-        UIImagePickerController* picker = [[UIImagePickerController alloc] init];
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        picker.delegate = self;
-        picker.allowsEditing = YES;
-        [self presentModalViewController:picker animated:YES];
-    }
-}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     return  [[profileSections objectAtIndex: section] sectionHeader];
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
     if (sectionTitle == nil) {
@@ -454,17 +436,122 @@
 {
     if(indexPath.section == 0 && indexPath.row == 0)
     {
-        ChoosePictureViewController* controller = [[[ChoosePictureViewController alloc] init] autorelease];
-        [controller setTitle: @"Choose Picture"];
-        [controller setChooseMemberImageDelegate:self];
-        
-        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:controller];
-        
-        [self.navigationController presentModalViewController:navBar animated:YES];
-        
-        [navBar release];
+        UIActionSheet*imageInputChoose = [[UIActionSheet alloc] initWithTitle:@"Choose an input source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo",@"Choose Existing", nil];
+        [imageInputChoose showInView:self.view];
     }
 }
+
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Take Photo"]) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        [picker setDelegate:self];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        [self presentModalViewController:picker animated:YES];
+        [picker release];
+    }
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Choose Existing"]) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        [picker setDelegate:self];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        [self presentModalViewController:picker animated:YES];
+        [picker release];
+    }
+    else
+    {
+        [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    }
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    NSLog(@"Using info here so I can inspect it... %@", info);
+    
+    UIImage *originalImage=[info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    [self dismissModalViewControllerAnimated:YES];
+    [appDelegate showWithStatus:@"Uploading" withDetailedStatus:@"Saving your image, please wait"];
+    
+    NSString *imageName = @"uploaded.jpg";
+    
+    UIGraphicsBeginImageContext(CGSizeMake(320,320));
+    UIImage *newImage=nil;
+    
+    [originalImage drawInRect:CGRectMake(0, -50,320,480)];
+    
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self imageUpload:UIImagePNGRepresentation(newImage) filename:imageName];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imageUpload:(NSData *)imageData filename:(NSString *)filename
+{
+    Environment *myEnvironment = [Environment sharedInstance];
+    User* tmpUser = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/upload_member_image?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, tmpUser.userId, myEnvironment.pdthxAPIKey]] autorelease];
+    
+    ASIFormDataRequest *uploadReq = [ASIFormDataRequest requestWithURL:urlToSend];
+    // Upload a file on disk
+    [uploadReq addData:imageData withFileName:@"photo.jpg" andContentType:@"image/jpeg" forKey:@"file"];
+    [uploadReq setDelegate:self];
+    [uploadReq startAsynchronous];
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
+    if([request responseStatusCode] == 200 )
+    {
+        NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+        
+        NSString* fileName = [[jsonDictionary valueForKey: @"ImageUrl"] copy];
+        
+        NSLog(@"Image Uploaded F/N:%@", fileName);
+        appDelegate.user.imageUrl = fileName;
+        [appDelegate showSuccessWithStatus:@"Success!" withDetailedStatus:@"Profile image updated"];
+        [profileTable reloadData];
+    }
+    else
+    {
+        NSLog(@"Error Uploading Image");
+        [appDelegate showSimpleAlertView:NO withTitle:@"Image Error" withSubtitle:@"Could not upload image" withDetailedText:@"Please check your data connection and try again." withButtonText:@"Ok" withDelegate:self];
+    }
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate showSimpleAlertView:NO withTitle:@"Image Error" withSubtitle:@"Could not upload image" withDetailedText:@"Please check your data connection and try again." withButtonText:@"Ok" withDelegate:self];
+}
+
+-(void)didSelectButtonWithIndex:(int)index
+{
+    // No options, just dismiss.
+    [((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]) dismissAlertView];
+}
+
 #pragma mark UITextFieldDelegate methods
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {

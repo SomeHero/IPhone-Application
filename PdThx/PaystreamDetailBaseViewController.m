@@ -43,6 +43,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize actionTableData;
 
 @synthesize actionButtonsHeader;
+@synthesize bubble;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,10 +84,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #pragma mark - View lifecycle
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
 
 -(void)configureExpressView
 {
@@ -165,15 +162,93 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     return false;
 }
 
+-(void)reloadTransactionInformation
+{
+    // Initialize Express Labels
+    //[expressDeliveryChargeLabel setCenterVertically:YES];
+    [self configureExpressView];
+    
+    txtActionAmount.text = @"Action\n$AMT to";
+    
+    if ( bubble != nil && bubble.superview )
+        [bubble removeFromSuperview];
+    
+    // Settings
+	NSString*	s;
+	NSString*	art		= @"bg-message-stretch.png";
+	CGSize		caps		= CGSizeMake(25, 24);
+    UIFont*		font;
+    
+    if ( messageDetail.comments.length > 100 )
+        font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 8];
+    else
+        font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
+    
+	CGFloat		padTRBL[4]	= {15, 8, 8, 8};
+    
+	// Create bubble
+	s = [NSString stringWithFormat: @"\"%@\"", messageDetail.comments];
+    
+    bubble = [self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
+	bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
+	[self.quoteView addSubview:bubble];
+    
+    NSString* actionString = @"Action";
+    NSString* amountString = [NSString stringWithFormat:@"$%0.2f",[messageDetail.amount doubleValue]];
+    NSString* toFromString = @"";
+    
+    actionString = [self determineActionString];
+    toFromString = [self determineToFromString];
+    
+    NSString *nonAttribString = [NSString stringWithFormat:@"%@\n%@ %@",actionString, amountString, toFromString];
+    
+    NSMutableAttributedString*attribString = [[NSMutableAttributedString alloc] initWithString:nonAttribString];
+    
+    NSRange attribRange = [nonAttribString rangeOfString:amountString];
+    
+    [attribString setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17.0]];
+    
+    [attribString setTextColor:UIColorFromRGB(0x3E8FA7) range:attribRange];
+    
+    [attribString setTextAlignment:CTTextAlignmentFromUITextAlignment(UITextAlignmentCenter) lineBreakMode:kCTLineBreakByWordWrapping];
+    
+    
+    [txtActionAmount setAttributedText:attribString];
+    
+    
+    [self customizeContactInformation];
+    
+    [self buildActionTableView];
+    
+    
+    
+    // on Wed, March 23, 2012 at 2:35pm
+    //  on [0] at [1]
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    NSTimeZone *localTimezone = [NSTimeZone defaultTimeZone];
+    [dateFormatter setTimeZone:localTimezone];
+    
+    // dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm";
+    
+    dateFormatter.dateFormat = @"EEE, MMMM dd, yyyy";
+    NSString*arg0 = [dateFormatter stringFromDate:messageDetail.createDate];
+    
+    dateFormatter.dateFormat = @"HH:mm a";
+    
+    NSString*arg1 = [dateFormatter stringFromDate:messageDetail.createDate];
+    
+    [dateFormatter release];
+    
+    [lblSentDate setText:[NSString stringWithFormat:@"on %@ at %@", arg0, arg1]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     user = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]).user;
     
-    // Initialize Express Labels
-    //[expressDeliveryChargeLabel setCenterVertically:YES];
-    [self configureExpressView];
     
     // Disable non-clickable items.
     [btnSender setUserInteractionEnabled:NO];
@@ -230,75 +305,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     txtSender.text = @"You";
     
     
-    // Settings
-	NSString*	s;
-	NSString*	art		= @"bg-message-stretch.png";
-	CGSize		caps		= CGSizeMake(25, 24);
-    UIFont*		font;
-    if ( messageDetail.comments.length > 100 )
-        font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 8];
-    else
-        font = [UIFont fontWithName:@"Helvetica-Oblique"  size: 12];
-    
-	CGFloat		padTRBL[4]	= {15, 8, 8, 8};
-	UIView*		bubble;
-    
-	// Create bubble
-	s = [NSString stringWithFormat: @"\"%@\"", messageDetail.comments];
-    
-    bubble =[self makeBubbleWithWidth:220 font:font text:s background:art caps:caps padding:padTRBL];
-	bubble.frame = CGRectMake(0, 0, bubble.frame.size.width, bubble.frame.size.height);
-	[self.quoteView addSubview:bubble];
-    
-    NSString* actionString = @"Action";
-    NSString* amountString = [NSString stringWithFormat:@"$%0.2f",[messageDetail.amount doubleValue]];
-    NSString* toFromString = @"";
-    
-    actionString = [self determineActionString];
-    toFromString = [self determineToFromString];
-    
-    NSString *nonAttribString = [NSString stringWithFormat:@"%@\n%@ %@",actionString, amountString, toFromString];
-    
-    NSMutableAttributedString*attribString = [[NSMutableAttributedString alloc] initWithString:nonAttribString];
-    
-    NSRange attribRange = [nonAttribString rangeOfString:amountString];
-    
-    [attribString setFont:[UIFont fontWithName:@"Helvetica-Bold" size:17.0]];
-    
-    [attribString setTextColor:UIColorFromRGB(0x3E8FA7) range:attribRange];
-    
-    [attribString setTextAlignment:CTTextAlignmentFromUITextAlignment(UITextAlignmentCenter) lineBreakMode:kCTLineBreakByWordWrapping];
-    
     [txtActionAmount setCenterVertically:YES];
     
-    [txtActionAmount setAttributedText:attribString];
-    
-    
-    [self customizeContactInformation];
-    
-    [self buildActionTableView];
-    
-    
-    
-    // on Wed, March 23, 2012 at 2:35pm
-    //  on [0] at [1]
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    NSTimeZone *localTimezone = [NSTimeZone defaultTimeZone];
-    [dateFormatter setTimeZone:localTimezone];
-    
-    // dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm";
-    
-    dateFormatter.dateFormat = @"EEE, MMMM dd, yyyy";
-    NSString*arg0 = [dateFormatter stringFromDate:messageDetail.createDate];
-    
-    dateFormatter.dateFormat = @"HH:mm a";
-    
-    NSString*arg1 = [dateFormatter stringFromDate:messageDetail.createDate];
-    
-    [dateFormatter release];
-    
-    [lblSentDate setText:[NSString stringWithFormat:@"on %@ at %@", arg0, arg1]];
     
     UILabel *titleView = (UILabel *)navBar.topItem.titleView;
     
@@ -315,8 +323,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         navBar.topItem.titleView = titleView;
         titleView.text = @"";
     }
-    
-    
     
     UIImage *bgImage = [UIImage imageNamed:@"BTN-Nav-Back-61x30.png"];
     UIButton *settingsBtn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -21,6 +21,7 @@
     IBOutlet UIView *overlayView;
     IBOutlet UIImageView *stampView;
     IBOutlet UIImageView *newColorStrip;
+    NSString *transactionId;
 }
 
 @property (nonatomic, retain) UIButton *transactionImageButton;
@@ -34,5 +35,6 @@
 @property(nonatomic, retain) UIView *overlayView;
 @property(nonatomic, retain) UIImageView* stampView;
 @property(nonatomic, retain) UIImageView *newColorStrip;
+@property(nonatomic, retain) NSString *transactionId;
 
 @end

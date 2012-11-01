@@ -10,6 +10,8 @@
 #import "FBHelperReturnProtocol.h"
 #import <FacebookSDK/FacebookSDK.h>
 
+extern NSString *const FBSessionStateChangedNotification;
+NSString *const FBSessionStateChangedNotification = @"com.paidthx.ios:FBSessionStateChangedNotification";
 
 @implementation FacebookSignIn
 
@@ -26,6 +28,7 @@
     
     return self;
 }
+
 - (void)dealloc
 {
     [service release];
@@ -74,54 +77,89 @@
 
 - (void)signInWithFacebook:(id)returnProtocol
 {
-    PdThxAppDelegate* appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
+    [FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorFBURLConnections, FBLoggingBehaviorAccessTokens, FBLoggingBehaviorSessionStateTransitions, nil]];
     
+    PdThxAppDelegate* appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
     returnDelegate = returnProtocol;
     
-    [FBSession openActiveSessionWithPermissions:appDelegate.permissions allowLoginUI:YES
-                              completionHandler:^(FBSession *session,
-                                                  FBSessionState status,
-                                                  NSError *error)
-     {
-         if (session.isOpen)
-         {
-             FBRequest *me = [FBRequest requestForMe];
-             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-                                               NSDictionary<FBGraphUser> *my,
-                                               NSError *error)
-              {
-                  if ( error )
-                  {
-                      NSLog(@"Error getting facebook 'me' request. Stopping.");
-                      [appDelegate showErrorWithStatus:@"Failed!" withDetailedStatus:@"Sign In Failed"];
-                      NSLog ( @"Error occurred -> %@" , [error description] );
-                      [returnDelegate fbSignInCancelled];
-                  }
-                  else
-                  {
-                      [returnDelegate fbSignInCompleteWithMEResponse:my];
-                  }
-              }];
-         }
+    
+    [FBSession openActiveSessionWithPermissions:appDelegate.permissions
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session,
+       FBSessionState state, NSError *error) {
+         [self signedInWithSession:session state:state error:error];
      }];
+    
+    /*[FBSession openActiveSessionWithReadPermissions:nil
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session,
+       FBSessionState state, NSError *error) {
+         [self signedInWithSession:session state:state error:error];
+     }];
+     */
+}
+
+- (void)signedInWithSession:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error
+{
+    switch (state)
+    {
+        case FBSessionStateOpen:
+        {
+            NSLog(@"Session opened...");
+            [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                if (!error)
+                {
+                    [returnDelegate fbSignInCompleteWithMEResponse:result];
+                } else {
+                    [returnDelegate fbSignInCancelled];
+                }
+            }];
+            break;
+        }
+        case FBSessionStateClosed:
+        case FBSessionStateClosedLoginFailed:
+            // Once the user has logged in, we want them to
+            // be looking at the root view
+            [FBSession.activeSession closeAndClearTokenInformation];
+            break;
+        default:
+            break;
+    }
+    
+    if (error)
+    {
+        NSLog(@"Error, %@",error);
+        [returnDelegate fbSignInCancelled];
+    }
 }
 
 -(void)getFacebookFriends:(id)sender
 {
     PdThxAppDelegate* appDelegate = ((PdThxAppDelegate*)[[UIApplication sharedApplication] delegate]);
     
-    FBRequest *friends = [FBRequest requestForMyFriends];
-    [friends startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if ( error )
+    if ( [FBSession activeSession].isOpen )
+    {
+        FBRequest *friends = [FBRequest requestForMyFriends];
+        [friends startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error)
         {
-            NSLog(@"Error getting facebook friends...");
-            [appDelegate showErrorWithStatus:@"Error!" withDetailedStatus:@"Friends Failed"];
-            NSLog ( @"Error occurred -> %@" , [error description] );
-            [returnDelegate fbSignInCancelled];
-        } else {
-            [sender facebookFriendsDidLoad:result];
-        }
-    }];
+            if ( error )
+            {
+                NSLog(@"Error getting facebook friends...");
+                [appDelegate showErrorWithStatus:@"Error!" withDetailedStatus:@"Friends Failed"];
+                NSLog ( @"Error occurred -> %@" , [error description] );
+                [returnDelegate fbSignInCancelled];
+            } else {
+                [sender facebookFriendsDidLoad:result];
+            }
+        }];
+    } else {
+        [appDelegate showErrorWithStatus:@"Facebook Error" withDetailedStatus:@"No active session"];
+        [returnDelegate fbSignInCancelled];
+    }
 }
 
 -(void)linkNewFacebookAccount:(id)callback
@@ -129,14 +167,14 @@
     [self setLinkDelegate:callback];
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    [FBSession openActiveSessionWithPermissions:appDelegate.permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
+    [FBSession openActiveSessionWithReadPermissions:appDelegate.permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
     {
         if ( error )
         {
             NSLog(@"Error, did not open new session.");
             [appDelegate showSimpleAlertView:NO withTitle:@"Error" withSubtitle:@"Facebook Link Failed" withDetailedText:@"We were unable to link your PaidThx account with Facebook. Please check your wireless connection and try again." withButtonText:@"Ok" withDelegate:self];
             [linkDelegate facebookAccountLinkFailed];
-
+            
         }
         else
         {
@@ -159,7 +197,7 @@
 
     
     NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/SocialNetworks/unlink", myEnvironment.pdthxWebServicesBaseUrl, appDelegate.user.userId]] autorelease];
-
+    
     NSDictionary *meCodeData = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"Facebook",@"SocialNetworkType", nil];
     
@@ -220,7 +258,6 @@
     
     [appDelegate.user setSocialNetworks:mutableSocialNetworks];
 }
-
 
 -(void)saveLinkedFacebookSession:(FBSession*)sessionOpened
 {

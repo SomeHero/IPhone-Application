@@ -397,6 +397,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [controller setNavigationTitle: @"Confirm"];
     
     /*
+     
      Custom Security Pin Swipe Controller Example
      -==============================================-
      
@@ -405,6 +406,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
      amount = 14.59;
      deliveryType = @"Express";
      lblHeader.text = @"SWIPE YOUR SECURITY PIN TO CONFIRM";
+     
      */
     
     [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM PAYMENT"];
@@ -436,7 +438,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         recipientFirstName = [NSString stringWithFormat: @"%@", recipient.firstName];
         recipientLastName = [NSString stringWithFormat: @"%@", recipient.lastName];
     }
-    
     
     [sendMoneyService sendMoney:amount toRecipient: @"" withRecipientUri: recipientUri fromSender:user.userUri withComment:txtComments.text withSecurityPin:pin fromUserId:user.userId withFromAccount:user.preferredPaymentAccountId withFromLatitude:latitude withFromLongitude: longitude withRecipientFirstName: recipientFirstName withRecipientLastName: recipientLastName withRecipientImageUri: recipientImageUri withDeliveryType:deliveryType];
 }
@@ -500,14 +501,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self startSecurityPin];
 }
 
-
-
-
 /*  --------------------------------------------------------- */
 /*               Local Class Methods                          */
 /*  --------------------------------------------------------- */
 
--(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest {
+-(BOOL) isValidRecipientUri:(NSString*) recipientUriToTest
+{
     if([recipientUriToTest length]  == 0)
         return false;
     

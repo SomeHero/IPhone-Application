@@ -197,7 +197,7 @@
         
         NSString* nickName = txtAccountNickname.text;
         
-        if ( [nickName isEqualToString:@""] || nickName.length == 0 )
+        if ( nickName == (id)[NSNull null] || nickName == NULL || [nickName isEqualToString:@""] || nickName.length == 0 )
         {
             nickName = [NSString stringWithFormat:@"%@ %@",accountType,[txtAccountNumber.text substringFromIndex:txtAccountNumber.text.length-4]];
         }
@@ -208,7 +208,8 @@
         
         [accountService addACHAccount:txtAccountNumber.text forUser:user.userId withNickname:nickName withNameOnAccount:txtNameOnAccount.text withRoutingNumber:txtRoutingNumber.text ofAccountType: accountType withSecurityPin: securityPin];
     }
-    else {
+    else
+    {
         if([sender tag] == 1)
         {
             [self.navigationController dismissModalViewControllerAnimated:NO];
@@ -358,7 +359,6 @@
 
 - (void)loadTheResults:(NSDictionary *)transaction
 {
-    
     NSMutableDictionary *returnedAccountInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     
     // Convert the extracted fields
@@ -398,6 +398,12 @@
 {
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissAlertView];
+    
+    if ( index == 1 )
+    {
+        NSLog(@"Pressed retry.");
+        [self takePictureOfCheck];
+    }
 }
 
 #pragma mark -
@@ -413,10 +419,8 @@
     // TODO: FIX TRANSITION
 }
 
-- (void) imageSuccess:(NSDictionary *)xmlDict {
-	
-    // TODO: DISMISS PROGRESS HUD
-    
+- (void) imageSuccess:(NSDictionary *)xmlDict
+{    
     NSDictionary *transaction = [xmlDict objectForKey:@"Transaction"];
     if(transaction)
     {
@@ -424,14 +428,16 @@
             PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
             
             [appDelegate dismissProgressHUD];
-            [appDelegate showSimpleAlertView:TRUE withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButtonText:@"Ok" withDelegate:self];
-        }
-        else if(![[transaction objectForKey:@"IQAGood"] boolValue]) {
             
+            [appDelegate showTwoButtonAlertView:NO withTitle:@"Error" withSubtitle:@"Unable to read check image" withDetailedText:@"We were unable to read the check. Please ensure all four corners of the check are in the picture." withButton1Text:@"Manual" withButton2Text:@"Retry" withDelegate:self];
+        }
+        else if(![[transaction objectForKey:@"IQAGood"] boolValue])
+        {
             PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
             
             [appDelegate dismissProgressHUD];
-            [appDelegate showSimpleAlertView:FALSE withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButtonText:@"Ok" withDelegate:self];
+            
+            [appDelegate showTwoButtonAlertView:NO withTitle:@"Error" withSubtitle:@"Unable to read check image" withDetailedText:@"We were unable to read the check. Please ensure all four corners of the check are in the picture." withButton1Text:@"Manual" withButton2Text:@"Retry" withDelegate:self];
         }
         else
         {
@@ -461,7 +467,9 @@
         [self.navigationController presentModalViewController:controller animated:YES];
     }
 }
--(void)verifyRoutingNumberDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+
+-(void)verifyRoutingNumberDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode
+{
     
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     

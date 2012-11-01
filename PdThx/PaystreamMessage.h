@@ -4,12 +4,11 @@
 //
 //  Created by James Rhodes on 5/13/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
-
-@interface PaystreamMessage : NSObject {
+@interface PaystreamMessage : NSObject
+{
     NSDecimalNumber* amount;
     NSString* comments;
     NSString* messageId;

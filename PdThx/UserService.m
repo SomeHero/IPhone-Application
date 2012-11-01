@@ -544,9 +544,8 @@
     } else {
         NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     }
-    
-    
 }
+
 -(void) refreshHomeScreenInformationFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
@@ -578,7 +577,6 @@
             {
                 if ( [point isEqualToString:formattedNumber] )
                 {
-                    NSLog(@"Found contact [%@] for [%@]",con.name,phoneNumber);
                     return con;
                 }
             }

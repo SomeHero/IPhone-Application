@@ -90,9 +90,9 @@
 {    
     [self dismissModalViewControllerAnimated:YES];
     
-    [transactionConfirmationDelegate onHomeClicked];
-       
+    [transactionConfirmationDelegate onHomeClicked];       
 }
+
 -(IBAction) btnContinueClicked: (id) sender {
     [self dismissModalViewControllerAnimated: YES];
     
