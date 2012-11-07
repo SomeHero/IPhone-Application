@@ -303,7 +303,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [controller release];
 }
 
+- (IBAction)showNewPaystreamItems:(id)sender {
+    [self tabBarClicked:1];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowNewPaymentsInPaystream" object:self userInfo:nil];
+}
 
+- (IBAction)showPendingPaystreamItems:(id)sender {
+    [self tabBarClicked:1];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowPendingPaymentsInPaystream" object:self userInfo:nil];
+}
 
 - (IBAction)qs1pressed:(id)sender
 {
