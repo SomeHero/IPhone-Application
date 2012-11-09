@@ -13,7 +13,7 @@
 -(void)getUserConfigurationDidComplete: (NSMutableArray*) userSettings;
 -(void)getUserConfigurationDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
--(void)updateUserConfigurationDidComplete;
+-(void)updateUserConfigurationDidComplete: (NSString*) configurationKey  withValue:(NSString*) configurationValue;
 -(void)updateUserConfigurationDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode;
 
 @end

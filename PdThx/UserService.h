@@ -8,24 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import "UserInformationCompleteProtocol.h"
+#import "UserHomeScreenInformationProtocol.h"
 #import "ASIHTTPRequest.h"
 #import "JSON.h"
 #import "UserSecurityPinCompleteProtocol.h"
 #import "PersonalizeUserCompleteProtocol.h"
 #import "ChangePasswordCompleteProtocol.h"
 #import "ForgotPasswordCompleteProtocol.h"
-
+#import "LinkFBAccountCompleteProtocol.h"
 #import "FindUserByNumberProtocol.h"
 #import "FindMatchingMeCodesProtocol.h"
 
 @interface UserService : NSObject {
     ASIHTTPRequest *requestObj;
     id<UserInformationCompleteProtocol> userInformationCompleteDelegate;
+    id<UserHomeScreenInformationProtocol> userHomeScreenInformationDelegate;
     id<UserSecurityPinCompleteProtocol> userSecurityPinCompleteDelegate;
     id<PersonalizeUserCompleteProtocol> personalizeUserCompleteDelegate;
     id<ChangePasswordCompleteProtocol> changePasswordCompleteDelegate;
     id<ForgotPasswordCompleteProtocol>
         forgotPasswordCompleteDelegate;
+    id<LinkFBAccountCompleteProtocol> linkFBAccountDelegate;
     id<FindUserByNumberProtocol> findUserDelegate;
     id<FindMatchingMeCodesProtocol> findMeCodeDelegate;
 }
@@ -35,7 +38,7 @@
 @property(nonatomic, retain) id personalizeUserCompleteDelegate;
 @property(nonatomic, retain) id changePasswordCompleteDelegate;
 @property(nonatomic, retain) id forgotPasswordCompleteDelegate;
-@property(nonatomic, retain) id linkFbAccountDelegate;
+@property(nonatomic, retain) id linkFBAccountDelegate;
 @property(nonatomic, retain) id findUserDelegate;
 @property(nonatomic, retain) id findMeCodeDelegate;
 

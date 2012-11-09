@@ -18,7 +18,7 @@
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/attributes/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, attributeId, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/attributes/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, attributeId, apiKey]] autorelease];
     
     [rootUrl release];
     [apiKey release];

@@ -328,7 +328,7 @@
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
 
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/PaymentAccountService/PaymentAccounts?apiKey=%@", rootUrl, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Services/PaymentAccountService/PaymentAccounts?apikey=%@", rootUrl, apiKey]] autorelease];
     
     [rootUrl release];
     [apiKey release];

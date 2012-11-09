@@ -238,7 +238,7 @@
     another.socialNetworks = [socialNetworks copy];
     another.bankAccounts = [bankAccounts copy];
     another.userAttributes = [userAttributes mutableCopy];
-    another.userConfigurationItems = [userConfigurationItems copy];
+    another.userConfigurationItems = [userConfigurationItems mutableCopy];
     another.facebookId = facebookId;
     another.facebookToken = facebookToken;
     another.canExpress = canExpress;

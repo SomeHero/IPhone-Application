@@ -20,7 +20,7 @@
 
 @class UITransactionTableViewCell;
 
-@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate, PullableViewDelegate, UpdateSeenMessagesProtocol, HBTabBarDelegate> {
+@interface PayStreamViewController : UIBaseViewController <GetPayStreamCompleteProtocol, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, IconDownloaderDelegate, UpdateSeenMessagesProtocol, HBTabBarDelegate> {
     IBOutlet UIView *viewPanel;
     IBOutlet UITableView *transactionsTableView;
     NSMutableData *responseData;
