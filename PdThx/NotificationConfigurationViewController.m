@@ -218,8 +218,31 @@
 -(void)getUserConfigurationDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     
 }
--(void)updateUserConfigurationDidComplete {
+-(void)updateUserConfigurationDidComplete: (NSString*) configurationKey  withValue:(NSString*) configurationValue {
+    NSLog(@"%@", @"Update Configuration");
     
+    bool found = false;
+    for(int i = 0; i < [user.userConfigurationItems count]; i++)
+    {
+        UserConfiguration* configurationItem = [user.userConfigurationItems objectAtIndex:i];
+        
+        if([configurationKey isEqualToString:configurationItem.Key])
+        {
+            configurationItem.Value = configurationValue;
+            found = true;
+        }
+    }
+    
+    if(!found)
+    {
+        UserConfiguration* newConfigurationItem = [[UserConfiguration alloc] init];
+        newConfigurationItem.Key = configurationKey;
+        newConfigurationItem.Value = configurationValue;
+        
+        [user.userConfigurationItems addObject: newConfigurationItem];
+        
+        [newConfigurationItem release];
+    }
 }
 -(void)updateUserConfigurationDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     

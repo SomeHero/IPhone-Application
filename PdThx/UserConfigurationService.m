@@ -123,7 +123,17 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    [userConfigurationCompleteDelegate updateUserConfigurationDidComplete];
+    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* configurationKey = [jsonDictionary valueForKey: @"Key"];
+    NSString* configurationValue = [jsonDictionary valueForKey: @"Value"];
+    
+    [userConfigurationCompleteDelegate updateUserConfigurationDidComplete:configurationKey withValue:configurationValue];
 }
 -(void)updateUserConfigurationDidFail:(ASIHTTPRequest *)request
 {
