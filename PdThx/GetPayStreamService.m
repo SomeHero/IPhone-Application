@@ -50,7 +50,7 @@
 -(void) getPayStreamComplete:(ASIHTTPRequest *)request
 {
     
-    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    //NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
     if([request responseStatusCode] == 200 ) {
         
@@ -100,8 +100,8 @@
         
         [getPayStreamCompleteDelegate getPayStreamDidFail: message withErrorCode:errorCode];
     }
-    
 }
+
 -(void) getPayStreamFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);

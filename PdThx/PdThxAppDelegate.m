@@ -405,6 +405,9 @@
     
     [FBSession setDefaultAppID:@"332189543469634"];
     
+    // Initialize the paystream view controller early...
+    LoggedInSecondViewController = [[PayStreamViewController alloc] init];
+    
     return YES;
 }
 
@@ -528,6 +531,9 @@
     
     [LoggedInSecondViewController release];
     LoggedInSecondViewController = nil;
+    
+    // Re-initialize the paystream view controller
+    LoggedInSecondViewController = [[PayStreamViewController alloc] init];
     
     [mainAreaTabBarController release];
     
@@ -703,7 +709,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
     
-    [self loadOrganizations];
+    //[self loadOrganizations];
 }
 
 #pragma mark - NonProfits Delegates
@@ -760,7 +766,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 -(void)getNonProfitsDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
     NSLog( @"Failed to get merchants, error %@" , errorMessage );
     
-    [self loadNonProfits];
+    //[self loadNonProfits];
 }
 
 -(void)facebookFriendsDidLoad:(id)result
@@ -1231,7 +1237,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
 {
     NSLog( @"Failed to get application settings, error %@ code %d" , errorMessage, errorCode);
     
-    [self loadApplicationSettings];
+    //[self loadApplicationSettings];
 }
 #pragma mark - SecurityQuestions Delegate
 -(void)getSecurityQuestionsDidComplete:(NSMutableArray*)questionArray {

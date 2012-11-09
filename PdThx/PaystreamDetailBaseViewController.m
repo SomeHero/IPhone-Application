@@ -856,7 +856,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [detailTableView reloadData];
 }
 
-
 /*      Action Table View Functions         */
 #pragma mark - Table view data source
 

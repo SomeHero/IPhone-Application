@@ -72,6 +72,8 @@
 -(IBAction) btnProfileClicked:(id) sender;
 -(IBAction) btnIncreaseScoreClicked: (id) sender;
 
+- (IBAction)showNewPaystreamItems:(id)sender;
+- (IBAction)showPendingPaystreamItems:(id)sender;
 
 
 @end

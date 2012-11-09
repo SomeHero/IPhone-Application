@@ -49,12 +49,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @synthesize findUserService;
 
 @synthesize ctrlDetailView;
+@synthesize isShowingNewItems, isShowingPendingItems;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self != nil) {
         [self setupStrings];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNewPaymentsOnly:) name:@"ShowNewPaymentsInPaystream" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showPendingPaymentsOnly:) name:@"ShowPendingPaymentsInPaystream" object:nil];
     }
     return self;
 }
@@ -65,6 +70,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if (self) {
         // Custom initialization
         [self setupStrings];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNewPaymentsOnly:) name:@"ShowNewPaymentsInPaystream" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showPendingPaymentsOnly:) name:@"ShowPendingPaymentsInPaystream" object:nil];
     }
     return self;
 }
@@ -145,6 +155,18 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #pragma mark - View lifecycle
 
+-(void)showNewPaymentsOnly:(NSNotification*)notification
+{
+    NSLog(@"Should be showing new payments only");
+    isShowingNewItems = YES;
+}
+
+-(void)showPendingPaymentsOnly:(NSNotification*)notification
+{
+    NSLog(@"Should be showing pending payments only");
+    isShowingPendingItems = YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -157,64 +179,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         xOffset = 224;
     }
+    
     findUserService = [[UserService alloc] init];
     
     [transactionsTableView setHidden:NO];
-    
-    /*      Old Pullable View      
-    detailView = [[PullableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*0.90, [[UIScreen mainScreen] bounds].size.height-20)];
-    detailView.backgroundColor = [UIColor redColor]; // Transparent view with subviews
-    detailView.animate = YES;
-    detailView.delegate = self;
-    
-    detailView.handleView.backgroundColor = [UIColor darkGrayColor];
-    detailView.handleView.frame = CGRectMake(0, 0, 40, 40);
-    
-    detailView.closedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width + (detailView.frame.size.width/2), [[UIScreen mainScreen] bounds].size.height*0.5+10);
-    detailView.openedCenter = CGPointMake([[UIScreen mainScreen] bounds].size.width - (detailView.frame.size.width/2)+20, [[UIScreen mainScreen] bounds].size.height*0.5+10);
-    detailView.center = detailView.closedCenter;
-     
-    
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:detailView.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerBottomLeft) cornerRadii:CGSizeMake(8.0, 8.0)];
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.frame = detailView.bounds;
-    maskLayer.path = maskPath.CGPath;
-    detailView.layer.mask = maskLayer;
-     */
+    ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
     
     // Darkened Layer
     shadedLayer = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     shadedLayer.backgroundColor = [UIColor blackColor];
     shadedLayer.layer.opacity = 0.0;
     shadedLayer.userInteractionEnabled = NO;
-    
-    /*
-    // Create Shadow Layer
-    CAShapeLayer *shadowLayer = [CAShapeLayer layer];
-    [shadowLayer setFrame:detailView.bounds];
-    [shadowLayer setMasksToBounds:NO];
-    [shadowLayer setShadowRadius:5.0];
-    [shadowLayer setShouldRasterize:YES];
-    [shadowLayer setShadowPath:maskedPath.CGPath];
-    [shadowLayer setShadowColor:[UIColor blackColor].CGColor];
-    [shadowLayer setShadowOpacity:1.0];
-    [shadowLayer setShadowOffset:CGSizeMake(-4.0,5.0)];
-    
-    CALayer * roundedLayer = [CALayer layer];
-    [roundedLayer setFrame:detailView.bounds];
-    [roundedLayer setContents:(id)detailView.layer];
-    
-
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    [maskLayer setFrame:detailView.bounds];
-    [maskLayer setPath:maskedPath.CGPath];
-    
-    roundedLayer.mask = maskLayer;
-    detailView.layer.mask = maskLayer;
-    
-    [detailView.layer addSublayer:shadowLayer];
-    [detailView.layer addSublayer:roundedLayer];
-     */
     
     storedTransactionImages = [[NSMutableDictionary alloc] init];
     
@@ -227,13 +202,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     /*  Navigation Bar  */
     [self setTitle:@"Paystream"];
     
-    /*
-    [detailView.handleView.layer setCornerRadius:8.0];
-    [[[[UIApplication sharedApplication] delegate] window] addSubview:detailView];
-    [[[[UIApplication sharedApplication] delegate] window] bringSubviewToFront:detailView];
-    
-    [detailView release];
-     */
     
     NSError *error;
     if(![[GANTracker sharedTracker] trackPageview:@"PayStreamViewController"
@@ -270,11 +238,68 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [super viewDidAppear:animated];
     
+    // This is handling the new/pending sorting functionality.
+    // We want to just sort the paystream, but if it has no items we must load the paystream first.
+    if ( [transactionsDict count] > 0 )
+    {
+        if ( !isShowingNewItems && !isShowingPendingItems )
+        {
+            [self getPaystreamItems];
+        } else {
+            // Do Sorting of Paystream for new/pending
+            [self sortPaystreamForNewPending];
+        }
+    } else {
+        [self getPaystreamItems];
+    }
+}
+
+-(void)sortPaystreamForNewPending
+{
+    filteredTransactions = [[NSMutableArray alloc] init];
+    
+    if ( isShowingNewItems )
+    {
+        for (PaystreamMessage* transaction in transactions ){
+            if (( [transaction.direction isEqualToString:@"In"] && ( [transaction.messageStatus isEqualToString:@"Respond"] || [transaction.messageStatus isEqualToString:@"Accepted"] || !transaction.recipientHasSeen ) ))
+                [filteredTransactions addObject: transaction];
+        }
+        
+    }
+    else if ( isShowingPendingItems )
+    {
+        for (PaystreamMessage* transaction in transactions ){
+            
+            if (( [transaction.direction isEqualToString:@"Out"] && ( [transaction.messageStatus isEqualToString:@"Waiting"] || [transaction.messageStatus isEqualToString:@"Submitted"] || !transaction.senderHasSeen ) )
+                || ( [transaction.direction isEqualToString:@"In"] && !transaction.recipientHasSeen ) )
+                [filteredTransactions addObject: transaction];
+        }
+    }
+    
+    if ( isShowingNewItems || isShowingPendingItems )
+    {
+        [self buildTransactionDictionary: filteredTransactions];
+        
+        if ( [filteredTransactions count] == 0 )
+            [[transactionsDict objectForKey:@"NoItemsFound"] addObject:[[[NSObject alloc] init] autorelease]];
+        
+        NSLog(@"Should be refreshing to show filtered transactions");
+        [transactionsTableView reloadData];
+        
+        if ( [filteredTransactions count] > 0 )
+            [self loadImagesForOnscreenRows];
+        
+        isShowingNewItems = NO;
+        isShowingPendingItems = NO;
+    }
+    
+    [filteredTransactions release];
+}
+
+-(void)getPaystreamItems
+{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
     NSString* userId = [prefs stringForKey:@"userId"];
-    
-    ctrlPaystreamTypes.tintColor = UIColorFromRGB(0x2b9eb8);
     
     if ( [[transactionsDict objectForKey:@"Loading"] count] == 0 )
     {
@@ -321,6 +346,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     // (resort after load if necessary) **pull to refresh
     [self segmentedControlChanged]; // Fix for refreshing paystream while on a non-all tab..
+    
+    if ( isShowingNewItems || isShowingPendingItems )
+        [self sortPaystreamForNewPending];
 }
 
 - (void)viewDidUnload

@@ -82,6 +82,9 @@
 
 @property (nonatomic, retain) NSMutableDictionary* storedTransactionImages;
 
+@property (assign) BOOL isShowingNewItems;
+@property (assign) BOOL isShowingPendingItems;
+
 -(IBAction)segmentedControlChanged;
 
 -(void)buildTransactionDictionary:(NSMutableArray*) array;

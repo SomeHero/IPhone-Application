@@ -563,8 +563,7 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)requestMoneyDidComplete {
-    recipient = nil;
-    
+
     [self.mainScrollView scrollsToTop];
     
     contactButtonBGImage.highlighted = NO;
@@ -594,6 +593,8 @@
     
     [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];
+    
+    recipient = nil;
     recipientUri = @"";
 }
 
