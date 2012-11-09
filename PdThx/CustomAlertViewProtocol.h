@@ -11,6 +11,5 @@
 @protocol CustomAlertViewProtocol <NSObject>
 
 -(void)didSelectButtonWithIndex:(int)index;
--(void)didSelectButtonWithIndex:(int)index withEnteredText:(NSString*)text;
 
 @end

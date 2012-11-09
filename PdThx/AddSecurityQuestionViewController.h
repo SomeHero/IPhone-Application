@@ -14,7 +14,7 @@
 #import "GenericModalReturnProtocol.h"
 #import "SecurityQuestionSelectOptionViewController.h"
 
-@interface AddSecurityQuestionViewController : UISetupUserBaseViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GetSecurityQuestionsProtocol,GenericModalReturnProtocol>
+@interface AddSecurityQuestionViewController : UISetupUserBaseViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate ,GenericModalReturnProtocol>
 {
     IBOutlet UILabel *questionLabel;
     IBOutlet UITextField *answerField;

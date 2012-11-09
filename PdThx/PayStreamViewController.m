@@ -290,9 +290,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     PdThxAppDelegate* appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissProgressHUD];
     
-    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Unable to Send"];
-    
-    //[appDelegate showSimpleAlertView:NO withTitle:@"Paystream Error" withSubtitle:@"No response from server" withDetailedText:@"Loading your paystream items failed. This error will only happen in development. Please be patient." withButtonText:@"Dismiss" withDelegate:self];
+    [appDelegate handleError:message withErrorCode:errorCode withDefaultTitle: @"Failed Loading Paystream"];
 }
 
 -(void)didSelectButtonWithIndex:(int)index

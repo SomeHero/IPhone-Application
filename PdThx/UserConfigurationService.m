@@ -123,8 +123,6 @@
 {
     NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     
-    NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
-    
     [userConfigurationCompleteDelegate updateUserConfigurationDidComplete];
 }
 -(void)updateUserConfigurationDidFail:(ASIHTTPRequest *)request

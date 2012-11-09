@@ -53,6 +53,4 @@
 @property (nonatomic, retain) UIImageView *thirdTabSelectedOverlay;
 @property (nonatomic, retain) UIImageView *fourthTabSelectedOverlay;
 
--(id)initForNonNavigationBar;
-
 @end

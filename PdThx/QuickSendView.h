@@ -68,16 +68,6 @@
 
 @property (assign) id buttonDelegate;
 
-- (IBAction)qs1pressed:(id)sender;
-- (IBAction)qs2pressed:(id)sender;
-- (IBAction)qs3pressed:(id)sender;
-- (IBAction)qs4pressed:(id)sender;
-- (IBAction)qs5pressed:(id)sender;
-- (IBAction)qs6pressed:(id)sender;
-- (IBAction)qs7pressed:(id)sender;
-- (IBAction)qs8pressed:(id)sender;
-- (IBAction)qs9pressed:(id)sender;
-
 -(void)reloadQuickSendContacts:(NSMutableArray*)contactArray;
 
 @end

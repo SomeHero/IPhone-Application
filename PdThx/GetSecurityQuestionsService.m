@@ -74,6 +74,12 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
         [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [questionsLoadedDelegate getSecurityQuestionsDidFail:message withErrorCode:errorCode];
+        
         NSLog(@"Error Getting Security Questions");
     }
 }
@@ -91,6 +97,7 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
+    [questionsLoadedDelegate getSecurityQuestionsDidFail:message withErrorCode:errorCode];
     
     NSLog(@"Error Getting Security Questions");
 }

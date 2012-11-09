@@ -36,7 +36,6 @@
     double upperLimit;
 }
 
-- (IBAction)amountChanged:(id)sender;
 - (IBAction)pressedGoButton:(id)sender;
 - (IBAction)pressedQuickAmount0:(id)sender;
 - (IBAction)pressedQuickAmount1:(id)sender;

@@ -173,7 +173,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     /*          Location Services Setup         */
     /*  --------------------------------------- */
     lm = [[CLLocationManager alloc] init];
-    if ([lm locationServicesEnabled]) {
+    if ([CLLocationManager locationServicesEnabled]) {
         lm.delegate = self;
         lm.desiredAccuracy = kCLLocationAccuracyBest;
         lm.distanceFilter = 1000.0f;

@@ -16,9 +16,5 @@
 -(void)userInformationDidComplete:(User*)user;
 -(void)userInformationDidFail:(NSString*) message withErrorCode:(int)errorCode;
 
-
--(void)userHomeScreenInformationDidComplete:(NSDictionary*) quickSendDictionary;
--(void)userHomeScreenInformationDidFail:(NSString*) message withErrorCode:(int)errorCode;
-
 @end
 

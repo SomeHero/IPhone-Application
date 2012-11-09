@@ -17,8 +17,9 @@
 
 @implementation UserService
 
-@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
+@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
+@synthesize linkFBAccountDelegate;
 @synthesize findUserDelegate, findMeCodeDelegate;
 @synthesize requestObj;
 
@@ -146,7 +147,7 @@
     if([request responseStatusCode] == 200 || [request responseStatusCode] == 201 ) {
         NSLog(@"Linking facebook account success!");
         
-        [linkFbAccountDelegate linkFbAccountDidSucceed];
+        [linkFBAccountDelegate linkFBAccountDidComplete];
         
     } else
     {
@@ -162,7 +163,7 @@
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        // NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        [linkFBAccountDelegate linkFBAccountDidFail: message withErrorCode:errorCode];
         
         NSLog(@"Linking FB Account Error Code %d", [request responseStatusCode]);
     }
@@ -179,7 +180,7 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    [linkFbAccountDelegate linkFbAccountDidFail: message];
+    [linkFBAccountDelegate linkFBAccountDidFail:message withErrorCode:errorCode];
     
     NSLog(@"Facebook linking Failed with Exception");
 }
@@ -517,9 +518,10 @@
 
 -(void) refreshHomeScreenInformationComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if ( [request responseStatusCode] == 200 ){
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
-        
+
         NSString *theJSON = [request responseString];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -527,22 +529,27 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* message = [jsonDictionary valueForKey: @"Message"];
-        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
-
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfIncomingNotifications"] forKey:@"IncomingNotificationCount"];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfOutgoingNotifications"] forKey:@"OutgoingNotificationCount"];
         
         [defaults synchronize];
         
-        /*
-         -(void)userHomeScreenInformationDidComplete:(User*)user;
-         -(void)userHomeScreenInformationDidFail:(NSString*) message;
-         */
-        [userInformationCompleteDelegate userHomeScreenInformationDidComplete:[jsonDictionary objectForKey:@"quickSendContacts"]];
+
+        [userHomeScreenInformationDelegate userHomeScreenInformationDidComplete:[jsonDictionary objectForKey:@"quickSendContacts"]];
     } else {
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [userHomeScreenInformationDelegate userHomeScreenInformationDidFail:message withErrorCode:errorCode];
     }
 }
 
@@ -607,9 +614,22 @@
 
 -(void) findMeCodesMatchingSearchTermComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if ( [request responseStatusCode] == 200 ){
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+
+        NSString *theJSON = [request responseString];
         
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+
+        NSMutableArray*meCodeArray = [jsonDictionary objectForKey:@"foundUsers"];
+        NSString*searchTerm = [jsonDictionary objectForKey:@"searchTerm"];
+        
+        [findMeCodeDelegate foundMeCodes:meCodeArray matchingSearchTerm:searchTerm];
+    } else {
         NSString *theJSON = [request responseString];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -620,12 +640,8 @@
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        NSMutableArray*meCodeArray = [jsonDictionary objectForKey:@"foundUsers"];
-        NSString*searchTerm = [jsonDictionary objectForKey:@"searchTerm"];
+        //findMeCodeDelegate foundMeCodesDidFail
         
-        [findMeCodeDelegate foundMeCodes:meCodeArray matchingSearchTerm:searchTerm];
-    } else {
-        NSLog(@"Response NOT OKAY %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     }
 }
 

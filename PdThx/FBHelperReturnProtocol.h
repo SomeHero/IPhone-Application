@@ -12,6 +12,5 @@
 
 -(void)fbSignInCompleteWithMEResponse:(id)response;
 -(void)fbSignInCancelled;
--(void)linkedFacebookFriendsDidLoad:(id)friendsList;
 
 @end
