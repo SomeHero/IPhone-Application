@@ -19,4 +19,5 @@
 
 @property (retain, nonatomic) IBOutlet UITextField *txtEmailAddress;
 @property (retain, nonatomic) IBOutlet UIButton *btnSubmitForgotPassword;
+
 @end

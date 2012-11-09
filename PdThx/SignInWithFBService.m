@@ -23,7 +23,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/signin_withfacebook?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/signin_withfacebook?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
     NSString* oAuthToken = [prefs objectForKey:@"FBAccessTokenKey"];
     

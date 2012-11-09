@@ -35,7 +35,7 @@
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/add_account?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts/add_account?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
     
     [rootUrl release];
     [apiKey release];
@@ -73,7 +73,7 @@
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/PaymentAccounts?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
     
     [rootUrl release];
     [apiKey release];

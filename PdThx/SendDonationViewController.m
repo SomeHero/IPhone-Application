@@ -136,7 +136,7 @@
     /*          Location Services Setup         */
     /*  --------------------------------------- */
     lm = [[CLLocationManager alloc] init];
-    if ([lm locationServicesEnabled]) {
+    if ([CLLocationManager locationServicesEnabled]) {
         lm.delegate = self;
         lm.desiredAccuracy = kCLLocationAccuracyBest;
         lm.distanceFilter = 1000.0f;
@@ -332,7 +332,7 @@
     
     [controller setHeaderText:@"SWIPE YOUR PIN TO CONFIRM YOUR DONATION"];
     [controller setDeliveryType: @"Standard"];
-    [controller setAmount: 0.0];
+    [controller setAmount:[amount doubleValue]];
     [controller setRecipientName:[recipient getSenderName]];
     
     [self.navigationController presentModalViewController:controller animated:YES];
@@ -412,19 +412,20 @@
 /*  --------------------------------------------------------- */
 
 -(void)sendMoneyDidComplete {
-    recipient = nil;
     
     [self.mainScrollView scrollsToTop];
     contactButtonBGImage.highlighted = NO;
     amountButtonBGImage.highlighted = NO;
     
     TransactionConfirmationViewController*  controller = [[TransactionConfirmationViewController alloc] init];
-    controller.confirmationText = [NSString stringWithFormat: @"Success! Your payment of $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
+    controller.confirmationText = [NSString stringWithFormat: @"Success! Your donation of $%0.2f was sent to %@.", [amount doubleValue], recipient.name];
     [controller setTransactionConfirmationDelegate: self];
     [controller setContinueButtonText: @"Make Another Donation"];
     
     [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];
+    
+    recipient = nil;
     
     //[controller release];
 }

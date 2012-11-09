@@ -31,7 +31,4 @@
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;
 
-
--(IBAction) bgTouched:(id) sender;
-
 @end

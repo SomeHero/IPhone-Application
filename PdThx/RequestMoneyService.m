@@ -29,7 +29,7 @@
     NSString *rootUrl = @"PaystreamMessages";
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  rootUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  rootUrl, apiKey]] autorelease];  
     NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",
                                  userId, @"senderId",
@@ -109,9 +109,11 @@
 -(void) determineRecipient:(NSArray*) recipientUris
 {
     Environment *myEnvironment = [Environment sharedInstance];
+    
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     NSString *rootUrl = [NSString stringWithFormat:@"PaystreamMessages/multiple_uris"];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl, apiKey]] autorelease];
     
     NSDictionary *recipientData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                    recipientUris, @"recipientUris",

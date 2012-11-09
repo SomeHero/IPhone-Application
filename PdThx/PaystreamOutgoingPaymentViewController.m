@@ -35,15 +35,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
--(IBAction) btnCancelClicked:(id) sender
-{
-    [paystreamServices cancelPayment: messageDetail.messageId];
-}
-
--(IBAction) btnSenderReminder:(id) sender
-{
-    
-}
 
 #pragma mark - View lifecycle
 

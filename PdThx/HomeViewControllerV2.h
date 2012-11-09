@@ -69,10 +69,6 @@
 
 @property (assign) int quickSendOpened;
 
-- (IBAction)swipeUpQuickSend:(id)sender;
-- (IBAction)swipeDownQuickSend:(id)sender;
-
-
 -(IBAction) btnProfileClicked:(id) sender;
 -(IBAction) btnIncreaseScoreClicked: (id) sender;
 

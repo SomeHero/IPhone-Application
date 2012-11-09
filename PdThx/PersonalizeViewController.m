@@ -314,4 +314,8 @@
     return NO; // We do not want UITextField to insert line-breaks.
 }
 
+-(void)chooseMemberImageDidComplete: (NSString*) imageUrl {
+//do nothing
+}
+
 @end

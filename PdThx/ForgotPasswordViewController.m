@@ -96,6 +96,7 @@
         [userService forgotPasswordFor: txtEmailAddress.text];
     }
 }
+
 -(void)didSelectButtonWithIndex:(int)index
 {
     if ( index == 0 ) {

@@ -16,7 +16,7 @@
 {
     Environment *myEnvironment = [Environment sharedInstance];
 
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, myEnvironment.pdthxAPIKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, myEnvironment.pdthxAPIKey]] autorelease];
 
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];  
     request = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
@@ -95,7 +95,7 @@
     NSString *rootUrl = [[NSString alloc] initWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [[NSString alloc] initWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/Configurations?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,  userId, apiKey]] autorelease];
     
     [rootUrl release];
     [apiKey release];
@@ -125,7 +125,15 @@
     
     NSString *theJSON = [[NSString alloc] initWithData: [request responseData] encoding:NSUTF8StringEncoding];
     
-    [userConfigurationCompleteDelegate updateUserConfigurationDidComplete];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+    
+    [parser release];
+    
+    NSString* configurationKey = [jsonDictionary valueForKey: @"Key"];
+    NSString* configurationValue = [jsonDictionary valueForKey: @"Value"];
+    
+    [userConfigurationCompleteDelegate updateUserConfigurationDidComplete:configurationKey withValue:configurationValue];
 }
 -(void)updateUserConfigurationDidFail:(ASIHTTPRequest *)request
 {

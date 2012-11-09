@@ -18,7 +18,4 @@
 
 @property(nonatomic, retain) UIButton* btnCancel;
 
--(IBAction) btnCancelClicked:(id) sender;
--(IBAction) btnSenderReminder:(id) sender;
-
 @end

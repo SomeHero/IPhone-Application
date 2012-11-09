@@ -16,6 +16,7 @@ NSString *const FBSessionStateChangedNotification = @"com.paidthx.ios:FBSessionS
 @implementation FacebookSignIn
 
 @synthesize returnDelegate;
+@synthesize getFacebookFriendsDelegate;
 @synthesize linkDelegate;
 @synthesize unlinkDelegate;
 
@@ -67,7 +68,7 @@ NSString *const FBSessionStateChangedNotification = @"com.paidthx.ios:FBSessionS
     
     [parser release];
     
-    [returnDelegate linkedFacebookFriendsDidLoad:jsonResult];
+    [getFacebookFriendsDelegate linkedFacebookFriendsDidLoad:jsonResult];
 }
 
 -(void) getFacebookFriendsDidFail:(ASIHTTPRequest *)request
