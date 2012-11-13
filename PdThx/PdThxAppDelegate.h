@@ -30,7 +30,7 @@
 
 @class PdThxViewController;
 
-@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, GetSecurityQuestionsProtocol, FBHelperReturnProtocol,
+@interface PdThxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, ApplicationSettingsCompleteProtocol, GetSecurityQuestionsProtocol,
     UINavigationControllerDelegate, CustomAlertViewProtocol>
 {
     NSString* apiKey;
@@ -38,8 +38,9 @@
     PhoneNumberFormatting *phoneNumberFormatter;
     NSArray * permissions;
     UIAlertView * notifAlert;
+    
     UINavigationController *welcomeTabBarController;
-    IBOutlet UITabBarController *newUserFlowTabController;
+    
     FBRequest *friendRequest;
     FBRequest *infoRequest;
     NSInteger currentReminderTab;
@@ -87,7 +88,7 @@
 
 @property (nonatomic, retain) PhoneNumberFormatting *phoneNumberFormatter;
 @property (nonatomic, assign) bool areFacebookContactsLoaded;
-@property (nonatomic, retain) UITabBarController *newUserFlowTabController;
+
 @property (nonatomic, retain) FBRequest *friendRequest;
 @property (nonatomic, retain) FBRequest *infoRequest;
 @property(nonatomic, retain) User* user;

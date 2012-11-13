@@ -132,6 +132,7 @@
     // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
     [appDelegate showTwoButtonAlertView:NO withTitle:@"Verification Failed" withSubtitle:@"The deposit amounts you entered were incorrect" withDetailedText:@"The verification amounts that you entered did not match the amounts we deposited into this account.  Please re-check the amounts and try again."withButton1Text:@"Try Again" withButton2Text: @"Cancel" withDelegate: self];
 }
+
 -(void) didSelectButtonWithIndex:(int)index
 {
     PdThxAppDelegate *appDelegate = (PdThxAppDelegate*) [[UIApplication sharedApplication] delegate];

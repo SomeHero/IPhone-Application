@@ -240,7 +240,7 @@
     // ButtonOption = 2 -> One of two buttons on alertView, shows normal location.
     [appDelegate showSuccessWithStatus: @"Account Verified" withDetailedStatus:@"Your account was successfully verified.  You can now begin to use this account to accept funds."];
 }
--(void)verifyBankAccountsDidFail:(NSString*)errorMessage {
+-(void)verifyBankAccountsDidFail:(NSString*)errorMessage withErrorCode:(int)errorCode{
 
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
