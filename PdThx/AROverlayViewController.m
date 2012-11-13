@@ -77,8 +77,6 @@
 {
     if ( pictureBeingTaken )
     {
-        NSLog(@"Trying to save image: %@", [self.captureManager stillImage]);
-        
         pictureBeingTaken = false;
         [CheckImageReturnDelegate cameraReturnedImage:[self.captureManager stillImage]];
         
