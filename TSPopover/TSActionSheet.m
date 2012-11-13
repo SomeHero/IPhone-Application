@@ -226,7 +226,7 @@
                                (id)[UIColor colorWithWhite: 1.0 alpha: 0.1].CGColor, 
                                (id)[UIColor colorWithWhite:1.0 alpha:0.2].CGColor, nil];
     CGFloat gradientLocations[] = {0, 0.1, 0.49, 0.5, 0.51, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)gradientColors, gradientLocations);
     
     
     //// Rounded Rectangle Drawing
@@ -234,8 +234,8 @@
     [color setFill];
     [roundedRectanglePath fill];
     
-    
-    if(self.buttonGradient){
+    if(self.buttonGradient)
+    {
         //// GradientPath Drawing
         UIBezierPath* gradientPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, buttonWidth, BUTTON_HEIGHT) cornerRadius: self.cornerRadius];
         CGContextSaveGState(context);

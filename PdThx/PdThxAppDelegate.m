@@ -36,7 +36,7 @@
 
 @synthesize window=_window;
 
-@synthesize welcomeTabBarController, newUserFlowTabController;
+@synthesize welcomeTabBarController;
 
 @synthesize deviceToken, phoneNumberFormatter, friendRequest, infoRequest,permissions, contactsArray, areFacebookContactsLoaded;
 @synthesize user, myProgHudOverlay, animationTimer, myProgHudInnerView, customAlert, setupFlowViewController;
@@ -145,7 +145,7 @@
 -(void)switchToMainAreaTabbedView
 {
     [self.welcomeTabBarController.view removeFromSuperview];
-    //[self.newUserFlowTabController.view removeFromSuperview];
+    //[self.createNewUserController.view removeFromSuperview];
     
     [self.window addSubview:self.mainAreaTabBarController.view];
     [self.window bringSubviewToFront:self.mainAreaTabBarController.view];
@@ -914,7 +914,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     [_window release];
     [mainAreaTabBarController release];
     [welcomeTabBarController release];
-    [newUserFlowTabController release];
+    
     [user release];
     [myProgHudInnerView release];
     [myProgHudOverlay release];
@@ -1337,7 +1337,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
                                                  });
     }
     
-    
     NSMutableArray* tempArray = [[NSMutableArray alloc] init];
     
     Contact * contact;
@@ -1345,7 +1344,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)devicesToken {
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     
     phoneContactsSize = ABAddressBookGetPersonCount(addressBook);
-    
     
     for (int i = 0; i < phoneContactsSize; i++)
     {

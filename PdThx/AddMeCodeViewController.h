@@ -23,6 +23,4 @@
 - (IBAction)meCodeChange:(id)sender;
 - (IBAction)validateMeCode:(id)sender;
 
-- (IBAction)meCodeChanged:(id)sender;
-
 @end

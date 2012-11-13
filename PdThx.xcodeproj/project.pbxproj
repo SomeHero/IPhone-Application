@@ -597,8 +597,6 @@
 		5BED071615B9E89400D4110A /* SA_OAuthTwitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BED070115B9E89400D4110A /* SA_OAuthTwitterController.m */; };
 		5BED071715B9E89400D4110A /* SA_OAuthTwitterEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BED070315B9E89400D4110A /* SA_OAuthTwitterEngine.m */; };
 		5BED071815B9E89400D4110A /* twitter_load.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BED070415B9E89400D4110A /* twitter_load.png */; };
-		5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BED071F15B9ED8C00D4110A /* TwitterRushViewController.m */; };
-		5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BED072115B9EDC800D4110A /* TwitterRushViewController.xib */; };
 		5BED074415BBB8D400D4110A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BED074315BBB8D400D4110A /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5BF07AE6159784190020EA2F /* btn-pinswipe-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */; };
 		5BF07AE7159784190020EA2F /* btn-pinswipe-70x70@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */; };
@@ -1615,9 +1613,6 @@
 		5BED070215B9E89400D4110A /* SA_OAuthTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SA_OAuthTwitterEngine.h; sourceTree = "<group>"; };
 		5BED070315B9E89400D4110A /* SA_OAuthTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SA_OAuthTwitterEngine.m; sourceTree = "<group>"; };
 		5BED070415B9E89400D4110A /* twitter_load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_load.png; sourceTree = "<group>"; };
-		5BED071E15B9ED8C00D4110A /* TwitterRushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterRushViewController.h; sourceTree = "<group>"; };
-		5BED071F15B9ED8C00D4110A /* TwitterRushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterRushViewController.m; sourceTree = "<group>"; };
-		5BED072115B9EDC800D4110A /* TwitterRushViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterRushViewController.xib; sourceTree = "<group>"; };
 		5BED074315BBB8D400D4110A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		5BF07AE0159784190020EA2F /* btn-pinswipe-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-70x70.png"; sourceTree = "<group>"; };
 		5BF07AE1159784190020EA2F /* btn-pinswipe-70x70@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-pinswipe-70x70@2x.png"; sourceTree = "<group>"; };
@@ -3247,9 +3242,6 @@
 		5B8BDE4D159D495000E01753 /* SocialNetworks */ = {
 			isa = PBXGroup;
 			children = (
-				5BED072115B9EDC800D4110A /* TwitterRushViewController.xib */,
-				5BED071E15B9ED8C00D4110A /* TwitterRushViewController.h */,
-				5BED071F15B9ED8C00D4110A /* TwitterRushViewController.m */,
 				C384CE9815CAE514000BADCD /* SocialNetworksViewController.h */,
 				C384CE9915CAE514000BADCD /* SocialNetworksViewController.m */,
 				C384CE9A15CAE514000BADCD /* SocialNetworksViewController.xib */,
@@ -4456,7 +4448,6 @@
 				5BED070515B9E89400D4110A /* jQueryInject.txt in Resources */,
 				5BED070615B9E89400D4110A /* jQueryInjectLandscape.txt in Resources */,
 				5BED071815B9E89400D4110A /* twitter_load.png in Resources */,
-				5BED072215B9EDC800D4110A /* TwitterRushViewController.xib in Resources */,
 				54D23F8F15BDCA6E0037719A /* HomeViewControllerV2.xib in Resources */,
 				C334D27915BF248F00923348 /* SelectRecipientViewController.xib in Resources */,
 				54D23FE715BF8C8E0037719A /* SignedOutTabBar.xib in Resources */,
@@ -4768,7 +4759,6 @@
 				5BED071515B9E89400D4110A /* NSString+UUID.m in Sources */,
 				5BED071615B9E89400D4110A /* SA_OAuthTwitterController.m in Sources */,
 				5BED071715B9E89400D4110A /* SA_OAuthTwitterEngine.m in Sources */,
-				5BED072015B9ED8C00D4110A /* TwitterRushViewController.m in Sources */,
 				54D23F8E15BDCA6E0037719A /* HomeViewControllerV2.m in Sources */,
 				5BDDADC515BDE5A5007B733E /* ApplicationConfiguration.m in Sources */,
 				C334D27815BF248F00923348 /* SelectRecipientViewController.m in Sources */,
@@ -5291,8 +5281,8 @@
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = PaidThx;
 				PROVISIONING_PROFILE = "5C3AAC8B-35F7-4D22-979F-F3D53531F290";
-				"PROVISIONING_PROFILE[sdk=*]" = "44309D40-66FE-417B-883D-DA702B6EDFA3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "44309D40-66FE-417B-883D-DA702B6EDFA3";
+				"PROVISIONING_PROFILE[sdk=*]" = "5C3AAC8B-35F7-4D22-979F-F3D53531F290";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C3AAC8B-35F7-4D22-979F-F3D53531F290";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = NO;

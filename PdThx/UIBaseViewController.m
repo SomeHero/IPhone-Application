@@ -24,6 +24,7 @@
 @implementation UIBaseViewController
 
 @synthesize mainScrollView;
+@synthesize phoneNumberFormatter;
 
 //size of tab bar
 

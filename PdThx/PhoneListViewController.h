@@ -31,4 +31,5 @@
 }
 
 @property(nonatomic, retain) NSString* newPayPointId;
+
 @end

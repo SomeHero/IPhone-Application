@@ -20,6 +20,7 @@
 @synthesize navBarTitle, headerText;
 @synthesize newUserFlow;
 @synthesize achSetupComplete;
+@synthesize mipControllerInstance;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -46,6 +46,4 @@
 
 - (IBAction)searchBoxChanged:(id)sender;
 
--(void)findMeCodes:(NSString*)searchTerm;
-
 @end

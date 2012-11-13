@@ -7,7 +7,7 @@
 //
 
 #import "SocialNetworksViewController.h"
-#import "TwitterRushViewController.h"
+
 #import "FacebookSignIn.h"
 #import "UIProfileTableViewCell.h"
 
@@ -166,12 +166,7 @@
                 case 1:
                 {
                     //Twitter
-                    TwitterRushViewController* controller =
-                    [[TwitterRushViewController alloc] init];
-                    
-                    [self.navigationController pushViewController:controller animated:YES];
-                    
-                    [controller release];
+                    // TODO: Implement Twitter Linking
                     break;
                 }
             }
