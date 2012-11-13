@@ -20,6 +20,7 @@
 @synthesize navBarTitle, headerText;
 @synthesize newUserFlow;
 @synthesize achSetupComplete;
+@synthesize mipControllerInstance;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -451,6 +452,7 @@
 
 -(void)didSelectButtonWithIndex:(int)index
 {
+    NSLog(@"Index pressed %d",index);
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate dismissAlertView];
 }
@@ -472,13 +474,14 @@
     // TODO: DISMISS PROGRESS HUD
     
     NSDictionary *transaction = [xmlDict objectForKey:@"Transaction"];
+    
     if(transaction)
     {
         if([[xmlDict objectForKey:@"SecurityResult"] integerValue]) {
             PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
             
             [appDelegate dismissProgressHUD];
-            [appDelegate showSimpleAlertView:TRUE withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButtonText:@"Ok" withDelegate:self];
+            [appDelegate showTwoButtonAlertView:NO withTitle:@"Failed" withSubtitle:@"Unable to read your check" withDetailedText:@"The image was too blurry, or one of the corners of the check was cut off. Please try to place the entire check inside the box." withButton1Text:@"Retry" withButton2Text:@"Okay" withDelegate:self];
         }
         else if(![[transaction objectForKey:@"IQAGood"] boolValue]) {
             

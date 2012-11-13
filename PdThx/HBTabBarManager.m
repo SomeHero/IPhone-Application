@@ -29,7 +29,14 @@
 -(void)refreshTabBarNotification:(NSInteger)notifications
 {
     // Set Paystream Notification Count
+    tabBar.paystreamCountLabel.text = [NSString stringWithFormat:@"%d",notifications];
     
+}
+
+
+-(void)setTabBarNotificationCount:(NSInteger)notifications
+{
+    tabBar.paystreamCountLabel.text = [NSString stringWithFormat:@"%d",notifications];
 }
 
 - (void)configureTabBar:(UIViewController *)vc selectedIndex:(NSInteger)index

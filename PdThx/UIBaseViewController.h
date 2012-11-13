@@ -24,6 +24,7 @@
 }
 
 @property(nonatomic, retain) TPKeyboardAvoidingScrollView *mainScrollView;
+@property(nonatomic, retain) PhoneNumberFormatting* phoneNumberFormatter;
 
 -(void) removeCurrentViewFromNavigation: (UINavigationController*) navContoller;
 -(void) showAlertView:(NSString *)title withMessage: (NSString *) message;

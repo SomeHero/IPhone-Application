@@ -321,7 +321,7 @@
         if ( contact.facebookID.length > 0 ){
             myCell.contactName.text = contact.name;
             
-            myCell.contactDetail.text = [NSString stringWithFormat:@"Facebook Friend", contact.facebookID];
+            myCell.contactDetail.text = @"Facebook Friend";
             
             // Only load cached images; defer new downloads until scrolling ends
             if (!contact.imgData)

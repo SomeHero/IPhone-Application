@@ -30,10 +30,12 @@
 	return self;
 }
 
-- (void) dealloc {
-	
+- (void) dealloc
+{
 	if(conn)
 		[conn cancel];
+    
+	[super dealloc];
 }
 
 

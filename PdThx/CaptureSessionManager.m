@@ -93,21 +93,22 @@
       break; 
     }
 	}
-  
-	[[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:videoConnection 
-                                                       completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) { 
-                                                         CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-                                                           
-                                                         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];    
-                                                         UIImage *image = [[UIImage alloc] initWithData:imageData];
-                                                         [self setStillImage:image];
-                                                         [image release];
-                                                         [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:nil];
-                                                       }];
+    
+	[[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:videoConnection
+                                                         completionHandler:
+     ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
+     {
+         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+         UIImage *image = [[UIImage alloc] initWithData:imageData];
+         [self setStillImage:image];
+         [image release];
+         
+         [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:nil];
+     }];
 }
 
 - (void)dealloc {
-
+    
 	[[self captureSession] stopRunning];
 
 	[previewLayer release], previewLayer = nil;

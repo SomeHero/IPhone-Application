@@ -59,7 +59,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
 -(void)getPayPointsDidComplete:(NSMutableArray*)payPoints {
     user.payPoints = payPoints;
     

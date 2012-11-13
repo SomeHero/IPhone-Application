@@ -168,7 +168,7 @@ NSString *const FBSessionStateChangedNotification = @"com.paidthx.ios:FBSessionS
     [self setLinkDelegate:callback];
     PdThxAppDelegate*appDelegate = (PdThxAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    [FBSession openActiveSessionWithReadPermissions:appDelegate.permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
+    [FBSession openActiveSessionWithPermissions:appDelegate.permissions allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
     {
         if ( error )
         {

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ContactTypeSelectWasSelectedDelegate.h"
 
-@interface ContactTypeSelectViewController : UIViewController<ContactTypeSelectWasSelectedDelegate>
+@interface ContactTypeSelectViewController : UIViewController
 {
     id<ContactTypeSelectWasSelectedDelegate> contactSelectWasSelected;
 }
