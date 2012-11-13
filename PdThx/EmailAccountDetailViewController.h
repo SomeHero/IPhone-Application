@@ -33,6 +33,4 @@
 @property(nonatomic, retain) id<DeletePayPointDelegate> deletePayPointComplete;
 @property(nonatomic, retain) id<ResendVerificationLinkProtocol> resendVerifciationLinkDelegate;
 
--(IBAction)btnRemovePayPoint;
-
 @end

@@ -694,8 +694,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 	UIView* finalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, finalSize.width, finalSize.height)];
     
 	// Create stretchable BG image
-	UIImage* bubble = [[UIImage imageNamed:fn] stretchableImageWithLeftCapWidth:caps.width topCapHeight:caps.height];
-	UIImageView* background = [[UIImageView alloc] initWithImage:bubble];
+	UIImage* bubbleImage = [[UIImage imageNamed:fn] stretchableImageWithLeftCapWidth:caps.width topCapHeight:caps.height];
+	UIImageView* background = [[UIImageView alloc] initWithImage:bubbleImage];
 	background.frame = finalView.frame;
     
 	// Assemble composite (with padding for label)

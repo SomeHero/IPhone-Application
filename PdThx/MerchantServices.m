@@ -18,7 +18,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Merchants?type=NonProfits&apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Merchants?type=NonProfits&apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -33,9 +33,10 @@
 }
 -(void) getNonProfitsComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if ( [request responseStatusCode] == 200 ){
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
-        
+       
         NSString *theJSON = [request responseString];
         
         
@@ -95,7 +96,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Merchants?type=Organizations&apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Merchants?type=Organizations&apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -110,9 +111,10 @@
 }
 -(void) getOrganizationsComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if ( [request responseStatusCode] == 200 ){
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
-        
+       
         NSString *theJSON = [request responseString];
         
         

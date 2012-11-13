@@ -394,9 +394,11 @@
     
 }
 
--(void)linkFbAccountDidSucceed
-{
-    // Reload Contacts, Somehow.
+-(void)linkFBAccountDidComplete {
+    
+}
+-(void)linkFBAccountDidFail: (NSString*) errorMessage withErrorCode:(int)errorCode {
+    
 }
 
 

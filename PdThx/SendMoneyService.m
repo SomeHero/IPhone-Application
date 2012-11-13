@@ -31,7 +31,7 @@ withFromLongitude:(double)longitude withRecipientFirstName: (NSString*) recipien
     NSString *rootUrl = [NSString stringWithFormat:@"PaystreamMessages"];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl,rootUrl, apiKey]] autorelease];  
     
     NSDictionary *paymentData = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  apiKey, @"apiKey",

@@ -68,8 +68,6 @@
     IBOutlet UIButton *expressDeliveryButton;
     IBOutlet OHAttributedLabel *expressDeliveryText;
     
-	UIView* bubble;
-    
     NSMutableArray* sections;
     NSMutableDictionary* actionTableData;
 }

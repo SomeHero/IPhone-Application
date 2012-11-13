@@ -142,7 +142,7 @@
     /*          Location Services Setup         */
     /*  --------------------------------------- */
     lm = [[CLLocationManager alloc] init];
-    if ([lm locationServicesEnabled]) {
+    if ([CLLocationManager locationServicesEnabled]) {
         lm.delegate = self;
         lm.desiredAccuracy = kCLLocationAccuracyBest;
         lm.distanceFilter = 1000.0f;
@@ -563,8 +563,7 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 -(void)requestMoneyDidComplete {
-    recipient = nil;
-    
+
     [self.mainScrollView scrollsToTop];
     
     contactButtonBGImage.highlighted = NO;
@@ -594,6 +593,8 @@
     
     [self dismissModalViewControllerAnimated:NO];
     [self presentModalViewController:controller animated:YES];
+    
+    recipient = nil;
     recipientUri = @"";
 }
 

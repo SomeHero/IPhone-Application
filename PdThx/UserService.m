@@ -17,8 +17,9 @@
 
 @implementation UserService
 
-@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate, linkFbAccountDelegate;
+@synthesize userInformationCompleteDelegate, userSecurityPinCompleteDelegate;
 @synthesize personalizeUserCompleteDelegate, changePasswordCompleteDelegate, forgotPasswordCompleteDelegate;
+@synthesize linkFBAccountDelegate;
 @synthesize findUserDelegate, findMeCodeDelegate;
 @synthesize requestObj;
 
@@ -35,7 +36,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -117,7 +118,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/link_facebook", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/link_facebook?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               apiKey, @"apiKey",
@@ -146,7 +147,7 @@
     if([request responseStatusCode] == 200 || [request responseStatusCode] == 201 ) {
         NSLog(@"Linking facebook account success!");
         
-        [linkFbAccountDelegate linkFbAccountDidSucceed];
+        [linkFBAccountDelegate linkFBAccountDidComplete];
         
     } else
     {
@@ -162,7 +163,7 @@
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        // NSString* message = [[jsonDictionary valueForKey: @"errorResponse"] copy];
+        [linkFBAccountDelegate linkFBAccountDidFail: message withErrorCode:errorCode];
         
         NSLog(@"Linking FB Account Error Code %d", [request responseStatusCode]);
     }
@@ -179,7 +180,7 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
-    [linkFbAccountDelegate linkFbAccountDidFail: message];
+    [linkFBAccountDelegate linkFBAccountDidFail:message withErrorCode:errorCode];
     
     NSLog(@"Facebook linking Failed with Exception");
 }
@@ -190,7 +191,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               securityPin, @"securityPin",
@@ -212,8 +213,9 @@
 
 -(void) changeSecurityPin: (NSString*) userId WithOld:(NSString*) oldSecurityPin AndNew:(NSString*) newSecurityPin {
     Environment *myEnvironment = [Environment sharedInstance];
-
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_securitypin", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_securitypin?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               oldSecurityPin, @"currentSecurityPin",
@@ -283,7 +285,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/personalize_user?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/personalize_user?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               firstName, @"FirstName",
@@ -356,9 +358,9 @@
 -(void) changePasswordFor: (NSString*) userId WithOld: (NSString*) oldPassword AndNew:(NSString*) newPassword 
 {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_password", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/change_password?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               oldPassword, @"currentPassword",
@@ -425,9 +427,9 @@
 -(void) forgotPasswordFor:(NSString *)emailAddress
 {
     Environment *myEnvironment = [Environment sharedInstance];
-    //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/forgot_password", myEnvironment.pdthxWebServicesBaseUrl]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/forgot_password?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               emailAddress, @"userName",
@@ -498,8 +500,10 @@
 -(void) refreshHomeScreenInformation:(NSString*) userId
 {
     Environment *myEnvironment = [Environment sharedInstance];
-
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/refresh_homepage", myEnvironment.pdthxWebServicesBaseUrl, userId]] autorelease];
+    
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/%@/refresh_homepage?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, userId, apiKey]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
@@ -514,9 +518,10 @@
 
 -(void) refreshHomeScreenInformationComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if ( [request responseStatusCode] == 200 ){
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
-        
+
         NSString *theJSON = [request responseString];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -524,22 +529,27 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         [parser release];
         
-        NSString* message = [jsonDictionary valueForKey: @"Message"];
-        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
-
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfIncomingNotifications"] forKey:@"IncomingNotificationCount"];
         [defaults setValue:[jsonDictionary valueForKey:@"numberOfOutgoingNotifications"] forKey:@"OutgoingNotificationCount"];
         
         [defaults synchronize];
         
-        /*
-         -(void)userHomeScreenInformationDidComplete:(User*)user;
-         -(void)userHomeScreenInformationDidFail:(NSString*) message;
-         */
-        [userInformationCompleteDelegate userHomeScreenInformationDidComplete:[jsonDictionary objectForKey:@"quickSendContacts"]];
+
+        [userHomeScreenInformationDelegate userHomeScreenInformationDidComplete:[jsonDictionary objectForKey:@"quickSendContacts"]];
     } else {
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+        
+        NSString *theJSON = [request responseString];
+        
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [userHomeScreenInformationDelegate userHomeScreenInformationDidFail:message withErrorCode:errorCode];
     }
 }
 
@@ -587,7 +597,9 @@
 {
     Environment *myEnvironment = [Environment sharedInstance];
 
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/searchbymecode/%@", myEnvironment.pdthxWebServicesBaseUrl, searchTerm]] autorelease];
+    NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
+    
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/searchbymecode/%@?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, searchTerm, apiKey]] autorelease];
     
     requestObj = [[ASIHTTPRequest alloc] initWithURL:urlToSend];
     [requestObj addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
@@ -602,9 +614,22 @@
 
 -(void) findMeCodesMatchingSearchTermComplete:(ASIHTTPRequest *)request
 {
+    NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+    
     if ( [request responseStatusCode] == 200 ){
-        NSLog(@"Response %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
+
+        NSString *theJSON = [request responseString];
         
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        
+        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
+        [parser release];
+
+        NSMutableArray*meCodeArray = [jsonDictionary objectForKey:@"foundUsers"];
+        NSString*searchTerm = [jsonDictionary objectForKey:@"searchTerm"];
+        
+        [findMeCodeDelegate foundMeCodes:meCodeArray matchingSearchTerm:searchTerm];
+    } else {
         NSString *theJSON = [request responseString];
         
         SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -615,12 +640,8 @@
         NSString* message = [jsonDictionary valueForKey: @"Message"];
         int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
         
-        NSMutableArray*meCodeArray = [jsonDictionary objectForKey:@"foundUsers"];
-        NSString*searchTerm = [jsonDictionary objectForKey:@"searchTerm"];
+        //findMeCodeDelegate foundMeCodesDidFail
         
-        [findMeCodeDelegate foundMeCodes:meCodeArray matchingSearchTerm:searchTerm];
-    } else {
-        NSLog(@"Response NOT OKAY %d : %@ with %@", request.responseStatusCode, [request responseString], [request responseStatusMessage]);
     }
 }
 

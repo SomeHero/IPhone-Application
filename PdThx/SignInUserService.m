@@ -22,7 +22,7 @@
     //NSString *rootUrl = [NSString stringWithString: myEnvironment.pdthxWebServicesBaseUrl];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/validate_user?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/Users/validate_user?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease];  
     
     NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:
                               userName, @"userName",

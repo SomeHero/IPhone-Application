@@ -11,9 +11,9 @@
 		<key>GoogleAnalyticsKey</key>
 		<string>UA-30208011-7</string>
 		<key>pdthxAPIKEY</key>
-		<string>bda11d91-7ade-4da1-855d-24adfe39d174</string>
+		<string>qc1sh6BcO9I2YGab1DsyF7AhmyG31h9l</string>
 		<key>pdthxWebServicesBaseUrl</key>
-		<string>http://23.21.203.171/api/internal/api</string>
+		<string>http://paidthx-test.apigee.net/v1</string>
 	</dict>
 	<key>Beta</key>
 	<dict>

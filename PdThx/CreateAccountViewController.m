@@ -36,6 +36,7 @@
 @synthesize txtEmailAddress,  txtPassword, txtConfirmPassword;
 @synthesize btnCreateAccount, viewPanel;
 @synthesize achSetupCompleteDelegate, animatedDistance;
+@synthesize fbSignInHelper;
 
 @synthesize tabBar;
 
@@ -305,6 +306,10 @@
     }];
 }
 
+-(void)fbSignInCancelled {
+    
+    
+}
 
 -(IBAction) btnCreateAccountClicked:(id) sender {
     

@@ -135,10 +135,6 @@
 @property(nonatomic,retain) id setupFlowViewController;
 
 -(void)signOut;
--(void)forgetMe;
--(void)switchToSendMoneyController;
--(void)switchToRequestMoneyController;
--(void)switchToPaystreamController;
 -(void)loadPhoneContacts;
 
 -(void)switchToMainAreaTabbedView;
@@ -173,8 +169,5 @@
 
 -(void)facebookFriendsDidLoad:(id)dictionaryOfFriends;
 -(void)handleError: (NSString*)errorMessage withErrorCode: (int) errorCode withDefaultTitle: (NSString*) defaultTitle;
-
-- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
--(void)couldOpenFBSessionForLogon;
 
 @end

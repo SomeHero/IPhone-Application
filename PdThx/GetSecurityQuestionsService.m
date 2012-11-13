@@ -33,7 +33,7 @@
     Environment *myEnvironment = [Environment sharedInstance];
     NSString *apiKey = [NSString stringWithString: myEnvironment.pdthxAPIKey];
     
-    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/securityquestions?apiKey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease]; 
+    NSURL *urlToSend = [[[NSURL alloc] initWithString: [NSString stringWithFormat: @"%@/securityquestions?apikey=%@", myEnvironment.pdthxWebServicesBaseUrl, apiKey]] autorelease]; 
     
     ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:urlToSend] autorelease];
     [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"]; 
@@ -74,6 +74,12 @@
         NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
         
         [parser release];
+        
+        NSString* message = [jsonDictionary valueForKey: @"Message"];
+        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
+        
+        [questionsLoadedDelegate getSecurityQuestionsDidFail:message withErrorCode:errorCode];
+        
         NSLog(@"Error Getting Security Questions");
     }
 }
@@ -91,6 +97,7 @@
     NSString* message = [jsonDictionary valueForKey: @"Message"];
     int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
     
+    [questionsLoadedDelegate getSecurityQuestionsDidFail:message withErrorCode:errorCode];
     
     NSLog(@"Error Getting Security Questions");
 }
