@@ -926,6 +926,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [cell.stampView setImage: imgCancelledImageView];
         cell.overlayView.layer.opacity = 0.6;   
     }
+    
+    if([item.messageStatus isEqualToString: @"Returned"])
+    {
+        [cell.stampView setHidden:NO];
+        [cell.stampView setImage: imgReturnedImageView];
+        cell.overlayView.layer.opacity = 0.6;
+    }
         
     cell.transactionStatus.text = item.messageStatus;
     cell.lblComments.text = item.comments;

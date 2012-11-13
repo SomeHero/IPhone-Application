@@ -630,18 +630,7 @@
         
         [findMeCodeDelegate foundMeCodes:meCodeArray matchingSearchTerm:searchTerm];
     } else {
-        NSString *theJSON = [request responseString];
-        
-        SBJsonParser *parser = [[SBJsonParser alloc] init];
-        
-        NSMutableDictionary *jsonDictionary = [parser objectWithString:theJSON error:nil];
-        [parser release];
-        
-        NSString* message = [jsonDictionary valueForKey: @"Message"];
-        int errorCode = [[jsonDictionary valueForKey:@"ErrorCode"] intValue];
-        
-        //findMeCodeDelegate foundMeCodesDidFail
-        
+        // TODO: Implement failed to find me code results
     }
 }
 
